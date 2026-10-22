@@ -438,16 +438,17 @@
         "stored_utterance_and_word_offsets_exact": true,
         "temporary_upload_workspaces_removed": true,
         "saved_local_defaults_restored": true,
-        "live_local_preferences_restored": false,
+        "live_local_preferences_restored": true,
         "loopback_server_stopped": true
       },
       "screenshot": "docs/assets/native-deepgram-upload.png",
       "screenshot_sha256": "2f12a45aaf6484c554767ca5c23995af465e85e8975ab27b55bde5ed5b428e3e",
       "limitations": [
         "Native CUA file picker \u2192 local preparation \u2192 serial binary Listen-shaped loopback requests \u2192 Studio \u2192 persisted history. Fixture text is deterministic, not recognition, paid-provider validation or an isolated speed benchmark.",
-        "The Mac locked before live GUI preferences could be restored. Saved local-only defaults were restored atomically; the fixture server was stopped. Manual unlock is needed to restore the running app UI.",
         "Successful insertion, physical global shortcuts, cloud streaming and real Deepgram account quality remain unverified."
-      ]
+      ],
+      "local_restore_verified_at": "2026-10-22T23:21:05.272637+00:00",
+      "local_restore_method": "Native CUA: reset endpoint/model, choose Local MLX, Save preferences; UI confirmed Preferences saved and Local by choice. Saved settings independently verified local, rewrite none, autoStopSeconds 0, keepAudio false."
     }
   ]
 }

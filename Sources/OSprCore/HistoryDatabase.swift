@@ -86,10 +86,7 @@ public final class HistoryDatabase {
             throw OSprError.message("This history database needs a newer OSpr version. Existing files were preserved.")
         }
         try execute("PRAGMA journal_mode=DELETE; PRAGMA synchronous=FULL; PRAGMA secure_delete=ON; PRAGMA temp_store=MEMORY; PRAGMA cache_size=-4096;")
-        if version == 0 {
-            try execute("PRAGMA page_size=8192")
-            try createSchema()
-        }
+        if version == 0 { try createSchema() }
         try migrateLegacyIfNeeded()
     }
 
