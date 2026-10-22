@@ -154,6 +154,11 @@ an unflushed edit; large-history launch loading/search indexing remain open.
 
 Model language coverage differs. Parakeet has 25 European languages and no
 vocabulary prompting in this adapter. Whisper supports broader language coverage.
+Long Qwen imports use bounded low-energy chunks and a fresh token budget per
+chunk; reaching the budget fails instead of saving partial text. Chunk timestamps
+are coarse, and cutting context can change accuracy. Exact before/after results
+are retained in the long-file completeness experiment.
+
 Qwen and Nemotron are useful alternatives, not universal accuracy winners. Do not
 infer Apple Neural Engine use: the current local speech path uses **MLX/Metal GPU**.
 

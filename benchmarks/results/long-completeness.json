@@ -1,0 +1,816 @@
+{
+  "timestamp": "2026-10-22T16:49:11.362945+00:00",
+  "manifest_sha256": "024725d90b2c7dddabef4fa9cc2fe2f278cfcdd3eb782e8899791aec1706374e",
+  "summary_source_sha256": "e2cce16fd8a0e411a7791e33636b3acea8f279590372e17ea88cd70bbd40612a",
+  "completed_models": [
+    "parakeet-v3",
+    "whisper-turbo",
+    "whisper-small",
+    "qwen3-asr",
+    "cohere-native8",
+    "nemotron-streaming"
+  ],
+  "expected_models": [
+    "parakeet-v3",
+    "whisper-turbo",
+    "whisper-small",
+    "qwen3-asr",
+    "cohere-native8",
+    "nemotron-streaming"
+  ],
+  "qwen_before": {
+    "file": "qwen3-asr-notrim-long-session-before-chunk-fix.json",
+    "sha256": "2f068aba8d00aa8df2d05b7b8930c4c0ddbb5ef2bbb43a07d808d3f73373db6d",
+    "model": "qwen3-asr",
+    "source_sha256": "5c255221338cbf241af598c6c9fe3c65358856a95f22019599ad181db1572fe0",
+    "git_commit": "bbf93196e15486d1e4e20a0538263d034166db03",
+    "working_tree_dirty": true,
+    "cases": [
+      {
+        "id": "public-concat-10m",
+        "seconds": 608.285125,
+        "error": null,
+        "score": {
+          "cases": 1,
+          "errors": 0,
+          "wer": 0.011834319526627219,
+          "cer": 0.002163253533314104,
+          "substitutions": 14,
+          "deletions": 4,
+          "insertions": 0,
+          "p50_ms": 13350.598167045973,
+          "p95_ms": 13350.598167045973,
+          "aggregate_rtf": 0.02194792806588189,
+          "hallucinated_silence": 0
+        },
+        "reference_words": 1521,
+        "output_words": 1517,
+        "wall_ms": 13350.598167045973,
+        "peak_gpu_bytes": 8033965208,
+        "decoder_chunks": null,
+        "max_tokens_per_chunk": null
+      },
+      {
+        "id": "public-concat-60m",
+        "seconds": 3606.5305,
+        "error": null,
+        "score": {
+          "cases": 1,
+          "errors": 0,
+          "wer": 0.2684898139946856,
+          "cer": 0.25776615578315293,
+          "substitutions": 111,
+          "deletions": 2306,
+          "insertions": 8,
+          "p50_ms": 82885.13091602363,
+          "p95_ms": 82885.13091602363,
+          "aggregate_rtf": 0.022981957567258515,
+          "hallucinated_silence": 0
+        },
+        "reference_words": 9032,
+        "output_words": 6734,
+        "wall_ms": 82885.13091602363,
+        "peak_gpu_bytes": 13888263616,
+        "decoder_chunks": null,
+        "max_tokens_per_chunk": null
+      }
+    ]
+  },
+  "models": {
+    "parakeet-v3": {
+      "file": "parakeet-v3-notrim-long-session.json",
+      "sha256": "693f5294b3069bf236a1188e9c85e358eedf57fe90b1c1b03ff3e84e8816ee42",
+      "model": "parakeet-v3",
+      "source_sha256": "f61e12f1d01095b84118de4c87447bdfc7a8de628d4f62438badc1cde13abbb1",
+      "git_commit": "2adcd5684154b6da6eec9f1d53d2da3fe113115c",
+      "working_tree_dirty": true,
+      "cases": [
+        {
+          "id": "public-concat-10m",
+          "seconds": 608.285125,
+          "error": null,
+          "score": {
+            "cases": 1,
+            "errors": 0,
+            "wer": 0.06903353057199212,
+            "cer": 0.05956158061724834,
+            "substitutions": 23,
+            "deletions": 82,
+            "insertions": 0,
+            "p50_ms": 3932.4197079986334,
+            "p95_ms": 3932.4197079986334,
+            "aggregate_rtf": 0.006464763885190573,
+            "hallucinated_silence": 0
+          },
+          "reference_words": 1521,
+          "output_words": 1439,
+          "wall_ms": 3932.4197079986334,
+          "peak_gpu_bytes": 2718515524,
+          "decoder_chunks": null,
+          "max_tokens_per_chunk": null
+        },
+        {
+          "id": "public-concat-60m",
+          "seconds": 3606.5305,
+          "error": null,
+          "score": {
+            "cases": 1,
+            "errors": 0,
+            "wer": 0.1237821080602303,
+            "cer": 0.1049369264666715,
+            "substitutions": 181,
+            "deletions": 931,
+            "insertions": 6,
+            "p50_ms": 22772.214749944396,
+            "p95_ms": 22772.214749944396,
+            "aggregate_rtf": 0.0063141611446082034,
+            "hallucinated_silence": 0
+          },
+          "reference_words": 9032,
+          "output_words": 8107,
+          "wall_ms": 22772.214749944396,
+          "peak_gpu_bytes": 2910404932,
+          "decoder_chunks": null,
+          "max_tokens_per_chunk": null
+        }
+      ]
+    },
+    "whisper-turbo": {
+      "file": "whisper-turbo-notrim-long-session.json",
+      "sha256": "54cebb039ddd1bc2c3a4278fe39e73cc2ad3c3dd51726eab0bee7057288e9f53",
+      "model": "whisper-turbo",
+      "source_sha256": "f61e12f1d01095b84118de4c87447bdfc7a8de628d4f62438badc1cde13abbb1",
+      "git_commit": "2adcd5684154b6da6eec9f1d53d2da3fe113115c",
+      "working_tree_dirty": true,
+      "cases": [
+        {
+          "id": "public-concat-10m",
+          "seconds": 608.285125,
+          "error": null,
+          "score": {
+            "cases": 1,
+            "errors": 0,
+            "wer": 0.02564102564102564,
+            "cer": 0.012691087395442746,
+            "substitutions": 26,
+            "deletions": 11,
+            "insertions": 2,
+            "p50_ms": 5409.496666979976,
+            "p95_ms": 5409.496666979976,
+            "aggregate_rtf": 0.00889302803020208,
+            "hallucinated_silence": 0
+          },
+          "reference_words": 1521,
+          "output_words": 1512,
+          "wall_ms": 5409.496666979976,
+          "peak_gpu_bytes": 2800430494,
+          "decoder_chunks": null,
+          "max_tokens_per_chunk": null
+        },
+        {
+          "id": "public-concat-60m",
+          "seconds": 3606.5305,
+          "error": null,
+          "score": {
+            "cases": 1,
+            "errors": 0,
+            "wer": 0.03587245349867139,
+            "cer": 0.018643616377327425,
+            "substitutions": 201,
+            "deletions": 113,
+            "insertions": 10,
+            "p50_ms": 33471.29054192919,
+            "p95_ms": 33471.29054192919,
+            "aggregate_rtf": 0.009280745176542718,
+            "hallucinated_silence": 0
+          },
+          "reference_words": 9032,
+          "output_words": 8929,
+          "wall_ms": 33471.29054192919,
+          "peak_gpu_bytes": 4275989398,
+          "decoder_chunks": null,
+          "max_tokens_per_chunk": null
+        }
+      ]
+    },
+    "whisper-small": {
+      "file": "whisper-small-notrim-long-session.json",
+      "sha256": "e3fa6319ae6da31a57cf4890c4ca7c55de7f702fbc0135f728f1b1cb614450a0",
+      "model": "whisper-small",
+      "source_sha256": "f61e12f1d01095b84118de4c87447bdfc7a8de628d4f62438badc1cde13abbb1",
+      "git_commit": "2adcd5684154b6da6eec9f1d53d2da3fe113115c",
+      "working_tree_dirty": true,
+      "cases": [
+        {
+          "id": "public-concat-10m",
+          "seconds": 608.285125,
+          "error": null,
+          "score": {
+            "cases": 1,
+            "errors": 0,
+            "wer": 0.06837606837606838,
+            "cer": 0.05408133833285261,
+            "substitutions": 36,
+            "deletions": 66,
+            "insertions": 2,
+            "p50_ms": 4907.1704159723595,
+            "p95_ms": 4907.1704159723595,
+            "aggregate_rtf": 0.008067220805329341,
+            "hallucinated_silence": 0
+          },
+          "reference_words": 1521,
+          "output_words": 1457,
+          "wall_ms": 4907.1704159723595,
+          "peak_gpu_bytes": 1729074630,
+          "decoder_chunks": null,
+          "max_tokens_per_chunk": null
+        },
+        {
+          "id": "public-concat-60m",
+          "seconds": 3606.5305,
+          "error": null,
+          "score": {
+            "cases": 1,
+            "errors": 0,
+            "wer": 0.04240478299379982,
+            "cer": 0.017723541802861915,
+            "substitutions": 292,
+            "deletions": 68,
+            "insertions": 23,
+            "p50_ms": 29853.58870890923,
+            "p95_ms": 29853.58870890923,
+            "aggregate_rtf": 0.008277647647485368,
+            "hallucinated_silence": 0
+          },
+          "reference_words": 9032,
+          "output_words": 8987,
+          "wall_ms": 29853.58870890923,
+          "peak_gpu_bytes": 3111424966,
+          "decoder_chunks": null,
+          "max_tokens_per_chunk": null
+        }
+      ]
+    },
+    "qwen3-asr": {
+      "file": "qwen3-asr-notrim-long-session.json",
+      "sha256": "2c34b0635514287fe0daba67a3c928afebd43099eae04629b72679523141fb60",
+      "model": "qwen3-asr",
+      "source_sha256": "f61e12f1d01095b84118de4c87447bdfc7a8de628d4f62438badc1cde13abbb1",
+      "git_commit": "2adcd5684154b6da6eec9f1d53d2da3fe113115c",
+      "working_tree_dirty": false,
+      "cases": [
+        {
+          "id": "public-concat-10m",
+          "seconds": 608.285125,
+          "error": null,
+          "score": {
+            "cases": 1,
+            "errors": 0,
+            "wer": 0.017094017094017096,
+            "cer": 0.006633977502163254,
+            "substitutions": 20,
+            "deletions": 6,
+            "insertions": 0,
+            "p50_ms": 10198.47529195249,
+            "p95_ms": 10198.47529195249,
+            "aggregate_rtf": 0.016765945562046237,
+            "hallucinated_silence": 0
+          },
+          "reference_words": 1521,
+          "output_words": 1515,
+          "wall_ms": 10198.47529195249,
+          "peak_gpu_bytes": 3879568252,
+          "decoder_chunks": 23,
+          "max_tokens_per_chunk": 2048
+        },
+        {
+          "id": "public-concat-60m",
+          "seconds": 3606.5305,
+          "error": null,
+          "score": {
+            "cases": 1,
+            "errors": 0,
+            "wer": 0.02358281665190434,
+            "cer": 0.006416309532456841,
+            "substitutions": 162,
+            "deletions": 44,
+            "insertions": 7,
+            "p50_ms": 60068.75320803374,
+            "p95_ms": 60068.75320803374,
+            "aggregate_rtf": 0.016655551147573475,
+            "hallucinated_silence": 0
+          },
+          "reference_words": 9032,
+          "output_words": 8995,
+          "wall_ms": 60068.75320803374,
+          "peak_gpu_bytes": 3879969660,
+          "decoder_chunks": 132,
+          "max_tokens_per_chunk": 2048
+        }
+      ]
+    },
+    "cohere-native8": {
+      "file": "cohere-native8-notrim-long-session.json",
+      "sha256": "4142f327f05fb61a0b21d6d9b4c32e9cdd31749e5209db1d3051c1f0a3426e6d",
+      "model": "cohere-native8",
+      "source_sha256": "f61e12f1d01095b84118de4c87447bdfc7a8de628d4f62438badc1cde13abbb1",
+      "git_commit": "2adcd5684154b6da6eec9f1d53d2da3fe113115c",
+      "working_tree_dirty": true,
+      "cases": [
+        {
+          "id": "public-concat-10m",
+          "seconds": 608.285125,
+          "error": null,
+          "score": {
+            "cases": 1,
+            "errors": 0,
+            "wer": 0.008547008547008548,
+            "cer": 0.0017306028266512836,
+            "substitutions": 11,
+            "deletions": 1,
+            "insertions": 1,
+            "p50_ms": 4645.170749980025,
+            "p95_ms": 4645.170749980025,
+            "aggregate_rtf": 0.007636502289908906,
+            "hallucinated_silence": 0
+          },
+          "reference_words": 1521,
+          "output_words": 1521,
+          "wall_ms": 4645.170749980025,
+          "peak_gpu_bytes": 3065292730,
+          "decoder_chunks": null,
+          "max_tokens_per_chunk": null
+        },
+        {
+          "id": "public-concat-60m",
+          "seconds": 3606.5305,
+          "error": null,
+          "score": {
+            "cases": 1,
+            "errors": 0,
+            "wer": 0.014725420726306466,
+            "cer": 0.0038739982082758285,
+            "substitutions": 112,
+            "deletions": 8,
+            "insertions": 13,
+            "p50_ms": 28339.36233399436,
+            "p95_ms": 28339.36233399436,
+            "aggregate_rtf": 0.007857790841917007,
+            "hallucinated_silence": 0
+          },
+          "reference_words": 9032,
+          "output_words": 9037,
+          "wall_ms": 28339.36233399436,
+          "peak_gpu_bytes": 3257182138,
+          "decoder_chunks": null,
+          "max_tokens_per_chunk": null
+        }
+      ]
+    },
+    "nemotron-streaming": {
+      "file": "nemotron-streaming-notrim-long-session.json",
+      "sha256": "34eff9fa9318c355b069da7fb82ebcd2e4d3ad19c88bcf091aa01673c51bd7a0",
+      "model": "nemotron-streaming",
+      "source_sha256": "f61e12f1d01095b84118de4c87447bdfc7a8de628d4f62438badc1cde13abbb1",
+      "git_commit": "2adcd5684154b6da6eec9f1d53d2da3fe113115c",
+      "working_tree_dirty": true,
+      "cases": [
+        {
+          "id": "public-concat-10m",
+          "seconds": 608.285125,
+          "error": null,
+          "score": {
+            "cases": 1,
+            "errors": 0,
+            "wer": 0.023668639053254437,
+            "cer": 0.008076146524372656,
+            "substitutions": 30,
+            "deletions": 2,
+            "insertions": 4,
+            "p50_ms": 12865.592124988325,
+            "p95_ms": 12865.592124988325,
+            "aggregate_rtf": 0.021150594673819002,
+            "hallucinated_silence": 0
+          },
+          "reference_words": 1521,
+          "output_words": 1523,
+          "wall_ms": 12865.592124988325,
+          "peak_gpu_bytes": 1025729832,
+          "decoder_chunks": null,
+          "max_tokens_per_chunk": null
+        },
+        {
+          "id": "public-concat-60m",
+          "seconds": 3606.5305,
+          "error": null,
+          "score": {
+            "cases": 1,
+            "errors": 0,
+            "wer": 0.03188662533215235,
+            "cer": 0.010484007651146461,
+            "substitutions": 245,
+            "deletions": 23,
+            "insertions": 20,
+            "p50_ms": 78360.4207499884,
+            "p95_ms": 78360.4207499884,
+            "aggregate_rtf": 0.02172736948987078,
+            "hallucinated_silence": 0
+          },
+          "reference_words": 9032,
+          "output_words": 9029,
+          "wall_ms": 78360.4207499884,
+          "peak_gpu_bytes": 1217848584,
+          "decoder_chunks": null,
+          "max_tokens_per_chunk": null
+        }
+      ]
+    }
+  },
+  "qwen_short_checks": [
+    {
+      "before_file": "qwen3-asr.json",
+      "after_file": "qwen3-asr-after-long-fix.json",
+      "before_sha256": "ec72d4bf839bf63d38b840d94cccfa5c57c057790e9aad1d76bde37f5c60b5b7",
+      "after_sha256": "2fb62c3fcdbe77b85e39e4f95b99cd5373397cee94ecb7eedffbc0910f884882",
+      "cases": 100,
+      "changed_outputs": [
+        {
+          "id": "long-concat",
+          "seconds": 111.755,
+          "error": null
+        }
+      ],
+      "summary_before": {
+        "human-clean": {
+          "cases": 73,
+          "errors": 0,
+          "wer": 0.0391304347826087,
+          "cer": 0.013991449669646328,
+          "substitutions": 38,
+          "deletions": 6,
+          "insertions": 1,
+          "p50_ms": 142.30354106985033,
+          "p95_ms": 255.50746601074923,
+          "aggregate_rtf": 0.023531072893351542,
+          "hallucinated_silence": 0
+        },
+        "human-long": {
+          "cases": 1,
+          "errors": 0,
+          "wer": 0.051181102362204724,
+          "cer": 0.027610008628127698,
+          "substitutions": 11,
+          "deletions": 2,
+          "insertions": 0,
+          "p50_ms": 1931.4990000566468,
+          "p95_ms": 1931.4990000566468,
+          "aggregate_rtf": 0.01728333407951901,
+          "hallucinated_silence": 0
+        },
+        "human-noise10db": {
+          "cases": 12,
+          "errors": 0,
+          "wer": 0.052805280528052806,
+          "cer": 0.031002162941600575,
+          "substitutions": 13,
+          "deletions": 3,
+          "insertions": 0,
+          "p50_ms": 182.67185444710776,
+          "p95_ms": 411.8264147895387,
+          "aggregate_rtf": 0.020429182001152933,
+          "hallucinated_silence": 0
+        },
+        "human-quiet": {
+          "cases": 12,
+          "errors": 0,
+          "wer": 0.0462046204620462,
+          "cer": 0.024513338139870222,
+          "substitutions": 12,
+          "deletions": 2,
+          "insertions": 0,
+          "p50_ms": 181.9345415569842,
+          "p95_ms": 408.49252320476796,
+          "aggregate_rtf": 0.020278567548229064,
+          "hallucinated_silence": 0
+        },
+        "silence": {
+          "cases": 2,
+          "errors": 0,
+          "wer": null,
+          "cer": null,
+          "substitutions": null,
+          "deletions": null,
+          "insertions": null,
+          "p50_ms": 0.4612914635799825,
+          "p95_ms": 0.551029114285484,
+          "aggregate_rtf": 9.22582927159965e-05,
+          "hallucinated_silence": 0
+        }
+      },
+      "summary_after": {
+        "human-clean": {
+          "cases": 73,
+          "errors": 0,
+          "wer": 0.0391304347826087,
+          "cer": 0.013991449669646328,
+          "substitutions": 38,
+          "deletions": 6,
+          "insertions": 1,
+          "p50_ms": 132.66208302229643,
+          "p95_ms": 238.94352498464275,
+          "aggregate_rtf": 0.022079202502049224,
+          "hallucinated_silence": 0
+        },
+        "human-long": {
+          "cases": 1,
+          "errors": 0,
+          "wer": 0.05511811023622047,
+          "cer": 0.025021570319240724,
+          "substitutions": 11,
+          "deletions": 3,
+          "insertions": 0,
+          "p50_ms": 1811.5086660254747,
+          "p95_ms": 1811.5086660254747,
+          "aggregate_rtf": 0.016209643112392955,
+          "hallucinated_silence": 0
+        },
+        "human-noise10db": {
+          "cases": 12,
+          "errors": 0,
+          "wer": 0.052805280528052806,
+          "cer": 0.031002162941600575,
+          "substitutions": 13,
+          "deletions": 3,
+          "insertions": 0,
+          "p50_ms": 160.20849999040365,
+          "p95_ms": 387.14845650829363,
+          "aggregate_rtf": 0.018783252540249994,
+          "hallucinated_silence": 0
+        },
+        "human-quiet": {
+          "cases": 12,
+          "errors": 0,
+          "wer": 0.0462046204620462,
+          "cer": 0.024513338139870222,
+          "substitutions": 12,
+          "deletions": 2,
+          "insertions": 0,
+          "p50_ms": 162.24099998362362,
+          "p95_ms": 379.2794538196175,
+          "aggregate_rtf": 0.01871516438431063,
+          "hallucinated_silence": 0
+        },
+        "silence": {
+          "cases": 2,
+          "errors": 0,
+          "wer": null,
+          "cer": null,
+          "substitutions": null,
+          "deletions": null,
+          "insertions": null,
+          "p50_ms": 0.49283303087577224,
+          "p95_ms": 0.5710205237846822,
+          "aggregate_rtf": 9.856660617515444e-05,
+          "hallucinated_silence": 0
+        }
+      }
+    },
+    {
+      "before_file": "qwen3-asr-test-clean.json",
+      "after_file": "qwen3-asr-test-clean-after-long-fix.json",
+      "before_sha256": "039e3aaa4320d75fb3ce6cc3aa2518e98b645ffba8e9bf129bfe919668f56d98",
+      "after_sha256": "8814bb71167ff035381a961308b643fb1dc9cd2c21e7dd0dc057c5e78342c52f",
+      "cases": 200,
+      "changed_outputs": [
+        {
+          "id": "7021-79730-0003",
+          "seconds": 32.88,
+          "error": null
+        }
+      ],
+      "summary_before": {
+        "librispeech-test-clean": {
+          "cases": 200,
+          "errors": 0,
+          "wer": 0.024269759450171822,
+          "cer": 0.006399096598127323,
+          "substitutions": 86,
+          "deletions": 22,
+          "insertions": 5,
+          "p50_ms": 189.69577096868306,
+          "p95_ms": 357.74709616089234,
+          "aggregate_rtf": 0.022335848273190337,
+          "hallucinated_silence": 0
+        }
+      },
+      "summary_after": {
+        "librispeech-test-clean": {
+          "cases": 200,
+          "errors": 0,
+          "wer": 0.024269759450171822,
+          "cer": 0.006399096598127323,
+          "substitutions": 86,
+          "deletions": 22,
+          "insertions": 5,
+          "p50_ms": 178.0941454344429,
+          "p95_ms": 337.10656907642255,
+          "aggregate_rtf": 0.020857095641261397,
+          "hallucinated_silence": 0
+        }
+      }
+    },
+    {
+      "before_file": "qwen3-asr-test-other.json",
+      "after_file": "qwen3-asr-test-other-after-long-fix.json",
+      "before_sha256": "2a1f3749c400262d1c700be25345f579c3387ac2c711ae840cbd2b7ee444877e",
+      "after_sha256": "6beec344a6e19386d47a2563bfc26a4013c33821840646e35c87457f1b5438d2",
+      "cases": 165,
+      "changed_outputs": [],
+      "summary_before": {
+        "librispeech-test-other": {
+          "cases": 165,
+          "errors": 0,
+          "wer": 0.04277902862656803,
+          "cer": 0.01474510966212211,
+          "substitutions": 99,
+          "deletions": 29,
+          "insertions": 5,
+          "p50_ms": 160.34591698553413,
+          "p95_ms": 314.98195778112853,
+          "aggregate_rtf": 0.024708692708789393,
+          "hallucinated_silence": 0
+        }
+      },
+      "summary_after": {
+        "librispeech-test-other": {
+          "cases": 165,
+          "errors": 0,
+          "wer": 0.04277902862656803,
+          "cer": 0.01474510966212211,
+          "substitutions": 99,
+          "deletions": 29,
+          "insertions": 5,
+          "p50_ms": 147.75854197796434,
+          "p95_ms": 292.6766249584034,
+          "aggregate_rtf": 0.02288707141807905,
+          "hallucinated_silence": 0
+        }
+      }
+    },
+    {
+      "before_file": "qwen3-asr-fleurs.json",
+      "after_file": "qwen3-asr-fleurs-after-long-fix.json",
+      "before_sha256": "b04f4430a7fd60eb4d7856ec21faa27b04134022d47925f48401f3d72a8055cf",
+      "after_sha256": "53959f8cd185233c24ce91552f7714b1ea9d6006d0a39406dd9efef54c71ed73",
+      "cases": 50,
+      "changed_outputs": [
+        {
+          "id": "fleurs-de_de-009",
+          "seconds": 43.38,
+          "error": null
+        }
+      ],
+      "summary_before": {
+        "fleurs-cmn_hans_cn": {
+          "cases": 10,
+          "errors": 0,
+          "wer": 0.9970059880239521,
+          "cer": 0.10626702997275204,
+          "substitutions": 11,
+          "deletions": 322,
+          "insertions": 0,
+          "p50_ms": 175.7389585254714,
+          "p95_ms": 279.34876044164406,
+          "aggregate_rtf": 0.016016866854982784,
+          "hallucinated_silence": 0
+        },
+        "fleurs-de_de": {
+          "cases": 10,
+          "errors": 0,
+          "wer": 0.028688524590163935,
+          "cer": 0.0063784549964564135,
+          "substitutions": 5,
+          "deletions": 1,
+          "insertions": 1,
+          "p50_ms": 250.03654195461422,
+          "p95_ms": 418.8424626539926,
+          "aggregate_rtf": 0.01743910310339059,
+          "hallucinated_silence": 0
+        },
+        "fleurs-es_419": {
+          "cases": 10,
+          "errors": 0,
+          "wer": 0.029787234042553193,
+          "cer": 0.011139674378748929,
+          "substitutions": 5,
+          "deletions": 2,
+          "insertions": 0,
+          "p50_ms": 224.15699949488044,
+          "p95_ms": 364.55676883924735,
+          "aggregate_rtf": 0.020932547390706317,
+          "hallucinated_silence": 0
+        },
+        "fleurs-hi_in": {
+          "cases": 10,
+          "errors": 0,
+          "wer": 0.13857677902621723,
+          "cer": 0.08731617647058823,
+          "substitutions": 30,
+          "deletions": 2,
+          "insertions": 5,
+          "p50_ms": 561.8542910087854,
+          "p95_ms": 943.7367000151424,
+          "aggregate_rtf": 0.054578177428434564,
+          "hallucinated_silence": 0
+        },
+        "fleurs-ja_jp": {
+          "cases": 10,
+          "errors": 0,
+          "wer": 1.0,
+          "cer": 0.08577878103837472,
+          "substitutions": 10,
+          "deletions": 14,
+          "insertions": 0,
+          "p50_ms": 190.44860400026664,
+          "p95_ms": 291.47904805722635,
+          "aggregate_rtf": 0.01821376392868341,
+          "hallucinated_silence": 0
+        }
+      },
+      "summary_after": {
+        "fleurs-cmn_hans_cn": {
+          "cases": 10,
+          "errors": 0,
+          "wer": 0.9970059880239521,
+          "cer": 0.10626702997275204,
+          "substitutions": 11,
+          "deletions": 322,
+          "insertions": 0,
+          "p50_ms": 158.64879154833034,
+          "p95_ms": 259.3224998330697,
+          "aggregate_rtf": 0.014570881024491411,
+          "hallucinated_silence": 0
+        },
+        "fleurs-de_de": {
+          "cases": 10,
+          "errors": 0,
+          "wer": 0.02459016393442623,
+          "cer": 0.007795889440113395,
+          "substitutions": 5,
+          "deletions": 1,
+          "insertions": 0,
+          "p50_ms": 239.50952099403366,
+          "p95_ms": 438.2672001840545,
+          "aggregate_rtf": 0.017152126436009454,
+          "hallucinated_silence": 0
+        },
+        "fleurs-es_419": {
+          "cases": 10,
+          "errors": 0,
+          "wer": 0.029787234042553193,
+          "cer": 0.011139674378748929,
+          "substitutions": 5,
+          "deletions": 2,
+          "insertions": 0,
+          "p50_ms": 215.0743965175934,
+          "p95_ms": 348.40708561823686,
+          "aggregate_rtf": 0.020066458352392468,
+          "hallucinated_silence": 0
+        },
+        "fleurs-hi_in": {
+          "cases": 10,
+          "errors": 0,
+          "wer": 0.13857677902621723,
+          "cer": 0.08731617647058823,
+          "substitutions": 30,
+          "deletions": 2,
+          "insertions": 5,
+          "p50_ms": 553.9418539847247,
+          "p95_ms": 921.4579935884102,
+          "aggregate_rtf": 0.05320754867899063,
+          "hallucinated_silence": 0
+        },
+        "fleurs-ja_jp": {
+          "cases": 10,
+          "errors": 0,
+          "wer": 1.0,
+          "cer": 0.08577878103837472,
+          "substitutions": 10,
+          "deletions": 14,
+          "insertions": 0,
+          "p50_ms": 175.4883544635959,
+          "p95_ms": 277.66658586915577,
+          "aggregate_rtf": 0.017066531125198802,
+          "hallucinated_silence": 0
+        }
+      }
+    }
+  ],
+  "boundary": "One warm decode per deterministic 10-minute/hour-long input per model. Complete utterance concatenation, repeated public read speech, 250ms gaps. In-process Engine, no microphone, UI or insertion.",
+  "limitations": [
+    "Not natural long conversation, independent new speakers, full-corpus or production accuracy.",
+    "Fixed fixture/model order and one warm trial each, no thermal isolation; timings are exploratory.",
+    "Shared WER/CER normalization; numerals and spelling count as errors. Word count alone does not prove completeness.",
+    "Repeated source speech can make localized alignment ambiguous; do not infer exact tail coverage from aggregate alignment."
+  ]
+}

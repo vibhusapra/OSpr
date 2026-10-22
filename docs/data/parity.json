@@ -26,8 +26,8 @@
     {
       "feature": "Local Metal inference: Qwen3 ASR",
       "status": "verified",
-      "evidence": "Same English suites plus 50 multilingual clips.",
-      "gap": "Utterance timestamps only.",
+      "evidence": "365 English clips, 100 regression cases and 50 multilingual clips rerun after bounding long-file chunks; 512/515 outputs identical. Hour-long WER 26.85% → 2.36% in a synthetic completeness fixture; ten-minute case worsened slightly.",
+      "gap": "Coarse utterance/chunk timestamps, no word alignment; shared-system exploratory long-file timings.",
       "priority": "P0"
     },
     {

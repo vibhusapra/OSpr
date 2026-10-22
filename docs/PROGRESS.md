@@ -66,9 +66,13 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
   provider endpoint restrictions, multipart/chat/Anthropic loopback contracts,
   30 concurrent worker requests, timeout/restart, audio frame integrity/overflow,
   secure-field early rejection and recovery store restart/corrupt-metadata cases.
-- [x] Backend tests: 64 passed, covering normalization, invalid/media input, real AAC/FFmpeg decoding,
+- [x] Backend tests: 75 passed, covering normalization, invalid/media input, real AAC/FFmpeg decoding,
   silence without loading weights, stdio recovery, MCP boundary, Cohere layout
   adapter and streaming session fencing/packet bounds.
+- [x] Qwen long-file budget reset: contiguous low-energy chunks, fresh per-chunk
+  token limits, no text deduplication, and explicit failure on exhausted budget.
+  Hour-long output and memory improved; the ten-minute fixture worsened slightly.
+  All 515 existing suite cases reran without errors; 512 outputs stayed identical.
 - [x] Real human audio: deterministic 200 test-clean / 165 test-other slices,
   73 speakers, plus 100 regression/stress cases and small five-language FLEURS set.
 - [x] Persistent Metal whisper.cpp runtime baseline on the same English slices.
