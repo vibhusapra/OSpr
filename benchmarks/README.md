@@ -192,7 +192,8 @@ isolation; this measures storage admission, not SwiftUI frames or real typing.
 Run `.build/release/ospr-cli verify-audio-review <short-public-audio>` with cached
 Parakeet weights. The disposable store verifies native archive leases, actual
 local normalization/inference, a warm worker surviving a rejected tiny budget,
-matching recognition, history/archive restart and AVFoundation audio-only tracks.
+matching recognition, history/archive restart, AVFoundation audio-only tracks
+and reprocessing after deletion of the original retained recording.
 No sound is played and no real user history is read. The portable app harness
 runs the same check through the bundled CLI from a relocated offline app.
 Unit tests additionally verify sample-bit preservation, real MP4 audio extraction,

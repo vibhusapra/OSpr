@@ -62,7 +62,7 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
 ## Verification and evidence
 
-- [x] Native tests: 82 passed, covering text fidelity rules, Unicode snippets, retention/storage,
+- [x] Native tests: 83 passed, covering text fidelity rules, Unicode snippets, retention/storage,
   provider endpoint restrictions, multipart/chat/Anthropic loopback contracts,
   30 concurrent worker requests, timeout/restart, audio frame integrity/overflow,
   secure-field early rejection and recovery store restart/corrupt-metadata cases.
@@ -97,6 +97,8 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 - [x] Opt-in local audio review, speed/scrubbing, segment/word seeking and WAV
   export. Float WAV retains the full normalized timeline without imported video
   or tags; private size budgets, history expiry and audio-only erasure apply.
+  Reprocessing uses the selected speech model and an independent private input
+  copy, creates a new verbatim transcript, and keeps existing edits.
   Native Core/worker/Metal/store-restart/AVFoundation integration passed;
   audible playback and native controls/export still need unlocked interaction QA.
 - [ ] Large-history launch loading and indexed search; current archive writes are
