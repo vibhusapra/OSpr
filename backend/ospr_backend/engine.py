@@ -302,6 +302,12 @@ class Engine:
                     )
                     for s in result["segments"]
                 ]
+            elif model_id == "qwen3-asr" and len(audio) > SAMPLE_RATE * 30:
+                from .qwen import transcribe_long
+
+                result = transcribe_long(model, audio, language, offset)
+                text, segments, detected_language = result["text"], result["segments"], result["language"]
+                base.update(decoder_chunks=result["decoder_chunks"], max_tokens_per_chunk=result["max_tokens_per_chunk"])
             else:
                 hint = language
                 if model_id == "nemotron-streaming" and hint and hint not in model.prompt_dictionary:
@@ -321,6 +327,10 @@ class Engine:
                 text = result.text
                 segments = [dict(start=offset, end=offset + len(audio) / SAMPLE_RATE, text=text)]
                 detected_language = hint if model_id == "cohere-native8" else getattr(result, "language", language)
+                if model_id == "qwen3-asr":
+                    from .qwen import language_tag
+
+                    detected_language = language_tag(detected_language, language)
             mx.synchronize()
         decode_ms = (time.perf_counter() - decoded) * 1000
         return dict(
@@ -338,7 +348,7 @@ class Engine:
             peak_gpu_bytes=mx.get_peak_memory(),
             active_gpu_bytes=mx.get_active_memory(),
             vocabulary_applied=spec["engine"] == "whisper" and bool(vocabulary),
-            timestamp_granularity="utterance" if spec["engine"] == "mlx-audio" else "segment",
+            timestamp_granularity=("chunk" if "decoder_chunks" in base else "utterance") if spec["engine"] == "mlx-audio" else "segment",
         )
 
     def meeting(self, path, model_id="parakeet-v3", language=None, vocabulary="", trim=True, threshold=0.003):
