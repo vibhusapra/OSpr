@@ -57,7 +57,7 @@ After running `benchmarks/portable_app.py` and saving successful native/Python
 test logs, create a verified delivery archive with:
 
 ```sh
-python3 scripts/package-release.py --swift-log .local/swift-tests.log --python-log .local/python-tests.log
+.venv/bin/python scripts/package-release.py --swift-log .local/swift-tests.log --python-log .local/python-tests.log
 ```
 
 The packager checks the portable receipt against this exact executable, verifies
