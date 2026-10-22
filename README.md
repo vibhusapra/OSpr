@@ -46,8 +46,7 @@ open dist/standalone/OSpr.app
 ```
 
 For local development, optionally set `OSPR_SIGN_IDENTITY` to an installed Apple
-Development signing identity (name or hash, listed by `security find-identity -v
--p codesigning`). Both build scripts use it without recording the identity in
+Development signing identity (name or hash, listed by `security find-identity -v -p codesigning`). Both build scripts use it without recording the identity in
 source. The default remains ad-hoc signing for reproducible builds without an
 Apple account. Ad-hoc rebuilds change code identity and can invalidate macOS
 permissions; a stable development identity avoids that rebuild churn. This does

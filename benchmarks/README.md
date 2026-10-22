@@ -118,6 +118,12 @@ correction keystrokes, name/number/negation retention, clipboard and cursor safe
 RAM, battery/energy and sustained use. Run at least 30 warm repetitions and separate
 cold trials. Published vendor latency claims cannot substitute for these runs.
 
+Superwhisper’s [official CLI documentation](https://superwhisper.com/docs/get-started/cli)
+provides `transcribe <file>` through its running app, with Pro required for file
+transcription. Record the licensed plan and selected mode/model before using it.
+The local CLI is not an independent inference backend; no Superwhisper timing or
+score is included here without an actual app run.
+
 
 ## Warmup, speaker control and extractive notes
 

@@ -306,8 +306,8 @@
     {
       "feature": "Signed/notarized standalone installer",
       "status": "partial",
-      "evidence": "Relocatable Python app bundle; moved-path, hostile PYTHONPATH, temporary cwd and all six offline engines passed. Ad-hoc signature verified.",
-      "gap": "Clean-Mac interactive install, Developer ID/notarization and updater remain.",
+      "evidence": "Relocatable Python app bundle; moved-path, hostile PYTHONPATH, temporary cwd and all six offline engines passed. Ad-hoc signature verified. Explicit signing identity supported. Local development-signed portable build passed offline engines, two hour-long requests, CRC/extraction/signature gates and matching source fingerprint. Different resource hashes retained the same designated requirement.",
+      "gap": "Apple Development signing is not Developer ID/notarization; clean-Mac interactive installation, updater and older-OS acceptance remain.",
       "priority": "P0"
     },
     {

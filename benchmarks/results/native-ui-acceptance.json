@@ -60,13 +60,12 @@
     }
   ],
   "remaining": [
-    "Microphone, physical device routes, PTT and interruption",
-    "Insertion/selection/secure-field/clipboard live matrix",
-    "Word-level seek UI when recognizer supplies words",
-    "Physical desktop capture and native watched-folder/recovery flows",
-    "Human audible-output listening",
-    "Physical Fn/modified shortcut acceptance on the latest source",
-    "Single-instance activation UI check"
+    "Manual Mac unlock and microphone consent",
+    "Reference-speech microphone, selected device, PTT/toggle, loss/interruption and sustained take",
+    "TextEdit/browser/editor insertion, cursor/field change, clipboard restoration, selection and secure fields",
+    "Native BYOK/Keychain public-fixture loopback check",
+    "Word-level seeking and human audible review",
+    "Physical desktop capture and native streaming/recovery interruption matrix"
   ],
   "temporary_test_settings": {
     "keep_audio_original": false,
@@ -146,6 +145,30 @@
         "Microphone test audio is private, excluded from Git and preserved in a private local QA directory outside the live recovery queue. No reference-speech accuracy or human listening claim.",
         "Watched-folder test used one public clip; interrupted or very large input, queue latency and error UI are not established.",
         "Automated key events reached the app shortcut editor but did not trigger its global Carbon binding; physical-key delivery is still unverified. Setup permission state was stale after external grant and is being refreshed in source."
+      ]
+    },
+    {
+      "verified_at": "2026-10-22T20:18:26.257052+00:00",
+      "build": {
+        "version": "0.1.0",
+        "built_at": "2026-10-22T20:04:42.389021+00:00",
+        "git_commit": "9864c79dd5d0193d958fada45fdac78f272f83d7",
+        "tracked_changes": true,
+        "application_source_sha256": "a1f411ded91301a9755bff298bd8bca2e834475335b83a383f6b1794023b57e5",
+        "signing_mode": "configured-identity",
+        "boundary": "Development build; configured signing identity; not notarized; weights downloaded separately."
+      },
+      "checks": {
+        "own_bundle_accessibility_indicator_enabled": true,
+        "accessibility_recognized_after_gui_restart": true,
+        "pending_microphone_start_canceled_to_idle": true,
+        "microphone_consent_complete": false,
+        "recording_destination_indicator_retested": false
+      },
+      "limitations": [
+        "App-specific macOS logs reported delayed microphone prompting. Native control then reported a locked Mac requiring manual unlocking.",
+        "Reference speech, insertion/clipboard/secure-field, physical global shortcuts and native BYOK/Keychain interaction remain unverified on this build.",
+        "Only OSpr Accessibility and Microphone consent records were reset during the local signing transition. The app has no automatic consent or permission reset."
       ]
     }
   ]

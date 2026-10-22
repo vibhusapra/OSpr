@@ -180,4 +180,8 @@ The machine-readable acceptance ledger is authoritative for feature status;
 - Duplicate test bundle registrations caused ambiguous permission identity;
   macOS Show in Finder exposed the older copy. Build scripts now accept an
   explicit signing identity, keeping ad-hoc default for CI and anonymous builds.
-  Local Apple Development signing and exact-bundle permission retest are underway.
+  Local Apple Development signing passed. Different bundle CodeDirectory hashes
+  retained the same designated requirement; signatures and source fingerprint
+  verified. Exact-bundle Accessibility readiness survived GUI restart. Microphone
+  prompting was delayed by macOS; native control then reported a locked Mac.
+  Manual unlock/consent is pending. No physical insertion or global-key pass is claimed.
