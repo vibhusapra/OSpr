@@ -53,6 +53,19 @@ minimum OS follows its build host (this artifact: macOS 26.6.2); source setup on
 older macOS chooses compatible wheels. Older-OS bundle acceptance is untested. This verifies
 the runtime boundary, not interactive microphone/insertion behavior.
 
+After running `benchmarks/portable_app.py` and saving successful native/Python
+test logs, create a verified delivery archive with:
+
+```sh
+python3 scripts/package-release.py --swift-log .local/swift-tests.log --python-log .local/python-tests.log
+```
+
+The packager checks the portable receipt against this exact executable, verifies
+ZIP CRCs, extracts with macOS `ditto`, checks signatures before and after running
+the extracted offline CLI, and writes a SHA-256 manifest. It replaces the previous
+local archive only after verification succeeds. This requires the fully cached
+models used by the preceding portable smoke suite; weights are never embedded.
+
 Builds are ad-hoc signed. Distribution signing, notarization and an updater are not complete. Do not overwrite an existing installation
 until its transcripts/settings are backed up.
 

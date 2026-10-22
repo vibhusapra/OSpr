@@ -1,16 +1,16 @@
 {
-  "timestamp": "2026-10-22T13:36:04.194494+00:00",
+  "timestamp": "2026-10-22T13:58:18.574783+00:00",
   "status": "passed",
-  "boundary": "Copied app path with spaces, hostile PYTHONPATH, foreign cwd, offline bundled interpreter/worker, all six ASR engines, source-excerpt notes, speaker word attribution, clocked track mix and MCP tool listing. Native microphone, permissions and UI not exercised.",
+  "boundary": "Copied app path with spaces, hostile PYTHONPATH, foreign cwd, offline bundled interpreter/worker, all six ASR engines, source-excerpt notes, speaker word attribution, clocked track mix, local upload preparation, pinned model inventory/download-only/warm progress and MCP tool listing. Native microphone, permissions and UI not exercised.",
   "fixture_id": "1272-128104-0000",
   "fixture_sha256": "799f78ed4beb4de7ceae3a809262d4ce242394342ccd1d58cef7d49dbc2def46",
-  "executable_sha256": "8bab6cf551492921bccb69089f2697546b8b3aedce0605932de9e472b48f7941",
+  "executable_sha256": "25ff5f2f4a4ffa365ef2a8d17b686ea20be18a2e494c781a0e1ff7aec3fad2be",
   "build": {
     "version": "0.1.0",
-    "built_at": "2026-10-22T13:29:19.707949+00:00",
-    "git_commit": "199c5cfba46e914e7aedeeac4a2cfe6c2f40404a",
+    "built_at": "2026-10-22T13:57:37.601190+00:00",
+    "git_commit": "8e8f86d84421b9d6193a224d5afdf9159e2dedec",
     "tracked_changes": false,
-    "application_source_sha256": "b21e41c3fbe8f491bf85591546cc3ed2c20e76b8937e9620772e77c44d43afa4",
+    "application_source_sha256": "a7d40848719ee1e82a0a2219306f160c0682405fa1460177c04ea2b799147e7b",
     "boundary": "Development build; ad-hoc signature; weights downloaded separately."
   },
   "interpreter_and_mlx_inside_bundle": true,
@@ -21,6 +21,24 @@
     "list_models",
     "rewrite_text",
     "transcribe_file"
+  ],
+  "model_progress_events": [
+    {
+      "id": "download-cached",
+      "event": "progress",
+      "progress": {
+        "phase": "checking",
+        "model": "whisper-small"
+      }
+    },
+    {
+      "id": "warm-progress",
+      "event": "progress",
+      "progress": {
+        "phase": "priming",
+        "model": "parakeet-v3"
+      }
+    }
   ],
   "results": [
     {
@@ -42,12 +60,12 @@
         "language": "en",
         "silence": false,
         "warm": false,
-        "load_ms": 634.9712910596281,
-        "preprocess_ms": 0.6707919528707862,
-        "decode_ms": 109.86349999438971,
-        "total_ms": 745.5100000370294,
-        "peak_gpu_bytes": 2082533746,
-        "active_gpu_bytes": 1296214220,
+        "load_ms": 659.8881660029292,
+        "preprocess_ms": 0.682333018630743,
+        "decode_ms": 114.58170891273767,
+        "total_ms": 775.1564159989357,
+        "peak_gpu_bytes": 2563824134,
+        "active_gpu_bytes": 1296165068,
         "vocabulary_applied": false,
         "timestamp_granularity": "segment"
       }
@@ -71,10 +89,10 @@
         "language": "en",
         "silence": false,
         "warm": false,
-        "load_ms": 87.91875001043081,
-        "preprocess_ms": 0.574083998799324,
-        "decode_ms": 185.66724995616823,
-        "total_ms": 274.16666701901704,
+        "load_ms": 88.71875004842877,
+        "preprocess_ms": 0.5492919590324163,
+        "decode_ms": 190.4899999499321,
+        "total_ms": 279.76837498135865,
         "peak_gpu_bytes": 2556663702,
         "active_gpu_bytes": 1618309810,
         "vocabulary_applied": false,
@@ -100,10 +118,10 @@
         "language": "en",
         "silence": false,
         "warm": false,
-        "load_ms": 96.58241691067815,
-        "preprocess_ms": 0.6252089515328407,
-        "decode_ms": 116.6627500206232,
-        "total_ms": 213.8772920006886,
+        "load_ms": 101.04529198724777,
+        "preprocess_ms": 0.7207500748336315,
+        "decode_ms": 124.28108300082386,
+        "total_ms": 226.05362499598414,
         "peak_gpu_bytes": 1447410502,
         "active_gpu_bytes": 484088562,
         "vocabulary_applied": false,
@@ -131,10 +149,10 @@
         ],
         "silence": false,
         "warm": false,
-        "load_ms": 3747.389208059758,
-        "preprocess_ms": 0.5279160104691982,
-        "decode_ms": 164.32054201141,
-        "total_ms": 3912.2424580855295,
+        "load_ms": 3771.2299169506878,
+        "preprocess_ms": 0.5359590286388993,
+        "decode_ms": 183.4917499218136,
+        "total_ms": 3955.26241697371,
         "peak_gpu_bytes": 3499426694,
         "active_gpu_bytes": 2492459500,
         "vocabulary_applied": false,
@@ -160,11 +178,11 @@
         "language": "en",
         "silence": false,
         "warm": false,
-        "load_ms": 173.65229199640453,
-        "preprocess_ms": 0.688791973516345,
-        "decode_ms": 102.96937497332692,
-        "total_ms": 277.31545898132026,
-        "peak_gpu_bytes": 986304034,
+        "load_ms": 154.6883750706911,
+        "preprocess_ms": 0.7253749063238502,
+        "decode_ms": 109.28004200104624,
+        "total_ms": 264.69999994151294,
+        "peak_gpu_bytes": 986222114,
         "active_gpu_bytes": 797418506,
         "vocabulary_applied": false,
         "timestamp_granularity": "utterance"
@@ -189,10 +207,10 @@
         "language": "en",
         "silence": false,
         "warm": false,
-        "load_ms": 323.41029203962535,
-        "preprocess_ms": 0.5585419712588191,
-        "decode_ms": 84.81516700703651,
-        "total_ms": 408.78879197407514,
+        "load_ms": 323.5424580052495,
+        "preprocess_ms": 0.6134159630164504,
+        "decode_ms": 85.63541702460498,
+        "total_ms": 409.796666004695,
         "peak_gpu_bytes": 2615828762,
         "active_gpu_bytes": 2482087246,
         "vocabulary_applied": false,
@@ -227,7 +245,7 @@
         "chunks": 1,
         "limitations": "Exact excerpts, selected by a model. May miss context, decisions or commitments; review the full transcript.",
         "model": "mlx-community/Qwen3-4B-Instruct-2507-4bit",
-        "total_ms": 697.2954999655485
+        "total_ms": 645.7408340647817
       }
     },
     {
@@ -371,12 +389,12 @@
         "language": "en",
         "silence": false,
         "warm": false,
-        "load_ms": 87.92187494691461,
-        "preprocess_ms": 0.5048329476267099,
-        "decode_ms": 111.46854201797396,
-        "total_ms": 259.689416969195,
-        "peak_gpu_bytes": 4639598910,
-        "active_gpu_bytes": 3668586522,
+        "load_ms": 90.44649999123067,
+        "preprocess_ms": 0.5178339779376984,
+        "decode_ms": 121.09070899896324,
+        "total_ms": 273.507333942689,
+        "peak_gpu_bytes": 5252061520,
+        "active_gpu_bytes": 3668553754,
         "vocabulary_applied": false,
         "timestamp_granularity": "recognizer-word",
         "raw_text": "mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
@@ -388,7 +406,7 @@
           }
         ],
         "num_speakers": 1,
-        "diarization_ms": 12.294625048525631,
+        "diarization_ms": 18.458375008776784,
         "limitations": [
           "Anonymous within-recording labels, not identity recognition.",
           "Overlapping speech is flagged, not separated; ASR can omit simultaneous words.",
@@ -400,7 +418,7 @@
       "id": "mix",
       "ok": true,
       "result": {
-        "path": "/private/var/folders/p0/pvbw136x5yj_6yybdln6w60c0000gn/T/ospr-portable-5j53o2_k/mixed.wav",
+        "path": "/private/var/folders/p0/pvbw136x5yj_6yybdln6w60c0000gn/T/ospr-portable-llmh8r74/mixed.wav",
         "audio_seconds": 6.105,
         "tracks": 2,
         "description": "Presentation-clock aligned local tracks; equal-weight mix, no echo cancellation."
@@ -410,11 +428,199 @@
       "id": "prepare-upload",
       "ok": true,
       "result": {
-        "path": "/private/var/folders/p0/pvbw136x5yj_6yybdln6w60c0000gn/T/ospr-portable-5j53o2_k/upload.wav",
+        "path": "/private/var/folders/p0/pvbw136x5yj_6yybdln6w60c0000gn/T/ospr-portable-llmh8r74/upload.wav",
         "audio_seconds": 5.855,
         "bytes": 187404,
         "format": "16 kHz mono PCM16 WAV",
         "source_unchanged": true
+      }
+    },
+    {
+      "id": "status-before",
+      "ok": true,
+      "result": {
+        "models": [
+          {
+            "id": "parakeet-v3",
+            "repo": "mlx-community/parakeet-tdt-0.6b-v3",
+            "revision": "ed2b7e8c15f9aaa0b5772e2efb986255eaef7e15",
+            "required_bytes": 2508940517,
+            "verified_bytes": 2508940517,
+            "complete": true,
+            "path": "/Users/vibhusapra/.cache/huggingface/hub/models--mlx-community--parakeet-tdt-0.6b-v3/snapshots/ed2b7e8c15f9aaa0b5772e2efb986255eaef7e15"
+          },
+          {
+            "id": "whisper-turbo",
+            "repo": "mlx-community/whisper-large-v3-turbo",
+            "revision": "a4aaeec0636e6fef84abdcbe3544cb2bf7e9f6fb",
+            "required_bytes": 1613977880,
+            "verified_bytes": 1613977880,
+            "complete": true,
+            "path": "/Users/vibhusapra/.cache/huggingface/hub/models--mlx-community--whisper-large-v3-turbo/snapshots/a4aaeec0636e6fef84abdcbe3544cb2bf7e9f6fb"
+          },
+          {
+            "id": "whisper-small",
+            "repo": "mlx-community/whisper-small-mlx",
+            "revision": "45f3915923c7a79a5a5b5a7d909d39aeb0e5630e",
+            "required_bytes": 481307858,
+            "verified_bytes": 481307858,
+            "complete": true,
+            "path": "/Users/vibhusapra/.cache/huggingface/hub/models--mlx-community--whisper-small-mlx/snapshots/45f3915923c7a79a5a5b5a7d909d39aeb0e5630e"
+          },
+          {
+            "id": "qwen3-asr",
+            "repo": "mlx-community/Qwen3-ASR-1.7B-8bit",
+            "revision": "a8379a2e2f9e313c9292cdf1af4055ab56d50d55",
+            "required_bytes": 2467856503,
+            "verified_bytes": 2467856503,
+            "complete": true,
+            "path": "/Users/vibhusapra/.cache/huggingface/hub/models--mlx-community--Qwen3-ASR-1.7B-8bit/snapshots/a8379a2e2f9e313c9292cdf1af4055ab56d50d55"
+          },
+          {
+            "id": "cohere-native8",
+            "repo": "littoralai/cohere-transcribe-mlx-8bit",
+            "revision": "b3f1f6b5fb5ae1bd17c9be2bcd85806339890450",
+            "required_bytes": 2422808826,
+            "verified_bytes": 2422808826,
+            "complete": true,
+            "path": "/Users/vibhusapra/.cache/huggingface/hub/models--littoralai--cohere-transcribe-mlx-8bit/snapshots/b3f1f6b5fb5ae1bd17c9be2bcd85806339890450"
+          },
+          {
+            "id": "nemotron-streaming",
+            "repo": "mlx-community/nemotron-3.5-asr-streaming-0.6b-8bit",
+            "revision": "7279359e4481b5e9e185a318bd618e429c6d86cd",
+            "required_bytes": 756243376,
+            "verified_bytes": 756243376,
+            "complete": true,
+            "path": "/Users/vibhusapra/.cache/huggingface/hub/models--mlx-community--nemotron-3.5-asr-streaming-0.6b-8bit/snapshots/7279359e4481b5e9e185a318bd618e429c6d86cd"
+          },
+          {
+            "id": "rewrite-quality",
+            "repo": "mlx-community/Qwen3-4B-Instruct-2507-4bit",
+            "revision": "50d427756c6b1b2fe0c0a10f67fbda1fc8e82c1b",
+            "required_bytes": 2278969697,
+            "verified_bytes": 2278969697,
+            "complete": true,
+            "path": "/Users/vibhusapra/.cache/huggingface/hub/models--mlx-community--Qwen3-4B-Instruct-2507-4bit/snapshots/50d427756c6b1b2fe0c0a10f67fbda1fc8e82c1b"
+          },
+          {
+            "id": "diarization",
+            "repo": "mlx-community/Nemotron-3-Diarization-8bit",
+            "revision": "dd8b8ce3d69a80540a7e50150e2beed1c34fee37",
+            "required_bytes": 106615594,
+            "verified_bytes": 106615594,
+            "complete": true,
+            "path": "/Users/vibhusapra/.cache/huggingface/hub/models--mlx-community--Nemotron-3-Diarization-8bit/snapshots/dd8b8ce3d69a80540a7e50150e2beed1c34fee37"
+          }
+        ],
+        "resident": [
+          "parakeet-v3"
+        ],
+        "rewrite_resident": "rewrite-quality",
+        "diarizer_resident": true
+      }
+    },
+    {
+      "id": "download-cached",
+      "ok": true,
+      "result": {
+        "model": "whisper-small",
+        "complete": true
+      }
+    },
+    {
+      "id": "status-after",
+      "ok": true,
+      "result": {
+        "models": [
+          {
+            "id": "parakeet-v3",
+            "repo": "mlx-community/parakeet-tdt-0.6b-v3",
+            "revision": "ed2b7e8c15f9aaa0b5772e2efb986255eaef7e15",
+            "required_bytes": 2508940517,
+            "verified_bytes": 2508940517,
+            "complete": true,
+            "path": "/Users/vibhusapra/.cache/huggingface/hub/models--mlx-community--parakeet-tdt-0.6b-v3/snapshots/ed2b7e8c15f9aaa0b5772e2efb986255eaef7e15"
+          },
+          {
+            "id": "whisper-turbo",
+            "repo": "mlx-community/whisper-large-v3-turbo",
+            "revision": "a4aaeec0636e6fef84abdcbe3544cb2bf7e9f6fb",
+            "required_bytes": 1613977880,
+            "verified_bytes": 1613977880,
+            "complete": true,
+            "path": "/Users/vibhusapra/.cache/huggingface/hub/models--mlx-community--whisper-large-v3-turbo/snapshots/a4aaeec0636e6fef84abdcbe3544cb2bf7e9f6fb"
+          },
+          {
+            "id": "whisper-small",
+            "repo": "mlx-community/whisper-small-mlx",
+            "revision": "45f3915923c7a79a5a5b5a7d909d39aeb0e5630e",
+            "required_bytes": 481307858,
+            "verified_bytes": 481307858,
+            "complete": true,
+            "path": "/Users/vibhusapra/.cache/huggingface/hub/models--mlx-community--whisper-small-mlx/snapshots/45f3915923c7a79a5a5b5a7d909d39aeb0e5630e"
+          },
+          {
+            "id": "qwen3-asr",
+            "repo": "mlx-community/Qwen3-ASR-1.7B-8bit",
+            "revision": "a8379a2e2f9e313c9292cdf1af4055ab56d50d55",
+            "required_bytes": 2467856503,
+            "verified_bytes": 2467856503,
+            "complete": true,
+            "path": "/Users/vibhusapra/.cache/huggingface/hub/models--mlx-community--Qwen3-ASR-1.7B-8bit/snapshots/a8379a2e2f9e313c9292cdf1af4055ab56d50d55"
+          },
+          {
+            "id": "cohere-native8",
+            "repo": "littoralai/cohere-transcribe-mlx-8bit",
+            "revision": "b3f1f6b5fb5ae1bd17c9be2bcd85806339890450",
+            "required_bytes": 2422808826,
+            "verified_bytes": 2422808826,
+            "complete": true,
+            "path": "/Users/vibhusapra/.cache/huggingface/hub/models--littoralai--cohere-transcribe-mlx-8bit/snapshots/b3f1f6b5fb5ae1bd17c9be2bcd85806339890450"
+          },
+          {
+            "id": "nemotron-streaming",
+            "repo": "mlx-community/nemotron-3.5-asr-streaming-0.6b-8bit",
+            "revision": "7279359e4481b5e9e185a318bd618e429c6d86cd",
+            "required_bytes": 756243376,
+            "verified_bytes": 756243376,
+            "complete": true,
+            "path": "/Users/vibhusapra/.cache/huggingface/hub/models--mlx-community--nemotron-3.5-asr-streaming-0.6b-8bit/snapshots/7279359e4481b5e9e185a318bd618e429c6d86cd"
+          },
+          {
+            "id": "rewrite-quality",
+            "repo": "mlx-community/Qwen3-4B-Instruct-2507-4bit",
+            "revision": "50d427756c6b1b2fe0c0a10f67fbda1fc8e82c1b",
+            "required_bytes": 2278969697,
+            "verified_bytes": 2278969697,
+            "complete": true,
+            "path": "/Users/vibhusapra/.cache/huggingface/hub/models--mlx-community--Qwen3-4B-Instruct-2507-4bit/snapshots/50d427756c6b1b2fe0c0a10f67fbda1fc8e82c1b"
+          },
+          {
+            "id": "diarization",
+            "repo": "mlx-community/Nemotron-3-Diarization-8bit",
+            "revision": "dd8b8ce3d69a80540a7e50150e2beed1c34fee37",
+            "required_bytes": 106615594,
+            "verified_bytes": 106615594,
+            "complete": true,
+            "path": "/Users/vibhusapra/.cache/huggingface/hub/models--mlx-community--Nemotron-3-Diarization-8bit/snapshots/dd8b8ce3d69a80540a7e50150e2beed1c34fee37"
+          }
+        ],
+        "resident": [
+          "parakeet-v3"
+        ],
+        "rewrite_resident": "rewrite-quality",
+        "diarizer_resident": true
+      }
+    },
+    {
+      "id": "warm-progress",
+      "ok": true,
+      "result": {
+        "model": "parakeet-v3",
+        "load_ms": 0.0032919924706220627,
+        "prime_ms": 30.179499997757375,
+        "total_ms": 30.192125006578863
       }
     }
   ]
