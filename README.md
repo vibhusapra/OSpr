@@ -45,6 +45,16 @@ scripts/bundle-app.sh
 open dist/standalone/OSpr.app
 ```
 
+For local development, optionally set `OSPR_SIGN_IDENTITY` to an installed Apple
+Development signing identity (name or hash, listed by `security find-identity -v
+-p codesigning`). Both build scripts use it without recording the identity in
+source. The default remains ad-hoc signing for reproducible builds without an
+Apple account. Ad-hoc rebuilds change code identity and can invalidate macOS
+permissions; a stable development identity avoids that rebuild churn. This does
+not notarize the app or replace a Developer ID distribution workflow. If several
+OSpr copies appear in macOS, use Show in Finder on its Accessibility entry to
+verify that the permission belongs to the exact bundle you are running.
+
 This app bundles a relocatable Python runtime and inference libraries (about
 1.3 GB before compression), and downloads weights separately. All six engines
 passed an offline smoke test after moving the bundle to a path containing spaces,

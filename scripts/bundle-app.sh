@@ -8,6 +8,7 @@ export PATH="$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:$PATH"
 [[ -x .venv/bin/python ]] || scripts/setup.sh
 scripts/build-app.sh
 app="${OSPR_BUNDLE_OUTPUT:-dist/standalone/OSpr.app}"
+signing_identity="${OSPR_SIGN_IDENTITY:--}"
 [[ ! -e "$app" ]] || { echo "Move or remove the existing $app before rebuilding." >&2; exit 1; }
 mkdir -p "$(dirname "$app")"
 cp -R dist/OSpr.app "$app"
@@ -54,7 +55,7 @@ cp benchmarks/README.md "$resources/Engine/benchmarks/"
 cp benchmarks/fixtures/*.json "$resources/Engine/benchmarks/fixtures/"
 "$resources/Engine/.venv/bin/python" -c 'import importlib.metadata as m, json; print(json.dumps(sorted([{"name":d.metadata["Name"], "version":d.version, "license":d.metadata.get("License-Expression") or d.metadata.get("License"), "source":d.metadata.get("Home-page")} for d in m.distributions()], key=lambda x:x["name"].lower()), indent=2))' > "$resources/dependencies.json"
 
-codesign --force --deep --sign - "$app"
+codesign --force --deep --sign "$signing_identity" "$app"
 codesign --verify --deep --strict "$app"
 "$resources/Engine/.venv/bin/python" -m ospr_backend.worker <<<'{"action":"ping"}'
-echo "Built $app with relocatable Python. Still ad-hoc signed, not notarized."
+echo "Built $app with relocatable Python. Development build; not notarized."

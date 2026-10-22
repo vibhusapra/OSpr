@@ -176,3 +176,8 @@ The machine-readable acceptance ledger is authoritative for feature status;
   passed and modified-key default restored. Automated Control–Option–Space reaches
   the shortcut editor but did not exercise global delivery. Setup permission refresh
   and a visible recording destination label were added; native retest follows.
+
+- Duplicate test bundle registrations caused ambiguous permission identity;
+  macOS Show in Finder exposed the older copy. Build scripts now accept an
+  explicit signing identity, keeping ad-hoc default for CI and anonymous builds.
+  Local Apple Development signing and exact-bundle permission retest are underway.
