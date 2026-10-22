@@ -50,7 +50,10 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
   Bundled CLI/symlink discovery, poisoned PYTHONPATH/cwd isolation and signature
   validity after all inference/MCP calls also passed.
 - [x] Apache 2.0 code license, attribution notice and macOS CI configuration.
-- [x] Repeatable release packaging: matching exact-app portable receipt and test
+- [x] Bundled long-file gate: separate cold Parakeet/Qwen hour-long requests passed
+  offline from a foreign cwd, with chunk/sample/timing metadata and signatures.
+  This is a functional regression check, not a latency or native UI benchmark.
+- [x] Repeatable release packaging: matching exact-app portable/long-file receipts and test
   logs required; ZIP CRC, real ditto extraction, moved offline CLI and signature
   checks precede archive replacement. Only an Apple Development identity is
   available locally; Developer ID/notarization remains open.

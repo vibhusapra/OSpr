@@ -20,6 +20,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--app", type=Path, default=Path("dist/standalone/OSpr.app"))
     parser.add_argument("--receipt", type=Path, default=Path("benchmarks/results/portable-app-smoke.json"))
+    parser.add_argument("--native-long-receipt", type=Path, default=Path("benchmarks/results/native-long-files.json"))
     parser.add_argument("--swift-log", type=Path, required=True)
     parser.add_argument("--python-log", type=Path, required=True)
     parser.add_argument("--output", type=Path, default=Path("dist"))
@@ -37,6 +38,11 @@ def main():
     assert receipt["status"] == "passed" and receipt["executable_sha256"] == executable_sha, "Portable receipt is for a different app"
     build = json.loads((app / "Contents/Resources/build-info.json").read_text())
     assert receipt["build"] == build, "Portable receipt build metadata differs"
+    long_receipt = json.loads(args.native_long_receipt.read_text())
+    assert long_receipt["status"] == "passed" and long_receipt["build"] == build, "Bundled long-file receipt differs"
+    assert len(long_receipt["records"]) == 2 and {r["model"] for r in long_receipt["records"]} == {"parakeet-v3", "qwen3-asr"}
+    assert long_receipt["cli_executable_sha256"] == hashlib.sha256((app / "Contents/MacOS/ospr-cli").read_bytes()).hexdigest()
+    assert long_receipt["signature_valid_after_inference"], "Long-file inference changed the signed app"
     with (app / "Contents/Info.plist").open("rb") as file:
         info = plistlib.load(file)
     version = info["CFBundleShortVersionString"]
@@ -66,6 +72,8 @@ def main():
                         archive=name, bytes=archive.stat().st_size, sha256=sha, entries=entries, build=build,
                         crc_passed=True, extracted_signature_verified=True, extracted_cli_six_models=True,
                         portable_receipt_sha256=hashlib.sha256(args.receipt.read_bytes()).hexdigest(),
+                        native_long_receipt_sha256=hashlib.sha256(args.native_long_receipt.read_bytes()).hexdigest(),
+                        native_long_models=[r["model"] for r in long_receipt["records"]],
                         tests=dict(swift=int(swift_counts[-1]), python=int(python_counts[-1])),
                         native_interaction_pending="Packaging does not exercise microphone, permissions or native target-app interaction. See docs/data/parity.json.")
         staged_manifest = staging / "release-manifest.json"

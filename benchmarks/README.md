@@ -238,3 +238,17 @@ and records every source span and reference. Then run the existing harness with
 This exercises chunk/token/resource limits with synthetic speaker joins and
 repeated public speech. It is not natural-meeting or independent new-speaker
 accuracy evidence. Check tail deletions and timeouts, not just aggregate WER.
+
+## Bundled long-file regression gate
+
+After building long-session fixtures and the standalone app, run
+`PYTHONPATH=backend .venv/bin/python benchmarks/native_long.py --app dist/standalone/OSpr.app`.
+It checks two separate cold Swift CLI / owned-worker / Metal requests on the
+hour-long public fixture, offline from a foreign working directory. CLI defaults
+use trimming and automatic language, unlike the explicit-hint/no-trim study.
+The fixture-specific 5% WER regression gate rejects both former broken paths;
+it is not a production accuracy SLA. Chunk metadata, sample counts, bounded
+segment times and signatures are checked. Release packaging requires this
+receipt to match the exact app build and CLI. These are functional checks,
+with shared-system activity and cold startup; do not use their wall times as
+a latency benchmark. They do not exercise native UI, permissions or sound.

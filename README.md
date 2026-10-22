@@ -53,7 +53,9 @@ minimum OS follows its build host (this artifact: macOS 26.6.2); source setup on
 older macOS chooses compatible wheels. Older-OS bundle acceptance is untested. This verifies
 the runtime boundary, not interactive microphone/insertion behavior.
 
-After running `benchmarks/portable_app.py` and saving successful native/Python
+After running `benchmarks/portable_app.py`, the bundled hour-long regression
+check (`PYTHONPATH=backend .venv/bin/python benchmarks/native_long.py --app dist/standalone/OSpr.app`),
+and saving successful native/Python
 test logs, create a verified delivery archive with:
 
 ```sh
