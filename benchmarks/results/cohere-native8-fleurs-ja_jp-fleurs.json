@@ -1,0 +1,462 @@
+{
+  "timestamp": "2026-10-22T12:11:03.069796+00:00",
+  "model": "cohere-native8",
+  "model_spec": {
+    "repo": "littoralai/cohere-transcribe-mlx-8bit",
+    "engine": "mlx-audio",
+    "name": "Research Cohere native8",
+    "languages": "14 languages; explicit language hint",
+    "license": "Apache-2.0"
+  },
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "machine": "arm64",
+  "hardware": "Apple M5 Max",
+  "memory_bytes": 137438953472,
+  "source_sha256": "b966ca85111801981eb11fa263d8dc46a2725571b6d8bbcaa16e3657dd846558",
+  "git_commit": "b6040e74eb550f20e00b13e3b912c1a9a6bff207",
+  "working_tree_dirty": true,
+  "versions": {
+    "mlx": "0.32.4",
+    "mlx-whisper": "0.4.3",
+    "parakeet-mlx": "0.5.3",
+    "mlx-audio": "0.6.1",
+    "numpy": "2.5.4"
+  },
+  "options": {
+    "model": "cohere-native8",
+    "limit": 0,
+    "suite": "fleurs-ja_jp",
+    "no_trim": false,
+    "repeat": 1,
+    "manifest": "fixtures/fleurs.json"
+  },
+  "cold": {
+    "model": "cohere-native8",
+    "audio_seconds": 10.44,
+    "speech_seconds": 10.44,
+    "text": "\u30a4\u30f3\u30bf\u30fc\u30cd\u30c3\u30c8\u3067\u6575\u5bfe\u7684\u74b0\u5883\u69cb\u6210\u306b\u3064\u3044\u3066\u691c\u7d22\u3059\u308b\u3068\u3001\u304a\u305d\u3089\u304f\u73fe\u5730\u4f01\u696d\u306e\u4f4f\u6240\u304c\u51fa\u3066\u304f\u308b\u3067\u3057\u3087\u3046\u3002",
+    "segments": [
+      {
+        "start": 0.0,
+        "end": 10.44,
+        "text": "\u30a4\u30f3\u30bf\u30fc\u30cd\u30c3\u30c8\u3067\u6575\u5bfe\u7684\u74b0\u5883\u69cb\u6210\u306b\u3064\u3044\u3066\u691c\u7d22\u3059\u308b\u3068\u3001\u304a\u305d\u3089\u304f\u73fe\u5730\u4f01\u696d\u306e\u4f4f\u6240\u304c\u51fa\u3066\u304f\u308b\u3067\u3057\u3087\u3046\u3002"
+      }
+    ],
+    "words": [],
+    "language": "ja",
+    "silence": false,
+    "warm": false,
+    "load_ms": 1723.5827919794247,
+    "preprocess_ms": 0.8917499799281359,
+    "decode_ms": 136.15612499415874,
+    "total_ms": 1860.636290977709,
+    "peak_gpu_bytes": 2658136846,
+    "active_gpu_bytes": 2481984264,
+    "vocabulary_applied": false,
+    "timestamp_granularity": "utterance",
+    "wall_ms": 1860.65308295656
+  },
+  "summary": {
+    "fleurs-ja_jp": {
+      "cases": 10,
+      "errors": 0,
+      "wer": 1.0,
+      "cer": 0.0835214446952596,
+      "substitutions": 10,
+      "deletions": 14,
+      "insertions": 0,
+      "p50_ms": 113.12395799905062,
+      "p95_ms": 154.09723353805018,
+      "aggregate_rtf": 0.010427376771454406,
+      "hallucinated_silence": 0
+    }
+  },
+  "process_peak_rss_bytes": 2897543168,
+  "corpus": {
+    "dataset": "google/fleurs",
+    "revision": "70bb2e84b976b7e960aa89f1c648e09c59f894dd",
+    "license": "CC BY 4.0 \u00b7 Google FLEURS / FLoRes multilingual evaluation corpus",
+    "selection": "First 10 test rows per language. Not selected by model output.",
+    "sources": [
+      {
+        "language": "es_419",
+        "sha256": "f1e8b7f6eecb91d16b79d91bc1838d8b0e5ebc0b37b317e2b58eb8694c64d3c0"
+      },
+      {
+        "language": "de_de",
+        "sha256": "3b40c214cabd603f1ddbf3da0499f7780975d6c56b75240f07a8990dbb7a6c07"
+      },
+      {
+        "language": "hi_in",
+        "sha256": "8a0be26c5584c1478233a6f47fb90275c713f72565327ea1da76c9f1cd5dd38b"
+      },
+      {
+        "language": "ja_jp",
+        "sha256": "e954b67e934b9a31d7a74a070a75225379660d50c8d1aacdb755852c57f23e6b"
+      },
+      {
+        "language": "cmn_hans_cn",
+        "sha256": "87c0aebbe183f3a36ac87b5c3421b6ab57036824744ff695029a3f858e7622fd"
+      }
+    ],
+    "caveats": "Tiny multilingual read-speech slices. Not a representative language ranking. Japanese/Chinese use CER; whitespace WER is not meaningful."
+  },
+  "records": [
+    {
+      "id": "fleurs-ja_jp-000",
+      "path": "fixtures/audio/fleurs/ja_jp/000.wav",
+      "reference": "\u30a4\u30f3\u30bf\u30fc\u30cd\u30c3\u30c8\u3067 \u6575\u5bfe\u7684\u74b0\u5883\u30b3\u30fc\u30b9 \u306b\u3064\u3044\u3066\u691c\u7d22\u3059\u308b\u3068 \u304a\u305d\u3089\u304f\u73fe\u5730\u4f01\u696d\u306e\u4f4f\u6240\u304c\u51fa\u3066\u304f\u308b\u3067\u3057\u3087\u3046",
+      "language": "ja",
+      "suite": "fleurs-ja_jp",
+      "source_id": 1828,
+      "sha256": "26b6cd491b5d52cf05d89207cb88499cdaba89749aebc29c8f216e834e3d9071",
+      "seconds": 10.44,
+      "repeat": 0,
+      "model": "cohere-native8",
+      "audio_seconds": 10.44,
+      "speech_seconds": 10.44,
+      "text": "\u30a4\u30f3\u30bf\u30fc\u30cd\u30c3\u30c8\u3067\u6575\u5bfe\u7684\u74b0\u5883\u69cb\u6210\u306b\u3064\u3044\u3066\u691c\u7d22\u3059\u308b\u3068\u3001\u304a\u305d\u3089\u304f\u73fe\u5730\u4f01\u696d\u306e\u4f4f\u6240\u304c\u51fa\u3066\u304f\u308b\u3067\u3057\u3087\u3046\u3002",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 10.44,
+          "text": "\u30a4\u30f3\u30bf\u30fc\u30cd\u30c3\u30c8\u3067\u6575\u5bfe\u7684\u74b0\u5883\u69cb\u6210\u306b\u3064\u3044\u3066\u691c\u7d22\u3059\u308b\u3068\u3001\u304a\u305d\u3089\u304f\u73fe\u5730\u4f01\u696d\u306e\u4f4f\u6240\u304c\u51fa\u3066\u304f\u308b\u3067\u3057\u3087\u3046\u3002"
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.002583954483270645,
+      "preprocess_ms": 0.8683749474585056,
+      "decode_ms": 118.54075000155717,
+      "total_ms": 119.41608297638595,
+      "peak_gpu_bytes": 2658136601,
+      "active_gpu_bytes": 2481984264,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "utterance",
+      "wall_ms": 119.42837503738701
+    },
+    {
+      "id": "fleurs-ja_jp-001",
+      "path": "fixtures/audio/fleurs/ja_jp/001.wav",
+      "reference": "\u307e\u305f \u5317\u5074\u306b\u884c\u304f\u306a\u3089\u4e16\u754c\u7684\u306b\u6709\u540d\u306a\u30de\u30ea\u30a2\u50cf\u306e\u8056\u5730\u3067\u3042\u308b\u30d5\u30a1\u30c6\u30a3\u30de\u306e\u8056\u6bcd\u306e\u8056\u57df\u795e\u793e\u3092\u8a2a\u308c\u307e\u3057\u3087\u3046",
+      "language": "ja",
+      "suite": "fleurs-ja_jp",
+      "source_id": 1834,
+      "sha256": "258fe8b9954d74c44bcfeb93317fff647f0a0f9135c472f4af32f6db5b02281e",
+      "seconds": 14.22,
+      "repeat": 0,
+      "model": "cohere-native8",
+      "audio_seconds": 14.22,
+      "speech_seconds": 14.22,
+      "text": "\u307e\u305f\u3001\u5317\u5074\u306b\u884c\u304f\u306a\u3089\u3001\u4e16\u754c\u7684\u306b\u6709\u540d\u306a\u30de\u30ea\u30a2\u50cf\u306e\u8056\u5730\u3067\u3042\u308b\u30d5\u30a1\u30c6\u30a3\u30de\u306e\u8056\u6bcd\u306e\u8056\u57df\u3001\u795e\u793e\u3092\u8a2a\u308c\u307e\u3057\u3087\u3046\u3002",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 14.22,
+          "text": "\u307e\u305f\u3001\u5317\u5074\u306b\u884c\u304f\u306a\u3089\u3001\u4e16\u754c\u7684\u306b\u6709\u540d\u306a\u30de\u30ea\u30a2\u50cf\u306e\u8056\u5730\u3067\u3042\u308b\u30d5\u30a1\u30c6\u30a3\u30de\u306e\u8056\u6bcd\u306e\u8056\u57df\u3001\u795e\u793e\u3092\u8a2a\u308c\u307e\u3057\u3087\u3046\u3002"
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0025830231606960297,
+      "preprocess_ms": 1.094167004339397,
+      "decode_ms": 142.7613750565797,
+      "total_ms": 143.8618339598179,
+      "peak_gpu_bytes": 2727782808,
+      "active_gpu_bytes": 2481984264,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "utterance",
+      "wall_ms": 143.87520798482
+    },
+    {
+      "id": "fleurs-ja_jp-002",
+      "path": "fixtures/audio/fleurs/ja_jp/002.wav",
+      "reference": "\u30d0\u30eb\u30bb\u30ed\u30ca\u306e\u516c\u7528\u8a9e\u306f\u30ab\u30bf\u30eb\u30fc\u30cb\u30e3\u8a9e\u3068\u30b9\u30da\u30a4\u30f3\u8a9e\u3067\u3059 \u7d04\u534a\u6570\u304c\u30ab\u30bf\u30eb\u30fc\u30cb\u30e3\u8a9e\u3092\u597d\u307f \u5927\u591a\u6570\u304c\u30ab\u30bf\u30eb\u30fc\u30cb\u30e3\u8a9e\u3092\u7406\u89e3\u3057 \u307b\u307c\u5168\u54e1\u304c\u30b9\u30da\u30a4\u30f3\u8a9e\u3092\u77e5\u3063\u3066\u3044\u307e\u3059",
+      "language": "ja",
+      "suite": "fleurs-ja_jp",
+      "source_id": 1813,
+      "sha256": "bc4947522ebee189fa5f375e24b5f4cb84a66f264a39bfff241c5bfee01b0a34",
+      "seconds": 12.84,
+      "repeat": 0,
+      "model": "cohere-native8",
+      "audio_seconds": 12.84,
+      "speech_seconds": 12.84,
+      "text": "\u30d0\u30eb\u30bb\u30ed\u30ca\u306e\u516c\u7528\u8a9e\u306f\u30ab\u30bf\u30eb\u30fc\u30cb\u30e3\u8a9e\u3068\u30b9\u30da\u30a4\u30f3\u8a9e\u3067\u3059\u3002\u7d04\u534a\u6570\u304c\u30ab\u30bf\u30eb\u30fc\u30cb\u30e3\u8a9e\u3092\u597d\u307f\u3001\u5927\u591a\u6570\u304c\u30ab\u30bf\u30eb\u30fc\u30cb\u30e3\u8a9e\u3092\u7406\u89e3\u3057\u3001\u307b\u307c\u5168\u54e1\u304c\u30b9\u30da\u30a4\u30f3\u8a9e\u3092\u77e5\u3063\u3066\u3044\u307e\u3059\u3002",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 12.84,
+          "text": "\u30d0\u30eb\u30bb\u30ed\u30ca\u306e\u516c\u7528\u8a9e\u306f\u30ab\u30bf\u30eb\u30fc\u30cb\u30e3\u8a9e\u3068\u30b9\u30da\u30a4\u30f3\u8a9e\u3067\u3059\u3002\u7d04\u534a\u6570\u304c\u30ab\u30bf\u30eb\u30fc\u30cb\u30e3\u8a9e\u3092\u597d\u307f\u3001\u5927\u591a\u6570\u304c\u30ab\u30bf\u30eb\u30fc\u30cb\u30e3\u8a9e\u3092\u7406\u89e3\u3057\u3001\u307b\u307c\u5168\u54e1\u304c\u30b9\u30da\u30a4\u30f3\u8a9e\u3092\u77e5\u3063\u3066\u3044\u307e\u3059\u3002"
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0026669586077332497,
+      "preprocess_ms": 0.9799579856917262,
+      "decode_ms": 161.46412503439933,
+      "total_ms": 162.45049994904548,
+      "peak_gpu_bytes": 2703615563,
+      "active_gpu_bytes": 2481984264,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "utterance",
+      "wall_ms": 162.4607089906931
+    },
+    {
+      "id": "fleurs-ja_jp-003",
+      "path": "fixtures/audio/fleurs/ja_jp/003.wav",
+      "reference": "\u305d\u306e\u9577\u3044\u984e\u306b\u306f70\u672c\u4ee5\u4e0a\u306e\u92ed\u3044\u6b6f\u304c\u4e26\u3073 \u53e3\u84cb\u306b\u306f\u5225\u306e\u6b6f\u5217\u304c\u3042\u308a \u3064\u307e\u308a\u3053\u3053\u3092\u901a\u3063\u305f\u3089\u9003\u3052\u9053\u306f\u306a\u3044\u3068\u3044\u3046\u3053\u3068\u306b\u306a\u308a\u307e\u3059",
+      "language": "ja",
+      "suite": "fleurs-ja_jp",
+      "source_id": 1869,
+      "sha256": "b97654c603f2e4e66984fcca51c064be8054ed3b97a81a8890d71579bfdc8a00",
+      "seconds": 12.54,
+      "repeat": 0,
+      "model": "cohere-native8",
+      "audio_seconds": 12.54,
+      "speech_seconds": 12.54,
+      "text": "\u305d\u306e\u9577\u3044\u984e\u306b\u306f\u300170\u672c\u4ee5\u4e0a\u306e\u92ed\u3044\u5203\u304c\u4e26\u3073\u3001\u90ca\u5916\u306b\u306f\u5225\u306e\u79c1\u7acb\u304c\u3042\u308a\u3001\u3064\u307e\u308a\u3053\u3053\u3092\u901a\u3063\u305f\u3089\u9003\u3052\u9053\u306f\u306a\u3044\u3068\u3044\u3046\u3053\u3068\u306b\u306a\u308a\u307e\u3059\u3002",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 12.54,
+          "text": "\u305d\u306e\u9577\u3044\u984e\u306b\u306f\u300170\u672c\u4ee5\u4e0a\u306e\u92ed\u3044\u5203\u304c\u4e26\u3073\u3001\u90ca\u5916\u306b\u306f\u5225\u306e\u79c1\u7acb\u304c\u3042\u308a\u3001\u3064\u307e\u308a\u3053\u3053\u3092\u901a\u3063\u305f\u3089\u9003\u3052\u9053\u306f\u306a\u3044\u3068\u3044\u3046\u3053\u3068\u306b\u306a\u308a\u307e\u3059\u3002"
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.002334010787308216,
+      "preprocess_ms": 0.8794170571491122,
+      "decode_ms": 138.48837499972433,
+      "total_ms": 139.37450002413243,
+      "peak_gpu_bytes": 2697312451,
+      "active_gpu_bytes": 2481984264,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "utterance",
+      "wall_ms": 139.38587496522814
+    },
+    {
+      "id": "fleurs-ja_jp-004",
+      "path": "fixtures/audio/fleurs/ja_jp/004.wav",
+      "reference": "\u30ed\u30b9\u30d3\u30fc\u6570\u304c\u5c0f\u3055\u3044\u307b\u3069\u78c1\u6c17\u53cd\u8ee2\u306b\u95a2\u3057\u3066\u661f\u306e\u6d3b\u6027\u304c\u4f4e\u4e0b\u3059\u308b\u308f\u3051\u3067\u3059",
+      "language": "ja",
+      "suite": "fleurs-ja_jp",
+      "source_id": 1744,
+      "sha256": "d57545db2234856ae80dea142adfbcacf23fd7a351183f56431734f93ec3e58d",
+      "seconds": 12.06,
+      "repeat": 0,
+      "model": "cohere-native8",
+      "audio_seconds": 12.06,
+      "speech_seconds": 12.06,
+      "text": "\u30ed\u30b9\u30d3\u30fc\u6570\u304c\u5c0f\u3055\u3044\u307b\u3069\u3001\u78c1\u6c17\u5224\u5b9a\u306b\u95a2\u3057\u3066\u661f\u306e\u6d3b\u6027\u304c\u4f4e\u4e0b\u3059\u308b\u308f\u3051\u3067\u3059\u3002",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 12.06,
+          "text": "\u30ed\u30b9\u30d3\u30fc\u6570\u304c\u5c0f\u3055\u3044\u307b\u3069\u3001\u78c1\u6c17\u5224\u5b9a\u306b\u95a2\u3057\u3066\u661f\u306e\u6d3b\u6027\u304c\u4f4e\u4e0b\u3059\u308b\u308f\u3051\u3067\u3059\u3002"
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.002375105395913124,
+      "preprocess_ms": 0.8081250125542283,
+      "decode_ms": 100.30237503815442,
+      "total_ms": 101.11616691574454,
+      "peak_gpu_bytes": 2688857917,
+      "active_gpu_bytes": 2481984264,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "utterance",
+      "wall_ms": 101.12624999601394
+    },
+    {
+      "id": "fleurs-ja_jp-005",
+      "path": "fixtures/audio/fleurs/ja_jp/005.wav",
+      "reference": "\u7fa4\u5cf6\u3084\u6e56\u3067\u306f \u5fc5\u305a\u3057\u3082\u30e8\u30c3\u30c8\u306f\u5fc5\u8981\u3042\u308a\u307e\u305b\u3093",
+      "language": "ja",
+      "suite": "fleurs-ja_jp",
+      "source_id": 1731,
+      "sha256": "00b5efdbd751c1f133a964db6086bd8294fc64a4d729165bdc6f267cb9b2c618",
+      "seconds": 6.96,
+      "repeat": 0,
+      "model": "cohere-native8",
+      "audio_seconds": 6.96,
+      "speech_seconds": 0.36,
+      "text": "\u3042\u3002",
+      "segments": [
+        {
+          "start": 2.18,
+          "end": 2.54,
+          "text": "\u3042\u3002"
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0024170149117708206,
+      "preprocess_ms": 0.5767089314758778,
+      "decode_ms": 38.80912496242672,
+      "total_ms": 39.391416939906776,
+      "peak_gpu_bytes": 2520450783,
+      "active_gpu_bytes": 2481984264,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "utterance",
+      "wall_ms": 39.400666020810604
+    },
+    {
+      "id": "fleurs-ja_jp-006",
+      "path": "fixtures/audio/fleurs/ja_jp/006.wav",
+      "reference": "\u30d1\u30ea\u30b8\u30e3\u30f3\u306f \u81ea\u5df1\u4e2d\u5fc3\u7684\u3067\u6a2a\u67c4\u3067\u5931\u793c\u306a\u4eba\u304c\u591a\u3044\u3068\u8a00\u308f\u308c\u3066\u3044\u307e\u3059",
+      "language": "ja",
+      "suite": "fleurs-ja_jp",
+      "source_id": 1910,
+      "sha256": "959077418140484e2bcb2b708480127392272eb179121e7e2ceb1903b6be519e",
+      "seconds": 8.88,
+      "repeat": 0,
+      "model": "cohere-native8",
+      "audio_seconds": 8.88,
+      "speech_seconds": 8.88,
+      "text": "\u30d1\u30ea\u30b8\u30e3\u30f3\u306f\u81ea\u5df1\u4e2d\u5fc3\u7684\u3067\u3001\u738b\u5983\u3067\u5931\u793c\u306a\u4eba\u304c\u591a\u3044\u3068\u8a00\u308f\u308c\u3066\u3044\u307e\u3059\u3002",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 8.88,
+          "text": "\u30d1\u30ea\u30b8\u30e3\u30f3\u306f\u81ea\u5df1\u4e2d\u5fc3\u7684\u3067\u3001\u738b\u5983\u3067\u5931\u793c\u306a\u4eba\u304c\u591a\u3044\u3068\u8a00\u308f\u308c\u3066\u3044\u307e\u3059\u3002"
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.002459040842950344,
+      "preprocess_ms": 0.6446669576689601,
+      "decode_ms": 86.63158304989338,
+      "total_ms": 87.28566695936024,
+      "peak_gpu_bytes": 2631117276,
+      "active_gpu_bytes": 2481984264,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "utterance",
+      "wall_ms": 87.29633293114603
+    },
+    {
+      "id": "fleurs-ja_jp-007",
+      "path": "fixtures/audio/fleurs/ja_jp/007.wav",
+      "reference": "\u30e1\u30a4\u30f3\u30b9\u30c6\u30fc\u30b8\u306e\u97f3\u697d\u304c\u7d42\u308f\u3063\u3066\u3082 \u30d5\u30a7\u30b9\u30c6\u30a3\u30d0\u30eb\u306b\u306f\u591c\u9045\u304f\u307e\u3067\u6f14\u594f\u3092\u6d41\u3057\u7d9a\u3051\u308b\u30bb\u30af\u30b7\u30e7\u30f3\u304c\u3042\u308b\u304b\u3082\u3057\u308c\u306a\u3044\u3053\u3068\u3092\u899a\u3048\u3066\u304a\u3044\u3066\u304f\u3060\u3055\u3044",
+      "language": "ja",
+      "suite": "fleurs-ja_jp",
+      "source_id": 1771,
+      "sha256": "a744212bc2eb19672f31cb39a4ead66c58854bcb898097c1a573eef103724def",
+      "seconds": 12.96,
+      "repeat": 0,
+      "model": "cohere-native8",
+      "audio_seconds": 12.96,
+      "speech_seconds": 12.96,
+      "text": "\u30e1\u30a4\u30f3\u30b9\u30c6\u30fc\u30b8\u306e\u97f3\u697d\u304c\u7d42\u308f\u3063\u3066\u3082\u3001\u30d5\u30a7\u30b9\u30c6\u30a3\u30d0\u30eb\u306b\u306f\u591c\u9045\u304f\u307e\u3067\u6f14\u594f\u3092\u6d41\u3057\u7d9a\u3051\u308b\u30bb\u30af\u30b7\u30e7\u30f3\u304c\u3042\u308b\u304b\u3082\u3057\u308c\u306a\u3044\u3053\u3068\u3092\u899a\u3048\u3066\u304a\u3044\u3066\u304f\u3060\u3055\u3044\u3002",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 12.96,
+          "text": "\u30e1\u30a4\u30f3\u30b9\u30c6\u30fc\u30b8\u306e\u97f3\u697d\u304c\u7d42\u308f\u3063\u3066\u3082\u3001\u30d5\u30a7\u30b9\u30c6\u30a3\u30d0\u30eb\u306b\u306f\u591c\u9045\u304f\u307e\u3067\u6f14\u594f\u3092\u6d41\u3057\u7d9a\u3051\u308b\u30bb\u30af\u30b7\u30e7\u30f3\u304c\u3042\u308b\u304b\u3082\u3057\u308c\u306a\u3044\u3053\u3068\u3092\u899a\u3048\u3066\u304a\u3044\u3066\u304f\u3060\u3055\u3044\u3002"
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.002416083589196205,
+      "preprocess_ms": 1.1303330538794398,
+      "decode_ms": 140.22820792160928,
+      "total_ms": 141.36483299080282,
+      "peak_gpu_bytes": 2705090197,
+      "active_gpu_bytes": 2481984264,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "utterance",
+      "wall_ms": 141.37695799581707
+    },
+    {
+      "id": "fleurs-ja_jp-008",
+      "path": "fixtures/audio/fleurs/ja_jp/008.wav",
+      "reference": "\u53c2\u5217\u8005\u306e\u6570\u304c\u591a\u3059\u304e\u3066 \u5168\u54e1\u304c\u30b5\u30f3\u30d4\u30a8\u30c8\u30ed\u5e83\u5834\u3067\u306e\u846c\u5100\u306b\u53c2\u52a0\u3059\u308b\u3053\u3068\u306f\u4e0d\u53ef\u80fd\u3067\u3057\u305f",
+      "language": "ja",
+      "suite": "fleurs-ja_jp",
+      "source_id": 1764,
+      "sha256": "5150ec65463847f16459396ed1fd4cdec683c0429cdc6e8d521a659e891636ea",
+      "seconds": 9.48,
+      "repeat": 0,
+      "model": "cohere-native8",
+      "audio_seconds": 9.48,
+      "speech_seconds": 9.48,
+      "text": "\u53c2\u5217\u8005\u306e\u6570\u304c\u591a\u3059\u304e\u3066\u3001\u5168\u54e1\u304c\u30b5\u30f3\u30d4\u30a8\u30c8\u30eb\u5e83\u5834\u3067\u306e\u846c\u5100\u306b\u53c2\u52a0\u3059\u308b\u3053\u3068\u306f\u4e0d\u53ef\u80fd\u3067\u3057\u305f\u3002",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 9.48,
+          "text": "\u53c2\u5217\u8005\u306e\u6570\u304c\u591a\u3059\u304e\u3066\u3001\u5168\u54e1\u304c\u30b5\u30f3\u30d4\u30a8\u30c8\u30eb\u5e83\u5834\u3067\u306e\u846c\u5100\u306b\u53c2\u52a0\u3059\u308b\u3053\u3068\u306f\u4e0d\u53ef\u80fd\u3067\u3057\u305f\u3002"
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0025830231606960297,
+      "preprocess_ms": 0.698292045854032,
+      "decode_ms": 105.54354102350771,
+      "total_ms": 106.24795907642692,
+      "peak_gpu_bytes": 2641603283,
+      "active_gpu_bytes": 2481984264,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "utterance",
+      "wall_ms": 106.2586250482127
+    },
+    {
+      "id": "fleurs-ja_jp-009",
+      "path": "fixtures/audio/fleurs/ja_jp/009.wav",
+      "reference": "\u9999\u6e2f\u306e\u6700\u9ad8\u306e\u666f\u8272\u3092\u898b\u308b\u306b\u306f \u5cf6\u304b\u3089\u51fa\u3066\u4e5d\u9f8d\u306e\u30a6\u30a9\u30fc\u30bf\u30fc\u30d5\u30ed\u30f3\u30c8\u306b\u5411\u304b\u3044\u307e\u3057\u3087\u3046",
+      "language": "ja",
+      "suite": "fleurs-ja_jp",
+      "source_id": 2003,
+      "sha256": "65618a629d07f06e3ed564f2970789cc122c54b04232362674d9ca2a50daf4bc",
+      "seconds": 9.66,
+      "repeat": 0,
+      "model": "cohere-native8",
+      "audio_seconds": 9.66,
+      "speech_seconds": 9.66,
+      "text": "\u9999\u6e2f\u306e\u6700\u9ad8\u306e\u666f\u8272\u3092\u898b\u308b\u306b\u306f\u3001\u5cf6\u304b\u3089\u51fa\u3066\u30af\u30fc\u30ed\u30f3\u306e\u30a6\u30a9\u30fc\u30bf\u30fc\u30d5\u30ed\u30f3\u30c8\u306b\u5411\u304b\u3044\u307e\u3057\u3087\u3046\u3002",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 9.66,
+          "text": "\u9999\u6e2f\u306e\u6700\u9ad8\u306e\u666f\u8272\u3092\u898b\u308b\u306b\u306f\u3001\u5cf6\u304b\u3089\u51fa\u3066\u30af\u30fc\u30ed\u30f3\u306e\u30a6\u30a9\u30fc\u30bf\u30fc\u30d5\u30ed\u30f3\u30c8\u306b\u5411\u304b\u3044\u307e\u3057\u3087\u3046\u3002"
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0028329668566584587,
+      "preprocess_ms": 0.9369999170303345,
+      "decode_ms": 105.82441696897149,
+      "total_ms": 106.80862492881715,
+      "peak_gpu_bytes": 2643405597,
+      "active_gpu_bytes": 2481984264,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "utterance",
+      "wall_ms": 106.81954096071422
+    }
+  ],
+  "limitations": [
+    "Fixed public read-speech slices, not full corpora, spontaneous dictation or a multilingual leaderboard.",
+    "Same host and power environment; no controlled thermal isolation or energy measurement.",
+    "In-process audio-to-transcript timing excludes hotkey, capture, IPC, rewrite and text insertion.",
+    "Shared model backends are not equivalent to testing competing app products."
+  ],
+  "research_candidate": {
+    "repo": "littoralai/cohere-transcribe-mlx-8bit",
+    "revision": "b3f1f6b5fb5ae1bd17c9be2bcd85806339890450",
+    "generation": {
+      "max_tokens": 512,
+      "batch_size": 1
+    },
+    "harness_sha256": "1d455f6fa9f9b3d81914d2018c76e50ae077e16c609d9349fc7473116ee2b267",
+    "boundary": "Pinned native-layout public conversion via strict mlx-audio. Not the earlier Swift-layout checkpoint. Not in shipping catalog."
+  }
+}

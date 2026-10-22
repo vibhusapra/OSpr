@@ -46,6 +46,7 @@ def main():
             "whisper-small",
             "nemotron-streaming",
             "whisper-cpp",
+            "cohere-native8",
         ):
             data = json.loads((ROOT / "results" / f"{model}-{suite}.json").read_text())
             models[model] = clusters(data["records"])

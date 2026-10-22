@@ -7,6 +7,7 @@ app="dist/OSpr.app"
 mkdir -p "$app/Contents/MacOS" "$app/Contents/Resources"
 cp ".build/$configuration/OSpr" "$app/Contents/MacOS/OSpr"
 cp ".build/$configuration/ospr-cli" dist/ospr-cli
+cp ".build/$configuration/ospr-cli" "$app/Contents/MacOS/ospr-cli"
 pwd > "$app/Contents/Resources/checkout-root.txt"
 python3 - "$app/Contents/Resources/build-info.json" <<'PY'
 import datetime, hashlib, json, pathlib, subprocess, sys

@@ -291,13 +291,14 @@ struct ModelsView: View {
     @ObservedObject var model: AppModel
     let models: [(String, String, String, String)] = [
         ("parakeet-v3", "Parakeet v3", "FAST DAILY DICTATION", "600M parameters · 25 European languages · segment timestamps. MLX on Metal. Recommended starting point."),
+        ("cohere-native8", "Cohere Transcribe", "MEASURED ENGLISH QUALITY", "2B parameters · 8-bit MLX · 14 languages. Lowest measured English error rate among the current choices. Blank language hint uses English; no automatic detection. Utterance timestamps."),
         ("whisper-turbo", "Whisper Large v3 Turbo", "BROAD LANGUAGE COVERAGE", "809M parameters · 99 languages · vocabulary prompting. MLX on Metal. A strong multilingual fallback."),
         ("whisper-small", "Whisper Small", "SMALLER FOOTPRINT", "244M parameters · 99 languages · vocabulary prompting. Lower memory use; measure the accuracy tradeoff."),
         ("qwen3-asr", "Qwen3 ASR 1.7B", "EXPERIMENTAL QUALITY", "8-bit MLX · 30 languages and Chinese dialects. Utterance-level timestamps. Compare measured accuracy by language in Research."),
         ("nemotron-streaming", "Nemotron 3.5 ASR", "INCREMENTAL PREVIEW", "8-bit MLX · multilingual, cache-aware streaming. Enable live preview in Settings. Utterance timestamps; microphone validation pending.")]
     var body: some View {
         ScrollView { VStack(alignment: .leading, spacing: 20) {
-            PageTitle(eyebrow: "A model for your Mac", title: "Choose your voice engine.", description: "All five run on Apple Silicon. Downloads happen only when you load a model. Check Research for measured results and limits.")
+            PageTitle(eyebrow: "A model for your Mac", title: "Choose your voice engine.", description: "All six run on Apple Silicon. Weights download on first use. Check Research for measured results and limits.")
             ForEach(models, id: \.0) { id, name, tag, detail in
                 Card { HStack(alignment: .top, spacing: 18) {
                     Image(systemName: id == "parakeet-v3" ? "bolt" : "cpu").font(.title2).foregroundStyle(Color.osprInk).frame(width: 40, height: 40).background(Color.osprPurple.opacity(0.08), in: RoundedRectangle(cornerRadius: 10))
@@ -376,7 +377,7 @@ struct PreferencesView: View {
                     Text("System default").tag("")
                     ForEach(Capture.microphones, id: \.uniqueID) { Text($0.localizedName).tag($0.uniqueID) }
                 }
-                TextField("Language hint (ISO code; blank for automatic)", text: $model.settings.language)
+                TextField(model.settings.model == "cohere-native8" ? "Language hint (ISO code; blank uses English)" : "Language hint (ISO code; blank for automatic)", text: $model.settings.language)
                 HStack { Text("Global shortcut"); Spacer(); ShortcutRecorder(code: $model.settings.hotkeyCode, modifiers: $model.settings.hotkeyModifiers).frame(width: 190, height: 28) }
                 Toggle("Hold shortcut to talk", isOn: $model.settings.pushToTalk)
                 Toggle("Paste into the original focused field", isOn: $model.settings.autoPaste)

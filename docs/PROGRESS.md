@@ -30,7 +30,7 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
   edited, old settings gain defaults, shortcuts retain their previous binding on
   conflict, and the menu bar can reopen a closed workspace.
 - [x] Current official-source guide: 27 offerings, plans, feature comparison,
-  42-item acceptance ledger, model strategy, ten optimization tracks, training plan.
+  43-item acceptance ledger, model strategy, ten optimization tracks, training plan.
 - [x] Relocatable app bundle; all five engines passed offline after moving it to
   a path with spaces, from a temporary cwd and with an unrelated PYTHONPATH.
 - [x] Portable app rechecked after capture/notes changes: five offline ASR engines,
@@ -40,7 +40,7 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
 ## Verification and evidence
 
-- [x] Native tests: 50 passed, covering text fidelity rules, Unicode snippets, retention/storage,
+- [x] Native tests: 52 passed, covering text fidelity rules, Unicode snippets, retention/storage,
   provider endpoint restrictions, multipart/chat/Anthropic loopback contracts,
   30 concurrent worker requests, timeout/restart, audio frame integrity/overflow,
   secure-field early rejection and recovery store restart/corrupt-metadata cases.
@@ -84,8 +84,10 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
 ## Decisions from failed experiments
 
-- Cohere's tested converted-weight path loses too much speech despite strict
-  learned-weight coverage. It is research-only and excluded from shipping catalogs.
+- The initial Swift-layout Cohere conversion lost utterances despite strict
+  learned-weight coverage. Native-layout full-precision and 8-bit controls
+  recovered them; the pinned native-layout 8-bit route passed the larger suites
+  and is a new quality option. The legacy conversion remains research-only.
 - Smaller Nemotron attention context increased compute without improving median
   first-partial audio position on twenty clips. Keep the model default.
 - The 1.7B text model dropped substantive content. The 4B alternative still fails

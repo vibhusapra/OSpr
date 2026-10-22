@@ -45,11 +45,18 @@ MODELS = {
     "cohere-transcribe": {
         "repo": "beshkenadze/cohere-transcribe-03-2026-mlx-8bit",
         "engine": "mlx-audio",
-        "name": "Cohere Transcribe · experimental accuracy",
+        "name": "Legacy Swift-layout Cohere conversion · research only",
         "languages": "14 languages",
         "license": "Apache-2.0",
         "research_only": True,
         "quality_gate": "Unacceptable deletions in the tested conversion/runtime path. Not enabled in the app.",
+    },
+    "cohere-native8": {
+        "repo": "littoralai/cohere-transcribe-mlx-8bit",
+        "engine": "mlx-audio",
+        "name": "Cohere Transcribe · measured English quality",
+        "languages": "14 languages; blank hint uses English (no automatic detection)",
+        "license": "Apache-2.0",
     },
     "nemotron-streaming": {
         "repo": "mlx-community/nemotron-3.5-asr-streaming-0.6b-8bit",
@@ -291,10 +298,16 @@ class Engine:
                     hint = matches[0] if matches else hint
                 if model_id == "cohere-transcribe" and not hint:
                     hint = "en"  # Cohere has no automatic language detection.
-                result = model.generate(audio, **({"language": hint} if hint else {}))
+                if model_id == "cohere-native8":
+                    # Native NeMo-layout checkpoint, not the legacy Swift adapter.
+                    # Bound long-file peak residency and allow complete 35s chunks.
+                    hint = (hint or "en").lower().replace("_", "-").split("-")[0]
+                    result = model.generate(audio, language=hint, max_tokens=512, batch_size=1)
+                else:
+                    result = model.generate(audio, **({"language": hint} if hint else {}))
                 text = result.text
                 segments = [dict(start=offset, end=offset + len(audio) / SAMPLE_RATE, text=text)]
-                detected_language = getattr(result, "language", language)
+                detected_language = hint if model_id == "cohere-native8" else getattr(result, "language", language)
             mx.synchronize()
         decode_ms = (time.perf_counter() - decoded) * 1000
         return dict(

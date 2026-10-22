@@ -12,6 +12,8 @@ def test_pinned_artifact_manifest_has_weights_for_every_route():
         assert any(name.endswith((".safetensors", ".npz")) for name in spec["required_files"])
         assert spec["artifact_bytes"] == sum(spec["required_files"].values())
     assert "cohere-transcribe" not in engine.PUBLIC_MODELS
+    assert engine.PUBLIC_MODELS["cohere-native8"]["repo"] == "littoralai/cohere-transcribe-mlx-8bit"
+    assert engine.MODEL_LOCK["cohere-native8"]["safetensor_sha256"] == "aadaf8d3388975853385400c9bd8dee92a71e12a83860f35bebaac345aa8af93"
 
 
 def test_partial_cache_repairs_online_but_never_contacts_hub_offline(tmp_path, monkeypatch):

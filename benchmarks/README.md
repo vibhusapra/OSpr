@@ -138,3 +138,26 @@ deadline/price/negation/injection sentinel survived these four cases. Exact sour
 quotation prevents invented paraphrases, but selection can omit context or facts.
 This is not an abstractive-summary quality benchmark or a natural-meeting relevance
 study. Raw outputs are in `results/extractive-notes.json`.
+
+
+## Complete sequential sweep and Cohere controls
+
+After preparing the pinned fixtures and caching model weights, run:
+
+```sh
+OSPR_CPP_WEIGHTS=/absolute/ggml-large-v3-turbo.bin scripts/benchmark-all.sh
+PYTHONPATH=backend HF_HUB_OFFLINE=1 .venv/bin/python benchmarks/native_ipc.py
+```
+
+The script runs six shipping engines on both English slices and the regression
+set, then each model's selected supported-language slices. Cohere requires a
+language hint and defaults to English; Hindi is not in its documented list.
+
+`cohere_candidate.py` preserves the research procedure for the native-layout
+full-precision/8-bit controls. The initial Swift-layout checkpoint lost two
+utterances; both native-layout controls recovered them. The accepted 8-bit route
+uses strict loading, one 35-second chunk at a time and a 512-token budget. The
+full-precision control is research-only. Small point differences between the
+native quantized/full-precision scores do not prove quantization improves WER.
+Original upstream weights required access approval and were not downloaded; these
+controls use public Apache-2.0 conversions with explicit source lineage.

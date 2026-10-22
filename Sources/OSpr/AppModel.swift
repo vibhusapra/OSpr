@@ -493,7 +493,12 @@ import OSprCore
             }
             guard token == generation else { return false }
             let raw = result["raw_text"] as? String ?? result["text"] as? String ?? ""
-            guard !raw.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { status = "No speech detected"; return true }
+            guard !raw.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+                if result["silence"] as? Bool == true { status = "No speech detected"; return true }
+                status = "The recognizer returned no words"
+                self.error = "No transcript was returned. Completed recording audio is kept for retry; imported source files are unchanged. Try another model or language hint."
+                return false
+            }
             var text = TextPipeline.process(result["text"] as? String ?? raw, mode: mode, replacements: config.replacements, spokenPunctuation: config.spokenPunctuation, language: result["language"] as? String ?? config.language)
             if mode != .verbatim && config.rewriteProvider != "none" {
                 status = "Refining your words…"

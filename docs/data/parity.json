@@ -45,10 +45,17 @@
       "priority": "P1"
     },
     {
-      "feature": "Cohere Transcribe 8-bit",
+      "feature": "Cohere Transcribe native-layout 8-bit",
+      "status": "verified",
+      "evidence": "365 English test clips, 100 regression/stress cases and 40 supported-language FLEURS clips; no errors. Full-precision control and exact pinned native-layout weights.",
+      "gap": "14 supported languages require a hint; blank uses English. No automatic detection or word alignment. One long concatenation is weaker than its short-read-speech results; see raw data. Native UI acceptance pending with the rest of the app.",
+      "priority": "P0"
+    },
+    {
+      "feature": "Legacy Swift-layout Cohere conversion",
       "status": "research only",
-      "evidence": "Strict layout adapter tested; excessive deletions in 10-clip smoke evaluation.",
-      "gap": "Excluded from app/worker/MCP model catalog until quality passes.",
+      "evidence": "Strict key-layout coverage passed, but two utterances disappeared in the early diagnostic. Native-layout full-precision and 8-bit controls recovered them.",
+      "gap": "This particular conversion/adapter remains excluded. The separately pinned native-layout 8-bit engine passed its larger quality gate.",
       "priority": "P1"
     },
     {

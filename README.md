@@ -61,7 +61,8 @@ until its transcripts/settings are backed up.
 - Native SwiftUI studio, menu bar control, floating HUD and microphone selection.
 - Toggle / hold-to-talk global shortcut with a visual shortcut editor.
 - Local MLX/Metal ASR: Parakeet v3, Whisper Turbo/Small, Qwen3 ASR 1.7B 8-bit,
-  and Nemotron 3.5 ASR 8-bit. Exact revisions are in
+  Nemotron 3.5 ASR 8-bit, and native-layout Cohere Transcribe 8-bit. Cohere
+  supports 14 languages with an explicit hint; blank uses English. Exact revisions are in
   [models.lock.json](backend/ospr_backend/models.lock.json).
 - Optional live preview: cached incremental Nemotron, or a rolling tail for other
   engines. Nemotron can flush final text from its cache; other engines finalize
@@ -96,8 +97,9 @@ physical meeting/system capture acceptance, diarization quality, complete
 abstractive summaries,
 richer alignment and URL context,
 notarized distribution, mobile/sync and enterprise administration. Cohere
-Transcribe is research-only: the tested converted-weight path failed its quality
-gate and is excluded from app/worker/MCP model listings.
+Transcribe’s legacy Swift-layout conversion remains research-only after lost
+utterances. A separately pinned native-layout 8-bit conversion passed the larger
+quality gate and is included as a quality option.
 
 ## Models and privacy
 
@@ -139,7 +141,14 @@ separate limitation. No secure-erasure guarantee is made.
 .build/debug/ospr-cli rewrite 'Um, keep every sentence and number.'
 ```
 
-Run from the checkout or set `OSPR_ROOT`. The native app/CLI own a serial Python
+The standalone app also includes `Contents/MacOS/ospr-cli`, which discovers its
+bundled engine automatically, including through a symlink. For example:
+
+```sh
+/Applications/OSpr.app/Contents/MacOS/ospr-cli doctor
+```
+
+Development commands run from the checkout or use `OSPR_ROOT`. The native app/CLI own a serial Python
 child over stdio; no local inference HTTP server is required.
 
 Optional MCP uses the official Python SDK and stdio:

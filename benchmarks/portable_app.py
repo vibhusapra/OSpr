@@ -1,6 +1,6 @@
 """Verify a copied app runtime offline from a foreign working directory.
 
-Requires all five ASR, rewrite-quality and diarization weights already cached.
+Requires all six ASR, rewrite-quality and diarization weights already cached.
 This exercises the bundled worker and optional MCP, not native permissions/UI.
 """
 import argparse
@@ -24,7 +24,7 @@ def main():
     app = args.app.resolve(strict=True)
     item = json.loads((ROOT/'fixtures/manifest.json').read_text())['items'][0]
     notes_text = 'Do not ship on Friday. Priya will send the review on Monday. The proposed price is $12.50.'
-    models = ['parakeet-v3', 'whisper-turbo', 'whisper-small', 'qwen3-asr', 'nemotron-streaming']
+    models = ['parakeet-v3', 'whisper-turbo', 'whisper-small', 'qwen3-asr', 'nemotron-streaming','cohere-native8']
     with tempfile.TemporaryDirectory(prefix='ospr-portable-') as temporary:
         directory = Path(temporary)
         copied = directory/'OSpr Relocated.app'
@@ -43,12 +43,19 @@ def main():
         replies = [json.loads(line) for line in process.stdout.splitlines()]
         assert process.returncode == 0 and len(replies) == len(requests), (process.stdout, process.stderr[-3000:])
         assert all(r['ok'] for r in replies), replies
-        assert all('quilter' in r['result']['text'].lower() for r in replies[1:6]), replies
-        assert replies[6]['result']['excerpts'] and all(r['text'] in notes_text for r in replies[6]['result']['excerpts'])
-        assert replies[7]['result']['words'] and 'quilter' in replies[7]['result']['raw_text'].lower()
+        assert all('quilter' in r['result']['text'].lower() for r in replies[1:7]), replies
+        assert replies[7]['result']['excerpts'] and all(r['text'] in notes_text for r in replies[7]['result']['excerpts'])
+        assert replies[8]['result']['words'] and 'quilter' in replies[8]['result']['raw_text'].lower()
         assert (directory/'mixed.wav').stat().st_size > audio.stat().st_size
         info = subprocess.check_output([str(python), '-c', 'import sys, mlx.core; print(sys.prefix); print(mlx.core.__file__)'], cwd=directory, env=environment, text=True)
         assert str(copied) in info and str(ROOT.parent/'.venv') not in info, info
+        cli = copied/'Contents/MacOS/ospr-cli'
+        native = subprocess.run([str(cli), 'doctor'], capture_output=True, text=True, cwd=directory, env=environment, timeout=30)
+        assert native.returncode == 0 and 'parakeet-v3' in json.loads(native.stdout)['models'], native.stderr
+        linked = directory/'ospr-cli'
+        linked.symlink_to(cli)
+        symlinked = subprocess.run([str(linked), 'doctor'], capture_output=True, text=True, cwd=directory, env=environment, timeout=30)
+        assert symlinked.returncode == 0 and 'parakeet-v3' in json.loads(symlinked.stdout)['models'], symlinked.stderr
 
         async def check_mcp():
             from mcp import Client, StdioServerParameters
@@ -61,11 +68,11 @@ def main():
                 return names
         mcp_tools = asyncio.run(check_mcp())
         receipt = dict(timestamp=datetime.datetime.now(datetime.UTC).isoformat(), status='passed',
-                       boundary='Copied app path with spaces, hostile PYTHONPATH, foreign cwd, offline bundled interpreter/worker, all five ASR engines, source-excerpt notes, speaker word attribution, clocked track mix and MCP tool listing. Native microphone, permissions and UI not exercised.',
+                       boundary='Copied app path with spaces, hostile PYTHONPATH, foreign cwd, offline bundled interpreter/worker, all six ASR engines, source-excerpt notes, speaker word attribution, clocked track mix and MCP tool listing. Native microphone, permissions and UI not exercised.',
                        fixture_id=item['id'], fixture_sha256=item['sha256'],
                        executable_sha256=hashlib.sha256((app/'Contents/MacOS/OSpr').read_bytes()).hexdigest(),
                        build=json.loads((app/'Contents/Resources/build-info.json').read_text()),
-                       interpreter_and_mlx_inside_bundle=True, mcp_tools=mcp_tools, results=replies[1:-1])
+                       interpreter_and_mlx_inside_bundle=True, bundled_cli_foreign_cwd=True, mcp_tools=mcp_tools, results=replies[1:-1])
         args.output.write_text(json.dumps(receipt,indent=2,ensure_ascii=False)+'\n')
         print(json.dumps(dict(status='passed', models=models, extras=['notes','speakers','mix','mcp'], output=str(args.output)),indent=2))
 

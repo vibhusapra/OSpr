@@ -5,7 +5,7 @@ import OSprCore
     static func main() async {
         let args = Array(CommandLine.arguments.dropFirst())
         guard let command = args.first else { usage(); return }
-        let root = ProcessInfo.processInfo.environment["OSPR_ROOT"] ?? FileManager.default.currentDirectoryPath
+        let root = EngineLocation.resolve()
         let worker = WorkerClient(root: root)
         defer { worker.shutdown() }
         do {
@@ -49,5 +49,5 @@ import OSprCore
             print(String(data: data, encoding: .utf8)!)
         } catch { FileHandle.standardError.write(Data((error.localizedDescription + "\n").utf8)); exit(1) }
     }
-    static func usage() { print("OSpr · local Apple Silicon dictation\nUsage: ospr-cli doctor | warm [model] | transcribe <audio> [model] | meeting <audio> [model] | benchmark <audio> [model] [repeats] | rewrite <text>\nRun from the checkout, or set OSPR_ROOT. Models: parakeet-v3, whisper-turbo, whisper-small, qwen3-asr, nemotron-streaming") }
+    static func usage() { print("OSpr · local Apple Silicon dictation\nUsage: ospr-cli doctor | warm [model] | transcribe <audio> [model] | meeting <audio> [model] | benchmark <audio> [model] [repeats] | rewrite <text>\nBundled CLI discovers its engine; development commands use the checkout or OSPR_ROOT. Models: parakeet-v3, cohere-native8, whisper-turbo, whisper-small, qwen3-asr, nemotron-streaming") }
 }
