@@ -46,7 +46,7 @@ open dist/standalone/OSpr.app
 ```
 
 This app bundles a relocatable Python runtime and inference libraries (about
-1.3 GB before compression), and downloads weights separately. All five engines
+1.3 GB before compression), and downloads weights separately. All six engines
 passed an offline smoke test after moving the bundle to a path containing spaces,
 using a temporary working directory and an unrelated `PYTHONPATH`. The bundle
 minimum OS follows its build host (this artifact: macOS 26.6.2); source setup on

@@ -31,7 +31,7 @@ def main():
         print(json.dumps(child(sys.argv[1], sys.argv[2]=='1')))
         return
     records = []
-    for model in ['parakeet-v3', 'whisper-turbo', 'qwen3-asr', 'nemotron-streaming']:
+    for model in ['parakeet-v3', 'cohere-native8', 'whisper-turbo', 'whisper-small', 'qwen3-asr', 'nemotron-streaming']:
         for repeat in range(3):
             for primed in ([False, True] if repeat % 2 == 0 else [True, False]):
                 result = subprocess.run([sys.executable, __file__, model, str(int(primed))], capture_output=True, text=True, check=True, env=dict(os.environ, HF_HUB_OFFLINE='1'))
