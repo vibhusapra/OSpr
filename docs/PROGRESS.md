@@ -55,9 +55,14 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
   checks precede archive replacement. Only an Apple Development identity is
   available locally; Developer ID/notarization remains open.
 
+- [x] History persistence moved off the editor path: 300 ms coalescing, serial
+  writes, quit flush, unreadable-file protection and recording recovery retained
+  until storage confirmation. Five ordering/failure tests; deterministic 10,000-row
+  benchmark retains identical final bytes with one write instead of fifty.
+
 ## Verification and evidence
 
-- [x] Native tests: 61 passed, covering text fidelity rules, Unicode snippets, retention/storage,
+- [x] Native tests: 66 passed, covering text fidelity rules, Unicode snippets, retention/storage,
   provider endpoint restrictions, multipart/chat/Anthropic loopback contracts,
   30 concurrent worker requests, timeout/restart, audio frame integrity/overflow,
   secure-field early rejection and recovery store restart/corrupt-metadata cases.
@@ -88,6 +93,9 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 - [ ] Native recovery retry/export/discard and incremental streaming walkthrough.
 - [ ] Clean standalone installation, move/upgrade, signing/notarization and updater.
 - [ ] Neural endpointing/VAD calibration, word alignment, deeper URL/app context.
+- [ ] Original-audio playback and timestamp seeking in transcript review.
+- [ ] Large-history launch loading and indexed search; current archive writes are
+  asynchronous but the JSON archive is still loaded into memory at launch.
 - [x] Experimental speaker-labeled file imports with recognizer word timestamps;
   stitched-speech and natural AMI prefix measurements. Labels still need review.
 - [x] Experimental ScreenCaptureKit desktop plus optional microphone capture, separate

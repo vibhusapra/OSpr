@@ -1,0 +1,32 @@
+{
+  "archive_bytes" : 7747787,
+  "boundary" : "Deterministic synthetic archive, sequential rapid edits, full-array mutation, 30-day retention filtering and persistence admission. Legacy encodes\/writes synchronously per edit; new path admits snapshots to a serial background writer with 300 ms debounce and awaits one final flush. No SwiftUI rendering or human typing cadence.",
+  "cli_executable_sha256" : "ed692a5fc4342413ae52bcd42756ce42f31c5987b19862b35eb97045f2b59ddd",
+  "coalescing" : {
+    "edit_p50_ms" : 0.60787500000000005,
+    "edit_p95_ms" : 0.64233300000000004,
+    "failed_writes" : 0,
+    "flush_ms" : 107.291083,
+    "total_ms" : 138.163917,
+    "writes" : 1
+  },
+  "edits" : 50,
+  "final_files_identical" : true,
+  "final_sha256" : "67f8428abcca115bb14f8939ff61b3c5c0e8c94b62077468ed366b1b9616a3f4",
+  "git_commit_at_run" : "50696a95b6e8ce411ba9b38b2e462bbcde4497ec",
+  "legacy" : {
+    "edit_p50_ms" : 51.233874999999998,
+    "edit_p95_ms" : 52.645333000000001,
+    "total_ms" : 2574.7339590000001,
+    "writes" : 50
+  },
+  "limitations" : [
+    "Fixed legacy-first order; no filesystem cache\/thermal isolation.",
+    "Single Mac and synthetic short transcripts; does not measure UI frame timing, launch indexing or crash recovery."
+  ],
+  "platform" : "Version 26.6.2 (Build 25G83)",
+  "rows" : 10000,
+  "source_changes_at_run" : false,
+  "source_files_at_run_sha256" : "f2801d2af6eb04060728770d25c157aa1b8f4545d9046023967217cf00e930c4",
+  "timestamp" : "2026-10-22T14:38:06Z"
+}

@@ -176,3 +176,13 @@ is no capture pacing or native UI/IPC. This harness feeds arrays directly, while
 the Nemotron replay uses a temporary WAV for each packet. The first-word audio
 position is not end-to-end display latency or the configured model lag. Full
 English/stress/multilingual gates are required before considering app integration.
+
+## History storage path
+
+Run `.build/release/ospr-cli benchmark-history 10000 50` after a release build.
+The deterministic synthetic archive compares the old synchronous full JSON write
+on each edit with the new serial background writer, 300 ms coalescing and final
+flush. Both include value mutation and 30-day retention filtering; final files
+must be byte-identical. The receipt records source and executable hashes plus
+the repository revision at run time. Fixed order and no filesystem/thermal
+isolation; this measures storage admission, not SwiftUI frames or real typing.

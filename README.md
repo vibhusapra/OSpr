@@ -142,6 +142,11 @@ restart and can be retried or exported. In-progress capture before stop is not y
 crash-recovered. No analytics or automatic screen/clipboard context
 collection is included.
 
+History edits coalesce for 300 ms on a serial background writer and flush on
+orderly quit. New recording recovery is kept until saved history is confirmed.
+Unreadable history is preserved until an explicit reset. An abrupt crash can lose
+an unflushed edit; large-history launch loading/search indexing remain open.
+
 Model language coverage differs. Parakeet has 25 European languages and no
 vocabulary prompting in this adapter. Whisper supports broader language coverage.
 Qwen and Nemotron are useful alternatives, not universal accuracy winners. Do not

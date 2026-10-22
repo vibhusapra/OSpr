@@ -208,7 +208,7 @@
     {
       "feature": "Transcript editor, search, copy, delete",
       "status": "implemented",
-      "evidence": "Local history UI; data/retention tests.",
+      "evidence": "Local editable history, saved/session status, search/copy/delete. Serial background JSON persistence coalesces edits for 300 ms, flushes on quit and protects unreadable history; five ordering/failure tests and 10,000-record synthetic storage benchmark.",
       "gap": "Final updated UI checks pending unlock.",
       "priority": "P1"
     },
@@ -222,8 +222,8 @@
     {
       "feature": "History privacy and retention",
       "status": "verified",
-      "evidence": "Atomic owner-only JSON; configurable retention/disable saving. Engine stderr logging opt-in. Private temporary decode directories clean normally and orphaned dead-worker directories are cleaned next use.",
-      "gap": "History is not application-encrypted; use FileVault. Large-history indexing/async persistence remains work. Abrupt termination during active native capture can leave private temporary audio; no secure-erasure claim.",
+      "evidence": "Atomic owner-only JSON; configurable retention/disable saving. A dedicated serial writer coalesces edits, flushes on orderly quit, preserves unreadable files until explicit reset and confirms history before releasing recording recovery. Private temporary audio cleanup and opt-in diagnostics.",
+      "gap": "History is not application-encrypted; use FileVault. Launch loading/search indexing remain work. An abrupt crash can lose an unflushed edit inside the 300 ms debounce window. Abrupt active capture can leave private temporary audio; no secure-erasure claim.",
       "priority": "P0"
     },
     {
@@ -299,7 +299,7 @@
     {
       "feature": "Signed/notarized standalone installer",
       "status": "partial",
-      "evidence": "Relocatable Python app bundle; moved-path, hostile PYTHONPATH, temporary cwd and all five offline engines passed. Ad-hoc signature verified.",
+      "evidence": "Relocatable Python app bundle; moved-path, hostile PYTHONPATH, temporary cwd and all six offline engines passed. Ad-hoc signature verified.",
       "gap": "Clean-Mac interactive install, Developer ID/notarization and updater remain.",
       "priority": "P0"
     },
