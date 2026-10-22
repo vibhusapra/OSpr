@@ -68,8 +68,8 @@
     {
       "feature": "Model cache manager and download progress",
       "status": "contract-tested",
-      "evidence": "Offline pinned eight-model inventory, required artifact size checks, download-only with no GPU load, request-scoped byte progress and explicit engine memory release. Real pinned 266-byte fresh-cache download passed; cached inventory/download native CLI checks passed.",
-      "gap": "Native visual interaction and large interrupted-download walkthrough pending unlock. Shared cache deletion stays external and explicit.",
+      "evidence": "Offline pinned eight-model inventory, required artifact size checks, download-only with no GPU load, request-scoped byte progress and explicit engine memory release. Real pinned 266-byte fresh-cache download passed; cached inventory/download native CLI checks passed. Native cached inventories, release-to-zero and model reload passed.",
+      "gap": "Fresh/large interrupted-download visual walkthrough remains untested. Shared cache deletion stays external and explicit.",
       "priority": "P0"
     },
     {
@@ -104,14 +104,14 @@
       "feature": "Insertion into original field",
       "status": "implemented",
       "evidence": "AX selected-text insertion and clipboard fallback; app, field, cursor checks.",
-      "gap": "TextEdit, browser and editor matrix pending unlock.",
+      "gap": "TextEdit, browser and editor matrix still pending.",
       "priority": "P0"
     },
     {
       "feature": "Clipboard restoration and secure-field handling",
       "status": "partial",
       "evidence": "Private-pasteboard tests preserve multiple rich items, overlapping paste leases and user-copy changes. Secure-field rejection; strict app/field/cursor/selected-text checks.",
-      "gap": "Real native/browser secure-field and paste-fallback verification pending unlock. Explicit unverified-field compatibility option reduces field checks.",
+      "gap": "Real native/browser secure-field and paste-fallback verification still pending. Explicit unverified-field compatibility option reduces field checks.",
       "priority": "P0"
     },
     {
@@ -195,21 +195,21 @@
       "feature": "Credential storage",
       "status": "implemented",
       "evidence": "macOS Keychain per endpoint origin and speech/text purpose. Immediate endpoint rebinding plus a send-time cross-origin guard; canonical scope and stale-key tests. No keys in settings/history.",
-      "gap": "Actual Keychain prompts and persistence pending unlocked interactive QA. Older unscoped keys are preserved but require re-entry.",
+      "gap": "Actual Keychain prompts and persistence still pendinged interactive QA. Older unscoped keys are preserved but require re-entry.",
       "priority": "P0"
     },
     {
       "feature": "File and batch transcription",
       "status": "partial",
       "evidence": "Local WAV/FLAC normalization and real AAC/FFmpeg decode test; sequential batch UI. Optional local speaker labels with recognizer word times.",
-      "gap": "Native file-picker/drop interaction pending unlock.",
+      "gap": "Native single-file picker and watched import passed; interactive multi-file/drop and large interruption matrix remain.",
       "priority": "P0"
     },
     {
       "feature": "Transcript editor, search, copy, delete",
       "status": "implemented",
       "evidence": "Local editable history, saved/session status, search/copy/delete. Serial background JSON persistence coalesces edits for 300 ms, flushes on quit and protects unreadable history; five ordering/failure tests and 10,000-record synthetic storage benchmark.",
-      "gap": "Final updated UI checks pending unlock.",
+      "gap": "Final updated UI checks still pending.",
       "priority": "P1"
     },
     {
@@ -243,8 +243,8 @@
     {
       "feature": "Cancel, timeout and worker recovery",
       "status": "verified",
-      "evidence": "Generation fences, process-group termination, startup watchdog and ignored-SIGTERM escalation; completed-take and raw dual-track recovery across store restart. Processing cancellation keeps recovery; orderly quit preserves active takes. Active network Tasks are cancelled; slow loopback response cancellation tested.",
-      "gap": "Native retry/export/discard and quit interactions pending unlock. Active capture before an abrupt crash is not automatically recovered.",
+      "evidence": "Generation fences, process-group termination, startup watchdog and ignored-SIGTERM escalation; completed-take and raw dual-track recovery across store restart. Processing cancellation keeps recovery; orderly quit preserves active takes. Active network Tasks are cancelled; slow loopback response cancellation tested. Native empty-result recovery/retry, restart preservation, private full-byte WAV export and canceling discard confirmation passed.",
+      "gap": "Native retry/export/discard and quit interactions still pending. Active capture before an abrupt crash is not automatically recovered.",
       "priority": "P0"
     },
     {
@@ -285,8 +285,8 @@
     {
       "feature": "Watched folders and automations",
       "status": "implemented",
-      "evidence": "Stable-file polling, changed-source fingerprints, persisted deduplication, retry backoff and private TXT/JSON/SRT/VTT exports. Queue/scanner tests.",
-      "gap": "Native choose/enable/export interaction acceptance pending. No webhook destination yet.",
+      "evidence": "Stable-file polling, changed-source fingerprints, persisted deduplication, retry backoff and private TXT/JSON/SRT/VTT exports. Queue/scanner tests. Native picker plus one public-file ingestion, History save, four mode-0600 exports and repeated-scan deduplication passed; test automation restored off.",
+      "gap": "Interrupted/large native queue acceptance and destination webhooks remain.",
       "priority": "P2"
     },
     {
@@ -314,7 +314,7 @@
       "feature": "Top-three product ranking",
       "status": "unproven",
       "evidence": "OSpr engines measured against a persistent Metal whisper.cpp baseline.",
-      "gap": "Equivalent consumer-app runs and user-task correction-cost study not completed. powermetrics requires administrator authentication unavailable in this session; no energy results.",
+      "gap": "Equivalent consumer-app runs and user-task correction-cost study remain. Rootless whole-system energy experiments are exploratory; post-fix Parakeet idle drift was inconclusive, with no calibrated battery attribution.",
       "priority": "P0"
     },
     {

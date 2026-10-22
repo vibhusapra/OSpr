@@ -29,7 +29,7 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 - [x] Native CLI and optional stdio MCP with explicit file/text tools.
 - [x] GUI startup guard before model/store construction, private nonblocking
   interprocess lock, close-on-exec descriptor and legacy-instance activation. Four
-  ownership/lifetime/symlink/process tests pass; native activation acceptance pending.
+  ownership/lifetime/symlink/process tests pass; native second-copy launch left one original GUI; foreground activation remains unproven.
 - [x] Oversized provider uploads are normalized locally to mono 16 kHz PCM16 WAV;
   a 70-second stereo take shrank from over 25 MB to 2.2 MB with duration, spectrum
   and original bytes preserved. Very long files still need splitting/local ASR.
@@ -135,7 +135,8 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
   Four synthetic coverage sentinels passed; natural relevance and context review remain.
 - [ ] Improve diarization quality and evaluate complete abstractive summaries.
 - [x] Watched-folder implementation, stability/deduplication/backoff/scanner tests;
-  interactive folder selection and auto-export acceptance pending.
+  native folder selection, public-file ingestion, History save, four private exports
+  and repeated-scan deduplication passed; large/interrupted queue matrix remains.
 - [ ] Native webhook/automation destinations.
 - [x] Exploratory rootless system-power experiment: six shipping engines plus the
   rejected legacy Cohere control, public speech, resident-model idle/load/idle,
@@ -168,4 +169,5 @@ The machine-readable acceptance ledger is authoritative for feature status;
 - Native empty-speech microphone completion retained a recoverable take; retry kept it.
   Recovery exports now use owner-only staged copies off the UI thread, including
   raw-track metadata. Unfinished-take deletion now requires a native confirmation.
-  Those final recovery UI changes still require retest. No private capture is published.
+  Recovery export and canceling discard were retested; original bytes and owner-only
+  permissions confirmed. Private microphone data is excluded from Git.
