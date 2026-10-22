@@ -151,7 +151,7 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 - [ ] Large-history launch loading and indexed search. WIP on
   `codex/indexed-history`: transactional SQLite, streaming verified migration,
   summary pages, on-demand detail, literal Unicode substring search and counters.
-  Twenty storage regressions pass; the source suite totals 147 Swift tests.
+  Twenty-one database and eighteen repository regressions pass; the source suite totals 166 Swift tests.
   In six fresh storage-only processes on a deterministic 100,000-record archive,
   initial data p50 is 3.45 s for JSON versus 2.98 ms for the indexed prototype;
   median process peak RSS is 1.83 GB versus 17.6 MB. Matching IDs/counts/detail
@@ -160,8 +160,12 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
   (earlier 892 MiB). Index disk size is 516 MB versus 304 MB of legacy JSON.
   An 8 KiB page control saved only 0.3% disk and had a larger observed migration
   peak, so the default remains 4 KiB. Raw results for both controls are retained.
-  The current app and packaged preview continue using JSON. Serial asynchronous
-  repository, paged UI/selection/search, session-only/privacy transitions and
+  The serial asynchronous repository is implemented and tested, including coalesced
+  edits, failed-write retry, deletion/clear barriers, whole-archive maintenance
+  and canceled reads. A documented older-SQLite FTS integrity false positive was
+  reproduced and corrected without hiding a deliberately damaged index.
+  The current app and packaged preview continue using JSON. App repository wiring,
+  paged UI/selection/search, session-only/privacy transitions and
   native acceptance remain before activation. See `architecture/indexed-history.md`.
 - [x] Experimental speaker-labeled file imports with recognizer word timestamps;
   stitched-speech and natural AMI prefix measurements. Labels still need review.

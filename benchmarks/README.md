@@ -397,3 +397,23 @@ checks the measured binary; `--baseline <receipt>` also checks the same fixture.
 Three trials are exploratory. Timings exclude CLI spawn, SwiftUI rendering, app
 launch, real user archives and human typing. RSS is the child's lifetime Darwin
 peak; disk space and one-time migration costs are reported separately.
+
+## SQLite compatibility control
+
+`history_sqlite_compatibility.py --shell /absolute/path/to/sqlite-shell` accepts
+multiple `--shell` arguments. The owned in-memory SQL extracts the app's actual
+FTS schema/triggers and reproduces its insert, prune, edit, audio strip and delete
+sequence. Old runtimes falsely report corruption after secure deletion; merging
+the existing index before checking fixes that report while a deliberately
+divergent index still fails. This is a correctness control, not a performance
+comparison. `results/history-sqlite-compatibility.json` records all commands'
+hashes, outputs, exact runtimes and source fingerprints.
+
+The local controls were compiled from official SQLite amalgamations 3.42.0 and
+3.43.2 (2023), 3.46.0 and 3.46.1 (2024), with `clang -O2 -DSQLITE_ENABLE_FTS5
+shell.c sqlite3.c -o sqlite-shell -lm`. The system shell supplies 3.51.0. Inputs
+are from `https://www.sqlite.org/<year>/sqlite-amalgamation-<version-number>.zip`;
+downloaded C sources and compiled controls are not runtime dependencies of
+OSpr and are kept under ignored `.local/sqlite-compat`; inputs are fingerprinted
+in the receipt, and each test database exists only in memory. Full macOS 15 Swift CI
+checks the real system-linked implementation independently.

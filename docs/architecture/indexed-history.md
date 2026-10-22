@@ -8,8 +8,9 @@ migrated, and this prototype is not included in the previously packaged preview.
 ## Storage contract
 
 `HistoryDatabase` owns a single thread-confined system SQLite connection. Its
-eventual repository must run opening, migration, queries and writes on a serial
-background executor. App-data migration requires the existing `AppInstanceLock`.
+asynchronous `HistoryRepository` runs opening, migration, queries and writes on
+a serial background queue. Constructing the repository performs no filesystem
+work; closing its connection also stays on that queue. App-data migration requires the existing `AppInstanceLock`.
 The core type is public for the CLI harness; it must not be called on the UI
 executor by the app integration.
 
@@ -75,9 +76,10 @@ fixture are fingerprinted. This does not measure SwiftUI rendering or app launch
 
 ## Integration gates
 
-- Add the serial asynchronous repository and incremental, coalescing upserts.
-  Preserve failed pending edits, ordering around deletion, explicit reset and
-  orderly-quit flush. Test that callbacks and filesystem work stay off the UI.
+- Integrate the implemented serial repository into AppModel. Core tests cover
+  coalescing, read-your-edit, failed batches, tombstones, clear barriers,
+  whole-archive retention/audio changes and async/quit flushes. Opening and
+  callbacks stay off MainActor. UI wiring and session-only transitions remain.
 - Replace the full-array UI model with summary pages, aggregate counts and
   separately loaded selected/latest details. A summary must never overwrite a
   complete stored transcript. Fence stale detail/search/page responses.
@@ -117,3 +119,42 @@ fixture, so 4 KiB remains the default. Both complete raw controls are retained.
 Packing/compression and broader real-history distributions remain future work.
 
 The final receipt retains the exact measured CLI under `.local/history-index-measured-cli`. A rebuild from identical source need not have the same Mach-O hash. Use `--cli` only with the preserved measured binary; source provenance is independently checked against the recorded Git commit. Subsequent nested-field migration guards have their own correctness tests and are not represented as remeasured performance.
+
+## Async admission and compatibility checks
+
+`HistoryRepository` owns the database lazily on a private serial queue. Separate
+new IDs retain admission order; repeated edits coalesce. Field-specific text and
+notes mutations read the latest complete payload, preserving timing, other edits
+and already evicted audio. Source-mismatched notes and edits to removed records
+fail without resurrecting them. An atomic batch combines upserts, deletion
+tombstones, clear, retention and audio removal; failed batches remain pending.
+Only explicit clear can reset an unreadable archive. Audio cleanup is returned
+after commit, and ordinary edits use indexed ownership checks rather than loading
+all archive references. Audio-link stripping retains one payload at a time.
+
+Canceled reads skip queued work and reject obsolete completed results. A running
+SQL statement or migration finishes safely; read cancellation never interrupts
+a transaction or discards admitted writes. Debounced UI search still needs its
+own selection/query epochs. `flushAsync` is the ordinary durability barrier;
+blocking `flush` is reserved for orderly quit and rejects callback reentry. The
+latest coalesced observer receives batch completion on the repository queue,
+including failures and explicit retry results. UI consumers must always perform
+committed audio cleanup even when their presentation token is stale.
+
+Eighteen repository regressions and twenty-one database regressions pass as
+part of 166 Swift tests. The initial macOS 15 CI run exposed SQLite's documented
+[pre-3.46.1 secure-delete integrity false positive](https://www.sqlite.org/releaselog/3_46_1.html).
+A conditional FTS `optimize` before diagnostics merges the existing index; it
+does not rebuild it from transcript content. Controls on SQLite 3.42.0, 3.43.2,
+3.46.0, 3.46.1 and the system 3.51.0 reproduce the old report, pass the correction
+and still reject a deliberately divergent index. The actual Swift test also
+checks the legacy branch with a damaged index. The macOS 15.7.9 Swift suite (165 tests), Python checks (94 tests) and standalone
+runtime gates passed on Apple SQLite 3.43.2 in run 39873308963 on commit dabd41b; the subsequent lease-lifetime test also passes locally.
+The shell controls are not native-app acceptance or timing results.
+See `benchmarks/results/history-sqlite-compatibility.json` and the reproduction
+script `benchmarks/history_sqlite_compatibility.py`.
+
+The GUI passes its `AppInstanceLock` into the repository. The repository retains
+that lease through queued operations and explicitly closes its SQLite connection
+on the private queue before releasing the lease. A lifetime regression verifies
+that a second owner is rejected until this teardown completes.
