@@ -145,4 +145,15 @@ final class AudioArchiveTests: XCTestCase {
         XCTAssertEqual(result.expiredAudio, [old.audioFile!])
         XCTAssertTrue(LocalStore.pruning([old, boundary], days: 0, now: now).expiredAudio.isEmpty)
     }
+    func testReprocessingCopySurvivesDeletionOfTheOriginalHistoryAudio() async throws {
+        let archive = try archive(), id = UUID()
+        let audio = try await archive.adoptPrepared(prepared(archive, size: 64), id: id, limitBytes: 100)
+        try await archive.finishLease(audio.name, keep: true)
+        let copy = try await archive.copyForReprocessing(name: audio.name, id: id)
+        try await archive.remove([audio.name])
+        XCTAssertEqual(try Data(contentsOf: copy).count, 64)
+        XCTAssertFalse(FileManager.default.fileExists(atPath: audio.url.path))
+        try await archive.discardStaging(copy)
+        XCTAssertFalse(FileManager.default.fileExists(atPath: copy.path))
+    }
 }

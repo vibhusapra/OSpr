@@ -830,6 +830,24 @@ import OSprCore
             } catch { self.error = "Audio export failed: \(error.localizedDescription)" }
         }
     }
+    func reprocessRetainedAudio(_ record: Transcript) {
+        guard !busy, let name = record.audioFile else { return }
+        generation = UUID(); let token = generation
+        phase = "transcribing"; error = ""; audioReview.pause()
+        status = "Transcribing retained audio with your selected speech model…"
+        var config = settings
+        config.mode = .verbatim; config.rewriteProvider = "none"; config.autoPaste = false
+        operationTask = Task {
+            do {
+                let source = try await audioArchive.copyForReprocessing(name: name, id: record.id)
+                defer { Task { try? await audioArchive.discardStaging(source) } }
+                guard generation == token else { return }
+                _ = await transcribe(file: source, duration: record.duration, config: config, mode: .verbatim, target: nil,
+                                     source: "Reprocessed · " + record.date.formatted(date: .abbreviated, time: .shortened), token: token)
+            } catch { if generation == token { self.error = error.localizedDescription } }
+            if generation == token { phase = "idle" }
+        }
+    }
 
     func generateNotes(_ record: Transcript) {
         guard !busy else { return }

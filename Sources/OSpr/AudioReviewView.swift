@@ -30,7 +30,11 @@ import OSprCore
             HStack {
                 Text("Local audio · recognizer source").font(.caption).foregroundStyle(.secondary)
                 Spacer()
-                Button("Export audio…") { model.exportRetainedAudio(record) }.font(.caption).disabled(model.busy)
+                Menu("Audio actions") {
+                    Button("Export WAV…") { model.exportRetainedAudio(record) }
+                    Button(model.settings.transcriptionProvider == "local" ? "Transcribe again locally" : "Transcribe again with BYOK") { model.reprocessRetainedAudio(record) }
+                }.font(.caption).disabled(model.busy)
+                    .help("Reprocessing uses the current speech model and language, creates a new verbatim transcript, and keeps existing edits.")
             }
             DisclosureGroup("Timed original transcript") {
                 VStack(alignment: .leading, spacing: 8) {

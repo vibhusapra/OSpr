@@ -49,6 +49,17 @@ public actor AudioArchive {
         try checkRoot()
         return directory.appendingPathComponent(".stage-" + UUID().uuidString + ".wav")
     }
+    public func copyForReprocessing(name: String, id: UUID) throws -> URL {
+        try Task.checkCancellation()
+        guard let source = try resolve(name: name, id: id) else { throw OSprError.message("Retained audio is no longer available.") }
+        let temporary = try newStagingURL()
+        do {
+            try FileManager.default.copyItem(at: source, to: temporary)
+            try FileManager.default.setAttributes([.posixPermissions: 0o600], ofItemAtPath: temporary.path)
+            try Task.checkCancellation()
+            return temporary
+        } catch { try? FileManager.default.removeItem(at: temporary); throw error }
+    }
     /// Short-lived copy for a compliant compressed BYOK upload. Normalization
     /// and upload consume the same immutable source; it never becomes history.
     public func snapshotUploadSource(_ source: URL, limitBytes: Int64) throws -> URL? {

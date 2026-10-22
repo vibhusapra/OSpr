@@ -45,6 +45,11 @@ enum AudioReviewCheck {
         let audioTracks = try await asset.loadTracks(withMediaType: .audio)
         let videoTracks = try await asset.loadTracks(withMediaType: .video)
         guard abs(duration - record.duration) < 0.01, audioTracks.count == 1, videoTracks.isEmpty else { throw OSprError.message("Retained media duration/tracks differ.") }
+        let replay = try await restarted.copyForReprocessing(name: audio.name, id: id)
+        try await restarted.remove([audio.name])
+        let reprocessed = try await worker.request(["action": "transcribe", "path": replay.path, "model": "parakeet-v3", "language": "en"])
+        guard reprocessed["text"] as? String == text else { throw OSprError.message("Private reprocessing copy did not preserve recognition.") }
+        try await restarted.discardStaging(replay)
         try await restarted.eraseAll()
         guard !FileManager.default.fileExists(atPath: restored.path), try store.read([Transcript].self, name: "history.json")?.first?.text == text else {
             throw OSprError.message("Audio-only deletion affected transcript text or retained the recording.")
@@ -53,6 +58,7 @@ enum AudioReviewCheck {
                 "source_sha256": SHA256.hash(data: try Data(contentsOf: source)).map { String(format: "%02x", $0) }.joined(),
                 "audio_seconds": duration, "normalized_bytes": audio.bytes, "text": text,
                 "warm_worker_survived_budget_rejection": true, "normalized_asr_matches_original": true,
+                "reprocess_copy_survived_original_deletion": true,
                 "history_and_archive_restart": true, "audio_only_deletion_kept_text": true,
                 "avfoundation_audio_tracks": audioTracks.count, "avfoundation_video_tracks": videoTracks.count,
                 "boundary": "Swift CLI and Core audio archive/history → owned Python worker normalization and actual local Metal ASR → store restart → AVFoundation duration/tracks. No playback sound, microphone, permissions or SwiftUI interaction."]
