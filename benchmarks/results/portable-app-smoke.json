@@ -1,16 +1,16 @@
 {
-  "timestamp": "2026-10-22T14:46:36.961760+00:00",
+  "timestamp": "2026-10-22T16:18:49.303257+00:00",
   "status": "passed",
   "boundary": "Copied app path with spaces, hostile PYTHONPATH, foreign cwd, offline bundled interpreter/worker, all six ASR engines, source-excerpt notes, speaker word attribution, clocked track mix, local upload preparation, pinned model inventory/download-only/warm progress and MCP tool listing. Native microphone, permissions and UI not exercised.",
   "fixture_id": "1272-128104-0000",
   "fixture_sha256": "799f78ed4beb4de7ceae3a809262d4ce242394342ccd1d58cef7d49dbc2def46",
-  "executable_sha256": "3d5be3bfe0b3712fb4d65b64495dee6b20509941fcbae2458868c862278865ec",
+  "executable_sha256": "9c4c3f8bb87f3526987e33be0135f6d39380ed77ca489e3b48de2b7a292dedeb",
   "build": {
     "version": "0.1.0",
-    "built_at": "2026-10-22T14:42:37.663210+00:00",
-    "git_commit": "3d9a86b08be17899c651cc4f372eb5c6e6a5bfc1",
+    "built_at": "2026-10-22T16:17:57.457553+00:00",
+    "git_commit": "09adadd1ce2b93d019801d1f46d9de6d85b81d1e",
     "tracked_changes": false,
-    "application_source_sha256": "09b816f9c1790ac01030728cc4c172248db32b4ae5a5ee4f6c7028a56cbb10f8",
+    "application_source_sha256": "52b45c7bbea1aae5d9fd0ac92e5a1cafffc2f436222d7a2821ef9cadaef3a045",
     "boundary": "Development build; ad-hoc signature; weights downloaded separately."
   },
   "interpreter_and_mlx_inside_bundle": true,
@@ -40,6 +40,23 @@
       }
     }
   ],
+  "native_audio_review": {
+    "audio_only_deletion_kept_text": true,
+    "audio_seconds": 5.855,
+    "avfoundation_audio_tracks": 1,
+    "avfoundation_video_tracks": 0,
+    "boundary": "Swift CLI and Core audio archive/history → owned Python worker normalization and actual local Metal ASR → store restart → AVFoundation duration/tracks. No playback sound, microphone, permissions or SwiftUI interaction.",
+    "history_and_archive_restart": true,
+    "model": "parakeet-v3",
+    "normalized_asr_matches_original": true,
+    "normalized_bytes": 374800,
+    "reprocess_copy_survived_original_deletion": true,
+    "source_sha256": "799f78ed4beb4de7ceae3a809262d4ce242394342ccd1d58cef7d49dbc2def46",
+    "status": "passed",
+    "text": "mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+    "timestamp": "2026-10-22T16:18:44Z",
+    "warm_worker_survived_budget_rejection": true
+  },
   "results": [
     {
       "id": "parakeet-v3",
@@ -60,12 +77,12 @@
         "language": "en",
         "silence": false,
         "warm": false,
-        "load_ms": 710.5416670674458,
-        "preprocess_ms": 0.7479999912902713,
-        "decode_ms": 245.84441690240055,
-        "total_ms": 957.1399169508368,
-        "peak_gpu_bytes": 2071495038,
-        "active_gpu_bytes": 1296214220,
+        "load_ms": 665.0793330045417,
+        "preprocess_ms": 0.7423330098390579,
+        "decode_ms": 508.07549990713596,
+        "total_ms": 1173.9027500152588,
+        "peak_gpu_bytes": 2628686282,
+        "active_gpu_bytes": 1296148684,
         "vocabulary_applied": false,
         "timestamp_granularity": "segment"
       }
@@ -89,11 +106,11 @@
         "language": "en",
         "silence": false,
         "warm": false,
-        "load_ms": 168.1677090236917,
-        "preprocess_ms": 0.6034169346094131,
-        "decode_ms": 200.53312496747822,
-        "total_ms": 369.31191699113697,
-        "peak_gpu_bytes": 2556663702,
+        "load_ms": 169.5866669761017,
+        "preprocess_ms": 0.5646670470014215,
+        "decode_ms": 1548.100957996212,
+        "total_ms": 1718.2611670577899,
+        "peak_gpu_bytes": 2549674878,
         "active_gpu_bytes": 1618309810,
         "vocabulary_applied": false,
         "timestamp_granularity": "segment"
@@ -118,10 +135,10 @@
         "language": "en",
         "silence": false,
         "warm": false,
-        "load_ms": 152.7232090011239,
-        "preprocess_ms": 0.7191250333562493,
-        "decode_ms": 128.7743329303339,
-        "total_ms": 282.22404106054455,
+        "load_ms": 149.76129203569144,
+        "preprocess_ms": 0.7327919593080878,
+        "decode_ms": 124.57791704218835,
+        "total_ms": 275.07816697470844,
         "peak_gpu_bytes": 1447410502,
         "active_gpu_bytes": 484088562,
         "vocabulary_applied": false,
@@ -149,10 +166,10 @@
         ],
         "silence": false,
         "warm": false,
-        "load_ms": 4013.748332974501,
-        "preprocess_ms": 0.585624948143959,
-        "decode_ms": 179.67783310450613,
-        "total_ms": 4194.017415982671,
+        "load_ms": 3937.408125028014,
+        "preprocess_ms": 0.546916970051825,
+        "decode_ms": 960.1963750319555,
+        "total_ms": 4898.15679192543,
         "peak_gpu_bytes": 3499426694,
         "active_gpu_bytes": 2492459500,
         "vocabulary_applied": false,
@@ -178,10 +195,10 @@
         "language": "en",
         "silence": false,
         "warm": false,
-        "load_ms": 189.64429094921798,
-        "preprocess_ms": 0.7946250261738896,
-        "decode_ms": 109.98700000345707,
-        "total_ms": 300.4324589855969,
+        "load_ms": 184.48404094669968,
+        "preprocess_ms": 0.68229204043746,
+        "decode_ms": 376.5803329879418,
+        "total_ms": 561.753167072311,
         "peak_gpu_bytes": 986222114,
         "active_gpu_bytes": 797418506,
         "vocabulary_applied": false,
@@ -207,10 +224,10 @@
         "language": "en",
         "silence": false,
         "warm": false,
-        "load_ms": 342.7118749823421,
-        "preprocess_ms": 0.7008339744061232,
-        "decode_ms": 85.96879208926111,
-        "total_ms": 429.38762495759875,
+        "load_ms": 338.1185409380123,
+        "preprocess_ms": 0.5718340398743749,
+        "decode_ms": 1111.495624994859,
+        "total_ms": 1450.1945419469848,
         "peak_gpu_bytes": 2615828762,
         "active_gpu_bytes": 2482087246,
         "vocabulary_applied": false,
@@ -245,7 +262,7 @@
         "chunks": 1,
         "limitations": "Exact excerpts, selected by a model. May miss context, decisions or commitments; review the full transcript.",
         "model": "mlx-community/Qwen3-4B-Instruct-2507-4bit",
-        "total_ms": 732.055666972883
+        "total_ms": 734.5313340192661
       }
     },
     {
@@ -389,12 +406,12 @@
         "language": "en",
         "silence": false,
         "warm": false,
-        "load_ms": 98.04587496910244,
-        "preprocess_ms": 0.5169999785721302,
-        "decode_ms": 110.1324160117656,
-        "total_ms": 254.77908295579255,
-        "peak_gpu_bytes": 4765784426,
-        "active_gpu_bytes": 3668570138,
+        "load_ms": 95.42483405675739,
+        "preprocess_ms": 0.5082499701529741,
+        "decode_ms": 119.20716695021838,
+        "total_ms": 582.7580830082297,
+        "peak_gpu_bytes": 5235689742,
+        "active_gpu_bytes": 3668537370,
         "vocabulary_applied": false,
         "timestamp_granularity": "recognizer-word",
         "raw_text": "mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
@@ -406,7 +423,7 @@
           }
         ],
         "num_speakers": 1,
-        "diarization_ms": 14.067042036913335,
+        "diarization_ms": 336.7870000656694,
         "limitations": [
           "Anonymous within-recording labels, not identity recognition.",
           "Overlapping speech is flagged, not separated; ASR can omit simultaneous words.",
@@ -418,7 +435,7 @@
       "id": "mix",
       "ok": true,
       "result": {
-        "path": "/private/var/folders/p0/pvbw136x5yj_6yybdln6w60c0000gn/T/ospr-portable-o9ig7r78/mixed.wav",
+        "path": "/private/var/folders/p0/pvbw136x5yj_6yybdln6w60c0000gn/T/ospr-portable-rq7gne34/mixed.wav",
         "audio_seconds": 6.105,
         "tracks": 2,
         "description": "Presentation-clock aligned local tracks; equal-weight mix, no echo cancellation."
@@ -428,7 +445,7 @@
       "id": "prepare-upload",
       "ok": true,
       "result": {
-        "path": "/private/var/folders/p0/pvbw136x5yj_6yybdln6w60c0000gn/T/ospr-portable-o9ig7r78/upload.wav",
+        "path": "/private/var/folders/p0/pvbw136x5yj_6yybdln6w60c0000gn/T/ospr-portable-rq7gne34/upload.wav",
         "audio_seconds": 5.855,
         "bytes": 187404,
         "format": "16 kHz mono PCM16 WAV",
@@ -618,9 +635,19 @@
       "ok": true,
       "result": {
         "model": "parakeet-v3",
-        "load_ms": 0.002125045284628868,
-        "prime_ms": 30.897292075678706,
-        "total_ms": 30.906833009794354
+        "load_ms": 0.0021670712158083916,
+        "prime_ms": 83.39508296921849,
+        "total_ms": 83.42170901596546
+      }
+    },
+    {
+      "id": "prepare-review",
+      "ok": true,
+      "result": {
+        "audio_seconds": 5.855,
+        "bytes": 374800,
+        "format": "16 kHz mono float32 WAV",
+        "source_unchanged": true
       }
     }
   ]
