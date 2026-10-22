@@ -61,7 +61,9 @@ final class HistoryJSONStream {
     }
     private func byte() throws -> UInt8? {
         if offset == buffer.count {
-            buffer = try file.read(upToCount: 65536) ?? Data(); offset = 0
+            // FileHandle's bridged buffers can accumulate in the caller's
+            // autorelease pool across the entire archive. Retain just this read.
+            buffer = try autoreleasepool { try file.read(upToCount: 65536) ?? Data() }; offset = 0
             if buffer.isEmpty { return nil }
             hash.update(data: buffer)
         }

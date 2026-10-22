@@ -58,6 +58,7 @@ enum HistoryIndexBenchmark {
             "platform": ProcessInfo.processInfo.operatingSystemVersionString,
             "sqlite_version": String(cString: sqlite3_libversion()), "migration": migration,
             "summary": summary, "records": records, "all_query_ids_and_first_detail_equal": true,
+            "percentile_method": "Linear interpolation over sorted observed trials (NumPy default). Three trials are exploratory, not a tail-latency SLA.",
             "boundary": "New owned CLI process per mode/trial; timings start after command dispatch and exclude process spawn. Legacy decodes the complete JSON archive, computes all words and filters every record before taking 100 results. Indexed opens an already migrated database, obtains aggregate counts, loads 100 lightweight rows and decodes one selected detail. Eight literal queries include common, rare, missing, path, punctuation, Unicode and short cases. No SwiftUI, native app launch, typing cadence, real user archives or inference.",
             "limitations": ["Deterministic synthetic timing-rich transcripts, not naturally distributed history.",
                 "Migration runs first; subsequent serial order is seeded-random. OS caches remain primed; no filesystem or thermal isolation.",
@@ -181,7 +182,9 @@ enum HistoryIndexBenchmark {
     private static func milliseconds(since start: UInt64) -> Double { Double(DispatchTime.now().uptimeNanoseconds - start) / 1e6 }
     private static func median(_ values: [Double]) -> Double { percentile(values, 0.5) }
     private static func percentile(_ values: [Double], _ fraction: Double) -> Double {
-        let sorted = values.sorted(); return sorted[min(sorted.count - 1, Int(Double(sorted.count - 1) * fraction))]
+        let sorted = values.sorted(), position = Double(values.count - 1) * fraction
+        let lower = Int(position), upper = min(sorted.count - 1, lower + 1)
+        return sorted[lower] + (sorted[upper] - sorted[lower]) * (position - Double(lower))
     }
     private static func git(_ arguments: [String], at directory: URL) -> String? {
         let process = Process(), output = Pipe()

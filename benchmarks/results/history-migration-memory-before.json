@@ -1,0 +1,39 @@
+{
+  "verified_at": "2026-10-22T23:05:46Z",
+  "fixture": {
+    "bytes": 303900003,
+    "rows": 100000,
+    "sha256": "296f5207c7c0761757acf51e52e66ad44c5dd62eb0da44e6a2ab613fce334f5f",
+    "text_words_per_record": 22,
+    "timed_words_per_record": 21
+  },
+  "rows": 100000,
+  "platform": "Version 26.6.2 (Build 25G83)",
+  "sqlite_version": "3.51.0",
+  "migration": {
+    "database_bytes": 515993600,
+    "first_record_sha256": "8c1dab6c38b486986e297b6c941e3d1189be09ba2203b6bc64846809b7af5be2",
+    "initial_data_ms": 33158.618125,
+    "matches": {},
+    "mode": "migration",
+    "peak_rss_bytes": 935231488,
+    "query_ms": {},
+    "records": 100000,
+    "words": 2200000
+  },
+  "cli_sha256": "14259679cba9341f5e9d88d0e1ee9c0114421f891885da5df0e8e767fdeb5e34",
+  "git_base_commit": "bccde50b497633b05aea59ae73af11e19273ff5e",
+  "source_files_sha256": {
+    "Package.swift": "31899adccaf3481805e965cf6dc453dedc46839117f7a48b8ef5ad7500ba02e3",
+    "Sources/OSprCLI/HistoryIndexBenchmark.swift": "6094a71149e82d32d87cfbf14405fd4440b65c80b547071ea61d51e18553754b",
+    "Sources/OSprCLI/OSprCLI.swift": "1f1388d9f9eb8f4bb033ab3990cccc8ebdc585b5a06cb6085d862f103eeb5eec",
+    "Sources/OSprCore/Domain.swift": "a12b25c78ac927862bfbe7cf5f4762797386b86f890a0110aba6b20af2306125",
+    "Sources/OSprCore/HistoryDatabase.swift": "8de19eb491ffbe09ea54c4663f6ef5e3363f00eea2449a30e2366d071243bbc4",
+    "Sources/OSprCore/HistoryJSONStream.swift": "a91cf62bfbcd30b5c4821e4cac5c4109f35f4d00e05629df2ddbbaf06441440c"
+  },
+  "source_changes_at_run": false,
+  "status": "passed",
+  "kind": "migration-only-extract",
+  "raw_receipt_sha256": "01d8c5f3c00fc8e3a0fe1f838ae80842100b93de670ee73ea3e5e3e6a736346c",
+  "boundary": "One fresh migration process from the initial 100000-row experiment, retained to compare peak memory before bounding FileHandle read temporaries. Initial data timing includes migration, counts, first page and one selected detail. Full original receipt retained locally; source and fixture fingerprints allow reproduction. No GUI or whole-app result. No percentile statistic is derived from this single migration."
+}

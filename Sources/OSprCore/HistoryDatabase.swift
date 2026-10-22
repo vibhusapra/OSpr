@@ -351,7 +351,7 @@ public final class HistoryDatabase {
     private func fileDigest(_ url: URL) throws -> String {
         let file = try FileHandle(forReadingFrom: url); defer { try? file.close() }
         var hash = SHA256()
-        while let data = try file.read(upToCount: 65536), !data.isEmpty { hash.update(data: data) }
+        while let data = try autoreleasepool(invoking: { try file.read(upToCount: 65536) }), !data.isEmpty { hash.update(data: data) }
         return hash.finalize().map { String(format: "%02x", $0) }.joined()
     }
     private func metadata(_ key: String) throws -> String? {
