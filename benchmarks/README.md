@@ -336,3 +336,12 @@ general accuracy winner or a top-three product ranking. The first harness was
 untracked when executed; its exact SHA is retained and the unchanged executed
 source is committed alongside the results. See the raw `product-cli.json` and
 `vibe-release-provenance.json` receipts.
+
+`startup_imports.py --app <bundle> [--model parakeet-v3]` instruments the bundled
+worker with Python import tracing, a public speech request and EOF shutdown.
+It separates boot, first-request and exit observations and stores only module
+timing records. The initial diagnostic attributes about 901 ms of inclusive
+import time to `scipy.signal` during a roughly 1,121 ms boot. Cumulative imports
+overlap; do not sum them or treat instrumentation as a latency benchmark. The
+next optimization must also check real resampling inputs and first-use model
+preparation, rather than shifting cost into the first microphone take.

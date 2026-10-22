@@ -176,6 +176,10 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
   Cache-primed process starts, different default preprocessing, no GUI/voice/energy
   or top-three ranking claim. Raw results and official-release provenance retained.
 - [ ] Profile and reduce the measured cold-process startup gap.
+  Initial import tracing found `scipy.signal` consuming about 901 ms inclusive
+  during a 1,121 ms instrumented worker boot. The raw diagnostic is retained;
+  no startup improvement is claimed yet. Check model-loader imports, resampling
+  formats and explicit warmup before changing the execution path.
 - [ ] Equivalent installed consumer-app GUI/dictation benchmarks, correction effort and energy;
   broader speaker/accent/noise/spontaneous dictation and code-switching evaluation.
 - [ ] Validate on lower-memory and older Apple Silicon hardware.
