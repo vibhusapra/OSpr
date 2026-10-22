@@ -6,6 +6,7 @@ import OSprCore
     @ObservedObject var player: AudioReviewPlayer
     let record: Transcript
     @State private var showWords = false
+    @State private var retry = 0
     init(model: AppModel, record: Transcript) {
         self.model = model; self.record = record; self.player = model.audioReview
     }
@@ -24,7 +25,7 @@ import OSprCore
             }.disabled(!player.ready || blocksPlayback)
             if player.loading { ProgressView("Preparing local playback…").controlSize(.small) }
             if !player.error.isEmpty {
-                HStack { Text(player.error).font(.caption).foregroundStyle(.orange); Button("Retry") { Task { await loadAudio() } }.font(.caption).disabled(blocksPlayback) }
+                HStack { Text(player.error).font(.caption).foregroundStyle(.orange); Button("Retry") { retry += 1 }.font(.caption).disabled(blocksPlayback) }
             }
             HStack {
                 Text("Local audio · recognizer source").font(.caption).foregroundStyle(.secondary)
@@ -51,7 +52,7 @@ import OSprCore
                 }
             }.font(.caption)
         }.padding(12).background(Color.osprPurple.opacity(0.04), in: RoundedRectangle(cornerRadius: 12))
-        .task(id: record.audioFile) { await loadAudio() }
+        .task(id: record.id.uuidString + (record.audioFile ?? "") + String(retry)) { await loadAudio() }
         .onDisappear { if player.fileName == record.audioFile { player.stop() } }
     }
     private var blocksPlayback: Bool { model.phase == "recording" || model.phase == "starting" || model.audioMaintenance }

@@ -26,12 +26,13 @@ import OSprCore
         return AVURLAsset(url: url, options: [AVURLAssetReferenceRestrictionsKey: AVAssetReferenceRestrictions.forbidAll.rawValue])
     }
     func load(_ url: URL) async {
+        guard !Task.isCancelled else { return }
         stop(); let token = generation; fileName = url.lastPathComponent; loading = true
         do {
             let asset = try Self.localAsset(url)
             let length = try await asset.load(.duration).seconds
             let tracks = try await asset.loadTracks(withMediaType: .audio)
-            guard generation == token else { return }
+            guard generation == token, !Task.isCancelled else { return }
             guard length.isFinite, length > 0, !tracks.isEmpty else { throw OSprError.message("This retained file has no playable audio.") }
             duration = length
             let item = AVPlayerItem(asset: asset)
@@ -64,7 +65,7 @@ import OSprCore
                 }
             }
         } catch {
-            if generation == token { self.error = error.localizedDescription; loading = false }
+            if generation == token && !Task.isCancelled { self.error = error.localizedDescription; loading = false }
         }
     }
     func toggle() {
