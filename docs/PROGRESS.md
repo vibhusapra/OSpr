@@ -115,6 +115,10 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 - [x] Watched-folder implementation, stability/deduplication/backoff/scanner tests;
   interactive folder selection and auto-export acceptance pending.
 - [ ] Native webhook/automation destinations.
+- [x] Exploratory rootless system-power experiment: six shipping engines plus the
+  rejected legacy Cohere control, public speech, resident-model idle/load/idle,
+  filtered telemetry, exact tool/source/model provenance and signed idle subtraction.
+  Shared-system drift is visible; no calibrated attribution or battery claim.
 - [ ] Equivalent installed consumer-app benchmarks, correction effort and energy;
   broader speaker/accent/noise/spontaneous dictation and code-switching evaluation.
 - [ ] Validate on lower-memory and older Apple Silicon hardware.

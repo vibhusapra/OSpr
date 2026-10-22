@@ -199,3 +199,42 @@ runs the same check through the bundled CLI from a relocated offline app.
 Unit tests additionally verify sample-bit preservation, real MP4 audio extraction,
 quota eviction, source immutability, ownership/path guards and stale load state.
 These checks do not replace interactive playback or microphone acceptance.
+
+## Exploratory system power
+
+Install the official Homebrew `mactop` formula, then run
+`HF_HUB_OFFLINE=1 PYTHONPATH=backend .venv/bin/python benchmarks/energy.py`.
+The harness guards the inspected tool version (2.1.6), verifies the public
+test-clean fixture hashes, warms each engine, and uses a fixed seeded random
+model order. Each block has 20 seconds of resident-model idle, at least 30 seconds
+of sustained serial inference, and 20 seconds of idle afterward. No other
+benchmarks, packaging or downloads should run concurrently. Three seconds around
+each transition are excluded from the sample means. Interior mean watts times
+the full active duration estimates joules; subtracting the mean of the two idle
+blocks produces a signed incremental estimate. Normalize by decoded input seconds.
+
+Only an allowlist of power/temperature/thermal counters is retained. The tool's
+process, port, network and device inventories are discarded before persistence.
+No background service, HTTP endpoint, screen capture, fan setting, elevated
+privilege or extra app permission is enabled. See the pinned
+[monitor implementation](https://github.com/metaspartan/mactop/tree/1e314f047dd7b494f286b7118fea80b3006c41be)
+and each receipt's tool, source and model fingerprints.
+
+These are OS/private-API whole-system estimates, including monitoring and other
+desktop activity. Sparse sampling, idle drift, thermals and shared-system noise
+prevent calibrated app attribution, battery-life conclusions or a consumer-app
+ranking. Maximum throughput differs from human-paced dictation. Published raw
+outputs retain the decoded public speech for accuracy audit. The initial run also
+includes the previously rejected Swift-layout Cohere conversion, explicitly
+marked research-only; later default runs select the six shipping engines.
+
+## Long-file completeness
+
+Run `PYTHONPATH=backend .venv/bin/python benchmarks/long_session.py` to build
+deterministic 10-minute and hour-long WAVs from the preselected test-clean clips.
+It verifies source hashes, preserves whole utterances, inserts 250 ms of silence,
+and records every source span and reference. Then run the existing harness with
+`--manifest fixtures/long-session.json --no-trim --model <model>`.
+This exercises chunk/token/resource limits with synthetic speaker joins and
+repeated public speech. It is not natural-meeting or independent new-speaker
+accuracy evidence. Check tail deletions and timeouts, not just aggregate WER.
