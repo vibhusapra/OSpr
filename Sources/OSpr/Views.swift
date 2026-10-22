@@ -383,7 +383,7 @@ struct DictionaryView: View {
             PageTitle(eyebrow: "Your words, exactly", title: "Give your vocabulary a home.", description: "Names, project terms, and phrases you use every day. Deterministic replacements work with every engine.")
             Card { VStack(alignment: .leading, spacing: 12) {
                 Text("Vocabulary hints").font(.headline)
-                Text("Whisper uses these during recognition. Parakeet uses the replacements below; it does not support vocabulary prompting in this adapter.").font(.caption).foregroundStyle(.secondary)
+                Text("Whisper uses these during recognition. Deepgram Nova-3 uses comma- or newline-separated phrases as keyterms (up to 100 in OSpr; provider token limits also apply). Parakeet uses the replacements below; it does not support vocabulary prompting in this adapter.").font(.caption).foregroundStyle(.secondary)
                 TextEditor(text: $model.settings.vocabulary).font(.body).frame(height: 100).padding(8).overlay(RoundedRectangle(cornerRadius: 8).stroke(.quaternary))
                 Button("Save vocabulary") { model.saveOSprSettings() }
             } }
@@ -462,7 +462,19 @@ struct PreferencesView: View {
                 Text("Nemotron streams incremental audio and flushes its cache at finish. Other models decode a rolling 12-second window every 3 seconds, adding GPU work. Partial text is displayed in OSpr, then final text is inserted.").font(.caption).foregroundStyle(.secondary)
             }
             Section("Speech recognition") {
-                Picker("Transcription", selection: $model.settings.transcriptionProvider) { Text("Local MLX · audio stays on Mac").tag("local"); Text("BYOK · upload audio to selected provider").tag("compatible") }
+                Picker("Transcription", selection: Binding(get: { model.settings.transcriptionProvider }, set: { provider in
+                    let previous = model.settings.transcriptionProvider
+                    model.settings.transcriptionProvider = provider
+                    if provider == "deepgram" {
+                        model.settings.transcriptionURL = "https://api.deepgram.com/v1"; model.settings.transcriptionModel = "nova-3"
+                    } else if provider == "compatible" && previous == "deepgram" {
+                        model.settings.transcriptionURL = "https://api.groq.com/openai/v1"; model.settings.transcriptionModel = "whisper-large-v3-turbo"
+                    }
+                })) {
+                    Text("Local MLX · audio stays on Mac").tag("local")
+                    Text("BYOK · compatible speech API").tag("compatible")
+                    Text("BYOK · Deepgram prerecorded API").tag("deepgram")
+                }
                 if model.settings.transcriptionProvider != "local" {
                     Text("Recordings will be uploaded to this endpoint. Charges and retention are controlled by your provider.").font(.caption).foregroundStyle(.orange)
                     Text("Large files are split locally into audio-only parts, uploaded in order. Nothing is saved as a completed transcript until every part succeeds. Retrying a failed file uploads its parts again and may incur provider charges.").font(.caption).foregroundStyle(.secondary)
@@ -471,6 +483,9 @@ struct PreferencesView: View {
                     TextField("Model ID", text: $model.settings.transcriptionModel)
                     SecureField("API key · saved in Keychain", text: $model.transcriptionKey)
                     Text("Keys are remembered separately for each provider origin.").font(.caption).foregroundStyle(.secondary)
+                    if model.settings.transcriptionProvider == "deepgram" {
+                        Text("Deepgram receives locally normalized mono audio. Nova-3 keyterms, punctuation and word times are supported. Blank language uses its detection, which may select another supported Deepgram model. This route does not stream audio or request cloud speaker labels, summaries or smart number formatting.").font(.caption).foregroundStyle(.secondary)
+                    }
                 }
             }
             Section("Optional text refinement") {
@@ -533,9 +548,10 @@ struct ProviderPresetPicker: View {
     var body: some View {
         Menu("Use a provider preset") {
             if kind == "transcription" {
-                Button("Groq · Whisper Turbo") { model.settings.transcriptionURL = "https://api.groq.com/openai/v1"; model.settings.transcriptionModel = "whisper-large-v3-turbo" }
-                Button("OpenAI · gpt-transcribe") { model.settings.transcriptionURL = "https://api.openai.com/v1"; model.settings.transcriptionModel = "gpt-transcribe" }
-                Button("Local compatible server") { model.settings.transcriptionURL = "http://127.0.0.1:8080/v1"; model.settings.transcriptionModel = "whisper-1" }
+                Button("Groq · Whisper Turbo") { model.settings.transcriptionProvider = "compatible"; model.settings.transcriptionURL = "https://api.groq.com/openai/v1"; model.settings.transcriptionModel = "whisper-large-v3-turbo" }
+                Button("OpenAI · gpt-transcribe") { model.settings.transcriptionProvider = "compatible"; model.settings.transcriptionURL = "https://api.openai.com/v1"; model.settings.transcriptionModel = "gpt-transcribe" }
+                Button("Deepgram · Nova-3") { model.settings.transcriptionProvider = "deepgram"; model.settings.transcriptionURL = "https://api.deepgram.com/v1"; model.settings.transcriptionModel = "nova-3" }
+                Button("Local compatible server") { model.settings.transcriptionProvider = "compatible"; model.settings.transcriptionURL = "http://127.0.0.1:8080/v1"; model.settings.transcriptionModel = "whisper-1" }
             } else {
                 Button("Ollama · Qwen3 1.7B") { model.settings.rewriteProvider = "ollama"; model.settings.rewriteURL = "http://127.0.0.1:11434/v1"; model.settings.rewriteModel = "qwen3:1.7b" }
                 Button("OpenAI-compatible · enter model ID") { model.settings.rewriteProvider = "compatible"; model.settings.rewriteURL = "https://api.openai.com/v1"; model.settings.rewriteModel = "" }

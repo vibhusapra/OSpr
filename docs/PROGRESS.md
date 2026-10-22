@@ -20,7 +20,7 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
   secure-field rejection, app/field/cursor revalidation.
 - [x] Local history, edit/search/copy/delete/retention, raw/edited text separation,
   vocabulary, literal snippets, opt-in spoken punctuation and app modes.
-- [x] Local optional refinement, separate BYOK audio/text routes, compatible,
+- [x] Local optional refinement, separate BYOK audio/text routes, native Deepgram prerecorded, compatible,
   Anthropic and Ollama paths, Keychain storage, no silent cloud fallback.
 - [x] File and sequential batch import, FFmpeg media fallback, TXT/JSON/SRT/VTT.
 - [x] Cached Nemotron preview/finalization; rolling preview for other models.
@@ -74,9 +74,16 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
   until storage confirmation. Five ordering/failure tests; deterministic 10,000-row
   benchmark retains identical final bytes with one write instead of fifty.
 
+- [x] Native Deepgram prerecorded API: binary mono audio, Token auth, Nova-3
+  vocabulary keyterms, explicit/automatic language, utterance/word timing and
+  preserved numeric/filler wording. A literal-plus query bug was found and fixed.
+  Loopback contracts cover malformed timing/responses, late failure and cancellation;
+  real CLI/worker 80-minute every-sample transport passed. No paid API, model-quality
+  or cloud-streaming claim. Native provider UI acceptance remains pending.
+
 ## Verification and evidence
 
-- [x] Native tests: 116 passed, covering text fidelity rules, Unicode snippets, retention/storage,
+- [x] Native tests: 127 passed, covering text fidelity rules, Unicode snippets, retention/storage,
   provider endpoint restrictions, multipart/chat/Anthropic loopback contracts,
   30 concurrent worker requests, timeout/restart, audio frame integrity/overflow,
   secure-field early rejection and recovery store restart/corrupt-metadata cases.

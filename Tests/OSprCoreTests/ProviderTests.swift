@@ -127,4 +127,108 @@ final class ProviderTests: XCTestCase {
             XCTFail("Multipart framing must not take the request over its size limit")
         } catch { XCTAssertTrue(error.localizedDescription.contains("multipart request exceeds 25 MB")) }
     }
+    private func deepgramFixture() throws -> URL {
+        let file = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".wav")
+        try Data("RIFF-public-fixture".utf8).write(to: file)
+        return file
+    }
+    func testDeepgramBinaryAuthVocabularyAndExplicitLanguageContract() async throws {
+        let file = try deepgramFixture(); defer { try? FileManager.default.removeItem(at: file) }
+        let result = try await ProviderClient.transcribe(file: file, base: base.replacingOccurrences(of: "/v1", with: "/deepgram-hints"), model: "nova-3", key: "test-key", language: "en", vocabulary: "OSpr, C++\nR&D\nnaïve café", provider: "deepgram")
+        XCTAssertEqual(result["text"] as? String, "Keep repeated phrase.")
+        XCTAssertEqual(result["audio_seconds"] as? Double, 1)
+        XCTAssertEqual(result["timestamp_source"] as? String, "provider-utterances")
+        XCTAssertEqual((result["words"] as? [[String: Any]])?.first?["text"] as? String, "Keep")
+    }
+    func testDeepgramBlankLanguageUsesDetectionInsteadOfEnglishDefault() async throws {
+        let file = try deepgramFixture(); defer { try? FileManager.default.removeItem(at: file) }
+        let result = try await ProviderClient.transcribe(file: file, base: base.replacingOccurrences(of: "/v1", with: "/deepgram-auto"), model: "nova-3", key: "test-key", language: "", vocabulary: "", provider: "deepgram")
+        XCTAssertEqual(result["language"] as? String, "en")
+    }
+    func testDeepgramPlanPreservesRepeatedTextAndOffsetsEveryWord() async throws {
+        let workspace = try ProviderUploadWorkspace(); defer { workspace.close() }
+        let result = try await ProviderClient.transcribe(plan: plan(in: workspace), base: base.replacingOccurrences(of: "/v1", with: "/deepgram"), model: "nova-3", key: "test-key", language: "en", vocabulary: "", provider: "deepgram")
+        XCTAssertEqual(result["text"] as? String, "Keep repeated phrase.\nKeep repeated phrase.")
+        XCTAssertEqual(result["audio_seconds"] as? Double, 1.5)
+        let words = try XCTUnwrap(result["words"] as? [[String: Any]])
+        XCTAssertEqual(words.count, 2)
+        XCTAssertEqual(try XCTUnwrap(words[1]["start"] as? Double), 1.1, accuracy: 0.000001)
+        XCTAssertEqual(try XCTUnwrap(words[1]["end"] as? Double), 1.4, accuracy: 0.000001)
+    }
+    func testDeepgramBadTimesKeepTextWithExplicitCoarsePartTiming() async throws {
+        let workspace = try ProviderUploadWorkspace(); defer { workspace.close() }
+        let result = try await ProviderClient.transcribe(plan: plan(in: workspace), base: base.replacingOccurrences(of: "/v1", with: "/deepgram-coarse"), model: "nova-3", key: "test-key", language: "en", vocabulary: "", provider: "deepgram")
+        XCTAssertEqual(result["timestamp_source"] as? String, "provider-or-coarse-upload-part")
+        XCTAssertNil(result["words"])
+        let segments = try XCTUnwrap(result["segments"] as? [[String: Any]])
+        XCTAssertEqual(segments[1]["start"] as? Double, 1)
+        XCTAssertEqual(segments[1]["end"] as? Double, 1.5)
+    }
+    func testDeepgramLaterFailureDoesNotReturnPartialTextOrProviderErrorBody() async throws {
+        let workspace = try ProviderUploadWorkspace(); defer { workspace.close() }
+        do {
+            _ = try await ProviderClient.transcribe(plan: plan(in: workspace), base: base.replacingOccurrences(of: "/v1", with: "/deepgram-fail"), model: "nova-3", key: "test-key", language: "en", vocabulary: "", provider: "deepgram")
+            XCTFail("A later failed part must fail the complete request")
+        } catch {
+            XCTAssertTrue(error.localizedDescription.contains("HTTP 503"))
+            XCTAssertFalse(error.localizedDescription.contains("PRIVATE INPUT"))
+            XCTAssertFalse(error.localizedDescription.contains("Keep repeated phrase"))
+        }
+    }
+    func testDeepgramCancellationDuringLaterPartStopsPromptly() async throws {
+        let workspace = try ProviderUploadWorkspace(); defer { workspace.close() }
+        let prepared = try plan(in: workspace), endpoint = base.replacingOccurrences(of: "/v1", with: "/deepgram-slow")
+        let task = Task { try await ProviderClient.transcribe(plan: prepared, base: endpoint, model: "nova-3", key: "test-key", language: "en", vocabulary: "", provider: "deepgram") }
+        try await Task.sleep(for: .milliseconds(100)); let began = ContinuousClock.now; task.cancel()
+        do { _ = try await task.value; XCTFail("Cancelled upload must fail") }
+        catch { XCTAssertTrue(error is CancellationError || (error as? URLError)?.code == .cancelled) }
+        XCTAssertLessThan(began.duration(to: .now), .seconds(2))
+    }
+    func testDeepgramRejectsStreamingModelsUnsupportedHintsAndOversizedVocabularyLocally() async throws {
+        let file = try deepgramFixture(); defer { try? FileManager.default.removeItem(at: file) }
+        for (model, hints, message) in [("flux-general-en", "", "streaming API"), ("nova-2", "OSpr", "Nova-3"),
+            ("nova-3", Array(repeating: "hint", count: 101).joined(separator: "\n"), "100"),
+            ("nova-3", String(repeating: "😀", count: 5000), "too long")] {
+            do {
+                _ = try await ProviderClient.transcribe(file: file, base: base, model: model, key: "test-key", language: "en", vocabulary: hints, provider: "deepgram")
+                XCTFail("Expected local validation failure")
+            } catch { XCTAssertTrue(error.localizedDescription.contains(message), error.localizedDescription) }
+        }
+    }
+    func testNativeSpeechRoutesCannotFallThroughToCompatibleOrInsecureEndpoints() {
+        XCTAssertEqual(try ProviderClient.speechEndpoint(base: "https://api.deepgram.com/v1", provider: "deepgram").absoluteString, "https://api.deepgram.com/v1/listen")
+        XCTAssertThrowsError(try ProviderClient.speechEndpoint(base: "https://example.com/v1", provider: "unsupported"))
+        for base in ["http://remote.example/v1", "https://key:secret@example.com/v1", "https://example.com/v1?callback=other"] {
+            XCTAssertThrowsError(try ProviderClient.speechEndpoint(base: base, provider: "deepgram"))
+        }
+    }
+    private func deepgramResponse(duration: Any = 1.0, words: Any = []) -> [String: Any] {
+        ["metadata": ["duration": duration], "results": ["channels": [["alternatives": [["transcript": "A public phrase.", "words": words]]]]]]
+    }
+    func testDeepgramMalformedResponsesFailWithoutIncludingPayloadText() {
+        for duration: Any in [-1.0, Double.infinity, true, "PRIVATE INPUT", 14401.0] {
+            XCTAssertThrowsError(try DeepgramSpeech.normalized(deepgramResponse(duration: duration), requestedModel: "nova-3", language: "en")) { error in
+                XCTAssertFalse(error.localizedDescription.contains("PRIVATE INPUT"))
+            }
+        }
+        var multiple = deepgramResponse()
+        multiple["results"] = ["channels": [["alternatives": []], ["alternatives": []]]]
+        XCTAssertThrowsError(try DeepgramSpeech.normalized(multiple, requestedModel: "nova-3", language: "en"))
+    }
+    func testDeepgramMalformedWordTimesAreOmittedWithoutLosingTranscript() throws {
+        for end: Any in [true, Double.nan, -1.0, 99.0] {
+            let response = deepgramResponse(words: [["word": "phrase", "start": 0.0, "end": end]])
+            let result = try DeepgramSpeech.normalized(response, requestedModel: "nova-3", language: "en")
+            XCTAssertEqual(result["text"] as? String, "A public phrase.")
+            XCTAssertNil(result["words"])
+            XCTAssertEqual(result["timestamp_source"] as? String, "coarse-upload-part")
+        }
+    }
+    func testDeepgramEmptyOutputDoesNotInventSilenceAndDiscardRecovery() throws {
+        let response: [String: Any] = ["metadata": ["duration": 1.0], "results": ["channels": [["alternatives": [["transcript": "", "words": []]]]]]]
+        let result = try DeepgramSpeech.normalized(response, requestedModel: "nova-3", language: "en")
+        XCTAssertEqual(result["text"] as? String, "")
+        XCTAssertNil(result["silence"])
+        XCTAssertTrue((result["segments"] as? [[String: Any]])?.isEmpty == true)
+    }
 }

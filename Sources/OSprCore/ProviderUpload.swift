@@ -84,19 +84,21 @@ extension ProviderClient {
     /// before any assembled result is returned; no partial transcript is saved.
     public static func transcribe(plan: ProviderUploadPlan, base: String, model: String, key: String,
                                   language: String, vocabulary: String,
+                                  provider: String = "compatible",
                                   progress: (@Sendable (Int, Int) -> Void)? = nil) async throws -> [String: Any] {
-        _ = try endpoint(base: base, path: "audio/transcriptions")
+        _ = try speechEndpoint(base: base, provider: provider)
         let began = Date()
         var texts: [String] = [], segments: [[String: Any]] = [], words: [[String: Any]] = []
         var allWordTimes = true, coarseTiming = false, languages = Set<String>()
         for (index, part) in plan.parts.enumerated() {
             try Task.checkCancellation(); progress?(index + 1, plan.parts.count)
-            let result = try await transcribe(file: part.file, base: base, model: model, key: key, language: language, vocabulary: vocabulary)
+            let result = try await transcribe(file: part.file, base: base, model: model, key: key, language: language, vocabulary: vocabulary, provider: provider)
             try Task.checkCancellation()
             let text = result["text"] as? String ?? ""
             if let tag = result["language"] as? String, !tag.isEmpty { languages.insert(tag) }
             guard !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { continue }
             texts.append(text)
+            if (result["timestamp_source"] as? String)?.contains("coarse") == true { coarseTiming = true }
             if let timed = shiftedTimes(result["segments"], part: part, words: false), !timed.isEmpty { segments += timed }
             else { coarseTiming = true; segments.append(["start": part.start, "end": part.start + part.duration, "text": text]) }
             if let timed = shiftedTimes(result["words"], part: part, words: true), !timed.isEmpty { words += timed }

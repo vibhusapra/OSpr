@@ -711,10 +711,11 @@ import OSprCore
                     "language": config.language, "vocabulary": config.vocabulary, "trim": config.silenceTrim, "threshold": config.silenceThreshold])
             } else {
                 let key = try ProviderCredentialScope.checkedKey(transcriptionKey, boundTo: transcriptionKeyScope, kind: .transcription, base: config.transcriptionURL)
-                _ = try ProviderClient.endpoint(base: config.transcriptionURL, path: "audio/transcriptions")
+                _ = try ProviderClient.speechEndpoint(base: config.transcriptionURL, provider: config.transcriptionProvider)
                 let upload = uploadSnapshot ?? file
                 let directFormats = ["wav", "mp3", "m4a", "flac", "ogg"]
-                if (try upload.resourceValues(forKeys: [.fileSizeKey]).fileSize ?? 0) >= ProviderClient.directUploadBytes || !directFormats.contains(upload.pathExtension.lowercased()) {
+                let uploadBytes = try upload.resourceValues(forKeys: [.fileSizeKey]).fileSize ?? 0
+                if config.transcriptionProvider == "deepgram" || uploadBytes >= ProviderClient.directUploadBytes || !directFormats.contains(upload.pathExtension.lowercased()) {
                     status = "Preparing audio upload parts locally…"
                     let workspace = try ProviderUploadWorkspace()
                     defer { workspace.close() }
@@ -724,7 +725,7 @@ import OSprCore
                     uploadingGeneration = token
                     defer { if uploadingGeneration == token { uploadingGeneration = nil } }
                     result = try await ProviderClient.transcribe(plan: plan, base: config.transcriptionURL,
-                        model: config.transcriptionModel, key: key, language: config.language, vocabulary: config.vocabulary,
+                        model: config.transcriptionModel, key: key, language: config.language, vocabulary: config.vocabulary, provider: config.transcriptionProvider,
                         progress: { [weak self] part, total in
                             Task { @MainActor [weak self] in
                                 guard let self, self.generation == token, self.uploadingGeneration == token else { return }
@@ -734,7 +735,7 @@ import OSprCore
                 } else {
                     status = "Uploading to your selected speech provider…"
                     result = try await ProviderClient.transcribe(file: upload, base: config.transcriptionURL,
-                        model: config.transcriptionModel, key: key, language: config.language, vocabulary: config.vocabulary)
+                        model: config.transcriptionModel, key: key, language: config.language, vocabulary: config.vocabulary, provider: config.transcriptionProvider)
                 }
             }
             guard token == generation else { return false }

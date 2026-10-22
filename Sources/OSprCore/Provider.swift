@@ -12,6 +12,13 @@ private final class NoRedirects: NSObject, URLSessionTaskDelegate, @unchecked Se
 public enum ProviderClient {
     public static let maximumUploadBytes = 25_000_000
     public static let directUploadBytes = 24_000_000 // Leave room for multipart fields.
+    public static func speechEndpoint(base: String, provider: String) throws -> URL {
+        switch provider {
+        case "compatible": return try endpoint(base: base, path: "audio/transcriptions")
+        case "deepgram": return try endpoint(base: base, path: "listen")
+        default: throw OSprError.message("Choose a supported speech provider in Settings.")
+        }
+    }
     public static func endpoint(base: String, path: String) throws -> URL {
         guard let url = URL(string: base), let host = url.host, url.user == nil, url.password == nil,
               url.query == nil, url.fragment == nil,
@@ -67,7 +74,9 @@ public enum ProviderClient {
         throw OSprError.message("Provider returned no rewritten text.")
     }
 
-    public static func transcribe(file: URL, base: String, model: String, key: String, language: String, vocabulary: String) async throws -> [String: Any] {
+    public static func transcribe(file: URL, base: String, model: String, key: String, language: String, vocabulary: String, provider: String = "compatible") async throws -> [String: Any] {
+        if provider == "deepgram" { return try await DeepgramSpeech.transcribe(file: file, base: base, model: model, key: key, language: language, vocabulary: vocabulary) }
+        _ = try speechEndpoint(base: base, provider: provider)
         var request = URLRequest(url: try endpoint(base: base, path: "audio/transcriptions"))
         request.httpMethod = "POST"
         if !key.isEmpty { request.setValue("Bearer " + key, forHTTPHeaderField: "Authorization") }

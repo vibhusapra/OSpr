@@ -284,3 +284,20 @@ short-suite inputs and default ASR cuts with the recorded pre-change baseline.
 All normalized arrays and cut offsets match exactly. The receipt fingerprints
 both normalizers/chunkers, manifests and each normalized array; it does not rerun
 model inference or establish long-file quality.
+
+For the native Deepgram adapter, run the same harness with `--provider deepgram`.
+It uses `transcribe-deepgram`, binary WAV uploads, Token auth and the current
+Listen response shape; every returned word and utterance offset is checked.
+The receipt is `results/deepgram-upload-parts.json`. Release packaging requires
+both provider receipts to match the exact bundled CLI and build. Both use only
+loopback fixture responses and public speech; neither measures cloud ASR.
+
+`ospr-cli transcribe-deepgram <audio> https://api.deepgram.com/v1 nova-3 [language]`
+uses `OSPR_TRANSCRIPTION_KEY`. Blank language requests provider detection, which
+may select another supported Deepgram model. The GUI supports comma/newline
+vocabulary phrases for Nova-3; OSpr allows 100 phrases and the provider enforces
+its own 500-token cap. Literal plus, ampersands and Unicode are tested. Smart
+formatting and numeral conversion are disabled, fillers are requested, and cloud
+speaker labels/summaries are not requested. Missing or invalid timing keeps the
+text with explicitly coarse boundaries. Empty output does not fabricate a
+silence verdict. See [contract and primary sources](../docs/data/deepgram-contract.json).

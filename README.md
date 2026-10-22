@@ -101,6 +101,10 @@ until its transcripts/settings are backed up.
   is normalized locally into contiguous PCM16 parts of at most ten minutes. Each
   request stays below 25 MB; timestamps are offset to the full recording. Retries
   resend all parts and may incur provider charges. No partial result is saved.
+- Native Deepgram prerecorded BYOK uses Token auth, Nova-3 vocabulary keyterms,
+  language detection or an explicit hint, and utterance/word timestamps. Audio is
+  normalized locally before upload; automatic number formatting and paid add-on
+  features are not requested. Cloud streaming and paid-account validation remain open.
 - File/batch import, searchable editable local history, copy/delete/retention,
   and TXT/JSON/SRT/VTT export. Subtitles use **original** transcript timing.
 - Experimental local speaker-labeled imports: Nemotron 3 Diarization (up to eight

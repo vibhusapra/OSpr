@@ -18,6 +18,7 @@ import subprocess
 import tempfile
 import threading
 import time
+from urllib.parse import parse_qs, urlsplit
 
 import numpy as np
 import soundfile as sf
@@ -33,8 +34,11 @@ def sha(path):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--cli", type=Path, default=ROOT / ".build/debug/ospr-cli")
-    parser.add_argument("--output", type=Path, default=ROOT / "benchmarks/results/upload-parts.json")
+    parser.add_argument("--provider", choices=("compatible", "deepgram"), default="compatible")
+    parser.add_argument("--output", type=Path)
     args = parser.parse_args()
+    if args.output is None:
+        args.output = ROOT / "benchmarks/results" / ("deepgram-upload-parts.json" if args.provider == "deepgram" else "upload-parts.json")
     manifest_path = ROOT / "benchmarks/fixtures/long-session.json"
     manifest = json.loads(manifest_path.read_text())
     source_item = next(x for x in manifest["items"] if x["id"] == "public-concat-60m")
@@ -67,14 +71,24 @@ def main():
                 nonlocal cursor
                 try:
                     length = int(self.headers["Content-Length"])
-                    assert self.path == "/v1/audio/transcriptions" and length < 25_000_000
-                    assert self.headers["Authorization"] == "Bearer ospr-public-fixture-key"
+                    assert length < 25_000_000
                     body = self.rfile.read(length)
-                    message = BytesParser(policy=default).parsebytes(
-                        ("Content-Type: " + self.headers["Content-Type"] + "\r\nMIME-Version: 1.0\r\n\r\n").encode() + body
-                    )
-                    fields = {p.get_param("name", header="Content-Disposition"): p.get_payload(decode=True) for p in message.iter_parts()}
-                    assert fields["model"] == b"fixture-parts" and fields["language"] == b"en"
+                    if args.provider == "deepgram":
+                        route = urlsplit(self.path)
+                        query = parse_qs(route.query)
+                        assert route.path == "/v1/listen" and query["model"] == ["nova-3"] and query["language"] == ["en"]
+                        assert query["filler_words"] == ["true"] and query["smart_format"] == ["false"]
+                        assert self.headers["Authorization"] == "Token ospr-public-fixture-key"
+                        assert self.headers["Content-Type"] == "audio/wav"
+                        fields = {"file": body}
+                    else:
+                        assert self.path == "/v1/audio/transcriptions"
+                        assert self.headers["Authorization"] == "Bearer ospr-public-fixture-key"
+                        message = BytesParser(policy=default).parsebytes(
+                            ("Content-Type: " + self.headers["Content-Type"] + "\r\nMIME-Version: 1.0\r\n\r\n").encode() + body
+                        )
+                        fields = {p.get_param("name", header="Content-Disposition"): p.get_payload(decode=True) for p in message.iter_parts()}
+                        assert fields["model"] == b"fixture-parts" and fields["language"] == b"en"
                     with sf.SoundFile(io.BytesIO(fields["file"])) as audio:
                         assert audio.samplerate == 16000 and audio.channels == 1 and audio.subtype == "PCM_16"
                         decoded = audio.read(dtype="float32")
@@ -90,6 +104,11 @@ def main():
                         cursor += len(decoded)
                     text = f"Part {index + 1}. Keep this repeated phrase."
                     result = {"text": text, "language": "en", "segments": [{"start": .1, "end": .4, "text": text}]}
+                    if args.provider == "deepgram":
+                        result = {"metadata": {"duration": len(decoded) / 16000}, "results": {
+                            "channels": [{"detected_language": "en", "alternatives": [{"transcript": text,
+                                "words": [{"word": "keep", "punctuated_word": "Keep", "start": .1, "end": .4}]}]}],
+                            "utterances": [{"transcript": text, "start": .1, "end": .4}]}}
                     data = json.dumps(result).encode()
                     self.send_response(200)
                 except Exception as error:
@@ -110,7 +129,9 @@ def main():
         environment.pop("OSPR_ROOT", None)
         if not bundled:
             environment["OSPR_ROOT"] = str(ROOT)
-        process = subprocess.Popen([str(cli), "transcribe-cloud", str(recording), f"http://127.0.0.1:{server.server_port}/v1", "fixture-parts", "en"],
+        command = "transcribe-deepgram" if args.provider == "deepgram" else "transcribe-cloud"
+        model = "nova-3" if args.provider == "deepgram" else "fixture-parts"
+        process = subprocess.Popen([str(cli), command, str(recording), f"http://127.0.0.1:{server.server_port}/v1", model, "en"],
             cwd=directory, env=environment,
             stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         try:
@@ -130,6 +151,10 @@ def main():
         for record, segment in zip(records, result["segments"], strict=True):
             assert abs(segment["start"] - (record["start_frame"] / 16000 + .1)) < 1e-8
             assert abs(segment["end"] - (record["start_frame"] / 16000 + .4)) < 1e-8
+        if args.provider == "deepgram":
+            for record, word in zip(records, result["words"], strict=True):
+                assert word["text"] == "Keep"
+                assert abs(word["start"] - (record["start_frame"] / 16000 + .1)) < 1e-8
         assert sha(recording) == recording_sha
         workspace_root = Path(tempfile.gettempdir()) / "OSpr-Engine"
         assert not list(workspace_root.glob(f"{process.pid}-upload-*"))
@@ -138,7 +163,7 @@ def main():
             app = cli.parents[2]
             build = json.loads((app / "Contents/Resources/build-info.json").read_text())
             subprocess.run(["/usr/bin/codesign", "--verify", "--deep", "--strict", str(app)], check=True)
-        evidence = dict(status="passed", verified_at=datetime.datetime.now(datetime.UTC).isoformat(),
+        evidence = dict(status="passed", provider=args.provider, verified_at=datetime.datetime.now(datetime.UTC).isoformat(),
             git_commit=subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
             source_manifest_sha256=sha(manifest_path), source_sha256=source_item["sha256"],
             generated_fixture_sha256=recording_sha, generated_bytes=recording.stat().st_size,
@@ -146,7 +171,7 @@ def main():
             engine_binding="bundled" if bundled else "checkout", harness_sha256=sha(Path(__file__)),
             build=build, signature_valid_after_upload=True if bundled else None,
             source_preserved=True, workspace_removed=True, native_wall_ms=elapsed,
-            boundary="Real Swift CLI → owned Python preparation → serial loopback multipart → assembled timestamps. Every sample checked within PCM16 quantization. Fake provider text is a sentinel, not ASR, paid-provider validation, native UI, or a timing benchmark.")
+            boundary="Real Swift CLI → owned Python preparation → serial loopback provider → assembled timestamps. Every sample checked within PCM16 quantization. Fake provider text is a sentinel, not ASR, paid-provider validation, native UI, or a timing benchmark.")
         args.output.parent.mkdir(parents=True, exist_ok=True)
         args.output.write_text(json.dumps(evidence, indent=2) + "\n")
         print(json.dumps({"status": "passed", "seconds": 4800, "parts": len(records), "native_wall_ms": elapsed}))

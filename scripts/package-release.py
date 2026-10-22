@@ -22,6 +22,7 @@ def main():
     parser.add_argument("--receipt", type=Path, default=Path("benchmarks/results/portable-app-smoke.json"))
     parser.add_argument("--native-long-receipt", type=Path, default=Path("benchmarks/results/native-long-files.json"))
     parser.add_argument("--upload-receipt", type=Path, default=Path("benchmarks/results/upload-parts.json"))
+    parser.add_argument("--deepgram-receipt", type=Path, default=Path("benchmarks/results/deepgram-upload-parts.json"))
     parser.add_argument("--swift-log", type=Path, required=True)
     parser.add_argument("--python-log", type=Path, required=True)
     parser.add_argument("--output", type=Path, default=Path("dist"))
@@ -45,12 +46,14 @@ def main():
     assert long_receipt["cli_executable_sha256"] == hashlib.sha256((app / "Contents/MacOS/ospr-cli").read_bytes()).hexdigest()
     assert long_receipt["signature_valid_after_inference"], "Long-file inference changed the signed app"
     upload_receipt = json.loads(args.upload_receipt.read_text())
-    assert upload_receipt["status"] == "passed" and upload_receipt["engine_binding"] == "bundled"
-    assert upload_receipt["build"] == build, "Upload receipt is for a different build"
-    assert upload_receipt["cli_sha256"] == long_receipt["cli_executable_sha256"], "Upload receipt CLI differs"
-    assert upload_receipt["signature_valid_after_upload"] and upload_receipt["workspace_removed"] and upload_receipt["source_preserved"]
-    assert upload_receipt["seconds"] == 4800 and sum(row["frames"] for row in upload_receipt["requests"]) == 4800 * 16000
-    assert all(row["request_bytes"] < 25_000_000 for row in upload_receipt["requests"])
+    deepgram_receipt = json.loads(args.deepgram_receipt.read_text())
+    for provider, checked in [("compatible", upload_receipt), ("deepgram", deepgram_receipt)]:
+        assert checked["provider"] == provider and checked["status"] == "passed" and checked["engine_binding"] == "bundled"
+        assert checked["build"] == build, "Upload receipt is for a different build"
+        assert checked["cli_sha256"] == long_receipt["cli_executable_sha256"], "Upload receipt CLI differs"
+        assert checked["signature_valid_after_upload"] and checked["workspace_removed"] and checked["source_preserved"]
+        assert checked["seconds"] == 4800 and sum(row["frames"] for row in checked["requests"]) == 4800 * 16000
+        assert all(row["request_bytes"] < 25_000_000 for row in checked["requests"])
     with (app / "Contents/Info.plist").open("rb") as file:
         info = plistlib.load(file)
     version = info["CFBundleShortVersionString"]
@@ -83,6 +86,8 @@ def main():
                         native_long_receipt_sha256=hashlib.sha256(args.native_long_receipt.read_bytes()).hexdigest(),
                         upload_receipt_sha256=hashlib.sha256(args.upload_receipt.read_bytes()).hexdigest(),
                         upload_parts=len(upload_receipt["requests"]),
+                        deepgram_upload_receipt_sha256=hashlib.sha256(args.deepgram_receipt.read_bytes()).hexdigest(),
+                        deepgram_upload_parts=len(deepgram_receipt["requests"]),
                         native_long_models=[r["model"] for r in long_receipt["records"]],
                         tests=dict(swift=int(swift_counts[-1]), python=int(python_counts[-1])),
                         native_interaction_pending="Packaging does not exercise microphone, permissions or native target-app interaction. See docs/data/parity.json.")
