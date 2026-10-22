@@ -15,7 +15,6 @@ from pathlib import Path
 import platform
 import random
 import shutil
-import statistics
 import subprocess
 import threading
 import time
@@ -68,7 +67,7 @@ def summarize(samples, start, end, inset=3):
         raise ValueError("Too few interior telemetry samples; increase phase duration")
     return dict(samples=len(rows), start_monotonic=start, end_monotonic=end,
                 interior_seconds=end - start - 2 * inset,
-                mean={k: statistics.mean(r["counters"][k] for r in rows) for k in COUNTERS},
+                mean={k: math.fsum(r["counters"][k] for r in rows) / len(rows) for k in COUNTERS},
                 thermal_states=sorted({str(r["thermal_state"]) for r in rows}))
 
 
