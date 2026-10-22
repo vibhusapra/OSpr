@@ -27,7 +27,10 @@ def test_two_tracks_are_aligned_by_presentation_time_without_clipping(tmp_path):
         mix_tracks([{"path": str(a), "start": 0}], str(out))
 
 
-def test_invalid_track_count_and_clock_fail_before_ffmpeg(tmp_path):
+def test_invalid_track_count_and_clock_fail_before_ffmpeg_launch(tmp_path, monkeypatch):
+    # Validate bad tracks independently of whether this host installed the
+    # optional mixer. No process should launch for either invalid request.
+    monkeypatch.setattr("ospr_backend.meeting_audio.shutil.which", lambda _: "/unused/ffmpeg")
     with pytest.raises(ValueError):
         mix_tracks([], str(tmp_path / "mix.wav"))
     source = tmp_path / "input.wav"

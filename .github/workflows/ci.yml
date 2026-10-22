@@ -21,6 +21,8 @@ jobs:
         run: swift test
       - name: Install locked Python environment
         run: uv sync --frozen --all-extras --python 3.12
+      - name: Install media decoder for real codec and track-mixing tests
+        run: brew install ffmpeg
       - name: Lint and backend protocol tests
         run: |
           uv run --frozen --all-extras ruff check backend benchmarks scripts
