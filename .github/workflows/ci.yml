@@ -37,6 +37,7 @@ jobs:
           bundle="$GITHUB_WORKSPACE/dist/standalone/OSpr.app"
           task_directory="$(mktemp -d)"
           cd "$task_directory"
+          "$bundle/Contents/Resources/Engine/.venv/bin/python" -c 'import mlx.core as mx; mx.set_default_device(mx.cpu); import mlx_whisper, parakeet_mlx, mlx_audio.stt, mlx_lm, mcp; value = mx.array([1]); mx.eval(value + 1); print("Bundled inference libraries imported successfully")'
           "$bundle/Contents/MacOS/ospr-cli" doctor
           codesign --verify --deep --strict "$bundle"
       - name: Preserve executable bits and symlinks inside the development artifact
