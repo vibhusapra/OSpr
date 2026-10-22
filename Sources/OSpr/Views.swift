@@ -260,7 +260,13 @@ struct HistoryView: View {
             }.frame(minWidth: 220, idealWidth: 270, maxWidth: 330)
             if let record = model.selected {
                 VStack(alignment: .leading, spacing: 18) {
-                    HStack { Text(record.date.formatted(date: .abbreviated, time: .shortened)).font(.headline); Spacer(); Button { model.copy(record.text) } label: { Label("Copy", systemImage: "doc.on.doc") } }
+                    HStack {
+                        Text(record.date.formatted(date: .abbreviated, time: .shortened)).font(.headline)
+                        Spacer()
+                        Text(model.historySaving ? "Saving…" : !model.historySaveFailure.isEmpty ? "Save failed" : model.settings.saveHistory ? "Saved locally" : "Session only")
+                            .font(.caption).foregroundStyle(model.historySaveFailure.isEmpty ? Color.secondary : Color.orange)
+                        Button { model.copy(record.text) } label: { Label("Copy", systemImage: "doc.on.doc") }
+                    }
                     HStack(spacing: 16) { Label(record.model, systemImage: "cpu"); Text(record.mode.title); Text(String(format: "%.1fs audio · %.2fs processing", record.duration, record.latencyMS / 1000)) }.font(.caption).foregroundStyle(.secondary)
                     if let warning = record.warning { Label(warning, systemImage: "exclamationmark.triangle").font(.caption).foregroundStyle(.orange) }
                     TextEditor(text: Binding(get: { model.history.first { $0.id == record.id }?.text ?? record.text }, set: { model.updateText(record.id, text: $0) })).font(.system(size: 16)).lineSpacing(6).padding(10).background(Color(nsColor: .textBackgroundColor), in: RoundedRectangle(cornerRadius: 12))

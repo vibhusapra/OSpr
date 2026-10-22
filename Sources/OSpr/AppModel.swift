@@ -11,6 +11,8 @@ import OSprCore
         }
     }
     @Published var history: [Transcript] = []
+    @Published var historySaving = false
+    @Published var historySaveFailure = ""
     @Published var phase = "idle"
     @Published var status = "Your voice. Your Mac."
     @Published var error = ""
@@ -55,6 +57,8 @@ import OSprCore
     private var loadingCredentials = false
     private var credentialsReady = false
     private let store: LocalStore
+    private let historyWriter: HistoryPersistence
+    private var historyWriteToken = UUID()
     private let recovery: RecordingRecovery
     private var target: InsertionTarget?
     private var recordingMode: WritingMode = .clean
@@ -85,6 +89,7 @@ import OSprCore
         // surface instead of silently putting transcripts somewhere unexpected.
         do {
             store = try LocalStore(directory: directory)
+            historyWriter = try HistoryPersistence(directory: directory)
             folderWatcher = try FolderWatcher(directory: directory)
             recovery = try RecordingRecovery(directory: directory.appendingPathComponent("Recovery"))
         } catch { fatalError("Cannot create OSpr data folder: \(error.localizedDescription)") }
@@ -137,7 +142,11 @@ import OSprCore
         // Persist pruning even when no new recording is made.
         if loadError.isEmpty { persistHistory() }
         NotificationCenter.default.addObserver(forName: NSApplication.willTerminateNotification, object: nil, queue: .main) { [weak self] _ in
-            MainActor.assumeIsolated { self?.preserveOnQuit(); self?.operationTask?.cancel(); self?.worker.shutdown(); self?.previewTask?.cancel(); self?.discardAudio() }
+            MainActor.assumeIsolated {
+                self?.preserveOnQuit()
+                do { try self?.historyWriter.flush() } catch { self?.error = "Could not save history before quitting: \(error.localizedDescription)" }
+                self?.operationTask?.cancel(); self?.worker.shutdown(); self?.previewTask?.cancel(); self?.discardAudio()
+            }
         }
     }
 
@@ -150,6 +159,9 @@ import OSprCore
                 throw OSprError.message("Use a valid provider URL before saving its API key.")
             }
             try store.write(settings, name: "settings.json")
+            // Apply history privacy even if a separate Keychain/login-item
+            // operation later fails after the settings file was saved.
+            persistHistory()
             // An unavailable/locked Keychain read must not turn a model or mode
             // preference save into a credential deletion. Write only edited keys.
             if transcriptionKey != savedTranscriptionKey || transcriptionKeyScope != savedTranscriptionScope, let scope = transcriptionKeyScope {
@@ -158,7 +170,6 @@ import OSprCore
             if rewriteKey != savedRewriteKey || rewriteKeyScope != savedRewriteScope, let scope = rewriteKeyScope {
                 try KeyVault.write(rewriteKey, account: scope.account); savedRewriteKey = rewriteKey; savedRewriteScope = scope
             }
-            history = LocalStore.retained(history, days: settings.retentionDays); persistHistory()
             if settings.launchAtLogin && SMAppService.mainApp.status != .enabled { try SMAppService.mainApp.register() }
             else if !settings.launchAtLogin && SMAppService.mainApp.status == .enabled { try SMAppService.mainApp.unregister() }
             status = "Preferences saved"
@@ -362,7 +373,7 @@ import OSprCore
                     if streamSession?.generation == token { streamSession = nil }
                 }
                 let recognized = await transcribe(file: file, duration: duration, config: config, mode: mode,
-                                 target: target, source: "dictation", token: token, resultOverride: streamed, startedAt: finalStarted)
+                                 target: target, source: "dictation", token: token, preserveRecoveryOnSaveFailure: true, resultOverride: streamed, startedAt: finalStarted)
                 if generation == token && recognized { discardRecovery() }
                 try? FileManager.default.removeItem(at: file)
                 if generation == token { recordingURL = nil; phase = "idle"; overlay?.orderOut(nil) }
@@ -476,7 +487,7 @@ import OSprCore
                 try await prepareRecoveryMix(token: token)
                 guard token == generation else { return }
                 let recognized = await transcribe(file: recovery.audioURL, duration: duration, config: config,
-                    mode: .verbatim, target: nil, source: "desktop meeting", token: token, startedAt: started)
+                    mode: .verbatim, target: nil, source: "desktop meeting", token: token, preserveRecoveryOnSaveFailure: true, startedAt: started)
                 if recognized, token == generation { discardRecovery() }
             } catch {
                 if token == generation {
@@ -556,7 +567,7 @@ import OSprCore
             catch { if token == generation { self.error = error.localizedDescription; phase = "idle" }; return }
             guard token == generation else { return }
             let recognized = await transcribe(file: recovery.audioURL, duration: pending.duration,
-                config: config, mode: .verbatim, target: nil, source: "recovered recording", token: token)
+                config: config, mode: .verbatim, target: nil, source: "recovered recording", token: token, preserveRecoveryOnSaveFailure: true)
             if generation == token {
                 if recognized { discardRecovery() }
                 phase = "idle"
@@ -564,7 +575,7 @@ import OSprCore
         }
     }
 
-    private func transcribe(file: URL, duration: Double, config: OSprSettings, mode: WritingMode, target: InsertionTarget?, source: String, token: UUID, resultOverride: [String: Any]? = nil, startedAt: Date = Date()) async -> Bool {
+    private func transcribe(file: URL, duration: Double, config: OSprSettings, mode: WritingMode, target: InsertionTarget?, source: String, token: UUID, preserveRecoveryOnSaveFailure: Bool = false, resultOverride: [String: Any]? = nil, startedAt: Date = Date()) async -> Bool {
         guard generation == token else { return false }
         var recognized = false
         let started = startedAt
@@ -621,7 +632,7 @@ import OSprCore
                         self.error = "Original text retained. \(reason)"
                         if mode == .assistant {
                             saveResult(raw: raw, text: beforeRewrite, result: result, duration: duration, config: config, mode: mode, source: source, target: target, started: started)
-                            return true
+                            return await finishResultStorage(config: config, token: token, preserveRecovery: preserveRecoveryOnSaveFailure)
                         }
                     }
                 } catch {
@@ -629,7 +640,7 @@ import OSprCore
                     self.error = "Transcription saved; rewrite failed: \(error.localizedDescription)"
                     if mode == .assistant { /* Never replace selected text with an unexecuted editing request. */
                         saveResult(raw: raw, text: text, result: result, duration: duration, config: config, mode: mode, source: source, target: target, started: started)
-                        return true
+                        return await finishResultStorage(config: config, token: token, preserveRecovery: preserveRecoveryOnSaveFailure)
                     }
                 }
             } else if mode == .assistant {
@@ -642,7 +653,19 @@ import OSprCore
             recognized = true
             if config.autoPaste && source == "dictation", let target { try await target.paste(text, restoreClipboard: config.restoreClipboard, allowUnverified: config.allowUnverifiedPaste) }
         } catch { if generation == token { self.error = error.localizedDescription; status = "Could not finish" } }
-        return recognized
+        return recognized ? await finishResultStorage(config: config, token: token, preserveRecovery: preserveRecoveryOnSaveFailure) : false
+    }
+    private func finishResultStorage(config: OSprSettings, token: UUID, preserveRecovery: Bool) async -> Bool {
+        guard generation == token else { return false }
+        guard config.saveHistory else { return true }
+        do { try await historyWriter.flushAsync(); return generation == token }
+        catch {
+            if generation == token {
+                self.error = "Transcript is available in this session, but history could not be saved: \(error.localizedDescription) " + (preserveRecovery ? "Completed recording audio is kept for recovery." : "The imported source is unchanged; transcript export remains available.")
+                status = preserveRecovery ? "History could not be saved · recording retained" : "History unsaved · export this result"
+            }
+            return !preserveRecovery && generation == token
+        }
     }
     private func saveResult(raw: String, text: String, result: [String: Any], duration: Double, config: OSprSettings, mode: WritingMode, source: String, target: InsertionTarget?, started: Date) {
         let segments = (result["segments"] as? [[String: Any]] ?? []).compactMap { segment -> Segment? in
@@ -660,13 +683,22 @@ import OSprCore
         if config.saveHistory { persistHistory() }
         status = "Ready · \(Int(record.latencyMS)) ms"; preview = ""
     }
-    private func persistHistory() {
+    private func persistHistory(debounce: Bool = false, allowReset: Bool = false) {
         history = LocalStore.retained(history, days: settings.retentionDays)
-        do { try store.write(settings.saveHistory ? history : [], name: "history.json") } catch { self.error = "Could not save history: \(error.localizedDescription)" }
+        let token = UUID(); historyWriteToken = token
+        historySaving = true
+        historyWriter.submit(settings.saveHistory ? history : [], delay: debounce ? 0.3 : 0,
+                             allowReset: allowReset || !settings.saveHistory) { [weak self] failure in
+            Task { @MainActor [weak self] in
+                guard let self, self.historyWriteToken == token else { return }
+                self.historySaving = false; self.historySaveFailure = failure ?? ""
+                if let failure { self.error = "Could not save history: \(failure)" }
+            }
+        }
     }
     func remove(_ record: Transcript) { history.removeAll { $0.id == record.id }; persistHistory() }
-    func clearHistory() { history.removeAll(); selection = nil; persistHistory() }
-    func updateText(_ id: UUID, text: String) { if let index = history.firstIndex(where: { $0.id == id }) { history[index].text = text; persistHistory() } }
+    func clearHistory() { history.removeAll(); selection = nil; persistHistory(allowReset: true) }
+    func updateText(_ id: UUID, text: String) { if let index = history.firstIndex(where: { $0.id == id }) { history[index].text = text; persistHistory(debounce: true) } }
     func copy(_ text: String) { NSPasteboard.general.clearContents(); NSPasteboard.general.setString(text, forType: .string); status = "Copied" }
 
     func generateNotes(_ record: Transcript) {
