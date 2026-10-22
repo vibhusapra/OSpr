@@ -1,9 +1,31 @@
 import SwiftUI
 import AppKit
+import OSprCore
+import Darwin
 
 @main struct OSprApp: App {
-    @StateObject private var model = AppModel()
+    @StateObject private var model: AppModel
     @Environment(\.openWindow) private var openWindow
+    init() {
+        let current = ProcessInfo.processInfo.processIdentifier
+        let bundleID = Bundle.main.bundleIdentifier ?? "app.ospr.mac"
+        let existing = NSRunningApplication.runningApplications(withBundleIdentifier: bundleID).filter {
+            $0.processIdentifier != current && $0.executableURL?.lastPathComponent == "OSpr"
+        }
+        // Older builds did not take the file lock. Prefer a finished GUI before
+        // creating any model, history writer, audio reconciler or global shortcut.
+        if let running = existing.first(where: \.isFinishedLaunching) {
+            _ = running.activate(options: [])
+            exit(EXIT_SUCCESS)
+        }
+        do {
+            let lock = try AppInstanceLock(directory: LocalStore.applicationDirectory)
+            _model = StateObject(wrappedValue: AppModel(instanceLock: lock))
+        } catch AppInstanceLock.Failure.alreadyRunning {
+            if let running = existing.first { _ = running.activate(options: []) }
+            exit(EXIT_SUCCESS)
+        } catch { fatalError("Cannot open OSpr data folder: \(error.localizedDescription)") }
+    }
     var body: some Scene {
         Window("OSpr", id: "workspace") {
             WorkspaceView(model: model)

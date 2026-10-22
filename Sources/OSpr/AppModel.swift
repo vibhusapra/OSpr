@@ -63,6 +63,7 @@ import OSprCore
     private var loadingCredentials = false
     private var credentialsReady = false
     private let store: LocalStore
+    private let instanceLock: AppInstanceLock
     private let historyWriter: HistoryPersistence
     private var historyWriteToken = UUID()
     private var appliedAudioBudget = 1024
@@ -98,8 +99,9 @@ import OSprCore
         return settings.transcriptionProvider == "local" && localRewrite
     }
 
-    init() {
-        let directory = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("OSpr")
+    init(instanceLock: AppInstanceLock) {
+        self.instanceLock = instanceLock
+        let directory = LocalStore.applicationDirectory
         // Application Support is required for state; an unwritable directory must
         // surface instead of silently putting transcripts somewhere unexpected.
         do {

@@ -5,8 +5,8 @@
     {
       "feature": "Native Mac app, sidebar, studio and menu bar",
       "status": "implemented",
-      "evidence": "Swift release build; native window visually inspected before lock.",
-      "gap": "Final updated-build walkthrough pending unlock.",
+      "evidence": "Native packaged public-file, history editing, audio playback clock/rate/seek, reprocessing and export flows exercised. Setup/privacy/export issues found and fixed in source.",
+      "gap": "Latest permission/setup/private-export/Fn UI retest and microphone/insertion acceptance remain open.",
       "priority": "P0"
     },
     {
@@ -89,8 +89,8 @@
     {
       "feature": "Toggle and hold-to-talk shortcuts",
       "status": "implemented",
-      "evidence": "Carbon registration with visual shortcut editor; early key-release cancellation handled.",
-      "gap": "Global interaction checks pending unlock. Shortcut requires Control, Option or Command; Fn-only binding is not implemented.",
+      "evidence": "Modified Carbon binding plus opt-in Globe/Fn local/global observers, 80ms arming, chord/lost-release cancellation, registration edge IDs and owned capture releases. Pure state tests include 10,000 randomized events; legacy preferences retain the default modified key.",
+      "gap": "Fn needs Accessibility and the macOS Globe/Fn system action set to Do Nothing. Physical Fn, PTT and target interaction acceptance remain pending.",
       "priority": "P0"
     },
     {
@@ -215,8 +215,8 @@
     {
       "feature": "Retained local audio playback and timestamp seeking",
       "status": "implemented",
-      "evidence": "Opt-in normalized float WAV audio, private owner-only archive, budgets/oldest eviction, history retention and explicit audio-only erasure. Native AVFoundation player with speed/scrub/segment/word seeking and WAV export. Bit-exact normalized samples, actual movie audio-only test, archive/restart/paths/quota tests and native CLI + Metal ASR integration passed.",
-      "gap": "Interactive sound, playback transport and media export remain pending unlock. Default retention is off. Word timing depends on engine; cached live preview uses packet normalization, while the saved review file preserves the full normalized source timeline.",
+      "evidence": "Native public fixture: clock/end/pause, 0.5×/2×, slider/segment seeking, edit preservation on reprocessing, and sample-exact float WAV export observed. Archive/normalization/AVFoundation integration and core privacy tests also pass.",
+      "gap": "Latest private export/setup UI retest, word-level UI seek and human audible-output acceptance remain pending.",
       "priority": "P1"
     },
     {
@@ -315,6 +315,13 @@
       "status": "unproven",
       "evidence": "OSpr engines measured against a persistent Metal whisper.cpp baseline.",
       "gap": "Equivalent consumer-app runs and user-task correction-cost study not completed. powermetrics requires administrator authentication unavailable in this session; no energy results.",
+      "priority": "P0"
+    },
+    {
+      "feature": "Single-instance store ownership",
+      "status": "implemented",
+      "evidence": "GUI preflight before AppModel creation plus owner-only nonblocking file lock retained by the model. Second process, release/reacquisition and symlink tests pass; CLI inference has no shared-store lock.",
+      "gap": "Native second-launch activation and simultaneous GUI-start acceptance pending.",
       "priority": "P0"
     }
   ]

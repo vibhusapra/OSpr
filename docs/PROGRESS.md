@@ -6,11 +6,15 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
 - [x] Native SwiftUI Studio, History, Models, Dictionary, Modes, Settings,
   Research, menu bar and nonactivating recording HUD. Initial window visually
-  inspected; final updated-build interactive QA is pending because the Mac locked.
+  inspected; native public-file/review/export checks recorded. Latest setup/export/
+  Fn changes and microphone/insertion acceptance remain open.
 - [x] Parakeet v3, native-layout Cohere 8-bit, Whisper Turbo/Small, Qwen3 ASR
   and Nemotron local MLX/Metal paths.
   Pinned weights/dependencies; bounded resident ASR plus optional refiner.
-- [x] Toggle and push-to-talk shortcut, visual shortcut editor, microphone choice,
+- [x] Toggle and push-to-talk shortcut, visual shortcut editor, optional AX-gated
+  Globe/Fn observer with chord/lost-release cancellation, duplicate/stale Carbon edge
+  guards and capture-generation ownership. Default remains modified-key. Physical
+  Fn acceptance is pending. Microphone choice,
   bounded off-callback recording writes, waveform, duration, auto-stop option.
 - [x] Captured-target AX insertion plus clipboard fallback, clipboard restoration,
   secure-field rejection, app/field/cursor revalidation.
@@ -23,6 +27,9 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 - [x] Completed-take recovery through inference failure/restart. Private audio,
   retry/export/discard; retry never inserts into a stale app target.
 - [x] Native CLI and optional stdio MCP with explicit file/text tools.
+- [x] GUI startup guard before model/store construction, private nonblocking
+  interprocess lock, close-on-exec descriptor and legacy-instance activation. Four
+  ownership/lifetime/symlink/process tests pass; native activation acceptance pending.
 - [x] Oversized provider uploads are normalized locally to mono 16 kHz PCM16 WAV;
   a 70-second stereo take shrank from over 25 MB to 2.2 MB with duration, spectrum
   and original bytes preserved. Very long files still need splitting/local ASR.
@@ -65,7 +72,7 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
 ## Verification and evidence
 
-- [x] Native tests: 88 passed, covering text fidelity rules, Unicode snippets, retention/storage,
+- [x] Native tests: 106 passed, covering text fidelity rules, Unicode snippets, retention/storage,
   provider endpoint restrictions, multipart/chat/Anthropic loopback contracts,
   30 concurrent worker requests, timeout/restart, audio frame integrity/overflow,
   secure-field early rejection and recovery store restart/corrupt-metadata cases.

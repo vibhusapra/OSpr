@@ -106,6 +106,10 @@ until its transcripts/settings are backed up.
 - Local key-excerpt notes: a 4B model selects exact original quotations. Source
   references are checked; no generated paraphrases. Review context and omissions.
 - A native CLI, optional stdio MCP adapter, tests and reproducible benchmarks.
+- Optional Globe/Fn-only gestures (experimental). Accessibility is required; set
+  the macOS Globe/Fn action to Do Nothing. Modified shortcuts remain the default.
+  Fn combinations cancel the gesture, and typed content is not collected.
+- Private atomic manual exports and one GUI instance per shared data folder.
 
 - Completed-take recovery across inference failure/restart, with retry/export/discard.
 

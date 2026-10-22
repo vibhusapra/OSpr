@@ -37,6 +37,8 @@ enum KeyVault {
     private var handler: EventHandlerRef?
     private var combination: (code: UInt32, modifiers: UInt32)?
     private var functionMonitor: FunctionHotkeyMonitor?
+    private var carbonEdges = ShortcutEdgeGate()
+    private var nextRegistration: UInt32 = 1
     var hasBinding: Bool { reference != nil || functionMonitor != nil }
     var functionOnlyActive: Bool { functionMonitor != nil }
     var registeredCombination: (code: UInt32, modifiers: UInt32)? { combination }
@@ -57,7 +59,7 @@ enum KeyVault {
             replacement.cancelled = { [weak self] in self?.cancelled?() }
             replacement.failed = { [weak self] message in self?.failed?(message) }
             if let reference { UnregisterEventHotKey(reference) }
-            reference = nil; combination = nil; functionMonitor = replacement
+            reference = nil; combination = nil; carbonEdges.clear(); functionMonitor = replacement
             return
         }
         guard code < 128, modifiers & 0x1900 != 0 else {
@@ -73,26 +75,36 @@ enum KeyVault {
                 var identifier = EventHotKeyID()
                 guard GetEventParameter(event, EventParamName(kEventParamDirectObject), EventParamType(typeEventHotKeyID), nil,
                     MemoryLayout<EventHotKeyID>.size, nil, &identifier) == noErr,
-                    identifier.signature == 0x4F535052, identifier.id == 1 else { return OSStatus(eventNotHandledErr) }
+                    identifier.signature == 0x4F535052 else { return OSStatus(eventNotHandledErr) }
                 let owner = Unmanaged<Hotkey>.fromOpaque(context).takeUnretainedValue()
                 let down = GetEventKind(event) == UInt32(kEventHotKeyPressed)
-                MainActor.assumeIsolated { if down { owner.pressed?() } else { owner.released?() } }
+                MainActor.assumeIsolated {
+                    switch owner.carbonEdges.receive(id: identifier.id, pressed: down) {
+                    case .press?: owner.pressed?()
+                    case .release?: owner.released?()
+                    case nil: break
+                    }
+                }
                 return noErr
             }, events.count, &events, pointer, &handler)
         }
         var replacement: EventHotKeyRef?
-        let status = RegisterEventHotKey(code, modifiers, EventHotKeyID(signature: 0x4F535052, id: 1),
+        let identifier = nextRegistration
+        nextRegistration &+= 1
+        if nextRegistration == 0 { nextRegistration = 1 }
+        let status = RegisterEventHotKey(code, modifiers, EventHotKeyID(signature: 0x4F535052, id: identifier),
                                         GetApplicationEventTarget(), 0, &replacement)
         guard status == noErr else { throw OSprError.message("That shortcut is already in use. The previous shortcut remains active; choose another in Settings.") }
         if let reference { UnregisterEventHotKey(reference) }
         functionMonitor?.stop(); functionMonitor = nil
-        reference = replacement; combination = (code, modifiers)
+        reference = replacement; combination = (code, modifiers); carbonEdges.activate(identifier)
     }
     func unregister() {
         functionMonitor?.stop(); functionMonitor = nil
         if let reference { UnregisterEventHotKey(reference) }; reference = nil
         if let handler { RemoveEventHandler(handler) }; handler = nil
         combination = nil
+        carbonEdges.clear()
     }
     deinit {
         if let reference { UnregisterEventHotKey(reference) }

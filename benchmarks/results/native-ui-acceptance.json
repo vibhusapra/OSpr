@@ -65,12 +65,17 @@
     "Insertion/selection/secure-field/clipboard live matrix",
     "Word-level seek UI when recognizer supplies words",
     "Physical desktop capture and native watched-folder/recovery flows",
-    "Human audible-output listening"
+    "Human audible-output listening",
+    "Physical Fn/modified shortcut acceptance on the latest source",
+    "Single-instance activation UI check"
   ],
   "temporary_test_settings": {
     "keep_audio_original": false,
-    "keep_audio_current": true,
-    "restore_pending": true
+    "keep_audio_tested": true,
+    "saved_keep_audio_now": false,
+    "live_keep_audio_now": false,
+    "saved_and_live_preferences_restored": true,
+    "older_instance_quit_via_native_menu": true
   },
   "limitation": "Desktop became accessible for the public-file checks and subsequently locked again. Core export fixes pass 88 Swift tests, but this receipt only covers the recorded older packaged build."
 }

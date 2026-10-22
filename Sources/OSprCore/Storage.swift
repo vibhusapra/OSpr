@@ -1,6 +1,9 @@
 import Foundation
 
 public final class LocalStore {
+    public static var applicationDirectory: URL {
+        FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("OSpr")
+    }
     public let directory: URL
     private let encoder: JSONEncoder
     private let decoder: JSONDecoder
