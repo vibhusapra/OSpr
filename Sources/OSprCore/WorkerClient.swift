@@ -90,7 +90,7 @@ public final class WorkerClient: @unchecked Sendable {
                     // Local audio preparation never mutates model state. Keep a
                     // warm ASR after an expected size/codec rejection; malformed
                     // framing, broken pipes and inference errors still restart.
-                    if !(error is EngineRejection && ["prepare_review", "prepare_upload"].contains(body["action"] as? String ?? "")) { self.stopOnQueue() }
+                    if !(error is EngineRejection && ["prepare_review", "prepare_upload", "prepare_upload_parts"].contains(body["action"] as? String ?? "")) { self.stopOnQueue() }
                     continuation.resume(throwing: error)
                 }
             }

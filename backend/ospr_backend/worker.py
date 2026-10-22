@@ -55,6 +55,10 @@ def dispatch(engine, request):
         from .upload_audio import prepare_upload
 
         return prepare_upload(request["path"], request["output"])
+    if action == "prepare_upload_parts":
+        from .upload_audio import prepare_upload_parts
+
+        return prepare_upload_parts(request["path"], request["output_dir"])
     if action == "prepare_review":
         from .review_audio import prepare_review
 

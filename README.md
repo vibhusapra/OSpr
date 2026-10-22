@@ -98,8 +98,9 @@ until its transcripts/settings are backed up.
   and a conservative preservation check rejects several obvious regressions.
 - Separate optional BYOK audio transcription with compatible endpoints (including
   Groq and the current OpenAI `gpt-transcribe` request contract). Oversized audio
-  is normalized locally to smaller mono WAV; very long files still need splitting
-  or local recognition to meet the 25 MB single-upload cap.
+  is normalized locally into contiguous PCM16 parts of at most ten minutes. Each
+  request stays below 25 MB; timestamps are offset to the full recording. Retries
+  resend all parts and may incur provider charges. No partial result is saved.
 - File/batch import, searchable editable local history, copy/delete/retention,
   and TXT/JSON/SRT/VTT export. Subtitles use **original** transcript timing.
 - Experimental local speaker-labeled imports: Nemotron 3 Diarization (up to eight

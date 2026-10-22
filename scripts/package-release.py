@@ -21,6 +21,7 @@ def main():
     parser.add_argument("--app", type=Path, default=Path("dist/standalone/OSpr.app"))
     parser.add_argument("--receipt", type=Path, default=Path("benchmarks/results/portable-app-smoke.json"))
     parser.add_argument("--native-long-receipt", type=Path, default=Path("benchmarks/results/native-long-files.json"))
+    parser.add_argument("--upload-receipt", type=Path, default=Path("benchmarks/results/upload-parts.json"))
     parser.add_argument("--swift-log", type=Path, required=True)
     parser.add_argument("--python-log", type=Path, required=True)
     parser.add_argument("--output", type=Path, default=Path("dist"))
@@ -43,6 +44,13 @@ def main():
     assert len(long_receipt["records"]) == 2 and {r["model"] for r in long_receipt["records"]} == {"parakeet-v3", "qwen3-asr"}
     assert long_receipt["cli_executable_sha256"] == hashlib.sha256((app / "Contents/MacOS/ospr-cli").read_bytes()).hexdigest()
     assert long_receipt["signature_valid_after_inference"], "Long-file inference changed the signed app"
+    upload_receipt = json.loads(args.upload_receipt.read_text())
+    assert upload_receipt["status"] == "passed" and upload_receipt["engine_binding"] == "bundled"
+    assert upload_receipt["build"] == build, "Upload receipt is for a different build"
+    assert upload_receipt["cli_sha256"] == long_receipt["cli_executable_sha256"], "Upload receipt CLI differs"
+    assert upload_receipt["signature_valid_after_upload"] and upload_receipt["workspace_removed"] and upload_receipt["source_preserved"]
+    assert upload_receipt["seconds"] == 4800 and sum(row["frames"] for row in upload_receipt["requests"]) == 4800 * 16000
+    assert all(row["request_bytes"] < 25_000_000 for row in upload_receipt["requests"])
     with (app / "Contents/Info.plist").open("rb") as file:
         info = plistlib.load(file)
     version = info["CFBundleShortVersionString"]
@@ -73,6 +81,8 @@ def main():
                         crc_passed=True, extracted_signature_verified=True, extracted_cli_six_models=True,
                         portable_receipt_sha256=hashlib.sha256(args.receipt.read_bytes()).hexdigest(),
                         native_long_receipt_sha256=hashlib.sha256(args.native_long_receipt.read_bytes()).hexdigest(),
+                        upload_receipt_sha256=hashlib.sha256(args.upload_receipt.read_bytes()).hexdigest(),
+                        upload_parts=len(upload_receipt["requests"]),
                         native_long_models=[r["model"] for r in long_receipt["records"]],
                         tests=dict(swift=int(swift_counts[-1]), python=int(python_counts[-1])),
                         native_interaction_pending="Packaging does not exercise microphone, permissions or native target-app interaction. See docs/data/parity.json.")

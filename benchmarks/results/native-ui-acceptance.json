@@ -60,10 +60,8 @@
     }
   ],
   "remaining": [
-    "Manual Mac unlock and microphone consent",
-    "Reference-speech microphone, selected device, PTT/toggle, loss/interruption and sustained take",
+    "Selected microphone device, physical PTT/toggle, loss/interruption and sustained take",
     "TextEdit/browser/editor insertion, cursor/field change, clipboard restoration, selection and secure fields",
-    "Native BYOK/Keychain public-fixture loopback check",
     "Word-level seeking and human audible review",
     "Physical desktop capture and native streaming/recovery interruption matrix"
   ],
@@ -75,7 +73,7 @@
     "saved_and_live_preferences_restored": true,
     "older_instance_quit_via_native_menu": true
   },
-  "limitation": "Partial native acceptance with per-build provenance. Reference-speech microphone/device routes, insertion, physical Fn/PTT, system capture and human listening matrices remain open.",
+  "limitation": "Partial native acceptance with per-build provenance. Public-speech microphone and loopback Keychain/BYOK import passed; successful insertion, physical Fn/PTT, system capture and human listening matrices remain open.",
   "retests": [
     {
       "verified_at": "2026-10-22T19:35:35.070053+00:00",
@@ -169,6 +167,45 @@
         "App-specific macOS logs reported delayed microphone prompting. Native control then reported a locked Mac requiring manual unlocking.",
         "Reference speech, insertion/clipboard/secure-field, physical global shortcuts and native BYOK/Keychain interaction remain unverified on this build.",
         "Only OSpr Accessibility and Microphone consent records were reset during the local signing transition. The app has no automatic consent or permission reset."
+      ]
+    },
+    {
+      "verified_at": "2026-10-22T20:50:33.492446+00:00",
+      "build": {
+        "version": "0.1.0",
+        "built_at": "2026-10-22T20:04:42.389021+00:00",
+        "git_commit": "9864c79dd5d0193d958fada45fdac78f272f83d7",
+        "tracked_changes": true,
+        "application_source_sha256": "a1f411ded91301a9755bff298bd8bca2e834475335b83a383f6b1794023b57e5",
+        "signing_mode": "configured-identity",
+        "boundary": "Development build; configured signing identity; not notarized; weights downloaded separately."
+      },
+      "checks": {
+        "microphone_consent_complete": true,
+        "microphone_authorization_survived_restart": true,
+        "recording_destination_label_textedit": true,
+        "public_speech_microphone_recognized": true,
+        "public_microphone_text": "Mr. Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+        "app_switch_insertion_rejected": true,
+        "textedit_target_unchanged": true,
+        "byok_dummy_key_saved": true,
+        "byok_dummy_key_restored_after_restart": true,
+        "native_public_file_picker_byok_import": true,
+        "loopback_provider_requests": [
+          {
+            "path": "/v1/audio/transcriptions",
+            "bytes": 187814,
+            "public_fixture_matches": true,
+            "dummy_bearer_matches": true
+          }
+        ],
+        "local_only_preferences_restored": true
+      },
+      "limitations": [
+        "Microphone public playback is a functional route check, not an accuracy or latency benchmark. Later ambient microphone output is private and excluded.",
+        "Successful target insertion, cursor/field/secure-field and clipboard restoration remain unverified. Automated focus changes triggered the app-switch guard; that guard was retained.",
+        "BYOK provider replies were deterministic fixture text, not recognition; no external or paid provider request was made.",
+        "Physical Fn/PTT, native streaming/system capture and sustained device interruption matrices remain open."
       ]
     }
   ]

@@ -10,7 +10,8 @@ private final class NoRedirects: NSObject, URLSessionTaskDelegate, @unchecked Se
 }
 
 public enum ProviderClient {
-    public static let maximumUploadBytes = 25 * 1024 * 1024
+    public static let maximumUploadBytes = 25_000_000
+    public static let directUploadBytes = 24_000_000 // Leave room for multipart fields.
     public static func endpoint(base: String, path: String) throws -> URL {
         guard let url = URL(string: base), let host = url.host, url.user == nil, url.password == nil,
               url.query == nil, url.fragment == nil,
@@ -69,7 +70,7 @@ public enum ProviderClient {
     public static func transcribe(file: URL, base: String, model: String, key: String, language: String, vocabulary: String) async throws -> [String: Any] {
         var request = URLRequest(url: try endpoint(base: base, path: "audio/transcriptions"))
         request.httpMethod = "POST"
-        request.setValue("Bearer " + key, forHTTPHeaderField: "Authorization")
+        if !key.isEmpty { request.setValue("Bearer " + key, forHTTPHeaderField: "Authorization") }
         let boundary = "OSpr-" + UUID().uuidString
         request.setValue("multipart/form-data; boundary=" + boundary, forHTTPHeaderField: "Content-Type")
         let size = try file.resourceValues(forKeys: [.fileSizeKey]).fileSize ?? 0
@@ -87,6 +88,7 @@ public enum ProviderClient {
         guard let mime = mimeTypes[ext] else { throw OSprError.message("This cloud adapter supports WAV, MP3, MP4, M4A, WebM, FLAC and OGG.") }
         append("--\(boundary)\r\nContent-Disposition: form-data; name=\"file\"; filename=\"recording.\(ext)\"\r\nContent-Type: \(mime)\r\n\r\n")
         body.append(audio); append("\r\n--\(boundary)--\r\n"); request.httpBody = body
+        guard body.count < maximumUploadBytes else { throw OSprError.message("Cloud multipart request exceeds 25 MB. Use OSpr file import to prepare smaller audio parts.") }
         let started = Date()
         var result = try await send(request)
         guard result["text"] is String else { throw OSprError.message("Provider returned no transcription.") }

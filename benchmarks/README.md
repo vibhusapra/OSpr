@@ -258,3 +258,29 @@ segment times and signatures are checked. Release packaging requires this
 receipt to match the exact app build and CLI. These are functional checks,
 with shared-system activity and cold startup; do not use their wall times as
 a latency benchmark. They do not exercise native UI, permissions or sound.
+
+## Long BYOK transport and input equivalence
+
+Run `.venv/bin/python benchmarks/upload_parts.py --cli
+dist/standalone/OSpr.app/Contents/MacOS/ospr-cli` on one line. An 80-minute public
+FLOAT WAV exceeds the old 256 MiB recursive-decoding threshold. The real Swift
+CLI and owned Python worker prepare private ten-minute-or-shorter PCM16 parts;
+a loopback provider verifies every sample, full coverage, source immutability,
+request sizes, timestamp offsets, repeated text and workspace cleanup. Responses
+are deterministic sentinels, not ASR. No paid provider, UI or speed claim. Package
+creation requires the bundled receipt to match its exact CLI and build metadata.
+
+`OSPR_TRANSCRIPTION_KEY=<key> ospr-cli transcribe-cloud <audio> <base-url> <model>
+[language]` uses the same multipart route. Keep real keys out of shell history;
+supply them through a managed environment. Progress goes to stderr, final JSON
+to stdout. Files up to four hours use serial independent calls; failure/cancel
+returns no assembled partial result. Retry resends all parts and can cost again.
+Speaker identity does not carry between independent provider jobs. Missing or
+invalid segment times fall back to explicitly coarse part boundaries; missing
+word timing is not invented.
+
+Run `.venv/bin/python benchmarks/audio_equivalence.py` to compare all 515 fixed
+short-suite inputs and default ASR cuts with the recorded pre-change baseline.
+All normalized arrays and cut offsets match exactly. The receipt fingerprints
+both normalizers/chunkers, manifests and each normalized array; it does not rerun
+model inference or establish long-file quality.

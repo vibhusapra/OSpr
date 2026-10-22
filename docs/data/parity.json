@@ -5,14 +5,14 @@
     {
       "feature": "Native Mac app, sidebar, studio and menu bar",
       "status": "implemented",
-      "evidence": "Packaged public-file/review/export flows exercised. Latest setup card, microphone permission state, restart/edit persistence and owner-only TXT/SRT exports retested. Brief microphone start/cancel and empty-result recovery/retry exercised.",
+      "evidence": "Packaged public-file/review/export flows exercised. Latest setup card, microphone permission state, restart/edit persistence and owner-only TXT/SRT exports retested. Brief microphone start/cancel and empty-result recovery/retry exercised. Public-speech microphone recognition, recording target label, app-switch insertion rejection and native Keychain/BYOK restart/import now exercised.",
       "gap": "Physical Fn/PTT, speech/route/interruption, insertion and system-capture acceptance remain open.",
       "priority": "P0"
     },
     {
       "feature": "Local Metal inference: Parakeet v3",
       "status": "verified",
-      "evidence": "485 regression/English/supported-language cases rerun after direct long-file decoding; 482 outputs identical. Synthetic hour WER 12.38% \u2192 2.72%. Four natural AMI controls retained bounded word timing with mixed WER and unchanged speaker DER.",
+      "evidence": "485 regression/English/supported-language cases rerun after direct long-file decoding; 482 outputs identical. Synthetic hour WER 12.38% → 2.72%. Four natural AMI controls retained bounded word timing with mixed WER and unchanged speaker DER.",
       "gap": "Synthetic joins are not natural long conversation; shared-system timings and power are not isolated.",
       "priority": "P0"
     },
@@ -26,7 +26,7 @@
     {
       "feature": "Local Metal inference: Qwen3 ASR",
       "status": "verified",
-      "evidence": "365 English clips, 100 regression cases and 50 multilingual clips rerun after bounding long-file chunks; 512/515 outputs identical. Hour-long WER 26.85% \u2192 2.36% in a synthetic completeness fixture; ten-minute case worsened slightly.",
+      "evidence": "365 English clips, 100 regression cases and 50 multilingual clips rerun after bounding long-file chunks; 512/515 outputs identical. Hour-long WER 26.85% → 2.36% in a synthetic completeness fixture; ten-minute case worsened slightly.",
       "gap": "Coarse utterance/chunk timestamps, no word alignment; shared-system exploratory long-file timings.",
       "priority": "P0"
     },
@@ -75,8 +75,8 @@
     {
       "feature": "Microphone capture and device selection",
       "status": "implemented",
-      "evidence": "Native AVAudioEngine, selected CoreAudio UID, RMS meter. Brief native start/cancel and empty-result finish/retry exercised with microphone authorization.",
-      "gap": "No spoken reference, selected-device/loss/interruption or sustained microphone session acceptance yet.",
+      "evidence": "Native AVAudioEngine, selected CoreAudio UID, RMS meter. Brief native start/cancel and empty-result finish/retry exercised with microphone authorization. Development-signed build retained authorization across restart; a public speech playback was recognized through the microphone and saved.",
+      "gap": "Selected-device/loss/interruption and sustained-session acceptance remain open. One public playback take does not measure route quality or end-to-end latency.",
       "priority": "P0"
     },
     {
@@ -180,8 +180,8 @@
     {
       "feature": "BYOK speech transcription",
       "status": "contract-tested",
-      "evidence": "Compatible multipart adapter; current gpt-transcribe languages[] contract; Groq preset. Oversized sources normalize locally to smaller PCM16 WAV without trimming or replacing the source; real 70-second stereo test.",
-      "gap": "No paid provider account call performed. Native non-compatible Deepgram/Soniox streaming APIs not implemented. Single-request upload cap is 25 MB after optional local normalization; automatic splitting is not implemented.",
+      "evidence": "Compatible multipart adapter, current gpt-transcribe languages[] contract and Groq preset. Native public-file import passed against a loopback provider after app restart using the Keychain-restored dummy key. Long imports now normalize locally into contiguous PCM16 parts of at most ten minutes, preserving repetitions and offsetting timestamps; every sample in an 80-minute public fixture was checked through the real Swift CLI and worker.",
+      "gap": "No paid provider account call performed. Non-compatible Deepgram/Soniox streaming APIs remain absent. Parts are independent recognition jobs; boundary context, real provider quotas and large-file native UI interruption remain unverified. A failed retry resends all parts and may incur provider charges.",
       "priority": "P0"
     },
     {
@@ -194,8 +194,8 @@
     {
       "feature": "Credential storage",
       "status": "implemented",
-      "evidence": "macOS Keychain per endpoint origin and speech/text purpose. Immediate endpoint rebinding plus a send-time cross-origin guard; canonical scope and stale-key tests. No keys in settings/history.",
-      "gap": "Actual Keychain prompts and persistence still awaiting interactive QA. Older unscoped keys are preserved but require re-entry.",
+      "evidence": "macOS Keychain per endpoint origin and speech/text purpose. Immediate endpoint rebinding plus a send-time cross-origin guard; canonical scope and stale-key tests. No keys in settings/history. Native save/restart/import with an endpoint-scoped dummy key passed against loopback; no real key was used or exposed.",
+      "gap": "Older unscoped keys are preserved but require re-entry. Real provider account validation is separate.",
       "priority": "P0"
     },
     {
@@ -215,7 +215,7 @@
     {
       "feature": "Retained local audio playback and timestamp seeking",
       "status": "implemented",
-      "evidence": "Native public fixture: clock/end/pause, 0.5\u00d7/2\u00d7, slider/segment seeking, edit preservation on reprocessing, and sample-exact float WAV export observed. Archive/normalization/AVFoundation integration and core privacy tests also pass.",
+      "evidence": "Native public fixture: clock/end/pause, 0.5×/2×, slider/segment seeking, edit preservation on reprocessing, and sample-exact float WAV export observed. Archive/normalization/AVFoundation integration and core privacy tests also pass.",
       "gap": "Word-level UI seek and human audible-output acceptance remain. Private exports and setup were retested.",
       "priority": "P1"
     },
@@ -272,7 +272,7 @@
       "feature": "Speaker diarization",
       "status": "experimental",
       "evidence": "Local Nemotron 3 Diarization 8-bit with Parakeet/Whisper word attribution. Four natural AMI headset-mix prefixes with pinned only_words reference; upstream float32 MPS control has similarly high DER.",
-      "gap": "Attribution errors remain substantial (about 30\u201337% DER without collar on these prefixes). Overlap flagged, not separated. Native capture acceptance pending.",
+      "gap": "Attribution errors remain substantial (about 30–37% DER without collar on these prefixes). Overlap flagged, not separated. Native capture acceptance pending.",
       "priority": "P1"
     },
     {

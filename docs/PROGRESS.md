@@ -30,9 +30,11 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 - [x] GUI startup guard before model/store construction, private nonblocking
   interprocess lock, close-on-exec descriptor and legacy-instance activation. Four
   ownership/lifetime/symlink/process tests pass; native second-copy launch left one original GUI; foreground activation remains unproven.
-- [x] Oversized provider uploads are normalized locally to mono 16 kHz PCM16 WAV;
-  a 70-second stereo take shrank from over 25 MB to 2.2 MB with duration, spectrum
-  and original bytes preserved. Very long files still need splitting/local ASR.
+- [x] Long BYOK imports normalize locally into contiguous PCM16 parts of at most ten minutes.
+  Serial requests stay below 25,000,000 bytes including multipart framing; repetitions
+  and timeline offsets are preserved. Failure/cancel returns no completed partial
+  transcript. An 80-minute public fixture passed every-sample transport verification;
+  provider responses were deterministic sentinels, not recognition. Retry resends all parts.
 - [x] Cancel now cancels the active processing Task as well as invalidating output;
   a delayed loopback-provider test verifies URLSession cancellation.
 - [x] Model cache manager: eight pinned inventories with artifact size checks, download-only,
@@ -72,11 +74,11 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
 ## Verification and evidence
 
-- [x] Native tests: 106 passed, covering text fidelity rules, Unicode snippets, retention/storage,
+- [x] Native tests: 116 passed, covering text fidelity rules, Unicode snippets, retention/storage,
   provider endpoint restrictions, multipart/chat/Anthropic loopback contracts,
   30 concurrent worker requests, timeout/restart, audio frame integrity/overflow,
   secure-field early rejection and recovery store restart/corrupt-metadata cases.
-- [x] Backend tests: 81 passed, covering normalization, invalid/media input, real AAC/FFmpeg decoding,
+- [x] Backend tests: 86 passed, covering normalization, invalid/media input, real AAC/FFmpeg decoding,
   silence without loading weights, stdio recovery, MCP boundary, Cohere layout
   adapter and streaming session fencing/packet bounds.
 - [x] Direct bounded Parakeet long-file decoding: no temporary WAV/FFmpeg round trip,
@@ -102,9 +104,19 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 - [x] HTML filters, benchmark rendering, feature-group interaction and desktop
   layout checked in the in-app browser. Narrow layout geometry fits without horizontal page overflow; first section visually checked.
 
+- [x] Stable development signing retained Accessibility and microphone authorization
+  across restart. A public speech playback was recognized through the microphone;
+  destination labeling and app-switch insertion rejection were observed. Successful
+  insertion still needs acceptance. Native BYOK save/restart/import passed with a
+  dummy Keychain credential and exact public fixture against loopback; local
+  preferences restored. No paid/provider recognition claim.
+- [x] Normalized input samples and default ASR cuts are bit-identical across all
+  515 existing short-suite cases after avoiding recursive FFmpeg decoding above
+  256 MiB. This is input equivalence, not a model rerun.
+
 ## Release gates and remaining parity
 
-- [ ] Final live microphone permissions, PTT/toggle, selected device, device loss,
+- [ ] Live microphone reference-speech check passed; remaining physical PTT/toggle, selected device, device loss,
   auto-stop, interruption and sustained-session checks on an unlocked Mac.
 - [ ] Target app matrix: TextEdit, browser, editor, secure fields, moved cursor,
   clipboard restoration and selection editing. Current code/tests are not this QA.

@@ -330,7 +330,7 @@ for token, value in {
     "__PARITY__": parity_rows,
     "__OPTIMIZATIONS__": optimization_rows,
     "__SOURCES__": sources,
-    "__EXPERIMENTS__": experiments + meeting_panel,
+    "__EXPERIMENTS__": experiments + meeting_panel + '<details><summary>Long BYOK transport: complete audio without oversized requests.</summary><p>Large imports normalize locally into contiguous PCM16 parts of at most ten minutes, then upload serially to the chosen provider. Every uploaded sample of an 80-minute public fixture was compared with its source within PCM16 quantization tolerance. The real Swift CLI and owned worker preserved the full timeline, repeated text and timestamp offsets; private temporary parts were removed. Failure or cancellation returns no completed partial result. Retry resends all parts and can incur provider charges. Independent jobs do not preserve speaker identity or context across their boundary.</p><p class="small muted">The loopback provider returned deterministic sentinels. This verifies transport and assembly, not recognition, provider quotas, native large-file interaction or speed. A separate native short-file import verified dummy Keychain save/restart/use and then restored local settings. <a href="../benchmarks/results/upload-parts.json">Transport receipt</a> · <a href="../benchmarks/results/native-ui-acceptance.json">Per-build native checks</a>. The decoder also avoids recursive FFmpeg conversion for normalized audio over 256 MiB; all 515 existing short-suite input arrays and default cuts stayed bit-identical. <a href="../benchmarks/results/audio-input-equivalence.json">Input equivalence receipt</a>.</p></details>',
     "__DATA__": payload,
 }.items():
     page = page.replace(token, value)

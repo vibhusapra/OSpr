@@ -27,16 +27,17 @@ def read_audio(path: str) -> np.ndarray:
         raise ValueError("Unsupported audio format.")
     # Bound native-rate multichannel material before allocating its float array.
     # FFmpeg streams the conversion to bounded 16 kHz mono first.
-    if info.frames * info.channels * 4 > 256 * 1024 * 1024:
+    if info.frames * info.channels * 4 > 256 * 1024 * 1024 and (info.channels != 1 or info.samplerate != SAMPLE_RATE):
         return _decode_with_ffmpeg(source)
-    audio, rate = sf.read(source, dtype="float32", always_2d=True)
-    mono = np.mean(audio, axis=1)
+    audio, rate = sf.read(source, dtype="float32", always_2d=info.channels != 1)
+    mono = audio if info.channels == 1 else np.mean(audio, axis=1)
     if not np.isfinite(mono).all():
         raise ValueError("Audio contains non-finite samples.")
     if rate != SAMPLE_RATE:
         divisor = gcd(rate, SAMPLE_RATE)
         mono = resample_poly(mono, SAMPLE_RATE // divisor, rate // divisor).astype(np.float32)
-    return np.ascontiguousarray(np.clip(mono, -1, 1))
+    np.clip(mono, -1, 1, out=mono)
+    return np.ascontiguousarray(mono)
 
 
 def _decode_with_ffmpeg(source):

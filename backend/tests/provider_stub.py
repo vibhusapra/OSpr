@@ -34,13 +34,28 @@ class Handler(BaseHTTPRequestHandler):
             assert self.headers["anthropic-version"] == "2023-06-01"
             result = {"content": [{"type": "text", "text": "Edited passage."}]}
         elif self.path.endswith("/audio/transcriptions"):
-            assert self.headers["Authorization"] == "Bearer test-key"
+            if self.path.startswith("/anonymous/"):
+                assert self.headers.get("Authorization") is None
+            else:
+                assert self.headers["Authorization"] == "Bearer test-key"
             assert b'filename="recording.wav"' in data
             if b"gpt-transcribe" in data:
                 assert b'name="languages[]"' in data and b'name="language"' not in data
             else:
                 assert b'name="language"' in data
-            result = {"text": "A test recording."}
+            if self.path.startswith("/parts"):
+                index = 1 if b"PART-1" in data else 0
+                if self.path.startswith("/parts-slow") and index == 1:
+                    time.sleep(5)
+                if self.path.startswith("/parts-fail") and index == 1:
+                    status, result = 503, {"error": "PRIVATE INPUT MUST NEVER LEAK"}
+                else:
+                    end = 99 if self.path.startswith("/parts-badtiming") else .4
+                    result = {"text": "Keep repeated phrase.", "language": "en",
+                              "segments": [{"start": .1, "end": end, "text": "Keep repeated phrase."}],
+                              "words": [{"start": .1, "end": end, "word": "Keep"}]}
+            else:
+                result = {"text": "A test recording."}
         else:
             status, result = 404, {}
         encoded = json.dumps(result).encode()

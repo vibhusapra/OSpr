@@ -465,6 +465,7 @@ struct PreferencesView: View {
                 Picker("Transcription", selection: $model.settings.transcriptionProvider) { Text("Local MLX · audio stays on Mac").tag("local"); Text("BYOK · upload audio to selected provider").tag("compatible") }
                 if model.settings.transcriptionProvider != "local" {
                     Text("Recordings will be uploaded to this endpoint. Charges and retention are controlled by your provider.").font(.caption).foregroundStyle(.orange)
+                    Text("Large files are split locally into audio-only parts, uploaded in order. Nothing is saved as a completed transcript until every part succeeds. Retrying a failed file uploads its parts again and may incur provider charges.").font(.caption).foregroundStyle(.secondary)
                     ProviderPresetPicker(kind: "transcription", model: model)
                     TextField("Base URL, including /v1", text: $model.settings.transcriptionURL)
                     TextField("Model ID", text: $model.settings.transcriptionModel)

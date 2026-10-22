@@ -7,16 +7,19 @@ from .audio import SAMPLE_RATE
 MAX_CHUNK_SECONDS = 30
 
 
-def chunks(audio):
-    """Contiguous views, at most 30s, cutting at low energy within the last 5s.
+def chunks(audio, *, max_seconds=MAX_CHUNK_SECONDS):
+    """Contiguous views, default 30s, cutting at low energy within the last 5s.
 
     A 100ms box-energy sum uses a bounded cumulative sum, avoiding quadratic
     convolution and full-recording temporary arrays. Keep at least a one-second
-    tail. No resampling, dropping, overlapping or deduplicating recognized text.
+    tail. Upload preparation can explicitly select 600s. No resampling, dropping,
+    overlapping or deduplicating recognized text; default ASR cuts are unchanged.
     """
     if audio.ndim != 1:
         raise ValueError("Chunking requires mono audio")
-    maximum = MAX_CHUNK_SECONDS * SAMPLE_RATE
+    if not isinstance(max_seconds, (int, float)) or not np.isfinite(max_seconds) or not 6 <= max_seconds <= 600:
+        raise ValueError("Chunk duration must be between 6 and 600 seconds")
+    maximum = int(max_seconds * SAMPLE_RATE)
     lookback = 5 * SAMPLE_RATE
     window = SAMPLE_RATE // 10
     start = 0

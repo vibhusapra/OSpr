@@ -89,3 +89,16 @@ def test_large_native_rate_audio_is_normalized_before_full_allocation(tmp_path, 
     monkeypatch.setattr('ospr_backend.audio._decode_with_ffmpeg', bounded)
     assert len(read_audio(str(path))) == 16000
     assert calls == [path.resolve()]
+
+
+def test_large_already_normalized_audio_does_not_reenter_ffmpeg(tmp_path, monkeypatch):
+    from types import SimpleNamespace
+    path = tmp_path / "already-normalized.wav"
+    path.write_bytes(b"fixture")
+    frames = 256 * 1024 * 1024 // 4 + 1
+    monkeypatch.setattr("ospr_backend.audio.sf.info", lambda _: SimpleNamespace(duration=frames / 16000, frames=frames, channels=1, samplerate=16000))
+    samples = np.array([-.125, 0, .25], dtype=np.float32)
+    monkeypatch.setattr("ospr_backend.audio.sf.read", lambda *args, **kwargs: (samples, 16000))
+    def fail(_): raise AssertionError("Already-normalized input would recursively decode")
+    monkeypatch.setattr("ospr_backend.audio._decode_with_ffmpeg", fail)
+    assert read_audio(str(path)) is samples
