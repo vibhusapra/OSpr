@@ -1,0 +1,24 @@
+{
+  "shape": [
+    128,
+    257
+  ],
+  "dtype": "float32",
+  "file_sha256": "63d8ddc9c24726f43b867a48037f9ccf9607e0ed59a1cd3e899c678a4f693f80",
+  "array_sha256": "bce5ec5f194a5913f6508cee5a85512e7bad2352db8fc28f5c6ff75af8b09137",
+  "parameters": {
+    "sr": 16000,
+    "n_fft": 512,
+    "n_mels": 128,
+    "fmin": 0.0,
+    "fmax": 8000.0,
+    "htk": false,
+    "norm": "slaney"
+  },
+  "versions": {
+    "librosa": "1.0.0",
+    "parakeet-mlx": "0.5.3",
+    "numpy": "2.5.4"
+  },
+  "boundary": "Exact pinned librosa reference output used by the reviewed Parakeet preprocessor; dtype/layout/normalization and numerical values are unchanged."
+}

@@ -1,0 +1,50 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+concurrency:
+  group: ospr-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  mac:
+    runs-on: macos-15
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - name: Verify native app and core contracts
+        run: swift test
+      - name: Install locked Python environment
+        run: uv sync --frozen --all-extras --python 3.12
+      - name: Install media decoder for real codec and track-mixing tests
+        run: brew install ffmpeg
+      - name: Lint and backend protocol tests
+        run: |
+          uv run --frozen --all-extras ruff check backend benchmarks scripts
+          uv run --frozen --all-extras pytest -q
+      - name: Build app and self-contained research report
+        run: |
+          scripts/build-app.sh
+          python3 scripts/build-report.py
+      - name: Verify standalone runtime on a clean runner
+        run: |
+          scripts/bundle-app.sh
+          bundle="$GITHUB_WORKSPACE/dist/standalone/OSpr.app"
+          task_directory="$(mktemp -d)"
+          cd "$task_directory"
+          "$bundle/Contents/Resources/Engine/.venv/bin/python" -c 'import mlx.core as mx; mx.set_default_device(mx.cpu); import mlx_whisper, parakeet_mlx, mlx_audio.stt, mlx_lm, mcp; value = mx.array([1]); mx.eval(value + 1); print("Bundled inference libraries imported successfully")'
+          "$bundle/Contents/MacOS/ospr-cli" doctor
+          codesign --verify --deep --strict "$bundle"
+      - name: Preserve executable bits and symlinks inside the development artifact
+        run: ditto -c -k --sequesterRsrc --keepParent dist/OSpr.app dist/OSpr-development.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: OSpr-development-build
+          path: |
+            dist/OSpr-development.zip
+            docs/research.html

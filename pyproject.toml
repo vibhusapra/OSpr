@@ -1,0 +1,24 @@
+[project]
+name = "ospr-backend"
+version = "0.1.0"
+description = "Local Apple Silicon speech engine for OSpr"
+requires-python = ">=3.12,<3.14"
+dependencies = ["mlx-whisper>=0.4.3", "parakeet-mlx>=0.4.0", "mlx-lm>=0.28", "soundfile>=0.13", "numpy>=2.0", "scipy>=1.15", "huggingface-hub>=0.34"]
+
+[project.optional-dependencies]
+engines = ["mlx-audio>=0.3"]
+research = ["mlx-audio>=0.3", "pyarrow>=20", "jiwer>=4"]
+dev = ["pytest>=8", "ruff>=0.12"]
+mcp = [
+    "mcp>=2.3",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["backend"]
+testpaths = ["backend/tests"]
+
+[tool.ruff]
+line-length = 110
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "B", "UP"]

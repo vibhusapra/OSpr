@@ -1,0 +1,462 @@
+{
+  "timestamp": "2026-10-22T12:27:09.065118+00:00",
+  "model": "parakeet-v3",
+  "model_spec": {
+    "repo": "mlx-community/parakeet-tdt-0.6b-v3",
+    "engine": "parakeet",
+    "name": "Parakeet v3 \u00b7 fast multilingual",
+    "languages": "25 European languages",
+    "license": "CC-BY-4.0 (weights); Apache-2.0 (runtime)"
+  },
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "machine": "arm64",
+  "hardware": "Apple M5 Max",
+  "memory_bytes": 137438953472,
+  "source_sha256": "5ffc8c3fc32ca6b8286bec9a3fd868639ab853642a87715bbf31c0f71502d06f",
+  "git_commit": "82ea4a1eca6c68f410221a402b74272928b181b1",
+  "working_tree_dirty": true,
+  "versions": {
+    "mlx": "0.32.4",
+    "mlx-whisper": "0.4.3",
+    "parakeet-mlx": "0.5.3",
+    "mlx-audio": "0.6.1",
+    "numpy": "2.5.4"
+  },
+  "options": {
+    "model": "parakeet-v3",
+    "limit": 0,
+    "suite": "fleurs-es_419",
+    "no_trim": false,
+    "repeat": 1,
+    "manifest": "fixtures/fleurs.json"
+  },
+  "cold": {
+    "model": "parakeet-v3",
+    "audio_seconds": 12.84,
+    "speech_seconds": 12.68,
+    "text": "Se recomienda enf\u00e1ticamente a los viajeros que se informen sobre cualquier riesgo del clima extremo en el \u00e1rea que visitan, dado que ello pueda afectar sus planes de viaje.",
+    "segments": [
+      {
+        "start": 1.68,
+        "end": 12.64,
+        "text": " Se recomienda enf\u00e1ticamente a los viajeros que se informen sobre cualquier riesgo del clima extremo en el \u00e1rea que visitan, dado que ello pueda afectar sus planes de viaje."
+      }
+    ],
+    "words": [],
+    "language": "es",
+    "silence": false,
+    "warm": false,
+    "load_ms": 216.56724996864796,
+    "preprocess_ms": 1.0774170514196157,
+    "decode_ms": 159.57183297723532,
+    "total_ms": 377.22266698256135,
+    "peak_gpu_bytes": 3354866156,
+    "active_gpu_bytes": 1296476364,
+    "vocabulary_applied": false,
+    "timestamp_granularity": "segment",
+    "wall_ms": 377.2410840028897
+  },
+  "summary": {
+    "fleurs-es_419": {
+      "cases": 10,
+      "errors": 0,
+      "wer": 0.03404255319148936,
+      "cer": 0.00856898029134533,
+      "substitutions": 6,
+      "deletions": 2,
+      "insertions": 0,
+      "p50_ms": 69.01406240649521,
+      "p95_ms": 114.04786239727395,
+      "aggregate_rtf": 0.006773799650936879,
+      "hallucinated_silence": 0
+    }
+  },
+  "process_peak_rss_bytes": 1746960384,
+  "corpus": {
+    "dataset": "google/fleurs",
+    "revision": "70bb2e84b976b7e960aa89f1c648e09c59f894dd",
+    "license": "CC BY 4.0 \u00b7 Google FLEURS / FLoRes multilingual evaluation corpus",
+    "selection": "First 10 test rows per language. Not selected by model output.",
+    "sources": [
+      {
+        "language": "es_419",
+        "sha256": "f1e8b7f6eecb91d16b79d91bc1838d8b0e5ebc0b37b317e2b58eb8694c64d3c0"
+      },
+      {
+        "language": "de_de",
+        "sha256": "3b40c214cabd603f1ddbf3da0499f7780975d6c56b75240f07a8990dbb7a6c07"
+      },
+      {
+        "language": "hi_in",
+        "sha256": "8a0be26c5584c1478233a6f47fb90275c713f72565327ea1da76c9f1cd5dd38b"
+      },
+      {
+        "language": "ja_jp",
+        "sha256": "e954b67e934b9a31d7a74a070a75225379660d50c8d1aacdb755852c57f23e6b"
+      },
+      {
+        "language": "cmn_hans_cn",
+        "sha256": "87c0aebbe183f3a36ac87b5c3421b6ab57036824744ff695029a3f858e7622fd"
+      }
+    ],
+    "caveats": "Tiny multilingual read-speech slices. Not a representative language ranking. Japanese/Chinese use CER; whitespace WER is not meaningful."
+  },
+  "records": [
+    {
+      "id": "fleurs-es_419-000",
+      "path": "fixtures/audio/fleurs/es_419/000.wav",
+      "reference": "se recomienda enf\u00e1ticamente a los viajeros que se informen sobre cualquier riesgo de clima extremo en el \u00e1rea que visitan dado que ello puede afectar sus planes de viaje",
+      "language": "es",
+      "suite": "fleurs-es_419",
+      "source_id": 2001,
+      "sha256": "518e4998d7fc4cb32bf9cb6c479b4cfe632bc68c6a2db376eeff98b68fea2bd1",
+      "seconds": 12.84,
+      "repeat": 0,
+      "model": "parakeet-v3",
+      "audio_seconds": 12.84,
+      "speech_seconds": 12.68,
+      "text": "Se recomienda enf\u00e1ticamente a los viajeros que se informen sobre cualquier riesgo del clima extremo en el \u00e1rea que visitan, dado que ello pueda afectar sus planes de viaje.",
+      "segments": [
+        {
+          "start": 1.68,
+          "end": 12.64,
+          "text": " Se recomienda enf\u00e1ticamente a los viajeros que se informen sobre cualquier riesgo del clima extremo en el \u00e1rea que visitan, dado que ello pueda afectar sus planes de viaje."
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001999898813664913,
+      "preprocess_ms": 0.9376250673085451,
+      "decode_ms": 80.46950004063547,
+      "total_ms": 81.41287509351969,
+      "peak_gpu_bytes": 2300002800,
+      "active_gpu_bytes": 1296476364,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 81.42795809544623
+    },
+    {
+      "id": "fleurs-es_419-001",
+      "path": "fixtures/audio/fleurs/es_419/001.wav",
+      "reference": "el uso adecuado de los blogs \u00abpuede empoderar a los alumnos para que sean m\u00e1s anal\u00edticos y cr\u00edticos a trav\u00e9s de la respuesta activa a los contenidos de internet pueden definir sus posturas en el contexto de los escritos de otros adem\u00e1s de establecer sus perspectivas sobre temas espec\u00edficos\u00bb oravec 2002",
+      "language": "es",
+      "suite": "fleurs-es_419",
+      "source_id": 1852,
+      "sha256": "2c87d0b144fb5cd37b91058c4e7cbb92a2e423216c56f1f4cd7a39189bbd5e63",
+      "seconds": 21.36,
+      "repeat": 0,
+      "model": "parakeet-v3",
+      "audio_seconds": 21.36,
+      "speech_seconds": 21.2,
+      "text": "El uso adecuado de los blogs puede empoderar a los alumnos para que sean m\u00e1s anal\u00edticos y cr\u00edticos a trav\u00e9s de la respuesta activa a los contenidos de Internet. Pueden definir sus posturas en el contexto de los escritos de otros, adem\u00e1s de establecer sus perspectivas sobre temas espec\u00edficos. OraBek, 2002",
+      "segments": [
+        {
+          "start": 1.3399999999999999,
+          "end": 10.700000000000001,
+          "text": " El uso adecuado de los blogs puede empoderar a los alumnos para que sean m\u00e1s anal\u00edticos y cr\u00edticos a trav\u00e9s de la respuesta activa a los contenidos de Internet."
+        },
+        {
+          "start": 10.700000000000001,
+          "end": 18.700000000000003,
+          "text": " Pueden definir sus posturas en el contexto de los escritos de otros, adem\u00e1s de establecer sus perspectivas sobre temas espec\u00edficos."
+        },
+        {
+          "start": 18.7,
+          "end": 20.3,
+          "text": " OraBek, 2002"
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.00229093711823225,
+      "preprocess_ms": 1.3777499552816153,
+      "decode_ms": 139.33512498624623,
+      "total_ms": 140.71912493091077,
+      "peak_gpu_bytes": 2444722500,
+      "active_gpu_bytes": 1296918732,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 140.73687500786036
+    },
+    {
+      "id": "fleurs-es_419-002",
+      "path": "fixtures/audio/fleurs/es_419/002.wav",
+      "reference": "fue tanta la cantidad de gente que se concentr\u00f3 que no todos pudieron acceder al funeral en la plaza de san pedro",
+      "language": "es",
+      "suite": "fleurs-es_419",
+      "source_id": 1764,
+      "sha256": "24624100418fb70f3947df1912c4b64c6a7ae67a84936c98e3eb9e0162055a6f",
+      "seconds": 9.72,
+      "repeat": 0,
+      "model": "parakeet-v3",
+      "audio_seconds": 9.72,
+      "speech_seconds": 8.88,
+      "text": "Fue tanta la cantidad de gente que se concentr\u00f3 que no todos pudieron acceder al funeral en la plaza de San Pedro.",
+      "segments": [
+        {
+          "start": 2.02,
+          "end": 8.98,
+          "text": " Fue tanta la cantidad de gente que se concentr\u00f3 que no todos pudieron acceder al funeral en la plaza de San Pedro."
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0012080417945981026,
+      "preprocess_ms": 0.7335420232266188,
+      "decode_ms": 66.25404092483222,
+      "total_ms": 66.99245900381356,
+      "peak_gpu_bytes": 2234974704,
+      "active_gpu_bytes": 1296279756,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 67.0042079873383
+    },
+    {
+      "id": "fleurs-es_419-003",
+      "path": "fixtures/audio/fleurs/es_419/003.wav",
+      "reference": "esto parece tener sentido ya que en la tierra no se percibe su movimiento \u00bfcierto?",
+      "language": "es",
+      "suite": "fleurs-es_419",
+      "source_id": 1770,
+      "sha256": "54f941743dbd5d484a3f4b2b72a5621d4ebb00c0e2c65d8a896bc05adc95a205",
+      "seconds": 8.58,
+      "repeat": 0,
+      "model": "parakeet-v3",
+      "audio_seconds": 8.58,
+      "speech_seconds": 8.24,
+      "text": "Esto parece tener sentido, ya que en la Tierra no se percibe su movimiento, \u00bfcierto?",
+      "segments": [
+        {
+          "start": 1.54,
+          "end": 7.300000000000001,
+          "text": " Esto parece tener sentido, ya que en la Tierra no se percibe su movimiento, \u00bfcierto?"
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001625041477382183,
+      "preprocess_ms": 0.7533750031143427,
+      "decode_ms": 56.86262506060302,
+      "total_ms": 57.62225005310029,
+      "peak_gpu_bytes": 2224210416,
+      "active_gpu_bytes": 1296246988,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 57.637125020846725
+    },
+    {
+      "id": "fleurs-es_419-004",
+      "path": "fixtures/audio/fleurs/es_419/004.wav",
+      "reference": "carpanedo particip\u00f3 en dos carreras individuales del campeonato aparte de la competencia del mi\u00e9rcoles",
+      "language": "es",
+      "suite": "fleurs-es_419",
+      "source_id": 1799,
+      "sha256": "5bfbd4442ae4495351febcb516663c779438444e562d4a959efd6dd6e454c38c",
+      "seconds": 10.62,
+      "repeat": 0,
+      "model": "parakeet-v3",
+      "audio_seconds": 10.62,
+      "speech_seconds": 10.3,
+      "text": "Carpaneo particip\u00f3 en dos carreras individuales del campeonato, aparte de la competencia del mi\u00e9rcoles.",
+      "segments": [
+        {
+          "start": 2.2399999999999998,
+          "end": 8.88,
+          "text": " Carpaneo particip\u00f3 en dos carreras individuales del campeonato, aparte de la competencia del mi\u00e9rcoles."
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0012919772416353226,
+      "preprocess_ms": 0.7288750493898988,
+      "decode_ms": 64.44708304479718,
+      "total_ms": 65.1807920075953,
+      "peak_gpu_bytes": 2260533744,
+      "active_gpu_bytes": 1296361676,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 65.19341701641679
+    },
+    {
+      "id": "fleurs-es_419-005",
+      "path": "fixtures/audio/fleurs/es_419/005.wav",
+      "reference": "hoy en d\u00eda las personas escriben mensajes en las pantallas de sus computadoras no tienen la necesidad de siquiera aproximarse a un sacapuntas",
+      "language": "es",
+      "suite": "fleurs-es_419",
+      "source_id": 1820,
+      "sha256": "0ad471471e9af79e91856bd07ff1e31594ad703356f6eb67251d867958975a2c",
+      "seconds": 9.78,
+      "repeat": 0,
+      "model": "parakeet-v3",
+      "audio_seconds": 9.78,
+      "speech_seconds": 9.56,
+      "text": "Hoy en d\u00eda, las personas escriben mensajes en las pantallas de sus computadoras, no tienen la necesidad de siquiera aproximarse en sacapuntas.",
+      "segments": [
+        {
+          "start": 1.12,
+          "end": 9.44,
+          "text": " Hoy en d\u00eda, las personas escriben mensajes en las pantallas de sus computadoras, no tienen la necesidad de siquiera aproximarse en sacapuntas."
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001249951310455799,
+      "preprocess_ms": 0.7634999928995967,
+      "decode_ms": 72.46725005097687,
+      "total_ms": 73.23620899114758,
+      "peak_gpu_bytes": 2246197744,
+      "active_gpu_bytes": 1296312524,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 73.24866706039757
+    },
+    {
+      "id": "fleurs-es_419-006",
+      "path": "fixtures/audio/fleurs/es_419/006.wav",
+      "reference": "los luchadores compa\u00f1eros de luna tambi\u00e9n le rindieron homenaje",
+      "language": "es",
+      "suite": "fleurs-es_419",
+      "source_id": 1747,
+      "sha256": "26b7d441771ca7af5679f154631351081ac224cb7ae257dda34d43799854c54b",
+      "seconds": 5.64,
+      "repeat": 0,
+      "model": "parakeet-v3",
+      "audio_seconds": 5.64,
+      "speech_seconds": 4.66,
+      "text": "Los luchadores compa\u00f1eros de Luna tambi\u00e9n le rindieron homenaje.",
+      "segments": [
+        {
+          "start": 0.54,
+          "end": 4.86,
+          "text": " Los luchadores compa\u00f1eros de Luna tambi\u00e9n le rindieron homenaje."
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0015420373529195786,
+      "preprocess_ms": 0.5122500006109476,
+      "decode_ms": 53.747666999697685,
+      "total_ms": 54.26474998239428,
+      "peak_gpu_bytes": 2168324592,
+      "active_gpu_bytes": 1296066764,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 54.2765409918502
+    },
+    {
+      "id": "fleurs-es_419-007",
+      "path": "fixtures/audio/fleurs/es_419/007.wav",
+      "reference": "duvall que est\u00e1 casado y tiene dos hijos adultos no caus\u00f3 una buena impresi\u00f3n a miller que fue a quien le relat\u00f3 la historia",
+      "language": "es",
+      "suite": "fleurs-es_419",
+      "source_id": 1816,
+      "sha256": "425b17fb98176ba058dc0345f4a8d54c343c8d51db0daa6b337f8bf9f2d97479",
+      "seconds": 10.26,
+      "repeat": 0,
+      "model": "parakeet-v3",
+      "audio_seconds": 10.26,
+      "speech_seconds": 8.24,
+      "text": "Duvall, que est\u00e1 casado y tiene dos hijos adultos, no caus\u00f3 una buena impresi\u00f3n a Miller, que fue a quien le relat\u00f3 la historia.",
+      "segments": [
+        {
+          "start": 1.18,
+          "end": 8.38,
+          "text": " Duvall, que est\u00e1 casado y tiene dos hijos adultos, no caus\u00f3 una buena impresi\u00f3n a Miller, que fue a quien le relat\u00f3 la historia."
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001625041477382183,
+      "preprocess_ms": 0.9862080914899707,
+      "decode_ms": 66.4905000012368,
+      "total_ms": 67.48387508559972,
+      "peak_gpu_bytes": 2224210416,
+      "active_gpu_bytes": 1296246988,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 67.49641592614353
+    },
+    {
+      "id": "fleurs-es_419-008",
+      "path": "fixtures/audio/fleurs/es_419/008.wav",
+      "reference": "entre los fen\u00f3menos clim\u00e1ticos regionales y estacionales extremos encontramos los ventarrones las tormentas de nieve hielo o polvo",
+      "language": "es",
+      "suite": "fleurs-es_419",
+      "source_id": 1783,
+      "sha256": "97256089ff27aef9a3ee609ba3bf4e6ba4ca20d060081155b8a4455f298df437",
+      "seconds": 10.68,
+      "repeat": 0,
+      "model": "parakeet-v3",
+      "audio_seconds": 10.68,
+      "speech_seconds": 10.68,
+      "text": "Entre los fen\u00f3menos clim\u00e1ticos regionales y estacionales extremos encontramos los ventalrones, las tormentas de nieve, hielo o polvo.",
+      "segments": [
+        {
+          "start": 0.96,
+          "end": 9.76,
+          "text": " Entre los fen\u00f3menos clim\u00e1ticos regionales y estacionales extremos encontramos los ventalrones, las tormentas de nieve, hielo o polvo."
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001374981366097927,
+      "preprocess_ms": 0.7360420422628522,
+      "decode_ms": 69.78020805399865,
+      "total_ms": 70.52062510047108,
+      "peak_gpu_bytes": 2269037040,
+      "active_gpu_bytes": 1296394444,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 70.5317088868469
+    },
+    {
+      "id": "fleurs-es_419-009",
+      "path": "fixtures/audio/fleurs/es_419/009.wav",
+      "reference": "se puede definir a una civilizaci\u00f3n como una cultura espec\u00edfica de la que forma parte un extenso grupo de personas que viven y trabajan en conjunto es decir una sociedad",
+      "language": "es",
+      "suite": "fleurs-es_419",
+      "source_id": 1794,
+      "sha256": "920432a55b7e8eb606c8fea177ad4bb61f871e2dd49462e1de231c3d9a8274ef",
+      "seconds": 12.12,
+      "repeat": 0,
+      "model": "parakeet-v3",
+      "audio_seconds": 12.12,
+      "speech_seconds": 11.56,
+      "text": "Se puede definir a una civilizaci\u00f3n como una cultura espec\u00edfica de que forma parte un extenso grupo de personas que viven y trabajan en conjunto, es decir, una sociedad.",
+      "segments": [
+        {
+          "start": 1.12,
+          "end": 12.08,
+          "text": " Se puede definir a una civilizaci\u00f3n como una cultura espec\u00edfica de que forma parte un extenso grupo de personas que viven y trabajan en conjunto, es decir, una sociedad."
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001500011421740055,
+      "preprocess_ms": 0.7902910001575947,
+      "decode_ms": 77.59620901197195,
+      "total_ms": 78.39104102458805,
+      "peak_gpu_bytes": 2283504112,
+      "active_gpu_bytes": 1296427212,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 78.403125051409
+    }
+  ],
+  "limitations": [
+    "Fixed public read-speech slices, not full corpora, spontaneous dictation or a multilingual leaderboard.",
+    "Same host and power environment; no controlled thermal isolation or energy measurement.",
+    "In-process audio-to-transcript timing excludes hotkey, capture, IPC, rewrite and text insertion.",
+    "Shared model backends are not equivalent to testing competing app products."
+  ]
+}
