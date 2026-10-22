@@ -193,8 +193,13 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
   conversion is deferred on an unprepared 48 kHz request; explicit preparation
   now includes it, and prepared 16/48 kHz requests remain around 55 ms.
   Three trials per combination and one clip do not establish a latency SLA.
-  Candidate bundle passed strict signing; final relocated six-model preparation
-  and release packaging checks are pending.
+  The final development-signed bundle has the exact measured application-source
+  fingerprint. Relocated offline checks pass all six engines and 48 kHz preparation;
+  both cold hour-long requests and both 80-minute every-sample upload checks pass.
+  Matching-receipt ZIP CRC, actual extraction, extracted signatures and offline CLI
+  gates pass with 127 Swift / 94 Python tests. See `release-package.json`.
+  The running older GUI remains untouched while the Mac is locked; its live provider
+  reset and remaining native interaction acceptance still need an unlocked session.
 - [ ] Equivalent installed consumer-app GUI/dictation benchmarks, correction effort and energy;
   broader speaker/accent/noise/spontaneous dictation and code-switching evaluation.
 - [ ] Validate on lower-memory and older Apple Silicon hardware.

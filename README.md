@@ -64,10 +64,12 @@ the runtime boundary, not interactive microphone/insertion behavior.
 
 After running `benchmarks/portable_app.py`, the bundled hour-long regression
 check (`PYTHONPATH=backend .venv/bin/python benchmarks/native_long.py --app dist/standalone/OSpr.app`),
-and saving successful native/Python
+both public 80-minute loopback transport checks, and successful native/Python
 test logs, create a verified delivery archive with:
 
 ```sh
+.venv/bin/python benchmarks/upload_parts.py --cli dist/standalone/OSpr.app/Contents/MacOS/ospr-cli
+.venv/bin/python benchmarks/upload_parts.py --cli dist/standalone/OSpr.app/Contents/MacOS/ospr-cli --provider deepgram
 .venv/bin/python scripts/package-release.py --swift-log .local/swift-tests.log --python-log .local/python-tests.log
 ```
 
@@ -77,7 +79,7 @@ the extracted offline CLI, and writes a SHA-256 manifest. It replaces the previo
 local archive only after verification succeeds. This requires the fully cached
 models used by the preceding portable smoke suite; weights are never embedded.
 
-Builds are ad-hoc signed. Distribution signing, notarization and an updater are not complete. Do not overwrite an existing installation
+Builds use ad-hoc signing by default; the current local preview uses an Apple Development signature. Developer ID distribution signing, notarization and an updater are not complete. Do not overwrite an existing installation
 until its transcripts/settings are backed up.
 
 ## Included
