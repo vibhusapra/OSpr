@@ -120,6 +120,7 @@ public struct OSprSettings: Codable, Sendable {
     public var silenceThreshold = 0.003
     public var autoStopSeconds = 0.0
     public var pushToTalk = false
+    public var hotkeyFnOnly = false
     public var hotkeyCode: UInt32 = 49 // Space
     public var hotkeyModifiers: UInt32 = 6144 // Control + Option, Carbon modifiers
     public var microphoneID = ""
@@ -127,7 +128,7 @@ public struct OSprSettings: Codable, Sendable {
     public var speakerLabels = false
     public var launchAtLogin = false
     public var rootPath = ""
-    private enum CodingKeys: String, CodingKey { case model, language, mode, rewriteProvider, rewriteURL, rewriteModel, transcriptionProvider, transcriptionURL, transcriptionModel, customPrompt, translationLanguage, vocabulary, replacements, profiles, saveHistory, keepAudio, audioBudgetMB, retentionDays, autoPaste, restoreClipboard, allowUnverifiedPaste, spokenPunctuation, silenceTrim, silenceThreshold, autoStopSeconds, pushToTalk, hotkeyCode, hotkeyModifiers, microphoneID, preview, speakerLabels, launchAtLogin, rootPath }
+    private enum CodingKeys: String, CodingKey { case model, language, mode, rewriteProvider, rewriteURL, rewriteModel, transcriptionProvider, transcriptionURL, transcriptionModel, customPrompt, translationLanguage, vocabulary, replacements, profiles, saveHistory, keepAudio, audioBudgetMB, retentionDays, autoPaste, restoreClipboard, allowUnverifiedPaste, spokenPunctuation, silenceTrim, silenceThreshold, autoStopSeconds, pushToTalk, hotkeyFnOnly, hotkeyCode, hotkeyModifiers, microphoneID, preview, speakerLabels, launchAtLogin, rootPath }
     public init() {}
     public init(from decoder: Decoder) throws {
         self.init()
@@ -158,6 +159,7 @@ public struct OSprSettings: Codable, Sendable {
         silenceThreshold = try c.decodeIfPresent(type(of: silenceThreshold), forKey: .silenceThreshold) ?? silenceThreshold
         autoStopSeconds = try c.decodeIfPresent(type(of: autoStopSeconds), forKey: .autoStopSeconds) ?? autoStopSeconds
         pushToTalk = try c.decodeIfPresent(type(of: pushToTalk), forKey: .pushToTalk) ?? pushToTalk
+        hotkeyFnOnly = try c.decodeIfPresent(Bool.self, forKey: .hotkeyFnOnly) ?? false
         hotkeyCode = try c.decodeIfPresent(type(of: hotkeyCode), forKey: .hotkeyCode) ?? hotkeyCode
         hotkeyModifiers = try c.decodeIfPresent(type(of: hotkeyModifiers), forKey: .hotkeyModifiers) ?? hotkeyModifiers
         microphoneID = try c.decodeIfPresent(type(of: microphoneID), forKey: .microphoneID) ?? microphoneID

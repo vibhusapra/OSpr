@@ -124,7 +124,7 @@ struct StudioView: View {
                                 Text(model.phase == "recording" ? (model.recordingDesktop ? "Recording desktop audio…" : "Listening to you…") : "Your next idea starts here.").font(.title3.weight(.medium))
                                 Text(model.phase == "recording" ? String(format: "%.1f seconds · click to finish", model.displaySeconds) : "Click the mic, or use your shortcut in any app. Up to five minutes per take.").font(.subheadline).foregroundStyle(.secondary)
                                 HStack(spacing: 7) {
-                                    Text(shortcutLabel(model.settings)).font(.system(size: 12, weight: .medium, design: .monospaced)).padding(.horizontal, 9).padding(.vertical, 5).background(.quaternary, in: RoundedRectangle(cornerRadius: 5))
+                                    Text(model.hotkey.hasBinding ? shortcutLabel(model.effectiveShortcutSettings) : "No shortcut bound").font(.system(size: 12, weight: .medium, design: .monospaced)).padding(.horizontal, 9).padding(.vertical, 5).background(.quaternary, in: RoundedRectangle(cornerRadius: 5))
                                     Text(model.settings.pushToTalk ? "hold to talk" : "start / finish").font(.caption).foregroundStyle(.tertiary)
                                 }
                             }
@@ -210,6 +210,7 @@ struct StudioView: View {
 }
 
 func shortcutLabel(_ settings: OSprSettings) -> String {
+    if settings.hotkeyFnOnly { return "Globe / Fn" }
     let flags = settings.hotkeyModifiers
     let modifiers = (flags & 4096 != 0 ? "⌃" : "") + (flags & 2048 != 0 ? "⌥" : "") + (flags & 512 != 0 ? "⇧" : "") + (flags & 256 != 0 ? "⌘" : "")
     let names: [UInt32: String] = [49: "Space", 0: "A", 1: "S", 2: "D", 3: "F", 4: "H", 5: "G", 6: "Z", 7: "X", 8: "C", 9: "V", 11: "B", 12: "Q", 13: "W", 14: "E", 15: "R", 16: "Y", 17: "T", 31: "O", 35: "P", 37: "L", 40: "K", 45: "N", 46: "M", 47: "."]
@@ -430,7 +431,15 @@ struct PreferencesView: View {
                     ForEach(Capture.microphones, id: \.uniqueID) { Text($0.localizedName).tag($0.uniqueID) }
                 }
                 TextField(model.settings.model == "cohere-native8" ? "Language hint (ISO code; blank uses English)" : "Language hint (ISO code; blank for automatic)", text: $model.settings.language)
-                HStack { Text("Global shortcut"); Spacer(); ShortcutRecorder(code: $model.settings.hotkeyCode, modifiers: $model.settings.hotkeyModifiers).frame(width: 190, height: 28) }
+                Picker("Global shortcut", selection: $model.settings.hotkeyFnOnly) {
+                    Text("Modified key").tag(false)
+                    Text("Globe / Fn alone · experimental").tag(true)
+                }
+                if model.settings.hotkeyFnOnly {
+                    Text("Requires Accessibility. In macOS Keyboard settings, set “Press Globe/Fn key to” to “Do Nothing” to avoid system dictation or emoji actions. Fn combinations cancel the gesture; typed content is not collected. Physical keyboard acceptance is still pending.").font(.caption).foregroundStyle(.secondary)
+                } else {
+                    HStack { Text("Key combination"); Spacer(); ShortcutRecorder(code: $model.settings.hotkeyCode, modifiers: $model.settings.hotkeyModifiers).frame(width: 190, height: 28) }
+                }
                 Toggle("Hold shortcut to talk", isOn: $model.settings.pushToTalk)
                 Toggle("Paste into the original focused field", isOn: $model.settings.autoPaste)
                 Toggle("Restore clipboard after paste fallback", isOn: $model.settings.restoreClipboard)

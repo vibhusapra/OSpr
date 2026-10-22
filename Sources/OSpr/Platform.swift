@@ -36,9 +36,30 @@ enum KeyVault {
     private var reference: EventHotKeyRef?
     private var handler: EventHandlerRef?
     private var combination: (code: UInt32, modifiers: UInt32)?
+    private var functionMonitor: FunctionHotkeyMonitor?
+    var hasBinding: Bool { reference != nil || functionMonitor != nil }
+    var functionOnlyActive: Bool { functionMonitor != nil }
+    var registeredCombination: (code: UInt32, modifiers: UInt32)? { combination }
     var pressed: (() -> Void)?
     var released: (() -> Void)?
-    func register(code: UInt32, modifiers: UInt32) throws {
+    var cancelled: (() -> Void)?
+    var failed: ((String) -> Void)?
+    func register(code: UInt32, modifiers: UInt32, functionOnly: Bool = false) throws {
+        if functionOnly {
+            guard AXIsProcessTrusted() else {
+                let fallback = reference != nil ? "The previous modified shortcut remains active." : "Choose a modified shortcut until access is enabled."
+                throw OSprError.message("Globe/Fn requires Accessibility access. " + fallback)
+            }
+            if functionMonitor != nil { return }
+            let replacement = try FunctionHotkeyMonitor()
+            replacement.pressed = { [weak self] in self?.pressed?() }
+            replacement.released = { [weak self] in self?.released?() }
+            replacement.cancelled = { [weak self] in self?.cancelled?() }
+            replacement.failed = { [weak self] message in self?.failed?(message) }
+            if let reference { UnregisterEventHotKey(reference) }
+            reference = nil; combination = nil; functionMonitor = replacement
+            return
+        }
         guard code < 128, modifiers & 0x1900 != 0 else {
             throw OSprError.message("Choose a shortcut with Control, Option or Command, so ordinary typing stays available.")
         }
@@ -49,6 +70,10 @@ enum KeyVault {
             let pointer = Unmanaged.passUnretained(self).toOpaque()
             InstallEventHandler(GetApplicationEventTarget(), { _, event, context in
                 guard let event, let context else { return noErr }
+                var identifier = EventHotKeyID()
+                guard GetEventParameter(event, EventParamName(kEventParamDirectObject), EventParamType(typeEventHotKeyID), nil,
+                    MemoryLayout<EventHotKeyID>.size, nil, &identifier) == noErr,
+                    identifier.signature == 0x4F535052, identifier.id == 1 else { return OSStatus(eventNotHandledErr) }
                 let owner = Unmanaged<Hotkey>.fromOpaque(context).takeUnretainedValue()
                 let down = GetEventKind(event) == UInt32(kEventHotKeyPressed)
                 MainActor.assumeIsolated { if down { owner.pressed?() } else { owner.released?() } }
@@ -60,11 +85,20 @@ enum KeyVault {
                                         GetApplicationEventTarget(), 0, &replacement)
         guard status == noErr else { throw OSprError.message("That shortcut is already in use. The previous shortcut remains active; choose another in Settings.") }
         if let reference { UnregisterEventHotKey(reference) }
+        functionMonitor?.stop(); functionMonitor = nil
         reference = replacement; combination = (code, modifiers)
+    }
+    func unregister() {
+        functionMonitor?.stop(); functionMonitor = nil
+        if let reference { UnregisterEventHotKey(reference) }; reference = nil
+        if let handler { RemoveEventHandler(handler) }; handler = nil
+        combination = nil
     }
     deinit {
         if let reference { UnregisterEventHotKey(reference) }
         if let handler { RemoveEventHandler(handler) }
+        let monitor = functionMonitor
+        Task { @MainActor in monitor?.stop() }
     }
 }
 

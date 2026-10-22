@@ -75,11 +75,18 @@ import OSprCore
     private var operationTask: Task<Void, Never>?
     private var streamSession: (generation: UUID, id: String)?
     private var generation = UUID()
+    private var shortcutCaptureGeneration: UUID?
     private var backgroundGeneration: UUID?
     var backgroundImportActive: Bool { backgroundGeneration == generation }
     private var overlay: NSPanel?
     var busy: Bool { phase != "idle" || audioMaintenance }
     var audioBudgetBytes: Int64 { Int64(settings.audioBudgetMB) * 1024 * 1024 }
+    var effectiveShortcutSettings: OSprSettings {
+        var value = settings
+        value.hotkeyFnOnly = hotkey.functionOnlyActive
+        if let registered = hotkey.registeredCombination { value.hotkeyCode = registered.code; value.hotkeyModifiers = registered.modifiers }
+        return value
+    }
     var selected: Transcript? { history.first { $0.id == selection } ?? history.first }
     var root: URL { URL(fileURLWithPath: settings.rootPath) }
     var engineBundled: Bool { Bundle.main.resourceURL?.appendingPathComponent("Engine").path == root.path }
@@ -123,13 +130,41 @@ import OSprCore
         hasRecovery = recovery.exists
         self.error = loadError + (folderWatcher.loadError.isEmpty ? "" : " " + folderWatcher.loadError)
         credentialsReady = true; refreshCredentials()
-        hotkey.pressed = { [weak self] in self?.toggle() }
+        hotkey.pressed = { [weak self] in
+            guard let self else { return }
+            self.shortcutCaptureGeneration = nil
+            guard NSApp.modalWindow == nil else { return }
+            let previous = self.generation
+            self.toggle()
+            if self.generation != previous && self.phase == "starting" { self.shortcutCaptureGeneration = self.generation }
+        }
         hotkey.released = { [weak self] in
-            guard let self, self.settings.pushToTalk else { return }
+            guard let self else { return }
+            let token = self.shortcutCaptureGeneration; self.shortcutCaptureGeneration = nil
+            guard self.settings.pushToTalk, token == self.generation else { return }
             if self.phase == "starting" { self.cancel() } else { self.stop() }
         }
+        hotkey.cancelled = { [weak self] in
+            guard let self else { return }
+            let token = self.shortcutCaptureGeneration; self.shortcutCaptureGeneration = nil
+            if token == self.generation && ["starting", "recording"].contains(self.phase) { self.cancel() }
+        }
+        hotkey.failed = { [weak self] message in self?.error = message }
         capture.silenceReached = { [weak self] in self?.stop() }
-        do { try hotkey.register(code: settings.hotkeyCode, modifiers: settings.hotkeyModifiers) } catch { self.error = error.localizedDescription }
+        do { try hotkey.register(code: settings.hotkeyCode, modifiers: settings.hotkeyModifiers, functionOnly: settings.hotkeyFnOnly) }
+        catch {
+            self.error = error.localizedDescription
+            if settings.hotkeyFnOnly {
+                self.settings.hotkeyFnOnly = false
+                if settings.hotkeyCode >= 128 || settings.hotkeyModifiers & 0x1900 == 0 {
+                    self.settings.hotkeyCode = 49; self.settings.hotkeyModifiers = 6144
+                }
+                do {
+                    try hotkey.register(code: self.settings.hotkeyCode, modifiers: self.settings.hotkeyModifiers)
+                    self.error += " A modified-key fallback is active; enable access and choose Globe/Fn again."
+                } catch { self.error += " " + error.localizedDescription }
+            }
+        }
         folderWatcher.canProcess = { [weak self] in
             guard let self else { return false }
             let timing = !self.settings.speakerLabels || ["parakeet-v3", "whisper-turbo", "whisper-small"].contains(self.settings.model)
@@ -168,6 +203,7 @@ import OSprCore
                 self?.preserveOnQuit()
                 self?.audioReview.stop()
                 do { try self?.historyWriter.flush() } catch { self?.error = "Could not save history before quitting: \(error.localizedDescription)" }
+                self?.hotkey.unregister()
                 self?.operationTask?.cancel(); self?.worker.shutdown(); self?.previewTask?.cancel(); self?.discardAudio()
             }
         }
@@ -176,7 +212,7 @@ import OSprCore
     func saveOSprSettings() {
         settings = settings.validated()
         do {
-            try hotkey.register(code: settings.hotkeyCode, modifiers: settings.hotkeyModifiers)
+            try hotkey.register(code: settings.hotkeyCode, modifiers: settings.hotkeyModifiers, functionOnly: settings.hotkeyFnOnly)
             refreshCredentials()
             guard transcriptionKey.isEmpty || transcriptionKeyScope != nil, rewriteKey.isEmpty || rewriteKeyScope != nil else {
                 throw OSprError.message("Use a valid provider URL before saving its API key.")
