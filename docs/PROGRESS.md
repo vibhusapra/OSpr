@@ -40,7 +40,8 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 - [x] Relocatable app bundle; all six engines passed offline after moving it to
   a path with spaces, from a temporary cwd and with an unrelated PYTHONPATH.
 - [x] Portable app rechecked after capture/notes changes: six offline ASR engines,
-  exact-source notes, speaker word attribution, clocked track mixing and MCP.
+  exact-source notes, speaker word attribution, clocked track mixing, local upload
+  preparation and MCP.
   Receipt includes the native executable hash and application build provenance.
   Bundled CLI/symlink discovery, poisoned PYTHONPATH/cwd isolation and signature
   validity after all inference/MCP calls also passed.

@@ -76,14 +76,14 @@ def main():
         signature = subprocess.run(['/usr/bin/codesign','--verify','--deep','--strict',str(copied)], capture_output=True, text=True)
         assert signature.returncode == 0, signature.stderr
         receipt = dict(timestamp=datetime.datetime.now(datetime.UTC).isoformat(), status='passed',
-                       boundary='Copied app path with spaces, hostile PYTHONPATH, foreign cwd, offline bundled interpreter/worker, all six ASR engines, source-excerpt notes, speaker word attribution, clocked track mix and MCP tool listing. Native microphone, permissions and UI not exercised.',
+                       boundary='Copied app path with spaces, hostile PYTHONPATH, foreign cwd, offline bundled interpreter/worker, all six ASR engines, source-excerpt notes, speaker word attribution, clocked track mix, local upload preparation and MCP tool listing. Native microphone, permissions and UI not exercised.',
                        fixture_id=item['id'], fixture_sha256=item['sha256'],
                        executable_sha256=hashlib.sha256((app/'Contents/MacOS/OSpr').read_bytes()).hexdigest(),
                        build=json.loads((app/'Contents/Resources/build-info.json').read_text()),
                        interpreter_and_mlx_inside_bundle=True, bundled_cli_foreign_cwd=True, signature_valid_after_inference=True,
                        poisoned_pythonpath_and_cwd_ignored=True, mcp_tools=mcp_tools, results=replies[1:-1])
         args.output.write_text(json.dumps(receipt,indent=2,ensure_ascii=False)+'\n')
-        print(json.dumps(dict(status='passed', models=models, extras=['notes','speakers','mix','mcp'], output=str(args.output)),indent=2))
+        print(json.dumps(dict(status='passed', models=models, extras=['notes','speakers','mix','prepare-upload','mcp'], output=str(args.output)),indent=2))
 
 
 if __name__ == '__main__':
