@@ -106,6 +106,7 @@ class Engine:
         self.models = OrderedDict()
         self.rewriter = None
         self.rewriter_id = None
+        self.diarizer = None
         self.stream = None
         self.stream_text = ""
         self.stream_id = None
@@ -158,7 +159,14 @@ class Engine:
         return {"model": model_id, "load_ms": (time.perf_counter() - started) * 1000}
 
     def transcribe(
-        self, path, model_id="parakeet-v3", language=None, vocabulary="", trim=True, threshold=0.003
+        self,
+        path,
+        model_id="parakeet-v3",
+        language=None,
+        vocabulary="",
+        trim=True,
+        threshold=0.003,
+        word_timestamps=False,
     ):
         started = time.perf_counter()
         audio = read_audio(path)
@@ -195,6 +203,7 @@ class Engine:
         mx.reset_peak_memory()
         decoded = time.perf_counter()
         spec = MODELS[model_id]
+        words = []
         with redirect_stdout(sys.stderr):
             if spec["engine"] == "parakeet":
                 from parakeet_mlx.audio import get_logmel
@@ -215,6 +224,15 @@ class Engine:
                     dict(start=float(s.start) + offset, end=float(s.end) + offset, text=s.text)
                     for s in result.sentences
                 ]
+                if word_timestamps:
+                    from .diarization import tokens_to_words
+
+                    words = tokens_to_words(
+                        [
+                            dict(start=float(t.start) + offset, end=float(t.end) + offset, text=t.text)
+                            for t in result.tokens
+                        ]
+                    )
                 detected_language = language
             elif spec["engine"] == "whisper":
                 import mlx_whisper
@@ -224,12 +242,22 @@ class Engine:
                     path_or_hf_repo=resolve_model(model_id),
                     language=language or None,
                     initial_prompt=vocabulary or None,
-                    word_timestamps=False,
+                    word_timestamps=word_timestamps,
                     temperature=0.0,
                     condition_on_previous_text=False,
                     verbose=False,
                 )
                 text, detected_language = result["text"], result.get("language")
+                if word_timestamps:
+                    words = [
+                        dict(
+                            start=float(w["start"]) + offset,
+                            end=float(w["end"]) + offset,
+                            text=w["word"].strip(),
+                        )
+                        for segment in result["segments"]
+                        for w in segment.get("words", [])
+                    ]
                 segments = [
                     dict(
                         start=float(s["start"]) + offset, end=float(s["end"]) + offset, text=s["text"].strip()
@@ -255,6 +283,7 @@ class Engine:
             base,
             text=text.strip(),
             segments=segments,
+            words=words,
             language=detected_language,
             silence=False,
             warm=warm,
@@ -266,6 +295,62 @@ class Engine:
             active_gpu_bytes=mx.get_active_memory(),
             vocabulary_applied=spec["engine"] == "whisper" and bool(vocabulary),
             timestamp_granularity="utterance" if spec["engine"] == "mlx-audio" else "segment",
+        )
+
+    def meeting(self, path, model_id="parakeet-v3", language=None, vocabulary=""):
+        if model_id not in {"parakeet-v3", "whisper-turbo", "whisper-small"}:
+            raise ValueError("Speaker-labeled imports currently require Parakeet or Whisper word timing.")
+        started = time.perf_counter()
+        audio = read_audio(path)
+        if not len(audio) or speech_bounds(audio) == (0, 0):
+            return dict(
+                text="",
+                raw_text="",
+                words=[],
+                segments=[],
+                speaker_turns=[],
+                model=model_id,
+                audio_seconds=len(audio) / SAMPLE_RATE,
+                silence=True,
+                total_ms=0,
+            )
+        from mlx_audio.vad import load
+        from .diarization import attribute, formatted
+        import mlx.core as mx
+
+        if self.diarizer is None:
+            with redirect_stdout(sys.stderr):
+                self.diarizer = load(resolve_model("diarization"), strict=True)
+        diar_started = time.perf_counter()
+        diarized = self.diarizer.generate(audio, threshold=0.5, min_duration=0.2, merge_gap=0.15)
+        mx.synchronize()
+        turns = [
+            dict(
+                start=float(s.start), end=min(len(audio) / SAMPLE_RATE, float(s.end)), speaker=int(s.speaker)
+            )
+            for s in diarized.segments
+        ]
+        diar_ms = (time.perf_counter() - diar_started) * 1000
+        result = self.transcribe(path, model_id, language, vocabulary, trim=False, word_timestamps=True)
+        if result["text"] and not result.get("words"):
+            raise RuntimeError("Recognizer returned no word timing; speaker attribution would be unreliable.")
+        words, segments = attribute(result.get("words", []), turns)
+        return dict(
+            result,
+            raw_text=result["text"],
+            text=formatted(segments),
+            words=words,
+            segments=segments,
+            speaker_turns=turns,
+            num_speakers=diarized.num_speakers,
+            diarization_ms=diar_ms,
+            timestamp_granularity="recognizer-word",
+            total_ms=(time.perf_counter() - started) * 1000,
+            limitations=[
+                "Anonymous within-recording labels, not identity recognition.",
+                "Overlapping speech is flagged, not separated; ASR can omit simultaneous words.",
+                "Word timing is recognizer alignment, not a manually verified reference.",
+            ],
         )
 
     def stream_begin(self, language=None):

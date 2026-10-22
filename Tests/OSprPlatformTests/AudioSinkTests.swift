@@ -26,6 +26,28 @@ final class AudioSinkTests: XCTestCase {
         XCTAssertEqual(output.floatChannelData![0][9500], 0.45, accuracy: 0.00001)
         XCTAssertEqual(output.floatChannelData![1][9500], -0.45, accuracy: 0.00001)
     }
+    func testFinalizedWriterRejectsLateAudioInsteadOfSilentlyDroppingIt() throws {
+        let url = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".wav")
+        defer { try? FileManager.default.removeItem(at: url) }
+        let format = AVAudioFormat(standardFormatWithSampleRate: 16000, channels: 1)!
+        let writer = try AudioSink(url: url, format: format)
+        let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: 128)!
+        buffer.frameLength = 128
+        try writer.finish()
+        writer.enqueue(buffer)
+        XCTAssertNotNil(writer.error)
+    }
+    @MainActor func testBrokenWatcherStatePausesAutomationWithoutPreventingAppStartup() throws {
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        defer { try? FileManager.default.removeItem(at: directory) }
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        let state = directory.appendingPathComponent("watch-settings.json")
+        try Data("not json".utf8).write(to: state)
+        let watcher = try FolderWatcher(directory: directory)
+        XCTAssertFalse(watcher.settings.enabled)
+        XCTAssertFalse(watcher.loadError.isEmpty)
+        XCTAssertEqual(try String(contentsOf: state, encoding: .utf8), "not json")
+    }
     func testOversizedCallbackFailsVisibly() throws {
         let url = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".wav")
         defer { try? FileManager.default.removeItem(at: url) }

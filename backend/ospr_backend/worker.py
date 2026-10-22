@@ -31,6 +31,13 @@ def dispatch(engine, request):
         return engine.stream_feed(final=True, session_id=request["session_id"])
     if action == "stream_cancel":
         return engine.stream_cancel(session_id=request["session_id"])
+    if action == "meeting":
+        return engine.meeting(
+            request["path"],
+            request.get("model", "parakeet-v3"),
+            request.get("language"),
+            request.get("vocabulary", "")[:16000],
+        )
     if action == "transcribe":
         model = request.get("model", "parakeet-v3")
         if model not in PUBLIC_MODELS:
@@ -55,6 +62,12 @@ def dispatch(engine, request):
 
 
 def main():
+    # A private process group lets the native owner cancel FFmpeg descendants too.
+    if hasattr(os, "setsid"):
+        try:
+            os.setsid()
+        except PermissionError:
+            pass  # Already a session/group leader in an embedding process.
     engine = Engine()
     while True:
         raw = sys.stdin.buffer.readline(MAX_REQUEST + 1)

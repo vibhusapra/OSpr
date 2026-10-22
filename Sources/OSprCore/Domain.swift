@@ -64,7 +64,9 @@ public struct Segment: Codable, Equatable, Sendable {
     public var start: Double
     public var end: Double
     public var text: String
-    public init(start: Double, end: Double, text: String) { self.start = start; self.end = end; self.text = text }
+    public var speaker: Int?
+    public var overlapSpeakers: [Int]?
+    public init(start: Double, end: Double, text: String, speaker: Int? = nil, overlapSpeakers: [Int]? = nil) { self.start = start; self.end = end; self.text = text; self.speaker = speaker; self.overlapSpeakers = overlapSpeakers }
 }
 
 public struct Transcript: Codable, Identifiable, Sendable {
@@ -78,11 +80,12 @@ public struct Transcript: Codable, Identifiable, Sendable {
     public var duration: Double
     public var latencyMS: Double
     public var segments: [Segment]
+    public var words: [Segment]?
     public var source: String
     public init(rawText: String, text: String, model: String, mode: WritingMode, app: String = "",
-                duration: Double, latencyMS: Double, segments: [Segment] = [], source: String = "dictation") {
+                duration: Double, latencyMS: Double, segments: [Segment] = [], words: [Segment]? = nil, source: String = "dictation") {
         self.rawText = rawText; self.text = text; self.model = model; self.mode = mode; self.app = app
-        self.duration = duration; self.latencyMS = latencyMS; self.segments = segments; self.source = source
+        self.duration = duration; self.latencyMS = latencyMS; self.segments = segments; self.words = words; self.source = source
     }
 }
 
@@ -114,9 +117,45 @@ public struct OSprSettings: Codable, Sendable {
     public var hotkeyModifiers: UInt32 = 6144 // Control + Option, Carbon modifiers
     public var microphoneID = ""
     public var preview = false
+    public var speakerLabels = false
     public var launchAtLogin = false
     public var rootPath = ""
+    private enum CodingKeys: String, CodingKey { case model, language, mode, rewriteProvider, rewriteURL, rewriteModel, transcriptionProvider, transcriptionURL, transcriptionModel, customPrompt, translationLanguage, vocabulary, replacements, profiles, saveHistory, retentionDays, autoPaste, restoreClipboard, spokenPunctuation, silenceTrim, silenceThreshold, autoStopSeconds, pushToTalk, hotkeyCode, hotkeyModifiers, microphoneID, preview, speakerLabels, launchAtLogin, rootPath }
     public init() {}
+    public init(from decoder: Decoder) throws {
+        self.init()
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        model = try c.decodeIfPresent(type(of: model), forKey: .model) ?? model
+        language = try c.decodeIfPresent(type(of: language), forKey: .language) ?? language
+        mode = try c.decodeIfPresent(type(of: mode), forKey: .mode) ?? mode
+        rewriteProvider = try c.decodeIfPresent(type(of: rewriteProvider), forKey: .rewriteProvider) ?? rewriteProvider
+        rewriteURL = try c.decodeIfPresent(type(of: rewriteURL), forKey: .rewriteURL) ?? rewriteURL
+        rewriteModel = try c.decodeIfPresent(type(of: rewriteModel), forKey: .rewriteModel) ?? rewriteModel
+        transcriptionProvider = try c.decodeIfPresent(type(of: transcriptionProvider), forKey: .transcriptionProvider) ?? transcriptionProvider
+        transcriptionURL = try c.decodeIfPresent(type(of: transcriptionURL), forKey: .transcriptionURL) ?? transcriptionURL
+        transcriptionModel = try c.decodeIfPresent(type(of: transcriptionModel), forKey: .transcriptionModel) ?? transcriptionModel
+        customPrompt = try c.decodeIfPresent(type(of: customPrompt), forKey: .customPrompt) ?? customPrompt
+        translationLanguage = try c.decodeIfPresent(type(of: translationLanguage), forKey: .translationLanguage) ?? translationLanguage
+        vocabulary = try c.decodeIfPresent(type(of: vocabulary), forKey: .vocabulary) ?? vocabulary
+        replacements = try c.decodeIfPresent(type(of: replacements), forKey: .replacements) ?? replacements
+        profiles = try c.decodeIfPresent(type(of: profiles), forKey: .profiles) ?? profiles
+        saveHistory = try c.decodeIfPresent(type(of: saveHistory), forKey: .saveHistory) ?? saveHistory
+        retentionDays = try c.decodeIfPresent(type(of: retentionDays), forKey: .retentionDays) ?? retentionDays
+        autoPaste = try c.decodeIfPresent(type(of: autoPaste), forKey: .autoPaste) ?? autoPaste
+        restoreClipboard = try c.decodeIfPresent(type(of: restoreClipboard), forKey: .restoreClipboard) ?? restoreClipboard
+        spokenPunctuation = try c.decodeIfPresent(type(of: spokenPunctuation), forKey: .spokenPunctuation) ?? spokenPunctuation
+        silenceTrim = try c.decodeIfPresent(type(of: silenceTrim), forKey: .silenceTrim) ?? silenceTrim
+        silenceThreshold = try c.decodeIfPresent(type(of: silenceThreshold), forKey: .silenceThreshold) ?? silenceThreshold
+        autoStopSeconds = try c.decodeIfPresent(type(of: autoStopSeconds), forKey: .autoStopSeconds) ?? autoStopSeconds
+        pushToTalk = try c.decodeIfPresent(type(of: pushToTalk), forKey: .pushToTalk) ?? pushToTalk
+        hotkeyCode = try c.decodeIfPresent(type(of: hotkeyCode), forKey: .hotkeyCode) ?? hotkeyCode
+        hotkeyModifiers = try c.decodeIfPresent(type(of: hotkeyModifiers), forKey: .hotkeyModifiers) ?? hotkeyModifiers
+        microphoneID = try c.decodeIfPresent(type(of: microphoneID), forKey: .microphoneID) ?? microphoneID
+        preview = try c.decodeIfPresent(type(of: preview), forKey: .preview) ?? preview
+        speakerLabels = try c.decodeIfPresent(type(of: speakerLabels), forKey: .speakerLabels) ?? speakerLabels
+        launchAtLogin = try c.decodeIfPresent(type(of: launchAtLogin), forKey: .launchAtLogin) ?? launchAtLogin
+        rootPath = try c.decodeIfPresent(type(of: rootPath), forKey: .rootPath) ?? rootPath
+    }
     public func mode(for bundleID: String) -> WritingMode {
         profiles.first(where: { $0.enabled && $0.bundleID == bundleID })?.mode ?? mode
     }
@@ -173,7 +212,7 @@ public enum TranscriptExport {
         let segments = transcript.segments.isEmpty ? [Segment(start: 0, end: transcript.duration, text: transcript.rawText)] : transcript.segments
         return (vtt ? "WEBVTT\n\n" : "") + segments.enumerated().map { i, s in
             let separator = vtt ? "." : ","
-            return "\(i + 1)\n\(timestamp(s.start, separator: separator)) --> \(timestamp(s.end, separator: separator))\n\(s.text.trimmingCharacters(in: .whitespacesAndNewlines))\n"
+            return "\(i + 1)\n\(timestamp(s.start, separator: separator)) --> \(timestamp(s.end, separator: separator))\n\(s.speaker.map { "Speaker \($0 + 1): " } ?? "")\(s.text.trimmingCharacters(in: .whitespacesAndNewlines))\n"
         }.joined(separator: "\n")
     }
 }

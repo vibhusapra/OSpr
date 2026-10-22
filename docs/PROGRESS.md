@@ -22,6 +22,9 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 - [x] Completed-take recovery through inference failure/restart. Private audio,
   retry/export/discard; retry never inserts into a stale app target.
 - [x] Native CLI and optional stdio MCP with explicit file/text tools.
+- [x] Reviewed cancellation keeps recoverable takes, credentials write only when
+  edited, old settings gain defaults, shortcuts retain their previous binding on
+  conflict, and the menu bar can reopen a closed workspace.
 - [x] Current official-source guide: 27 offerings, plans, feature comparison,
   41-item acceptance ledger, model strategy, ten optimization tracks, training plan.
 - [x] Relocatable app bundle; all five engines passed offline after moving it to
@@ -30,11 +33,11 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
 ## Verification and evidence
 
-- [x] Native tests: 27 passed, covering text fidelity rules, Unicode snippets, retention/storage,
+- [x] Native tests: 36 passed, covering text fidelity rules, Unicode snippets, retention/storage,
   provider endpoint restrictions, multipart/chat/Anthropic loopback contracts,
   30 concurrent worker requests, timeout/restart, audio frame integrity/overflow,
   secure-field early rejection and recovery store restart/corrupt-metadata cases.
-- [x] Backend tests: 28 passed, covering normalization, invalid/media input, real AAC/FFmpeg decoding,
+- [x] Backend tests: 34 passed, covering normalization, invalid/media input, real AAC/FFmpeg decoding,
   silence without loading weights, stdio recovery, MCP boundary, Cohere layout
   adapter and streaming session fencing/packet bounds.
 - [x] Real human audio: deterministic 200 test-clean / 165 test-other slices,
@@ -55,8 +58,12 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 - [ ] Native recovery retry/export/discard and incremental streaming walkthrough.
 - [ ] Clean standalone installation, move/upgrade, signing/notarization and updater.
 - [ ] Neural endpointing/VAD calibration, word alignment, deeper URL/app context.
-- [ ] System/meeting audio capture, speaker diarization and meeting summaries.
-- [ ] Watched folders and native automation destinations.
+- [x] Experimental speaker-labeled file imports with recognizer word timestamps;
+  stitched-speech and natural AMI prefix measurements. Labels still need review.
+- [ ] System/meeting audio capture, diarization quality and meeting summaries.
+- [x] Watched-folder implementation, stability/deduplication/backoff/scanner tests;
+  interactive folder selection and auto-export acceptance pending.
+- [ ] Native webhook/automation destinations.
 - [ ] Equivalent installed consumer-app benchmarks, correction effort and energy;
   broader speaker/accent/noise/spontaneous dictation and code-switching evaluation.
 - [ ] Validate on lower-memory and older Apple Silicon hardware.

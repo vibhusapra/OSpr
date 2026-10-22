@@ -145,9 +145,9 @@ struct StudioView: View {
                     Card {
                         VStack(alignment: .leading, spacing: 12) {
                             Label("Unfinished recording", systemImage: "arrow.counterclockwise.circle").font(.headline)
-                            Text("This completed take is kept privately on this Mac until transcription succeeds or you discard it. Retry saves a transcript without inserting into another app.").font(.caption).foregroundStyle(.secondary)
+                            Text("This completed take is kept privately on this Mac until transcription succeeds or you discard it. Retry uses your current speech settings and saves the raw transcript without rewriting or inserting into another app.").font(.caption).foregroundStyle(.secondary)
                             HStack {
-                                Button("Retry transcription") { model.retryRecovery() }.disabled(model.busy || model.pending == nil)
+                                Button(model.settings.transcriptionProvider == "local" ? "Retry locally" : "Retry with cloud provider") { model.retryRecovery() }.disabled(model.busy || model.pending == nil)
                                 Button("Export audio") { model.exportRecovery() }.disabled(model.busy)
                                 Button("Discard", role: .destructive) { model.discardRecovery() }.disabled(model.busy)
                             }
@@ -171,7 +171,7 @@ struct StudioView: View {
                 }
                 HStack(spacing: 14) {
                     StatTile(title: "WORDS CAPTURED", value: "\(model.history.reduce(0) { $0 + $1.text.split(whereSeparator: \.isWhitespace).count })", icon: "text.alignleft")
-                    StatTile(title: "LAST TURNAROUND", value: model.history.first.map { String(format: "%.2f s", $0.latencyMS / 1000) } ?? "—", icon: "bolt")
+                    StatTile(title: "LAST PROCESSING", value: model.history.first.map { String(format: "%.2f s", $0.latencyMS / 1000) } ?? "—", icon: "bolt")
                     StatTile(title: "SAVED LOCALLY", value: "\(model.history.count) sessions", icon: "internaldrive")
                 }
                 if let record = model.history.first {
@@ -388,6 +388,11 @@ struct PreferencesView: View {
                 }
                 if model.settings.rewriteProvider == "local" { Text("First use downloads a quantized language model. Refinement adds latency and can change meaning; original transcripts stay available in History.").font(.caption).foregroundStyle(.secondary) }
             }
+            Section("File imports") {
+                Toggle("Add anonymous speaker labels locally", isOn: $model.settings.speakerLabels)
+                Text("Uses Nemotron diarization plus Parakeet/Whisper word timing. Downloads a separate 107 MB model. Imports keep raw ASR and timing, skip rewriting, and flag overlapping speech instead of claiming to separate it. Up to eight generic speaker channels; real-meeting accuracy is still being evaluated.").font(.caption).foregroundStyle(.secondary)
+            }
+            WatchedFolderPreferences(model: model, watcher: model.folderWatcher)
             Section("Privacy & storage") {
                 Toggle("Save transcript history", isOn: $model.settings.saveHistory)
                 Picker("Keep saved history", selection: $model.settings.retentionDays) { Text("1 day").tag(1); Text("7 days").tag(7); Text("30 days").tag(30); Text("90 days").tag(90); Text("Forever").tag(0) }
@@ -403,7 +408,7 @@ struct PreferencesView: View {
                 if !model.setupLog.isEmpty { DisclosureGroup("Setup output") { Text(model.setupLog).font(.system(size: 10, design: .monospaced)).textSelection(.enabled) } }
             }
             Button("Save preferences") { model.saveOSprSettings() }.buttonStyle(.borderedProminent)
-        }.formStyle(.grouped)
+        }.formStyle(.grouped).disabled(model.busy)
     }
 }
 
@@ -469,4 +474,20 @@ final class ShortcutButton: NSButton {
         recording = false; onKey?(event); window?.makeFirstResponder(nil)
     }
     override func performKeyEquivalent(with event: NSEvent) -> Bool { if recording { keyDown(with: event); return true }; return super.performKeyEquivalent(with: event) }
+}
+
+struct WatchedFolderPreferences: View {
+    @ObservedObject var model: AppModel
+    @ObservedObject var watcher: FolderWatcher
+    var body: some View {
+        Section("Watched folder") {
+            Toggle("Process new media locally", isOn: $watcher.settings.enabled)
+                .onChange(of: watcher.settings.enabled) { _, _ in model.saveWatchedFolder(reset: true) }
+            HStack { Text(watcher.settings.directory.isEmpty ? "No folder chosen" : watcher.settings.directory).lineLimit(1).truncationMode(.middle); Button("Choose folder…") { model.chooseWatchedFolder() } }
+            Toggle("Ignore existing files when enabling", isOn: $watcher.settings.ignoreExisting)
+                .onChange(of: watcher.settings.ignoreExisting) { _, _ in model.saveWatchedFolder(reset: false) }
+            Text(watcher.status).font(.caption).foregroundStyle(.secondary)
+            Text("Watches this folder while OSpr is open. Waits for stable files, transcribes locally without rewriting or auto-paste, and saves TXT/JSON/SRT/VTT in OSpr Transcripts. Existing exports are not overwritten. Cloud speech settings pause the watcher. Native interaction acceptance is still pending.").font(.caption).foregroundStyle(.secondary)
+        }
+    }
 }

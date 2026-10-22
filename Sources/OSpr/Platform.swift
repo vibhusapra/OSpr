@@ -16,7 +16,11 @@ enum KeyVault {
     static func write(_ value: String, account: String) throws {
         let query: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: "app.ospr.credentials", kSecAttrAccount as String: account]
-        if value.isEmpty { SecItemDelete(query as CFDictionary); return }
+        if value.isEmpty {
+            let status = SecItemDelete(query as CFDictionary)
+            guard status == errSecSuccess || status == errSecItemNotFound else { throw OSprError.message("Keychain removal failed (\(status)).") }
+            return
+        }
         let data = Data(value.utf8)
         let status = SecItemUpdate(query as CFDictionary, [kSecValueData as String: data] as CFDictionary)
         if status == errSecItemNotFound {
@@ -31,10 +35,14 @@ enum KeyVault {
 @MainActor final class Hotkey {
     private var reference: EventHotKeyRef?
     private var handler: EventHandlerRef?
+    private var combination: (code: UInt32, modifiers: UInt32)?
     var pressed: (() -> Void)?
     var released: (() -> Void)?
     func register(code: UInt32, modifiers: UInt32) throws {
-        if let reference { UnregisterEventHotKey(reference); self.reference = nil }
+        guard code < 128, modifiers & 0x1900 != 0 else {
+            throw OSprError.message("Choose a shortcut with Control, Option or Command, so ordinary typing stays available.")
+        }
+        if reference != nil, combination?.code == code, combination?.modifiers == modifiers { return }
         if handler == nil {
             var events = [EventTypeSpec(eventClass: OSType(kEventClassKeyboard), eventKind: UInt32(kEventHotKeyPressed)),
                           EventTypeSpec(eventClass: OSType(kEventClassKeyboard), eventKind: UInt32(kEventHotKeyReleased))]
@@ -47,9 +55,12 @@ enum KeyVault {
                 return noErr
             }, events.count, &events, pointer, &handler)
         }
+        var replacement: EventHotKeyRef?
         let status = RegisterEventHotKey(code, modifiers, EventHotKeyID(signature: 0x4F535052, id: 1),
-                                        GetApplicationEventTarget(), 0, &reference)
-        guard status == noErr else { throw OSprError.message("That shortcut is already in use. Choose another in Settings.") }
+                                        GetApplicationEventTarget(), 0, &replacement)
+        guard status == noErr else { throw OSprError.message("That shortcut is already in use. The previous shortcut remains active; choose another in Settings.") }
+        if let reference { UnregisterEventHotKey(reference) }
+        reference = replacement; combination = (code, modifiers)
     }
     deinit {
         if let reference { UnregisterEventHotKey(reference) }
@@ -76,6 +87,8 @@ enum KeyVault {
     private var inputRate: Double = 48000
     private var capturedFrames = 0
     private var previewFrames = 0
+    private var monoScratch = [Float](repeating: 0, count: 8192)
+    private var captureGeneration = UUID()
     static var microphones: [AVCaptureDevice] {
         AVCaptureDevice.DiscoverySession(deviceTypes: [.microphone, .external], mediaType: .audio, position: .unspecified).devices
     }
@@ -116,20 +129,25 @@ enum KeyVault {
         self.inputRate = format.sampleRate; self.previewRing = AudioRing(capacity: Int(format.sampleRate * 12))
         self.capturedFrames = 0; self.previewFrames = 0
         started = Date(); lastVoice = started; seconds = 0
+        let captureToken = UUID(); lock.lock(); captureGeneration = captureToken; lock.unlock()
         input.installTap(onBus: 0, bufferSize: 1024, format: format) { [weak self, writer] buffer, _ in
             guard let self else { return }
-            writer.enqueue(buffer)
             self.lock.lock()
-            if let channels = buffer.floatChannelData, buffer.frameLength > 0 {
-                self.previewRing.append(UnsafeBufferPointer(start: channels[0], count: Int(buffer.frameLength)))
-                self.capturedFrames += Int(buffer.frameLength)
+            guard self.captureGeneration == captureToken else { self.lock.unlock(); return }
+            writer.enqueue(buffer)
+            guard let channels = buffer.floatChannelData, buffer.frameLength > 0,
+                  buffer.frameLength <= 8192 else { self.lock.unlock(); return }
+            let frames = Int(buffer.frameLength)
+            let rms = self.monoScratch.withUnsafeMutableBufferPointer { mono in
+                let rms = AudioMath.downmix(channels: channels, channelCount: Int(buffer.format.channelCount),
+                    frames: frames, interleaved: buffer.format.isInterleaved, destination: mono)
+                self.previewRing.append(UnsafeBufferPointer(start: mono.baseAddress, count: frames))
+                return rms
             }
+            self.capturedFrames += frames
             self.lock.unlock()
-            guard let channels = buffer.floatChannelData, buffer.frameLength > 0 else { return }
-            var sum: Float = 0
-            for index in 0..<Int(buffer.frameLength) { sum += channels[0][index] * channels[0][index] }
-            let rms = sqrt(sum / Float(buffer.frameLength))
             DispatchQueue.main.async {
+                guard self.captureGeneration == captureToken else { return }
                 self.level = min(1, rms * 12)
                 if rms > self.threshold { self.lastVoice = Date(); self.hasVoice = true }
             }
@@ -149,6 +167,7 @@ enum KeyVault {
         return url
     }
     func stop() throws -> URL? {
+        lock.lock(); captureGeneration = UUID(); lock.unlock()
         timer?.invalidate(); timer = nil
         if tapInstalled { engine?.inputNode.removeTap(onBus: 0); tapInstalled = false }
         engine?.stop(); engine = nil

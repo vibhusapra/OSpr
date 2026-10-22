@@ -9,6 +9,7 @@ final class AudioSink: @unchecked Sendable {
     private var pool: [AVAudioPCMBuffer]
     private var file: AVAudioFile?
     private var failure: Error?
+    private var accepting = true
     init(url: URL, format: AVAudioFormat) throws {
         pool = try (0..<16).map { _ in
             guard let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: 8192) else { throw OSprError.message("Could not allocate capture buffers.") }
@@ -19,11 +20,15 @@ final class AudioSink: @unchecked Sendable {
     }
     func enqueue(_ source: AVAudioPCMBuffer) {
         lock.lock()
-        guard let destination = pool.popLast(), source.frameLength <= destination.frameCapacity else {
-            failure = OSprError.message("Audio capture could not keep up with the device. Recording stopped to avoid silently losing speech.")
-            lock.unlock(); return
+        defer { lock.unlock() }
+        guard accepting else {
+            failure = OSprError.message("Audio arrived after the writer finished.")
+            return
         }
-        lock.unlock()
+        guard source.frameLength <= 8192, let destination = pool.popLast() else {
+            failure = OSprError.message("Audio capture could not keep up with the device. Recording stopped to avoid silently losing speech.")
+            return
+        }
         destination.frameLength = source.frameLength
         let input = UnsafeMutableAudioBufferListPointer(UnsafeMutablePointer(mutating: source.audioBufferList))
         let output = UnsafeMutableAudioBufferListPointer(destination.mutableAudioBufferList)
@@ -39,6 +44,9 @@ final class AudioSink: @unchecked Sendable {
     }
     var error: Error? { lock.lock(); defer { lock.unlock() }; return failure }
     func finish() throws {
+        // Every admitted enqueue schedules its write while holding this lock.
+        // Close admission before draining, so a copy cannot race past finalization.
+        lock.lock(); accepting = false; lock.unlock()
         queue.sync { file = nil }
         if let error { throw error }
     }

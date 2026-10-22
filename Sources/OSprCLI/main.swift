@@ -13,6 +13,10 @@ import OSprCore
             switch command {
             case "doctor": result = try await worker.request(["action": "ping"])
             case "warm": result = try await worker.request(["action": "warm", "model": args.count > 1 ? args[1] : "parakeet-v3"])
+            case "meeting":
+                guard args.count > 1 else { usage(); exit(2) }
+                result = try await worker.request(["action": "meeting", "path": URL(fileURLWithPath: args[1]).path,
+                    "model": args.count > 2 ? args[2] : "parakeet-v3"])
             case "transcribe":
                 guard args.count > 1 else { usage(); exit(2) }
                 result = try await worker.request(["action": "transcribe", "path": URL(fileURLWithPath: args[1]).path,
@@ -45,5 +49,5 @@ import OSprCore
             print(String(data: data, encoding: .utf8)!)
         } catch { FileHandle.standardError.write(Data((error.localizedDescription + "\n").utf8)); exit(1) }
     }
-    static func usage() { print("OSpr · local Apple Silicon dictation\nUsage: ospr-cli doctor | warm [model] | transcribe <audio> [model] | benchmark <audio> [model] [repeats] | rewrite <text>\nRun from the checkout, or set OSPR_ROOT. Models: parakeet-v3, whisper-turbo, whisper-small, qwen3-asr, nemotron-streaming") }
+    static func usage() { print("OSpr · local Apple Silicon dictation\nUsage: ospr-cli doctor | warm [model] | transcribe <audio> [model] | meeting <audio> [model] | benchmark <audio> [model] [repeats] | rewrite <text>\nRun from the checkout, or set OSPR_ROOT. Models: parakeet-v3, whisper-turbo, whisper-small, qwen3-asr, nemotron-streaming") }
 }

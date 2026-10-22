@@ -187,7 +187,7 @@
     {
       "feature": "File and batch transcription",
       "status": "partial",
-      "evidence": "Local WAV/FLAC normalization and real AAC/FFmpeg decode test; sequential batch UI.",
+      "evidence": "Local WAV/FLAC normalization and real AAC/FFmpeg decode test; sequential batch UI. Optional local speaker labels with recognizer word times.",
       "gap": "Native file-picker/drop interaction pending unlock.",
       "priority": "P0"
     },
@@ -209,20 +209,20 @@
       "feature": "History privacy and retention",
       "status": "verified",
       "evidence": "Atomic owner-only JSON files; 1/7/30/90-day/forever retention; disable saving.",
-      "gap": "History is not application-encrypted; use FileVault.",
+      "gap": "History is not application-encrypted; use FileVault. Large-history indexing/async persistence remains work.",
       "priority": "P0"
     },
     {
       "feature": "CLI and optional MCP",
       "status": "contract-tested",
-      "evidence": "Native CLI worker smoke; stdio MCP tool listing and silence path.",
+      "evidence": "Native CLI worker smoke; stdio MCP tool listing and silence path. CLI meeting import with speaker labels.",
       "gap": "MCP has file/text tools only; no microphone, UI or history access.",
       "priority": "P1"
     },
     {
       "feature": "Cancel, timeout and worker recovery",
       "status": "verified",
-      "evidence": "Generation fences, child termination, queued epochs, timeout/restart; owner-only completed-take recovery tested across store restart.",
+      "evidence": "Generation fences, child termination, queued epochs, timeout/restart; owner-only completed-take recovery tested across store restart. Separate startup handshake deadline; ignored-SIGTERM escalation tests; recovery retained when processing is cancelled.",
       "gap": "Native retry/export/discard interactions pending unlock; active capture before stop is not crash-recovered.",
       "priority": "P0"
     },
@@ -249,16 +249,16 @@
     },
     {
       "feature": "Speaker diarization and meeting summaries",
-      "status": "planned",
-      "evidence": "NVIDIA diarization and Argmax/SpeakerKit candidates researched.",
-      "gap": "No speaker labels are claimed in current output.",
+      "status": "experimental",
+      "evidence": "Local Nemotron 3 Diarization 8-bit plus Parakeet/Whisper word attribution; four natural AMI headset-mix prefixes with pinned only_words reference and transparent DER.",
+      "gap": "Attribution errors remain substantial; overlap is flagged, not separated. Meeting summaries and native capture acceptance remain.",
       "priority": "P1"
     },
     {
       "feature": "Watched folders and automations",
-      "status": "planned",
-      "evidence": "CLI permits scripted batch workflows.",
-      "gap": "No built-in folder watcher or webhook destinations yet.",
+      "status": "implemented",
+      "evidence": "Stable-file polling, changed-source fingerprints, persisted deduplication, retry backoff and private TXT/JSON/SRT/VTT exports. Queue/scanner tests.",
+      "gap": "Native choose/enable/export interaction acceptance pending. No webhook destination yet.",
       "priority": "P2"
     },
     {

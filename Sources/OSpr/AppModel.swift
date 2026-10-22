@@ -22,7 +22,10 @@ import OSprCore
     @Published var rewriteKey = ""
     let capture = Capture()
     let hotkey = Hotkey()
+    let folderWatcher: FolderWatcher
     private var worker: WorkerClient
+    private var savedTranscriptionKey = ""
+    private var savedRewriteKey = ""
     private let store: LocalStore
     private let recovery: RecordingRecovery
     private var target: InsertionTarget?
@@ -50,6 +53,7 @@ import OSprCore
         // surface instead of silently putting transcripts somewhere unexpected.
         do {
             store = try LocalStore(directory: directory)
+            folderWatcher = try FolderWatcher(directory: directory)
             recovery = try RecordingRecovery(directory: directory.appendingPathComponent("Recovery"))
         } catch { fatalError("Cannot create OSpr data folder: \(error.localizedDescription)") }
         var settings = OSprSettings()
@@ -70,8 +74,9 @@ import OSprCore
         do { history = LocalStore.retained(try store.read([Transcript].self, name: "history.json") ?? [], days: settings.retentionDays) } catch { loadError += " History could not be read. Original file was preserved." }
         do { pending = try recovery.load() } catch { loadError += " " + error.localizedDescription }
         hasRecovery = FileManager.default.fileExists(atPath: recovery.audioURL.path)
-        self.error = loadError
+        self.error = loadError + (folderWatcher.loadError.isEmpty ? "" : " " + folderWatcher.loadError)
         transcriptionKey = KeyVault.read("transcription"); rewriteKey = KeyVault.read("rewrite")
+        savedTranscriptionKey = transcriptionKey; savedRewriteKey = rewriteKey
         hotkey.pressed = { [weak self] in self?.toggle() }
         hotkey.released = { [weak self] in
             guard let self, self.settings.pushToTalk else { return }
@@ -79,6 +84,13 @@ import OSprCore
         }
         capture.silenceReached = { [weak self] in self?.stop() }
         do { try hotkey.register(code: settings.hotkeyCode, modifiers: settings.hotkeyModifiers) } catch { self.error = error.localizedDescription }
+        folderWatcher.canProcess = { [weak self] in
+            guard let self else { return false }
+            return !self.busy && !self.hasRecovery && self.settings.transcriptionProvider == "local"
+        }
+        folderWatcher.process = { [weak self] file in await self?.processWatchedFile(file) ?? false }
+        folderWatcher.reportError = { [weak self] error in self?.error = "Watched folder: " + error }
+        folderWatcher.start()
         // Persist pruning even when no new recording is made.
         if loadError.isEmpty { persistHistory() }
         NotificationCenter.default.addObserver(forName: NSApplication.willTerminateNotification, object: nil, queue: .main) { [weak self] _ in
@@ -90,8 +102,14 @@ import OSprCore
         settings = settings.validated()
         do {
             try store.write(settings, name: "settings.json")
-            try KeyVault.write(transcriptionKey, account: "transcription")
-            try KeyVault.write(rewriteKey, account: "rewrite")
+            // An unavailable/locked Keychain read must not turn a model or mode
+            // preference save into a credential deletion. Write only edited keys.
+            if transcriptionKey != savedTranscriptionKey {
+                try KeyVault.write(transcriptionKey, account: "transcription"); savedTranscriptionKey = transcriptionKey
+            }
+            if rewriteKey != savedRewriteKey {
+                try KeyVault.write(rewriteKey, account: "rewrite"); savedRewriteKey = rewriteKey
+            }
             try hotkey.register(code: settings.hotkeyCode, modifiers: settings.hotkeyModifiers)
             history = LocalStore.retained(history, days: settings.retentionDays); persistHistory()
             if settings.launchAtLogin && SMAppService.mainApp.status != .enabled { try SMAppService.mainApp.register() }
@@ -244,11 +262,14 @@ import OSprCore
         } catch { self.error = error.localizedDescription; phase = "idle"; discardAudio(); overlay?.orderOut(nil) }
     }
     func cancel() {
+        let wasCapture = phase == "recording" || phase == "starting"
         generation = UUID(); previewTask?.cancel()
         if phase == "warming" || phase == "transcribing" || previewTask != nil { worker.shutdown(); ready = false }
         streamSession = nil
-        discardRecovery()
-        _ = try? capture.stop(); discardAudio(); phase = "idle"; preview = ""; status = "Recording discarded"; overlay?.orderOut(nil)
+        if wasCapture { discardRecovery() }
+        _ = try? capture.stop(); discardAudio(); phase = "idle"; preview = ""
+        status = hasRecovery ? "Cancelled · unfinished take retained" : wasCapture ? "Recording discarded" : "Cancelled"
+        overlay?.orderOut(nil)
         // Generation fencing also prevents late cloud responses from being saved
         // or inserted. Local cancellation terminates the owned inference child.
     }
@@ -268,11 +289,12 @@ import OSprCore
         guard !busy, let pending else { return }
         generation = UUID(); let token = generation
         phase = "transcribing"; error = ""; status = "Recovering unfinished recording…"
+        let config = settings
         Task {
-            // Snapshot provider choice is retained; credentials stay in Keychain.
-            // No stale target from a previous run is ever used for insertion.
+            // The retry button explicitly names the current speech route. Keep
+            // rewriting off and never insert into a target from a previous run.
             let recognized = await transcribe(file: recovery.audioURL, duration: pending.duration,
-                config: pending.settings, mode: pending.mode, target: nil, source: "recovered recording", token: token)
+                config: config, mode: .verbatim, target: nil, source: "recovered recording", token: token)
             if generation == token {
                 if recognized { discardRecovery() }
                 phase = "idle"
@@ -288,16 +310,17 @@ import OSprCore
             let result: [String: Any]
             if let resultOverride { result = resultOverride }
             else if config.transcriptionProvider == "local" {
-                result = try await worker.request(["action": "transcribe", "path": file.path, "model": config.model,
+                let speakers = source != "dictation" && source != "recovered recording" && config.speakerLabels
+                result = try await worker.request(["action": speakers ? "meeting" : "transcribe", "path": file.path, "model": config.model,
                     "language": config.language, "vocabulary": config.vocabulary, "trim": config.silenceTrim, "threshold": config.silenceThreshold])
             } else {
                 result = try await ProviderClient.transcribe(file: file, base: config.transcriptionURL,
                     model: config.transcriptionModel, key: transcriptionKey, language: config.language, vocabulary: config.vocabulary)
             }
             guard token == generation else { return false }
-            let raw = result["text"] as? String ?? ""
+            let raw = result["raw_text"] as? String ?? result["text"] as? String ?? ""
             guard !raw.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { status = "No speech detected"; return true }
-            var text = TextPipeline.process(raw, mode: mode, replacements: config.replacements, spokenPunctuation: config.spokenPunctuation)
+            var text = TextPipeline.process(result["text"] as? String ?? raw, mode: mode, replacements: config.replacements, spokenPunctuation: config.spokenPunctuation)
             if mode != .verbatim && config.rewriteProvider != "none" {
                 status = "Refining your words…"
                 let input = mode == .assistant ? "Selected passage:\n\(target?.selectedText ?? "")\n\nEditing request:\n\(text)" : text
@@ -342,11 +365,15 @@ import OSprCore
     private func saveResult(raw: String, text: String, result: [String: Any], duration: Double, config: OSprSettings, mode: WritingMode, source: String, target: InsertionTarget?, started: Date) {
         let segments = (result["segments"] as? [[String: Any]] ?? []).compactMap { segment -> Segment? in
             guard let start = segment["start"] as? Double, let end = segment["end"] as? Double, let text = segment["text"] as? String else { return nil }
-            return Segment(start: start, end: end, text: text)
+            return Segment(start: start, end: end, text: text, speaker: segment["speaker"] as? Int, overlapSpeakers: segment["overlapSpeakers"] as? [Int])
+        }
+        let words = (result["words"] as? [[String: Any]])?.compactMap { word -> Segment? in
+            guard let start = word["start"] as? Double, let end = word["end"] as? Double, let text = word["text"] as? String else { return nil }
+            return Segment(start: start, end: end, text: text, speaker: word["speaker"] as? Int, overlapSpeakers: word["overlapSpeakers"] as? [Int])
         }
         let record = Transcript(rawText: raw, text: text, model: result["model"] as? String ?? config.model, mode: mode,
             app: target?.app?.localizedName ?? "", duration: result["audio_seconds"] as? Double ?? duration,
-            latencyMS: Date().timeIntervalSince(started) * 1000, segments: segments, source: source)
+            latencyMS: Date().timeIntervalSince(started) * 1000, segments: segments, words: words, source: source)
         history.insert(record, at: 0); selection = record.id
         if config.saveHistory { persistHistory() }
         status = "Ready · \(Int(record.latencyMS)) ms"; preview = ""
@@ -360,6 +387,42 @@ import OSprCore
     func updateText(_ id: UUID, text: String) { if let index = history.firstIndex(where: { $0.id == id }) { history[index].text = text; persistHistory() } }
     func copy(_ text: String) { NSPasteboard.general.clearContents(); NSPasteboard.general.setString(text, forType: .string); status = "Copied" }
 
+    func chooseWatchedFolder() {
+        let panel = NSOpenPanel(); panel.canChooseDirectories = true; panel.canChooseFiles = false
+        guard panel.runModal() == .OK, let directory = panel.url else { return }
+        folderWatcher.settings.directory = directory.path
+        do { try folderWatcher.save(reset: true) } catch { self.error = error.localizedDescription }
+    }
+    func saveWatchedFolder(reset: Bool) {
+        do { try folderWatcher.save(reset: reset) } catch { self.error = error.localizedDescription }
+    }
+    private func processWatchedFile(_ file: URL) async -> Bool {
+        guard !busy, settings.transcriptionProvider == "local" else { return false }
+        var config = settings; config.mode = .verbatim; config.rewriteProvider = "none"; config.autoPaste = false
+        generation = UUID(); let token = generation
+        phase = "transcribing"; status = "Watched file · \(file.lastPathComponent)"
+        let before = history.first?.id
+        let success = await transcribe(file: file, duration: 0, config: config, mode: .verbatim,
+            target: nil, source: file.lastPathComponent, token: token)
+        defer { if token == generation { phase = "idle" } }
+        guard token == generation, success else { return false }
+        guard let record = history.first, record.id != before else { return true } // Silence is consumed without inventing a transcript.
+        do {
+            let output = file.deletingLastPathComponent().appendingPathComponent("OSpr Transcripts")
+            _ = try LocalStore(directory: output)
+            let prefix = file.deletingPathExtension().lastPathComponent + "-" + record.id.uuidString
+            let encoder = JSONEncoder(); encoder.outputFormatting = [.prettyPrinted, .sortedKeys]; encoder.dateEncodingStrategy = .iso8601
+            let exports: [(String, Data)] = [("txt", Data(record.text.utf8)), ("json", try encoder.encode(record)),
+                ("srt", Data(TranscriptExport.subtitles(record).utf8)), ("vtt", Data(TranscriptExport.subtitles(record, vtt: true).utf8))]
+            for (ext, data) in exports {
+                let destination = output.appendingPathComponent(prefix + "." + ext)
+                try data.write(to: destination, options: .atomic)
+                try FileManager.default.setAttributes([.posixPermissions: 0o600], ofItemAtPath: destination.path)
+            }
+            return true
+        } catch { self.error = "Watched transcript retained in History; export failed: \(error.localizedDescription)"; return false }
+    }
+
     func importFiles(_ files: [URL]? = nil) {
         guard !busy else { return }
         let urls: [URL]
@@ -369,7 +432,13 @@ import OSprCore
             guard panel.runModal() == .OK else { return }; urls = panel.urls
         }
         phase = "transcribing"; generation = UUID(); let token = generation
-        let config = settings
+        var config = settings
+        if config.speakerLabels {
+            guard config.transcriptionProvider == "local" && ["parakeet-v3", "whisper-turbo", "whisper-small"].contains(config.model) else {
+                error = "Speaker labels need local Parakeet or Whisper. Choose one, or disable speaker labels for imports."; phase = "idle"; return
+            }
+            config.mode = .verbatim
+        }
         Task {
             for (index, file) in urls.enumerated() {
                 guard generation == token else { break }
