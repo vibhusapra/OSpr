@@ -19,6 +19,7 @@ ROOT = Path(__file__).resolve().parent
 
 
 def verify_help_links(app):
+    app = app.resolve(strict=True)
     class Links(HTMLParser):
         def __init__(self):
             super().__init__()
