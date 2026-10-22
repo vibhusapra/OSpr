@@ -1,4 +1,7 @@
-"""Private stdio IPC. One JSON request/response per line, no listening socket.
+"""Private stdio IPC. One JSON object per line, no listening socket.
+
+Each request has one final response. Explicit warm/download requests may also
+receive request-ID-scoped progress events before that response.
 
 stdout is protocol only; third-party logs go to stderr. The native app owns
 the child process and its lifetime. Audio is never uploaded by this worker.

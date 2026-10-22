@@ -161,3 +161,18 @@ full-precision control is research-only. Small point differences between the
 native quantized/full-precision scores do not prove quantization improves WER.
 Original upstream weights required access approval and were not downloaded; these
 controls use public Apache-2.0 conversions with explicit source lineage.
+
+## Voxtral Realtime research candidate
+
+`voxtral_candidate.py` strictly loads the pinned public MLX 4-bit conversion in
+`fixtures/voxtral-model.json` and checks large-artifact SHA-256 against upstream
+LFS metadata. Pass its downloaded snapshot with `--model-path` and that manifest
+with `--model-manifest`; it stays outside the shipping engine registry.
+
+The same first twenty test-clean clips and 320 ms packets as Nemotron are replayed
+at three preselected 160/480/960 ms delay settings. Raw deltas, admitted-audio
+positions, per-packet compute, final flushing and hypotheses are retained. There
+is no capture pacing or native UI/IPC. This harness feeds arrays directly, while
+the Nemotron replay uses a temporary WAV for each packet. The first-word audio
+position is not end-to-end display latency or the configured model lag. Full
+English/stress/multilingual gates are required before considering app integration.

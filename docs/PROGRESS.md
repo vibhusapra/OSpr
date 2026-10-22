@@ -67,6 +67,12 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 - [x] Real human audio: deterministic 200 test-clean / 165 test-other slices,
   73 speakers, plus 100 regression/stress cases and small five-language FLEURS set.
 - [x] Persistent Metal whisper.cpp runtime baseline on the same English slices.
+- [x] Research-only Voxtral Realtime MLX 4-bit replay, pinned revision and upstream
+  large-artifact SHA-256 verified: twenty shared clips at 160/480/960 ms delays,
+  zero runtime errors. At 480 ms: 2.86% WER, 2.41 s compute p50 and 1.60 s median
+  first-partial audio position. Nemotron's shared small replay was 4.30% / 0.15 s;
+  this does not establish a quality winner, and the replay boundaries differ.
+  Voxtral stays outside shipping pending broader quality/integration gates.
 - [x] Cold/warm timings, raw hypotheses, versions, weights/corpus revisions,
   native IPC boundary, paired frontend ablation, RMS sweeps, cached packet replay,
   synthetic rewrite fidelity cases and seeded speaker-cluster bootstrap intervals.
