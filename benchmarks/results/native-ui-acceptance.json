@@ -324,6 +324,130 @@
         "Automated window activation did not keep the owned document frontmost. A later attempt captured another foreground target and was canceled before transcription/insertion. No unrelated application name, microphone audio or private text is included.",
         "Successful insertion, clipboard restoration and physical shortcuts remain unverified."
       ]
+    },
+    {
+      "verified_at": "2026-10-22T21:26:24.579388+00:00",
+      "build": {
+        "version": "0.1.0",
+        "built_at": "2026-10-22T21:19:04.335060+00:00",
+        "git_commit": "1bbbe061090c3b10cc7e62170fe9fd6bcfff48ee",
+        "tracked_changes": false,
+        "application_source_sha256": "adedf1a631530b4700d5e0097e0621494777b15cbd03f8160cfd0a351ac374b4",
+        "signing_mode": "configured-identity",
+        "boundary": "Development build; configured signing identity; not notarized; weights downloaded separately."
+      },
+      "checks": {
+        "native_deepgram_picker_default_url_and_model": true,
+        "native_deepgram_provider_and_dummy_key_survived_restart": true,
+        "native_80_minute_binary_import": true,
+        "parts": [
+          {
+            "index": 0,
+            "start_frame": 0,
+            "frames": 9537574,
+            "request_bytes": 19075192,
+            "max_pcm16_error": 0.0,
+            "token_auth": true,
+            "binary_wav": true,
+            "auto_language": true
+          },
+          {
+            "index": 1,
+            "start_frame": 9537574,
+            "frames": 9542989,
+            "request_bytes": 19086022,
+            "max_pcm16_error": 0.0,
+            "token_auth": true,
+            "binary_wav": true,
+            "auto_language": true
+          },
+          {
+            "index": 2,
+            "start_frame": 19080563,
+            "frames": 9566904,
+            "request_bytes": 19133852,
+            "max_pcm16_error": 0.0,
+            "token_auth": true,
+            "binary_wav": true,
+            "auto_language": true
+          },
+          {
+            "index": 3,
+            "start_frame": 28647467,
+            "frames": 9528305,
+            "request_bytes": 19056654,
+            "max_pcm16_error": 0.0,
+            "token_auth": true,
+            "binary_wav": true,
+            "auto_language": true
+          },
+          {
+            "index": 4,
+            "start_frame": 38175772,
+            "frames": 9546142,
+            "request_bytes": 19092328,
+            "max_pcm16_error": 0.0,
+            "token_auth": true,
+            "binary_wav": true,
+            "auto_language": true
+          },
+          {
+            "index": 5,
+            "start_frame": 47721914,
+            "frames": 9570574,
+            "request_bytes": 19141192,
+            "max_pcm16_error": 0.0,
+            "token_auth": true,
+            "binary_wav": true,
+            "auto_language": true
+          },
+          {
+            "index": 6,
+            "start_frame": 57292488,
+            "frames": 9534002,
+            "request_bytes": 19068048,
+            "max_pcm16_error": 0.0,
+            "token_auth": true,
+            "binary_wav": true,
+            "auto_language": true
+          },
+          {
+            "index": 7,
+            "start_frame": 66826490,
+            "frames": 9577201,
+            "request_bytes": 19154446,
+            "max_pcm16_error": 0.0,
+            "token_auth": true,
+            "binary_wav": true,
+            "auto_language": true
+          },
+          {
+            "index": 8,
+            "start_frame": 76403691,
+            "frames": 396309,
+            "request_bytes": 792662,
+            "max_pcm16_error": 0.0,
+            "token_auth": true,
+            "binary_wav": true,
+            "auto_language": true
+          }
+        ],
+        "normalized_frames": 76800000,
+        "stored_all_nine_text_parts_exact": true,
+        "stored_duration_seconds": 4800,
+        "stored_utterance_and_word_offsets_exact": true,
+        "temporary_upload_workspaces_removed": true,
+        "saved_local_defaults_restored": true,
+        "live_local_preferences_restored": false,
+        "loopback_server_stopped": true
+      },
+      "screenshot": "docs/assets/native-deepgram-upload.png",
+      "screenshot_sha256": "2f12a45aaf6484c554767ca5c23995af465e85e8975ab27b55bde5ed5b428e3e",
+      "limitations": [
+        "Native CUA file picker \u2192 local preparation \u2192 serial binary Listen-shaped loopback requests \u2192 Studio \u2192 persisted history. Fixture text is deterministic, not recognition, paid-provider validation or an isolated speed benchmark.",
+        "The Mac locked before live GUI preferences could be restored. Saved local-only defaults were restored atomically; the fixture server was stopped. Manual unlock is needed to restore the running app UI.",
+        "Successful insertion, physical global shortcuts, cloud streaming and real Deepgram account quality remain unverified."
+      ]
     }
   ]
 }

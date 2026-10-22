@@ -301,3 +301,38 @@ formatting and numeral conversion are disabled, fillers are requested, and cloud
 speaker labels/summaries are not requested. Missing or invalid timing keeps the
 text with explicitly coarse boundaries. Empty output does not fabricate a
 silence verdict. See [contract and primary sources](../docs/data/deepgram-contract.json).
+
+## Real product CLI pilot
+
+`product_cli.py` compares actual fresh-process file commands: OSpr Parakeet,
+OSpr Whisper Turbo and the official Vibe 3.2.2 desktop CLI, which forwards to
+its bundled server. The first utterance from the first ten speakers in each
+existing clean/other manifest gives 20 fixed cases. Three runs per case and
+configuration produce 180 serial commands in seeded random order. Score only
+repeat zero for quality; use all trials for timing and deterministic-text checks.
+
+Download the official arm64 app archive and release metadata from
+[Vibe v3.2.2](https://github.com/thewh1teagle/vibe/releases/tag/v3.2.2), verify its
+published digest, bundle version, strict signature and notarization assessment,
+and disable Vibe analytics in its documented `app_config.json` before running:
+
+```sh
+.venv/bin/python benchmarks/product_cli.py \
+  --vibe-app /path/to/official/vibe.app \
+  --vibe-release /path/to/vibe-release.json \
+  --ospr-app dist/standalone/OSpr.app \
+  --ggml-model /path/to/ggml-large-v3-turbo.bin
+```
+
+The retained pilot used the unmodified official release, with Metal confirmed
+on M5 Max; its optional tensor API was unavailable, while Metal remained active.
+Analytics were off. A network-denied bootstrap smoke was separate; the paired
+measurements used ordinary CLI execution. Each command loads a fresh model
+context, with already primed OS file/shader caches. Model download is excluded.
+No GUI, microphone, endpointing, insertion, energy or fully uncached startup is
+measured. Default language and trimming behavior differ; the two Turbo model
+conversions/runtimes also differ. Twenty read-speech cases cannot establish a
+general accuracy winner or a top-three product ranking. The first harness was
+untracked when executed; its exact SHA is retained and the unchanged executed
+source is committed alongside the results. See the raw `product-cli.json` and
+`vibe-release-provenance.json` receipts.

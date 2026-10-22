@@ -844,7 +844,7 @@
       "name": "Vibe",
       "kind": "open-source",
       "platforms": "Mac, Windows, Linux",
-      "license": "Consult repository license",
+      "license": "MIT application source; model and bundled dependency licenses are separate",
       "plans": [
         [
           "Open-source app",
@@ -852,17 +852,31 @@
           "Local file transcription."
         ]
       ],
-      "routing": "Offline Whisper-based transcription.",
-      "difference": "Media-first application rather than a comprehensive dictation replacement. Useful reference for file input, language handling and transcript export.",
+      "routing": "Local Whisper, Parakeet and Nemotron recognition. Optional Claude API or local Ollama text analysis. Usage analytics default on in v3.2.2 source; disabled in the OSpr comparison profile.",
+      "difference": "Media and meeting workspace: batch audio/video, live preview, system/microphone capture, editable playback/transcripts, speaker labeling, many export formats, translation, local/cloud summaries, model controls, CLI and local HTTP API. The official arm64 v3.2.2 app passed signature/notarization assessment and 60 paired fresh-process CLI trials across 20 preselected speakers. Browser-based phone capture/handoff is documented with QR pairing; it is not tested here.",
       "features": [
         "local_asr",
+        "local_llm",
+        "byok_llm",
+        "live_partials",
         "file_import",
-        "subtitles"
+        "batch",
+        "subtitles",
+        "cli",
+        "meetings",
+        "speakers",
+        "audio_review",
+        "history"
       ],
       "sources": [
-        "https://github.com/thewh1teagle/vibe"
+        "https://github.com/thewh1teagle/vibe/tree/v3.2.2",
+        "https://github.com/thewh1teagle/vibe/releases/tag/v3.2.2",
+        "https://github.com/thewh1teagle/vibe/blob/v3.2.2/desktop/src-tauri/src/analytics.rs",
+        "https://github.com/thewh1teagle/vibe/blob/v3.2.2/server/README.md",
+        "https://github.com/thewh1teagle/vibe/blob/v3.2.2/desktop/src/pages/main/components/player-bar.tsx",
+        "https://github.com/thewh1teagle/vibe/blob/v3.2.2/handoff/README.md"
       ],
-      "notes": ""
+      "notes": "Vendor/project capabilities from the pinned release source; GUI workflows are not benchmarked here. Local ASR capability is distinct from optional cloud summaries and event analytics. The benchmark disables analytics. Stable subtitle timing/VAD is a quality-focused option; default file-command measurements do not enable it."
     },
     {
       "name": "Buzz",

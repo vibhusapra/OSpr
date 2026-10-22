@@ -79,7 +79,10 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
   preserved numeric/filler wording. A literal-plus query bug was found and fixed.
   Loopback contracts cover malformed timing/responses, late failure and cancellation;
   real CLI/worker 80-minute every-sample transport passed. No paid API, model-quality
-  or cloud-streaming claim. Native provider UI acceptance remains pending.
+  or cloud-streaming claim. Native picker/defaults, Keychain restart and 80-minute binary import/history with
+  exact utterance/word offsets also passed. The Mac then locked: saved local-only
+  defaults are restored and the loopback fixture server is stopped; restoring the
+  running GUI preferences awaits manual unlock.
 
 ## Verification and evidence
 
@@ -165,7 +168,15 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
   filtered telemetry, exact tool/source/model provenance and signed idle subtraction.
   Shared-system drift is visible; post-fix Parakeet power was inconclusive with
   another render active. No calibrated attribution or battery claim.
-- [ ] Equivalent installed consumer-app benchmarks, correction effort and energy;
+- [x] Actual released-product CLI pilot: official signed/notarized Vibe 3.2.2 and
+  bundled OSpr, 20 preselected speakers, three fresh processes per route/case,
+  180 seeded-random serial commands with zero failures. Vibe fresh-command p50
+  0.93 s vs OSpr Parakeet 1.87 s / Whisper Turbo 1.98 s. Quality totals differ by
+  one or two word errors among 485 reference words; no accuracy winner claim.
+  Cache-primed process starts, different default preprocessing, no GUI/voice/energy
+  or top-three ranking claim. Raw results and official-release provenance retained.
+- [ ] Profile and reduce the measured cold-process startup gap.
+- [ ] Equivalent installed consumer-app GUI/dictation benchmarks, correction effort and energy;
   broader speaker/accent/noise/spontaneous dictation and code-switching evaluation.
 - [ ] Validate on lower-memory and older Apple Silicon hardware.
 - [ ] Mobile/sync/LAN offload and enterprise administration are deferred tracks.

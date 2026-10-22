@@ -1,13 +1,13 @@
 {
   "status": "passed",
   "provider": "compatible",
-  "verified_at": "2026-10-22T21:18:20.954763+00:00",
-  "git_commit": "c2e9808fb25880887479074b14bf80c93fc904cc",
+  "verified_at": "2026-10-22T21:20:19.510215+00:00",
+  "git_commit": "1bbbe061090c3b10cc7e62170fe9fd6bcfff48ee",
   "source_manifest_sha256": "024725d90b2c7dddabef4fa9cc2fe2f278cfcdd3eb782e8899791aec1706374e",
   "source_sha256": "89972494a4ed7b812b784ab0b936c82fc458ad944949c860eb4ccebc2b9df5b2",
-  "generated_fixture_sha256": "56fbcf210ea29b6f6a18d822a32b9c4c30b2974b46728fdcc8abd561b8109955",
+  "generated_fixture_sha256": "993e907bcefe6c91c2b892a0cfc31b38d9a2dca488f8fa917ca7f07efdf295b0",
   "generated_bytes": 307200080,
-  "cli_sha256": "127f564872b99033fe374907f6574e576b2e005e53f5a91a2b704ad4a744621f",
+  "cli_sha256": "17c3248d69a26608e81671e6c065e5a5edf34ef4aac2c74c37295622e6706c4f",
   "normalized_frames": 76800000,
   "seconds": 4800,
   "requests": [
@@ -75,12 +75,20 @@
       "max_pcm16_error": 0.0
     }
   ],
-  "engine_binding": "checkout",
+  "engine_binding": "bundled",
   "harness_sha256": "7398c33f762d5b70ab4a5d8a58ab1429a21bf1afd2ab3136f34b2ac9eed6e7ed",
-  "build": null,
-  "signature_valid_after_upload": null,
+  "build": {
+    "version": "0.1.0",
+    "built_at": "2026-10-22T21:19:04.335060+00:00",
+    "git_commit": "1bbbe061090c3b10cc7e62170fe9fd6bcfff48ee",
+    "tracked_changes": false,
+    "application_source_sha256": "adedf1a631530b4700d5e0097e0621494777b15cbd03f8160cfd0a351ac374b4",
+    "signing_mode": "configured-identity",
+    "boundary": "Development build; configured signing identity; not notarized; weights downloaded separately."
+  },
+  "signature_valid_after_upload": true,
   "source_preserved": true,
   "workspace_removed": true,
-  "native_wall_ms": 3196.0306250257418,
+  "native_wall_ms": 5868.485542014241,
   "boundary": "Real Swift CLI \u2192 owned Python preparation \u2192 serial loopback provider \u2192 assembled timestamps. Every sample checked within PCM16 quantization. Fake provider text is a sentinel, not ASR, paid-provider validation, native UI, or a timing benchmark."
 }
