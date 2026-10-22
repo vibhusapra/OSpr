@@ -18,6 +18,7 @@ public final class HistoryRepository: @unchecked Sendable {
     private let open: @Sendable () throws -> HistoryDatabase
     private let reset: @Sendable () throws -> HistoryDatabase
     private let beforeCommit: @Sendable () throws -> Void
+    private let instanceLock: AppInstanceLock?
     private var database: HistoryDatabase?
     private var pending: [UUID: Pending] = [:]
     private var ordinal: UInt64 = 0
@@ -29,25 +30,26 @@ public final class HistoryRepository: @unchecked Sendable {
     private var completion: Completion?
     private var scheduled: DispatchWorkItem?
 
-    public convenience init(directory: URL) {
+    public convenience init(directory: URL, instanceLock: AppInstanceLock? = nil) {
         self.init(open: { try HistoryDatabase(directory: directory) },
-                  reset: { try HistoryDatabase.reset(directory: directory) })
+                  reset: { try HistoryDatabase.reset(directory: directory) }, instanceLock: instanceLock)
     }
 
     // Injectable boundaries for slow-open, ordering and failure tests. Both
     // closures must create/return connections confined to this repository.
     init(open: @escaping @Sendable () throws -> HistoryDatabase,
          reset: @escaping @Sendable () throws -> HistoryDatabase,
-         beforeCommit: @escaping @Sendable () throws -> Void = {}) {
+         beforeCommit: @escaping @Sendable () throws -> Void = {}, instanceLock: AppInstanceLock? = nil) {
         self.open = open; self.reset = reset; self.beforeCommit = beforeCommit
+        self.instanceLock = instanceLock
         queue.setSpecific(key: queueKey, value: true)
     }
 
     deinit {
         // SQLite destruction also belongs off the UI executor. The queue owns
         // the last connection reference once this repository is released.
-        let connection = database
-        queue.async { withExtendedLifetime(connection) {} }
+        let connection = database, lease = instanceLock
+        queue.async { withExtendedLifetime(lease) { connection?.close() } }
     }
 
     /// Coalesce repeated edits to an ID; preserve the first admission order of

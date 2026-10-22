@@ -336,6 +336,24 @@ final class HistoryRepositoryTests: XCTestCase {
         let stats = try await value.statistics()
         XCTAssertEqual(stats, HistoryStatistics(records: 450, words: 1350))
     }
+
+    func testRepositoryRetainsTheGUILeaseUntilItsConnectionCloses() async throws {
+        let path = try directory()
+        var owner: AppInstanceLock? = try AppInstanceLock(directory: path)
+        var value: HistoryRepository? = HistoryRepository(directory: path, instanceLock: owner)
+        let page = try await value!.page()
+        XCTAssertTrue(page.rows.isEmpty)
+        owner = nil
+        XCTAssertThrowsError(try AppInstanceLock(directory: path))
+        value = nil
+        var acquired: AppInstanceLock?
+        for _ in 0..<100 {
+            if let lock = try? AppInstanceLock(directory: path) { acquired = lock; break }
+            try await Task.sleep(nanoseconds: 5_000_000)
+        }
+        XCTAssertNotNil(acquired)
+        withExtendedLifetime(acquired) {}
+    }
 }
 
 private final class RepositoryBoundary: @unchecked Sendable {

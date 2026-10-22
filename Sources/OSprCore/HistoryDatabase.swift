@@ -95,7 +95,10 @@ public final class HistoryDatabase {
         try migrateLegacyIfNeeded()
     }
 
-    deinit { sqlite3_close(database) }
+    deinit { close() }
+
+    // Repository teardown closes on its queue before releasing the GUI lease.
+    func close() { sqlite3_close(database); database = nil }
 
     private func createSchema() throws {
         try transaction {
