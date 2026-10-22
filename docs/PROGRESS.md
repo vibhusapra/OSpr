@@ -171,3 +171,8 @@ The machine-readable acceptance ledger is authoritative for feature status;
   raw-track metadata. Unfinished-take deletion now requires a native confirmation.
   Recovery export and canceling discard were retested; original bytes and owner-only
   permissions confirmed. Private microphone data is excluded from Git.
+
+- Accessibility enabled for the exact packaged app; native Fn listener registration
+  passed and modified-key default restored. Automated Control–Option–Space reaches
+  the shortcut editor but did not exercise global delivery. Setup permission refresh
+  and a visible recording destination label were added; native retest follows.

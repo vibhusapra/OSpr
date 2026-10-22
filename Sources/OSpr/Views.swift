@@ -132,6 +132,7 @@ struct StudioView: View {
                             Spacer()
                         }.padding(.vertical, 14)
                         if model.phase == "recording" {
+                            if let destination = model.dictationDestination { Text(destination).font(.caption).foregroundStyle(.secondary) }
                             Waveform(level: model.displayLevel)
                             if !model.preview.isEmpty { Text(model.preview).font(.subheadline).foregroundStyle(.secondary).lineLimit(3) }
                             Button("Discard recording", role: .destructive) { model.cancel() }.buttonStyle(.plain).font(.caption)
@@ -247,6 +248,7 @@ struct RecordingOverlay: View {
     var body: some View {
         VStack(spacing: 5) {
             HStack { Circle().fill(.red).frame(width: 7, height: 7); Text(model.phase == "recording" ? (model.recordingDesktop ? "Desktop audio" : "Listening") : "Working…").font(.caption.weight(.medium)); Spacer(); Text(String(format: "%.1fs", model.displaySeconds)).font(.caption.monospacedDigit()); Button { if model.phase == "recording" { model.stop() } else { model.cancel() } } label: { Image(systemName: model.phase == "recording" ? "stop.circle.fill" : "xmark.circle.fill") }.buttonStyle(.plain).accessibilityLabel(model.phase == "recording" ? "Finish recording" : "Cancel processing") }
+            if let destination = model.dictationDestination { Text(destination).font(.caption2).foregroundStyle(.secondary).lineLimit(1) }
             Waveform(level: model.displayLevel)
         }.padding(14).background(.regularMaterial, in: RoundedRectangle(cornerRadius: 17)).overlay(RoundedRectangle(cornerRadius: 17).stroke(.quaternary))
     }

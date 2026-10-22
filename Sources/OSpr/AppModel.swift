@@ -39,6 +39,11 @@ import OSprCore
     @Published var meetingLevel: Float = 0
     var displaySeconds: Double { recordingDesktop ? meetingSeconds : capture.seconds }
     var displayLevel: Float { recordingDesktop ? meetingLevel : capture.level }
+    var dictationDestination: String? {
+        guard phase == "recording", !recordingDesktop else { return nil }
+        guard recordingSettings.autoPaste, let app = target?.app else { return "Transcript in OSpr · automatic insertion off for this take" }
+        return "Target · " + (app.localizedName ?? app.bundleIdentifier ?? "original app")
+    }
     private var meetingSession: MeetingCaptureSession?
     private var meetingTimer: Timer?
     private var meetingDirectory: URL?
@@ -212,6 +217,7 @@ import OSprCore
     }
 
     func saveOSprSettings() {
+        refreshPermissions()
         settings = settings.validated()
         do {
             try hotkey.register(code: settings.hotkeyCode, modifiers: settings.hotkeyModifiers, functionOnly: settings.hotkeyFnOnly)
@@ -1014,10 +1020,12 @@ import OSprCore
             if !microphoneReady { error = "Allow OSpr microphone access in System Settings → Privacy & Security → Microphone. File imports do not require microphone access." }
         }
     }
-    func requestAccessibility() { _ = AXIsProcessTrustedWithOptions([kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true] as CFDictionary) }
+    func requestAccessibility() {
+        accessibilityReady = AXIsProcessTrustedWithOptions([kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true] as CFDictionary)
+    }
     private func showOverlay() {
         if overlay == nil {
-            let panel = NSPanel(contentRect: NSRect(x: 0, y: 0, width: 360, height: 100), styleMask: [.borderless, .nonactivatingPanel], backing: .buffered, defer: false)
+            let panel = NSPanel(contentRect: NSRect(x: 0, y: 0, width: 360, height: 120), styleMask: [.borderless, .nonactivatingPanel], backing: .buffered, defer: false)
             panel.isFloatingPanel = true; panel.level = .floating; panel.backgroundColor = .clear; panel.isOpaque = false
             panel.hasShadow = true; panel.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
             panel.contentView = NSHostingView(rootView: RecordingOverlay(model: self, capture: capture))

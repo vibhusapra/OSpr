@@ -136,11 +136,16 @@
         "watch_folder_source_unchanged": true,
         "watch_folder_no_duplicate_exports_across_repeated_scans": true,
         "watch_folder_disabled_after_test": true,
-        "watch_folder_original_unconfigured_state_restored": true
+        "watch_folder_original_unconfigured_state_restored": true,
+        "accessibility_granted_for_exact_bundle": true,
+        "fn_listener_registration_with_accessibility": true,
+        "modified_shortcut_restored_after_fn_check": true,
+        "shortcut_editor_received_control_option_space": true
       },
       "limitations": [
         "Microphone test audio is private, excluded from Git and preserved in a private local QA directory outside the live recovery queue. No reference-speech accuracy or human listening claim.",
-        "Watched-folder test used one public clip; interrupted or very large input, queue latency and error UI are not established."
+        "Watched-folder test used one public clip; interrupted or very large input, queue latency and error UI are not established.",
+        "Automated key events reached the app shortcut editor but did not trigger its global Carbon binding; physical-key delivery is still unverified. Setup permission state was stale after external grant and is being refreshed in source."
       ]
     }
   ]
