@@ -158,11 +158,7 @@ public final class HistoryDatabase {
                 defer { stream.close() }
                 while let data = try stream.next() {
                     try autoreleasepool {
-                    let object = try JSONSerialization.jsonObject(with: data) as? [String: Any]
-                    let supported: Set<String> = ["id", "date", "rawText", "text", "model", "mode", "app", "duration", "latencyMS", "segments", "words", "warning", "notes", "audioFile", "source"]
-                    guard let object, Set(object.keys).isSubset(of: supported) else {
-                        throw OSprError.message("Legacy history has unknown fields. Existing files were preserved.")
-                    }
+                    try validateLegacyFields(JSONSerialization.jsonObject(with: data))
                     let record = try decoder.decode(Transcript.self, from: data)
                     let canonical = try encoder.encode(record)
                     // A source row must survive decoding its actual persisted
@@ -203,6 +199,30 @@ public final class HistoryDatabase {
 
     public func upsert(_ records: [Transcript]) throws {
         try transaction { for record in records { try put(record) } }
+    }
+
+    /// JSONDecoder intentionally ignores unknown keys, including nested ones.
+    /// Migration must instead preserve archives made by a newer writer intact.
+    private func validateLegacyFields(_ value: Any) throws {
+        func object(_ value: Any, keys: Set<String>) throws -> [String: Any] {
+            guard let dictionary = value as? [String: Any], Set(dictionary.keys).isSubset(of: keys) else {
+                throw OSprError.message("Legacy history has unknown fields. Existing files were preserved.")
+            }
+            return dictionary
+        }
+        let record = try object(value, keys: ["id", "date", "rawText", "text", "model", "mode", "app", "duration", "latencyMS", "segments", "words", "warning", "notes", "audioFile", "source"])
+        for field in ["segments", "words"] {
+            if let values = record[field] as? [Any] {
+                for value in values { _ = try object(value, keys: ["start", "end", "text", "speaker", "overlapSpeakers"]) }
+            }
+        }
+        if let value = record["notes"], !(value is NSNull) {
+            let notes = try object(value, keys: ["excerpts", "sourceSHA256", "model", "created"])
+            if let excerpts = notes["excerpts"] as? [Any] {
+                for excerpt in excerpts { _ = try object(excerpt, keys: ["id", "text"]) }
+            }
+        }
+        // JSONDecoder below validates missing fields, scalar/array types and nulls.
     }
 
     public func record(id: UUID) throws -> Transcript? {

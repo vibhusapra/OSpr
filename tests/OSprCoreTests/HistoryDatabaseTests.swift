@@ -110,6 +110,37 @@ final class HistoryDatabaseTests: XCTestCase {
         XCTAssertFalse(FileManager.default.fileExists(atPath: path.appendingPathComponent("history.json").path))
     }
 
+    func testUnknownNestedFieldsNeverDisappearDuringMigration() throws {
+        var original = record("Keep nested fields")
+        original.words = [Segment(start: 0, end: 1, text: original.rawText)]
+        original.notes = try MeetingNotes(source: original.rawText, excerpts: [NoteExcerpt(id: 0, text: original.rawText)], model: "fixture")
+        for field in ["segments", "words", "notes", "excerpts"] {
+            let path = try directory()
+            var json = try XCTUnwrap(JSONSerialization.jsonObject(with: canonical(original)) as? [String: Any])
+            if field == "segments" || field == "words" {
+                var values = try XCTUnwrap(json[field] as? [[String: Any]])
+                values[0]["futureConfidence"] = 0.75; json[field] = values
+            } else {
+                var notes = try XCTUnwrap(json["notes"] as? [String: Any])
+                if field == "notes" { notes["futureSummary"] = "Keep this" }
+                else {
+                    var excerpts = try XCTUnwrap(notes["excerpts"] as? [[String: Any]])
+                    excerpts[0]["futureSourceOffset"] = 17; notes["excerpts"] = excerpts
+                }
+                json["notes"] = notes
+            }
+            let bytes = try JSONSerialization.data(withJSONObject: [json])
+            let legacy = path.appendingPathComponent("history.json")
+            try bytes.write(to: legacy)
+            XCTAssertThrowsError(try HistoryDatabase(directory: path), field)
+            XCTAssertEqual(try Data(contentsOf: legacy), bytes, field)
+            // The failed migration remains retryable with a supported archive.
+            try writeLegacy([original], to: path)
+            let recovered = try HistoryDatabase(directory: path)
+            XCTAssertEqual(try canonical(XCTUnwrap(recovered.record(id: original.id))), try canonical(original))
+        }
+    }
+
     func testIndependentlyChangedLegacyArchiveIsNeverDeleted() throws {
         let path = try directory()
         do { _ = try HistoryDatabase(directory: path) }

@@ -371,3 +371,29 @@ effects. The worker controls show faster boot and more work during explicit
 preparation; prepared public requests remain about 55 ms at both rates. An
 unprepared native-rate request still pays the SciPy import cost. Preserve these
 controls alongside the attractive 16 kHz command result.
+
+## Indexed-history storage prototype
+
+On `codex/indexed-history`, build the release CLI and run
+`benchmark-history-index 100000 3`. It generates deterministic timing-rich
+transcripts in a private, owned temporary directory. Each mode/trial uses a fresh
+child process. Legacy JSON and paged SQLite must return identical top-100 IDs for
+eight literal queries, aggregate counts and the selected detail hash. Migration
+validates an ordered digest of every full payload. The app still uses JSON while
+its asynchronous repository and paged UI integration are in progress.
+
+`results/history-index.json` retains the 4 KiB-page result,
+`history-index-4096-pages.json` an earlier same-fixture 4 KiB control, and
+`history-index-8192-pages.json` the rejected page-packing experiment.
+`history-migration-memory-before.json` extracts the original migration's raw
+memory/time measurement before per-read autorelease pools bounded FileHandle
+buffers. The initial full receipt is retained locally; the extract fingerprints
+that receipt and the exact public source/fixture used.
+
+Run `.venv/bin/python benchmarks/verify_history_index.py
+benchmarks/results/history-index.json` for independent expected-ID/count/detail,
+Git provenance and NumPy percentile verification. Optional `--cli <executable>`
+checks the measured binary; `--baseline <receipt>` also checks the same fixture.
+Three trials are exploratory. Timings exclude CLI spawn, SwiftUI rendering, app
+launch, real user archives and human typing. RSS is the child's lifetime Darwin
+peak; disk space and one-time migration costs are reported separately.

@@ -95,3 +95,25 @@ Primary SQLite references:
 [transactions](https://www.sqlite.org/lang_transaction.html),
 [connection flags](https://www.sqlite.org/c3ref/open.html),
 [FTS5 secure-delete](https://www.sqlite.org/fts5.html#the_secure_delete_configuration_option).
+
+The 100,000-record receipt is `benchmarks/results/history-index.json`. An
+independent checker verifies expected fixture IDs, counts, complete selected
+detail agreement, Git source hashes and every NumPy percentile:
+
+```sh
+.venv/bin/python benchmarks/verify_history_index.py benchmarks/results/history-index.json
+```
+
+Initial data p50 is 3,448.4 ms for JSON and 2.98 ms for the prototype; median
+process peak RSS is 1,828,552,704 and 17,580,032 bytes respectively. Migration plus
+initial data takes 32.34 s and peaks at 98.02 MiB. Per-read autorelease pools
+reduced the initial migration's 891.91 MiB peak. These are synthetic storage
+measurements; the shipped UI has not adopted this path.
+
+The database occupies 515,993,600 bytes versus 303,900,003 bytes of legacy JSON.
+A separate 8 KiB page control measured 514,293,760 bytes (0.3% less) and a larger
+181.27 MiB migration peak. It offered no useful packing improvement on this
+fixture, so 4 KiB remains the default. Both complete raw controls are retained.
+Packing/compression and broader real-history distributions remain future work.
+
+The final receipt retains the exact measured CLI under `.local/history-index-measured-cli`. A rebuild from identical source need not have the same Mach-O hash. Use `--cli` only with the preserved measured binary; source provenance is independently checked against the recorded Git commit. Subsequent nested-field migration guards have their own correctness tests and are not represented as remeasured performance.
