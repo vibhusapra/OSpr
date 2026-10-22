@@ -180,8 +180,8 @@
     {
       "feature": "BYOK speech transcription",
       "status": "contract-tested",
-      "evidence": "Compatible multipart adapter, current gpt-transcribe languages[] contract and Groq preset. Native public-file import passed against a loopback provider after app restart using the Keychain-restored dummy key. Long imports now normalize locally into contiguous PCM16 parts of at most ten minutes, preserving repetitions and offsetting timestamps; every sample in an 80-minute public fixture was checked through the real Swift CLI and worker.",
-      "gap": "No paid provider account call performed. Non-compatible Deepgram/Soniox streaming APIs remain absent. Parts are independent recognition jobs; boundary context, real provider quotas and large-file native UI interruption remain unverified. A failed retry resends all parts and may incur provider charges.",
+      "evidence": "Compatible multipart adapter, current gpt-transcribe languages[] contract and Groq preset. Native public-file import passed against a loopback provider after app restart using the Keychain-restored dummy key. Long imports now normalize locally into contiguous PCM16 parts of at most ten minutes, preserving repetitions and offsetting timestamps; every sample in an 80-minute public fixture was checked through the real Swift CLI and worker. The same 80-minute fixture also passed the native file picker → worker → upload → Studio → persisted-history path; nine parts, text and timestamp offsets were verified, with zero leftover upload workspaces.",
+      "gap": "No paid provider account call performed. Non-compatible Deepgram/Soniox streaming APIs remain absent. Parts are independent recognition jobs; boundary context, real provider quotas and large-file cancellation/interruption remain unverified. A failed retry resends all parts and may incur provider charges.",
       "priority": "P0"
     },
     {

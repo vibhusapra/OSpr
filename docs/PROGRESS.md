@@ -34,7 +34,9 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
   Serial requests stay below 25,000,000 bytes including multipart framing; repetitions
   and timeline offsets are preserved. Failure/cancel returns no completed partial
   transcript. An 80-minute public fixture passed every-sample transport verification;
-  provider responses were deterministic sentinels, not recognition. Retry resends all parts.
+  provider responses were deterministic sentinels, not recognition. The native picker,
+  Studio and persisted-history route also passed all nine parts and exact time offsets.
+  Retry resends all parts.
 - [x] Cancel now cancels the active processing Task as well as invalidating output;
   a delayed loopback-provider test verifies URLSession cancellation.
 - [x] Model cache manager: eight pinned inventories with artifact size checks, download-only,
@@ -109,7 +111,8 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
   destination labeling and app-switch insertion rejection were observed. Successful
   insertion still needs acceptance. Native BYOK save/restart/import passed with a
   dummy Keychain credential and exact public fixture against loopback; local
-  preferences restored. No paid/provider recognition claim.
+  preferences saved and verified again after restart. Permissions survived the signed
+  update. No paid/provider recognition claim.
 - [x] Normalized input samples and default ASR cuts are bit-identical across all
   515 existing short-suite cases after avoiding recursive FFmpeg decoding above
   256 MiB. This is input equivalence, not a model rerun.
