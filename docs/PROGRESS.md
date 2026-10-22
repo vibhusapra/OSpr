@@ -7,7 +7,8 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 - [x] Native SwiftUI Studio, History, Models, Dictionary, Modes, Settings,
   Research, menu bar and nonactivating recording HUD. Initial window visually
   inspected; final updated-build interactive QA is pending because the Mac locked.
-- [x] Parakeet v3, Whisper Turbo/Small, Qwen3 ASR and Nemotron local MLX/Metal paths.
+- [x] Parakeet v3, native-layout Cohere 8-bit, Whisper Turbo/Small, Qwen3 ASR
+  and Nemotron local MLX/Metal paths.
   Pinned weights/dependencies; bounded resident ASR plus optional refiner.
 - [x] Toggle and push-to-talk shortcut, visual shortcut editor, microphone choice,
   bounded off-callback recording writes, waveform, duration, auto-stop option.
@@ -40,7 +41,7 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
 ## Verification and evidence
 
-- [x] Native tests: 52 passed, covering text fidelity rules, Unicode snippets, retention/storage,
+- [x] Native tests: 55 passed, covering text fidelity rules, Unicode snippets, retention/storage,
   provider endpoint restrictions, multipart/chat/Anthropic loopback contracts,
   30 concurrent worker requests, timeout/restart, audio frame integrity/overflow,
   secure-field early rejection and recovery store restart/corrupt-metadata cases.

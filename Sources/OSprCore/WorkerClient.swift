@@ -147,6 +147,10 @@ public final class WorkerClient: @unchecked Sendable {
         env["TOKENIZERS_PARALLELISM"] = "false"
         env["HF_HUB_DISABLE_PROGRESS_BARS"] = "1"
         env["PYTHONUNBUFFERED"] = "1"
+        env["PYTHONDONTWRITEBYTECODE"] = "1"
+        env["PYTHONSAFEPATH"] = "1"
+        env["HF_HUB_DISABLE_TELEMETRY"] = "1"
+        env["DO_NOT_TRACK"] = "1"
         env["PATH"] = "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:" + (env["PATH"] ?? "")
         child.environment = env
         if env["OSPR_DEBUG_LOG"] == "1" {

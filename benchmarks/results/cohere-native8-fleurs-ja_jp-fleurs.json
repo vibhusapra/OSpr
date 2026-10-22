@@ -1,19 +1,19 @@
 {
-  "timestamp": "2026-10-22T12:11:03.069796+00:00",
+  "timestamp": "2026-10-22T12:27:21.034386+00:00",
   "model": "cohere-native8",
   "model_spec": {
     "repo": "littoralai/cohere-transcribe-mlx-8bit",
     "engine": "mlx-audio",
-    "name": "Research Cohere native8",
-    "languages": "14 languages; explicit language hint",
+    "name": "Cohere Transcribe \u00b7 measured English quality",
+    "languages": "14 languages; blank hint uses English (no automatic detection)",
     "license": "Apache-2.0"
   },
   "platform": "macOS-26.6.2-arm64-arm-64bit",
   "machine": "arm64",
   "hardware": "Apple M5 Max",
   "memory_bytes": 137438953472,
-  "source_sha256": "b966ca85111801981eb11fa263d8dc46a2725571b6d8bbcaa16e3657dd846558",
-  "git_commit": "b6040e74eb550f20e00b13e3b912c1a9a6bff207",
+  "source_sha256": "5ffc8c3fc32ca6b8286bec9a3fd868639ab853642a87715bbf31c0f71502d06f",
+  "git_commit": "82ea4a1eca6c68f410221a402b74272928b181b1",
   "working_tree_dirty": true,
   "versions": {
     "mlx": "0.32.4",
@@ -46,15 +46,15 @@
     "language": "ja",
     "silence": false,
     "warm": false,
-    "load_ms": 1723.5827919794247,
-    "preprocess_ms": 0.8917499799281359,
-    "decode_ms": 136.15612499415874,
-    "total_ms": 1860.636290977709,
-    "peak_gpu_bytes": 2658136846,
-    "active_gpu_bytes": 2481984264,
+    "load_ms": 1810.2075000060722,
+    "preprocess_ms": 0.871333060786128,
+    "decode_ms": 145.50800004508346,
+    "total_ms": 1956.593667040579,
+    "peak_gpu_bytes": 2658136854,
+    "active_gpu_bytes": 2481984272,
     "vocabulary_applied": false,
     "timestamp_granularity": "utterance",
-    "wall_ms": 1860.65308295656
+    "wall_ms": 1956.6095410846174
   },
   "summary": {
     "fleurs-ja_jp": {
@@ -65,13 +65,13 @@
       "substitutions": 10,
       "deletions": 14,
       "insertions": 0,
-      "p50_ms": 113.12395799905062,
-      "p95_ms": 154.09723353805018,
-      "aggregate_rtf": 0.010427376771454406,
+      "p50_ms": 114.38718752469867,
+      "p95_ms": 155.7654162519611,
+      "aggregate_rtf": 0.010616155098788561,
       "hallucinated_silence": 0
     }
   },
-  "process_peak_rss_bytes": 2897543168,
+  "process_peak_rss_bytes": 2898575360,
   "corpus": {
     "dataset": "google/fleurs",
     "revision": "70bb2e84b976b7e960aa89f1c648e09c59f894dd",
@@ -126,15 +126,15 @@
       "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.002583954483270645,
-      "preprocess_ms": 0.8683749474585056,
-      "decode_ms": 118.54075000155717,
-      "total_ms": 119.41608297638595,
-      "peak_gpu_bytes": 2658136601,
-      "active_gpu_bytes": 2481984264,
+      "load_ms": 0.001625041477382183,
+      "preprocess_ms": 0.8222080068662763,
+      "decode_ms": 118.68054210208356,
+      "total_ms": 119.50862500816584,
+      "peak_gpu_bytes": 2658136609,
+      "active_gpu_bytes": 2481984272,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 119.42837503738701
+      "wall_ms": 119.5195410400629
     },
     {
       "id": "fleurs-ja_jp-001",
@@ -160,15 +160,15 @@
       "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0025830231606960297,
-      "preprocess_ms": 1.094167004339397,
-      "decode_ms": 142.7613750565797,
-      "total_ms": 143.8618339598179,
-      "peak_gpu_bytes": 2727782808,
-      "active_gpu_bytes": 2481984264,
+      "load_ms": 0.0020420411601662636,
+      "preprocess_ms": 1.0337919229641557,
+      "decode_ms": 143.80133291706443,
+      "total_ms": 144.84075002837926,
+      "peak_gpu_bytes": 2727782816,
+      "active_gpu_bytes": 2481984272,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 143.87520798482
+      "wall_ms": 144.85162496566772
     },
     {
       "id": "fleurs-ja_jp-002",
@@ -194,15 +194,15 @@
       "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0026669586077332497,
-      "preprocess_ms": 0.9799579856917262,
-      "decode_ms": 161.46412503439933,
-      "total_ms": 162.45049994904548,
-      "peak_gpu_bytes": 2703615563,
-      "active_gpu_bytes": 2481984264,
+      "load_ms": 0.0011670636013150215,
+      "preprocess_ms": 0.8532499196007848,
+      "decode_ms": 162.15237497817725,
+      "total_ms": 163.01079094409943,
+      "peak_gpu_bytes": 2703615571,
+      "active_gpu_bytes": 2481984272,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 162.4607089906931
+      "wall_ms": 163.02241594530642
     },
     {
       "id": "fleurs-ja_jp-003",
@@ -228,15 +228,15 @@
       "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.002334010787308216,
-      "preprocess_ms": 0.8794170571491122,
-      "decode_ms": 138.48837499972433,
-      "total_ms": 139.37450002413243,
-      "peak_gpu_bytes": 2697312451,
-      "active_gpu_bytes": 2481984264,
+      "load_ms": 0.0014170072972774506,
+      "preprocess_ms": 0.8441669633612037,
+      "decode_ms": 141.26924995798618,
+      "total_ms": 142.11845793761313,
+      "peak_gpu_bytes": 2698145737,
+      "active_gpu_bytes": 2481984272,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 139.38587496522814
+      "wall_ms": 142.13029202073812
     },
     {
       "id": "fleurs-ja_jp-004",
@@ -262,15 +262,15 @@
       "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.002375105395913124,
-      "preprocess_ms": 0.8081250125542283,
-      "decode_ms": 100.30237503815442,
-      "total_ms": 101.11616691574454,
-      "peak_gpu_bytes": 2688857917,
-      "active_gpu_bytes": 2481984264,
+      "load_ms": 0.001500011421740055,
+      "preprocess_ms": 0.9230830473825336,
+      "decode_ms": 102.99770801793784,
+      "total_ms": 103.92654105089605,
+      "peak_gpu_bytes": 2688857925,
+      "active_gpu_bytes": 2481984272,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 101.12624999601394
+      "wall_ms": 103.93733310047537
     },
     {
       "id": "fleurs-ja_jp-005",
@@ -296,15 +296,15 @@
       "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0024170149117708206,
-      "preprocess_ms": 0.5767089314758778,
-      "decode_ms": 38.80912496242672,
-      "total_ms": 39.391416939906776,
-      "peak_gpu_bytes": 2520450783,
-      "active_gpu_bytes": 2481984264,
+      "load_ms": 0.0012919772416353226,
+      "preprocess_ms": 0.6018329877406359,
+      "decode_ms": 40.133333997800946,
+      "total_ms": 40.74112500529736,
+      "peak_gpu_bytes": 2520898891,
+      "active_gpu_bytes": 2481984272,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 39.400666020810604
+      "wall_ms": 40.760708041489124
     },
     {
       "id": "fleurs-ja_jp-006",
@@ -330,15 +330,15 @@
       "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.002459040842950344,
-      "preprocess_ms": 0.6446669576689601,
-      "decode_ms": 86.63158304989338,
-      "total_ms": 87.28566695936024,
-      "peak_gpu_bytes": 2631117276,
-      "active_gpu_bytes": 2481984264,
+      "load_ms": 0.001334003172814846,
+      "preprocess_ms": 0.6848749471828341,
+      "decode_ms": 88.59029097948223,
+      "total_ms": 89.27983394823968,
+      "peak_gpu_bytes": 2631117284,
+      "active_gpu_bytes": 2481984272,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 87.29633293114603
+      "wall_ms": 89.29074998013675
     },
     {
       "id": "fleurs-ja_jp-007",
@@ -364,15 +364,15 @@
       "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.002416083589196205,
-      "preprocess_ms": 1.1303330538794398,
-      "decode_ms": 140.22820792160928,
-      "total_ms": 141.36483299080282,
-      "peak_gpu_bytes": 2705090197,
-      "active_gpu_bytes": 2481984264,
+      "load_ms": 0.002874992787837982,
+      "preprocess_ms": 0.9169579716399312,
+      "decode_ms": 145.9569170838222,
+      "total_ms": 146.88500005286187,
+      "peak_gpu_bytes": 2705090205,
+      "active_gpu_bytes": 2481984272,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 141.37695799581707
+      "wall_ms": 146.8957499600947
     },
     {
       "id": "fleurs-ja_jp-008",
@@ -398,15 +398,15 @@
       "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0025830231606960297,
-      "preprocess_ms": 0.698292045854032,
-      "decode_ms": 105.54354102350771,
-      "total_ms": 106.24795907642692,
-      "peak_gpu_bytes": 2641603283,
-      "active_gpu_bytes": 2481984264,
+      "load_ms": 0.0010420335456728935,
+      "preprocess_ms": 0.7262920262292027,
+      "decode_ms": 108.51283301599324,
+      "total_ms": 109.24437502399087,
+      "peak_gpu_bytes": 2641603291,
+      "active_gpu_bytes": 2481984272,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 106.2586250482127
+      "wall_ms": 109.25483400933444
     },
     {
       "id": "fleurs-ja_jp-009",
@@ -432,15 +432,15 @@
       "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0028329668566584587,
-      "preprocess_ms": 0.9369999170303345,
-      "decode_ms": 105.82441696897149,
-      "total_ms": 106.80862492881715,
-      "peak_gpu_bytes": 2643405597,
-      "active_gpu_bytes": 2481984264,
+      "load_ms": 0.0010420335456728935,
+      "preprocess_ms": 0.6987919332459569,
+      "decode_ms": 107.82491695135832,
+      "total_ms": 108.5286249872297,
+      "peak_gpu_bytes": 2643405605,
+      "active_gpu_bytes": 2481984272,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 106.81954096071422
+      "wall_ms": 108.53845800738782
     }
   ],
   "limitations": [
@@ -448,15 +448,5 @@
     "Same host and power environment; no controlled thermal isolation or energy measurement.",
     "In-process audio-to-transcript timing excludes hotkey, capture, IPC, rewrite and text insertion.",
     "Shared model backends are not equivalent to testing competing app products."
-  ],
-  "research_candidate": {
-    "repo": "littoralai/cohere-transcribe-mlx-8bit",
-    "revision": "b3f1f6b5fb5ae1bd17c9be2bcd85806339890450",
-    "generation": {
-      "max_tokens": 512,
-      "batch_size": 1
-    },
-    "harness_sha256": "1d455f6fa9f9b3d81914d2018c76e50ae077e16c609d9349fc7473116ee2b267",
-    "boundary": "Pinned native-layout public conversion via strict mlx-audio. Not the earlier Swift-layout checkpoint. Not in shipping catalog."
-  }
+  ]
 }

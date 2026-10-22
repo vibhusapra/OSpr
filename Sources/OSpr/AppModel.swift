@@ -5,7 +5,11 @@ import ServiceManagement
 import OSprCore
 
 @MainActor final class AppModel: ObservableObject {
-    @Published var settings: OSprSettings
+    @Published var settings: OSprSettings {
+        didSet {
+            if credentialsReady && (oldValue.transcriptionURL != settings.transcriptionURL || oldValue.rewriteURL != settings.rewriteURL) { refreshCredentials() }
+        }
+    }
     @Published var history: [Transcript] = []
     @Published var phase = "idle"
     @Published var status = "Your voice. Your Mac."
@@ -27,14 +31,24 @@ import OSprCore
     private var meetingSession: MeetingCaptureSession?
     private var meetingTimer: Timer?
     private var meetingDirectory: URL?
-    @Published var transcriptionKey = ""
-    @Published var rewriteKey = ""
+    @Published var transcriptionKey = "" {
+        didSet { if !loadingCredentials { transcriptionKeyScope = ProviderCredentialScope(kind: .transcription, base: settings.transcriptionURL) } }
+    }
+    @Published var rewriteKey = "" {
+        didSet { if !loadingCredentials { rewriteKeyScope = ProviderCredentialScope(kind: .rewrite, base: settings.rewriteURL) } }
+    }
     let capture = Capture()
     let hotkey = Hotkey()
     let folderWatcher: FolderWatcher
     private var worker: WorkerClient
     private var savedTranscriptionKey = ""
     private var savedRewriteKey = ""
+    private var transcriptionKeyScope: ProviderCredentialScope?
+    private var rewriteKeyScope: ProviderCredentialScope?
+    private var savedTranscriptionScope: ProviderCredentialScope?
+    private var savedRewriteScope: ProviderCredentialScope?
+    private var loadingCredentials = false
+    private var credentialsReady = false
     private let store: LocalStore
     private let recovery: RecordingRecovery
     private var target: InsertionTarget?
@@ -87,8 +101,7 @@ import OSprCore
         do { pending = try recovery.load() } catch { loadError += " " + error.localizedDescription }
         hasRecovery = recovery.exists
         self.error = loadError + (folderWatcher.loadError.isEmpty ? "" : " " + folderWatcher.loadError)
-        transcriptionKey = KeyVault.read("transcription"); rewriteKey = KeyVault.read("rewrite")
-        savedTranscriptionKey = transcriptionKey; savedRewriteKey = rewriteKey
+        credentialsReady = true; refreshCredentials()
         hotkey.pressed = { [weak self] in self?.toggle() }
         hotkey.released = { [weak self] in
             guard let self, self.settings.pushToTalk else { return }
@@ -98,11 +111,16 @@ import OSprCore
         do { try hotkey.register(code: settings.hotkeyCode, modifiers: settings.hotkeyModifiers) } catch { self.error = error.localizedDescription }
         folderWatcher.canProcess = { [weak self] in
             guard let self else { return false }
-            return !self.busy && !self.hasRecovery && self.settings.transcriptionProvider == "local"
+            let timing = !self.settings.speakerLabels || ["parakeet-v3", "whisper-turbo", "whisper-small"].contains(self.settings.model)
+            return !self.busy && !self.hasRecovery && self.engineInstalled && timing && self.settings.transcriptionProvider == "local"
         }
         folderWatcher.pauseReason = { [weak self] in
             guard let self else { return "Disabled" }
             if self.settings.transcriptionProvider != "local" { return "Paused · cloud speech provider selected" }
+            if !self.engineInstalled { return "Paused · install the local engine first" }
+            if self.settings.speakerLabels && !["parakeet-v3", "whisper-turbo", "whisper-small"].contains(self.settings.model) {
+                return "Paused · speaker labels require Parakeet or Whisper"
+            }
             if self.hasRecovery { return "Paused · recover or discard the unfinished take" }
             if self.busy { return "Waiting for current task" }
             return nil
@@ -120,21 +138,40 @@ import OSprCore
     func saveOSprSettings() {
         settings = settings.validated()
         do {
+            try hotkey.register(code: settings.hotkeyCode, modifiers: settings.hotkeyModifiers)
+            refreshCredentials()
+            guard transcriptionKey.isEmpty || transcriptionKeyScope != nil, rewriteKey.isEmpty || rewriteKeyScope != nil else {
+                throw OSprError.message("Use a valid provider URL before saving its API key.")
+            }
             try store.write(settings, name: "settings.json")
             // An unavailable/locked Keychain read must not turn a model or mode
             // preference save into a credential deletion. Write only edited keys.
-            if transcriptionKey != savedTranscriptionKey {
-                try KeyVault.write(transcriptionKey, account: "transcription"); savedTranscriptionKey = transcriptionKey
+            if transcriptionKey != savedTranscriptionKey || transcriptionKeyScope != savedTranscriptionScope, let scope = transcriptionKeyScope {
+                try KeyVault.write(transcriptionKey, account: scope.account); savedTranscriptionKey = transcriptionKey; savedTranscriptionScope = scope
             }
-            if rewriteKey != savedRewriteKey {
-                try KeyVault.write(rewriteKey, account: "rewrite"); savedRewriteKey = rewriteKey
+            if rewriteKey != savedRewriteKey || rewriteKeyScope != savedRewriteScope, let scope = rewriteKeyScope {
+                try KeyVault.write(rewriteKey, account: scope.account); savedRewriteKey = rewriteKey; savedRewriteScope = scope
             }
-            try hotkey.register(code: settings.hotkeyCode, modifiers: settings.hotkeyModifiers)
             history = LocalStore.retained(history, days: settings.retentionDays); persistHistory()
             if settings.launchAtLogin && SMAppService.mainApp.status != .enabled { try SMAppService.mainApp.register() }
             else if !settings.launchAtLogin && SMAppService.mainApp.status == .enabled { try SMAppService.mainApp.unregister() }
             status = "Preferences saved"
         } catch { self.error = error.localizedDescription }
+    }
+
+    private func refreshCredentials() {
+        loadingCredentials = true
+        defer { loadingCredentials = false }
+        let speech = ProviderCredentialScope(kind: .transcription, base: settings.transcriptionURL)
+        if speech != transcriptionKeyScope {
+            transcriptionKey = speech.map { KeyVault.read($0.account) } ?? ""
+            transcriptionKeyScope = speech; savedTranscriptionScope = speech; savedTranscriptionKey = transcriptionKey
+        }
+        let text = ProviderCredentialScope(kind: .rewrite, base: settings.rewriteURL)
+        if text != rewriteKeyScope {
+            rewriteKey = text.map { KeyVault.read($0.account) } ?? ""
+            rewriteKeyScope = text; savedRewriteScope = text; savedRewriteKey = rewriteKey
+        }
     }
 
     func chooseRoot() {
@@ -489,7 +526,7 @@ import OSprCore
                     "language": config.language, "vocabulary": config.vocabulary, "trim": config.silenceTrim, "threshold": config.silenceThreshold])
             } else {
                 result = try await ProviderClient.transcribe(file: file, base: config.transcriptionURL,
-                    model: config.transcriptionModel, key: transcriptionKey, language: config.language, vocabulary: config.vocabulary)
+                    model: config.transcriptionModel, key: try ProviderCredentialScope.checkedKey(transcriptionKey, boundTo: transcriptionKeyScope, kind: .transcription, base: config.transcriptionURL), language: config.language, vocabulary: config.vocabulary)
             }
             guard token == generation else { return false }
             let raw = result["raw_text"] as? String ?? result["text"] as? String ?? ""
@@ -511,7 +548,7 @@ import OSprCore
                         text = rewritten["text"] as? String ?? text
                     } else {
                         text = try await ProviderClient.rewrite(text: input, instruction: instruction, provider: config.rewriteProvider,
-                            base: config.rewriteURL, model: config.rewriteModel, key: rewriteKey)
+                            base: config.rewriteURL, model: config.rewriteModel, key: try ProviderCredentialScope.checkedKey(rewriteKey, boundTo: rewriteKeyScope, kind: .rewrite, base: config.rewriteURL))
                     }
                     if let reason = RewriteGuard.rejection(original: beforeRewrite, rewritten: text, mode: mode) {
                         text = beforeRewrite

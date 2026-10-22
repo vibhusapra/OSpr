@@ -125,6 +125,10 @@ vocabulary prompting in this adapter. Whisper supports broader language coverage
 Qwen and Nemotron are useful alternatives, not universal accuracy winners. Do not
 infer Apple Neural Engine use: the current local speech path uses **MLX/Metal GPU**.
 
+Provider keys are scoped separately by endpoint origin and purpose in Keychain.
+Switching a provider loads its own key; a send-time check blocks stale cross-origin
+credentials. Older unscoped keys are left untouched; re-enter them once when upgrading.
+
 Engine diagnostic logging is disabled by default. For a diagnostic launch, set
 `OSPR_DEBUG_LOG=1`; the private `engine.log` can include file paths or model output.
 Transient worker audio is private and removed on normal exit; orphaned decode

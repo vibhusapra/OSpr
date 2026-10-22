@@ -33,7 +33,11 @@ def main():
         python = engine/'.venv/bin/python'
         audio = directory/'public sample.wav'
         shutil.copyfile(ROOT/item['path'], audio)
-        environment = dict(HOME=str(Path.home()), PATH='/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin', PYTHONPATH='/nonexistent', HF_HUB_OFFLINE='1', HF_HUB_DISABLE_PROGRESS_BARS='1')
+        poisoned = directory/'untrusted-pythonpath'
+        poisoned.mkdir()
+        (poisoned/'json.py').write_text('raise RuntimeError("external PYTHONPATH was used")\n')
+        (directory/'json.py').write_text('raise RuntimeError("foreign working directory was imported")\n')
+        environment = dict(HOME=str(Path.home()), PATH='/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin', PYTHONPATH=str(poisoned), HF_HUB_OFFLINE='1', HF_HUB_DISABLE_PROGRESS_BARS='1')
         requests = [dict(action='ping', id='ping')]
         requests += [dict(action='transcribe', model=model, path=str(audio), language='en', id=model) for model in models]
         requests += [dict(action='notes', text=notes_text, id='notes'), dict(action='meeting', path=str(audio), model='parakeet-v3', language='en', id='speakers'),
@@ -67,12 +71,15 @@ def main():
                 assert 'parakeet-v3' in json.loads(result.content[0].text)
                 return names
         mcp_tools = asyncio.run(check_mcp())
+        signature = subprocess.run(['/usr/bin/codesign','--verify','--deep','--strict',str(copied)], capture_output=True, text=True)
+        assert signature.returncode == 0, signature.stderr
         receipt = dict(timestamp=datetime.datetime.now(datetime.UTC).isoformat(), status='passed',
                        boundary='Copied app path with spaces, hostile PYTHONPATH, foreign cwd, offline bundled interpreter/worker, all six ASR engines, source-excerpt notes, speaker word attribution, clocked track mix and MCP tool listing. Native microphone, permissions and UI not exercised.',
                        fixture_id=item['id'], fixture_sha256=item['sha256'],
                        executable_sha256=hashlib.sha256((app/'Contents/MacOS/OSpr').read_bytes()).hexdigest(),
                        build=json.loads((app/'Contents/Resources/build-info.json').read_text()),
-                       interpreter_and_mlx_inside_bundle=True, bundled_cli_foreign_cwd=True, mcp_tools=mcp_tools, results=replies[1:-1])
+                       interpreter_and_mlx_inside_bundle=True, bundled_cli_foreign_cwd=True, signature_valid_after_inference=True,
+                       poisoned_pythonpath_and_cwd_ignored=True, mcp_tools=mcp_tools, results=replies[1:-1])
         args.output.write_text(json.dumps(receipt,indent=2,ensure_ascii=False)+'\n')
         print(json.dumps(dict(status='passed', models=models, extras=['notes','speakers','mix','mcp'], output=str(args.output)),indent=2))
 

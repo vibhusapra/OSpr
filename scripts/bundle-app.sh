@@ -29,8 +29,12 @@ set -euo pipefail
 engine="$(cd "$(dirname "$0")/../.." && pwd)"
 resources="$(dirname "$engine")"
 export PYTHONHOME="$resources/Python"
-export PYTHONPATH="$engine/.venv/lib/python3.12/site-packages:$engine/backend${PYTHONPATH:+:$PYTHONPATH}"
+export PYTHONPATH="$engine/.venv/lib/python3.12/site-packages:$engine/backend"
 export PYTHONNOUSERSITE=1
+export PYTHONSAFEPATH=1
+export PYTHONDONTWRITEBYTECODE=1
+export HF_HUB_DISABLE_TELEMETRY=1
+export DO_NOT_TRACK=1
 exec "$resources/Python/bin/python3.12" "$@"
 LAUNCHER
 chmod +x "$resources/Engine/.venv/bin/python"

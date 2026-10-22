@@ -399,6 +399,7 @@ struct PreferencesView: View {
                     TextField("Base URL, including /v1", text: $model.settings.transcriptionURL)
                     TextField("Model ID", text: $model.settings.transcriptionModel)
                     SecureField("API key · saved in Keychain", text: $model.transcriptionKey)
+                    Text("Keys are remembered separately for each provider origin.").font(.caption).foregroundStyle(.secondary)
                 }
             }
             Section("Optional text refinement") {

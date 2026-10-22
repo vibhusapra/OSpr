@@ -83,7 +83,7 @@
       "feature": "Toggle and hold-to-talk shortcuts",
       "status": "implemented",
       "evidence": "Carbon registration with visual shortcut editor; early key-release cancellation handled.",
-      "gap": "Global interaction checks pending unlock.",
+      "gap": "Global interaction checks pending unlock. Shortcut requires Control, Option or Command; Fn-only binding is not implemented.",
       "priority": "P0"
     },
     {
@@ -187,8 +187,8 @@
     {
       "feature": "Credential storage",
       "status": "implemented",
-      "evidence": "macOS Keychain; no keys in settings/history; ephemeral network sessions.",
-      "gap": "Actual Keychain prompts and permissions pending interactive QA.",
+      "evidence": "macOS Keychain per endpoint origin and speech/text purpose. Immediate endpoint rebinding plus a send-time cross-origin guard; canonical scope and stale-key tests. No keys in settings/history.",
+      "gap": "Actual Keychain prompts and persistence pending unlocked interactive QA. Older unscoped keys are preserved but require re-entry.",
       "priority": "P0"
     },
     {

@@ -1,19 +1,19 @@
 {
-  "timestamp": "2026-10-22T12:10:55.001940+00:00",
+  "timestamp": "2026-10-22T12:27:16.983259+00:00",
   "model": "cohere-native8",
   "model_spec": {
     "repo": "littoralai/cohere-transcribe-mlx-8bit",
     "engine": "mlx-audio",
-    "name": "Research Cohere native8",
-    "languages": "14 languages; explicit language hint",
+    "name": "Cohere Transcribe \u00b7 measured English quality",
+    "languages": "14 languages; blank hint uses English (no automatic detection)",
     "license": "Apache-2.0"
   },
   "platform": "macOS-26.6.2-arm64-arm-64bit",
   "machine": "arm64",
   "hardware": "Apple M5 Max",
   "memory_bytes": 137438953472,
-  "source_sha256": "b966ca85111801981eb11fa263d8dc46a2725571b6d8bbcaa16e3657dd846558",
-  "git_commit": "b6040e74eb550f20e00b13e3b912c1a9a6bff207",
+  "source_sha256": "5ffc8c3fc32ca6b8286bec9a3fd868639ab853642a87715bbf31c0f71502d06f",
+  "git_commit": "82ea4a1eca6c68f410221a402b74272928b181b1",
   "working_tree_dirty": true,
   "versions": {
     "mlx": "0.32.4",
@@ -46,15 +46,15 @@
     "language": "es",
     "silence": false,
     "warm": false,
-    "load_ms": 1741.2947500124574,
-    "preprocess_ms": 0.9881668956950307,
-    "decode_ms": 139.92433401290327,
-    "total_ms": 1882.2154579684138,
-    "peak_gpu_bytes": 2699082197,
+    "load_ms": 1828.0515830265358,
+    "preprocess_ms": 1.0466669918969274,
+    "decode_ms": 137.82675005495548,
+    "total_ms": 1966.9326670700684,
+    "peak_gpu_bytes": 2699082262,
     "active_gpu_bytes": 2481984272,
     "vocabulary_applied": false,
     "timestamp_granularity": "utterance",
-    "wall_ms": 1882.238290971145
+    "wall_ms": 1966.9497499708086
   },
   "summary": {
     "fleurs-es_419": {
@@ -65,13 +65,13 @@
       "substitutions": 5,
       "deletions": 3,
       "insertions": 0,
-      "p50_ms": 108.27156249433756,
-      "p95_ms": 156.15331615554163,
-      "aggregate_rtf": 0.010161858564618254,
+      "p50_ms": 108.1785834976472,
+      "p95_ms": 155.4587918624747,
+      "aggregate_rtf": 0.010221071908914728,
       "hallucinated_silence": 0
     }
   },
-  "process_peak_rss_bytes": 2903113728,
+  "process_peak_rss_bytes": 2901852160,
   "corpus": {
     "dataset": "google/fleurs",
     "revision": "70bb2e84b976b7e960aa89f1c648e09c59f894dd",
@@ -126,15 +126,15 @@
       "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0023330794647336006,
-      "preprocess_ms": 1.0361250024288893,
-      "decode_ms": 121.85758294072002,
-      "total_ms": 122.89945792872459,
+      "load_ms": 0.0017499551177024841,
+      "preprocess_ms": 0.9502500761300325,
+      "decode_ms": 120.71279191877693,
+      "total_ms": 121.66829209309071,
       "peak_gpu_bytes": 2699082045,
       "active_gpu_bytes": 2481984272,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 122.91195802390575
+      "wall_ms": 121.68075004592538
     },
     {
       "id": "fleurs-es_419-001",
@@ -160,15 +160,15 @@
       "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0030830269679427147,
-      "preprocess_ms": 1.6526250401511788,
-      "decode_ms": 181.67779105715454,
-      "total_ms": 183.3380419993773,
+      "load_ms": 0.002208980731666088,
+      "preprocess_ms": 1.511459005996585,
+      "decode_ms": 180.9067919384688,
+      "total_ms": 182.42387496866286,
       "peak_gpu_bytes": 2776088700,
       "active_gpu_bytes": 2481984272,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 183.35079099051654
+      "wall_ms": 182.4347919318825
     },
     {
       "id": "fleurs-es_419-002",
@@ -194,15 +194,15 @@
       "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0023329630494117737,
-      "preprocess_ms": 0.8777499897405505,
-      "decode_ms": 107.12562501430511,
-      "total_ms": 108.00979193300009,
+      "load_ms": 0.001166015863418579,
+      "preprocess_ms": 0.6905000191181898,
+      "decode_ms": 106.04479198809713,
+      "total_ms": 106.74000007566065,
       "peak_gpu_bytes": 2631117284,
       "active_gpu_bytes": 2481984272,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 108.02066698670387
+      "wall_ms": 106.75033298321068
     },
     {
       "id": "fleurs-es_419-003",
@@ -228,15 +228,15 @@
       "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0021669548004865646,
-      "preprocess_ms": 0.7418750319629908,
-      "decode_ms": 88.20662496145815,
-      "total_ms": 88.95454206503928,
+      "load_ms": 0.0012919772416353226,
+      "preprocess_ms": 0.6449999054893851,
+      "decode_ms": 88.06729200296104,
+      "total_ms": 88.71720789466053,
       "peak_gpu_bytes": 2620435238,
       "active_gpu_bytes": 2481984272,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 88.96674995776266
+      "wall_ms": 88.72837503440678
     },
     {
       "id": "fleurs-es_419-004",
@@ -262,15 +262,15 @@
       "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0032079406082630157,
-      "preprocess_ms": 0.9825830347836018,
-      "decode_ms": 102.3411670466885,
-      "total_ms": 103.33158308640122,
+      "load_ms": 0.0011670636013150215,
+      "preprocess_ms": 0.7641660049557686,
+      "decode_ms": 101.67037497740239,
+      "total_ms": 102.43941599037498,
       "peak_gpu_bytes": 2656661935,
       "active_gpu_bytes": 2481984272,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 103.34391694050282
+      "wall_ms": 102.45150001719594
     },
     {
       "id": "fleurs-es_419-005",
@@ -296,15 +296,15 @@
       "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0025420449674129486,
-      "preprocess_ms": 0.8306250674650073,
-      "decode_ms": 107.67516703344882,
-      "total_ms": 108.51216607261449,
+      "load_ms": 0.001249951310455799,
+      "preprocess_ms": 0.7320829899981618,
+      "decode_ms": 107.9552499577403,
+      "total_ms": 108.69249992538244,
       "peak_gpu_bytes": 2641997654,
       "active_gpu_bytes": 2481984272,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 108.52245800197124
+      "wall_ms": 108.70412504300475
     },
     {
       "id": "fleurs-es_419-006",
@@ -330,15 +330,15 @@
       "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.002624932676553726,
-      "preprocess_ms": 0.5538749974220991,
-      "decode_ms": 75.55120799224824,
-      "total_ms": 76.11112494487315,
-      "peak_gpu_bytes": 2618475670,
+      "load_ms": 0.0012919772416353226,
+      "preprocess_ms": 0.551166944205761,
+      "decode_ms": 76.92066696472466,
+      "total_ms": 77.47679203748703,
+      "peak_gpu_bytes": 2617852742,
       "active_gpu_bytes": 2481984272,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 76.12062490079552
+      "wall_ms": 77.48783298302442
     },
     {
       "id": "fleurs-es_419-007",
@@ -364,15 +364,15 @@
       "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.002374988980591297,
-      "preprocess_ms": 0.7597910007461905,
-      "decode_ms": 105.24766694288701,
-      "total_ms": 106.01300001144409,
+      "load_ms": 0.0012919772416353226,
+      "preprocess_ms": 0.7555829361081123,
+      "decode_ms": 106.88237496651709,
+      "total_ms": 107.64245793689042,
       "peak_gpu_bytes": 2620435238,
       "active_gpu_bytes": 2481984272,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 106.03350005112588
+      "wall_ms": 107.65304195228964
     },
     {
       "id": "fleurs-es_419-008",
@@ -398,15 +398,15 @@
       "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0024579931050539017,
-      "preprocess_ms": 0.8341670036315918,
-      "decode_ms": 117.04095802269876,
-      "total_ms": 117.8814999293536,
+      "load_ms": 0.001249951310455799,
+      "preprocess_ms": 0.7501670625060797,
+      "decode_ms": 121.72216607723385,
+      "total_ms": 122.47695901896805,
       "peak_gpu_bytes": 2661561060,
       "active_gpu_bytes": 2481984272,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 117.89229197893292
+      "wall_ms": 122.4881251109764
     },
     {
       "id": "fleurs-es_419-009",
@@ -432,15 +432,15 @@
       "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0022919848561286926,
-      "preprocess_ms": 0.8142919978126884,
-      "decode_ms": 118.07116703130305,
-      "total_ms": 118.89079201500863,
+      "load_ms": 0.001084059476852417,
+      "preprocess_ms": 0.8209579391404986,
+      "decode_ms": 121.4562919922173,
+      "total_ms": 122.28208291344345,
       "peak_gpu_bytes": 2678650287,
       "active_gpu_bytes": 2481984272,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 118.90045797917992
+      "wall_ms": 122.29274993296713
     }
   ],
   "limitations": [
@@ -448,15 +448,5 @@
     "Same host and power environment; no controlled thermal isolation or energy measurement.",
     "In-process audio-to-transcript timing excludes hotkey, capture, IPC, rewrite and text insertion.",
     "Shared model backends are not equivalent to testing competing app products."
-  ],
-  "research_candidate": {
-    "repo": "littoralai/cohere-transcribe-mlx-8bit",
-    "revision": "b3f1f6b5fb5ae1bd17c9be2bcd85806339890450",
-    "generation": {
-      "max_tokens": 512,
-      "batch_size": 1
-    },
-    "harness_sha256": "1d455f6fa9f9b3d81914d2018c76e50ae077e16c609d9349fc7473116ee2b267",
-    "boundary": "Pinned native-layout public conversion via strict mlx-audio. Not the earlier Swift-layout checkpoint. Not in shipping catalog."
-  }
+  ]
 }
