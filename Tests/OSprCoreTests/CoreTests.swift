@@ -84,6 +84,16 @@ final class CoreTests: XCTestCase {
         XCTAssertEqual(TextPipeline.process(input, mode: .verbatim, replacements: [], spokenPunctuation: false), input)
         XCTAssertEqual(TextPipeline.process(input, mode: .verbatim, replacements: [], spokenPunctuation: true), "Hello, world\n\nReady?")
     }
+    func testLiteralSnippetsSurviveCleaningAndSpokenPunctuation() {
+        let literal = "Um,  hello new line https://example.com/um/uh/erm $1"
+        XCTAssertEqual(TextPipeline.process("signature", mode: .clean, replacements: [.init(spoken: "signature", replacement: literal)], spokenPunctuation: true, language: "en"), literal)
+        XCTAssertEqual(TextPipeline.process("um company", mode: .clean, replacements: [.init(spoken: "um company", replacement: "UM")], spokenPunctuation: false, language: "en"), "UM")
+    }
+    func testCleaningPreservesDirectPathsURLsAndAddresses() {
+        for text in ["Open /tmp/um/file.txt", "Use https://example.com/uh/erm", "Mail um@example.com today."] {
+            XCTAssertEqual(TextPipeline.process(text, mode: .clean, replacements: [], spokenPunctuation: false, language: "en"), text)
+        }
+    }
     func testExportsPreserveOriginalTimingAfterEditing() {
         let record = Transcript(rawText: "original", text: "rewritten", model: "test", mode: .clean, duration: 3,
             latencyMS: 20, segments: [.init(start: 1.25, end: 2.5, text: "original")])

@@ -63,7 +63,7 @@ def main():
 
         async def check_mcp():
             from mcp import Client, StdioServerParameters
-            parameters = StdioServerParameters(command=str(python), args=['-m','ospr_backend.mcp_server'], env=environment)
+            parameters = StdioServerParameters(command=str(python), args=['-m','ospr_backend.mcp_server'], env=environment, cwd=str(directory))
             async with Client(parameters) as client:
                 names = sorted(tool.name for tool in (await client.list_tools()).tools)
                 assert names == ['list_models','rewrite_text','transcribe_file']

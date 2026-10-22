@@ -174,7 +174,7 @@
       "feature": "BYOK speech transcription",
       "status": "contract-tested",
       "evidence": "Compatible multipart adapter; current gpt-transcribe languages[] contract; Groq preset.",
-      "gap": "No paid provider account call performed. Native non-compatible Deepgram/Soniox streaming APIs not implemented.",
+      "gap": "No paid provider account call performed. Native non-compatible Deepgram/Soniox streaming APIs not implemented. Single-request upload cap is 25 MB; automatic splitting/normalization is not implemented.",
       "priority": "P0"
     },
     {
@@ -300,7 +300,7 @@
       "feature": "Top-three product ranking",
       "status": "unproven",
       "evidence": "OSpr engines measured against a persistent Metal whisper.cpp baseline.",
-      "gap": "Equivalent consumer-app runs and user-task correction-cost study not completed.",
+      "gap": "Equivalent consumer-app runs and user-task correction-cost study not completed. powermetrics requires administrator authentication unavailable in this session; no energy results.",
       "priority": "P0"
     }
   ]

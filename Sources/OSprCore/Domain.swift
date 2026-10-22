@@ -176,18 +176,27 @@ public struct OSprSettings: Codable, Sendable {
 public enum TextPipeline {
     public static func process(_ input: String, mode: WritingMode, replacements: [Replacement], spokenPunctuation: Bool, language: String = "") -> String {
         var text = input.trimmingCharacters(in: .whitespacesAndNewlines)
+        let languageText = text
+        var protected: [(token: String, value: String)] = []
         // Longest phrases first; replacements are applied simultaneously. Expanded
         // snippets must never trigger other replacement rules in the same pass.
         let rules = replacements.filter { !$0.spoken.trimmingCharacters(in: .whitespaces).isEmpty }
             .sorted { $0.spoken.count > $1.spoken.count }
         if !rules.isEmpty {
+            var prefix: String
+            repeat { prefix = "OSPR" + UUID().uuidString.replacingOccurrences(of: "-", with: "") + "TOKEN" }
+            while text.contains(prefix) || rules.contains(where: { $0.replacement.contains(prefix) })
             let pattern = "(?i)(?<![\\p{L}\\p{N}_])(?:" + rules.map { NSRegularExpression.escapedPattern(for: $0.spoken) }.joined(separator: "|") + ")(?![\\p{L}\\p{N}_])"
             if let regex = try? NSRegularExpression(pattern: pattern) {
                 let source = text as NSString
                 for match in regex.matches(in: text, range: NSRange(location: 0, length: source.length)).reversed() {
                     let found = source.substring(with: match.range)
                     if let rule = rules.first(where: { $0.spoken.caseInsensitiveCompare(found) == .orderedSame }),
-                       let range = Range(match.range, in: text) { text.replaceSubrange(range, with: rule.replacement) }
+                       let range = Range(match.range, in: text) {
+                        let token = prefix + String(protected.count) + "END"
+                        protected.append((token, rule.replacement))
+                        text.replaceSubrange(range, with: token)
+                    }
                 }
             }
         }
@@ -203,10 +212,10 @@ public enum TextPipeline {
             // "um" is an ordinary German/Portuguese word. Limit these English
             // filler rules to confidently identified English, and preserve
             // compounds such as "uh-oh". Verbatim is always available.
-            let filler = "(?i)(?<![\\p{L}\\p{N}_'’-])(?:um+|uh+|erm+)(?![\\p{L}\\p{N}_'’-])[, ]*"
+            let filler = "(?i)(?<![\\p{L}\\p{N}_'’/@.:\\\\-])(?:um+|uh+|erm+)(?![\\p{L}\\p{N}_'’/@.:\\\\-])[, ]*"
             if text.range(of: filler, options: .regularExpression) != nil {
                 let recognizer = NLLanguageRecognizer()
-                recognizer.processString(text)
+                recognizer.processString(languageText)
                 let hint = language.lowercased().replacingOccurrences(of: "_", with: "-").split(separator: "-").first.map(String.init) ?? ""
                 if hint == "en" || (hint.isEmpty && (recognizer.languageHypotheses(withMaximum: 3)[.english] ?? 0) >= 0.8) {
                     text = text.replacingOccurrences(of: filler, with: "", options: .regularExpression)
@@ -214,6 +223,9 @@ public enum TextPipeline {
             }
             text = text.replacingOccurrences(of: "[ \\t]{2,}", with: " ", options: .regularExpression)
         }
+        // Literal snippets must also survive cleanup and spoken-punctuation
+        // rules. Restore them last, with a prefix absent from all source values.
+        for item in protected { text = text.replacingOccurrences(of: item.token, with: item.value) }
         return text.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 }
