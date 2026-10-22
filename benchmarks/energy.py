@@ -19,7 +19,7 @@ import subprocess
 import threading
 import time
 
-from ospr_backend.engine import Engine, MODELS
+from ospr_backend.engine import Engine, MODELS, PUBLIC_MODELS
 
 ROOT = Path(__file__).resolve().parent
 POWER = ("cpu_power", "gpu_power", "ane_power", "dram_power", "total_power")
@@ -73,7 +73,7 @@ def summarize(samples, start, end, inset=3):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--models", nargs="+", choices=MODELS, default=list(MODELS))
+    parser.add_argument("--models", nargs="+", choices=MODELS, default=list(PUBLIC_MODELS))
     parser.add_argument("--seconds", type=float, default=30)
     parser.add_argument("--idle-seconds", type=float, default=20)
     parser.add_argument("--output", type=Path, default=ROOT / "results/energy.json")
