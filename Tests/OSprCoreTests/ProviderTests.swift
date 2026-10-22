@@ -23,6 +23,16 @@ final class ProviderTests: XCTestCase {
         let text = try await ProviderClient.rewrite(text: "test passage", instruction: "Clean up.", provider: "compatible", base: base, model: "test-model", key: "test-key")
         XCTAssertEqual(text, "Edited passage.")
     }
+    func testCancellingProviderTaskStopsWaitingForSlowResponse() async throws {
+        let endpoint = base.replacingOccurrences(of: "/v1", with: "/slow")
+        let task = Task { try await ProviderClient.rewrite(text: "test passage", instruction: "Clean up.", provider: "compatible", base: endpoint, model: "test-model", key: "test-key") }
+        try await Task.sleep(for: .milliseconds(100))
+        let started = ContinuousClock.now
+        task.cancel()
+        do { _ = try await task.value; XCTFail("Cancelled provider request must fail") }
+        catch { XCTAssertTrue(error is CancellationError || (error as? URLError)?.code == .cancelled) }
+        XCTAssertLessThan(started.duration(to: .now), .seconds(2))
+    }
     func testAnthropicRewriteContract() async throws {
         let text = try await ProviderClient.rewrite(text: "test passage", instruction: "Clean up.", provider: "anthropic", base: base, model: "test-model", key: "test-key")
         XCTAssertEqual(text, "Edited passage.")

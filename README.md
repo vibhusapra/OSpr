@@ -73,7 +73,9 @@ until its transcripts/settings are backed up.
   compatible/Anthropic rewriting. Refinement can change meaning; raw text is kept
   and a conservative preservation check rejects several obvious regressions.
 - Separate optional BYOK audio transcription with compatible endpoints (including
-  Groq and the current OpenAI `gpt-transcribe` request contract).
+  Groq and the current OpenAI `gpt-transcribe` request contract). Oversized audio
+  is normalized locally to smaller mono WAV; very long files still need splitting
+  or local recognition to meet the 25 MB single-upload cap.
 - File/batch import, searchable editable local history, copy/delete/retention,
   and TXT/JSON/SRT/VTT export. Subtitles use **original** transcript timing.
 - Experimental local speaker-labeled imports: Nemotron 3 Diarization (up to eight

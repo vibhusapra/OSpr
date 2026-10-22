@@ -10,6 +10,7 @@ private final class NoRedirects: NSObject, URLSessionTaskDelegate, @unchecked Se
 }
 
 public enum ProviderClient {
+    public static let maximumUploadBytes = 25 * 1024 * 1024
     public static func endpoint(base: String, path: String) throws -> URL {
         guard let url = URL(string: base), let host = url.host, url.user == nil, url.password == nil,
               url.query == nil, url.fragment == nil,
@@ -72,7 +73,7 @@ public enum ProviderClient {
         let boundary = "OSpr-" + UUID().uuidString
         request.setValue("multipart/form-data; boundary=" + boundary, forHTTPHeaderField: "Content-Type")
         let size = try file.resourceValues(forKeys: [.fileSizeKey]).fileSize ?? 0
-        guard size < 25 * 1024 * 1024 else { throw OSprError.message("Cloud audio must be under 25 MB. Use local transcription for larger files.") }
+        guard size < maximumUploadBytes else { throw OSprError.message("Cloud audio must be under 25 MB. Split the file or use local transcription for larger audio.") }
         let audio = try Data(contentsOf: file)
         var body = Data()
         func append(_ text: String) { body.append(Data(text.utf8)) }

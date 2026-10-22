@@ -35,6 +35,10 @@ def dispatch(engine, request):
         from .meeting_audio import mix_tracks
 
         return mix_tracks(request["tracks"], request["output"])
+    if action == "prepare_upload":
+        from .upload_audio import prepare_upload
+
+        return prepare_upload(request["path"], request["output"])
     if action == "meeting":
         return engine.meeting(
             request["path"],

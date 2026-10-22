@@ -173,8 +173,8 @@
     {
       "feature": "BYOK speech transcription",
       "status": "contract-tested",
-      "evidence": "Compatible multipart adapter; current gpt-transcribe languages[] contract; Groq preset.",
-      "gap": "No paid provider account call performed. Native non-compatible Deepgram/Soniox streaming APIs not implemented. Single-request upload cap is 25 MB; automatic splitting/normalization is not implemented.",
+      "evidence": "Compatible multipart adapter; current gpt-transcribe languages[] contract; Groq preset. Oversized sources normalize locally to smaller PCM16 WAV without trimming or replacing the source; real 70-second stereo test.",
+      "gap": "No paid provider account call performed. Native non-compatible Deepgram/Soniox streaming APIs not implemented. Single-request upload cap is 25 MB after optional local normalization; automatic splitting is not implemented.",
       "priority": "P0"
     },
     {
@@ -229,7 +229,7 @@
     {
       "feature": "Cancel, timeout and worker recovery",
       "status": "verified",
-      "evidence": "Generation fences, process-group termination, startup watchdog and ignored-SIGTERM escalation; completed-take and raw dual-track recovery across store restart. Processing cancellation keeps recovery; orderly quit preserves active takes.",
+      "evidence": "Generation fences, process-group termination, startup watchdog and ignored-SIGTERM escalation; completed-take and raw dual-track recovery across store restart. Processing cancellation keeps recovery; orderly quit preserves active takes. Active network Tasks are cancelled; slow loopback response cancellation tested.",
       "gap": "Native retry/export/discard and quit interactions pending unlock. Active capture before an abrupt crash is not automatically recovered.",
       "priority": "P0"
     },

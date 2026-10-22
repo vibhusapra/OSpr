@@ -42,6 +42,7 @@ def main():
         requests += [dict(action='transcribe', model=model, path=str(audio), language='en', id=model) for model in models]
         requests += [dict(action='notes', text=notes_text, id='notes'), dict(action='meeting', path=str(audio), model='parakeet-v3', language='en', id='speakers'),
                      dict(action='mix_meeting', tracks=[dict(path=str(audio), start=0), dict(path=str(audio), start=.25)], output=str(directory/'mixed.wav'), id='mix'),
+                     dict(action='prepare_upload', path=str(audio), output=str(directory/'upload.wav'), id='prepare-upload'),
                      dict(action='ping', id='final-ping')]
         process = subprocess.run([str(python), '-u', '-m', 'ospr_backend.worker'], input=''.join(json.dumps(r)+'\n' for r in requests), capture_output=True, text=True, cwd=directory, env=environment, timeout=300)
         replies = [json.loads(line) for line in process.stdout.splitlines()]
@@ -51,6 +52,7 @@ def main():
         assert replies[7]['result']['excerpts'] and all(r['text'] in notes_text for r in replies[7]['result']['excerpts'])
         assert replies[8]['result']['words'] and 'quilter' in replies[8]['result']['raw_text'].lower()
         assert (directory/'mixed.wav').stat().st_size > audio.stat().st_size
+        assert replies[10]['result']['source_unchanged'] and (directory/'upload.wav').is_file()
         info = subprocess.check_output([str(python), '-c', 'import sys, mlx.core; print(sys.prefix); print(mlx.core.__file__)'], cwd=directory, env=environment, text=True)
         assert str(copied) in info and str(ROOT.parent/'.venv') not in info, info
         cli = copied/'Contents/MacOS/ospr-cli'

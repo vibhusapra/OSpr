@@ -56,6 +56,7 @@ import OSprCore
     private var recordingSettings = OSprSettings()
     private var recordingURL: URL?
     private var previewTask: Task<Void, Never>?
+    private var operationTask: Task<Void, Never>?
     private var streamSession: (generation: UUID, id: String)?
     private var generation = UUID()
     private var backgroundGeneration: UUID?
@@ -131,7 +132,7 @@ import OSprCore
         // Persist pruning even when no new recording is made.
         if loadError.isEmpty { persistHistory() }
         NotificationCenter.default.addObserver(forName: NSApplication.willTerminateNotification, object: nil, queue: .main) { [weak self] _ in
-            MainActor.assumeIsolated { self?.preserveOnQuit(); self?.worker.shutdown(); self?.previewTask?.cancel(); self?.discardAudio() }
+            MainActor.assumeIsolated { self?.preserveOnQuit(); self?.operationTask?.cancel(); self?.worker.shutdown(); self?.previewTask?.cancel(); self?.discardAudio() }
         }
     }
 
@@ -209,7 +210,7 @@ import OSprCore
         guard !busy else { return }
         generation = UUID(); let token = generation
         phase = "warming"; error = ""; status = "Loading model · first use downloads weights"
-        Task {
+        operationTask = Task {
             do {
                 _ = try await worker.request(["action": "warm", "model": settings.model])
                 guard token == generation else { return }
@@ -235,7 +236,7 @@ import OSprCore
         if recordingMode == .assistant && target?.selectedText.isEmpty != false { error = "Select text in another app first, then use the global shortcut."; return }
         generation = UUID(); let token = generation
         phase = "starting"; error = ""; preview = ""
-        Task {
+        operationTask = Task {
             do {
                 let allowed = await AVCaptureDevice.requestAccess(for: .audio)
                 guard generation == token else { return }
@@ -292,7 +293,7 @@ import OSprCore
             pending = try recovery.preserve(audio: file, duration: duration, settings: config, mode: mode)
             hasRecovery = true
             let outstandingPreview = previewTask
-            Task {
+            operationTask = Task {
                 let finalStarted = Date()
                 await outstandingPreview?.value
                 var streamed: [String: Any]?
@@ -364,7 +365,7 @@ import OSprCore
         recordingSettings = settings; recordingSettings.mode = .verbatim; recordingSettings.rewriteProvider = "none"
         target = nil; phase = "starting"; error = ""; preview = ""
         let directory = FileManager.default.temporaryDirectory.appendingPathComponent("OSpr/meeting-" + UUID().uuidString)
-        Task {
+        operationTask = Task {
             var owned: MeetingCaptureSession?
             do {
                 if includeMic {
@@ -409,7 +410,7 @@ import OSprCore
         let token = generation, config = recordingSettings, duration = meetingSeconds
         phase = "transcribing"; status = "Preparing local meeting audio…"
         meetingTimer?.invalidate(); meetingTimer = nil
-        Task {
+        operationTask = Task {
             let started = Date()
             do {
                 var warning: String?
@@ -456,7 +457,7 @@ import OSprCore
 
     func cancel() {
         let wasCapture = phase == "recording" || phase == "starting"
-        generation = UUID(); previewTask?.cancel()
+        generation = UUID(); operationTask?.cancel(); operationTask = nil; previewTask?.cancel()
         if phase == "warming" || phase == "transcribing" || previewTask != nil { worker.shutdown(); ready = false }
         streamSession = nil; backgroundGeneration = nil
         meetingTimer?.invalidate(); meetingTimer = nil
@@ -467,7 +468,8 @@ import OSprCore
         status = hasRecovery ? "Cancelled · unfinished take retained" : wasCapture ? "Recording discarded" : "Cancelled"
         overlay?.orderOut(nil)
         // Generation fencing also prevents late cloud responses from being saved
-        // or inserted. Local cancellation terminates the owned inference child.
+        // or inserted. Task cancellation stops active URLSession work, while local
+        // cancellation terminates the owned inference child.
     }
     private func discardAudio() { if let recordingURL { try? FileManager.default.removeItem(at: recordingURL) }; recordingURL = nil }
 
@@ -498,7 +500,7 @@ import OSprCore
         generation = UUID(); let token = generation
         phase = "transcribing"; error = ""; status = "Recovering unfinished recording…"
         let config = settings
-        Task {
+        operationTask = Task {
             // The retry button explicitly names the current speech route. Keep
             // rewriting off and never insert into a target from a previous run.
             do { try await prepareRecoveryMix(token: token) }
@@ -525,8 +527,23 @@ import OSprCore
                 result = try await worker.request(["action": speakers ? "meeting" : "transcribe", "path": file.path, "model": config.model,
                     "language": config.language, "vocabulary": config.vocabulary, "trim": config.silenceTrim, "threshold": config.silenceThreshold])
             } else {
-                result = try await ProviderClient.transcribe(file: file, base: config.transcriptionURL,
-                    model: config.transcriptionModel, key: try ProviderCredentialScope.checkedKey(transcriptionKey, boundTo: transcriptionKeyScope, kind: .transcription, base: config.transcriptionURL), language: config.language, vocabulary: config.vocabulary)
+                let key = try ProviderCredentialScope.checkedKey(transcriptionKey, boundTo: transcriptionKeyScope, kind: .transcription, base: config.transcriptionURL)
+                var upload = file
+                var prepared: URL?
+                defer { if let prepared { try? FileManager.default.removeItem(at: prepared) } }
+                if (try file.resourceValues(forKeys: [.fileSizeKey]).fileSize ?? 0) >= ProviderClient.maximumUploadBytes {
+                    status = "Preparing smaller audio locally…"
+                    let directory = FileManager.default.temporaryDirectory.appendingPathComponent("OSpr", isDirectory: true)
+                    try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true, attributes: [.posixPermissions: 0o700])
+                    let destination = directory.appendingPathComponent("upload-" + UUID().uuidString + ".wav")
+                    prepared = destination
+                    _ = try await worker.request(["action": "prepare_upload", "path": file.path, "output": destination.path])
+                    guard generation == token else { return false }
+                    upload = destination
+                }
+                status = "Uploading to your selected speech provider…"
+                result = try await ProviderClient.transcribe(file: upload, base: config.transcriptionURL,
+                    model: config.transcriptionModel, key: key, language: config.language, vocabulary: config.vocabulary)
             }
             guard token == generation else { return false }
             let raw = result["raw_text"] as? String ?? result["text"] as? String ?? ""
@@ -607,7 +624,7 @@ import OSprCore
         guard !busy else { return }
         generation = UUID(); let token = generation
         phase = "transcribing"; error = ""; status = "Selecting source excerpts locally · first use downloads a 4B model"
-        Task {
+        operationTask = Task {
             do {
                 let result = try await worker.request(["action": "notes", "text": record.rawText])
                 guard token == generation else { return }
@@ -681,7 +698,7 @@ import OSprCore
             }
             config.mode = .verbatim
         }
-        Task {
+        operationTask = Task {
             for (index, file) in urls.enumerated() {
                 guard generation == token else { break }
                 status = "File \(index + 1) of \(urls.count) · \(file.lastPathComponent)"

@@ -2,6 +2,7 @@
 
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
+import time
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -10,6 +11,8 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_POST(self):
         data = self.rfile.read(int(self.headers.get("Content-Length", 0)))
+        if self.path.startswith("/slow/"):
+            time.sleep(5)
         status, result = 200, {}
         if self.path.startswith("/redirect/"):
             self.send_response(307)

@@ -23,6 +23,11 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 - [x] Completed-take recovery through inference failure/restart. Private audio,
   retry/export/discard; retry never inserts into a stale app target.
 - [x] Native CLI and optional stdio MCP with explicit file/text tools.
+- [x] Oversized provider uploads are normalized locally to mono 16 kHz PCM16 WAV;
+  a 70-second stereo take shrank from over 25 MB to 2.2 MB with duration, spectrum
+  and original bytes preserved. Very long files still need splitting/local ASR.
+- [x] Cancel now cancels the active processing Task as well as invalidating output;
+  a delayed loopback-provider test verifies URLSession cancellation.
 - [x] Persistent debug logs off by default; private worker audio cleanup, including
   next-use cleanup of orphan directories owned by dead workers.
 - [x] Explicit model loading primes first-use kernels with synthetic audio,
@@ -43,11 +48,11 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
 ## Verification and evidence
 
-- [x] Native tests: 57 passed, covering text fidelity rules, Unicode snippets, retention/storage,
+- [x] Native tests: 58 passed, covering text fidelity rules, Unicode snippets, retention/storage,
   provider endpoint restrictions, multipart/chat/Anthropic loopback contracts,
   30 concurrent worker requests, timeout/restart, audio frame integrity/overflow,
   secure-field early rejection and recovery store restart/corrupt-metadata cases.
-- [x] Backend tests: 49 passed, covering normalization, invalid/media input, real AAC/FFmpeg decoding,
+- [x] Backend tests: 52 passed, covering normalization, invalid/media input, real AAC/FFmpeg decoding,
   silence without loading weights, stdio recovery, MCP boundary, Cohere layout
   adapter and streaming session fencing/packet bounds.
 - [x] Real human audio: deterministic 200 test-clean / 165 test-other slices,
