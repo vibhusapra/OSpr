@@ -3,8 +3,10 @@
 import argparse
 import datetime
 import hashlib
+import importlib.metadata
 import json
 from pathlib import Path
+import subprocess
 import time
 import jiwer
 import numpy as np
@@ -97,6 +99,14 @@ def main():
     output = {
         "timestamp": datetime.datetime.now(datetime.UTC).isoformat(),
         "model": args.model,
+        "git_commit": subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip(),
+        "working_tree_dirty": bool(subprocess.check_output(["git", "status", "--porcelain"], text=True).strip()),
+        "source_sha256": hashlib.sha256(b"".join(
+            p.relative_to(ROOT.parent).as_posix().encode() + b"\0" + p.read_bytes()
+            for p in [Path(__file__), ROOT.parent / "uv.lock", *sorted(
+                (ROOT.parent / "backend/ospr_backend").glob("*.py")),
+                ROOT.parent / "backend/ospr_backend/models.lock.json"])).hexdigest(),
+        "versions": {name: importlib.metadata.version(name) for name in ("mlx", "mlx-audio", "parakeet-mlx", "numpy", "jiwer")},
         "method": "AMI headset-mix slices; 10 ms speaker activity with best per-recording Hungarian mapping; pinned AMI only_words RTTM reference; overlap included; collar 0/250 ms.",
         "corpus": {k: v for k, v in manifest.items() if k != "items"},
         "records": records,

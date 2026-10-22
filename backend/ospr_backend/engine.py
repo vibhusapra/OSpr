@@ -251,26 +251,27 @@ class Engine:
                     mel = get_logmel(mx.array(audio, dtype=mx.float32), model.preprocessor_config)
                     result = model.generate(mel)[0]
                 else:
-                    from .temporary import private_audio_file
-                    import soundfile as sf
+                    from .parakeet import transcribe_long
 
-                    with private_audio_file() as file:
-                        sf.write(file.name, audio, SAMPLE_RATE, subtype="FLOAT")
-                        result = model.transcribe(file.name, chunk_duration=30, overlap_duration=3)
-                text = result.text
-                segments = [
-                    dict(start=float(s.start) + offset, end=float(s.end) + offset, text=s.text)
-                    for s in result.sentences
-                ]
-                if word_timestamps:
-                    from .diarization import tokens_to_words
+                    result = transcribe_long(model, audio, offset, word_timestamps)
+                if isinstance(result, dict):
+                    text, segments, words = result["text"], result["segments"], result["words"]
+                    base.update(decoder_chunks=result["decoder_chunks"], decoded_samples=result["decoded_samples"])
+                else:
+                    text = result.text
+                    segments = [
+                        dict(start=float(s.start) + offset, end=float(s.end) + offset, text=s.text)
+                        for s in result.sentences
+                    ]
+                    if word_timestamps:
+                        from .diarization import tokens_to_words
 
-                    words = tokens_to_words(
-                        [
-                            dict(start=float(t.start) + offset, end=float(t.end) + offset, text=t.text)
-                            for t in result.tokens
-                        ]
-                    )
+                        words = tokens_to_words(
+                            [
+                                dict(start=float(t.start) + offset, end=float(t.end) + offset, text=t.text)
+                                for t in result.tokens
+                            ]
+                        )
                 detected_language = language
             elif spec["engine"] == "whisper":
                 import mlx_whisper
