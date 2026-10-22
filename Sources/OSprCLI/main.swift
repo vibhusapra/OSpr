@@ -12,6 +12,14 @@ import OSprCore
             let result: [String: Any]
             switch command {
             case "doctor": result = try await worker.request(["action": "ping"])
+            case "models": result = try await worker.request(["action": "model_status"])
+            case "download":
+                guard args.count > 1 else { usage(); exit(2) }
+                result = try await worker.request(["action": "download_model", "model": args[1]], progress: { event in
+                    if let data = try? JSONSerialization.data(withJSONObject: event, options: [.sortedKeys]) {
+                        FileHandle.standardError.write(data + Data([10]))
+                    }
+                })
             case "warm": result = try await worker.request(["action": "warm", "model": args.count > 1 ? args[1] : "parakeet-v3"])
             case "meeting":
                 guard args.count > 1 else { usage(); exit(2) }
@@ -49,5 +57,5 @@ import OSprCore
             print(String(data: data, encoding: .utf8)!)
         } catch { FileHandle.standardError.write(Data((error.localizedDescription + "\n").utf8)); exit(1) }
     }
-    static func usage() { print("OSpr · local Apple Silicon dictation\nUsage: ospr-cli doctor | warm [model] | transcribe <audio> [model] | meeting <audio> [model] | benchmark <audio> [model] [repeats] | rewrite <text>\nBundled CLI discovers its engine; development commands use the checkout or OSPR_ROOT. Models: parakeet-v3, cohere-native8, whisper-turbo, whisper-small, qwen3-asr, nemotron-streaming") }
+    static func usage() { print("OSpr · local Apple Silicon dictation\nUsage: ospr-cli doctor | models | download <model> | warm [model] | transcribe <audio> [model] | meeting <audio> [model] | benchmark <audio> [model] [repeats] | rewrite <text>\nDownload progress is JSON on stderr; final result is JSON on stdout.\nBundled CLI discovers its engine; development commands use the checkout or OSPR_ROOT. Models: parakeet-v3, cohere-native8, whisper-turbo, whisper-small, qwen3-asr, nemotron-streaming") }
 }

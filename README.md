@@ -105,6 +105,13 @@ quality gate and is included as a quality option.
 
 ## Models and privacy
 
+The Models screen shows pinned download sizes and cache completeness for all six
+ASR engines plus the optional refiner and diarizer. Download weights separately
+from loading them onto Metal, watch prepared-byte progress, reveal the shared
+cache in Finder, or release engine memory. Inventory is offline and weights remain
+on disk when memory is released. OSpr never deletes the shared Hugging Face cache.
+
+
 The default path sends no audio or text to a provider. Complete model downloads
 first, then set `HF_HUB_OFFLINE=1` for an offline engine run. Weight downloads come
 from Hugging Face. OSpr never silently switches to cloud inference.
@@ -144,6 +151,8 @@ separate limitation. No secure-erasure guarantee is made.
 .build/debug/ospr-cli transcribe /absolute/audio.wav parakeet-v3
 .build/debug/ospr-cli benchmark /absolute/audio.wav parakeet-v3 30
 .build/debug/ospr-cli meeting /absolute/meeting.wav parakeet-v3
+.build/debug/ospr-cli models
+.build/debug/ospr-cli download whisper-small
 .build/debug/ospr-cli rewrite 'Um, keep every sentence and number.'
 ```
 

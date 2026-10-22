@@ -28,6 +28,10 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
   and original bytes preserved. Very long files still need splitting/local ASR.
 - [x] Cancel now cancels the active processing Task as well as invalidating output;
   a delayed loopback-provider test verifies URLSession cancellation.
+- [x] Model cache manager: eight pinned inventories with artifact size checks, download-only,
+  prepared-byte progress, reveal in Finder and explicit engine memory release. Shared
+  caches are never deleted by OSpr. Protocol/CLI tests and a real fresh-cache hub
+  download passed; physical native interaction and large interrupted download pending.
 - [x] Persistent debug logs off by default; private worker audio cleanup, including
   next-use cleanup of orphan directories owned by dead workers.
 - [x] Explicit model loading primes first-use kernels with synthetic audio,
@@ -36,7 +40,7 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
   edited, old settings gain defaults, shortcuts retain their previous binding on
   conflict, and the menu bar can reopen a closed workspace.
 - [x] Current official-source guide: 27 offerings, plans, feature comparison,
-  43-item acceptance ledger, model strategy, ten optimization tracks, training plan.
+  44-item acceptance ledger, model strategy, ten optimization tracks, training plan.
 - [x] Relocatable app bundle; all six engines passed offline after moving it to
   a path with spaces, from a temporary cwd and with an unrelated PYTHONPATH.
 - [x] Portable app rechecked after capture/notes changes: six offline ASR engines,
@@ -49,11 +53,11 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
 ## Verification and evidence
 
-- [x] Native tests: 58 passed, covering text fidelity rules, Unicode snippets, retention/storage,
+- [x] Native tests: 61 passed, covering text fidelity rules, Unicode snippets, retention/storage,
   provider endpoint restrictions, multipart/chat/Anthropic loopback contracts,
   30 concurrent worker requests, timeout/restart, audio frame integrity/overflow,
   secure-field early rejection and recovery store restart/corrupt-metadata cases.
-- [x] Backend tests: 52 passed, covering normalization, invalid/media input, real AAC/FFmpeg decoding,
+- [x] Backend tests: 57 passed, covering normalization, invalid/media input, real AAC/FFmpeg decoding,
   silence without loading weights, stdio recovery, MCP boundary, Cohere layout
   adapter and streaming session fencing/packet bounds.
 - [x] Real human audio: deterministic 200 test-clean / 165 test-other slices,

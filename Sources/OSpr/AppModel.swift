@@ -20,6 +20,11 @@ import OSprCore
     @Published var setupRunning = false
     @Published var setupLog = ""
     @Published var ready = false
+    @Published var modelCache: [String: ModelCacheStatus] = [:]
+    @Published var residentModels: Set<String> = []
+    @Published var modelProgress = ""
+    @Published var modelFraction: Double?
+    @Published var checkingModels = false
     @Published var pending: PendingRecording?
     @Published var hasRecovery = false
     @Published var recordingDesktop = false
@@ -206,17 +211,60 @@ import OSprCore
         }
     }
 
-    func warm() {
+    func refreshModels() {
+        guard !busy, !checkingModels, engineInstalled else { return }
+        checkingModels = true
+        Task {
+            defer { checkingModels = false }
+            do {
+                let result = try await worker.request(["action": "model_status"])
+                let rows = result["models"] as? [[String: Any]] ?? []
+                modelCache = Dictionary(uniqueKeysWithValues: rows.compactMap { row in
+                    guard let value = ModelCacheStatus(row) else { return nil }
+                    return (value.id, value)
+                })
+                residentModels = Set(result["resident"] as? [String] ?? [])
+                if let rewrite = result["rewrite_resident"] as? String { residentModels.insert(rewrite) }
+                if result["diarizer_resident"] as? Bool == true { residentModels.insert("diarization") }
+            } catch { self.error = error.localizedDescription }
+        }
+    }
+
+    func releaseModels() {
+        guard !busy, !checkingModels else { return }
+        worker.shutdown(); ready = false; residentModels = []
+        status = "Local engine released · downloaded weights remain on disk"
+    }
+
+    func warm(downloadOnly id: String? = nil) {
         guard !busy else { return }
         generation = UUID(); let token = generation
-        phase = "warming"; error = ""; status = "Loading model · first use downloads weights"
+        let modelID = id ?? settings.model
+        modelProgress = "Checking pinned weights"; modelFraction = nil
+        if id == nil { ready = false }
+        phase = "warming"; error = ""; status = id == nil ? "Loading model · first use downloads weights" : "Downloading pinned model weights"
         operationTask = Task {
             do {
-                _ = try await worker.request(["action": "warm", "model": settings.model])
+                _ = try await worker.request(["action": id == nil ? "warm" : "download_model", "model": modelID], progress: { [weak self] event in
+                    let phase = event["phase"] as? String ?? ""
+                    let completed = (event["completed_bytes"] as? NSNumber)?.doubleValue ?? 0
+                    let total = (event["total_bytes"] as? NSNumber)?.doubleValue ?? 0
+                    Task { @MainActor [weak self] in
+                        guard let self, self.generation == token else { return }
+                        self.modelFraction = phase == "download" && total > 0 ? min(1, completed / total) : nil
+                        switch phase {
+                        case "download": self.modelProgress = total > 0 ? "Preparing weights · \(ByteCountFormatter.string(fromByteCount: Int64(completed), countStyle: .file)) / \(ByteCountFormatter.string(fromByteCount: Int64(total), countStyle: .file))" : "Downloading pinned weights · this can take several minutes"
+                        case "loading": self.modelProgress = "Loading weights onto Metal"
+                        case "priming": self.modelProgress = "Preparing first-use kernels · synthetic audio only"
+                        default: self.modelProgress = "Checking pinned weights"
+                        }
+                    }
+                })
                 guard token == generation else { return }
-                ready = true; status = "Model ready on your Mac"
-            } catch { if token == generation { self.error = error.localizedDescription; status = "Model could not be loaded" } }
-            if token == generation { phase = "idle" }
+                if id == nil { ready = true }
+                status = id == nil ? "Model ready on your Mac" : "Weights downloaded · ready for offline loading"
+            } catch { if token == generation { ready = false; residentModels = []; self.error = error.localizedDescription; status = id == nil ? "Model could not be loaded" : "Download could not be completed" } }
+            if token == generation { phase = "idle"; modelProgress = ""; modelFraction = nil; refreshModels() }
         }
     }
 
@@ -458,7 +506,8 @@ import OSprCore
     func cancel() {
         let wasCapture = phase == "recording" || phase == "starting"
         generation = UUID(); operationTask?.cancel(); operationTask = nil; previewTask?.cancel()
-        if phase == "warming" || phase == "transcribing" || previewTask != nil { worker.shutdown(); ready = false }
+        if phase == "warming" || phase == "transcribing" || previewTask != nil { worker.shutdown(); ready = false; residentModels = [] }
+        modelProgress = ""; modelFraction = nil
         streamSession = nil; backgroundGeneration = nil
         meetingTimer?.invalidate(); meetingTimer = nil
         if let meetingSession { Task { await meetingSession.discard() } }

@@ -27,7 +27,7 @@ public final class WorkerClient: @unchecked Sendable {
     }
     deinit { process?.terminate(); try? log?.close() }
 
-    public func request(_ body: [String: Any]) async throws -> [String: Any] {
+    public func request(_ body: [String: Any], progress: (@Sendable ([String: Any]) -> Void)? = nil) async throws -> [String: Any] {
         let requestedEpoch = lifecycle.withLock { epoch }
         return try await withCheckedThrowingContinuation { continuation in
             queue.async { [self] in
@@ -72,7 +72,7 @@ public final class WorkerClient: @unchecked Sendable {
                     var request = body; request["id"] = id
                     var bytes = try JSONSerialization.data(withJSONObject: request); bytes.append(10)
                     try input?.write(contentsOf: bytes)
-                    let result = try readResult(id: id)
+                    let result = try readResult(id: id, progress: progress)
                     continuation.resume(returning: result)
                 } catch {
                     // A failed inference has a valid protocol response, but restart
@@ -84,25 +84,32 @@ public final class WorkerClient: @unchecked Sendable {
         }
     }
 
-    private func readResult(id: String) throws -> [String: Any] {
-        while !pending.contains(10) {
-            guard let handle = output else { throw OSprError.message("Local engine pipe is unavailable.") }
-            let chunk = handle.availableData
-            guard !chunk.isEmpty else {
-                throw OSprError.message("Local engine stopped or timed out. Check macOS folder permissions, then retry. Diagnostic logging is opt-in with OSPR_DEBUG_LOG=1.")
+    private func readResult(id: String, progress: (@Sendable ([String: Any]) -> Void)? = nil) throws -> [String: Any] {
+        while true {
+            while !pending.contains(10) {
+                guard let handle = output else { throw OSprError.message("Local engine pipe is unavailable.") }
+                let chunk = handle.availableData
+                guard !chunk.isEmpty else {
+                    throw OSprError.message("Local engine stopped or timed out. Check macOS folder permissions, then retry. Diagnostic logging is opt-in with OSPR_DEBUG_LOG=1.")
+                }
+                pending.append(chunk)
+                guard pending.count < 32 * 1024 * 1024 else { throw OSprError.message("Engine response exceeded size limit.") }
             }
-            pending.append(chunk)
-            guard pending.count < 32 * 1024 * 1024 else { throw OSprError.message("Engine response exceeded size limit.") }
+            let newline = pending.firstIndex(of: 10)!
+            let data = pending.prefix(upTo: newline); pending.removeSubrange(...newline)
+            guard let response = try JSONSerialization.jsonObject(with: data) as? [String: Any], response["id"] as? String == id else {
+                throw OSprError.message("Invalid local engine response.")
+            }
+            if response["event"] as? String == "progress" {
+                guard let event = response["progress"] as? [String: Any] else { throw OSprError.message("Invalid model progress response.") }
+                progress?(event)
+                continue
+            }
+            guard response["ok"] as? Bool == true, let result = response["result"] as? [String: Any] else {
+                throw OSprError.message(response["error"] as? String ?? "Inference failed.")
+            }
+            return result
         }
-        let newline = pending.firstIndex(of: 10)!
-        let data = pending.prefix(upTo: newline); pending.removeSubrange(...newline)
-        guard let response = try JSONSerialization.jsonObject(with: data) as? [String: Any], response["id"] as? String == id else {
-            throw OSprError.message("Invalid local engine response.")
-        }
-        guard response["ok"] as? Bool == true, let result = response["result"] as? [String: Any] else {
-            throw OSprError.message(response["error"] as? String ?? "Inference failed.")
-        }
-        return result
     }
     private static func terminate(_ child: Process?) {
         guard let child, child.isRunning else { return }

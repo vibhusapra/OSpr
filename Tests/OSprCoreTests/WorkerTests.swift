@@ -39,6 +39,45 @@ final class WorkerTests: XCTestCase {
             try await group.waitForAll()
         }
     }
+    func testProgressFramesCannotBeMistakenForFinalReplies() async throws {
+        let source = directory.appendingPathComponent("backend/ospr_backend/worker.py")
+        let workerSource = """
+        import json, sys
+        for line in sys.stdin:
+            request = json.loads(line)
+            if request.get('action') == 'download_model':
+                for n in range(4):
+                    print(json.dumps({'id': request['id'], 'event': 'progress', 'progress': {'completed_bytes': n}}))
+            print(json.dumps({'id': request['id'], 'ok': True, 'result': {'complete': True}}), flush=True)
+        """
+        try workerSource.write(to: source, atomically: true, encoding: .utf8)
+        let worker = WorkerClient(root: directory.path)
+        defer { worker.shutdown() }
+        let received = ProgressCollector()
+        let result = try await worker.request(["action": "download_model"], progress: { event in received.append(event["completed_bytes"] as? Int ?? -1) })
+        XCTAssertEqual(received.values, [0, 1, 2, 3])
+        XCTAssertEqual(result["complete"] as? Bool, true)
+        let next = try await worker.request(["action": "ping"])
+        XCTAssertEqual(next["complete"] as? Bool, true)
+    }
+
+    func testProgressWithWrongRequestIDIsRejected() async throws {
+        let source = directory.appendingPathComponent("backend/ospr_backend/worker.py")
+        let workerSource = """
+        import json, sys
+        for line in sys.stdin:
+            request = json.loads(line)
+            if request.get('action') == 'download_model':
+                print(json.dumps({'id': 'stale', 'event': 'progress', 'progress': {}}), flush=True)
+            else:
+                print(json.dumps({'id': request['id'], 'ok': True, 'result': {}}), flush=True)
+        """
+        try workerSource.write(to: source, atomically: true, encoding: .utf8)
+        let worker = WorkerClient(root: directory.path)
+        defer { worker.shutdown() }
+        do { _ = try await worker.request(["action": "download_model"]); XCTFail("Expected protocol rejection") }
+        catch { XCTAssertEqual(error.localizedDescription, "Invalid local engine response.") }
+    }
     func testIdleShutdownCannotReuseTheTerminatingChild() async throws {
         let worker = WorkerClient(root: directory.path)
         defer { worker.shutdown() }
@@ -80,4 +119,11 @@ final class WorkerTests: XCTestCase {
         let result = try await worker.request(["action": "ping"])
         XCTAssertEqual(result["value"] as? String, "ready")
     }
+}
+
+private final class ProgressCollector: @unchecked Sendable {
+    private let lock = NSLock()
+    private var storage: [Int] = []
+    func append(_ value: Int) { lock.lock(); defer { lock.unlock() }; storage.append(value) }
+    var values: [Int] { lock.lock(); defer { lock.unlock() }; return storage }
 }

@@ -8,9 +8,10 @@ import json
 import os
 import sys
 import traceback
+import threading
 
 from . import __version__
-from .engine import Engine, PUBLIC_MODELS
+from .engine import Engine, PUBLIC_MODELS, MODEL_LOCK, resolve_model
 
 MAX_REQUEST = 2 * 1024 * 1024
 
@@ -23,6 +24,18 @@ def dispatch(engine, request):
         if request.get("model", "parakeet-v3") not in PUBLIC_MODELS:
             raise ValueError("Model has not passed the shipping quality gate. Use the research harness.")
         return engine.warm(request.get("model", "parakeet-v3"))
+    if action == "model_status":
+        from .model_cache import inventory
+
+        return {"models": inventory(MODEL_LOCK, [*PUBLIC_MODELS, "rewrite-quality", "diarization"]),
+                "resident": list(engine.models), "rewrite_resident": engine.rewriter_id,
+                "diarizer_resident": engine.diarizer is not None}
+    if action == "download_model":
+        model = request.get("model")
+        if model not in {*PUBLIC_MODELS, "rewrite-quality", "diarization"}:
+            raise ValueError("Unknown shipping model.")
+        resolve_model(model, engine.progress)
+        return {"model": model, "complete": True}
     if action == "stream_begin":
         return engine.stream_begin(request.get("language"))
     if action == "stream_feed":
@@ -81,6 +94,13 @@ def main():
         except PermissionError:
             pass  # Already a session/group leader in an embedding process.
     engine = Engine()
+    output_lock = threading.Lock()
+    protocol_stdout = sys.stdout  # Engine redirects third-party stdout while loading.
+
+    def emit(value):
+        with output_lock:
+            print(json.dumps(value, ensure_ascii=False, allow_nan=False), file=protocol_stdout, flush=True)
+
     while True:
         raw = sys.stdin.buffer.readline(MAX_REQUEST + 1)
         if not raw:
@@ -93,6 +113,9 @@ def main():
             request = json.loads(raw)
             if not isinstance(request, dict):
                 raise ValueError("Expected a JSON object.")
+            request_id = request.get("id")
+            if request.get("action") in {"warm", "download_model"}:
+                engine.progress = lambda event, request_id=request_id: emit({"id": request_id, "event": "progress", "progress": event})
             response = {"id": request.get("id"), "ok": True, "result": dispatch(engine, request)}
         except Exception as error:
             if os.environ.get("OSPR_DEBUG_LOG") == "1":
@@ -102,7 +125,9 @@ def main():
                 "ok": False,
                 "error": f"{type(error).__name__}: {error}",
             }
-        print(json.dumps(response, ensure_ascii=False, allow_nan=False), flush=True)
+        finally:
+            engine.progress = None
+        emit(response)
 
 
 if __name__ == "__main__":

@@ -299,17 +299,55 @@ struct ModelsView: View {
     var body: some View {
         ScrollView { VStack(alignment: .leading, spacing: 20) {
             PageTitle(eyebrow: "A model for your Mac", title: "Choose your voice engine.", description: "All six run on Apple Silicon. Weights download on first use. Check Research for measured results and limits.")
+            HStack {
+                Button(model.checkingModels ? "Checking…" : "Refresh cache status") { model.refreshModels() }.disabled(model.busy || model.checkingModels || !model.engineInstalled)
+                Button("Release engine memory") { model.releaseModels() }.disabled(model.busy || model.checkingModels)
+                Spacer()
+                Text("\(model.residentModels.count) models resident").font(.caption).foregroundStyle(.secondary)
+            }
+            if !model.modelProgress.isEmpty && model.phase == "warming" {
+                Card { VStack(alignment: .leading, spacing: 10) {
+                    HStack { Text(model.modelProgress).font(.callout); Spacer(); Button("Cancel") { model.cancel() } }
+                    if let fraction = model.modelFraction { ProgressView(value: fraction) } else { ProgressView().controlSize(.small) }
+                    Text("Progress counts prepared weight bytes, including reused cache data. The total can change as files are discovered.").font(.caption).foregroundStyle(.secondary)
+                } }
+            }
             ForEach(models, id: \.0) { id, name, tag, detail in
                 Card { HStack(alignment: .top, spacing: 18) {
                     Image(systemName: id == "parakeet-v3" ? "bolt" : "cpu").font(.title2).foregroundStyle(Color.osprInk).frame(width: 40, height: 40).background(Color.osprPurple.opacity(0.08), in: RoundedRectangle(cornerRadius: 10))
-                    VStack(alignment: .leading, spacing: 7) { Text(tag).font(.system(size: 9, weight: .semibold, design: .monospaced)).tracking(1).foregroundStyle(Color.osprInk); Text(name).font(.headline); Text(detail).font(.caption).foregroundStyle(.secondary).lineSpacing(3) }
+                    VStack(alignment: .leading, spacing: 7) {
+                        Text(tag).font(.system(size: 9, weight: .semibold, design: .monospaced)).tracking(1).foregroundStyle(Color.osprInk); Text(name).font(.headline); Text(detail).font(.caption).foregroundStyle(.secondary).lineSpacing(3)
+                        if let cache = model.modelCache[id] {
+                            HStack {
+                                Label(cache.cacheLabel, systemImage: cache.complete ? "checkmark.circle" : "arrow.down.circle")
+                                if model.residentModels.contains(id) { Text("Loaded on Metal").foregroundStyle(Color.osprInk) }
+                            }.font(.caption)
+                            HStack {
+                                Text("Pinned \(String(cache.revision.prefix(10)))").textSelection(.enabled)
+                                if !cache.complete { Button("Download weights") { model.warm(downloadOnly: id) }.disabled(model.busy) }
+                                if let path = cache.path { Button("Show in Finder") { NSWorkspace.shared.selectFile(path, inFileViewerRootedAtPath: "") } }
+                            }.font(.caption)
+                        }
+                    }
                     Spacer()
                     Button(model.settings.model == id ? "Selected ✓" : "Select") { model.settings.model = id; model.ready = false; model.saveOSprSettings() }.disabled(model.busy)
                 } }
             }
-            HStack { Button("Load selected model") { model.warm() }.buttonStyle(.borderedProminent).disabled(model.busy || !model.engineInstalled); Text("First load can take several minutes.").font(.caption).foregroundStyle(.secondary) }
-            Text("Model weights have their own licenses. Parakeet weights require attribution under CC BY 4.0; OSpr code is Apache 2.0. Model caches can be managed with the Hugging Face CLI.").font(.caption).foregroundStyle(.tertiary)
+            HStack { Button("Load selected model") { model.warm() }.buttonStyle(.borderedProminent).disabled(model.busy || !model.engineInstalled); Text("Download alone uses no GPU. Loading also prepares first-use kernels.").font(.caption).foregroundStyle(.secondary) }
+            Text("Optional language and speaker models").font(.headline)
+            ForEach([("rewrite-quality", "Qwen3 4B · local refinement & key excerpts"), ("diarization", "Nemotron · experimental speaker labels")], id: \.0) { id, name in
+                if let cache = model.modelCache[id] {
+                    Card { HStack {
+                        VStack(alignment: .leading, spacing: 5) { Text(name).font(.callout); Text(cache.cacheLabel + (model.residentModels.contains(id) ? " · resident" : "")).font(.caption).foregroundStyle(.secondary) }
+                        Spacer()
+                        if !cache.complete { Button("Download") { model.warm(downloadOnly: id) }.disabled(model.busy) }
+                        if let path = cache.path { Button("Show in Finder") { NSWorkspace.shared.selectFile(path, inFileViewerRootedAtPath: "") } }
+                    } }
+                }
+            }
+            Text("Model weights have their own licenses. Parakeet weights require attribution under CC BY 4.0; OSpr code is Apache 2.0. Downloads use the shared Hugging Face cache; removing weights there can affect other apps. OSpr never deletes that shared cache.").font(.caption).foregroundStyle(.tertiary)
         }.padding(32) }
+        .onAppear { model.refreshModels() }
     }
 }
 

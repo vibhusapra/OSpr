@@ -66,6 +66,13 @@
       "priority": "P0"
     },
     {
+      "feature": "Model cache manager and download progress",
+      "status": "contract-tested",
+      "evidence": "Offline pinned eight-model inventory, required artifact size checks, download-only with no GPU load, request-scoped byte progress and explicit engine memory release. Real pinned 266-byte fresh-cache download passed; cached inventory/download native CLI checks passed.",
+      "gap": "Native visual interaction and large interrupted-download walkthrough pending unlock. Shared cache deletion stays external and explicit.",
+      "priority": "P0"
+    },
+    {
       "feature": "Microphone capture and device selection",
       "status": "implemented",
       "evidence": "Native AVAudioEngine, selected CoreAudio UID, RMS meter.",

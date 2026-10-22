@@ -71,12 +71,14 @@ REWRITE_MODEL = "mlx-community/Qwen3-4B-Instruct-2507-4bit"
 MODEL_LOCK = json.loads(Path(__file__).with_name("models.lock.json").read_text())
 
 
-def resolve_model(model_id):
+def resolve_model(model_id, progress=None):
     """Pinned weights, cache-first: offline hot/cold loads never need a hub call."""
     from huggingface_hub import snapshot_download
     from huggingface_hub.errors import LocalEntryNotFoundError
 
     entry = MODEL_LOCK[model_id]
+    if progress:
+        progress({"phase": "checking", "model": model_id})
     options = dict(
         repo_id=entry["repo"],
         revision=entry["revision"],
@@ -100,7 +102,13 @@ def resolve_model(model_id):
     except LocalEntryNotFoundError:
         if offline:
             raise
-        directory = snapshot_download(**options)
+        if progress:
+            from .model_cache import progress_bar
+
+            progress({"phase": "download", "model": model_id})
+            directory = snapshot_download(**options, tqdm_class=progress_bar(progress))
+        else:
+            directory = snapshot_download(**options)
         if not complete(directory):
             raise RuntimeError("Pinned model download is incomplete; check disk space and retry.") from None
     return str(Path(directory) / entry["subfolder"]) if entry.get("subfolder") else directory
@@ -118,6 +126,7 @@ class Engine:
         self.stream = None
         self.stream_text = ""
         self.stream_id = None
+        self.progress = None
 
     def _load(self, model_id):
         if model_id not in MODELS:
@@ -142,7 +151,9 @@ class Engine:
         mx.clear_cache()
         spec = MODELS[model_id]
         with redirect_stdout(sys.stderr):
-            path = resolve_model(model_id)
+            path = resolve_model(model_id, self.progress)
+            if self.progress:
+                self.progress({"phase": "loading", "model": model_id})
             if spec["engine"] == "parakeet":
                 from parakeet_mlx import from_pretrained
 
@@ -168,6 +179,8 @@ class Engine:
         load_ms = (time.perf_counter() - started) * 1000
         prime_ms = 0
         if self.primed_model != model_id:
+            if self.progress:
+                self.progress({"phase": "priming", "model": model_id})
             # Move first-use Metal kernel work into the explicit Load action.
             # A synthetic tone contains no user speech; its output is discarded.
             from .temporary import private_audio_file
