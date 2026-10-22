@@ -48,6 +48,18 @@ final class AudioSinkTests: XCTestCase {
         XCTAssertFalse(watcher.loadError.isEmpty)
         XCTAssertEqual(try String(contentsOf: state, encoding: .utf8), "not json")
     }
+    func testChangedBufferFormatFailsBeforeCopyingIntoThePool() throws {
+        let url = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".wav")
+        defer { try? FileManager.default.removeItem(at: url) }
+        let original = AVAudioFormat(standardFormatWithSampleRate: 16000, channels: 1)!
+        let changed = AVAudioFormat(standardFormatWithSampleRate: 48000, channels: 2)!
+        let writer = try AudioSink(url: url, format: original)
+        let buffer = AVAudioPCMBuffer(pcmFormat: changed, frameCapacity: 8000)!
+        buffer.frameLength = 8000
+        writer.enqueue(buffer)
+        XCTAssertNotNil(writer.error)
+        XCTAssertThrowsError(try writer.finish())
+    }
     func testOversizedCallbackFailsVisibly() throws {
         let url = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".wav")
         defer { try? FileManager.default.removeItem(at: url) }

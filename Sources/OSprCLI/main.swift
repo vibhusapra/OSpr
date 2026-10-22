@@ -30,7 +30,7 @@ import OSprCore
                     let start = ContinuousClock.now
                     var response = try await worker.request(["action": "transcribe", "path": URL(fileURLWithPath: args[1]).path, "model": model])
                     let text = response["text"] as? String ?? ""
-                    response["processed_text"] = TextPipeline.process(text, mode: .clean, replacements: [], spokenPunctuation: false)
+                    response["processed_text"] = TextPipeline.process(text, mode: .clean, replacements: [], spokenPunctuation: false, language: response["language"] as? String ?? "")
                     let elapsed = start.duration(to: .now).components
                     response["native_wall_ms"] = Double(elapsed.seconds) * 1000 + Double(elapsed.attoseconds) / 1e15
                     response["trial"] = index; response["cold"] = index == 0

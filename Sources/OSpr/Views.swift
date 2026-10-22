@@ -37,7 +37,7 @@ struct WorkspaceView: View {
                 VStack(alignment: .leading, spacing: 9) {
                     Label(model.localOnly ? "Local by choice" : "Cloud enabled", systemImage: model.localOnly ? "lock.shield" : "network")
                         .font(.system(size: 12, weight: .medium)).foregroundStyle(model.localOnly ? .green : .orange)
-                    Text("No account. No limits.\nBuilt to belong to you.").font(.caption).foregroundStyle(.secondary).lineSpacing(3)
+                    Text("No account. No metering.\nBuilt to belong to you.").font(.caption).foregroundStyle(.secondary).lineSpacing(3)
                     Text("v0.1 · Apple Silicon").font(.system(size: 10, design: .monospaced)).foregroundStyle(.tertiary)
                 }.padding(12).frame(maxWidth: .infinity, alignment: .leading).background(.quaternary.opacity(0.4), in: RoundedRectangle(cornerRadius: 10))
             }.padding(.horizontal, 18).padding(.bottom, 20).frame(width: 195).background(.regularMaterial)
@@ -117,10 +117,10 @@ struct StudioView: View {
                                     .font(.system(size: 30, weight: .medium)).foregroundStyle(.white)
                                     .frame(width: 86, height: 86).background(model.phase == "recording" ? Color.red : .osprPurple, in: Circle())
                                     .overlay(Circle().stroke(Color.osprPurple.opacity(0.14), lineWidth: 12).padding(-6))
-                            }.buttonStyle(.plain).disabled(model.busy && model.phase != "recording").accessibilityLabel(model.phase == "recording" ? "Finish dictation" : "Start dictation")
+                            }.buttonStyle(.plain).disabled(model.busy && model.phase != "recording" && !model.backgroundImportActive).accessibilityLabel(model.phase == "recording" ? "Finish dictation" : "Start dictation")
                             VStack(alignment: .leading, spacing: 9) {
-                                Text(model.phase == "recording" ? "Listening to you…" : "Your next idea starts here.").font(.title3.weight(.medium))
-                                Text(model.phase == "recording" ? String(format: "%.1f seconds · click to finish", capture.seconds) : "Click the mic, or use your shortcut in any app.").font(.subheadline).foregroundStyle(.secondary)
+                                Text(model.phase == "recording" ? (model.recordingDesktop ? "Recording desktop audio…" : "Listening to you…") : "Your next idea starts here.").font(.title3.weight(.medium))
+                                Text(model.phase == "recording" ? String(format: "%.1f seconds · click to finish", model.displaySeconds) : "Click the mic, or use your shortcut in any app. Up to five minutes per take.").font(.subheadline).foregroundStyle(.secondary)
                                 HStack(spacing: 7) {
                                     Text(shortcutLabel(model.settings)).font(.system(size: 12, weight: .medium, design: .monospaced)).padding(.horizontal, 9).padding(.vertical, 5).background(.quaternary, in: RoundedRectangle(cornerRadius: 5))
                                     Text(model.settings.pushToTalk ? "hold to talk" : "start / finish").font(.caption).foregroundStyle(.tertiary)
@@ -129,7 +129,7 @@ struct StudioView: View {
                             Spacer()
                         }.padding(.vertical, 14)
                         if model.phase == "recording" {
-                            Waveform(level: capture.level)
+                            Waveform(level: model.displayLevel)
                             if !model.preview.isEmpty { Text(model.preview).font(.subheadline).foregroundStyle(.secondary).lineLimit(3) }
                             Button("Discard recording", role: .destructive) { model.cancel() }.buttonStyle(.plain).font(.caption)
                         }
@@ -141,11 +141,25 @@ struct StudioView: View {
                         }
                     }
                 }
+                Card {
+                    VStack(alignment: .leading, spacing: 12) {
+                        Label("Desktop audio · experimental", systemImage: "person.2.wave.2").font(.headline)
+                        Text("Record desktop sound, with an optional microphone track. Up to one hour per take. Audio stays local; no video is stored. macOS 15+, system audio permission and FFmpeg are required. Use headphones to reduce speaker bleed; echo cancellation is not included.").font(.caption).foregroundStyle(.secondary)
+                        HStack {
+                            Toggle("Include microphone", isOn: $model.meetingMicrophone).disabled(model.busy)
+                            Spacer()
+                            Button(model.recordingDesktop ? "Finish meeting" : "Record desktop audio") {
+                                if model.recordingDesktop { model.stop() } else { model.startMeeting() }
+                            }.disabled(model.busy && !model.recordingDesktop || model.hasRecovery && !model.recordingDesktop)
+                        }
+                    }
+                }
                 if model.hasRecovery {
                     Card {
                         VStack(alignment: .leading, spacing: 12) {
                             Label("Unfinished recording", systemImage: "arrow.counterclockwise.circle").font(.headline)
                             Text("This completed take is kept privately on this Mac until transcription succeeds or you discard it. Retry uses your current speech settings and saves the raw transcript without rewriting or inserting into another app.").font(.caption).foregroundStyle(.secondary)
+                            if let warning = model.pending?.captureWarning { Text(warning).font(.caption).foregroundStyle(.orange) }
                             HStack {
                                 Button(model.settings.transcriptionProvider == "local" ? "Retry locally" : "Retry with cloud provider") { model.retryRecovery() }.disabled(model.busy || model.pending == nil)
                                 Button("Export audio") { model.exportRecovery() }.disabled(model.busy)
@@ -210,7 +224,7 @@ struct Waveform: View {
                         height: 4 + CGFloat(level) * CGFloat(12 + 20 * abs(sin(Double(i) * 0.8 + context.date.timeIntervalSince1970 * 5))))
                 }
             }.frame(height: 38).frame(maxWidth: .infinity)
-        }.accessibilityLabel("Microphone input level")
+        }.accessibilityLabel("Audio input level")
     }
 }
 struct RecordingOverlay: View {
@@ -218,8 +232,8 @@ struct RecordingOverlay: View {
     @ObservedObject var capture: Capture
     var body: some View {
         VStack(spacing: 5) {
-            HStack { Circle().fill(.red).frame(width: 7, height: 7); Text(model.phase == "recording" ? "Listening" : "Working…").font(.caption.weight(.medium)); Spacer(); Text(String(format: "%.1fs", capture.seconds)).font(.caption.monospacedDigit()); Button { model.stop() } label: { Image(systemName: "stop.circle.fill") }.buttonStyle(.plain).accessibilityLabel("Finish dictation") }
-            Waveform(level: capture.level)
+            HStack { Circle().fill(.red).frame(width: 7, height: 7); Text(model.phase == "recording" ? (model.recordingDesktop ? "Desktop audio" : "Listening") : "Working…").font(.caption.weight(.medium)); Spacer(); Text(String(format: "%.1fs", model.displaySeconds)).font(.caption.monospacedDigit()); Button { if model.phase == "recording" { model.stop() } else { model.cancel() } } label: { Image(systemName: model.phase == "recording" ? "stop.circle.fill" : "xmark.circle.fill") }.buttonStyle(.plain).accessibilityLabel(model.phase == "recording" ? "Finish recording" : "Cancel processing") }
+            Waveform(level: model.displayLevel)
         }.padding(14).background(.regularMaterial, in: RoundedRectangle(cornerRadius: 17)).overlay(RoundedRectangle(cornerRadius: 17).stroke(.quaternary))
     }
 }
@@ -248,10 +262,23 @@ struct HistoryView: View {
                 VStack(alignment: .leading, spacing: 18) {
                     HStack { Text(record.date.formatted(date: .abbreviated, time: .shortened)).font(.headline); Spacer(); Button { model.copy(record.text) } label: { Label("Copy", systemImage: "doc.on.doc") } }
                     HStack(spacing: 16) { Label(record.model, systemImage: "cpu"); Text(record.mode.title); Text(String(format: "%.1fs audio · %.2fs processing", record.duration, record.latencyMS / 1000)) }.font(.caption).foregroundStyle(.secondary)
+                    if let warning = record.warning { Label(warning, systemImage: "exclamationmark.triangle").font(.caption).foregroundStyle(.orange) }
                     TextEditor(text: Binding(get: { model.history.first { $0.id == record.id }?.text ?? record.text }, set: { model.updateText(record.id, text: $0) })).font(.system(size: 16)).lineSpacing(6).padding(10).background(Color(nsColor: .textBackgroundColor), in: RoundedRectangle(cornerRadius: 12))
                     DisclosureGroup("Original transcript · subtitle exports use original timing") { Text(record.rawText).font(.caption).foregroundStyle(.secondary).textSelection(.enabled).frame(maxWidth: .infinity, alignment: .leading) }
+                    if let notes = record.notes, notes.matches(record.rawText) {
+                        DisclosureGroup("Key excerpts · local AI selection") {
+                            ScrollView { VStack(alignment: .leading, spacing: 12) {
+                                Text("Exact source excerpts. Selection can miss context or important points; review the full transcript.").font(.caption).foregroundStyle(.secondary)
+                                ForEach(notes.excerpts) { excerpt in
+                                    VStack(alignment: .leading, spacing: 3) { Text("SOURCE \(excerpt.id + 1)").font(.caption2).foregroundStyle(.secondary); Text(excerpt.text).textSelection(.enabled) }
+                                }
+                                Button("Copy notes as Markdown") { model.copy(notes.markdown) }
+                            }.frame(maxWidth: .infinity, alignment: .leading) }.frame(maxHeight: 220)
+                        }
+                    }
                     HStack {
                         Menu("Export") { ForEach(["txt", "json", "srt", "vtt"], id: \.self) { format in Button(format.uppercased()) { model.export(record, format: format) } } }
+                        Button(record.notes == nil ? "Select key excerpts locally" : "Refresh local excerpts") { model.generateNotes(record) }.disabled(model.busy)
                         Spacer(); Button("Delete", role: .destructive) { model.remove(record) }
                     }
                 }.padding(28).frame(minWidth: 350)
@@ -354,6 +381,8 @@ struct PreferencesView: View {
                 Toggle("Hold shortcut to talk", isOn: $model.settings.pushToTalk)
                 Toggle("Paste into the original focused field", isOn: $model.settings.autoPaste)
                 Toggle("Restore clipboard after paste fallback", isOn: $model.settings.restoreClipboard)
+                Toggle("Allow paste when a field or cursor cannot be verified", isOn: $model.settings.allowUnverifiedPaste)
+                if model.settings.allowUnverifiedPaste { Text("Only the original app can be checked in some destinations. A changed field may receive the paste. Leave this off for stricter destination checks.").font(.caption).foregroundStyle(.orange) }
                 Toggle("Spoken punctuation (English phrases)", isOn: $model.settings.spokenPunctuation)
                 Toggle("Conservative silence edge trimming", isOn: $model.settings.silenceTrim)
                 HStack { Text("Silence threshold"); Slider(value: $model.settings.silenceThreshold, in: 0.0001...0.02); Text(String(format: "%.4f", model.settings.silenceThreshold)).monospacedDigit() }
@@ -404,7 +433,7 @@ struct PreferencesView: View {
             Section("Local engine") {
                 LabeledContent("Checkout", value: model.settings.rootPath).textSelection(.enabled)
                 Button("Choose OSpr checkout…") { model.chooseRoot() }.disabled(model.busy)
-                Button("Install / repair locked engine") { model.installEngine() }.disabled(model.setupRunning || model.busy)
+                Button(model.engineBundled ? "Engine bundled · update the app to repair" : "Install / repair locked engine") { model.installEngine() }.disabled(model.setupRunning || model.busy || model.engineBundled)
                 if !model.setupLog.isEmpty { DisclosureGroup("Setup output") { Text(model.setupLog).font(.system(size: 10, design: .monospaced)).textSelection(.enabled) } }
             }
             Button("Save preferences") { model.saveOSprSettings() }.buttonStyle(.borderedProminent)

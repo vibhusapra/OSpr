@@ -117,3 +117,24 @@ start, first partial, speech end and **final insertion**. Report failure rate,
 correction keystrokes, name/number/negation retention, clipboard and cursor safety,
 RAM, battery/energy and sustained use. Run at least 30 warm repetitions and separate
 cold trials. Published vendor latency claims cannot substitute for these runs.
+
+
+## Warmup, speaker control and extractive notes
+
+`warmup.py` alternates unprimed/primed order over three pairs of fresh processes
+per model. Explicit Load now decodes a one-second synthetic tone and discards its
+output. Compare both preparation cost and the first real request: work is moved
+earlier, not eliminated. The single public utterance does not establish a general
+speedup; all paired outputs matched.
+
+`diarization_control.py` runs the pinned upstream NVIDIA checkpoint in float32 on
+PyTorch MPS against the same four AMI `only_words` prefixes. Similar high DER
+shows the problem is not unique to the MLX 8-bit conversion. Default postprocessing
+and timing boundaries differ, so this is not a backend speed comparison.
+
+`notes_eval.py` contains four synthetic transcript sentinels. A local model selects
+IDs and code copies exact original spans; invalid IDs fail closed. Every required
+deadline/price/negation/injection sentinel survived these four cases. Exact source
+quotation prevents invented paraphrases, but selection can omit context or facts.
+This is not an abstractive-summary quality benchmark or a natural-meeting relevance
+study. Raw outputs are in `results/extractive-notes.json`.

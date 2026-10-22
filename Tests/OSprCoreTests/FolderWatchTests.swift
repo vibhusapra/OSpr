@@ -2,6 +2,17 @@ import XCTest
 @testable import OSprCore
 
 final class FolderWatchTests: XCTestCase {
+    func testLargeCompletedDirectoryDoesNotReprocessOldFiles() {
+        let now = Date()
+        let files = (0..<10005).map { MediaCandidate(url: URL(fileURLWithPath: "/fixture/\($0).wav"), bytes: 100, modified: now.addingTimeInterval(-10)) }
+        var queue = FolderWatchQueue()
+        queue.ignore(files, now: now)
+        XCTAssertTrue(queue.ready(files, now: now).isEmpty)
+        XCTAssertTrue(queue.ready(files, now: now).isEmpty)
+        XCTAssertEqual(queue.completed.count, files.count)
+        _ = queue.ready(Array(files.suffix(2)), now: now)
+        XCTAssertEqual(queue.completed.count, 2)
+    }
     func testStabilityChangesRetryBackoffAndRestartDeduplication() {
         let now = Date()
         var queue = FolderWatchQueue()

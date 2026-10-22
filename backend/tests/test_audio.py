@@ -75,3 +75,17 @@ def test_compressed_local_media_decodes_without_network(tmp_path):
     # AAC is lossy; compare its interior against the expected waveform.
     expected = np.sin(np.arange(len(audio)) * 2 * np.pi * 440 / 16000) * 0.1
     assert np.corrcoef(audio[200:15000], expected[200:15000])[0, 1] > 0.98
+
+
+def test_large_native_rate_audio_is_normalized_before_full_allocation(tmp_path, monkeypatch):
+    from types import SimpleNamespace
+    path = tmp_path / 'large.wav'
+    path.write_bytes(b'fixture')
+    monkeypatch.setattr('ospr_backend.audio.sf.info', lambda _: SimpleNamespace(duration=3600, frames=3600*96000, channels=8, samplerate=96000))
+    calls = []
+    def bounded(source):
+        calls.append(source)
+        return np.zeros(16000, dtype=np.float32)
+    monkeypatch.setattr('ospr_backend.audio._decode_with_ffmpeg', bounded)
+    assert len(read_audio(str(path))) == 16000
+    assert calls == [path.resolve()]

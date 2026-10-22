@@ -36,6 +36,9 @@ public struct FolderWatchQueue {
     public init(completed: [String: Date] = [:]) { self.completed = completed }
     public mutating func ready(_ files: [MediaCandidate], now: Date = Date()) -> [MediaCandidate] {
         let current = Set(files.map(\.fingerprint))
+        // Prune files that left the directory, never still-present completed
+        // files: a fixed ledger cap would reprocess old audio in a loop.
+        completed = completed.filter { current.contains($0.key) }
         defer { observed = current; retryAfter = retryAfter.filter { current.contains($0.key) } }
         return files.filter { file in
             file.bytes > 0 && observed.contains(file.fingerprint) && completed[file.fingerprint] == nil &&
@@ -44,9 +47,7 @@ public struct FolderWatchQueue {
     }
     public mutating func finish(_ file: MediaCandidate, success: Bool, now: Date = Date()) {
         if success { completed[file.fingerprint] = now } else { retryAfter[file.fingerprint] = now.addingTimeInterval(60) }
-        if completed.count > 10000 {
-            completed = Dictionary(uniqueKeysWithValues: completed.sorted { $0.value > $1.value }.prefix(10000).map { ($0.key, $0.value) })
-        }
+
     }
     public mutating func ignore(_ files: [MediaCandidate], now: Date = Date()) {
         for file in files { finish(file, success: true, now: now) }

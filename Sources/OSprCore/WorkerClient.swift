@@ -18,6 +18,7 @@ public final class WorkerClient: @unchecked Sendable {
     private var pending = Data()
     private let lifecycle = NSLock()
     private var epoch: UInt64 = 0
+    private var processEpoch: UInt64 = 0
     private var activeRequest: UUID?
     private let timeout: TimeInterval
     private let startupTimeout: TimeInterval
@@ -27,7 +28,7 @@ public final class WorkerClient: @unchecked Sendable {
     deinit { process?.terminate(); try? log?.close() }
 
     public func request(_ body: [String: Any]) async throws -> [String: Any] {
-        lifecycle.lock(); let requestedEpoch = epoch; lifecycle.unlock()
+        let requestedEpoch = lifecycle.withLock { epoch }
         return try await withCheckedThrowingContinuation { continuation in
             queue.async { [self] in
                 let operation = UUID()
@@ -88,7 +89,7 @@ public final class WorkerClient: @unchecked Sendable {
             guard let handle = output else { throw OSprError.message("Local engine pipe is unavailable.") }
             let chunk = handle.availableData
             guard !chunk.isEmpty else {
-                throw OSprError.message("Local engine stopped or timed out. Check the engine log and macOS folder permissions. Try choosing the checkout again in Settings.")
+                throw OSprError.message("Local engine stopped or timed out. Check macOS folder permissions, then retry. Diagnostic logging is opt-in with OSPR_DEBUG_LOG=1.")
             }
             pending.append(chunk)
             guard pending.count < 32 * 1024 * 1024 else { throw OSprError.message("Engine response exceeded size limit.") }
@@ -130,7 +131,8 @@ public final class WorkerClient: @unchecked Sendable {
         pending.removeAll(keepingCapacity: false)
     }
     private func startIfNeeded() throws -> Bool {
-        if process?.isRunning == true { return false }
+        lifecycle.lock(); let currentEpoch = epoch; lifecycle.unlock()
+        if processEpoch == currentEpoch && process?.isRunning == true { return false }
         stopOnQueue()
         let python = URL(fileURLWithPath: root).appendingPathComponent(".venv/bin/python")
         guard FileManager.default.isExecutableFile(atPath: python.path) else {
@@ -147,14 +149,20 @@ public final class WorkerClient: @unchecked Sendable {
         env["PYTHONUNBUFFERED"] = "1"
         env["PATH"] = "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:" + (env["PATH"] ?? "")
         child.environment = env
-        let logDir = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("OSpr")
-        try FileManager.default.createDirectory(at: logDir, withIntermediateDirectories: true)
-        let logURL = logDir.appendingPathComponent("engine.log")
-        if !FileManager.default.fileExists(atPath: logURL.path) { FileManager.default.createFile(atPath: logURL.path, contents: nil, attributes: [.posixPermissions: 0o600]) }
-        log = try FileHandle(forWritingTo: logURL); try log?.seekToEnd()
-        child.standardInput = stdin; child.standardOutput = stdout; child.standardError = log
+        if env["OSPR_DEBUG_LOG"] == "1" {
+            let logDir = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("OSpr")
+            try FileManager.default.createDirectory(at: logDir, withIntermediateDirectories: true, attributes: [.posixPermissions: 0o700])
+            let logURL = logDir.appendingPathComponent("engine.log")
+            if !FileManager.default.fileExists(atPath: logURL.path) { FileManager.default.createFile(atPath: logURL.path, contents: nil, attributes: [.posixPermissions: 0o600]) }
+            try FileManager.default.setAttributes([.posixPermissions: 0o600], ofItemAtPath: logURL.path)
+            log = try FileHandle(forWritingTo: logURL)
+            // A diagnostic session replaces the previous log; it may contain
+            // model output or file paths. Never accumulate transcripts by default.
+            try log?.truncate(atOffset: 0)
+        }
+        child.standardInput = stdin; child.standardOutput = stdout; child.standardError = log ?? FileHandle.nullDevice
         try child.run()
-        lifecycle.lock(); process = child; lifecycle.unlock()
+        lifecycle.lock(); process = child; processEpoch = currentEpoch; lifecycle.unlock()
         input = stdin.fileHandleForWriting; output = stdout.fileHandleForReading
         return true
     }

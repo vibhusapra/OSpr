@@ -14,14 +14,14 @@ final class WorkerTests: XCTestCase {
         try FileManager.default.setAttributes([.posixPermissions: 0o700], ofItemAtPath: launcher.path)
         try Data().write(to: backend.appendingPathComponent("__init__.py"))
         let source = """
-        import json, sys, time, signal
+        import json, sys, time, signal, os
         for line in sys.stdin:
             request = json.loads(line)
             if request.get('action') == 'ignore-termination':
                 signal.signal(signal.SIGTERM, signal.SIG_IGN)
                 time.sleep(30)
             if request.get('action') == 'sleep': time.sleep(5)
-            print(json.dumps({'id': request['id'], 'ok': True, 'result': {'value': request.get('value', 'ready')}}), flush=True)
+            print(json.dumps({'id': request['id'], 'ok': True, 'result': {'value': request.get('value', 'ready'), 'pid': os.getpid()}}), flush=True)
         """
         try Data(source.utf8).write(to: backend.appendingPathComponent("worker.py"))
     }
@@ -38,6 +38,14 @@ final class WorkerTests: XCTestCase {
             }
             try await group.waitForAll()
         }
+    }
+    func testIdleShutdownCannotReuseTheTerminatingChild() async throws {
+        let worker = WorkerClient(root: directory.path)
+        defer { worker.shutdown() }
+        let first = try await worker.request(["action": "ping"])
+        worker.shutdown()
+        let second = try await worker.request(["action": "ping"])
+        XCTAssertNotEqual(first["pid"] as? Int, second["pid"] as? Int)
     }
     func testHungStartupHasItsOwnDeadline() async throws {
         let source = directory.appendingPathComponent("backend/ospr_backend/worker.py")

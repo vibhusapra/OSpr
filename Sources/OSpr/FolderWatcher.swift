@@ -11,6 +11,7 @@ import OSprCore
     private var epoch = UUID()
     var loadError = ""
     var canProcess: () -> Bool = { false }
+    var pauseReason: () -> String? = { nil }
     var process: ((URL) async -> Bool)?
     var reportError: (String) -> Void = { _ in }
 
@@ -42,7 +43,9 @@ import OSprCore
         }
     }
     private func scan() async {
-        guard !scanning, canProcess(), let process else { return }
+        guard !scanning else { return }
+        if let reason = pauseReason() { status = reason; return }
+        guard canProcess(), let process else { return }
         scanning = true; defer { scanning = false }
         let directory = URL(fileURLWithPath: settings.directory), token = epoch
         do {

@@ -22,22 +22,26 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 - [x] Completed-take recovery through inference failure/restart. Private audio,
   retry/export/discard; retry never inserts into a stale app target.
 - [x] Native CLI and optional stdio MCP with explicit file/text tools.
+- [x] Persistent debug logs off by default; private worker audio cleanup, including
+  next-use cleanup of orphan directories owned by dead workers.
+- [x] Explicit model loading primes first-use kernels with synthetic audio,
+  discarding the output; paired fresh-process warmup measurements retained.
 - [x] Reviewed cancellation keeps recoverable takes, credentials write only when
   edited, old settings gain defaults, shortcuts retain their previous binding on
   conflict, and the menu bar can reopen a closed workspace.
 - [x] Current official-source guide: 27 offerings, plans, feature comparison,
-  41-item acceptance ledger, model strategy, ten optimization tracks, training plan.
+  42-item acceptance ledger, model strategy, ten optimization tracks, training plan.
 - [x] Relocatable app bundle; all five engines passed offline after moving it to
   a path with spaces, from a temporary cwd and with an unrelated PYTHONPATH.
 - [x] Apache 2.0 code license, attribution notice and macOS CI configuration.
 
 ## Verification and evidence
 
-- [x] Native tests: 36 passed, covering text fidelity rules, Unicode snippets, retention/storage,
+- [x] Native tests: 50 passed, covering text fidelity rules, Unicode snippets, retention/storage,
   provider endpoint restrictions, multipart/chat/Anthropic loopback contracts,
   30 concurrent worker requests, timeout/restart, audio frame integrity/overflow,
   secure-field early rejection and recovery store restart/corrupt-metadata cases.
-- [x] Backend tests: 34 passed, covering normalization, invalid/media input, real AAC/FFmpeg decoding,
+- [x] Backend tests: 49 passed, covering normalization, invalid/media input, real AAC/FFmpeg decoding,
   silence without loading weights, stdio recovery, MCP boundary, Cohere layout
   adapter and streaming session fencing/packet bounds.
 - [x] Real human audio: deterministic 200 test-clean / 165 test-other slices,
@@ -60,7 +64,13 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 - [ ] Neural endpointing/VAD calibration, word alignment, deeper URL/app context.
 - [x] Experimental speaker-labeled file imports with recognizer word timestamps;
   stitched-speech and natural AMI prefix measurements. Labels still need review.
-- [ ] System/meeting audio capture, diarization quality and meeting summaries.
+- [x] Experimental ScreenCaptureKit desktop plus optional microphone capture, separate
+  timestamped tracks, bounded writers, recoverable raw tracks and local FFmpeg mix.
+  Physical capture/permissions and echo/device-route acceptance remain open.
+- [x] Local extractive meeting notes: exact original quotations selected by a 4B
+  model, validated source references/fingerprint, copyable Markdown and JSON history.
+  Four synthetic coverage sentinels passed; natural relevance and context review remain.
+- [ ] Improve diarization quality and evaluate complete abstractive summaries.
 - [x] Watched-folder implementation, stability/deduplication/backoff/scanner tests;
   interactive folder selection and auto-export acceptance pending.
 - [ ] Native webhook/automation destinations.

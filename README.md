@@ -75,12 +75,26 @@ until its transcripts/settings are backed up.
   Groq and the current OpenAI `gpt-transcribe` request contract).
 - File/batch import, searchable editable local history, copy/delete/retention,
   and TXT/JSON/SRT/VTT export. Subtitles use **original** transcript timing.
+- Experimental local speaker-labeled imports: Nemotron 3 Diarization (up to eight
+  anonymous speaker channels) with Parakeet/Whisper word timing. Keep raw ASR,
+  flag overlap and export original speaker-timed subtitles. Real-meeting
+  attribution errors remain substantial; labels require review.
+- Optional watched-folder processing while OSpr is open: stable new files,
+  persistent deduplication, retry backoff and non-overwriting TXT/JSON/SRT/VTT
+  exports. Processing is local, without rewriting or auto-paste.
+- Experimental desktop audio recording on macOS 15+, with an optional separate
+  microphone track, local FFmpeg mixing and raw-track recovery. Video is not stored.
+  Physical capture/permissions/echo acceptance is pending; use headphones.
+- Local key-excerpt notes: a 4B model selects exact original quotations. Source
+  references are checked; no generated paraphrases. Review context and omissions.
 - A native CLI, optional stdio MCP adapter, tests and reproducible benchmarks.
 
 - Completed-take recovery across inference failure/restart, with retry/export/discard.
 
 **Open scope:** fully verified cross-app insertion and recovery interactions,
-meeting/system audio, diarization, watched folders, word alignment, URL context,
+physical meeting/system capture acceptance, diarization quality, complete
+abstractive summaries,
+richer alignment and URL context,
 notarized distribution, mobile/sync and enterprise administration. Cohere
 Transcribe is research-only: the tested converted-weight path failed its quality
 gate and is excluded from app/worker/MCP model listings.
@@ -109,12 +123,19 @@ vocabulary prompting in this adapter. Whisper supports broader language coverage
 Qwen and Nemotron are useful alternatives, not universal accuracy winners. Do not
 infer Apple Neural Engine use: the current local speech path uses **MLX/Metal GPU**.
 
+Engine diagnostic logging is disabled by default. For a diagnostic launch, set
+`OSPR_DEBUG_LOG=1`; the private `engine.log` can include file paths or model output.
+Transient worker audio is private and removed on normal exit; orphaned decode
+directories are cleaned on next use. Abrupt native capture recovery remains a
+separate limitation. No secure-erasure guarantee is made.
+
 ## CLI and agent integration
 
 ```sh
 .build/debug/ospr-cli doctor
 .build/debug/ospr-cli transcribe /absolute/audio.wav parakeet-v3
 .build/debug/ospr-cli benchmark /absolute/audio.wav parakeet-v3 30
+.build/debug/ospr-cli meeting /absolute/meeting.wav parakeet-v3
 .build/debug/ospr-cli rewrite 'Um, keep every sentence and number.'
 ```
 

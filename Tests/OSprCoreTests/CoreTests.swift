@@ -72,8 +72,12 @@ final class CoreTests: XCTestCase {
         XCTAssertEqual(TextPipeline.process("  Um, the volume  is zero.  ", mode: .verbatim, replacements: [], spokenPunctuation: false), "Um, the volume  is zero.")
     }
     func testCleanDoesNotRemoveMeaningfulWords() {
-        XCTAssertEqual(TextPipeline.process("Um, the quantum drum is, uh, ready.", mode: .clean, replacements: [], spokenPunctuation: false), "the quantum drum is, ready.")
+        XCTAssertEqual(TextPipeline.process("Um, the quantum drum is, uh, ready.", mode: .clean, replacements: [], spokenPunctuation: false, language: "en"), "the quantum drum is, ready.")
         XCTAssertEqual(TextPipeline.process("summary and uh_oh", mode: .clean, replacements: [], spokenPunctuation: false), "summary and uh_oh")
+        XCTAssertEqual(TextPipeline.process("Um acht", mode: .clean, replacements: [], spokenPunctuation: false, language: "de"), "Um acht")
+        for text in ["Wir treffen uns um acht Uhr am Bahnhof.", "Eu quero um café por favor.", "Uh-oh, we have a problem."] {
+            XCTAssertEqual(TextPipeline.process(text, mode: .clean, replacements: [], spokenPunctuation: false), text)
+        }
     }
     func testPunctuationIsExplicitOptIn() {
         let input = "Hello comma world new paragraph Ready question mark"

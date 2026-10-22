@@ -39,3 +39,21 @@ def test_partial_cache_repairs_online_but_never_contacts_hub_offline(tmp_path, m
     monkeypatch.setenv("HF_HUB_OFFLINE", "1")
     assert engine.resolve_model("fixture") == str(tmp_path)
     assert calls[-1] is True
+
+
+def test_explicit_warmup_primes_once_and_discards_synthetic_output(monkeypatch):
+    from ospr_backend.engine import Engine
+    from ospr_backend.audio import read_audio
+    engine = Engine()
+    calls = []
+    monkeypatch.setattr(engine, '_load', lambda model: (None, False))
+    def transcribe(path, model, language, trim):
+        audio = read_audio(path)
+        assert len(audio) == 16000 and language == 'en' and not trim
+        calls.append(model)
+        return {'text': 'discard this synthetic result'}
+    monkeypatch.setattr(engine, 'transcribe', transcribe)
+    first = engine.warm('parakeet-v3')
+    second = engine.warm('parakeet-v3')
+    assert calls == ['parakeet-v3'] and second['prime_ms'] == 0
+    assert first['prime_ms'] > 0 and 'text' not in first

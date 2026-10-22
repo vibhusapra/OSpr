@@ -1,4 +1,8 @@
 import pytest
+import numpy as np
+import soundfile as sf
+import sys
+from types import SimpleNamespace
 from ospr_backend.diarization import attribute, formatted, tokens_to_words
 from ospr_backend.engine import Engine
 
@@ -39,3 +43,21 @@ def test_invalid_alignment_and_unsupported_meeting_model_fail():
         attribute([{"start": float("nan"), "end": 1.0, "text": "bad"}], [])
     with pytest.raises(ValueError, match="word timing"):
         Engine().meeting("unused", "qwen3-asr")
+
+
+def test_meeting_silence_gate_honors_quiet_audio_opt_out(tmp_path, monkeypatch):
+    path = tmp_path / "quiet.wav"
+    sf.write(path, np.full(16000, 0.001, dtype=np.float32), 16000, subtype="FLOAT")
+    engine = Engine()
+    assert engine.meeting(str(path))["silence"]
+
+    def reached_loader(*args, **kwargs):
+        raise RuntimeError("diarizer reached")
+
+    monkeypatch.setitem(sys.modules, "mlx_audio.vad", SimpleNamespace(load=reached_loader))
+    monkeypatch.setattr("ospr_backend.engine.resolve_model", lambda _: "fixture")
+    for options in [{"trim": False}, {"threshold": 0.0001}]:
+        with pytest.raises(RuntimeError, match="diarizer reached"):
+            engine.meeting(str(path), **options)
+    with pytest.raises(ValueError, match="Threshold"):
+        engine.meeting(str(path), threshold=float("nan"))

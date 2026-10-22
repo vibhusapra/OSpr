@@ -74,21 +74,14 @@ enum KeyVault {
     var silenceReached: (() -> Void)?
     private var engine: AVAudioEngine?
     private var writer: AudioSink?
+    private var pipeline: CapturePipeline?
+    private var captureFailure: Error?
     private var timer: Timer?
-    private var started = Date()
+    private var started = ProcessInfo.processInfo.systemUptime
     private var url: URL?
-    private let lock = NSLock()
-    private var lastVoice = Date()
-    private var hasVoice = false
     private var autoStop = 0.0
-    private var threshold: Float = 0.003
     private var tapInstalled = false
-    private var previewRing = AudioRing(capacity: 1)
     private var inputRate: Double = 48000
-    private var capturedFrames = 0
-    private var previewFrames = 0
-    private var monoScratch = [Float](repeating: 0, count: 8192)
-    private var captureGeneration = UUID()
     static var microphones: [AVCaptureDevice] {
         AVCaptureDevice.DiscoverySession(deviceTypes: [.microphone, .external], mediaType: .audio, position: .unspecified).devices
     }
@@ -125,41 +118,26 @@ enum KeyVault {
         let url = directory.appendingPathComponent(UUID().uuidString + ".wav")
         let writer = try AudioSink(url: url, format: format)
         self.writer = writer; self.engine = engine; self.url = url; self.autoStop = autoStop
-        self.threshold = Float(threshold); hasVoice = false
-        self.inputRate = format.sampleRate; self.previewRing = AudioRing(capacity: Int(format.sampleRate * 12))
-        self.capturedFrames = 0; self.previewFrames = 0
-        started = Date(); lastVoice = started; seconds = 0
-        let captureToken = UUID(); lock.lock(); captureGeneration = captureToken; lock.unlock()
-        input.installTap(onBus: 0, bufferSize: 1024, format: format) { [weak self, writer] buffer, _ in
-            guard let self else { return }
-            self.lock.lock()
-            guard self.captureGeneration == captureToken else { self.lock.unlock(); return }
-            writer.enqueue(buffer)
-            guard let channels = buffer.floatChannelData, buffer.frameLength > 0,
-                  buffer.frameLength <= 8192 else { self.lock.unlock(); return }
-            let frames = Int(buffer.frameLength)
-            let rms = self.monoScratch.withUnsafeMutableBufferPointer { mono in
-                let rms = AudioMath.downmix(channels: channels, channelCount: Int(buffer.format.channelCount),
-                    frames: frames, interleaved: buffer.format.isInterleaved, destination: mono)
-                self.previewRing.append(UnsafeBufferPointer(start: mono.baseAddress, count: frames))
-                return rms
-            }
-            self.capturedFrames += frames
-            self.lock.unlock()
-            DispatchQueue.main.async {
-                guard self.captureGeneration == captureToken else { return }
-                self.level = min(1, rms * 12)
-                if rms > self.threshold { self.lastVoice = Date(); self.hasVoice = true }
-            }
-        }
+        self.inputRate = format.sampleRate; captureFailure = nil
+        started = ProcessInfo.processInfo.systemUptime; seconds = 0
+        let pipeline = CapturePipeline(sink: writer, format: format, threshold: Float(threshold), now: started)
+        self.pipeline = pipeline
+        input.installTap(onBus: 0, bufferSize: 1024, format: format) { buffer, _ in pipeline.ingest(buffer) }
         tapInstalled = true
         do { try engine.start() } catch { input.removeTap(onBus: 0); tapInstalled = false; self.engine = nil; try? writer.finish(); self.writer = nil; try? FileManager.default.removeItem(at: url); throw error }
         timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] _ in
             Task { @MainActor in
                 guard let self else { return }
-                self.seconds = Date().timeIntervalSince(self.started)
-                if self.writer?.error != nil { self.silenceReached?(); return }
-                if self.seconds >= 300 || (self.autoStop > 0 && self.hasVoice && Date().timeIntervalSince(self.lastVoice) > self.autoStop) {
+                let now = ProcessInfo.processInfo.systemUptime
+                self.seconds = now - self.started
+                guard let telemetry = self.pipeline?.telemetry() else { return }
+                self.level = min(1, telemetry.rms * 12)
+                if self.pipeline?.error != nil { self.silenceReached?(); return }
+                if self.engine?.isRunning == false || now - telemetry.receivedAt > 5 {
+                    self.captureFailure = OSprError.message("Microphone audio stopped. Check the device connection; partial audio was kept.")
+                    self.silenceReached?(); return
+                }
+                if self.seconds >= 300 || (self.autoStop > 0 && telemetry.hasVoice && now - telemetry.voiceAt > self.autoStop) {
                     self.silenceReached?()
                 }
             }
@@ -167,33 +145,28 @@ enum KeyVault {
         return url
     }
     func stop() throws -> URL? {
-        lock.lock(); captureGeneration = UUID(); lock.unlock()
         timer?.invalidate(); timer = nil
         if tapInstalled { engine?.inputNode.removeTap(onBus: 0); tapInstalled = false }
         engine?.stop(); engine = nil
         let writer = self.writer; self.writer = nil
         level = 0
-        try writer?.finish()
+        if let pipeline { try pipeline.finish() } else { try writer?.finish() }
+        if let captureFailure { throw captureFailure }
         return url
     }
     func snapshot(incremental: Bool = false) throws -> URL? {
         guard let url else { return nil }
         let destination = url.deletingPathExtension().appendingPathExtension("preview.wav")
-        lock.lock()
-        let delta = capturedFrames - previewFrames
-        let overflow = incremental && delta > Int(inputRate * 12)
-        let previewSamples = overflow ? [] : previewRing.snapshot(last: incremental ? delta : nil)
-        if incremental && !overflow { previewFrames = capturedFrames }
-        lock.unlock()
-        if overflow { throw OSprError.message("Streaming preview fell behind. Final transcription will use the complete recording.") }
+        let previewSamples = try pipeline?.snapshot(incremental: incremental) ?? []
         // WAV headers of the active recording are not finalized. Export a bounded
         // in-memory tail instead of reading the still-open file.
         guard !previewSamples.isEmpty, let format = AVAudioFormat(standardFormatWithSampleRate: inputRate, channels: 1),
               let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: AVAudioFrameCount(previewSamples.count)) else { return nil }
         buffer.frameLength = AVAudioFrameCount(previewSamples.count)
         previewSamples.withUnsafeBufferPointer { samples in buffer.floatChannelData![0].update(from: samples.baseAddress!, count: samples.count) }
-        let writer = try AVAudioFile(forWriting: destination, settings: format.settings)
-        try writer.write(from: buffer)
+        let writer = try PCMFileWriter(url: destination, format: format)
+        try writer.write(buffer)
+        try writer.close()
         return destination
     }
 }
@@ -218,7 +191,7 @@ enum KeyVault {
         }
         return .init(app: app, element: element, selectedText: selected as? String ?? "", secure: subrole as? String == "AXSecureTextField", selectedRange: range)
     }
-    func paste(_ text: String, restoreClipboard: Bool) async throws {
+    func paste(_ text: String, restoreClipboard: Bool, allowUnverified: Bool = false) async throws {
         guard !secure else { throw OSprError.message("Dictation into password fields is disabled. The transcript is available in OSpr.") }
         guard AXIsProcessTrusted() else { throw OSprError.message("Allow OSpr Accessibility access to paste into other apps. The transcript is ready to copy.") }
         guard let app, !app.isTerminated, app.bundleIdentifier != Bundle.main.bundleIdentifier else {
@@ -227,6 +200,9 @@ enum KeyVault {
         // Do not steal focus or paste into a different field if the user switched.
         guard NSWorkspace.shared.frontmostApplication?.processIdentifier == app.processIdentifier else {
             throw OSprError.message("You switched apps while transcribing. Copy the result from OSpr when ready.")
+        }
+        guard allowUnverified || (element != nil && selectedRange != nil) else {
+            throw OSprError.message("The destination field or cursor could not be verified. Copy the transcript, or enable unverified-field fallback in Settings for this app.")
         }
         if let element {
             var current: CFTypeRef?
@@ -237,25 +213,20 @@ enum KeyVault {
                 AXUIElementCopyAttributeValue(element, kAXSelectedTextRangeAttribute as CFString, &currentRange)
                 guard let currentRange, CFEqual(currentRange, selectedRange) else { throw OSprError.message("The text cursor moved. Copy the result from OSpr.") }
             }
+            if !selectedText.isEmpty {
+                var currentText: CFTypeRef?
+                AXUIElementCopyAttributeValue(element, kAXSelectedTextAttribute as CFString, &currentText)
+                guard currentText as? String == selectedText else { throw OSprError.message("The selected passage changed. Copy the result from OSpr.") }
+            }
             if AXUIElementSetAttributeValue(element, kAXSelectedTextAttribute as CFString, text as CFTypeRef) == .success { return }
         }
-        let board = NSPasteboard.general
-        let saved: [[NSPasteboard.PasteboardType: Data]] = (board.pasteboardItems ?? []).map { item in
-            Dictionary(uniqueKeysWithValues: item.types.compactMap { type in item.data(forType: type).map { (type, $0) } })
+        guard let source = CGEventSource(stateID: .combinedSessionState),
+              let down = CGEvent(keyboardEventSource: source, virtualKey: 9, keyDown: true),
+              let up = CGEvent(keyboardEventSource: source, virtualKey: 9, keyDown: false) else {
+            throw OSprError.message("The paste shortcut could not be created. Copy the transcript from OSpr.")
         }
-        board.clearContents(); board.setString(text, forType: .string)
-        let version = board.changeCount
-        let source = CGEventSource(stateID: .combinedSessionState)
-        let down = CGEvent(keyboardEventSource: source, virtualKey: 9, keyDown: true)
-        let up = CGEvent(keyboardEventSource: source, virtualKey: 9, keyDown: false)
-        down?.flags = .maskCommand; up?.flags = .maskCommand
-        down?.post(tap: .cghidEventTap); up?.post(tap: .cghidEventTap)
-        if restoreClipboard {
-            try? await Task.sleep(for: .milliseconds(700))
-            if board.changeCount == version {
-                board.clearContents()
-                board.writeObjects(saved.map { data in let item = NSPasteboardItem(); for (type, value) in data { item.setData(value, forType: type) }; return item })
-            }
-        }
+        ClipboardRestorer.shared.replace(with: text, restore: restoreClipboard)
+        down.flags = .maskCommand; up.flags = .maskCommand
+        down.post(tap: .cghidEventTap); up.post(tap: .cghidEventTap)
     }
 }

@@ -31,12 +31,18 @@ def dispatch(engine, request):
         return engine.stream_feed(final=True, session_id=request["session_id"])
     if action == "stream_cancel":
         return engine.stream_cancel(session_id=request["session_id"])
+    if action == "mix_meeting":
+        from .meeting_audio import mix_tracks
+
+        return mix_tracks(request["tracks"], request["output"])
     if action == "meeting":
         return engine.meeting(
             request["path"],
             request.get("model", "parakeet-v3"),
             request.get("language"),
             request.get("vocabulary", "")[:16000],
+            bool(request.get("trim", True)),
+            float(request.get("threshold", 0.003)),
         )
     if action == "transcribe":
         model = request.get("model", "parakeet-v3")
@@ -58,6 +64,8 @@ def dispatch(engine, request):
         if len(text) > 100000 or len(instruction) > 16000:
             raise ValueError("Rewrite input too long.")
         return engine.rewrite(text, instruction)
+    if action == "notes":
+        return engine.notes(request.get("text", ""))
     raise ValueError("Unknown action.")
 
 
@@ -83,7 +91,8 @@ def main():
                 raise ValueError("Expected a JSON object.")
             response = {"id": request.get("id"), "ok": True, "result": dispatch(engine, request)}
         except Exception as error:
-            traceback.print_exc(file=sys.stderr)
+            if os.environ.get("OSPR_DEBUG_LOG") == "1":
+                traceback.print_exc(file=sys.stderr)
             response = {
                 "id": request.get("id") if isinstance(request, dict) else None,
                 "ok": False,

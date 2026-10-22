@@ -54,7 +54,7 @@
     {
       "feature": "Persistent model worker and serialized IPC",
       "status": "verified",
-      "evidence": "30 concurrent native IPC requests; timeout/restart tests.",
+      "evidence": "30 concurrent native IPC requests; timeout/startup/restart/ignored-termination tests. Explicit model loading also primes Metal using a synthetic tone; output discarded.",
       "gap": "No local HTTP listener.",
       "priority": "P0"
     },
@@ -68,7 +68,7 @@
     {
       "feature": "Recording writes off audio callback",
       "status": "verified",
-      "evidence": "Preallocated bounded buffer pool; native stereo frame-integrity and overflow tests.",
+      "evidence": "Preallocated bounded pool; native stereo frame integrity, overflow, format change, closed-admission, long silence and final-tail tests. Tap telemetry uses a reusable mono buffer; UI polls at 10 Hz.",
       "gap": "Device-level stress profiling pending.",
       "priority": "P0"
     },
@@ -96,8 +96,8 @@
     {
       "feature": "Clipboard restoration and secure-field handling",
       "status": "partial",
-      "evidence": "Change-count guard; captured pasteboard types; secure-field rejection test.",
-      "gap": "Full native/browser secure-field and paste-fallback verification pending.",
+      "evidence": "Private-pasteboard tests preserve multiple rich items, overlapping paste leases and user-copy changes. Secure-field rejection; strict app/field/cursor/selected-text checks.",
+      "gap": "Real native/browser secure-field and paste-fallback verification pending unlock. Explicit unverified-field compatibility option reduces field checks.",
       "priority": "P0"
     },
     {
@@ -208,8 +208,8 @@
     {
       "feature": "History privacy and retention",
       "status": "verified",
-      "evidence": "Atomic owner-only JSON files; 1/7/30/90-day/forever retention; disable saving.",
-      "gap": "History is not application-encrypted; use FileVault. Large-history indexing/async persistence remains work.",
+      "evidence": "Atomic owner-only JSON; configurable retention/disable saving. Engine stderr logging opt-in. Private temporary decode directories clean normally and orphaned dead-worker directories are cleaned next use.",
+      "gap": "History is not application-encrypted; use FileVault. Large-history indexing/async persistence remains work. Abrupt termination during active native capture can leave private temporary audio; no secure-erasure claim.",
       "priority": "P0"
     },
     {
@@ -222,8 +222,8 @@
     {
       "feature": "Cancel, timeout and worker recovery",
       "status": "verified",
-      "evidence": "Generation fences, child termination, queued epochs, timeout/restart; owner-only completed-take recovery tested across store restart. Separate startup handshake deadline; ignored-SIGTERM escalation tests; recovery retained when processing is cancelled.",
-      "gap": "Native retry/export/discard interactions pending unlock; active capture before stop is not crash-recovered.",
+      "evidence": "Generation fences, process-group termination, startup watchdog and ignored-SIGTERM escalation; completed-take and raw dual-track recovery across store restart. Processing cancellation keeps recovery; orderly quit preserves active takes.",
+      "gap": "Native retry/export/discard and quit interactions pending unlock. Active capture before an abrupt crash is not automatically recovered.",
       "priority": "P0"
     },
     {
@@ -242,16 +242,23 @@
     },
     {
       "feature": "Bot-free system/meeting audio capture",
-      "status": "planned",
-      "evidence": "Architecture and model research documented.",
-      "gap": "ScreenCaptureKit/dual-track capture, consent UX and test corpus needed.",
+      "status": "experimental",
+      "evidence": "ScreenCaptureKit desktop audio and optional separate microphone track on macOS 15+. Timestamp-preserving FFmpeg mix, PCM conversion/gap/tail tests, raw-track recovery and partial-capture warnings.",
+      "gap": "Mac remains locked: physical screen-recording/microphone permission, playback capture, route loss, echo and end-to-end acceptance are untested. Requires local FFmpeg. One-hour capture cap.",
       "priority": "P1"
     },
     {
-      "feature": "Speaker diarization and meeting summaries",
+      "feature": "Speaker diarization",
       "status": "experimental",
-      "evidence": "Local Nemotron 3 Diarization 8-bit plus Parakeet/Whisper word attribution; four natural AMI headset-mix prefixes with pinned only_words reference and transparent DER.",
-      "gap": "Attribution errors remain substantial; overlap is flagged, not separated. Meeting summaries and native capture acceptance remain.",
+      "evidence": "Local Nemotron 3 Diarization 8-bit with Parakeet/Whisper word attribution. Four natural AMI headset-mix prefixes with pinned only_words reference; upstream float32 MPS control has similarly high DER.",
+      "gap": "Attribution errors remain substantial (about 30–37% DER without collar on these prefixes). Overlap flagged, not separated. Native capture acceptance pending.",
+      "priority": "P1"
+    },
+    {
+      "feature": "Local extractive meeting notes",
+      "status": "experimental",
+      "evidence": "Local Qwen3 4B selects numbered original excerpts; source spans and source hash validated. Four synthetic deadline/number/negation/injection cases retained every required sentinel; invalid IDs fail closed.",
+      "gap": "Exact quotations prevent generated facts, but selection can omit context and commitments. This is an extractive aid, not a full abstractive meeting summary. Natural-meeting relevance and native interaction acceptance remain.",
       "priority": "P1"
     },
     {

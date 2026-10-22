@@ -1,4 +1,5 @@
 import Foundation
+import NaturalLanguage
 
 public enum WritingMode: String, Codable, CaseIterable, Identifiable, Sendable {
     case verbatim, clean, email, bullets, code, translate, custom, assistant
@@ -81,11 +82,13 @@ public struct Transcript: Codable, Identifiable, Sendable {
     public var latencyMS: Double
     public var segments: [Segment]
     public var words: [Segment]?
+    public var warning: String?
+    public var notes: MeetingNotes?
     public var source: String
     public init(rawText: String, text: String, model: String, mode: WritingMode, app: String = "",
-                duration: Double, latencyMS: Double, segments: [Segment] = [], words: [Segment]? = nil, source: String = "dictation") {
+                duration: Double, latencyMS: Double, segments: [Segment] = [], words: [Segment]? = nil, warning: String? = nil, source: String = "dictation") {
         self.rawText = rawText; self.text = text; self.model = model; self.mode = mode; self.app = app
-        self.duration = duration; self.latencyMS = latencyMS; self.segments = segments; self.words = words; self.source = source
+        self.duration = duration; self.latencyMS = latencyMS; self.segments = segments; self.words = words; self.warning = warning; self.source = source
     }
 }
 
@@ -108,6 +111,7 @@ public struct OSprSettings: Codable, Sendable {
     public var retentionDays = 30 // 0 = forever
     public var autoPaste = true
     public var restoreClipboard = true
+    public var allowUnverifiedPaste = false
     public var spokenPunctuation = false
     public var silenceTrim = true
     public var silenceThreshold = 0.003
@@ -120,7 +124,7 @@ public struct OSprSettings: Codable, Sendable {
     public var speakerLabels = false
     public var launchAtLogin = false
     public var rootPath = ""
-    private enum CodingKeys: String, CodingKey { case model, language, mode, rewriteProvider, rewriteURL, rewriteModel, transcriptionProvider, transcriptionURL, transcriptionModel, customPrompt, translationLanguage, vocabulary, replacements, profiles, saveHistory, retentionDays, autoPaste, restoreClipboard, spokenPunctuation, silenceTrim, silenceThreshold, autoStopSeconds, pushToTalk, hotkeyCode, hotkeyModifiers, microphoneID, preview, speakerLabels, launchAtLogin, rootPath }
+    private enum CodingKeys: String, CodingKey { case model, language, mode, rewriteProvider, rewriteURL, rewriteModel, transcriptionProvider, transcriptionURL, transcriptionModel, customPrompt, translationLanguage, vocabulary, replacements, profiles, saveHistory, retentionDays, autoPaste, restoreClipboard, allowUnverifiedPaste, spokenPunctuation, silenceTrim, silenceThreshold, autoStopSeconds, pushToTalk, hotkeyCode, hotkeyModifiers, microphoneID, preview, speakerLabels, launchAtLogin, rootPath }
     public init() {}
     public init(from decoder: Decoder) throws {
         self.init()
@@ -143,6 +147,7 @@ public struct OSprSettings: Codable, Sendable {
         retentionDays = try c.decodeIfPresent(type(of: retentionDays), forKey: .retentionDays) ?? retentionDays
         autoPaste = try c.decodeIfPresent(type(of: autoPaste), forKey: .autoPaste) ?? autoPaste
         restoreClipboard = try c.decodeIfPresent(type(of: restoreClipboard), forKey: .restoreClipboard) ?? restoreClipboard
+        allowUnverifiedPaste = try c.decodeIfPresent(Bool.self, forKey: .allowUnverifiedPaste) ?? false
         spokenPunctuation = try c.decodeIfPresent(type(of: spokenPunctuation), forKey: .spokenPunctuation) ?? spokenPunctuation
         silenceTrim = try c.decodeIfPresent(type(of: silenceTrim), forKey: .silenceTrim) ?? silenceTrim
         silenceThreshold = try c.decodeIfPresent(type(of: silenceThreshold), forKey: .silenceThreshold) ?? silenceThreshold
@@ -169,7 +174,7 @@ public struct OSprSettings: Codable, Sendable {
 }
 
 public enum TextPipeline {
-    public static func process(_ input: String, mode: WritingMode, replacements: [Replacement], spokenPunctuation: Bool) -> String {
+    public static func process(_ input: String, mode: WritingMode, replacements: [Replacement], spokenPunctuation: Bool, language: String = "") -> String {
         var text = input.trimmingCharacters(in: .whitespacesAndNewlines)
         // Longest phrases first; replacements are applied simultaneously. Expanded
         // snippets must never trigger other replacement rules in the same pass.
@@ -195,8 +200,19 @@ public enum TextPipeline {
                 .replacingOccurrences(of: "[ \\t]*\\n[ \\t]*", with: "\n", options: .regularExpression)
         }
         if mode == .clean {
-            text = text.replacingOccurrences(of: "(?i)(?<![\\p{L}\\p{N}_])(?:um+|uh+|erm+)(?![\\p{L}\\p{N}_])[, ]*", with: "", options: .regularExpression)
-                .replacingOccurrences(of: "[ \\t]{2,}", with: " ", options: .regularExpression)
+            // "um" is an ordinary German/Portuguese word. Limit these English
+            // filler rules to confidently identified English, and preserve
+            // compounds such as "uh-oh". Verbatim is always available.
+            let filler = "(?i)(?<![\\p{L}\\p{N}_'’-])(?:um+|uh+|erm+)(?![\\p{L}\\p{N}_'’-])[, ]*"
+            if text.range(of: filler, options: .regularExpression) != nil {
+                let recognizer = NLLanguageRecognizer()
+                recognizer.processString(text)
+                let hint = language.lowercased().replacingOccurrences(of: "_", with: "-").split(separator: "-").first.map(String.init) ?? ""
+                if hint == "en" || (hint.isEmpty && (recognizer.languageHypotheses(withMaximum: 3)[.english] ?? 0) >= 0.8) {
+                    text = text.replacingOccurrences(of: filler, with: "", options: .regularExpression)
+                }
+            }
+            text = text.replacingOccurrences(of: "[ \\t]{2,}", with: " ", options: .regularExpression)
         }
         return text.trimmingCharacters(in: .whitespacesAndNewlines)
     }
@@ -212,7 +228,8 @@ public enum TranscriptExport {
         let segments = transcript.segments.isEmpty ? [Segment(start: 0, end: transcript.duration, text: transcript.rawText)] : transcript.segments
         return (vtt ? "WEBVTT\n\n" : "") + segments.enumerated().map { i, s in
             let separator = vtt ? "." : ","
-            return "\(i + 1)\n\(timestamp(s.start, separator: separator)) --> \(timestamp(s.end, separator: separator))\n\(s.speaker.map { "Speaker \($0 + 1): " } ?? "")\(s.text.trimmingCharacters(in: .whitespacesAndNewlines))\n"
+            let label = !(s.overlapSpeakers ?? []).isEmpty ? "Overlapping speakers: " : s.speaker.map { "Speaker \($0 + 1): " } ?? ""
+            return "\(i + 1)\n\(timestamp(s.start, separator: separator)) --> \(timestamp(s.end, separator: separator))\n\(label)\(s.text.trimmingCharacters(in: .whitespacesAndNewlines))\n"
         }.joined(separator: "\n")
     }
 }

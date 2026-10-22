@@ -21,7 +21,7 @@ rsync -a --exclude='__pycache__' backend/ospr_backend "$resources/Engine/backend
 cp pyproject.toml uv.lock "$resources/Engine/"
 # Install with the bundled interpreter. Replace uv's absolute Python symlink with
 # a relative launcher afterward; a moved .app must never use the build machine.
-MACOSX_DEPLOYMENT_TARGET="$minimum_macos" uv sync --python-platform aarch64-apple-darwin --project "$resources/Engine" --frozen --python "$PWD/$resources/Python/bin/python3.12" --extra engines --no-dev
+MACOSX_DEPLOYMENT_TARGET="$minimum_macos" uv sync --python-platform aarch64-apple-darwin --project "$resources/Engine" --frozen --python "$PWD/$resources/Python/bin/python3.12" --extra engines --extra mcp --no-dev
 rm "$resources/Engine/.venv/bin/python"
 cat > "$resources/Engine/.venv/bin/python" <<'LAUNCHER'
 #!/bin/bash

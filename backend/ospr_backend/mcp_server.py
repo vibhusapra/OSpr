@@ -28,18 +28,31 @@ def list_models() -> str:
 
 
 @server.tool()
-def transcribe_file(path: str, model: str = "parakeet-v3", language: str = "", vocabulary: str = "") -> str:
+def transcribe_file(
+    path: str,
+    model: str = "parakeet-v3",
+    language: str = "",
+    vocabulary: str = "",
+    speaker_labels: bool = False,
+) -> str:
     """Transcribe a user-specified LOCAL audio file; no upload or microphone capture.
 
     path must be an absolute local file path. Available models are returned by
     list_models. Local model weights download from Hugging Face on first use.
+    speaker_labels enables experimental local anonymous diarization and word
+    timing with Parakeet or Whisper; it does not identify people or separate overlap.
     """
     from pathlib import Path
 
     if not Path(path).is_absolute() or model not in PUBLIC_MODELS:
         raise ValueError("Provide an absolute audio path and a supported model ID.")
     with gpu_lock, redirect_stdout(sys.stderr):
-        return json.dumps(engine.transcribe(path, model, language or None, vocabulary[:16000]))
+        result = (
+            engine.meeting(path, model, language or None, vocabulary[:16000])
+            if speaker_labels
+            else engine.transcribe(path, model, language or None, vocabulary[:16000])
+        )
+        return json.dumps(result)
 
 
 @server.tool()
