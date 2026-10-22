@@ -1,10 +1,24 @@
 {
-  "timestamp": "2026-10-22T09:46:41.496728+00:00",
+  "timestamp": "2026-10-22T11:55:03.869715+00:00",
   "status": "passed",
-  "boundary": "Moved app bundle, hostile PYTHONPATH, temporary cwd, bundled interpreter and all five ASR engines offline. Native microphone/UI not exercised.",
+  "boundary": "Copied app path with spaces, hostile PYTHONPATH, foreign cwd, offline bundled interpreter/worker, all five ASR engines, source-excerpt notes, speaker word attribution, clocked track mix and MCP tool listing. Native microphone, permissions and UI not exercised.",
   "fixture_id": "1272-128104-0000",
   "fixture_sha256": "799f78ed4beb4de7ceae3a809262d4ce242394342ccd1d58cef7d49dbc2def46",
+  "executable_sha256": "ee82ca467ef97e98fb26436349d04264204357a0d01a4d4c2217652900d63cec",
+  "build": {
+    "version": "0.1.0",
+    "built_at": "2026-10-22T11:53:57.905846+00:00",
+    "git_commit": "e2655715dcce92a098f3cb626300f84e85ff8603",
+    "tracked_changes": false,
+    "application_source_sha256": "2d2b0256a928daba6361dc21a7531a04ad8f0919ad3925426235c70414811cd5",
+    "boundary": "Development build; ad-hoc signature; weights downloaded separately."
+  },
   "interpreter_and_mlx_inside_bundle": true,
+  "mcp_tools": [
+    "list_models",
+    "rewrite_text",
+    "transcribe_file"
+  ],
   "results": [
     {
       "id": "parakeet-v3",
@@ -21,15 +35,16 @@
             "text": " mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."
           }
         ],
+        "words": [],
         "language": "en",
         "silence": false,
         "warm": false,
-        "load_ms": 850.9692910593003,
-        "preprocess_ms": 0.822708010673523,
-        "decode_ms": 563.0954579683021,
-        "total_ms": 1414.8935000412166,
-        "peak_gpu_bytes": 2038098284,
-        "active_gpu_bytes": 1296132300,
+        "load_ms": 779.8460000194609,
+        "preprocess_ms": 0.7992920000106096,
+        "decode_ms": 520.968500059098,
+        "total_ms": 1301.619292004034,
+        "peak_gpu_bytes": 3013599706,
+        "active_gpu_bytes": 1296115916,
         "vocabulary_applied": false,
         "timestamp_granularity": "segment"
       }
@@ -49,13 +64,14 @@
             "text": "Mr. Quilter is the apostle of the middle classes and we are glad to welcome his gospel."
           }
         ],
+        "words": [],
         "language": "en",
         "silence": false,
         "warm": false,
-        "load_ms": 91.22325002681464,
-        "preprocess_ms": 0.6130409892648458,
-        "decode_ms": 404.7159160254523,
-        "total_ms": 496.56150001101196,
+        "load_ms": 97.24574990104884,
+        "preprocess_ms": 0.6013329839333892,
+        "decode_ms": 391.54049998614937,
+        "total_ms": 489.39437500666827,
         "peak_gpu_bytes": 2556663702,
         "active_gpu_bytes": 1618309810,
         "vocabulary_applied": false,
@@ -77,13 +93,14 @@
             "text": "Mr. Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."
           }
         ],
+        "words": [],
         "language": "en",
         "silence": false,
         "warm": false,
-        "load_ms": 97.9979169787839,
-        "preprocess_ms": 0.7862909696996212,
-        "decode_ms": 128.00879206042737,
-        "total_ms": 226.79933300241828,
+        "load_ms": 109.67912490013987,
+        "preprocess_ms": 0.7088750135153532,
+        "decode_ms": 131.77904195617884,
+        "total_ms": 242.1742919832468,
         "peak_gpu_bytes": 1447410502,
         "active_gpu_bytes": 484088562,
         "vocabulary_applied": false,
@@ -105,15 +122,16 @@
             "text": "Mr. Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."
           }
         ],
+        "words": [],
         "language": [
           "en"
         ],
         "silence": false,
         "warm": false,
-        "load_ms": 4461.59008401446,
-        "preprocess_ms": 0.5764999659731984,
-        "decode_ms": 502.8510839911178,
-        "total_ms": 4965.022790944204,
+        "load_ms": 4355.919957975857,
+        "preprocess_ms": 0.5647080251947045,
+        "decode_ms": 515.3081660391763,
+        "total_ms": 4871.79833301343,
         "peak_gpu_bytes": 3499426694,
         "active_gpu_bytes": 2492459500,
         "vocabulary_applied": false,
@@ -135,17 +153,225 @@
             "text": "Mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."
           }
         ],
+        "words": [],
         "language": "en",
         "silence": false,
         "warm": false,
-        "load_ms": 145.304000005126,
-        "preprocess_ms": 0.7518340134993196,
-        "decode_ms": 132.71641707979143,
-        "total_ms": 278.7782090017572,
-        "peak_gpu_bytes": 986287650,
+        "load_ms": 141.58583304379135,
+        "preprocess_ms": 0.7471669232472777,
+        "decode_ms": 138.12399993184954,
+        "total_ms": 280.4639999521896,
+        "peak_gpu_bytes": 986238498,
         "active_gpu_bytes": 797418506,
         "vocabulary_applied": false,
         "timestamp_granularity": "utterance"
+      }
+    },
+    {
+      "id": "notes",
+      "ok": true,
+      "result": {
+        "excerpts": [
+          {
+            "id": 0,
+            "text": "Do not ship on Friday.",
+            "start": 0,
+            "end": 22
+          },
+          {
+            "id": 1,
+            "text": "Priya will send the review on Monday.",
+            "start": 23,
+            "end": 60
+          },
+          {
+            "id": 2,
+            "text": "The proposed price is $12.50.",
+            "start": 61,
+            "end": 90
+          }
+        ],
+        "source_characters": 90,
+        "chunks": 1,
+        "limitations": "Exact excerpts, selected by a model. May miss context, decisions or commitments; review the full transcript.",
+        "model": "mlx-community/Qwen3-4B-Instruct-2507-4bit",
+        "total_ms": 880.0530419684947
+      }
+    },
+    {
+      "id": "speakers",
+      "ok": true,
+      "result": {
+        "model": "parakeet-v3",
+        "audio_seconds": 5.855,
+        "speech_seconds": 5.855,
+        "text": "Speaker 1: mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+        "segments": [
+          {
+            "start": 0.24,
+            "end": 5.84,
+            "text": "mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+            "overlapSpeakers": [],
+            "speaker": 0
+          }
+        ],
+        "words": [
+          {
+            "start": 0.24,
+            "end": 0.64,
+            "text": "mister",
+            "overlapSpeakers": [],
+            "speaker": 0
+          },
+          {
+            "start": 0.64,
+            "end": 1.3599999999999999,
+            "text": "Quilter",
+            "overlapSpeakers": [],
+            "speaker": 0
+          },
+          {
+            "start": 1.36,
+            "end": 1.52,
+            "text": "is",
+            "overlapSpeakers": [],
+            "speaker": 0
+          },
+          {
+            "start": 1.52,
+            "end": 1.6,
+            "text": "the",
+            "overlapSpeakers": [],
+            "speaker": 0
+          },
+          {
+            "start": 1.6,
+            "end": 2.16,
+            "text": "apostle",
+            "overlapSpeakers": [],
+            "speaker": 0
+          },
+          {
+            "start": 2.16,
+            "end": 2.24,
+            "text": "of",
+            "overlapSpeakers": [],
+            "speaker": 0
+          },
+          {
+            "start": 2.24,
+            "end": 2.4000000000000004,
+            "text": "the",
+            "overlapSpeakers": [],
+            "speaker": 0
+          },
+          {
+            "start": 2.4,
+            "end": 2.64,
+            "text": "middle",
+            "overlapSpeakers": [],
+            "speaker": 0
+          },
+          {
+            "start": 2.72,
+            "end": 3.2800000000000002,
+            "text": "classes,",
+            "overlapSpeakers": [],
+            "speaker": 0
+          },
+          {
+            "start": 3.2800000000000002,
+            "end": 3.4400000000000004,
+            "text": "and",
+            "overlapSpeakers": [],
+            "speaker": 0
+          },
+          {
+            "start": 3.44,
+            "end": 3.6,
+            "text": "we",
+            "overlapSpeakers": [],
+            "speaker": 0
+          },
+          {
+            "start": 3.6,
+            "end": 3.7600000000000002,
+            "text": "are",
+            "overlapSpeakers": [],
+            "speaker": 0
+          },
+          {
+            "start": 3.7600000000000002,
+            "end": 4.08,
+            "text": "glad",
+            "overlapSpeakers": [],
+            "speaker": 0
+          },
+          {
+            "start": 4.08,
+            "end": 4.24,
+            "text": "to",
+            "overlapSpeakers": [],
+            "speaker": 0
+          },
+          {
+            "start": 4.24,
+            "end": 4.720000000000001,
+            "text": "welcome",
+            "overlapSpeakers": [],
+            "speaker": 0
+          },
+          {
+            "start": 4.72,
+            "end": 4.96,
+            "text": "his",
+            "overlapSpeakers": [],
+            "speaker": 0
+          },
+          {
+            "start": 4.96,
+            "end": 5.84,
+            "text": "gospel.",
+            "overlapSpeakers": [],
+            "speaker": 0
+          }
+        ],
+        "language": "en",
+        "silence": false,
+        "warm": false,
+        "load_ms": 86.85024990700185,
+        "preprocess_ms": 0.5275000585243106,
+        "decode_ms": 113.68641699664295,
+        "total_ms": 544.9489579768851,
+        "peak_gpu_bytes": 4445090460,
+        "active_gpu_bytes": 3668634072,
+        "vocabulary_applied": false,
+        "timestamp_granularity": "recognizer-word",
+        "raw_text": "mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+        "speaker_turns": [
+          {
+            "start": 0.5,
+            "end": 5.51,
+            "speaker": 0
+          }
+        ],
+        "num_speakers": 1,
+        "diarization_ms": 295.83891690708697,
+        "limitations": [
+          "Anonymous within-recording labels, not identity recognition.",
+          "Overlapping speech is flagged, not separated; ASR can omit simultaneous words.",
+          "Word timing is recognizer alignment, not a manually verified reference."
+        ]
+      }
+    },
+    {
+      "id": "mix",
+      "ok": true,
+      "result": {
+        "path": "/private/var/folders/p0/pvbw136x5yj_6yybdln6w60c0000gn/T/ospr-portable-dnmv3x86/mixed.wav",
+        "audio_seconds": 6.105,
+        "tracks": 2,
+        "description": "Presentation-clock aligned local tracks; equal-weight mix, no echo cancellation."
       }
     }
   ]

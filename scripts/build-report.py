@@ -66,7 +66,7 @@ optimizations = [
     (
         "Resident ASR + refiner",
         "Implemented",
-        "Keep one ASR and one optional text model loaded; explicit model loading also primes kernels with synthetic audio, discarding output.",
+        "Keep one ASR and one optional text model loaded; avoid process and model startup on each turn.",
         "Cold vs warm p50/p95 and RSS; separate first download/JIT.",
         "Native CLI, engine benchmark and paired fresh-process priming",
     ),
@@ -127,11 +127,11 @@ optimizations = [
         "Replay harness; microphone acceptance pending",
     ),
     (
-        "Hardware-aware deployment",
-        "Partly implemented / next",
-        "Pinned packages/weights, cache-first offline loads, bounded model residency. Next: Core ML/ANE alternative, thermal-aware scheduling and calibrated quantization.",
-        "M1/M2/M4/M5 and 8/16/32GB matrix; joules/minute, idle draw, pressure and sustained p95.",
-        "Only this M5 Max measured; no battery/energy claim",
+        "Prime kernels before recording",
+        "Implemented",
+        "Explicit model loading decodes a one-second synthetic tone and discards the result, moving first-use kernel work before the next real turn.",
+        "Three paired fresh processes per model; compare first-real latency, preparation cost and identical outputs. Work is shifted, not removed.",
+        "Fresh-process warmup harness; one-clip scope",
     ),
 ]
 optimization_rows = "".join(

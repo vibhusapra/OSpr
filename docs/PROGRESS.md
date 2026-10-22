@@ -33,6 +33,9 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
   42-item acceptance ledger, model strategy, ten optimization tracks, training plan.
 - [x] Relocatable app bundle; all five engines passed offline after moving it to
   a path with spaces, from a temporary cwd and with an unrelated PYTHONPATH.
+- [x] Portable app rechecked after capture/notes changes: five offline ASR engines,
+  exact-source notes, speaker word attribution, clocked track mixing and MCP.
+  Receipt includes the native executable hash and application build provenance.
 - [x] Apache 2.0 code license, attribution notice and macOS CI configuration.
 
 ## Verification and evidence
