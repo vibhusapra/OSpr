@@ -11,7 +11,7 @@ import OSprCore
     @Published var loading = false
     @Published var speed = 1.0
     @Published var error = ""
-    private let player = AVPlayer()
+    private var player: AVPlayer?
     private var timeObserver: Any?
     private var statusObserver: NSKeyValueObservation?
     private var endObserver: NSObjectProtocol?
@@ -35,6 +35,8 @@ import OSprCore
             guard length.isFinite, length > 0, !tracks.isEmpty else { throw OSprError.message("This retained file has no playable audio.") }
             duration = length
             let item = AVPlayerItem(asset: asset)
+            let player = AVPlayer()
+            self.player = player
             player.actionAtItemEnd = .pause
             player.allowsExternalPlayback = false
             statusObserver = item.observe(\.status, options: [.initial, .new]) { [weak self] item, _ in
@@ -58,7 +60,7 @@ import OSprCore
                 MainActor.assumeIsolated {
                     guard let self, self.generation == token else { return }
                     if !self.seekPending && time.seconds.isFinite { self.position = min(self.duration, max(0, time.seconds)) }
-                    self.playing = self.player.timeControlStatus == .playing
+                    self.playing = self.player?.timeControlStatus == .playing
                 }
             }
         } catch {
@@ -66,14 +68,14 @@ import OSprCore
         }
     }
     func toggle() {
-        guard ready else { return }
+        guard ready, let player else { return }
         if playing { pause() }
         else if position >= duration - 0.05 { seek(to: 0, play: true) }
         else { transportRevision &+= 1; player.playImmediately(atRate: Float(speed)); playing = true }
     }
-    func pause() { transportRevision &+= 1; player.pause(); playing = false }
+    func pause() { transportRevision &+= 1; player?.pause(); playing = false }
     func seek(to seconds: Double, play: Bool = false) {
-        guard ready else { return }
+        guard ready, let player else { return }
         let value = AudioTimeline.clamp(seconds, duration: duration)
         let token = generation
         seekRevision &+= 1; transportRevision &+= 1
@@ -83,26 +85,26 @@ import OSprCore
             Task { @MainActor [weak self] in
                 guard let self, self.generation == token, self.seekRevision == seekToken else { return }
                 self.seekPending = false
-                if completed, play, self.transportRevision == transportToken { self.player.playImmediately(atRate: Float(self.speed)); self.playing = true }
+                if completed, play, self.transportRevision == transportToken { self.player?.playImmediately(atRate: Float(self.speed)); self.playing = true }
             }
         }
     }
     func setSpeed(_ value: Double) {
         speed = min(2, max(0.5, value.isFinite ? value : 1))
-        if playing { player.rate = Float(speed) }
+        if playing { player?.rate = Float(speed) }
     }
     func stop() {
-        generation = UUID(); seekRevision &+= 1; transportRevision &+= 1; seekPending = false; player.pause()
-        if let timeObserver { player.removeTimeObserver(timeObserver) }
+        generation = UUID(); seekRevision &+= 1; transportRevision &+= 1; seekPending = false; player?.pause()
+        if let timeObserver { player?.removeTimeObserver(timeObserver) }
         timeObserver = nil; statusObserver = nil
         if let endObserver { NotificationCenter.default.removeObserver(endObserver) }; endObserver = nil
-        player.replaceCurrentItem(with: nil)
+        player?.replaceCurrentItem(with: nil); player = nil
         position = 0; duration = 0; playing = false; ready = false; loading = false; error = ""
         fileName = nil
     }
     deinit {
-        player.pause()
-        if let timeObserver { player.removeTimeObserver(timeObserver) }
+        player?.pause()
+        if let timeObserver { player?.removeTimeObserver(timeObserver) }
         if let endObserver { NotificationCenter.default.removeObserver(endObserver) }
     }
 }

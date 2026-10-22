@@ -114,9 +114,9 @@ import OSprCore
             settings.rootPath = bundledEngine.path
         }
         self.settings = settings.validated()
-        appliedAudioBudget = self.settings.audioBudgetMB
         self.worker = WorkerClient(root: settings.rootPath)
-        do { history = LocalStore.retained(try store.read([Transcript].self, name: "history.json") ?? [], days: settings.retentionDays) } catch { loadError += " History could not be read. Original file was preserved." }
+        appliedAudioBudget = self.settings.audioBudgetMB
+        do { history = LocalStore.retained(try store.read([Transcript].self, name: "history.json") ?? [], days: self.settings.retentionDays) } catch { loadError += " History could not be read. Original file was preserved." }
         do { pending = try recovery.load() } catch { loadError += " " + error.localizedDescription }
         hasRecovery = recovery.exists
         self.error = loadError + (folderWatcher.loadError.isEmpty ? "" : " " + folderWatcher.loadError)
