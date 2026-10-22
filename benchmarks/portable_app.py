@@ -7,13 +7,35 @@ import argparse
 import asyncio
 import datetime
 import hashlib
+from html.parser import HTMLParser
 import json
 from pathlib import Path
 import shutil
 import subprocess
 import tempfile
+from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parent
+
+
+def verify_help_links(app):
+    class Links(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.paths = []
+
+        def handle_starttag(self, tag, attrs):
+            for key, value in attrs:
+                if key in ('href', 'src') and value and not value.startswith('#') and not urlsplit(value).scheme:
+                    self.paths.append(unquote(urlsplit(value).path))
+
+    report = app/'Contents/Resources/Engine/docs/research.html'
+    parser = Links()
+    parser.feed(report.read_text())
+    for path in parser.paths:
+        target = (report.parent/path).resolve()
+        assert target.is_relative_to(app) and target.is_file(), f'Broken bundled help link: {path}'
+    return len(parser.paths)
 
 
 def main():
@@ -30,6 +52,7 @@ def main():
         copied = directory/'OSpr Relocated.app'
         shutil.copytree(app, copied, symlinks=True)
         engine = copied/'Contents/Resources/Engine'
+        help_links = verify_help_links(copied)
         python = engine/'.venv/bin/python'
         audio = directory/'public sample.wav'
         shutil.copyfile(ROOT/item['path'], audio)
@@ -94,6 +117,7 @@ def main():
         signature = subprocess.run(['/usr/bin/codesign','--verify','--deep','--strict',str(copied)], capture_output=True, text=True)
         assert signature.returncode == 0, signature.stderr
         receipt = dict(timestamp=datetime.datetime.now(datetime.UTC).isoformat(), status='passed',
+                       bundled_help_relative_links=help_links,
                        boundary='Copied app path with spaces, hostile PYTHONPATH, foreign cwd, offline bundled interpreter/worker, all six ASR engines, source-excerpt notes, speaker word attribution, clocked track mix, local upload preparation, pinned model inventory/download-only/warm progress and MCP tool listing. Native microphone, permissions and UI not exercised.',
                        fixture_id=item['id'], fixture_sha256=item['sha256'],
                        executable_sha256=hashlib.sha256((app/'Contents/MacOS/OSpr').read_bytes()).hexdigest(),

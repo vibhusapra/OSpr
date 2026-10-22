@@ -32,6 +32,7 @@ def main():
     python_counts = re.findall(r"(?:^|\n)(\d+) passed(?: in|,)", python)
     assert swift_counts and python_counts and not re.search(r"\d+ failed", python)
     receipt = json.loads(args.receipt.read_text())
+    assert receipt.get("bundled_help_relative_links", 0) > 0, "Bundled research/help links were not verified"
     executable_sha = hashlib.sha256((app / "Contents/MacOS/OSpr").read_bytes()).hexdigest()
     assert receipt["status"] == "passed" and receipt["executable_sha256"] == executable_sha, "Portable receipt is for a different app"
     build = json.loads((app / "Contents/Resources/build-info.json").read_text())
