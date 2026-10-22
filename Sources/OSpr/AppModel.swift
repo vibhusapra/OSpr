@@ -13,6 +13,8 @@ import OSprCore
     @Published var history: [Transcript] = []
     @Published var historySaving = false
     @Published var historySaveFailure = ""
+    @Published var audioBytesUsed: Int64 = 0
+    @Published var audioMaintenance = false
     @Published var phase = "idle"
     @Published var status = "Your voice. Your Mac."
     @Published var error = ""
@@ -47,6 +49,8 @@ import OSprCore
     let capture = Capture()
     let hotkey = Hotkey()
     let folderWatcher: FolderWatcher
+    let audioArchive: AudioArchive
+    let audioReview = AudioReviewPlayer()
     private var worker: WorkerClient
     private var savedTranscriptionKey = ""
     private var savedRewriteKey = ""
@@ -59,6 +63,7 @@ import OSprCore
     private let store: LocalStore
     private let historyWriter: HistoryPersistence
     private var historyWriteToken = UUID()
+    private var appliedAudioBudget = 1024
     private let recovery: RecordingRecovery
     private var target: InsertionTarget?
     private var recordingMode: WritingMode = .clean
@@ -71,7 +76,8 @@ import OSprCore
     private var backgroundGeneration: UUID?
     var backgroundImportActive: Bool { backgroundGeneration == generation }
     private var overlay: NSPanel?
-    var busy: Bool { phase != "idle" }
+    var busy: Bool { phase != "idle" || audioMaintenance }
+    var audioBudgetBytes: Int64 { Int64(settings.audioBudgetMB) * 1024 * 1024 }
     var selected: Transcript? { history.first { $0.id == selection } ?? history.first }
     var root: URL { URL(fileURLWithPath: settings.rootPath) }
     var engineBundled: Bool { Bundle.main.resourceURL?.appendingPathComponent("Engine").path == root.path }
@@ -90,6 +96,7 @@ import OSprCore
         do {
             store = try LocalStore(directory: directory)
             historyWriter = try HistoryPersistence(directory: directory)
+            audioArchive = try AudioArchive(directory: directory.appendingPathComponent("Audio"))
             folderWatcher = try FolderWatcher(directory: directory)
             recovery = try RecordingRecovery(directory: directory.appendingPathComponent("Recovery"))
         } catch { fatalError("Cannot create OSpr data folder: \(error.localizedDescription)") }
@@ -107,6 +114,7 @@ import OSprCore
             settings.rootPath = bundledEngine.path
         }
         self.settings = settings.validated()
+        appliedAudioBudget = self.settings.audioBudgetMB
         self.worker = WorkerClient(root: settings.rootPath)
         do { history = LocalStore.retained(try store.read([Transcript].self, name: "history.json") ?? [], days: settings.retentionDays) } catch { loadError += " History could not be read. Original file was preserved." }
         do { pending = try recovery.load() } catch { loadError += " " + error.localizedDescription }
@@ -140,10 +148,23 @@ import OSprCore
         folderWatcher.reportError = { [weak self] error in self?.error = "Watched folder: " + error }
         folderWatcher.start()
         // Persist pruning even when no new recording is made.
-        if loadError.isEmpty { persistHistory() }
+        if loadError.isEmpty {
+            audioMaintenance = true; status = "Checking retained audio…"
+            Task {
+                do {
+                    let keep = settings.saveHistory ? Set(history.compactMap(\.audioFile)) : []
+                    let removed = try await audioArchive.reconcile(keeping: keep, limitBytes: audioBudgetBytes)
+                    applyAudioEvictions(removed)
+                    audioBytesUsed = try await audioArchive.bytesUsed()
+                } catch { self.error = "Audio maintenance: \(error.localizedDescription)" }
+                persistHistory(); audioMaintenance = false
+                if phase == "idle" { status = "Your voice. Your Mac." }
+            }
+        }
         NotificationCenter.default.addObserver(forName: NSApplication.willTerminateNotification, object: nil, queue: .main) { [weak self] _ in
             MainActor.assumeIsolated {
                 self?.preserveOnQuit()
+                self?.audioReview.stop()
                 do { try self?.historyWriter.flush() } catch { self?.error = "Could not save history before quitting: \(error.localizedDescription)" }
                 self?.operationTask?.cancel(); self?.worker.shutdown(); self?.previewTask?.cancel(); self?.discardAudio()
             }
@@ -162,6 +183,10 @@ import OSprCore
             // Apply history privacy even if a separate Keychain/login-item
             // operation later fails after the settings file was saved.
             persistHistory()
+            let budgetChanged = settings.audioBudgetMB != appliedAudioBudget
+            appliedAudioBudget = settings.audioBudgetMB
+            if !settings.saveHistory && audioBytesUsed > 0 { eraseRetainedAudio(showStatus: false) }
+            else if budgetChanged { enforceAudioBudget() }
             // An unavailable/locked Keychain read must not turn a model or mode
             // preference save into a credential deletion. Write only edited keys.
             if transcriptionKey != savedTranscriptionKey || transcriptionKeyScope != savedTranscriptionScope, let scope = transcriptionKeyScope {
@@ -286,6 +311,7 @@ import OSprCore
     }
     func start() {
         guard !busy else { return }
+        audioReview.pause()
         guard !hasRecovery else { error = "Retry, export or discard the unfinished recording first."; tab = "Studio"; return }
         let captured = InsertionTarget.capture()
         if captured.secure { error = "Recording is disabled in password fields."; return }
@@ -411,6 +437,7 @@ import OSprCore
     }
     func startMeeting() {
         guard !busy, !hasRecovery else { return }
+        audioReview.pause()
         guard settings.transcriptionProvider == "local" else { error = "Desktop recording uses local speech. Choose a local provider first."; return }
         guard !settings.speakerLabels || ["parakeet-v3", "whisper-turbo", "whisper-small"].contains(settings.model) else {
             error = "Choose Parakeet or Whisper for speaker labels, or disable labels in Settings."; return
@@ -575,11 +602,45 @@ import OSprCore
         }
     }
 
-    private func transcribe(file: URL, duration: Double, config: OSprSettings, mode: WritingMode, target: InsertionTarget?, source: String, token: UUID, preserveRecoveryOnSaveFailure: Bool = false, resultOverride: [String: Any]? = nil, startedAt: Date = Date()) async -> Bool {
+    private func transcribe(file originalFile: URL, duration: Double, config: OSprSettings, mode: WritingMode, target: InsertionTarget?, source: String, token: UUID, preserveRecoveryOnSaveFailure: Bool = false, resultOverride: [String: Any]? = nil, startedAt: Date = Date()) async -> Bool {
         guard generation == token else { return false }
+        var file = originalFile
+        let recordID = UUID()
+        var archived: ArchivedAudio?
+        var uploadSnapshot: URL?
+        var retentionWarning: String?
+        defer {
+            if let uploadSnapshot { Task { try? await audioArchive.discardUploadSource(uploadSnapshot) } }
+            if let archived {
+                let keep = settings.saveHistory && history.contains { $0.id == recordID && $0.audioFile == archived.name }
+                Task {
+                    do { try await audioArchive.finishLease(archived.name, keep: keep); audioBytesUsed = try await audioArchive.bytesUsed() }
+                    catch { self.error = "Audio cleanup: \(error.localizedDescription)" }
+                }
+            }
+        }
         var recognized = false
         let started = startedAt
         do {
+            if config.keepAudio && config.saveHistory && settings.saveHistory {
+                var staging: URL?
+                do {
+                    let output = try await audioArchive.newStagingURL(); staging = output
+                    if config.transcriptionProvider != "local" { uploadSnapshot = try await audioArchive.snapshotUploadSource(originalFile, limitBytes: Int64(ProviderClient.maximumUploadBytes)) }
+                    status = "Preparing private audio for review…"
+                    let budget = Int64(config.validated().audioBudgetMB) * 1024 * 1024
+                    _ = try await worker.request(["action": "prepare_review", "path": (uploadSnapshot ?? originalFile).path, "output": output.path, "limit_bytes": budget])
+                    guard generation == token else { try? await audioArchive.discardStaging(output); return false }
+                    archived = try await audioArchive.adoptPrepared(output, id: recordID, limitBytes: budget)
+                    if let archived { file = archived.url; applyAudioEvictions(archived.evicted); if !archived.evicted.isEmpty { persistHistory() } }
+                } catch {
+                    if let staging { try? await audioArchive.discardStaging(staging) }
+                    guard generation == token else { return false }
+                    retentionWarning = "Audio was not retained: \(error.localizedDescription)"
+                    self.error = retentionWarning ?? ""
+                }
+            }
+            guard generation == token else { return false }
             let result: [String: Any]
             if let resultOverride { result = resultOverride }
             else if config.transcriptionProvider == "local" {
@@ -588,16 +649,16 @@ import OSprCore
                     "language": config.language, "vocabulary": config.vocabulary, "trim": config.silenceTrim, "threshold": config.silenceThreshold])
             } else {
                 let key = try ProviderCredentialScope.checkedKey(transcriptionKey, boundTo: transcriptionKeyScope, kind: .transcription, base: config.transcriptionURL)
-                var upload = file
+                var upload = uploadSnapshot ?? file
                 var prepared: URL?
                 defer { if let prepared { try? FileManager.default.removeItem(at: prepared) } }
-                if (try file.resourceValues(forKeys: [.fileSizeKey]).fileSize ?? 0) >= ProviderClient.maximumUploadBytes {
+                if (try upload.resourceValues(forKeys: [.fileSizeKey]).fileSize ?? 0) >= ProviderClient.maximumUploadBytes {
                     status = "Preparing smaller audio locally…"
                     let directory = FileManager.default.temporaryDirectory.appendingPathComponent("OSpr", isDirectory: true)
                     try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true, attributes: [.posixPermissions: 0o700])
                     let destination = directory.appendingPathComponent("upload-" + UUID().uuidString + ".wav")
                     prepared = destination
-                    _ = try await worker.request(["action": "prepare_upload", "path": file.path, "output": destination.path])
+                    _ = try await worker.request(["action": "prepare_upload", "path": upload.path, "output": destination.path])
                     guard generation == token else { return false }
                     upload = destination
                 }
@@ -631,7 +692,7 @@ import OSprCore
                         text = beforeRewrite
                         self.error = "Original text retained. \(reason)"
                         if mode == .assistant {
-                            saveResult(raw: raw, text: beforeRewrite, result: result, duration: duration, config: config, mode: mode, source: source, target: target, started: started)
+                            saveResult(raw: raw, text: beforeRewrite, result: result, duration: duration, config: config, mode: mode, source: source, target: target, started: started, id: recordID, audioFile: archived?.name, audioWarning: retentionWarning)
                             return await finishResultStorage(config: config, token: token, preserveRecovery: preserveRecoveryOnSaveFailure)
                         }
                     }
@@ -639,7 +700,7 @@ import OSprCore
                     guard generation == token else { return false }
                     self.error = "Transcription saved; rewrite failed: \(error.localizedDescription)"
                     if mode == .assistant { /* Never replace selected text with an unexecuted editing request. */
-                        saveResult(raw: raw, text: text, result: result, duration: duration, config: config, mode: mode, source: source, target: target, started: started)
+                        saveResult(raw: raw, text: text, result: result, duration: duration, config: config, mode: mode, source: source, target: target, started: started, id: recordID, audioFile: archived?.name, audioWarning: retentionWarning)
                         return await finishResultStorage(config: config, token: token, preserveRecovery: preserveRecoveryOnSaveFailure)
                     }
                 }
@@ -649,7 +710,7 @@ import OSprCore
                 self.error = "\(mode.title) needs a rewrite provider for formatting. This result contains the original transcription."
             }
             guard generation == token else { return false }
-            saveResult(raw: raw, text: text, result: result, duration: duration, config: config, mode: mode, source: source, target: target, started: started)
+            saveResult(raw: raw, text: text, result: result, duration: duration, config: config, mode: mode, source: source, target: target, started: started, id: recordID, audioFile: archived?.name, audioWarning: retentionWarning)
             recognized = true
             if config.autoPaste && source == "dictation", let target { try await target.paste(text, restoreClipboard: config.restoreClipboard, allowUnverified: config.allowUnverifiedPaste) }
         } catch { if generation == token { self.error = error.localizedDescription; status = "Could not finish" } }
@@ -667,7 +728,7 @@ import OSprCore
             return !preserveRecovery && generation == token
         }
     }
-    private func saveResult(raw: String, text: String, result: [String: Any], duration: Double, config: OSprSettings, mode: WritingMode, source: String, target: InsertionTarget?, started: Date) {
+    private func saveResult(raw: String, text: String, result: [String: Any], duration: Double, config: OSprSettings, mode: WritingMode, source: String, target: InsertionTarget?, started: Date, id: UUID, audioFile: String?, audioWarning: String?) {
         let segments = (result["segments"] as? [[String: Any]] ?? []).compactMap { segment -> Segment? in
             guard let start = segment["start"] as? Double, let end = segment["end"] as? Double, let text = segment["text"] as? String else { return nil }
             return Segment(start: start, end: end, text: text, speaker: segment["speaker"] as? Int, overlapSpeakers: segment["overlapSpeakers"] as? [Int])
@@ -676,15 +737,27 @@ import OSprCore
             guard let start = word["start"] as? Double, let end = word["end"] as? Double, let text = word["text"] as? String else { return nil }
             return Segment(start: start, end: end, text: text, speaker: word["speaker"] as? Int, overlapSpeakers: word["overlapSpeakers"] as? [Int])
         }
-        let record = Transcript(rawText: raw, text: text, model: result["model"] as? String ?? config.model, mode: mode,
+        var record = Transcript(rawText: raw, text: text, model: result["model"] as? String ?? config.model, mode: mode,
             app: target?.app?.localizedName ?? "", duration: result["audio_seconds"] as? Double ?? duration,
             latencyMS: Date().timeIntervalSince(started) * 1000, segments: segments, words: words, warning: source == "recovered recording" ? pending?.captureWarning : nil, source: source)
-        history.insert(record, at: 0); selection = record.id
+        record.id = id; record.audioFile = audioFile
+        if let audioWarning { record.warning = [record.warning, audioWarning].compactMap { $0 }.joined(separator: " ") }
+        history.insert(record, at: 0)
+        if !backgroundImportActive || selection == nil { selection = record.id }
         if config.saveHistory { persistHistory() }
         status = "Ready · \(Int(record.latencyMS)) ms"; preview = ""
     }
     private func persistHistory(debounce: Bool = false, allowReset: Bool = false) {
-        history = LocalStore.retained(history, days: settings.retentionDays)
+        let pruning = LocalStore.pruning(history, days: settings.retentionDays)
+        history = pruning.items
+        var removedAudio = pruning.expiredAudio
+        if !settings.saveHistory {
+            for index in history.indices {
+                if let name = history[index].audioFile { removedAudio.insert(name) }
+                history[index].audioFile = nil
+            }
+        }
+        deleteAudioFiles(removedAudio)
         let token = UUID(); historyWriteToken = token
         historySaving = true
         historyWriter.submit(settings.saveHistory ? history : [], delay: debounce ? 0.3 : 0,
@@ -696,10 +769,67 @@ import OSprCore
             }
         }
     }
-    func remove(_ record: Transcript) { history.removeAll { $0.id == record.id }; persistHistory() }
-    func clearHistory() { history.removeAll(); selection = nil; persistHistory(allowReset: true) }
+    func remove(_ record: Transcript) { history.removeAll { $0.id == record.id }; if let audio = record.audioFile { deleteAudioFiles([audio]) }; persistHistory() }
+    func clearHistory() { let audio = Set(history.compactMap(\.audioFile)); history.removeAll(); selection = nil; deleteAudioFiles(audio); persistHistory(allowReset: true) }
     func updateText(_ id: UUID, text: String) { if let index = history.firstIndex(where: { $0.id == id }) { history[index].text = text; persistHistory(debounce: true) } }
     func copy(_ text: String) { NSPasteboard.general.clearContents(); NSPasteboard.general.setString(text, forType: .string); status = "Copied" }
+
+    private func applyAudioEvictions(_ names: Set<String>) {
+        if names.contains(audioReview.fileName ?? "") { audioReview.stop() }
+        for index in history.indices where names.contains(history[index].audioFile ?? "") { history[index].audioFile = nil }
+    }
+    private func deleteAudioFiles(_ names: Set<String>) {
+        guard !names.isEmpty else { return }
+        if names.contains(audioReview.fileName ?? "") { audioReview.stop() }
+        Task {
+            do { try await audioArchive.remove(names); audioBytesUsed = try await audioArchive.bytesUsed() }
+            catch { self.error = "Could not remove retained audio: \(error.localizedDescription)" }
+        }
+    }
+    private func enforceAudioBudget() {
+        guard !busy else { return }
+        audioMaintenance = true
+        Task {
+            defer { audioMaintenance = false }
+            do {
+                let removed = try await audioArchive.trimToBudget(audioBudgetBytes)
+                applyAudioEvictions(removed); if !removed.isEmpty { persistHistory() }
+                audioBytesUsed = try await audioArchive.bytesUsed()
+            } catch { self.error = "Audio budget: \(error.localizedDescription)" }
+        }
+    }
+    func eraseRetainedAudio(showStatus: Bool = true) {
+        guard !busy else { return }
+        audioMaintenance = true; audioReview.stop()
+        Task {
+            defer { audioMaintenance = false }
+            do {
+                try await audioArchive.eraseAll()
+                for index in history.indices { history[index].audioFile = nil }
+                audioBytesUsed = 0; persistHistory()
+                if showStatus { status = "Retained audio removed · transcript text kept" }
+            } catch { self.error = "Could not remove retained audio: \(error.localizedDescription)" }
+        }
+    }
+    func exportRetainedAudio(_ record: Transcript) {
+        guard let name = record.audioFile else { return }
+        let panel = NSSavePanel(); panel.nameFieldStringValue = "OSpr-audio.wav"; panel.allowedContentTypes = [.wav]
+        guard panel.runModal() == .OK, let destination = panel.url else { return }
+        Task {
+            do {
+                guard let source = try await audioArchive.resolve(name: name, id: record.id) else { throw OSprError.message("Retained audio is no longer available.") }
+                try await Task.detached(priority: .utility) {
+                    let fm = FileManager.default
+                    let temporary = destination.deletingLastPathComponent().appendingPathComponent(".ospr-export-" + UUID().uuidString + ".wav")
+                    defer { try? fm.removeItem(at: temporary) }
+                    try fm.copyItem(at: source, to: temporary)
+                    if fm.fileExists(atPath: destination.path) { _ = try fm.replaceItemAt(destination, withItemAt: temporary) }
+                    else { try fm.moveItem(at: temporary, to: destination) }
+                }.value
+                status = "Audio exported"
+            } catch { self.error = "Audio export failed: \(error.localizedDescription)" }
+        }
+    }
 
     func generateNotes(_ record: Transcript) {
         guard !busy else { return }

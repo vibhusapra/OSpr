@@ -47,6 +47,7 @@ def main():
                      dict(action='download_model', model='whisper-small', id='download-cached'),
                      dict(action='model_status', id='status-after'),
                      dict(action='warm', model='parakeet-v3', id='warm-progress'),
+                     dict(action='prepare_review', path=str(audio), output=str(directory/'review.wav'), limit_bytes=1024**2, id='prepare-review'),
                      dict(action='ping', id='final-ping')]
         process = subprocess.run([str(python), '-u', '-m', 'ospr_backend.worker'], input=''.join(json.dumps(r)+'\n' for r in requests), capture_output=True, text=True, cwd=directory, env=environment, timeout=300)
         frames = [json.loads(line) for line in process.stdout.splitlines()]
@@ -65,6 +66,7 @@ def main():
         assert replies[12]['result']['complete'] and replies[14]['ok']
         assert all(event['id'] in {'download-cached', 'warm-progress'} for event in events)
         assert any(event['id'] == 'warm-progress' and event['progress']['phase'] == 'priming' for event in events)
+        assert replies[15]['result']['source_unchanged'] and (directory/'review.wav').is_file()
         info = subprocess.check_output([str(python), '-c', 'import sys, mlx.core; print(sys.prefix); print(mlx.core.__file__)'], cwd=directory, env=environment, text=True)
         assert str(copied) in info and str(ROOT.parent/'.venv') not in info, info
         cli = copied/'Contents/MacOS/ospr-cli'
@@ -74,6 +76,10 @@ def main():
         linked.symlink_to(cli)
         symlinked = subprocess.run([str(linked), 'doctor'], capture_output=True, text=True, cwd=directory, env=environment, timeout=30)
         assert symlinked.returncode == 0 and 'parakeet-v3' in json.loads(symlinked.stdout)['models'], symlinked.stderr
+        review = subprocess.run([str(cli), 'verify-audio-review', str(audio)], capture_output=True, text=True, cwd=directory, env=environment, timeout=60)
+        assert review.returncode == 0, review.stderr
+        review_result = json.loads(review.stdout)
+        assert review_result['status'] == 'passed' and review_result['history_and_archive_restart']
 
         async def check_mcp():
             from mcp import Client, StdioServerParameters
@@ -93,7 +99,7 @@ def main():
                        executable_sha256=hashlib.sha256((app/'Contents/MacOS/OSpr').read_bytes()).hexdigest(),
                        build=json.loads((app/'Contents/Resources/build-info.json').read_text()),
                        interpreter_and_mlx_inside_bundle=True, bundled_cli_foreign_cwd=True, signature_valid_after_inference=True,
-                       poisoned_pythonpath_and_cwd_ignored=True, mcp_tools=mcp_tools, model_progress_events=events, results=replies[1:-1])
+                       poisoned_pythonpath_and_cwd_ignored=True, mcp_tools=mcp_tools, model_progress_events=events, native_audio_review=review_result, results=replies[1:-1])
         args.output.write_text(json.dumps(receipt,indent=2,ensure_ascii=False)+'\n')
         print(json.dumps(dict(status='passed', models=models, extras=['notes','speakers','mix','prepare-upload','mcp'], output=str(args.output)),indent=2))
 

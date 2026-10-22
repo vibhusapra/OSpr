@@ -269,6 +269,7 @@ struct HistoryView: View {
                     }
                     HStack(spacing: 16) { Label(record.model, systemImage: "cpu"); Text(record.mode.title); Text(String(format: "%.1fs audio · %.2fs processing", record.duration, record.latencyMS / 1000)) }.font(.caption).foregroundStyle(.secondary)
                     if let warning = record.warning { Label(warning, systemImage: "exclamationmark.triangle").font(.caption).foregroundStyle(.orange) }
+                    if record.audioFile != nil { AudioReviewView(model: model, record: record) }
                     TextEditor(text: Binding(get: { model.history.first { $0.id == record.id }?.text ?? record.text }, set: { model.updateText(record.id, text: $0) })).font(.system(size: 16)).lineSpacing(6).padding(10).background(Color(nsColor: .textBackgroundColor), in: RoundedRectangle(cornerRadius: 12))
                     DisclosureGroup("Original transcript · subtitle exports use original timing") { Text(record.rawText).font(.caption).foregroundStyle(.secondary).textSelection(.enabled).frame(maxWidth: .infinity, alignment: .leading) }
                     if let notes = record.notes, notes.matches(record.rawText) {
@@ -414,6 +415,7 @@ struct ModesView: View {
 
 struct PreferencesView: View {
     @ObservedObject var model: AppModel
+    @State private var confirmEraseAudio = false
     var body: some View {
         Form {
             Section("Capture") {
@@ -470,6 +472,18 @@ struct PreferencesView: View {
             WatchedFolderPreferences(model: model, watcher: model.folderWatcher)
             Section("Privacy & storage") {
                 Toggle("Save transcript history", isOn: $model.settings.saveHistory)
+                Toggle("Keep audio for transcript review", isOn: $model.settings.keepAudio).disabled(!model.settings.saveHistory)
+                if model.settings.keepAudio {
+                    Picker("Retained audio budget", selection: $model.settings.audioBudgetMB) {
+                        Text("256 MB").tag(256); Text("1 GB").tag(1024); Text("4 GB").tag(4096); Text("8 GB").tag(8192)
+                    }.disabled(!model.settings.saveHistory)
+                }
+                HStack {
+                    Text(ByteCountFormatter.string(fromByteCount: model.audioBytesUsed, countStyle: .file) + " retained locally").font(.caption).foregroundStyle(.secondary)
+                    Spacer()
+                    Button("Delete retained audio…", role: .destructive) { confirmEraseAudio = true }
+                }
+                Text("Audio retention is off by default. When enabled, OSpr keeps normalized audio without imported video or tags. Oldest clips are removed when the budget fills; deleting or expiring history also removes its audio. Turning retention off affects future transcripts; existing clips follow history retention until deleted.").font(.caption).foregroundStyle(.secondary)
                 Picker("Keep saved history", selection: $model.settings.retentionDays) { Text("1 day").tag(1); Text("7 days").tag(7); Text("30 days").tag(30); Text("90 days").tag(90); Text("Forever").tag(0) }
                 Text("Turning off saving removes persisted history when you save preferences. Current-session results remain visible until quit. Completed takes are kept in a private recovery slot until transcription succeeds or you discard them. History is stored as local JSON; use FileVault for disk encryption.").font(.caption).foregroundStyle(.secondary)
                 Toggle("Launch OSpr at login", isOn: $model.settings.launchAtLogin)
@@ -484,6 +498,7 @@ struct PreferencesView: View {
             }
             Button("Save preferences") { model.saveOSprSettings() }.buttonStyle(.borderedProminent)
         }.formStyle(.grouped).disabled(model.busy)
+            .confirmationDialog("Delete all retained audio? Transcript text will be kept.", isPresented: $confirmEraseAudio) { Button("Delete retained audio", role: .destructive) { model.eraseRetainedAudio() } }
     }
 }
 

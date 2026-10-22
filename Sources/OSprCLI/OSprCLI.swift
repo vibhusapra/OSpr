@@ -12,6 +12,9 @@ import OSprCore
             let result: [String: Any]
             switch command {
             case "doctor": result = try await worker.request(["action": "ping"])
+            case "verify-audio-review":
+                guard args.count > 1 else { usage(); exit(2) }
+                result = try await AudioReviewCheck.run(source: URL(fileURLWithPath: args[1]), worker: worker)
             case "benchmark-history": result = try await HistoryBenchmark.run(rows: args.count > 1 ? Int(args[1]) ?? 10_000 : 10_000, edits: args.count > 2 ? Int(args[2]) ?? 50 : 50)
             case "models": result = try await worker.request(["action": "model_status"])
             case "download":
@@ -58,5 +61,5 @@ import OSprCore
             print(String(data: data, encoding: .utf8)!)
         } catch { FileHandle.standardError.write(Data((error.localizedDescription + "\n").utf8)); exit(1) }
     }
-    static func usage() { print("OSpr · local Apple Silicon dictation\nUsage: ospr-cli doctor | models | download <model> | warm [model] | transcribe <audio> [model] | meeting <audio> [model] | benchmark <audio> [model] [repeats] | benchmark-history [rows] [edits] | rewrite <text>\nDownload progress is JSON on stderr; final result is JSON on stdout.\nBundled CLI discovers its engine; development commands use the checkout or OSPR_ROOT. Models: parakeet-v3, cohere-native8, whisper-turbo, whisper-small, qwen3-asr, nemotron-streaming") }
+    static func usage() { print("OSpr · local Apple Silicon dictation\nUsage: ospr-cli doctor | models | download <model> | warm [model] | transcribe <audio> [model] | meeting <audio> [model] | benchmark <audio> [model] [repeats] | benchmark-history [rows] [edits] | verify-audio-review <short-audio> | rewrite <text>\nDownload progress is JSON on stderr; final result is JSON on stdout.\nBundled CLI discovers its engine; development commands use the checkout or OSPR_ROOT. Models: parakeet-v3, cohere-native8, whisper-turbo, whisper-small, qwen3-asr, nemotron-streaming") }
 }

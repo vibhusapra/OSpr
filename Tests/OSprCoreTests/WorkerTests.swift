@@ -86,6 +86,76 @@ final class WorkerTests: XCTestCase {
         let second = try await worker.request(["action": "ping"])
         XCTAssertNotEqual(first["pid"] as? Int, second["pid"] as? Int)
     }
+    func testAudioPreparationRejectionKeepsWarmWorkerButInferenceFailureRestarts() async throws {
+        let source = directory.appendingPathComponent("backend/ospr_backend/worker.py")
+        try """
+        import json, sys, os
+        for line in sys.stdin:
+            request = json.loads(line)
+            if request.get('action') in ['prepare_review', 'warm']:
+                print(json.dumps({'id': request['id'], 'ok': False, 'error': 'expected rejection'}), flush=True)
+            else:
+                print(json.dumps({'id': request['id'], 'ok': True, 'result': {'pid': os.getpid()}}), flush=True)
+        """.write(to: source, atomically: true, encoding: .utf8)
+        let worker = WorkerClient(root: directory.path)
+        defer { worker.shutdown() }
+        let original = try await worker.request(["action": "ping"])
+        do { _ = try await worker.request(["action": "prepare_review"]); XCTFail("Expected size/codec rejection") }
+        catch { XCTAssertEqual(error.localizedDescription, "expected rejection") }
+        let preserved = try await worker.request(["action": "ping"])
+        XCTAssertEqual(preserved["pid"] as? Int, original["pid"] as? Int)
+        do { _ = try await worker.request(["action": "warm"]); XCTFail("Expected inference failure") }
+        catch { XCTAssertEqual(error.localizedDescription, "expected rejection") }
+        let restarted = try await worker.request(["action": "ping"])
+        XCTAssertNotEqual(restarted["pid"] as? Int, original["pid"] as? Int)
+    }
+    func testMalformedPreparationReplyStillRestartsWorker() async throws {
+        let source = directory.appendingPathComponent("backend/ospr_backend/worker.py")
+        try """
+        import json, sys, os
+        for line in sys.stdin:
+            request = json.loads(line)
+            result = 'malformed' if request.get('action') == 'prepare_review' else {'pid': os.getpid()}
+            print(json.dumps({'id': request['id'], 'ok': True, 'result': result}), flush=True)
+        """.write(to: source, atomically: true, encoding: .utf8)
+        let worker = WorkerClient(root: directory.path)
+        defer { worker.shutdown() }
+        let first = try await worker.request(["action": "ping"])
+        do { _ = try await worker.request(["action": "prepare_review"]); XCTFail("Expected malformed reply rejection") }
+        catch { XCTAssertEqual(error.localizedDescription, "Invalid local engine response.") }
+        let next = try await worker.request(["action": "ping"])
+        XCTAssertNotEqual(first["pid"] as? Int, next["pid"] as? Int)
+    }
+    func testAlreadyCancelledInferenceNeverStartsWorker() async throws {
+        let source = directory.appendingPathComponent("backend/ospr_backend/worker.py")
+        let original = try String(contentsOf: source, encoding: .utf8)
+        try ("open(__file__ + '.started', 'w').write('started')\n" + original).write(to: source, atomically: true, encoding: .utf8)
+        let worker = WorkerClient(root: directory.path)
+        defer { worker.shutdown() }
+        let pair = AsyncStream<Void>.makeStream()
+        defer { pair.continuation.finish() }
+        let task = Task { () throws -> [String: Any] in
+            for await _ in pair.stream {}
+            return try await worker.request(["action": "transcribe"])
+        }
+        task.cancel()
+        do { _ = try await task.value; XCTFail("Expected cancellation before process admission") }
+        catch { XCTAssertTrue(error is CancellationError) }
+        XCTAssertFalse(FileManager.default.fileExists(atPath: source.path + ".started"))
+    }
+    func testCancelledPreviewStillFeedsItsAdmittedPacket() async throws {
+        let worker = WorkerClient(root: directory.path)
+        defer { worker.shutdown() }
+        let pair = AsyncStream<Void>.makeStream()
+        defer { pair.continuation.finish() }
+        let task = Task { () throws -> [String: Any] in
+            for await _ in pair.stream {}
+            return try await worker.request(["action": "stream_feed", "value": "admitted packet"])
+        }
+        task.cancel()
+        let response = try await task.value
+        XCTAssertEqual(response["value"] as? String, "admitted packet")
+    }
     func testHungStartupHasItsOwnDeadline() async throws {
         let source = directory.appendingPathComponent("backend/ospr_backend/worker.py")
         let original = try String(contentsOf: source, encoding: .utf8)

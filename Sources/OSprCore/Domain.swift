@@ -84,6 +84,7 @@ public struct Transcript: Codable, Identifiable, Sendable {
     public var words: [Segment]?
     public var warning: String?
     public var notes: MeetingNotes?
+    public var audioFile: String?
     public var source: String
     public init(rawText: String, text: String, model: String, mode: WritingMode, app: String = "",
                 duration: Double, latencyMS: Double, segments: [Segment] = [], words: [Segment]? = nil, warning: String? = nil, source: String = "dictation") {
@@ -108,6 +109,8 @@ public struct OSprSettings: Codable, Sendable {
     public var replacements: [Replacement] = []
     public var profiles: [AppProfile] = []
     public var saveHistory = true
+    public var keepAudio = false
+    public var audioBudgetMB = 1024
     public var retentionDays = 30 // 0 = forever
     public var autoPaste = true
     public var restoreClipboard = true
@@ -124,7 +127,7 @@ public struct OSprSettings: Codable, Sendable {
     public var speakerLabels = false
     public var launchAtLogin = false
     public var rootPath = ""
-    private enum CodingKeys: String, CodingKey { case model, language, mode, rewriteProvider, rewriteURL, rewriteModel, transcriptionProvider, transcriptionURL, transcriptionModel, customPrompt, translationLanguage, vocabulary, replacements, profiles, saveHistory, retentionDays, autoPaste, restoreClipboard, allowUnverifiedPaste, spokenPunctuation, silenceTrim, silenceThreshold, autoStopSeconds, pushToTalk, hotkeyCode, hotkeyModifiers, microphoneID, preview, speakerLabels, launchAtLogin, rootPath }
+    private enum CodingKeys: String, CodingKey { case model, language, mode, rewriteProvider, rewriteURL, rewriteModel, transcriptionProvider, transcriptionURL, transcriptionModel, customPrompt, translationLanguage, vocabulary, replacements, profiles, saveHistory, keepAudio, audioBudgetMB, retentionDays, autoPaste, restoreClipboard, allowUnverifiedPaste, spokenPunctuation, silenceTrim, silenceThreshold, autoStopSeconds, pushToTalk, hotkeyCode, hotkeyModifiers, microphoneID, preview, speakerLabels, launchAtLogin, rootPath }
     public init() {}
     public init(from decoder: Decoder) throws {
         self.init()
@@ -144,6 +147,8 @@ public struct OSprSettings: Codable, Sendable {
         replacements = try c.decodeIfPresent(type(of: replacements), forKey: .replacements) ?? replacements
         profiles = try c.decodeIfPresent(type(of: profiles), forKey: .profiles) ?? profiles
         saveHistory = try c.decodeIfPresent(type(of: saveHistory), forKey: .saveHistory) ?? saveHistory
+        keepAudio = try c.decodeIfPresent(Bool.self, forKey: .keepAudio) ?? false
+        audioBudgetMB = try c.decodeIfPresent(Int.self, forKey: .audioBudgetMB) ?? 1024
         retentionDays = try c.decodeIfPresent(type(of: retentionDays), forKey: .retentionDays) ?? retentionDays
         autoPaste = try c.decodeIfPresent(type(of: autoPaste), forKey: .autoPaste) ?? autoPaste
         restoreClipboard = try c.decodeIfPresent(type(of: restoreClipboard), forKey: .restoreClipboard) ?? restoreClipboard
@@ -167,6 +172,7 @@ public struct OSprSettings: Codable, Sendable {
     public func validated() -> OSprSettings {
         var result = self
         result.retentionDays = max(0, min(3650, retentionDays))
+        result.audioBudgetMB = max(64, min(8192, audioBudgetMB))
         result.silenceThreshold = silenceThreshold.isFinite ? max(0, min(0.1, silenceThreshold)) : 0.003
         result.autoStopSeconds = autoStopSeconds.isFinite ? max(0, min(30, autoStopSeconds)) : 0
         return result

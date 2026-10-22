@@ -23,8 +23,17 @@ public final class LocalStore {
         try FileManager.default.setAttributes([.posixPermissions: 0o600], ofItemAtPath: url.path)
     }
     public static func retained(_ items: [Transcript], days: Int, now: Date = Date()) -> [Transcript] {
-        guard days > 0 else { return items }
+        pruning(items, days: days, now: now).items
+    }
+    public static func pruning(_ items: [Transcript], days: Int, now: Date = Date()) -> (items: [Transcript], expiredAudio: Set<String>) {
+        guard days > 0 else { return (items, []) }
         let cutoff = now.addingTimeInterval(-Double(days) * 86400)
-        return items.filter { $0.date >= cutoff }
+        var expiredAudio = Set<String>()
+        let kept = items.filter { record in
+            if record.date >= cutoff { return true }
+            if let file = record.audioFile { expiredAudio.insert(file) }
+            return false
+        }
+        return (kept, expiredAudio)
     }
 }

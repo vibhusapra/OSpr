@@ -9,6 +9,10 @@ public enum OSprError: LocalizedError {
 /// A serial IPC executor. All pipe and process state lives on one queue; decoding
 /// cannot interleave when UI preview, warming and finalization arrive together.
 public final class WorkerClient: @unchecked Sendable {
+    private struct EngineRejection: LocalizedError {
+        let message: String
+        var errorDescription: String? { message }
+    }
     private let queue = DispatchQueue(label: "app.ospr.worker", qos: .userInitiated)
     private var process: Process?
     private var input: FileHandle?
@@ -28,7 +32,13 @@ public final class WorkerClient: @unchecked Sendable {
     deinit { process?.terminate(); try? log?.close() }
 
     public func request(_ body: [String: Any], progress: (@Sendable ([String: Any]) -> Void)? = nil) async throws -> [String: Any] {
+        // Capture has already advanced its packet cursor before stream_feed.
+        // Finish that admitted packet even when the preview Task is cancelled
+        // for final flushing. Session cleanup must also survive Task cancellation.
+        let preserveAdmittedPacket = ["stream_feed", "stream_cancel"].contains(body["action"] as? String ?? "")
+        if !preserveAdmittedPacket { try Task.checkCancellation() }
         let requestedEpoch = lifecycle.withLock { epoch }
+        if !preserveAdmittedPacket { try Task.checkCancellation() }
         return try await withCheckedThrowingContinuation { continuation in
             queue.async { [self] in
                 let operation = UUID()
@@ -77,7 +87,10 @@ public final class WorkerClient: @unchecked Sendable {
                 } catch {
                     // A failed inference has a valid protocol response, but restart
                     // after any error so broken pipes cannot poison subsequent work.
-                    self.stopOnQueue()
+                    // Local audio preparation never mutates model state. Keep a
+                    // warm ASR after an expected size/codec rejection; malformed
+                    // framing, broken pipes and inference errors still restart.
+                    if !(error is EngineRejection && ["prepare_review", "prepare_upload"].contains(body["action"] as? String ?? "")) { self.stopOnQueue() }
                     continuation.resume(throwing: error)
                 }
             }
@@ -105,9 +118,12 @@ public final class WorkerClient: @unchecked Sendable {
                 progress?(event)
                 continue
             }
-            guard response["ok"] as? Bool == true, let result = response["result"] as? [String: Any] else {
-                throw OSprError.message(response["error"] as? String ?? "Inference failed.")
+            guard let ok = response["ok"] as? Bool else { throw OSprError.message("Invalid local engine response.") }
+            if !ok {
+                guard let message = response["error"] as? String else { throw OSprError.message("Invalid local engine response.") }
+                throw EngineRejection(message: message)
             }
+            guard let result = response["result"] as? [String: Any] else { throw OSprError.message("Invalid local engine response.") }
             return result
         }
     }
