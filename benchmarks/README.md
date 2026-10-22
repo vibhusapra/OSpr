@@ -1,0 +1,119 @@
+# OSpr measurement protocol
+
+These are exploratory **engine** and native-IPC measurements on one Apple M5 Max,
+40 GPU cores, 128 GB, macOS 26.6.2. They are not commercial-app rankings, full
+LibriSpeech scores or proof of top-three product quality. Background desktop work
+was present; energy and thermal conditions were not controlled. The final main
+runs were executed sequentially to avoid competing GPU jobs.
+
+## Reproduce
+
+```sh
+scripts/setup.sh
+export PYTHONPATH=backend
+.venv/bin/python benchmarks/prepare.py
+
+# Official public archives (large; audio stays ignored by Git)
+curl -fL https://www.openslr.org/resources/12/test-clean.tar.gz -o /tmp/test-clean.tar.gz
+curl -fL https://www.openslr.org/resources/12/test-other.tar.gz -o /tmp/test-other.tar.gz
+.venv/bin/python benchmarks/prepare_librispeech.py /tmp/test-clean.tar.gz
+.venv/bin/python benchmarks/prepare_librispeech.py /tmp/test-other.tar.gz
+.venv/bin/python benchmarks/prepare_fleurs.py
+
+# First load downloads pinned model artifacts. Offline thereafter:
+HF_HUB_OFFLINE=1 .venv/bin/python benchmarks/run.py --model parakeet-v3 --manifest fixtures/test-clean.json
+HF_HUB_OFFLINE=1 .venv/bin/python benchmarks/run.py --model parakeet-v3 --manifest fixtures/test-other.json
+HF_HUB_OFFLINE=1 .venv/bin/python benchmarks/run.py --model parakeet-v3
+HF_HUB_OFFLINE=1 .venv/bin/python benchmarks/run.py --model qwen3-asr --manifest fixtures/fleurs.json
+
+# Additional experiments
+HF_HUB_OFFLINE=1 .venv/bin/python benchmarks/stream_replay.py
+HF_HUB_OFFLINE=1 .venv/bin/python benchmarks/stream_replay.py --context-frames 1
+HF_HUB_OFFLINE=1 .venv/bin/python benchmarks/ablations.py
+HF_HUB_OFFLINE=1 .venv/bin/python benchmarks/rewrite_eval.py
+.venv/bin/python benchmarks/statistics.py
+.build/debug/ospr-cli benchmark /absolute/public-sample.wav parakeet-v3 30
+python3 scripts/build-report.py
+```
+
+Preparers pin upstream revisions/digests and write fixture checksums; the English
+archive preparer verifies official MD5 checksums. No Hugging Face access token is
+needed for these public corpora. ASR model revisions and dependency versions are
+pinned in `models.lock.json` and `uv.lock`. No weight files are checked in.
+
+## Datasets and scoring
+
+- `test-clean.json`: first five utterances per speaker in archive-path order,
+  200 utterances / 40 speakers. `test-other.json`: same selection, 165 / 33.
+  This deterministic selection is **not** random or the complete benchmark.
+- `manifest.json`: 73 real LibriSpeech dev-clean recordings from the pinned HF
+  dummy corpus; twelve additive 10 dB noise variants, twelve 0.1-volume variants,
+  two empty-reference silence/noise cases, and one long concatenated recording.
+- `fleurs.json`: first ten test rows in each of Spanish, German, Hindi, Japanese
+  and Mandarin. Small multilingual smoke slices, not enough to rank languages.
+- LibriSpeech and FLEURS audio are CC BY 4.0. Credit the original creators and
+  use the manifest source links; don't train on a sealed evaluation set.
+
+WER lowercases, removes punctuation and collapses whitespace with the same
+normalizer for every backend. It does not expand numbers or normalize abbreviations.
+CER additionally removes all whitespace consistently; character-spaced Chinese
+references otherwise produce misleading scores. Japanese/Chinese whitespace WER
+is not interpreted. Raw references and hypotheses are retained for inspection.
+Errors remain visible and count in each suite's failure total. Silence bypass is
+an **OSpr RMS gate**, not proof that an unfiltered model never hallucinates.
+
+`statistics.py` publishes seeded 10,000-trial paired bootstrap intervals by
+speaker. It resamples speaker clusters, then aggregates edit counts and reference
+words. These intervals do not represent timing uncertainty, training uncertainty,
+or real-world dictation generalization. A small point-estimate gap is not a win.
+
+## Timing boundaries
+
+- `run.py`: read/decode/downmix/resample, optional RMS edge trim and inference.
+  A separate cold request includes model load and first decode/JIT, with already
+  downloaded weights; warm statistics exclude it. Wall p50/p95 are across clips
+  with different lengths, not repetitions of a constant workload. RTF aggregates
+  wall seconds divided by input audio seconds.
+- `native-ipc.json`: same 5.855-second public clip, 30 warm native CLI requests,
+  owned Python worker and deterministic text rules. Excludes microphone, HUD,
+  endpointing, rewriting, clipboard and target-app insertion.
+- `cpp_baseline.py`: persistent Homebrew whisper.cpp 1.9.4, Metal flash attention,
+  greedy decoding, four threads. Shared trim, but PCM16 encoding and HTTP are
+  included; conversion and decoder differ from MLX. Supply the official
+  `ggml-large-v3-turbo.bin` weights with `--weights /absolute/file.bin`. Checksum
+  and command are retained. This is a runtime baseline, not a product test.
+- GPU allocator peak is not RSS or total unified-memory usage. Process RSS has
+  its own boundary. Do not compare these as equivalent memory quantities.
+
+## Streaming, ablations and fidelity
+
+`stream_replay.py` feeds 320 ms audio packets through the actual cached Nemotron
+session. It does not sleep between packets. First partial is an **audio position**,
+not measured wall latency; flush time is decoder work after close. Context settings
+0/1 are exploratory, outside the default model configuration. Twenty clips are
+insufficient for a ranking; native mic/IPC scheduling still needs device QA.
+
+The in-memory versus FFmpeg frontend experiment alternates twenty trials on one
+clip. It measures model-path overhead, not a device-wide speedup. The four RMS
+thresholds are development diagnostics on a small known set; do not tune on the
+held-out test slices. No lower threshold has been promoted solely for a better
+small-set score.
+
+`rewrite-fidelity.json` has twelve synthetic text cases per model. Exact substring
+sentinels are a screening aid, with possible false failures for paraphrases and
+false passes for added commentary. Read the raw outputs: both models have failures,
+including dictated prompt injection. OSpr keeps raw text, defaults rewriting off,
+and uses a native negation/number/content-loss tripwire. This is not semantic proof.
+The tested Cohere converted-weight adapter has excessive deletions and is blocked
+from the shipping catalog; its raw experiments are retained outside the main plot.
+
+## Actual product comparison still required
+
+Install the exact versions of Wispr Flow, Superwhisper, VoiceInk, Handy and other
+references; record routing, model, plan, vocabulary, cleanup and language settings.
+Replay identical public speech through a loopback input for dictation, and compare
+file import separately. Use a fixed destination field. Timestamp hotkey, audio
+start, first partial, speech end and **final insertion**. Report failure rate,
+correction keystrokes, name/number/negation retention, clipboard and cursor safety,
+RAM, battery/energy and sustained use. Run at least 30 warm repetitions and separate
+cold trials. Published vendor latency claims cannot substitute for these runs.

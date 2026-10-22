@@ -1,0 +1,419 @@
+{
+  "timestamp": "2026-10-22T09:08:32.846807+00:00",
+  "model": "cohere-transcribe",
+  "model_spec": {
+    "repo": "beshkenadze/cohere-transcribe-03-2026-mlx-8bit",
+    "engine": "mlx-audio",
+    "name": "Cohere Transcribe \u00b7 experimental accuracy",
+    "languages": "14 languages",
+    "license": "Apache-2.0"
+  },
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "machine": "arm64",
+  "hardware": "Apple M5 Max",
+  "memory_bytes": 137438953472,
+  "git_commit": "5b57f1413077f87335ce2099d47044686806f337",
+  "working_tree_dirty": true,
+  "versions": {
+    "mlx": "0.32.4",
+    "mlx-whisper": "0.4.3",
+    "parakeet-mlx": "0.5.3",
+    "mlx-audio": "0.6.1",
+    "numpy": "2.5.4"
+  },
+  "options": {
+    "model": "cohere-transcribe",
+    "limit": 10,
+    "suite": "",
+    "no_trim": true,
+    "repeat": 1,
+    "manifest": "fixtures/manifest.json"
+  },
+  "cold": {
+    "model": "cohere-transcribe",
+    "audio_seconds": 5.855,
+    "speech_seconds": 5.855,
+    "text": "mister Quilter is the apostle of the middle classes and we are glad to welcome his gospel",
+    "segments": [
+      {
+        "start": 0,
+        "end": 5.855,
+        "text": "mister Quilter is the apostle of the middle classes and we are glad to welcome his gospel"
+      }
+    ],
+    "language": "en",
+    "silence": false,
+    "warm": false,
+    "load_ms": 1688.3258329471573,
+    "preprocess_ms": 0.6538329180330038,
+    "decode_ms": 110.18316599074751,
+    "total_ms": 1799.1679579718038,
+    "peak_gpu_bytes": 2630358680,
+    "active_gpu_bytes": 2480969994,
+    "vocabulary_applied": false,
+    "timestamp_granularity": "utterance",
+    "wall_ms": 1799.1864170180634
+  },
+  "summary": {
+    "human-clean": {
+      "cases": 10,
+      "errors": 0,
+      "wer": 0.19291338582677164,
+      "cer": 0.16566005176876616,
+      "substitutions": 4,
+      "deletions": 45,
+      "insertions": 0,
+      "p50_ms": 106.50635452475399,
+      "p95_ms": 404.1438189044129,
+      "aggregate_rtf": 0.01575104438026757,
+      "hallucinated_silence": 0
+    }
+  },
+  "process_peak_rss_bytes": 2895921152,
+  "corpus": {
+    "dataset": "hf-internal-testing/librispeech_asr_dummy",
+    "revision": "5be91486e11a2d616f4ec5db8d3fd248585ac07a",
+    "source_sha256": "4e69a06fa5edc90921e5e7e39a7084881f8b3ed9c805c574f4f39c6fde27c603",
+    "license": "LibriSpeech CC BY 4.0; retain attribution to Vassil Panayotov et al. and LibriVox readers.",
+    "caveats": "Small single-speaker read-English subset; no accents, spontaneous dictation or multilingual coverage.",
+    "noise_seed": 20261022
+  },
+  "records": [
+    {
+      "id": "1272-128104-0000",
+      "path": "fixtures/audio/1272-128104-0000.wav",
+      "reference": "MISTER QUILTER IS THE APOSTLE OF THE MIDDLE CLASSES AND WE ARE GLAD TO WELCOME HIS GOSPEL",
+      "suite": "human-clean",
+      "source_id": "1272-128104-0000",
+      "sha256": "799f78ed4beb4de7ceae3a809262d4ce242394342ccd1d58cef7d49dbc2def46",
+      "seconds": 5.855,
+      "repeat": 0,
+      "model": "cohere-transcribe",
+      "audio_seconds": 5.855,
+      "speech_seconds": 5.855,
+      "text": "mister Quilter is the apostle of the middle classes and we are glad to welcome his gospel",
+      "segments": [
+        {
+          "start": 0,
+          "end": 5.855,
+          "text": "mister Quilter is the apostle of the middle classes and we are glad to welcome his gospel"
+        }
+      ],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0012920936569571495,
+      "preprocess_ms": 0.4965830594301224,
+      "decode_ms": 86.76120801828802,
+      "total_ms": 87.26245805155486,
+      "peak_gpu_bytes": 2630407836,
+      "active_gpu_bytes": 2480969994,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "utterance",
+      "wall_ms": 87.27520797401667
+    },
+    {
+      "id": "1272-128104-0001",
+      "path": "fixtures/audio/1272-128104-0001.wav",
+      "reference": "NOR IS MISTER QUILTER'S MANNER LESS INTERESTING THAN HIS MATTER",
+      "suite": "human-clean",
+      "source_id": "1272-128104-0001",
+      "sha256": "473b1bb573e8f7cdcd639c6e318036236190107b66bfe6892286121a92d464c1",
+      "seconds": 4.815,
+      "repeat": 0,
+      "model": "cohere-transcribe",
+      "audio_seconds": 4.815,
+      "speech_seconds": 4.815,
+      "text": "Nor is mister Quilter's manner less interesting than his matter.",
+      "segments": [
+        {
+          "start": 0,
+          "end": 4.815,
+          "text": "Nor is mister Quilter's manner less interesting than his matter."
+        }
+      ],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0016669509932398796,
+      "preprocess_ms": 0.4069580463692546,
+      "decode_ms": 61.735082999803126,
+      "total_ms": 62.14679102413356,
+      "peak_gpu_bytes": 2620755298,
+      "active_gpu_bytes": 2480969994,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "utterance",
+      "wall_ms": 62.157750013284385
+    },
+    {
+      "id": "1272-128104-0002",
+      "path": "fixtures/audio/1272-128104-0002.wav",
+      "reference": "HE TELLS US THAT AT THIS FESTIVE SEASON OF THE YEAR WITH CHRISTMAS AND ROAST BEEF LOOMING BEFORE US SIMILES DRAWN FROM EATING AND ITS RESULTS OCCUR MOST READILY TO THE MIND",
+      "suite": "human-clean",
+      "source_id": "1272-128104-0002",
+      "sha256": "5f4d8f7331acffc3d2efbe0f764b9eb3447911dc17f9843e38e1083eb1685b9c",
+      "seconds": 12.485,
+      "repeat": 0,
+      "model": "cohere-transcribe",
+      "audio_seconds": 12.485,
+      "speech_seconds": 12.485,
+      "text": "",
+      "segments": [
+        {
+          "start": 0,
+          "end": 12.485,
+          "text": ""
+        }
+      ],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0010830117389559746,
+      "preprocess_ms": 0.7732500089332461,
+      "decode_ms": 411.44266608171165,
+      "total_ms": 412.22033300437033,
+      "peak_gpu_bytes": 2696298133,
+      "active_gpu_bytes": 2480969994,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "utterance",
+      "wall_ms": 412.2307499637827
+    },
+    {
+      "id": "1272-128104-0003",
+      "path": "fixtures/audio/1272-128104-0003.wav",
+      "reference": "HE HAS GRAVE DOUBTS WHETHER SIR FREDERICK LEIGHTON'S WORK IS REALLY GREEK AFTER ALL AND CAN DISCOVER IN IT BUT LITTLE OF ROCKY ITHACA",
+      "suite": "human-clean",
+      "source_id": "1272-128104-0003",
+      "sha256": "fc23353b884061a5c5784b0cf6b5c539680c50cfae993882822ebdd4a06ddf8c",
+      "seconds": 9.9,
+      "repeat": 0,
+      "model": "cohere-transcribe",
+      "audio_seconds": 9.9,
+      "speech_seconds": 9.9,
+      "text": "He has grave doubts whether sir frederic Leighton's work is really greek after all and can discover in it but little of rocky ithaca.",
+      "segments": [
+        {
+          "start": 0,
+          "end": 9.9,
+          "text": "He has grave doubts whether sir frederic Leighton's work is really greek after all and can discover in it but little of rocky ithaca."
+        }
+      ],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0010830117389559746,
+      "preprocess_ms": 0.5940420087426901,
+      "decode_ms": 117.01166594866663,
+      "total_ms": 117.60995804797858,
+      "peak_gpu_bytes": 2648028926,
+      "active_gpu_bytes": 2480969994,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "utterance",
+      "wall_ms": 117.61941702570766
+    },
+    {
+      "id": "1272-128104-0004",
+      "path": "fixtures/audio/1272-128104-0004.wav",
+      "reference": "LINNELL'S PICTURES ARE A SORT OF UP GUARDS AND AT EM PAINTINGS AND MASON'S EXQUISITE IDYLLS ARE AS NATIONAL AS A JINGO POEM MISTER BIRKET FOSTER'S LANDSCAPES SMILE AT ONE MUCH IN THE SAME WAY THAT MISTER CARKER USED TO FLASH HIS TEETH AND MISTER JOHN COLLIER GIVES HIS SITTER A CHEERFUL SLAP ON THE BACK BEFORE HE SAYS LIKE A SHAMPOOER IN A TURKISH BATH NEXT MAN",
+      "suite": "human-clean",
+      "source_id": "1272-128104-0004",
+      "sha256": "4798e34d9a323ed835ae6055172236f8965dd5ccf146c25758711023ecc8b2e6",
+      "seconds": 29.4,
+      "repeat": 0,
+      "model": "cohere-transcribe",
+      "audio_seconds": 29.4,
+      "speech_seconds": 29.4,
+      "text": "Linnell's pictures are a sort of up guards and atom paintings and mason's exquisite idylls are as national as a jingo poem mister Birkett Foster's landscapes smile at one much in the same way that mister Carker used to flash his teeth and mister John Collier gives his sitter a cheerful slap on the back before he says like a shampooer in a turkish bath next man",
+      "segments": [
+        {
+          "start": 0,
+          "end": 29.4,
+          "text": "Linnell's pictures are a sort of up guards and atom paintings and mason's exquisite idylls are as national as a jingo poem mister Birkett Foster's landscapes smile at one much in the same way that mister Carker used to flash his teeth and mister John Collier gives his sitter a cheerful slap on the back before he says like a shampooer in a turkish bath next man"
+        }
+      ],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0013329554349184036,
+      "preprocess_ms": 1.5163340140134096,
+      "decode_ms": 229.60041696205735,
+      "total_ms": 231.1214170185849,
+      "peak_gpu_bytes": 2919252878,
+      "active_gpu_bytes": 2480969994,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "utterance",
+      "wall_ms": 231.132416985929
+    },
+    {
+      "id": "1272-128104-0005",
+      "path": "fixtures/audio/1272-128104-0005.wav",
+      "reference": "IT IS OBVIOUSLY UNNECESSARY FOR US TO POINT OUT HOW LUMINOUS THESE CRITICISMS ARE HOW DELICATE IN EXPRESSION",
+      "suite": "human-clean",
+      "source_id": "1272-128104-0005",
+      "sha256": "abd89d9a5108f87f03d03875272e1f3f18bef61ea4c271a0ec5bbc3a5bfc223a",
+      "seconds": 9.01,
+      "repeat": 0,
+      "model": "cohere-transcribe",
+      "audio_seconds": 9.01,
+      "speech_seconds": 9.01,
+      "text": "It is obviously unnecessary for us to point out how luminous these criticisms are, how delicate in expression.",
+      "segments": [
+        {
+          "start": 0,
+          "end": 9.01,
+          "text": "It is obviously unnecessary for us to point out how luminous these criticisms are, how delicate in expression."
+        }
+      ],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0012920936569571495,
+      "preprocess_ms": 0.6312079494819045,
+      "decode_ms": 94.09258398227394,
+      "total_ms": 94.7278329404071,
+      "peak_gpu_bytes": 2631382059,
+      "active_gpu_bytes": 2480969994,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "utterance",
+      "wall_ms": 94.74391699768603
+    },
+    {
+      "id": "1272-128104-0006",
+      "path": "fixtures/audio/1272-128104-0006.wav",
+      "reference": "ON THE GENERAL PRINCIPLES OF ART MISTER QUILTER WRITES WITH EQUAL LUCIDITY",
+      "suite": "human-clean",
+      "source_id": "1272-128104-0006",
+      "sha256": "acbc588a1ba63290a48aeb9b37c815475627ba58a815ff095042fa61729fe3a0",
+      "seconds": 5.64,
+      "repeat": 0,
+      "model": "cohere-transcribe",
+      "audio_seconds": 5.64,
+      "speech_seconds": 5.64,
+      "text": "On the general principles of art, mister Quilter writes with equal lucidity.",
+      "segments": [
+        {
+          "start": 0,
+          "end": 5.64,
+          "text": "On the general principles of art, mister Quilter writes with equal lucidity."
+        }
+      ],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0009579816833138466,
+      "preprocess_ms": 0.48833293840289116,
+      "decode_ms": 86.58225007820874,
+      "total_ms": 87.07462495658547,
+      "peak_gpu_bytes": 2625150180,
+      "active_gpu_bytes": 2480969994,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "utterance",
+      "wall_ms": 87.08366693463176
+    },
+    {
+      "id": "1272-128104-0007",
+      "path": "fixtures/audio/1272-128104-0007.wav",
+      "reference": "PAINTING HE TELLS US IS OF A DIFFERENT QUALITY TO MATHEMATICS AND FINISH IN ART IS ADDING MORE FACT",
+      "suite": "human-clean",
+      "source_id": "1272-128104-0007",
+      "sha256": "66ea55755fe31a7af9bb121ad33fd2037dbc8e2fc66d4cfb3f50cb8fa1e63561",
+      "seconds": 9.24,
+      "repeat": 0,
+      "model": "cohere-transcribe",
+      "audio_seconds": 9.24,
+      "speech_seconds": 9.24,
+      "text": "Painting he tells us is of a different quality to mathematics, and finish in art is adding more fact.",
+      "segments": [
+        {
+          "start": 0,
+          "end": 9.24,
+          "text": "Painting he tells us is of a different quality to mathematics, and finish in art is adding more fact."
+        }
+      ],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001374981366097927,
+      "preprocess_ms": 0.5895419744774699,
+      "decode_ms": 94.7882499312982,
+      "total_ms": 95.38262500427663,
+      "peak_gpu_bytes": 2637623410,
+      "active_gpu_bytes": 2480969994,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "utterance",
+      "wall_ms": 95.39329202380031
+    },
+    {
+      "id": "1272-128104-0008",
+      "path": "fixtures/audio/1272-128104-0008.wav",
+      "reference": "AS FOR ETCHINGS THEY ARE OF TWO KINDS BRITISH AND FOREIGN",
+      "suite": "human-clean",
+      "source_id": "1272-128104-0008",
+      "sha256": "9514dcfa2f52cd7540c686c555213ca539b7ec8913b93913d14bfed151bdb72e",
+      "seconds": 5.12,
+      "repeat": 0,
+      "model": "cohere-transcribe",
+      "audio_seconds": 5.12,
+      "speech_seconds": 5.12,
+      "text": "",
+      "segments": [
+        {
+          "start": 0,
+          "end": 5.12,
+          "text": ""
+        }
+      ],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0011249212548136711,
+      "preprocess_ms": 0.45533396769315004,
+      "decode_ms": 393.7887499341741,
+      "total_ms": 394.24870896618813,
+      "peak_gpu_bytes": 2613384014,
+      "active_gpu_bytes": 2480969994,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "utterance",
+      "wall_ms": 394.259792054072
+    },
+    {
+      "id": "1272-128104-0009",
+      "path": "fixtures/audio/1272-128104-0009.wav",
+      "reference": "HE LAMENTS MOST BITTERLY THE DIVORCE THAT HAS BEEN MADE BETWEEN DECORATIVE ART AND WHAT WE USUALLY CALL PICTURES MAKES THE CUSTOMARY APPEAL TO THE LAST JUDGMENT AND REMINDS US THAT IN THE GREAT DAYS OF ART MICHAEL ANGELO WAS THE FURNISHING UPHOLSTERER",
+      "suite": "human-clean",
+      "source_id": "1272-128104-0009",
+      "sha256": "f91fae94e75d6e831eede05bff930beab5300cfc484a806ea196df2d6f219e19",
+      "seconds": 18.29,
+      "repeat": 0,
+      "model": "cohere-transcribe",
+      "audio_seconds": 18.29,
+      "speech_seconds": 18.29,
+      "text": "He laments most bitterly the divorce that has been made between decorative art and what we usually call pictures makes the customary appeal to the last judgment and reminds us that in the great days of art Michelangelo was the furnishing upholsterer.",
+      "segments": [
+        {
+          "start": 0,
+          "end": 18.29,
+          "text": "He laments most bitterly the divorce that has been made between decorative art and what we usually call pictures makes the customary appeal to the last judgment and reminds us that in the great days of art Michelangelo was the furnishing upholsterer."
+        }
+      ],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001374981366097927,
+      "preprocess_ms": 1.0265420423820615,
+      "decode_ms": 145.818707998842,
+      "total_ms": 146.84995799325407,
+      "peak_gpu_bytes": 2726867245,
+      "active_gpu_bytes": 2480969994,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "utterance",
+      "wall_ms": 146.85966598335654
+    }
+  ],
+  "limitations": [
+    "Small read-English single-speaker corpus, not a dictation or multilingual leaderboard.",
+    "Same host and power environment; no controlled thermal isolation or energy measurement.",
+    "In-process audio-to-transcript timing excludes hotkey, capture, IPC, rewrite and text insertion.",
+    "Shared model backends are not equivalent to testing competing app products."
+  ]
+}

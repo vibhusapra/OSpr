@@ -1,0 +1,407 @@
+import AppKit
+import AVFoundation
+import SwiftUI
+import ServiceManagement
+import OSprCore
+
+@MainActor final class AppModel: ObservableObject {
+    @Published var settings: OSprSettings
+    @Published var history: [Transcript] = []
+    @Published var phase = "idle"
+    @Published var status = "Your voice. Your Mac."
+    @Published var error = ""
+    @Published var preview = ""
+    @Published var selection: UUID?
+    @Published var tab = "Studio"
+    @Published var setupRunning = false
+    @Published var setupLog = ""
+    @Published var ready = false
+    @Published var pending: PendingRecording?
+    @Published var hasRecovery = false
+    @Published var transcriptionKey = ""
+    @Published var rewriteKey = ""
+    let capture = Capture()
+    let hotkey = Hotkey()
+    private var worker: WorkerClient
+    private let store: LocalStore
+    private let recovery: RecordingRecovery
+    private var target: InsertionTarget?
+    private var recordingMode: WritingMode = .clean
+    private var recordingSettings = OSprSettings()
+    private var recordingURL: URL?
+    private var previewTask: Task<Void, Never>?
+    private var streamSession: (generation: UUID, id: String)?
+    private var generation = UUID()
+    private var overlay: NSPanel?
+    var busy: Bool { phase != "idle" }
+    var selected: Transcript? { history.first { $0.id == selection } ?? history.first }
+    var root: URL { URL(fileURLWithPath: settings.rootPath) }
+    var engineInstalled: Bool { FileManager.default.isExecutableFile(atPath: root.appendingPathComponent(".venv/bin/python").path) }
+    var localOnly: Bool {
+        let host = URL(string: settings.rewriteURL)?.host ?? ""
+        let localRewrite = ["none", "local"].contains(settings.rewriteProvider) ||
+            (["ollama", "compatible"].contains(settings.rewriteProvider) && ["localhost", "127.0.0.1", "::1", "[::1]"].contains(host))
+        return settings.transcriptionProvider == "local" && localRewrite
+    }
+
+    init() {
+        let directory = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("OSpr")
+        // Application Support is required for state; an unwritable directory must
+        // surface instead of silently putting transcripts somewhere unexpected.
+        do {
+            store = try LocalStore(directory: directory)
+            recovery = try RecordingRecovery(directory: directory.appendingPathComponent("Recovery"))
+        } catch { fatalError("Cannot create OSpr data folder: \(error.localizedDescription)") }
+        var settings = OSprSettings()
+        var loadError = ""
+        do { settings = try store.read(OSprSettings.self, name: "settings.json") ?? settings } catch { loadError = "Settings could not be read. Original file was preserved. \(error.localizedDescription)" }
+        if settings.rootPath.isEmpty {
+            let bundled = Bundle.main.url(forResource: "checkout-root", withExtension: "txt").flatMap { try? String(contentsOf: $0, encoding: .utf8) }?.trimmingCharacters(in: .whitespacesAndNewlines)
+            settings.rootPath = ProcessInfo.processInfo.environment["OSPR_ROOT"] ?? bundled ?? FileManager.default.currentDirectoryPath
+        }
+        if let bundledEngine = Bundle.main.resourceURL?.appendingPathComponent("Engine"),
+           FileManager.default.isExecutableFile(atPath: bundledEngine.appendingPathComponent(".venv/bin/python").path) {
+            // Resolve from the actual bundle every launch, including after moving
+            // the .app; never retain a build-machine absolute runtime path.
+            settings.rootPath = bundledEngine.path
+        }
+        self.settings = settings.validated()
+        self.worker = WorkerClient(root: settings.rootPath)
+        do { history = LocalStore.retained(try store.read([Transcript].self, name: "history.json") ?? [], days: settings.retentionDays) } catch { loadError += " History could not be read. Original file was preserved." }
+        do { pending = try recovery.load() } catch { loadError += " " + error.localizedDescription }
+        hasRecovery = FileManager.default.fileExists(atPath: recovery.audioURL.path)
+        self.error = loadError
+        transcriptionKey = KeyVault.read("transcription"); rewriteKey = KeyVault.read("rewrite")
+        hotkey.pressed = { [weak self] in self?.toggle() }
+        hotkey.released = { [weak self] in
+            guard let self, self.settings.pushToTalk else { return }
+            if self.phase == "starting" { self.cancel() } else { self.stop() }
+        }
+        capture.silenceReached = { [weak self] in self?.stop() }
+        do { try hotkey.register(code: settings.hotkeyCode, modifiers: settings.hotkeyModifiers) } catch { self.error = error.localizedDescription }
+        // Persist pruning even when no new recording is made.
+        if loadError.isEmpty { persistHistory() }
+        NotificationCenter.default.addObserver(forName: NSApplication.willTerminateNotification, object: nil, queue: .main) { [weak self] _ in
+            MainActor.assumeIsolated { self?.worker.shutdown(); self?.previewTask?.cancel(); self?.discardAudio() }
+        }
+    }
+
+    func saveOSprSettings() {
+        settings = settings.validated()
+        do {
+            try store.write(settings, name: "settings.json")
+            try KeyVault.write(transcriptionKey, account: "transcription")
+            try KeyVault.write(rewriteKey, account: "rewrite")
+            try hotkey.register(code: settings.hotkeyCode, modifiers: settings.hotkeyModifiers)
+            history = LocalStore.retained(history, days: settings.retentionDays); persistHistory()
+            if settings.launchAtLogin && SMAppService.mainApp.status != .enabled { try SMAppService.mainApp.register() }
+            else if !settings.launchAtLogin && SMAppService.mainApp.status == .enabled { try SMAppService.mainApp.unregister() }
+            status = "Preferences saved"
+        } catch { self.error = error.localizedDescription }
+    }
+
+    func chooseRoot() {
+        guard !busy else { return }
+        let panel = NSOpenPanel(); panel.canChooseDirectories = true; panel.canChooseFiles = false
+        panel.message = "Select the OSpr repository containing pyproject.toml and backend/."
+        guard panel.runModal() == .OK, let url = panel.url else { return }
+        guard FileManager.default.fileExists(atPath: url.appendingPathComponent("backend/ospr_backend/worker.py").path) else { error = "This folder is not an OSpr checkout."; return }
+        worker.shutdown(); settings.rootPath = url.path; worker = WorkerClient(root: url.path); ready = false; saveOSprSettings()
+    }
+
+    func installEngine() {
+        guard !setupRunning, !busy else { return }
+        setupRunning = true; setupLog = "Installing the locked local engine…"
+        let setup = root.appendingPathComponent("scripts/setup.sh")
+        Task {
+            do {
+                let result = try await Task.detached { () -> (Int32, String) in
+                    let process = Process(), pipe = Pipe()
+                    process.executableURL = URL(fileURLWithPath: "/bin/bash"); process.arguments = [setup.path]
+                    process.standardOutput = pipe; process.standardError = pipe
+                    try process.run()
+                    let data = pipe.fileHandleForReading.readDataToEndOfFile(); process.waitUntilExit()
+                    return (process.terminationStatus, String(data: data, encoding: .utf8) ?? "")
+                }.value
+                setupLog = result.1
+                if result.0 != 0 { throw OSprError.message("Setup failed. See the setup output below.") }
+                status = "Engine installed. Choose a model and load it."
+            } catch { self.error = error.localizedDescription }
+            setupRunning = false
+        }
+    }
+
+    func warm() {
+        guard !busy else { return }
+        generation = UUID(); let token = generation
+        phase = "warming"; error = ""; status = "Loading model · first use downloads weights"
+        Task {
+            do {
+                _ = try await worker.request(["action": "warm", "model": settings.model])
+                guard token == generation else { return }
+                ready = true; status = "Model ready on your Mac"
+            } catch { if token == generation { self.error = error.localizedDescription; status = "Model could not be loaded" } }
+            if token == generation { phase = "idle" }
+        }
+    }
+
+    func toggle() {
+        if phase == "recording" { stop() }
+        else if phase == "idle" { start() }
+    }
+    func start() {
+        guard !busy else { return }
+        guard !hasRecovery else { error = "Retry, export or discard the unfinished recording first."; tab = "Studio"; return }
+        target = InsertionTarget.capture()
+        if target?.secure == true { error = "Recording is disabled in password fields."; return }
+        recordingSettings = settings
+        recordingMode = settings.mode(for: target?.app?.bundleIdentifier ?? "")
+        if recordingMode == .assistant && target?.selectedText.isEmpty != false { error = "Select text in another app first, then use the global shortcut."; return }
+        generation = UUID(); let token = generation
+        phase = "starting"; error = ""; preview = ""
+        Task {
+            do {
+                let allowed = await AVCaptureDevice.requestAccess(for: .audio)
+                guard generation == token else { return }
+                guard allowed else { throw OSprError.message("Allow OSpr microphone access in System Settings → Privacy & Security → Microphone.") }
+                let file = try capture.start(deviceID: recordingSettings.microphoneID,
+                    autoStop: recordingSettings.autoStopSeconds, threshold: recordingSettings.silenceThreshold)
+                recordingURL = file; phase = "recording"; status = "Listening · \(recordingMode.title)"; showOverlay()
+                if recordingSettings.preview && recordingSettings.transcriptionProvider == "local" { startPreview(token: token) }
+            } catch { if generation == token { self.error = error.localizedDescription; phase = "idle" } }
+        }
+    }
+
+    private func startPreview(token: UUID) {
+        previewTask = Task {
+            let incremental = recordingSettings.model == "nemotron-streaming"
+            var sessionID: String?
+            if incremental {
+                do {
+                    let result = try await worker.request(["action": "stream_begin", "language": recordingSettings.language])
+                    sessionID = result["session_id"] as? String
+                    guard generation == token, !Task.isCancelled else {
+                        if let sessionID { _ = try? await worker.request(["action": "stream_cancel", "session_id": sessionID]) }
+                        return
+                    }
+                    if let sessionID { streamSession = (token, sessionID) }
+                } catch { return }
+            }
+            while !Task.isCancelled && generation == token && phase == "recording" {
+                do {
+                    try await Task.sleep(for: .milliseconds(incremental ? 320 : 3000))
+                    guard phase == "recording", !Task.isCancelled else { break }
+                    guard let file = try capture.snapshot(incremental: incremental) else { continue }
+                    defer { try? FileManager.default.removeItem(at: file) }
+                    let request: [String: Any] = sessionID.map { ["action": "stream_feed", "session_id": $0, "path": file.path] } ??
+                        ["action": "transcribe", "path": file.path, "model": recordingSettings.model,
+                         "language": recordingSettings.language, "trim": recordingSettings.silenceTrim]
+                    let result = try await worker.request(request)
+                    if generation == token && phase == "recording" { preview = result["text"] as? String ?? "" }
+                } catch is CancellationError { break } catch {
+                    if let sessionID { _ = try? await worker.request(["action": "stream_cancel", "session_id": sessionID]) }
+                    if streamSession?.generation == token { streamSession = nil }
+                    break // Final transcription can fall back to the complete audio.
+                }
+            }
+        }
+    }
+    func stop() {
+        guard phase == "recording" else { return }
+        phase = "transcribing"; status = "Transcribing on your Mac…"; previewTask?.cancel()
+        do {
+            guard let file = try capture.stop() else { throw OSprError.message("No recording available.") }
+            let duration = capture.seconds, config = recordingSettings, mode = recordingMode, token = generation
+            pending = try recovery.preserve(audio: file, duration: duration, settings: config, mode: mode)
+            hasRecovery = true
+            let outstandingPreview = previewTask
+            Task {
+                let finalStarted = Date()
+                await outstandingPreview?.value
+                var streamed: [String: Any]?
+                if generation == token, streamSession?.generation == token, let sessionID = streamSession?.id {
+                    do {
+                        if let tail = try capture.snapshot(incremental: true) {
+                            defer { try? FileManager.default.removeItem(at: tail) }
+                            _ = try await worker.request(["action": "stream_feed", "session_id": sessionID, "path": tail.path])
+                        }
+                        let final = try await worker.request(["action": "stream_end", "session_id": sessionID])
+                        if let text = final["text"] as? String {
+                            streamed = ["text": text, "model": config.model, "audio_seconds": duration,
+                                "segments": [["start": 0.0, "end": duration, "text": text]],
+                                "total_ms": Date().timeIntervalSince(finalStarted) * 1000]
+                        }
+                    } catch { /* Retry final ASR from complete audio; never drop a failed preview. */ }
+                    _ = try? await worker.request(["action": "stream_cancel", "session_id": sessionID])
+                    if streamSession?.generation == token { streamSession = nil }
+                }
+                let recognized = await transcribe(file: file, duration: duration, config: config, mode: mode,
+                                 target: target, source: "dictation", token: token, resultOverride: streamed, startedAt: finalStarted)
+                if generation == token && recognized { discardRecovery() }
+                try? FileManager.default.removeItem(at: file)
+                if generation == token { recordingURL = nil; phase = "idle"; overlay?.orderOut(nil) }
+            }
+        } catch { self.error = error.localizedDescription; phase = "idle"; discardAudio(); overlay?.orderOut(nil) }
+    }
+    func cancel() {
+        generation = UUID(); previewTask?.cancel()
+        if phase == "warming" || phase == "transcribing" || previewTask != nil { worker.shutdown(); ready = false }
+        streamSession = nil
+        discardRecovery()
+        _ = try? capture.stop(); discardAudio(); phase = "idle"; preview = ""; status = "Recording discarded"; overlay?.orderOut(nil)
+        // Generation fencing also prevents late cloud responses from being saved
+        // or inserted. Local cancellation terminates the owned inference child.
+    }
+    private func discardAudio() { if let recordingURL { try? FileManager.default.removeItem(at: recordingURL) }; recordingURL = nil }
+
+    func discardRecovery() {
+        do { try recovery.discard(); pending = nil; hasRecovery = false }
+        catch { self.error = "Could not discard unfinished audio: \(error.localizedDescription)" }
+    }
+    func exportRecovery() {
+        let panel = NSSavePanel(); panel.nameFieldStringValue = "OSpr-unfinished.wav"
+        guard panel.runModal() == .OK, let url = panel.url else { return }
+        do { try Data(contentsOf: recovery.audioURL).write(to: url, options: .atomic) }
+        catch { self.error = error.localizedDescription }
+    }
+    func retryRecovery() {
+        guard !busy, let pending else { return }
+        generation = UUID(); let token = generation
+        phase = "transcribing"; error = ""; status = "Recovering unfinished recording…"
+        Task {
+            // Snapshot provider choice is retained; credentials stay in Keychain.
+            // No stale target from a previous run is ever used for insertion.
+            let recognized = await transcribe(file: recovery.audioURL, duration: pending.duration,
+                config: pending.settings, mode: pending.mode, target: nil, source: "recovered recording", token: token)
+            if generation == token {
+                if recognized { discardRecovery() }
+                phase = "idle"
+            }
+        }
+    }
+
+    private func transcribe(file: URL, duration: Double, config: OSprSettings, mode: WritingMode, target: InsertionTarget?, source: String, token: UUID, resultOverride: [String: Any]? = nil, startedAt: Date = Date()) async -> Bool {
+        guard generation == token else { return false }
+        var recognized = false
+        let started = startedAt
+        do {
+            let result: [String: Any]
+            if let resultOverride { result = resultOverride }
+            else if config.transcriptionProvider == "local" {
+                result = try await worker.request(["action": "transcribe", "path": file.path, "model": config.model,
+                    "language": config.language, "vocabulary": config.vocabulary, "trim": config.silenceTrim, "threshold": config.silenceThreshold])
+            } else {
+                result = try await ProviderClient.transcribe(file: file, base: config.transcriptionURL,
+                    model: config.transcriptionModel, key: transcriptionKey, language: config.language, vocabulary: config.vocabulary)
+            }
+            guard token == generation else { return false }
+            let raw = result["text"] as? String ?? ""
+            guard !raw.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { status = "No speech detected"; return true }
+            var text = TextPipeline.process(raw, mode: mode, replacements: config.replacements, spokenPunctuation: config.spokenPunctuation)
+            if mode != .verbatim && config.rewriteProvider != "none" {
+                status = "Refining your words…"
+                let input = mode == .assistant ? "Selected passage:\n\(target?.selectedText ?? "")\n\nEditing request:\n\(text)" : text
+                do {
+                    let beforeRewrite = text
+                    let instruction = mode.instruction(custom: config.customPrompt, language: config.translationLanguage)
+                    if config.rewriteProvider == "local" {
+                        let rewritten = try await worker.request(["action": "rewrite", "text": input, "instruction": instruction])
+                        text = rewritten["text"] as? String ?? text
+                    } else {
+                        text = try await ProviderClient.rewrite(text: input, instruction: instruction, provider: config.rewriteProvider,
+                            base: config.rewriteURL, model: config.rewriteModel, key: rewriteKey)
+                    }
+                    if let reason = RewriteGuard.rejection(original: beforeRewrite, rewritten: text, mode: mode) {
+                        text = beforeRewrite
+                        self.error = "Original text retained. \(reason)"
+                        if mode == .assistant {
+                            saveResult(raw: raw, text: beforeRewrite, result: result, duration: duration, config: config, mode: mode, source: source, target: target, started: started)
+                            return true
+                        }
+                    }
+                } catch {
+                    guard generation == token else { return false }
+                    self.error = "Transcription saved; rewrite failed: \(error.localizedDescription)"
+                    if mode == .assistant { /* Never replace selected text with an unexecuted editing request. */
+                        saveResult(raw: raw, text: text, result: result, duration: duration, config: config, mode: mode, source: source, target: target, started: started)
+                        return true
+                    }
+                }
+            } else if mode == .assistant {
+                throw OSprError.message("Edit selection needs a rewrite provider. Enable Local MLX or a BYOK provider in Settings.")
+            } else if [.email, .bullets, .code, .translate, .custom].contains(mode) {
+                self.error = "\(mode.title) needs a rewrite provider for formatting. This result contains the original transcription."
+            }
+            guard generation == token else { return false }
+            saveResult(raw: raw, text: text, result: result, duration: duration, config: config, mode: mode, source: source, target: target, started: started)
+            recognized = true
+            if config.autoPaste && source == "dictation", let target { try await target.paste(text, restoreClipboard: config.restoreClipboard) }
+        } catch { if generation == token { self.error = error.localizedDescription; status = "Could not finish" } }
+        return recognized
+    }
+    private func saveResult(raw: String, text: String, result: [String: Any], duration: Double, config: OSprSettings, mode: WritingMode, source: String, target: InsertionTarget?, started: Date) {
+        let segments = (result["segments"] as? [[String: Any]] ?? []).compactMap { segment -> Segment? in
+            guard let start = segment["start"] as? Double, let end = segment["end"] as? Double, let text = segment["text"] as? String else { return nil }
+            return Segment(start: start, end: end, text: text)
+        }
+        let record = Transcript(rawText: raw, text: text, model: result["model"] as? String ?? config.model, mode: mode,
+            app: target?.app?.localizedName ?? "", duration: result["audio_seconds"] as? Double ?? duration,
+            latencyMS: Date().timeIntervalSince(started) * 1000, segments: segments, source: source)
+        history.insert(record, at: 0); selection = record.id
+        if config.saveHistory { persistHistory() }
+        status = "Ready · \(Int(record.latencyMS)) ms"; preview = ""
+    }
+    private func persistHistory() {
+        history = LocalStore.retained(history, days: settings.retentionDays)
+        do { try store.write(settings.saveHistory ? history : [], name: "history.json") } catch { self.error = "Could not save history: \(error.localizedDescription)" }
+    }
+    func remove(_ record: Transcript) { history.removeAll { $0.id == record.id }; persistHistory() }
+    func clearHistory() { history.removeAll(); selection = nil; persistHistory() }
+    func updateText(_ id: UUID, text: String) { if let index = history.firstIndex(where: { $0.id == id }) { history[index].text = text; persistHistory() } }
+    func copy(_ text: String) { NSPasteboard.general.clearContents(); NSPasteboard.general.setString(text, forType: .string); status = "Copied" }
+
+    func importFiles(_ files: [URL]? = nil) {
+        guard !busy else { return }
+        let urls: [URL]
+        if let files { urls = files } else {
+            let panel = NSOpenPanel(); panel.allowsMultipleSelection = true
+            panel.allowedContentTypes = [.audio, .movie]
+            guard panel.runModal() == .OK else { return }; urls = panel.urls
+        }
+        phase = "transcribing"; generation = UUID(); let token = generation
+        let config = settings
+        Task {
+            for (index, file) in urls.enumerated() {
+                guard generation == token else { break }
+                status = "File \(index + 1) of \(urls.count) · \(file.lastPathComponent)"
+                _ = await transcribe(file: file, duration: 0, config: config, mode: config.mode, target: nil, source: file.lastPathComponent, token: token)
+            }
+            if generation == token { phase = "idle" }
+        }
+    }
+    func export(_ record: Transcript, format: String) {
+        let panel = NSSavePanel(); panel.nameFieldStringValue = "OSpr-transcript.\(format)"
+        guard panel.runModal() == .OK, let url = panel.url else { return }
+        do {
+            let data: Data
+            switch format {
+            case "json": let encoder = JSONEncoder(); encoder.outputFormatting = [.prettyPrinted, .sortedKeys]; encoder.dateEncodingStrategy = .iso8601; data = try encoder.encode(record)
+            case "srt", "vtt": data = Data(TranscriptExport.subtitles(record, vtt: format == "vtt").utf8)
+            default: data = Data(record.text.utf8)
+            }
+            try data.write(to: url, options: .atomic)
+        } catch { self.error = error.localizedDescription }
+    }
+    func requestAccessibility() { _ = AXIsProcessTrustedWithOptions([kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true] as CFDictionary) }
+    private func showOverlay() {
+        if overlay == nil {
+            let panel = NSPanel(contentRect: NSRect(x: 0, y: 0, width: 360, height: 100), styleMask: [.borderless, .nonactivatingPanel], backing: .buffered, defer: false)
+            panel.isFloatingPanel = true; panel.level = .floating; panel.backgroundColor = .clear; panel.isOpaque = false
+            panel.hasShadow = true; panel.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
+            panel.contentView = NSHostingView(rootView: RecordingOverlay(model: self, capture: capture))
+            overlay = panel
+        }
+        if let screen = NSScreen.main { overlay?.setFrameOrigin(NSPoint(x: screen.visibleFrame.midX - 180, y: screen.visibleFrame.minY + 30)) }
+        overlay?.orderFrontRegardless()
+    }
+}

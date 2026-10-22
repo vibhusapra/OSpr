@@ -1,0 +1,293 @@
+{
+  "as_of": "2026-10-22",
+  "release": "Developer preview; not full union parity",
+  "items": [
+    {
+      "feature": "Native Mac app, sidebar, studio and menu bar",
+      "status": "implemented",
+      "evidence": "Swift release build; native window visually inspected before lock.",
+      "gap": "Final updated-build walkthrough pending unlock.",
+      "priority": "P0"
+    },
+    {
+      "feature": "Local Metal inference: Parakeet v3",
+      "status": "verified",
+      "evidence": "100 stress/regression cases + 365 stratified human test clips; raw outputs committed.",
+      "gap": "",
+      "priority": "P0"
+    },
+    {
+      "feature": "Local Metal inference: Whisper Turbo",
+      "status": "verified",
+      "evidence": "Same English suites plus 50 multilingual clips.",
+      "gap": "",
+      "priority": "P0"
+    },
+    {
+      "feature": "Local Metal inference: Qwen3 ASR",
+      "status": "verified",
+      "evidence": "Same English suites plus 50 multilingual clips.",
+      "gap": "Utterance timestamps only.",
+      "priority": "P0"
+    },
+    {
+      "feature": "Nemotron 3.5 ASR",
+      "status": "verified",
+      "evidence": "365 stratified English clips and multilingual smoke run.",
+      "gap": "Native streaming integration is a separate acceptance item.",
+      "priority": "P1"
+    },
+    {
+      "feature": "Whisper Small",
+      "status": "verified",
+      "evidence": "Native adapter smoke plus 365 stratified English test clips.",
+      "gap": "Accuracy trails larger models in the measured slices.",
+      "priority": "P1"
+    },
+    {
+      "feature": "Cohere Transcribe 8-bit",
+      "status": "research only",
+      "evidence": "Strict layout adapter tested; excessive deletions in 10-clip smoke evaluation.",
+      "gap": "Excluded from app/worker/MCP model catalog until quality passes.",
+      "priority": "P1"
+    },
+    {
+      "feature": "Persistent model worker and serialized IPC",
+      "status": "verified",
+      "evidence": "30 concurrent native IPC requests; timeout/restart tests.",
+      "gap": "No local HTTP listener.",
+      "priority": "P0"
+    },
+    {
+      "feature": "Microphone capture and device selection",
+      "status": "implemented",
+      "evidence": "Native AVAudioEngine, selected CoreAudio UID, RMS meter.",
+      "gap": "Live microphone/permission/device-unplug checks blocked by lock.",
+      "priority": "P0"
+    },
+    {
+      "feature": "Recording writes off audio callback",
+      "status": "verified",
+      "evidence": "Preallocated bounded buffer pool; native stereo frame-integrity and overflow tests.",
+      "gap": "Device-level stress profiling pending.",
+      "priority": "P0"
+    },
+    {
+      "feature": "Toggle and hold-to-talk shortcuts",
+      "status": "implemented",
+      "evidence": "Carbon registration with visual shortcut editor; early key-release cancellation handled.",
+      "gap": "Global interaction checks pending unlock.",
+      "priority": "P0"
+    },
+    {
+      "feature": "Floating recording HUD",
+      "status": "implemented",
+      "evidence": "Nonactivating panel; live duration and level.",
+      "gap": "Visual recording-state check pending microphone access.",
+      "priority": "P1"
+    },
+    {
+      "feature": "Insertion into original field",
+      "status": "implemented",
+      "evidence": "AX selected-text insertion and clipboard fallback; app, field, cursor checks.",
+      "gap": "TextEdit, browser and editor matrix pending unlock.",
+      "priority": "P0"
+    },
+    {
+      "feature": "Clipboard restoration and secure-field handling",
+      "status": "partial",
+      "evidence": "Change-count guard; captured pasteboard types; secure-field rejection test.",
+      "gap": "Full native/browser secure-field and paste-fallback verification pending.",
+      "priority": "P0"
+    },
+    {
+      "feature": "Live local preview",
+      "status": "experimental",
+      "evidence": "Cached Nemotron streaming plus rolling tail preview for other models.",
+      "gap": "Nemotron supports final cache flush; native microphone path still pending interactive acceptance.",
+      "priority": "P1"
+    },
+    {
+      "feature": "Silence gate, edge trim, auto finish",
+      "status": "partial",
+      "evidence": "RMS bounds, quiet/noise/silence fixtures; optional auto-stop and 5-minute cap.",
+      "gap": "Neural VAD and mic endpointing quality remain to evaluate.",
+      "priority": "P1"
+    },
+    {
+      "feature": "Vocabulary hints",
+      "status": "verified",
+      "evidence": "Whisper prompt support; dictionary stored locally.",
+      "gap": "Parakeet adapter does not support hotword prompting.",
+      "priority": "P1"
+    },
+    {
+      "feature": "Whole-phrase replacements and snippets",
+      "status": "verified",
+      "evidence": "Unicode boundaries, longest match, literal replacement, no cascading tests.",
+      "gap": "",
+      "priority": "P0"
+    },
+    {
+      "feature": "Verbatim and deterministic clean mode",
+      "status": "verified",
+      "evidence": "Core text tests; basic filler removal; spoken punctuation opt-in.",
+      "gap": "Clean rules do not perform a full grammar rewrite.",
+      "priority": "P0"
+    },
+    {
+      "feature": "Email, notes, code, translate and custom modes",
+      "status": "partial",
+      "evidence": "Explicit local/BYOK refiner routing and instruction presets.",
+      "gap": "Translation and formatting fidelity need broader acceptance set.",
+      "priority": "P1"
+    },
+    {
+      "feature": "Selected-text voice editing",
+      "status": "implemented",
+      "evidence": "AX selected text + spoken instruction sent only to configured rewrite engine.",
+      "gap": "Interactive replacement and instruction-fidelity tests pending.",
+      "priority": "P1"
+    },
+    {
+      "feature": "Per-app automatic modes",
+      "status": "verified",
+      "evidence": "Exact bundle-ID matching, disabled-rule and fallback tests.",
+      "gap": "URL-specific routing and per-profile engine/prompts remain open.",
+      "priority": "P1"
+    },
+    {
+      "feature": "Local text refinement",
+      "status": "partial",
+      "evidence": "Qwen3 4B Instruct selected after 1.7B dropped a sentence; preservation tripwire.",
+      "gap": "A guard is not semantic proof; wider edit evaluation pending.",
+      "priority": "P0"
+    },
+    {
+      "feature": "BYOK speech transcription",
+      "status": "contract-tested",
+      "evidence": "Compatible multipart adapter; current gpt-transcribe languages[] contract; Groq preset.",
+      "gap": "No paid provider account call performed. Native non-compatible Deepgram/Soniox streaming APIs not implemented.",
+      "priority": "P0"
+    },
+    {
+      "feature": "BYOK and local-server refinement",
+      "status": "contract-tested",
+      "evidence": "Compatible chat, Anthropic Messages, Ollama; HTTP/error/redirect tests.",
+      "gap": "Provider-specific Gemini/Azure adapters not included; compatible gateways may work.",
+      "priority": "P0"
+    },
+    {
+      "feature": "Credential storage",
+      "status": "implemented",
+      "evidence": "macOS Keychain; no keys in settings/history; ephemeral network sessions.",
+      "gap": "Actual Keychain prompts and permissions pending interactive QA.",
+      "priority": "P0"
+    },
+    {
+      "feature": "File and batch transcription",
+      "status": "partial",
+      "evidence": "Local WAV/FLAC normalization and real AAC/FFmpeg decode test; sequential batch UI.",
+      "gap": "Native file-picker/drop interaction pending unlock.",
+      "priority": "P0"
+    },
+    {
+      "feature": "Transcript editor, search, copy, delete",
+      "status": "implemented",
+      "evidence": "Local history UI; data/retention tests.",
+      "gap": "Final updated UI checks pending unlock.",
+      "priority": "P1"
+    },
+    {
+      "feature": "TXT, JSON, SRT and VTT exports",
+      "status": "verified",
+      "evidence": "Original-timing subtitle tests; edited text exported separately.",
+      "gap": "Speaker and word timestamps depend on engine; no invented alignment.",
+      "priority": "P0"
+    },
+    {
+      "feature": "History privacy and retention",
+      "status": "verified",
+      "evidence": "Atomic owner-only JSON files; 1/7/30/90-day/forever retention; disable saving.",
+      "gap": "History is not application-encrypted; use FileVault.",
+      "priority": "P0"
+    },
+    {
+      "feature": "CLI and optional MCP",
+      "status": "contract-tested",
+      "evidence": "Native CLI worker smoke; stdio MCP tool listing and silence path.",
+      "gap": "MCP has file/text tools only; no microphone, UI or history access.",
+      "priority": "P1"
+    },
+    {
+      "feature": "Cancel, timeout and worker recovery",
+      "status": "verified",
+      "evidence": "Generation fences, child termination, queued epochs, timeout/restart; owner-only completed-take recovery tested across store restart.",
+      "gap": "Native retry/export/discard interactions pending unlock; active capture before stop is not crash-recovered.",
+      "priority": "P0"
+    },
+    {
+      "feature": "Launch at login",
+      "status": "implemented",
+      "evidence": "SMAppService setting.",
+      "gap": "Needs an installed, signed app and interactive verification.",
+      "priority": "P2"
+    },
+    {
+      "feature": "True incremental local streaming",
+      "status": "experimental",
+      "evidence": "Backend 320ms packet replay + native preview/flush integration.",
+      "gap": "Default first-partial audio position ~1.28s in 20-clip replay; lower latency and device acceptance remain.",
+      "priority": "P1"
+    },
+    {
+      "feature": "Bot-free system/meeting audio capture",
+      "status": "planned",
+      "evidence": "Architecture and model research documented.",
+      "gap": "ScreenCaptureKit/dual-track capture, consent UX and test corpus needed.",
+      "priority": "P1"
+    },
+    {
+      "feature": "Speaker diarization and meeting summaries",
+      "status": "planned",
+      "evidence": "NVIDIA diarization and Argmax/SpeakerKit candidates researched.",
+      "gap": "No speaker labels are claimed in current output.",
+      "priority": "P1"
+    },
+    {
+      "feature": "Watched folders and automations",
+      "status": "planned",
+      "evidence": "CLI permits scripted batch workflows.",
+      "gap": "No built-in folder watcher or webhook destinations yet.",
+      "priority": "P2"
+    },
+    {
+      "feature": "Cross-device sync, iPhone and LAN offload",
+      "status": "deferred",
+      "evidence": "Mac-first scope.",
+      "gap": "Mobile/Windows/Linux and network worker are separate projects.",
+      "priority": "P2"
+    },
+    {
+      "feature": "Enterprise SSO/SCIM/MDM/audits",
+      "status": "deferred",
+      "evidence": "Tracked in competitor matrix.",
+      "gap": "Outside individual local-dictation v0; no compliance claims.",
+      "priority": "P3"
+    },
+    {
+      "feature": "Signed/notarized standalone installer",
+      "status": "partial",
+      "evidence": "Relocatable Python app bundle; moved-path, hostile PYTHONPATH, temporary cwd and all five offline engines passed. Ad-hoc signature verified.",
+      "gap": "Clean-Mac interactive install, Developer ID/notarization and updater remain.",
+      "priority": "P0"
+    },
+    {
+      "feature": "Top-three product ranking",
+      "status": "unproven",
+      "evidence": "OSpr engines measured against a persistent Metal whisper.cpp baseline.",
+      "gap": "Equivalent consumer-app runs and user-task correction-cost study not completed.",
+      "priority": "P0"
+    }
+  ]
+}

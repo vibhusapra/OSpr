@@ -1,0 +1,37 @@
+name: CI
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+concurrency:
+  group: ospr-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  mac:
+    runs-on: macos-15
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - name: Verify native app and core contracts
+        run: swift test
+      - name: Install locked Python environment
+        run: uv sync --frozen --all-extras --python 3.12
+      - name: Lint and backend protocol tests
+        run: |
+          uv run --frozen --all-extras ruff check backend benchmarks scripts
+          uv run --frozen --all-extras pytest -q
+      - name: Build app and self-contained research report
+        run: |
+          scripts/build-app.sh
+          python3 scripts/build-report.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: OSpr-development-build
+          path: |
+            dist/OSpr.app
+            dist/ospr-cli
+            docs/research.html
