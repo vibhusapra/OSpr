@@ -607,22 +607,35 @@ import OSprCore
         catch { self.error = "Could not discard unfinished audio: \(error.localizedDescription)" }
     }
     func exportRecovery() {
+        guard !busy else { return }
         if recovery.needsMix {
             let folder = NSOpenPanel(); folder.canChooseDirectories = true; folder.canChooseFiles = false
             folder.message = "Choose a destination for the unfinished raw meeting tracks."
             guard folder.runModal() == .OK, let parent = folder.url else { return }
             let destination = parent.appendingPathComponent("OSpr Unfinished Take " + UUID().uuidString)
-            do {
+            let sources = recovery.managedAudio
+            let metadata = pending
+            Task {
+              do {
+                try await Task.detached(priority: .utility) {
                 try FileManager.default.createDirectory(at: destination, withIntermediateDirectories: false, attributes: [.posixPermissions: 0o700])
-                for source in recovery.managedAudio { try FileManager.default.copyItem(at: source, to: destination.appendingPathComponent(source.lastPathComponent)) }
-                if let pending { try JSONEncoder().encode(pending).write(to: destination.appendingPathComponent("OSpr-recovery.json"), options: .atomic) }
-            } catch { self.error = error.localizedDescription }
+                for source in sources { try PrivateFileExport.copy(source, to: destination.appendingPathComponent(source.lastPathComponent)) }
+                if let metadata { try PrivateFileExport.write(JSONEncoder().encode(metadata), to: destination.appendingPathComponent("OSpr-recovery.json")) }
+                }.value
+                status = "Unfinished tracks exported · original recovery kept"
+              } catch { self.error = "Recovery export failed: \(error.localizedDescription). Original recovery is kept." }
+            }
             return
         }
         let panel = NSSavePanel(); panel.nameFieldStringValue = "OSpr-unfinished.wav"
         guard panel.runModal() == .OK, let url = panel.url else { return }
-        do { try Data(contentsOf: recovery.audioURL).write(to: url, options: .atomic) }
-        catch { self.error = error.localizedDescription }
+        let source = recovery.audioURL
+        Task {
+          do {
+            try await Task.detached(priority: .utility) { try PrivateFileExport.copy(source, to: url) }.value
+            status = "Unfinished audio exported · original recovery kept"
+          } catch { self.error = "Recovery export failed: \(error.localizedDescription). Original recovery is kept." }
+        }
     }
     func retryRecovery() {
         guard !busy, let pending else { return }

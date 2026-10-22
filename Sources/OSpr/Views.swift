@@ -102,6 +102,7 @@ struct Card<Content: View>: View {
 struct StudioView: View {
     @ObservedObject var model: AppModel
     @ObservedObject var capture: Capture
+    @State private var confirmingRecoveryDiscard = false
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 26) {
@@ -165,7 +166,7 @@ struct StudioView: View {
                             HStack {
                                 Button(model.settings.transcriptionProvider == "local" ? "Retry locally" : "Retry with cloud provider") { model.retryRecovery() }.disabled(model.busy || model.pending == nil)
                                 Button("Export audio") { model.exportRecovery() }.disabled(model.busy)
-                                Button("Discard", role: .destructive) { model.discardRecovery() }.disabled(model.busy)
+                                Button("Discard…", role: .destructive) { confirmingRecoveryDiscard = true }.disabled(model.busy)
                             }
                         }
                     }
@@ -206,6 +207,12 @@ struct StudioView: View {
                 Text(model.settings.saveHistory ? "Transcript history is saved on this Mac. Change retention in Settings." : "Transcript saving is off. Current-session text remains visible until quit.").font(.caption).foregroundStyle(.tertiary)
             }.padding(32)
         }.onChange(of: model.settings.mode) { model.saveOSprSettings() }
+        .confirmationDialog("Discard the unfinished recording?", isPresented: $confirmingRecoveryDiscard, titleVisibility: .visible) {
+            Button("Discard recording permanently", role: .destructive) { model.discardRecovery() }
+            Button("Keep recording", role: .cancel) { }
+        } message: {
+            Text("This removes the recovery audio from this Mac. Export it first if you want to keep a copy.")
+        }
     }
 }
 

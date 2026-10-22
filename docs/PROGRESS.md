@@ -6,8 +6,8 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
 - [x] Native SwiftUI Studio, History, Models, Dictionary, Modes, Settings,
   Research, menu bar and nonactivating recording HUD. Initial window visually
-  inspected; native public-file/review/export checks recorded. Latest setup/export/
-  Fn changes and microphone/insertion acceptance remain open.
+  inspected; native public-file/review/export checks recorded. Latest setup/private TXT/SRT exports and microphone start/cancel/empty-result
+  recovery/retry retested. Physical Fn/PTT and insertion acceptance remain open.
 - [x] Parakeet v3, native-layout Cohere 8-bit, Whisper Turbo/Small, Qwen3 ASR
   and Nemotron local MLX/Metal paths.
   Pinned weights/dependencies; bounded resident ASR plus optional refiner.
@@ -47,7 +47,7 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
   edited, old settings gain defaults, shortcuts retain their previous binding on
   conflict, and the menu bar can reopen a closed workspace.
 - [x] Current official-source guide: 27 offerings, plans, feature comparison,
-  45-item acceptance ledger, model strategy, ten optimization tracks, training plan.
+  46-item acceptance ledger, model strategy, ten optimization tracks, training plan.
 - [x] Relocatable app bundle; all six engines passed offline after moving it to
   a path with spaces, from a temporary cwd and with an unrelated PYTHONPATH.
 - [x] Portable app rechecked after capture/notes changes: six offline ASR engines,
@@ -111,7 +111,7 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 - [x] Native public-file import, history edit, playback clock/end/pause, 0.5×/2× rate,
   slider/segment seeking, reprocessing preserving edits, WAV and TXT/SRT export.
   WAV preserved full float samples. Manual transcript mode 0644 and setup/privacy
-  copy issues were found and fixed in source; latest-build native retest pending.
+  copy issues were found, fixed and retested on the native build.
 - [ ] Native recovery retry/export/discard, incremental streaming, recognizer-word
   seeking and human audible-output acceptance.
 - [ ] Clean standalone installation, move/upgrade, signing/notarization and updater.
@@ -122,7 +122,7 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
   Reprocessing uses the selected speech model and an independent private input
   copy, creates a new verbatim transcript, and keeps existing edits.
   Native Core/worker/Metal/store-restart/AVFoundation integration passed;
-  audible playback and native controls/export still need unlocked interaction QA.
+  native controls and WAV/TXT/SRT export exercised; human audible listening remains.
 - [ ] Large-history launch loading and indexed search; current archive writes are
   asynchronous but the JSON archive is still loaded into memory at launch.
 - [x] Experimental speaker-labeled file imports with recognizer word timestamps;
@@ -164,3 +164,8 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
 The machine-readable acceptance ledger is authoritative for feature status;
 `research.html` is generated from that ledger and the raw measurement files.
+
+- Native empty-speech microphone completion retained a recoverable take; retry kept it.
+  Recovery exports now use owner-only staged copies off the UI thread, including
+  raw-track metadata. Unfinished-take deletion now requires a native confirmation.
+  Those final recovery UI changes still require retest. No private capture is published.

@@ -46,28 +46,28 @@
     {
       "issue": "Manual transcript exports were mode 0644",
       "fixed_in_source": "527a37c",
-      "latest_native_retest": false
+      "latest_native_retest": true
     },
     {
       "issue": "Studio retention text ignored retention setting",
       "fixed_in_source": "527a37c",
-      "latest_native_retest": false
+      "latest_native_retest": true
     },
     {
       "issue": "Setup card disappeared after loading before insertion permission",
       "fixed_in_source": "527a37c",
-      "latest_native_retest": false
+      "latest_native_retest": true
     }
   ],
   "remaining": [
-    "Latest export/setup UI retest",
     "Microphone, physical device routes, PTT and interruption",
     "Insertion/selection/secure-field/clipboard live matrix",
     "Word-level seek UI when recognizer supplies words",
     "Physical desktop capture and native watched-folder/recovery flows",
     "Human audible-output listening",
     "Physical Fn/modified shortcut acceptance on the latest source",
-    "Single-instance activation UI check"
+    "Single-instance activation UI check",
+    "Latest private recovery export and discard-confirmation UI retest"
   ],
   "temporary_test_settings": {
     "keep_audio_original": false,
@@ -77,5 +77,40 @@
     "saved_and_live_preferences_restored": true,
     "older_instance_quit_via_native_menu": true
   },
-  "limitation": "Desktop became accessible for the public-file checks and subsequently locked again. Core export fixes pass 88 Swift tests, but this receipt only covers the recorded older packaged build."
+  "limitation": "Partial native acceptance with per-build provenance. Microphone sample, insertion, physical Fn/PTT, system capture and listening matrices remain open. Recovery export improvements are newer than this recorded retest.",
+  "retests": [
+    {
+      "verified_at": "2026-10-22T19:35:35.070053+00:00",
+      "build": {
+        "version": "0.1.0",
+        "built_at": "2026-10-22T19:24:31.488938+00:00",
+        "git_commit": "ea9070cef23d15c4c788cdb91aba57822799df11",
+        "tracked_changes": false,
+        "application_source_sha256": "b8f32e365dfb2474682e25395ba2cd16c11399963f747937f9d5c35ccc5d1cd2",
+        "boundary": "Development build; ad-hoc signature; weights downloaded separately."
+      },
+      "checks": {
+        "model_ready_setup_card_retained": true,
+        "microphone_access_ready_state": true,
+        "retention_off_copy_accurate": true,
+        "edited_history_survived_restart": true,
+        "txt_export_private_mode": "0o600",
+        "txt_export_edit_preserved": true,
+        "srt_export_private_mode": "0o600",
+        "srt_original_timing_preserved": true,
+        "fn_without_accessibility_rejected": true,
+        "modified_shortcut_label_preserved_after_fn_failure": true,
+        "modified_shortcut_preference_restored": true,
+        "microphone_start_and_cancel": true,
+        "microphone_finish_empty_result_recovery": true,
+        "empty_result_retry_kept_recovery": true,
+        "second_copy_launch_left_only_original_gui_pid": true
+      },
+      "limitations": [
+        "Brief microphone capture returned no words; this proves capture/recovery flow, not speech accuracy or route quality. No raw microphone audio or private text is published.",
+        "Second-copy CUA launch timed out after its process exited. Existing GUI remained available with one GUI process; foreground activation is not independently proven.",
+        "Synthetic CUA modified-key input had no observed effect; physical shortcut behavior remains unverified."
+      ]
+    }
+  ]
 }

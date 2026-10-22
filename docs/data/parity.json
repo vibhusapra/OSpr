@@ -5,14 +5,14 @@
     {
       "feature": "Native Mac app, sidebar, studio and menu bar",
       "status": "implemented",
-      "evidence": "Native packaged public-file, history editing, audio playback clock/rate/seek, reprocessing and export flows exercised. Setup/privacy/export issues found and fixed in source.",
-      "gap": "Latest permission/setup/private-export/Fn UI retest and microphone/insertion acceptance remain open.",
+      "evidence": "Packaged public-file/review/export flows exercised. Latest setup card, microphone permission state, restart/edit persistence and owner-only TXT/SRT exports retested. Brief microphone start/cancel and empty-result recovery/retry exercised.",
+      "gap": "Physical Fn/PTT, speech/route/interruption, insertion and system-capture acceptance remain open.",
       "priority": "P0"
     },
     {
       "feature": "Local Metal inference: Parakeet v3",
       "status": "verified",
-      "evidence": "485 regression/English/supported-language cases rerun after direct long-file decoding; 482 outputs identical. Synthetic hour WER 12.38% → 2.72%. Four natural AMI controls retained bounded word timing with mixed WER and unchanged speaker DER.",
+      "evidence": "485 regression/English/supported-language cases rerun after direct long-file decoding; 482 outputs identical. Synthetic hour WER 12.38% \u2192 2.72%. Four natural AMI controls retained bounded word timing with mixed WER and unchanged speaker DER.",
       "gap": "Synthetic joins are not natural long conversation; shared-system timings and power are not isolated.",
       "priority": "P0"
     },
@@ -26,7 +26,7 @@
     {
       "feature": "Local Metal inference: Qwen3 ASR",
       "status": "verified",
-      "evidence": "365 English clips, 100 regression cases and 50 multilingual clips rerun after bounding long-file chunks; 512/515 outputs identical. Hour-long WER 26.85% → 2.36% in a synthetic completeness fixture; ten-minute case worsened slightly.",
+      "evidence": "365 English clips, 100 regression cases and 50 multilingual clips rerun after bounding long-file chunks; 512/515 outputs identical. Hour-long WER 26.85% \u2192 2.36% in a synthetic completeness fixture; ten-minute case worsened slightly.",
       "gap": "Coarse utterance/chunk timestamps, no word alignment; shared-system exploratory long-file timings.",
       "priority": "P0"
     },
@@ -75,8 +75,8 @@
     {
       "feature": "Microphone capture and device selection",
       "status": "implemented",
-      "evidence": "Native AVAudioEngine, selected CoreAudio UID, RMS meter.",
-      "gap": "Live microphone/permission/device-unplug checks blocked by lock.",
+      "evidence": "Native AVAudioEngine, selected CoreAudio UID, RMS meter. Brief native start/cancel and empty-result finish/retry exercised with microphone authorization.",
+      "gap": "No spoken reference, selected-device/loss/interruption or sustained microphone session acceptance yet.",
       "priority": "P0"
     },
     {
@@ -215,14 +215,14 @@
     {
       "feature": "Retained local audio playback and timestamp seeking",
       "status": "implemented",
-      "evidence": "Native public fixture: clock/end/pause, 0.5×/2×, slider/segment seeking, edit preservation on reprocessing, and sample-exact float WAV export observed. Archive/normalization/AVFoundation integration and core privacy tests also pass.",
+      "evidence": "Native public fixture: clock/end/pause, 0.5\u00d7/2\u00d7, slider/segment seeking, edit preservation on reprocessing, and sample-exact float WAV export observed. Archive/normalization/AVFoundation integration and core privacy tests also pass.",
       "gap": "Latest private export/setup UI retest, word-level UI seek and human audible-output acceptance remain pending.",
       "priority": "P1"
     },
     {
       "feature": "TXT, JSON, SRT and VTT exports",
       "status": "verified",
-      "evidence": "Original-timing subtitle tests; edited text exported separately.",
+      "evidence": "Original-timing subtitle tests; edited text exported separately. Native TXT/SRT retest confirmed mode 0600, preserved edited TXT and original SRT timing.",
       "gap": "Speaker and word timestamps depend on engine; no invented alignment.",
       "priority": "P0"
     },
@@ -272,7 +272,7 @@
       "feature": "Speaker diarization",
       "status": "experimental",
       "evidence": "Local Nemotron 3 Diarization 8-bit with Parakeet/Whisper word attribution. Four natural AMI headset-mix prefixes with pinned only_words reference; upstream float32 MPS control has similarly high DER.",
-      "gap": "Attribution errors remain substantial (about 30–37% DER without collar on these prefixes). Overlap flagged, not separated. Native capture acceptance pending.",
+      "gap": "Attribution errors remain substantial (about 30\u201337% DER without collar on these prefixes). Overlap flagged, not separated. Native capture acceptance pending.",
       "priority": "P1"
     },
     {
@@ -320,8 +320,8 @@
     {
       "feature": "Single-instance store ownership",
       "status": "implemented",
-      "evidence": "GUI preflight before AppModel creation plus owner-only nonblocking file lock retained by the model. Second process, release/reacquisition and symlink tests pass; CLI inference has no shared-store lock.",
-      "gap": "Native second-launch activation and simultaneous GUI-start acceptance pending.",
+      "evidence": "GUI preflight before AppModel creation plus owner-only nonblocking file lock retained by the model. Second process, release/reacquisition and symlink tests pass; CLI inference has no shared-store lock. A native launch of a second bundle left only the original GUI process and history available.",
+      "gap": "Second-copy launch exited with a CUA timeout; foreground activation was not independently measured.",
       "priority": "P0"
     }
   ]
