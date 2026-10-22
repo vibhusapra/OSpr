@@ -40,7 +40,7 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
   edited, old settings gain defaults, shortcuts retain their previous binding on
   conflict, and the menu bar can reopen a closed workspace.
 - [x] Current official-source guide: 27 offerings, plans, feature comparison,
-  44-item acceptance ledger, model strategy, ten optimization tracks, training plan.
+  45-item acceptance ledger, model strategy, ten optimization tracks, training plan.
 - [x] Relocatable app bundle; all six engines passed offline after moving it to
   a path with spaces, from a temporary cwd and with an unrelated PYTHONPATH.
 - [x] Portable app rechecked after capture/notes changes: six offline ASR engines,
@@ -62,11 +62,11 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
 ## Verification and evidence
 
-- [x] Native tests: 66 passed, covering text fidelity rules, Unicode snippets, retention/storage,
+- [x] Native tests: 82 passed, covering text fidelity rules, Unicode snippets, retention/storage,
   provider endpoint restrictions, multipart/chat/Anthropic loopback contracts,
   30 concurrent worker requests, timeout/restart, audio frame integrity/overflow,
   secure-field early rejection and recovery store restart/corrupt-metadata cases.
-- [x] Backend tests: 57 passed, covering normalization, invalid/media input, real AAC/FFmpeg decoding,
+- [x] Backend tests: 64 passed, covering normalization, invalid/media input, real AAC/FFmpeg decoding,
   silence without loading weights, stdio recovery, MCP boundary, Cohere layout
   adapter and streaming session fencing/packet bounds.
 - [x] Real human audio: deterministic 200 test-clean / 165 test-other slices,
@@ -90,10 +90,15 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
   auto-stop, interruption and sustained-session checks on an unlocked Mac.
 - [ ] Target app matrix: TextEdit, browser, editor, secure fields, moved cursor,
   clipboard restoration and selection editing. Current code/tests are not this QA.
-- [ ] Native recovery retry/export/discard and incremental streaming walkthrough.
+- [ ] Native recovery retry/export/discard, incremental streaming and retained
+  audio playback/rate/seek/export walkthrough.
 - [ ] Clean standalone installation, move/upgrade, signing/notarization and updater.
 - [ ] Neural endpointing/VAD calibration, word alignment, deeper URL/app context.
-- [ ] Original-audio playback and timestamp seeking in transcript review.
+- [x] Opt-in local audio review, speed/scrubbing, segment/word seeking and WAV
+  export. Float WAV retains the full normalized timeline without imported video
+  or tags; private size budgets, history expiry and audio-only erasure apply.
+  Native Core/worker/Metal/store-restart/AVFoundation integration passed;
+  audible playback and native controls/export still need unlocked interaction QA.
 - [ ] Large-history launch loading and indexed search; current archive writes are
   asynchronous but the JSON archive is still loaded into memory at launch.
 - [x] Experimental speaker-labeled file imports with recognizer word timestamps;

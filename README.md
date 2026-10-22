@@ -144,7 +144,12 @@ collection is included.
 
 History edits coalesce for 300 ms on a serial background writer and flush on
 orderly quit. New recording recovery is kept until saved history is confirmed.
-Unreadable history is preserved until an explicit reset. An abrupt crash can lose
+Unreadable history is preserved until an explicit reset. Audio retention is opt-in
+and keeps normalized audio without imported video or tags. The History player
+supports speed control, scrubbing and original segment/word seeking; retained WAV
+export is separate from transcript export. Oldest clips are evicted to fit the
+budget, and history deletion/expiry removes their audio. Existing clips follow
+history retention when future audio retention is turned off. An abrupt crash can lose
 an unflushed edit; large-history launch loading/search indexing remain open.
 
 Model language coverage differs. Parakeet has 25 European languages and no

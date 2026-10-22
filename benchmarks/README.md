@@ -186,3 +186,15 @@ flush. Both include value mutation and 30-day retention filtering; final files
 must be byte-identical. The receipt records source and executable hashes plus
 the repository revision at run time. Fixed order and no filesystem/thermal
 isolation; this measures storage admission, not SwiftUI frames or real typing.
+
+## Retained audio pipeline
+
+Run `.build/release/ospr-cli verify-audio-review <short-public-audio>` with cached
+Parakeet weights. The disposable store verifies native archive leases, actual
+local normalization/inference, a warm worker surviving a rejected tiny budget,
+matching recognition, history/archive restart and AVFoundation audio-only tracks.
+No sound is played and no real user history is read. The portable app harness
+runs the same check through the bundled CLI from a relocated offline app.
+Unit tests additionally verify sample-bit preservation, real MP4 audio extraction,
+quota eviction, source immutability, ownership/path guards and stale load state.
+These checks do not replace interactive playback or microphone acceptance.

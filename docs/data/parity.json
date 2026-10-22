@@ -213,6 +213,13 @@
       "priority": "P1"
     },
     {
+      "feature": "Retained local audio playback and timestamp seeking",
+      "status": "implemented",
+      "evidence": "Opt-in normalized float WAV audio, private owner-only archive, budgets/oldest eviction, history retention and explicit audio-only erasure. Native AVFoundation player with speed/scrub/segment/word seeking and WAV export. Bit-exact normalized samples, actual movie audio-only test, archive/restart/paths/quota tests and native CLI + Metal ASR integration passed.",
+      "gap": "Interactive sound, playback transport and media export remain pending unlock. Default retention is off. Word timing depends on engine; cached live preview uses packet normalization, while the saved review file preserves the full normalized source timeline.",
+      "priority": "P1"
+    },
+    {
       "feature": "TXT, JSON, SRT and VTT exports",
       "status": "verified",
       "evidence": "Original-timing subtitle tests; edited text exported separately.",
@@ -222,7 +229,7 @@
     {
       "feature": "History privacy and retention",
       "status": "verified",
-      "evidence": "Atomic owner-only JSON; configurable retention/disable saving. A dedicated serial writer coalesces edits, flushes on orderly quit, preserves unreadable files until explicit reset and confirms history before releasing recording recovery. Private temporary audio cleanup and opt-in diagnostics.",
+      "evidence": "Atomic owner-only JSON; configurable retention/disable saving. A dedicated serial writer coalesces edits, flushes on orderly quit, preserves unreadable files until explicit reset and confirms history before releasing recording recovery. Private temporary audio cleanup and opt-in diagnostics. Retained audio is opt-in, owner-only and size-limited; source upload snapshots are private and temporary.",
       "gap": "History is not application-encrypted; use FileVault. Launch loading/search indexing remain work. An abrupt crash can lose an unflushed edit inside the 300 ms debounce window. Abrupt active capture can leave private temporary audio; no secure-erasure claim.",
       "priority": "P0"
     },
