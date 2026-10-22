@@ -18,7 +18,9 @@ jobs:
         with:
           enable-cache: true
       - name: Verify native app and core contracts
-        run: swift test
+        run: |
+          /usr/bin/sqlite3 --version
+          swift test
       - name: Install locked Python environment
         run: uv sync --frozen --all-extras --python 3.12
       - name: Install media decoder for real codec and track-mixing tests

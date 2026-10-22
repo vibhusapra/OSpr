@@ -29,6 +29,11 @@ public struct HistoryStatistics: Sendable, Equatable {
     public init(records: Int, words: Int) { self.records = records; self.words = words }
 }
 
+public enum HistoryAudioRemoval: Sendable {
+    case all
+    case names(Set<String>)
+}
+
 /// Thread-confined SQLite storage. The owner must serialize access and keep all
 /// filesystem/query work off the UI executor. No live app uses this until the
 /// asynchronous repository integration passes its own acceptance gates.
@@ -201,6 +206,59 @@ public final class HistoryDatabase {
         try transaction { for record in records { try put(record) } }
     }
 
+    /// One commit for incremental edits, tombstones and complete-archive policy.
+    /// A failed batch changes neither payloads, search, counts nor audio links.
+    @discardableResult public func apply(upserts: [Transcript] = [], removing: [UUID] = [],
+        clear: Bool = false, stripAudio: HistoryAudioRemoval? = nil,
+        retentionDays: Int = 0, now: Date = Date()) throws -> Set<String> {
+        var candidates: Set<String> = []
+        try transaction {
+            if clear {
+                candidates.formUnion(try audioFiles())
+                try execute("DELETE FROM history")
+                try execute("INSERT INTO history_search(history_search) VALUES('rebuild')")
+                try execute("DELETE FROM history_meta WHERE key='legacy_sha256'")
+            }
+            for id in removing {
+                try rows("SELECT audio FROM history WHERE id=? AND audio IS NOT NULL", [.text(id.uuidString)]) { candidates.insert(text($0, 0)) }
+                try execute("DELETE FROM history WHERE id=?", [.text(id.uuidString)])
+            }
+            for record in upserts {
+                try rows("SELECT audio FROM history WHERE id=? AND audio IS NOT NULL", [.text(record.id.uuidString)]) { candidates.insert(text($0, 0)) }
+                try put(record)
+            }
+            if let stripAudio {
+                let names: Set<String>?
+                switch stripAudio { case .all: names = nil; case .names(let value): names = value }
+                candidates.formUnion(try stripAudioRows(names: names))
+            }
+            if retentionDays > 0 {
+                let cutoff = now.addingTimeInterval(-Double(retentionDays) * 86400).timeIntervalSinceReferenceDate
+                try rows("SELECT audio FROM history WHERE created<? AND audio IS NOT NULL", [.real(cutoff)]) { candidates.insert(text($0, 0)) }
+                try execute("DELETE FROM history WHERE created<?", [.real(cutoff)])
+            }
+            candidates = try orphanedAudio(candidates)
+        }
+        return candidates
+    }
+
+    /// Only an explicit Delete all history request may reset unreadable storage.
+    /// The GUI owner must hold AppInstanceLock and release its connection first.
+    public static func reset(directory: URL) throws -> HistoryDatabase {
+        _ = try LocalStore(directory: directory)
+        let files = [fileName, fileName + "-journal", fileName + "-wal", fileName + "-shm", "history.json"].map { directory.appendingPathComponent($0) }
+        for file in files {
+            var attributes = stat()
+            if lstat(file.path, &attributes) == 0 {
+                guard attributes.st_mode & mode_t(S_IFMT) == mode_t(S_IFREG) else {
+                    throw OSprError.message("History reset requires regular files. Existing files were preserved.")
+                }
+            } else if errno != ENOENT { throw OSprError.message("Cannot inspect history for reset. Existing files were preserved.") }
+        }
+        for file in files where FileManager.default.fileExists(atPath: file.path) { try FileManager.default.removeItem(at: file) }
+        return try HistoryDatabase(directory: directory)
+    }
+
     /// JSONDecoder intentionally ignores unknown keys, including nested ones.
     /// Migration must instead preserve archives made by a newer writer intact.
     private func validateLegacyFields(_ value: Any) throws {
@@ -281,8 +339,9 @@ public final class HistoryDatabase {
                 try rows("SELECT audio FROM history WHERE id=? AND audio IS NOT NULL", [.text(id.uuidString)]) { audio.insert(text($0, 0)) }
                 try execute("DELETE FROM history WHERE id=?", [.text(id.uuidString)])
             }
+            audio = try orphanedAudio(audio)
         }
-        return audio.subtracting(try audioFiles())
+        return audio
     }
 
     @discardableResult public func prune(days: Int, now: Date = Date()) throws -> Set<String> {
@@ -292,8 +351,9 @@ public final class HistoryDatabase {
         try transaction {
             try rows("SELECT audio FROM history WHERE created<? AND audio IS NOT NULL", [.real(cutoff)]) { audio.insert(text($0, 0)) }
             try execute("DELETE FROM history WHERE created<?", [.real(cutoff)])
+            audio = try orphanedAudio(audio)
         }
-        return audio.subtracting(try audioFiles())
+        return audio
     }
 
     public func audioFiles() throws -> Set<String> {
@@ -302,25 +362,45 @@ public final class HistoryDatabase {
         return audio
     }
 
+    private func orphanedAudio(_ candidates: Set<String>) throws -> Set<String> {
+        // Ordinary edits/deletes touch very few names. Use the audio index
+        // rather than materializing every archive reference for each keystroke.
+        if candidates.count > 128 { return candidates.subtracting(try audioFiles()) }
+        var orphaned = candidates
+        for name in candidates {
+            try rows("SELECT 1 FROM history WHERE audio=? LIMIT 1", [.text(name)]) { _ in orphaned.remove(name) }
+        }
+        return orphaned
+    }
+
     /// Update one payload at a time; do not retain the archive's timing arrays.
     @discardableResult public func stripAudio(names: Set<String>? = nil) throws -> Set<String> {
         var removed: Set<String> = []
-        try transaction {
-            var cursor: Int64?
-            while true {
-                var batch: [(Int64, Data)] = []
-                let suffix = cursor == nil ? "" : " AND position>?"
-                try rows("SELECT position,payload FROM history WHERE audio IS NOT NULL" + suffix + " ORDER BY position LIMIT 32", cursor.map { [.integer($0)] } ?? []) {
-                    batch.append((sqlite3_column_int64($0, 0), blob($0, 1)))
-                }
-                guard !batch.isEmpty else { break }
-                for (position, data) in batch {
+        try transaction { removed = try stripAudioRows(names: names) }
+        return removed
+    }
+
+    private func stripAudioRows(names: Set<String>?) throws -> Set<String> {
+        var removed: Set<String> = []
+        var cursor: Int64?
+        while true {
+            var batch: [Int64] = []
+            let suffix = cursor == nil ? "" : " AND position>?"
+            try rows("SELECT position FROM history WHERE audio IS NOT NULL" + suffix + " ORDER BY position LIMIT 32", cursor.map { [.integer($0)] } ?? []) {
+                batch.append(sqlite3_column_int64($0, 0))
+            }
+            guard !batch.isEmpty else { break }
+            for position in batch {
+                try autoreleasepool {
+                    var payload: Data?
+                    try rows("SELECT payload FROM history WHERE position=?", [.integer(position)]) { payload = blob($0, 0) }
+                    guard let data = payload else { return }
                     var record = try decoder.decode(Transcript.self, from: data)
                     if let name = record.audioFile, names == nil || names!.contains(name) {
                         removed.insert(name); record.audioFile = nil; try put(record)
                     }
-                    cursor = position
                 }
+                cursor = position
             }
         }
         return removed
@@ -337,6 +417,15 @@ public final class HistoryDatabase {
     }
 
     public func verifyIntegrity() throws {
+        try verifyIntegrity(mergingForLegacyRuntime: sqlite3_libversion_number() < 3_046_001)
+    }
+
+    // SQLite 3.46.1 fixed false corruption reports after FTS5 secure deletion.
+    // Merge the existing index on older runtimes before checking it; do not
+    // rebuild from content, which could hide a genuinely divergent index.
+    // https://www.sqlite.org/releaselog/3_46_1.html
+    func verifyIntegrity(mergingForLegacyRuntime: Bool) throws {
+        if mergingForLegacyRuntime { try execute("INSERT INTO history_search(history_search) VALUES('optimize')") }
         var checks: [String] = []
         try rows("PRAGMA quick_check") { checks.append(text($0, 0)) }
         guard checks == ["ok"] else { throw OSprError.message("History database integrity check failed.") }

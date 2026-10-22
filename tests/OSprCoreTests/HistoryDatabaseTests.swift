@@ -242,6 +242,17 @@ final class HistoryDatabaseTests: XCTestCase {
         try database.verifyIntegrity()
     }
 
+    func testLegacyIntegrityMergeStillRejectsDivergentSearchContent() throws {
+        let path = try directory(), database = try HistoryDatabase(directory: path)
+        let original = record("Known content")
+        try database.upsert([original])
+        try database.verifyIntegrity(mergingForLegacyRuntime: true)
+        // Remove only its index entry, retaining the actual payload/content.
+        try sql("INSERT INTO history_search(history_search,rowid,text,raw) SELECT 'delete',position,text,raw FROM history", at: path)
+        XCTAssertThrowsError(try database.verifyIntegrity(mergingForLegacyRuntime: true))
+        XCTAssertEqual(try database.record(id: original.id)?.text, original.text)
+    }
+
     func testClearRemovesSavedTextSearchStatsAndAudioLinks() throws {
         let path = try directory(), database = try HistoryDatabase(directory: path)
         let sentinel = "ZXQ_ONLY_PRIVATE_PAYLOAD_9281463720"
