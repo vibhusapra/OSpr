@@ -13,6 +13,7 @@ import sys
 import tempfile
 
 import numpy as np
+import soundfile as sf
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "backend"))
@@ -43,6 +44,21 @@ def main():
             spec.loader.exec_module(module)
             modules[name] = module
         records, manifests = [], {}
+        rate_controls = []
+        # Exercise the branch absent from the existing 16 kHz speech fixtures.
+        # Deliberately unequal stereo channels also verify downmix order.
+        for rate in (8000, 16000, 44100, 48000):
+            t = np.arange(rate * 2 + 17) / rate
+            mono = (np.sin(t * 2 * np.pi * 437) * .12).astype(np.float32)
+            for channels in (1, 2):
+                samples = mono if channels == 1 else np.stack([mono, mono * -.3], axis=1)
+                path = Path(directory) / f"control-{rate}-{channels}.wav"
+                sf.write(path, samples, rate, subtype="FLOAT")
+                old = modules["audio"].read_audio(str(path))
+                new = read_audio(str(path))
+                assert old.dtype == new.dtype and old.shape == new.shape and np.array_equal(old, new)
+                assert [(len(part), start) for part, start in modules["audio_chunks"].chunks(old)] == [(len(part), start) for part, start in chunks(new)]
+                rate_controls.append(dict(rate=rate, channels=channels, frames=len(new), normalized_sha256=sha(new.tobytes())))
         for name in ("manifest", "test-clean", "test-other", "fleurs"):
             path = ROOT / f"benchmarks/fixtures/{name}.json"
             manifests[name] = sha(path.read_bytes())
@@ -59,8 +75,8 @@ def main():
     assert len(records) == 515
     result = dict(status="passed", verified_at=datetime.datetime.now(datetime.UTC).isoformat(), baseline=baseline,
                   baseline_source_sha256=sources, current_source_sha256={name: sha((ROOT / f"backend/ospr_backend/{name}.py").read_bytes()) for name in sources},
-                  manifests_sha256=manifests, cases=len(records), records=records,
-                  boundary="All 515 existing short-suite inputs and default ASR cut offsets are bit-identical to the baseline. No model inference rerun, speed, long-file equivalence, or new accuracy claim.")
+                  manifests_sha256=manifests, cases=len(records), records=records, rate_controls=rate_controls,
+                  boundary="All 515 existing short-suite inputs, eight synthetic mono/stereo rate controls (8/16/44.1/48 kHz), and default ASR cut offsets are bit-identical to the baseline. No model inference rerun, speed, long-file equivalence, or new accuracy claim.")
     args.output.write_text(json.dumps(result, indent=2) + "\n")
     print(json.dumps({"status": "passed", "cases": len(records)}))
 

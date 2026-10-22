@@ -12,7 +12,10 @@ cp ".build/$configuration/ospr-cli" "$app/Contents/MacOS/ospr-cli"
 pwd > "$app/Contents/Resources/checkout-root.txt"
 python3 - "$app/Contents/Resources/build-info.json" <<'PY'
 import datetime, hashlib, json, os, pathlib, subprocess, sys
-paths = sorted(pathlib.Path('Sources').rglob('*.swift')) + sorted(pathlib.Path('backend/ospr_backend').glob('*.py'))
+paths = sorted(pathlib.Path('Sources').rglob('*.swift')) + sorted(
+    path for path in pathlib.Path('backend/ospr_backend').rglob('*')
+    if path.suffix in {'.py', '.json', '.npy'}
+)
 digest = hashlib.sha256()
 for path in paths:
     digest.update(str(path).encode()); digest.update(path.read_bytes())
@@ -20,7 +23,7 @@ configured = os.environ.get('OSPR_SIGN_IDENTITY', '-') not in ('', '-')
 info = dict(version='0.1.0', built_at=datetime.datetime.now(datetime.timezone.utc).isoformat(),
             git_commit=subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip(),
             tracked_changes=bool(subprocess.check_output(['git', 'diff', '--name-only'], text=True).strip()),
-            application_source_sha256=digest.hexdigest(), signing_mode='configured-identity' if configured else 'ad-hoc',
+            application_source_sha256=digest.hexdigest(), source_manifest_version=2, signing_mode='configured-identity' if configured else 'ad-hoc',
             boundary=('Development build; configured signing identity; not notarized; weights downloaded separately.' if configured
                       else 'Development build; ad-hoc signature; not notarized; weights downloaded separately.'))
 pathlib.Path(sys.argv[1]).write_text(json.dumps(info, indent=2)+'\n')

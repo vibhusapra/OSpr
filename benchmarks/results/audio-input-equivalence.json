@@ -1,13 +1,13 @@
 {
   "status": "passed",
-  "verified_at": "2026-10-22T20:50:35.312390+00:00",
+  "verified_at": "2026-10-22T22:24:20.046287+00:00",
   "baseline": "9864c79dd5d0193d958fada45fdac78f272f83d7",
   "baseline_source_sha256": {
     "audio": "868dc51ec879cb8078b9b14be4dbb2b9200de029ac33be6c100d1c440ecf40f9",
     "audio_chunks": "4fac1b33d03606ce76bc1dfc7dda7359e7135af55c342ba8706732af74284b50"
   },
   "current_source_sha256": {
-    "audio": "81d03bc39766b167d99e24f477c9b2febaa12586244db9dbb8a33ed3a5d816c9",
+    "audio": "a0fa2821e850039395b8d99f93eb35eb30cab252d12cc4222c4368da15cde2b6",
     "audio_chunks": "83e90cea3db80c166a67b788c4cf031dc1f239ad303c28dfd822b2a773a9934c"
   },
   "manifests_sha256": {
@@ -3624,5 +3624,55 @@
       "chunks": 1
     }
   ],
-  "boundary": "All 515 existing short-suite inputs and default ASR cut offsets are bit-identical to the baseline. No model inference rerun, speed, long-file equivalence, or new accuracy claim."
+  "rate_controls": [
+    {
+      "rate": 8000,
+      "channels": 1,
+      "frames": 32034,
+      "normalized_sha256": "55da9417945a604de7d8c7386db7f328a9cde411b1c770b257ce035472b2f43e"
+    },
+    {
+      "rate": 8000,
+      "channels": 2,
+      "frames": 32034,
+      "normalized_sha256": "eb19a4f519de51f9644fb910a377479b2801bdf2e311bb89f416e7404b8a976b"
+    },
+    {
+      "rate": 16000,
+      "channels": 1,
+      "frames": 32017,
+      "normalized_sha256": "18de81cc8cfb3714810b303f34434bafd6c3e06f5e45bec9327dedc13814d2bd"
+    },
+    {
+      "rate": 16000,
+      "channels": 2,
+      "frames": 32017,
+      "normalized_sha256": "1912d97dcb2cca441a47dea51addf542014722242c78c0d363388baead34ff68"
+    },
+    {
+      "rate": 44100,
+      "channels": 1,
+      "frames": 32007,
+      "normalized_sha256": "556d211cc9001c7bde68fc0a2c8ffac7004e1eaa04a1ebc6fa7ea190e077d086"
+    },
+    {
+      "rate": 44100,
+      "channels": 2,
+      "frames": 32007,
+      "normalized_sha256": "99c86d0bd43cfc0367e63fbc1aa15942afa888e70f4ac41ad9e79d34395b8daa"
+    },
+    {
+      "rate": 48000,
+      "channels": 1,
+      "frames": 32006,
+      "normalized_sha256": "2e17bb70b993d01961cb3426884d08c2f8a0794d6832bc9d73c771b6ec9ed98b"
+    },
+    {
+      "rate": 48000,
+      "channels": 2,
+      "frames": 32006,
+      "normalized_sha256": "f0eb13aaa2ed1080bce81a74902cf1011e13e1d2a9256a247369ab368ac9dfd9"
+    }
+  ],
+  "boundary": "All 515 existing short-suite inputs, eight synthetic mono/stereo rate controls (8/16/44.1/48 kHz), and default ASR cut offsets are bit-identical to the baseline. No model inference rerun, speed, long-file equivalence, or new accuracy claim."
 }

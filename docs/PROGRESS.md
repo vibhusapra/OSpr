@@ -90,7 +90,7 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
   provider endpoint restrictions, multipart/chat/Anthropic loopback contracts,
   30 concurrent worker requests, timeout/restart, audio frame integrity/overflow,
   secure-field early rejection and recovery store restart/corrupt-metadata cases.
-- [x] Backend tests: 86 passed, covering normalization, invalid/media input, real AAC/FFmpeg decoding,
+- [x] Backend tests: 94 passed, covering normalization, invalid/media input, real AAC/FFmpeg decoding,
   silence without loading weights, stdio recovery, MCP boundary, Cohere layout
   adapter and streaming session fencing/packet bounds.
 - [x] Direct bounded Parakeet long-file decoding: no temporary WAV/FFmpeg round trip,
@@ -178,8 +178,14 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 - [ ] Profile and reduce the measured cold-process startup gap.
   Initial import tracing found `scipy.signal` consuming about 901 ms inclusive
   during a 1,121 ms instrumented worker boot. The raw diagnostic is retained;
-  no startup improvement is claimed yet. Check model-loader imports, resampling
-  formats and explicit warmup before changing the execution path.
+  candidate code now imports resampling only when needed and loads Parakeet's
+  fixed, checksum-verified mel bank without constructing it through librosa.
+  All 697 parameter arrays (627,052,166 values), preprocessor values and all 515
+  public-suite texts/segments/word timings match upstream loading exactly.
+  All 515 normalized inputs plus eight mono/stereo rate controls are bit-identical
+  to the earlier audio path. Explicit preparation now primes 48 kHz conversion.
+  Candidate bundle, paired latency measurements and six-model preparation checks
+  are still pending; no startup improvement is claimed yet.
 - [ ] Equivalent installed consumer-app GUI/dictation benchmarks, correction effort and energy;
   broader speaker/accent/noise/spontaneous dictation and code-switching evaluation.
 - [ ] Validate on lower-memory and older Apple Silicon hardware.

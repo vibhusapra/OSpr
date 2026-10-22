@@ -155,9 +155,9 @@ class Engine:
             if self.progress:
                 self.progress({"phase": "loading", "model": model_id})
             if spec["engine"] == "parakeet":
-                from parakeet_mlx import from_pretrained
+                from .parakeet_loader import load_parakeet
 
-                model = from_pretrained(path)
+                model = load_parakeet(path)
             elif spec["engine"] == "whisper":
                 from mlx_whisper.transcribe import ModelHolder
 
@@ -189,12 +189,17 @@ class Engine:
 
             priming = time.perf_counter()
             with private_audio_file() as audio:
-                tone = (np.sin(np.arange(SAMPLE_RATE) * (2 * np.pi * 440 / SAMPLE_RATE)) * 0.01).astype(np.float32)
-                sf.write(audio.name, tone, SAMPLE_RATE, subtype="FLOAT")
+                # Also prepare the real 48 kHz microphone resampling path.
+                # Moving optional imports must not defer that work until after
+                # the user has explicitly waited for "Model ready".
+                prime_rate = 48000
+                tone = (np.sin(np.arange(prime_rate) * (2 * np.pi * 440 / prime_rate)) * 0.01).astype(np.float32)
+                sf.write(audio.name, tone, prime_rate, subtype="FLOAT")
                 self.transcribe(audio.name, model_id, language="en", trim=False)
             self.primed_model = model_id
             prime_ms = (time.perf_counter() - priming) * 1000
-        return {"model": model_id, "load_ms": load_ms, "prime_ms": prime_ms, "total_ms": (time.perf_counter() - started) * 1000}
+        return {"model": model_id, "load_ms": load_ms, "prime_ms": prime_ms, "primed_sample_rate": 48000,
+                "total_ms": (time.perf_counter() - started) * 1000}
 
     def transcribe(
         self,

@@ -9,7 +9,6 @@ from .temporary import private_audio_file
 
 import numpy as np
 import soundfile as sf
-from scipy.signal import resample_poly
 
 SAMPLE_RATE = 16000
 MAX_SECONDS = 4 * 60 * 60
@@ -34,6 +33,8 @@ def read_audio(path: str) -> np.ndarray:
     if not np.isfinite(mono).all():
         raise ValueError("Audio contains non-finite samples.")
     if rate != SAMPLE_RATE:
+        from scipy.signal import resample_poly
+
         divisor = gcd(rate, SAMPLE_RATE)
         mono = resample_poly(mono, SAMPLE_RATE // divisor, rate // divisor).astype(np.float32)
     np.clip(mono, -1, 1, out=mono)

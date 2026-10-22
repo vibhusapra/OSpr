@@ -72,6 +72,7 @@ def main():
                      dict(action='model_status', id='status-after'),
                      dict(action='warm', model='parakeet-v3', id='warm-progress'),
                      dict(action='prepare_review', path=str(audio), output=str(directory/'review.wav'), limit_bytes=1024**2, id='prepare-review'),
+                     *[dict(action='warm', model=model, id='prime-' + model) for model in models],
                      dict(action='ping', id='final-ping')]
         process = subprocess.run([str(python), '-u', '-m', 'ospr_backend.worker'], input=''.join(json.dumps(r)+'\n' for r in requests), capture_output=True, text=True, cwd=directory, env=environment, timeout=300)
         frames = [json.loads(line) for line in process.stdout.splitlines()]
@@ -88,9 +89,11 @@ def main():
         assert len(before['models']) == 8 and all(row['complete'] for row in before['models'])
         assert before['resident'] == after['resident'] and before['rewrite_resident'] == after['rewrite_resident']
         assert replies[12]['result']['complete'] and replies[14]['ok']
-        assert all(event['id'] in {'download-cached', 'warm-progress'} for event in events)
+        assert all(event['id'] in {'download-cached', 'warm-progress', *('prime-' + model for model in models)} for event in events)
         assert any(event['id'] == 'warm-progress' and event['progress']['phase'] == 'priming' for event in events)
         assert replies[15]['result']['source_unchanged'] and (directory/'review.wav').is_file()
+        primes = {reply['id']: reply['result'] for reply in replies if reply['id'].startswith('prime-')}
+        assert len(primes) == len(models) and all(result['primed_sample_rate'] == 48000 for result in primes.values())
         info = subprocess.check_output([str(python), '-c', 'import sys, mlx.core; print(sys.prefix); print(mlx.core.__file__)'], cwd=directory, env=environment, text=True)
         assert str(copied) in info and str(ROOT.parent/'.venv') not in info, info
         cli = copied/'Contents/MacOS/ospr-cli'
