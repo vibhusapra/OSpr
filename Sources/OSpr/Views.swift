@@ -76,6 +76,8 @@ struct WorkspaceView: View {
             }
             return !providers.isEmpty
         }
+        .onAppear { model.refreshPermissions() }
+        .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in model.refreshPermissions() }
     }
 }
 
@@ -109,7 +111,7 @@ struct StudioView: View {
                         HStack {
                             Label(model.localOnly ? "ON YOUR MAC" : "YOUR CHOSEN PROVIDER", systemImage: model.localOnly ? "cpu" : "cloud").font(.system(size: 10, weight: .semibold, design: .monospaced)).tracking(1).foregroundStyle(.secondary)
                             Spacer()
-                            Text(model.settings.model == "parakeet-v3" ? "Parakeet v3" : model.settings.model).font(.caption).foregroundStyle(.secondary)
+                            Text(model.settings.transcriptionProvider == "local" ? (model.settings.model == "parakeet-v3" ? "Parakeet v3" : model.settings.model) : model.settings.transcriptionModel).font(.caption).foregroundStyle(.secondary)
                         }
                         HStack(spacing: 26) {
                             Button { model.toggle() } label: {
@@ -168,15 +170,18 @@ struct StudioView: View {
                         }
                     }
                 }
-                if !model.ready {
+                if !model.engineInstalled || (model.settings.transcriptionProvider == "local" && !model.ready) || !model.microphoneReady || (model.settings.autoPaste && !model.accessibilityReady) {
                     Card {
                         VStack(alignment: .leading, spacing: 15) {
-                            Label("Make yourself at home", systemImage: "hand.wave").font(.headline)
-                            Text("One-time setup, then offline dictation. The first model load downloads its weights from Hugging Face.").font(.caption).foregroundStyle(.secondary)
+                            Label("Set up dictation", systemImage: "hand.wave").font(.headline)
+                            Text("Local model loading downloads weights on first use. File imports need neither microphone nor insertion access.").font(.caption).foregroundStyle(.secondary)
                             HStack(spacing: 10) {
-                                Button(model.engineInstalled ? "1. Engine installed ✓" : "1. Install local engine") { model.installEngine() }.disabled(model.setupRunning || model.engineInstalled || model.busy)
-                                Button("2. Load model") { model.warm() }.disabled(model.busy || !model.engineInstalled).buttonStyle(.borderedProminent)
-                                Button("3. Enable insertion") { model.requestAccessibility() }
+                                Button(model.engineInstalled ? "Engine installed ✓" : "Install local engine") { model.installEngine() }.disabled(model.setupRunning || model.engineInstalled || model.busy)
+                                if model.settings.transcriptionProvider == "local" { Button(model.ready ? "Model ready ✓" : "Load model") { model.warm() }.disabled(model.ready || model.busy || !model.engineInstalled).buttonStyle(.borderedProminent) }
+                            }
+                            HStack(spacing: 10) {
+                                Button(model.microphoneReady ? "Microphone allowed ✓" : "Allow microphone") { model.requestMicrophone() }.disabled(model.microphoneReady || model.busy)
+                                if model.settings.autoPaste { Button(model.accessibilityReady ? "Insertion enabled ✓" : "Enable insertion") { model.requestAccessibility() }.disabled(model.accessibilityReady || model.busy) }
                             }
                             if model.setupRunning { ProgressView("Installing locked dependencies…").font(.caption) }
                             if !model.setupLog.isEmpty { DisclosureGroup("Setup output") { Text(model.setupLog).font(.system(size: 10, design: .monospaced)).textSelection(.enabled).frame(maxHeight: 160) } }
@@ -197,7 +202,8 @@ struct StudioView: View {
                         }
                     }
                 }
-                Text("Audio is discarded after processing. History stays on this Mac. Change retention or disable saving in Settings.").font(.caption).foregroundStyle(.tertiary)
+                Text(model.settings.keepAudio && model.settings.saveHistory ? "Audio review is on. Clips stay on this Mac within your history retention and storage budget." : "New audio is discarded after successful processing. Previously retained clips follow history retention; unresolved takes remain in private recovery.").font(.caption).foregroundStyle(.tertiary)
+                Text(model.settings.saveHistory ? "Transcript history is saved on this Mac. Change retention in Settings." : "Transcript saving is off. Current-session text remains visible until quit.").font(.caption).foregroundStyle(.tertiary)
             }.padding(32)
         }.onChange(of: model.settings.mode) { model.saveOSprSettings() }
     }

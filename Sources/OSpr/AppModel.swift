@@ -24,6 +24,8 @@ import OSprCore
     @Published var setupRunning = false
     @Published var setupLog = ""
     @Published var ready = false
+    @Published var microphoneReady = AVCaptureDevice.authorizationStatus(for: .audio) == .authorized
+    @Published var accessibilityReady = AXIsProcessTrusted()
     @Published var modelCache: [String: ModelCacheStatus] = [:]
     @Published var residentModels: Set<String> = []
     @Published var modelProgress = ""
@@ -323,7 +325,9 @@ import OSprCore
         phase = "starting"; error = ""; preview = ""
         operationTask = Task {
             do {
+                try Task.checkCancellation()
                 let allowed = await AVCaptureDevice.requestAccess(for: .audio)
+                microphoneReady = allowed
                 guard generation == token else { return }
                 guard allowed else { throw OSprError.message("Allow OSpr microphone access in System Settings → Privacy & Security → Microphone.") }
                 let file = try capture.start(deviceID: recordingSettings.microphoneID,
@@ -819,12 +823,7 @@ import OSprCore
             do {
                 guard let source = try await audioArchive.resolve(name: name, id: record.id) else { throw OSprError.message("Retained audio is no longer available.") }
                 try await Task.detached(priority: .utility) {
-                    let fm = FileManager.default
-                    let temporary = destination.deletingLastPathComponent().appendingPathComponent(".ospr-export-" + UUID().uuidString + ".wav")
-                    defer { try? fm.removeItem(at: temporary) }
-                    try fm.copyItem(at: source, to: temporary)
-                    if fm.fileExists(atPath: destination.path) { _ = try fm.replaceItemAt(destination, withItemAt: temporary) }
-                    else { try fm.moveItem(at: temporary, to: destination) }
+                    try PrivateFileExport.copy(source, to: destination)
                 }.value
                 status = "Audio exported"
             } catch { self.error = "Audio export failed: \(error.localizedDescription)" }
@@ -939,15 +938,30 @@ import OSprCore
     func export(_ record: Transcript, format: String) {
         let panel = NSSavePanel(); panel.nameFieldStringValue = "OSpr-transcript.\(format)"
         guard panel.runModal() == .OK, let url = panel.url else { return }
-        do {
+        Task {
+          do {
+            try await Task.detached(priority: .utility) {
             let data: Data
             switch format {
             case "json": let encoder = JSONEncoder(); encoder.outputFormatting = [.prettyPrinted, .sortedKeys]; encoder.dateEncodingStrategy = .iso8601; data = try encoder.encode(record)
             case "srt", "vtt": data = Data(TranscriptExport.subtitles(record, vtt: format == "vtt").utf8)
             default: data = Data(record.text.utf8)
             }
-            try data.write(to: url, options: .atomic)
-        } catch { self.error = error.localizedDescription }
+            try PrivateFileExport.write(data, to: url)
+            }.value
+            status = "Transcript exported · \(format.uppercased())"
+          } catch { self.error = "Transcript export failed: \(error.localizedDescription)" }
+        }
+    }
+    func refreshPermissions() {
+        microphoneReady = AVCaptureDevice.authorizationStatus(for: .audio) == .authorized
+        accessibilityReady = AXIsProcessTrusted()
+    }
+    func requestMicrophone() {
+        Task {
+            microphoneReady = await AVCaptureDevice.requestAccess(for: .audio)
+            if !microphoneReady { error = "Allow OSpr microphone access in System Settings → Privacy & Security → Microphone. File imports do not require microphone access." }
+        }
     }
     func requestAccessibility() { _ = AXIsProcessTrustedWithOptions([kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true] as CFDictionary) }
     private func showOverlay() {
