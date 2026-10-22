@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-10-22T09:41:28.981260+00:00",
+  "timestamp": "2026-10-22T11:51:32.079889+00:00",
   "model": "parakeet-v3",
   "model_spec": {
     "repo": "mlx-community/parakeet-tdt-0.6b-v3",
@@ -12,8 +12,8 @@
   "machine": "arm64",
   "hardware": "Apple M5 Max",
   "memory_bytes": 137438953472,
-  "source_sha256": "20195f0ec8063a8fcc87052ff2e89656eccdf45d66669979e0c39a95a809a46b",
-  "git_commit": "5b57f1413077f87335ce2099d47044686806f337",
+  "source_sha256": "b966ca85111801981eb11fa263d8dc46a2725571b6d8bbcaa16e3657dd846558",
+  "git_commit": "9659dea9541cd5ce1f1460594ef6c669a6e513f0",
   "working_tree_dirty": true,
   "versions": {
     "mlx": "0.32.4",
@@ -42,18 +42,19 @@
         "text": " Se recomienda enf\u00e1ticamente a los viajeros que se informen sobre cualquier riesgo del clima extremo en el \u00e1rea que visitan, dado que ello pueda afectar sus planes de viaje."
       }
     ],
+    "words": [],
     "language": "es",
     "silence": false,
     "warm": false,
-    "load_ms": 205.40229103062302,
-    "preprocess_ms": 1.004750025458634,
-    "decode_ms": 161.34545800741762,
-    "total_ms": 367.7568749990314,
-    "peak_gpu_bytes": 3509441008,
+    "load_ms": 227.76804096065462,
+    "preprocess_ms": 0.9966250509023666,
+    "decode_ms": 167.56412491668016,
+    "total_ms": 396.334792021662,
+    "peak_gpu_bytes": 3649743398,
     "active_gpu_bytes": 1296443596,
     "vocabulary_applied": false,
     "timestamp_granularity": "segment",
-    "wall_ms": 367.77554103173316
+    "wall_ms": 396.3558330433443
   },
   "summary": {
     "fleurs-es_419": {
@@ -64,13 +65,13 @@
       "substitutions": 6,
       "deletions": 2,
       "insertions": 0,
-      "p50_ms": 67.726687528193,
-      "p95_ms": 109.86884188605467,
-      "aggregate_rtf": 0.006487265173521053,
+      "p50_ms": 66.61397899733856,
+      "p95_ms": 117.27041446138169,
+      "aggregate_rtf": 0.00660283674713805,
       "hallucinated_silence": 0
     }
   },
-  "process_peak_rss_bytes": 1894678528,
+  "process_peak_rss_bytes": 1821425664,
   "corpus": {
     "dataset": "google/fleurs",
     "revision": "70bb2e84b976b7e960aa89f1c648e09c59f894dd",
@@ -122,17 +123,18 @@
           "text": " Se recomienda enf\u00e1ticamente a los viajeros que se informen sobre cualquier riesgo del clima extremo en el \u00e1rea que visitan, dado que ello pueda afectar sus planes de viaje."
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.001625041477382183,
-      "preprocess_ms": 0.9027500636875629,
-      "decode_ms": 78.16795899998397,
-      "total_ms": 79.07541701570153,
+      "load_ms": 0.001584063284099102,
+      "preprocess_ms": 0.8839169749990106,
+      "decode_ms": 92.30379201471806,
+      "total_ms": 93.19308295380324,
       "peak_gpu_bytes": 2299970032,
       "active_gpu_bytes": 1296443596,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 79.0884590242058
+      "wall_ms": 93.20724999997765
     },
     {
       "id": "fleurs-es_419-001",
@@ -165,17 +167,18 @@
           "text": " OraBek, 2002"
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0020830193534493446,
-      "preprocess_ms": 1.411958015523851,
-      "decode_ms": 132.88820907473564,
-      "total_ms": 134.30520799010992,
+      "load_ms": 0.001999898813664913,
+      "preprocess_ms": 1.328374957665801,
+      "decode_ms": 135.60895796399564,
+      "total_ms": 136.9431250495836,
       "peak_gpu_bytes": 2444689732,
       "active_gpu_bytes": 1296885964,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 134.31966700591147
+      "wall_ms": 136.95845811162144
     },
     {
       "id": "fleurs-es_419-002",
@@ -198,17 +201,18 @@
           "text": " Fue tanta la cantidad de gente que se concentr\u00f3 que no todos pudieron acceder al funeral en la plaza de San Pedro."
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0010420335456728935,
-      "preprocess_ms": 0.6964999483898282,
-      "decode_ms": 62.015124945901334,
-      "total_ms": 62.71545891650021,
+      "load_ms": 0.0011670636013150215,
+      "preprocess_ms": 0.6908749928697944,
+      "decode_ms": 62.95820907689631,
+      "total_ms": 63.65316698793322,
       "peak_gpu_bytes": 2234941936,
       "active_gpu_bytes": 1296246988,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 62.72716703824699
+      "wall_ms": 63.664124929346144
     },
     {
       "id": "fleurs-es_419-003",
@@ -231,17 +235,18 @@
           "text": " Esto parece tener sentido, ya que en la Tierra no se percibe su movimiento, \u00bfcierto?"
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0011669471859931946,
-      "preprocess_ms": 0.6214590976014733,
-      "decode_ms": 55.14445807784796,
-      "total_ms": 55.76995899900794,
+      "load_ms": 0.001500011421740055,
+      "preprocess_ms": 0.7872909773141146,
+      "decode_ms": 56.197833037003875,
+      "total_ms": 56.9904160220176,
       "peak_gpu_bytes": 2224177648,
       "active_gpu_bytes": 1296214220,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 55.781541974283755
+      "wall_ms": 57.002458022907376
     },
     {
       "id": "fleurs-es_419-004",
@@ -264,17 +269,18 @@
           "text": " Carpaneo particip\u00f3 en dos carreras individuales del campeonato, aparte de la competencia del mi\u00e9rcoles."
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.001374981366097927,
-      "preprocess_ms": 0.7090840954333544,
-      "decode_ms": 66.24175002798438,
-      "total_ms": 66.95533404126763,
+      "load_ms": 0.001125037670135498,
+      "preprocess_ms": 0.7117079803720117,
+      "decode_ms": 62.49008292797953,
+      "total_ms": 63.206000020727515,
       "peak_gpu_bytes": 2260500976,
       "active_gpu_bytes": 1296328908,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 66.96637498680502
+      "wall_ms": 63.21616598870605
     },
     {
       "id": "fleurs-es_419-005",
@@ -297,17 +303,18 @@
           "text": " Hoy en d\u00eda, las personas escriben mensajes en las pantallas de sus computadoras, no tienen la necesidad de siquiera aproximarse en sacapuntas."
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0014170072972774506,
-      "preprocess_ms": 0.6703329272568226,
-      "decode_ms": 67.80129193793982,
-      "total_ms": 68.4757080161944,
+      "load_ms": 0.0011669471859931946,
+      "preprocess_ms": 0.6534580606967211,
+      "decode_ms": 68.46141698770225,
+      "total_ms": 69.1189169883728,
       "peak_gpu_bytes": 2246132208,
       "active_gpu_bytes": 1296279756,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 68.48700006958097
+      "wall_ms": 69.13120800163597
     },
     {
       "id": "fleurs-es_419-006",
@@ -330,17 +337,18 @@
           "text": " Los luchadores compa\u00f1eros de Luna tambi\u00e9n le rindieron homenaje."
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.00100000761449337,
-      "preprocess_ms": 0.4919589264318347,
-      "decode_ms": 43.19662495981902,
-      "total_ms": 43.692249921150506,
-      "peak_gpu_bytes": 2168570352,
+      "load_ms": 0.0008329516276717186,
+      "preprocess_ms": 0.47458300832659006,
+      "decode_ms": 42.90516604669392,
+      "total_ms": 43.38295804336667,
+      "peak_gpu_bytes": 2168357360,
       "active_gpu_bytes": 1296033996,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 43.702583061531186
+      "wall_ms": 43.39358292054385
     },
     {
       "id": "fleurs-es_419-007",
@@ -363,17 +371,18 @@
           "text": " Duvall, que est\u00e1 casado y tiene dos hijos adultos, no caus\u00f3 una buena impresi\u00f3n a Miller, que fue a quien le relat\u00f3 la historia."
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.001209089532494545,
-      "preprocess_ms": 0.6787920137867332,
-      "decode_ms": 63.34604206494987,
-      "total_ms": 64.02900000102818,
+      "load_ms": 0.00100000761449337,
+      "preprocess_ms": 0.6601670756936073,
+      "decode_ms": 63.4219580097124,
+      "total_ms": 64.08554199151695,
       "peak_gpu_bytes": 2224177648,
       "active_gpu_bytes": 1296214220,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 64.03958308510482
+      "wall_ms": 64.09674999304116
     },
     {
       "id": "fleurs-es_419-008",
@@ -396,17 +405,18 @@
           "text": " Entre los fen\u00f3menos clim\u00e1ticos regionales y estacionales extremos encontramos los ventalrones, las tormentas de nieve, hielo o polvo."
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0012919772416353226,
-      "preprocess_ms": 0.7357919821515679,
-      "decode_ms": 68.12920805532485,
-      "total_ms": 68.86941706761718,
-      "peak_gpu_bytes": 2268447216,
+      "load_ms": 0.0012080417945981026,
+      "preprocess_ms": 0.7376250578090549,
+      "decode_ms": 68.70612490456551,
+      "total_ms": 69.44904197007418,
+      "peak_gpu_bytes": 2269004272,
       "active_gpu_bytes": 1296361676,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 68.88191704638302
+      "wall_ms": 69.46037500165403
     },
     {
       "id": "fleurs-es_419-009",
@@ -429,17 +439,18 @@
           "text": " Se puede definir a una civilizaci\u00f3n como una cultura espec\u00edfica de que forma parte un extenso grupo de personas que viven y trabajan en conjunto, es decir, una sociedad."
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.001374981366097927,
-      "preprocess_ms": 1.007957966066897,
-      "decode_ms": 78.95870797801763,
-      "total_ms": 79.97208298183978,
-      "peak_gpu_bytes": 2281603568,
+      "load_ms": 0.001249951310455799,
+      "preprocess_ms": 0.7675419328734279,
+      "decode_ms": 75.96283301245421,
+      "total_ms": 76.73445797991008,
+      "peak_gpu_bytes": 2283471344,
       "active_gpu_bytes": 1296394444,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 79.98450007289648
+      "wall_ms": 76.74620801117271
     }
   ],
   "limitations": [

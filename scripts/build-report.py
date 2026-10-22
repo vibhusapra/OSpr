@@ -52,7 +52,7 @@ for product in offerings["products"]:
         f'<a href="{esc(url)}" target="_blank" rel="noreferrer">Official source {i + 1}</a>'
         for i, url in enumerate(product["sources"])
     )
-    cards.append(f'''<article class="product" data-kind="{esc(product["kind"])}" data-search="{esc((product["name"] + " " + product["difference"] + " " + product["routing"]).lower())}">
+    cards.append(f'''<article class="product" data-kind="{esc(product["kind"])}" data-search="{esc((" ".join([product["name"], product["difference"], product["routing"], product["notes"], *product["features"], *[" ".join(plan) for plan in product["plans"]]])).lower())}">
     <div class="row"><h3>{esc(product["name"])}</h3><span class="tag muted">{esc(product["kind"])}</span></div>
     <p class="small muted">{esc(product["platforms"])} · {esc(product["license"])}</p>
     <p>{esc(product["difference"])}</p><p class="small"><strong>Processing:</strong> {esc(product["routing"])}</p>

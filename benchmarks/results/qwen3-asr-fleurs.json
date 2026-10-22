@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-10-22T09:41:12.407066+00:00",
+  "timestamp": "2026-10-22T11:51:15.564651+00:00",
   "model": "qwen3-asr",
   "model_spec": {
     "repo": "mlx-community/Qwen3-ASR-1.7B-8bit",
@@ -12,8 +12,8 @@
   "machine": "arm64",
   "hardware": "Apple M5 Max",
   "memory_bytes": 137438953472,
-  "source_sha256": "20195f0ec8063a8fcc87052ff2e89656eccdf45d66669979e0c39a95a809a46b",
-  "git_commit": "5b57f1413077f87335ce2099d47044686806f337",
+  "source_sha256": "b966ca85111801981eb11fa263d8dc46a2725571b6d8bbcaa16e3657dd846558",
+  "git_commit": "9659dea9541cd5ce1f1460594ef6c669a6e513f0",
   "working_tree_dirty": true,
   "versions": {
     "mlx": "0.32.4",
@@ -42,20 +42,21 @@
         "text": "Se recomienda enf\u00e1ticamente a los viajeros que se informen sobre cualquier riesgo del clima extremo en el \u00e1rea que visitan, dado que ello puede afectar sus planes de viaje."
       }
     ],
+    "words": [],
     "language": [
       "es"
     ],
     "silence": false,
     "warm": false,
-    "load_ms": 1735.7955829938874,
-    "preprocess_ms": 1.0667090537026525,
-    "decode_ms": 295.971916988492,
-    "total_ms": 2032.8410000074655,
+    "load_ms": 1747.9912089183927,
+    "preprocess_ms": 1.0252910433337092,
+    "decode_ms": 317.31475004926324,
+    "total_ms": 2066.346290986985,
     "peak_gpu_bytes": 3652889468,
     "active_gpu_bytes": 2492275618,
     "vocabulary_applied": false,
     "timestamp_granularity": "utterance",
-    "wall_ms": 2032.9131670296192
+    "wall_ms": 2066.5622919332236
   },
   "summary": {
     "fleurs-cmn_hans_cn": {
@@ -66,9 +67,9 @@
       "substitutions": 11,
       "deletions": 322,
       "insertions": 0,
-      "p50_ms": 173.64722903585061,
-      "p95_ms": 279.465508100111,
-      "aggregate_rtf": 0.0160481088316111,
+      "p50_ms": 172.95441654277965,
+      "p95_ms": 275.5999437766149,
+      "aggregate_rtf": 0.0157344408018451,
       "hallucinated_silence": 0
     },
     "fleurs-de_de": {
@@ -79,9 +80,9 @@
       "substitutions": 5,
       "deletions": 1,
       "insertions": 1,
-      "p50_ms": 249.01997903361917,
-      "p95_ms": 422.12352136266406,
-      "aggregate_rtf": 0.017480920768180006,
+      "p50_ms": 246.53231201227754,
+      "p95_ms": 424.2640474811195,
+      "aggregate_rtf": 0.017661794692166312,
       "hallucinated_silence": 0
     },
     "fleurs-es_419": {
@@ -92,9 +93,9 @@
       "substitutions": 5,
       "deletions": 2,
       "insertions": 0,
-      "p50_ms": 223.85343798669055,
-      "p95_ms": 360.7462331245186,
-      "aggregate_rtf": 0.02092733049154362,
+      "p50_ms": 218.06281252065673,
+      "p95_ms": 359.90615219343437,
+      "aggregate_rtf": 0.020791749532733408,
       "hallucinated_silence": 0
     },
     "fleurs-hi_in": {
@@ -105,9 +106,9 @@
       "substitutions": 30,
       "deletions": 2,
       "insertions": 5,
-      "p50_ms": 571.010687504895,
-      "p95_ms": 942.844548303401,
-      "aggregate_rtf": 0.0548983867307148,
+      "p50_ms": 563.3393750176765,
+      "p95_ms": 962.4602794705424,
+      "aggregate_rtf": 0.0549752713204927,
       "hallucinated_silence": 0
     },
     "fleurs-ja_jp": {
@@ -118,13 +119,13 @@
       "substitutions": 10,
       "deletions": 14,
       "insertions": 0,
-      "p50_ms": 193.279666476883,
-      "p95_ms": 294.0008711884729,
-      "aggregate_rtf": 0.0183278856782418,
+      "p50_ms": 192.74656247580424,
+      "p95_ms": 303.01477069151576,
+      "aggregate_rtf": 0.018767089631771705,
       "hallucinated_silence": 0
     }
   },
-  "process_peak_rss_bytes": 3021455360,
+  "process_peak_rss_bytes": 3018342400,
   "corpus": {
     "dataset": "google/fleurs",
     "revision": "70bb2e84b976b7e960aa89f1c648e09c59f894dd",
@@ -178,17 +179,18 @@
           "text": "Se recomienda enf\u00e1ticamente a los viajeros que se informen sobre cualquier riesgo del clima extremo en el \u00e1rea que visitan, dado que ello puede afectar sus planes de viaje."
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.005834037438035011,
-      "preprocess_ms": 1.4752499992027879,
-      "decode_ms": 263.46845901571214,
-      "total_ms": 264.95841692667454,
+      "load_ms": 0.002791057340800762,
+      "preprocess_ms": 1.211916096508503,
+      "decode_ms": 261.32050005253404,
+      "total_ms": 262.5405410071835,
       "peak_gpu_bytes": 3652890436,
       "active_gpu_bytes": 2492275618,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 264.98637499753386
+      "wall_ms": 262.5835839426145
     },
     {
       "id": "fleurs-es_419-001",
@@ -213,17 +215,18 @@
           "text": "El uso adecuado de los blogs puede empoderar a los alumnos para que sean m\u00e1s anal\u00edticos y cr\u00edticos a trav\u00e9s de la respuesta activa a los contenidos de Internet. Pueden definir sus posturas en el contexto de los escritos de otros, adem\u00e1s de establecer sus perspectivas sobre temas espec\u00edficos. Horavec, 2002."
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0018329592421650887,
-      "preprocess_ms": 1.334541942924261,
-      "decode_ms": 437.7350000431761,
-      "total_ms": 439.0759998932481,
+      "load_ms": 0.0024170149117708206,
+      "preprocess_ms": 1.3332499656826258,
+      "decode_ms": 438.16987494938076,
+      "total_ms": 439.5122079877183,
       "peak_gpu_bytes": 3730735992,
       "active_gpu_bytes": 2513247138,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 439.09520795568824
+      "wall_ms": 439.53370803501457
     },
     {
       "id": "fleurs-es_419-002",
@@ -248,17 +251,18 @@
           "text": "Fue tanta la cantidad de gente que se concentr\u00f3 que no todos pudieron acceder al funeral en la Plaza de San Pedro."
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.001334003172814846,
-      "preprocess_ms": 0.8070830954238772,
-      "decode_ms": 198.1253339909017,
-      "total_ms": 198.93975008744746,
+      "load_ms": 0.001875101588666439,
+      "preprocess_ms": 0.7929999846965075,
+      "decode_ms": 193.7664159340784,
+      "total_ms": 194.5662919897586,
       "peak_gpu_bytes": 3576281972,
       "active_gpu_bytes": 2492357538,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 198.95883300341666
+      "wall_ms": 194.57920803688467
     },
     {
       "id": "fleurs-es_419-003",
@@ -283,17 +287,18 @@
           "text": "Esto parece tener sentido, ya que en la Tierra no se percibe su movimiento, \u00bfcierto?"
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0012079253792762756,
-      "preprocess_ms": 0.7487089606001973,
-      "decode_ms": 173.13812498468906,
-      "total_ms": 173.89395891223103,
+      "load_ms": 0.0018749851733446121,
+      "preprocess_ms": 0.7568750297650695,
+      "decode_ms": 173.47516608424485,
+      "total_ms": 174.2379170609638,
       "peak_gpu_bytes": 3568301916,
-      "active_gpu_bytes": 2492279714,
+      "active_gpu_bytes": 2492275618,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 173.9143329905346
+      "wall_ms": 174.25854096654803
     },
     {
       "id": "fleurs-es_419-004",
@@ -318,17 +323,18 @@
           "text": "Carpanedo particip\u00f3 en dos carreras individuales del campeonato aparte de la competencia del mi\u00e9rcoles."
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0014581019058823586,
-      "preprocess_ms": 0.9773330530151725,
-      "decode_ms": 186.08066602610052,
-      "total_ms": 187.06366699188948,
+      "load_ms": 0.00200001522898674,
+      "preprocess_ms": 0.8881669491529465,
+      "decode_ms": 192.3112500226125,
+      "total_ms": 193.20570898707956,
       "peak_gpu_bytes": 3604093836,
-      "active_gpu_bytes": 2495544250,
+      "active_gpu_bytes": 2492275618,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 187.07995803561062
+      "wall_ms": 193.22091597132385
     },
     {
       "id": "fleurs-es_419-005",
@@ -353,17 +359,18 @@
           "text": "Hoy en d\u00eda, las personas escriben mensajes en las pantallas de sus computadoras. No tienen la necesidad de siquiera aproximaciones a capuchas."
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0017499551177024841,
-      "preprocess_ms": 0.847417046315968,
-      "decode_ms": 225.26058298535645,
-      "total_ms": 226.1176670435816,
+      "load_ms": 0.0014170072972774506,
+      "preprocess_ms": 0.8315830491483212,
+      "decode_ms": 220.4742500325665,
+      "total_ms": 221.3137079961598,
       "peak_gpu_bytes": 3585551220,
       "active_gpu_bytes": 2492275618,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 226.14141704980284
+      "wall_ms": 221.3365420466289
     },
     {
       "id": "fleurs-es_419-006",
@@ -388,17 +395,18 @@
           "text": "Los luchadores compa\u00f1eros de Luna tambi\u00e9n le rindieron homenaje."
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.001583946868777275,
-      "preprocess_ms": 0.6827499018982053,
-      "decode_ms": 140.6814589863643,
-      "total_ms": 141.3713329238817,
+      "load_ms": 0.0009579816833138466,
+      "preprocess_ms": 0.5800839280709624,
+      "decode_ms": 138.84341693483293,
+      "total_ms": 139.42804199177772,
       "peak_gpu_bytes": 3484583396,
-      "active_gpu_bytes": 2493373354,
+      "active_gpu_bytes": 2492275618,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 141.385291935876
+      "wall_ms": 139.4447908969596
     },
     {
       "id": "fleurs-es_419-007",
@@ -423,17 +431,18 @@
           "text": "Duval, que est\u00e1 casado y tiene dos hijos adultos, no caus\u00f3 una buena impresi\u00f3n a Miller, que fue a quien le relat\u00f3 la historia."
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.001500011421740055,
-      "preprocess_ms": 0.813000020571053,
-      "decode_ms": 220.72174993809313,
-      "total_ms": 221.54325002338737,
+      "load_ms": 0.0015830155462026596,
+      "preprocess_ms": 0.806374941021204,
+      "decode_ms": 213.9222080586478,
+      "total_ms": 214.73504102323204,
       "peak_gpu_bytes": 3568301916,
       "active_gpu_bytes": 2492275618,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 221.56545892357826
+      "wall_ms": 214.78908299468458
     },
     {
       "id": "fleurs-es_419-008",
@@ -458,17 +467,18 @@
           "text": "Entre los fen\u00f3menos clim\u00e1ticos regionales y estacionales extremos encontramos los ventarrones, las tormentas de nieve, hielo o polvo."
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0012080417945981026,
-      "preprocess_ms": 0.8794589666649699,
-      "decode_ms": 239.29437494371086,
-      "total_ms": 240.18041708040982,
+      "load_ms": 0.0009579816833138466,
+      "preprocess_ms": 0.8141669677570462,
+      "decode_ms": 235.95741600729525,
+      "total_ms": 236.77779198624194,
       "peak_gpu_bytes": 3608615972,
       "active_gpu_bytes": 2492275618,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 240.20045797806233
+      "wall_ms": 236.79512494709343
     },
     {
       "id": "fleurs-es_419-009",
@@ -493,17 +503,18 @@
           "text": "Se puede definir a una civilizaci\u00f3n como una cultura espec\u00edfica de que forma parte un extenso grupo de personas que viven y trabajan en conjunto, es decir, una sociedad."
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.002209097146987915,
-      "preprocess_ms": 0.9217499755322933,
-      "decode_ms": 241.21704092249274,
-      "total_ms": 242.14679095894098,
+      "load_ms": 0.0015830155462026596,
+      "preprocess_ms": 0.9786250302568078,
+      "decode_ms": 242.81687499023974,
+      "total_ms": 243.80275001749396,
       "peak_gpu_bytes": 3628633476,
-      "active_gpu_bytes": 2493336490,
+      "active_gpu_bytes": 2492275618,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 242.16274998616427
+      "wall_ms": 243.81775001529604
     },
     {
       "id": "fleurs-de_de-000",
@@ -528,17 +539,18 @@
           "text": "F\u00fcr die besten Aussichten auf Hongkong sollten Sie die Insel verlassen und zum gegen\u00fcberliegenden Ufer von Kowloon fahren."
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.002374988980591297,
-      "preprocess_ms": 1.1805830290541053,
-      "decode_ms": 201.25333301257342,
-      "total_ms": 202.44166709017009,
+      "load_ms": 0.002125045284628868,
+      "preprocess_ms": 1.187833957374096,
+      "decode_ms": 204.9773329636082,
+      "total_ms": 206.17270900402218,
       "peak_gpu_bytes": 3588828020,
-      "active_gpu_bytes": 2492275618,
+      "active_gpu_bytes": 2490035090,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 202.45550002437085
+      "wall_ms": 206.1882079578936
     },
     {
       "id": "fleurs-de_de-001",
@@ -563,17 +575,18 @@
           "text": "Er griff auch alles an, was ins Wasser kam. Selbst ein gro\u00dfer Dinosaurier wie der T-Rex war ihm nicht gewachsen."
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0017499551177024841,
-      "preprocess_ms": 0.8968750480562449,
-      "decode_ms": 202.49237504322082,
-      "total_ms": 203.39579205028713,
+      "load_ms": 0.002040993422269821,
+      "preprocess_ms": 1.0986248962581158,
+      "decode_ms": 213.23774999473244,
+      "total_ms": 214.34462489560246,
       "peak_gpu_bytes": 3576281972,
       "active_gpu_bytes": 2492357538,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 203.41087505221367
+      "wall_ms": 214.35729099903256
     },
     {
       "id": "fleurs-de_de-002",
@@ -598,17 +611,18 @@
           "text": "Wenn Sie den Film \u201eDas Verm\u00e4chtnis der Tempelritter\u201c gesehen haben, denken Sie vielleicht, dass auf der R\u00fcckseite der Unabh\u00e4ngigkeitserkl\u00e4rung eine Schatzkarte gezeichnet wurde."
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0011669471859931946,
-      "preprocess_ms": 0.8794589666649699,
-      "decode_ms": 277.03283296432346,
-      "total_ms": 277.91758405510336,
+      "load_ms": 0.001708976924419403,
+      "preprocess_ms": 0.8955000666901469,
+      "decode_ms": 282.482166076079,
+      "total_ms": 283.38433406315744,
       "peak_gpu_bytes": 3644943940,
       "active_gpu_bytes": 2492275618,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 277.93016703799367
+      "wall_ms": 283.39574998244643
     },
     {
       "id": "fleurs-de_de-003",
@@ -633,17 +647,18 @@
           "text": "Es leben noch viele M\u00e4nner und Frauen, die ihre Zeit hier \u00fcberlebt haben, und viele weitere mit Angeh\u00f6rigen, die dort ermordet wurden oder sich zu Tode arbeiteten, Juden und Nichtjuden gleicherma\u00dfen."
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0017499551177024841,
-      "preprocess_ms": 0.8622499881312251,
-      "decode_ms": 297.0680829603225,
-      "total_ms": 297.93858295306563,
+      "load_ms": 0.0017919810488820076,
+      "preprocess_ms": 0.8315419545397162,
+      "decode_ms": 301.267416914925,
+      "total_ms": 302.1050839452073,
       "peak_gpu_bytes": 3603766132,
       "active_gpu_bytes": 2492275618,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 297.95999999623746
+      "wall_ms": 302.1277079824358
     },
     {
       "id": "fleurs-de_de-004",
@@ -668,17 +683,18 @@
           "text": "Die H\u00f6hle befindet sich auf der Spitze eines der Berge n\u00f6rdlich von Mekka und ist vom Rest der Welt v\u00f6llig isoliert."
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
       "load_ms": 0.001500011421740055,
-      "preprocess_ms": 0.8241250179708004,
-      "decode_ms": 216.13029099535197,
-      "total_ms": 216.96208405774087,
+      "preprocess_ms": 0.8151249494403601,
+      "decode_ms": 223.62966695800424,
+      "total_ms": 224.44979089777917,
       "peak_gpu_bytes": 3568580452,
       "active_gpu_bytes": 2492275618,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 216.9744580751285
+      "wall_ms": 224.4611670030281
     },
     {
       "id": "fleurs-de_de-005",
@@ -703,17 +719,18 @@
           "text": "Dieses Sediment war n\u00f6tig, um Sandb\u00e4nke und Str\u00e4nde zu bilden, die als Lebensr\u00e4ume f\u00fcr Wildtiere dienten."
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.002249958924949169,
-      "preprocess_ms": 0.7565000560134649,
-      "decode_ms": 222.79629099648446,
-      "total_ms": 223.56079204473644,
+      "load_ms": 0.001374981366097927,
+      "preprocess_ms": 0.7584580453112721,
+      "decode_ms": 218.89262506738305,
+      "total_ms": 219.65862496290356,
       "peak_gpu_bytes": 3535562516,
       "active_gpu_bytes": 2492275618,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 223.57741696760058
+      "wall_ms": 219.6748328860849
     },
     {
       "id": "fleurs-de_de-006",
@@ -738,17 +755,18 @@
           "text": "Blogs k\u00f6nnen auch dazu beitragen, die Schreibf\u00e4higkeiten von Sch\u00fclern zu verbessern. Zwar haben Sch\u00fcler am Anfang ihrer Blog-Erfahrung oft eine schlampige Grammatik und Rechtschreibung, aber das \u00e4ndert sich normalerweise, wenn es ein Publikum gibt."
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.001625041477382183,
-      "preprocess_ms": 0.8982500294223428,
-      "decode_ms": 364.53416710719466,
-      "total_ms": 365.4394999612123,
+      "load_ms": 0.001250067725777626,
+      "preprocess_ms": 0.9850410278886557,
+      "decode_ms": 373.7274999730289,
+      "total_ms": 374.71845804248005,
       "peak_gpu_bytes": 3653775236,
       "active_gpu_bytes": 2492275618,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 365.4650419484824
+      "wall_ms": 374.7348749311641
     },
     {
       "id": "fleurs-de_de-007",
@@ -773,17 +791,18 @@
           "text": "Nachdem der Damm 1963 erbaut worden war, kamen die jahreszeitlichen \u00dcberflutungen, die Sedimente im Fluss verteilen, zum Stillstand."
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.001500011421740055,
-      "preprocess_ms": 1.3072500005364418,
-      "decode_ms": 258.9532909914851,
-      "total_ms": 260.26758400257677,
+      "load_ms": 0.001958920620381832,
+      "preprocess_ms": 1.2839590199291706,
+      "decode_ms": 255.94133301638067,
+      "total_ms": 257.23274995107204,
       "peak_gpu_bytes": 3653775252,
       "active_gpu_bytes": 2492275618,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 260.2838330203667
+      "wall_ms": 257.24591594189405
     },
     {
       "id": "fleurs-de_de-008",
@@ -808,17 +827,18 @@
           "text": "Insbesondere wird behauptet, dass man erkennen kann, ob jemand l\u00fcgt, indem man minimale Ver\u00e4nderungen des Gesichtsausdrucks richtig deutet."
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0012919772416353226,
-      "preprocess_ms": 0.8544169832020998,
-      "decode_ms": 236.8822080316022,
-      "total_ms": 237.74216696619987,
+      "load_ms": 0.0012079253792762756,
+      "preprocess_ms": 0.8428329601883888,
+      "decode_ms": 234.95399998500943,
+      "total_ms": 235.8040000544861,
       "peak_gpu_bytes": 3585551220,
       "active_gpu_bytes": 2492275618,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 237.7561250468716
+      "wall_ms": 235.81870808266103
     },
     {
       "id": "fleurs-de_de-009",
@@ -843,17 +863,18 @@
           "text": "Die angemessene Nutzung von Blogs kann Sch\u00fclerinnen und Sch\u00fcler bef\u00e4higen, analytischer und kritischer zu werden. Durch die aktive Reaktion auf Internetmaterialien k\u00f6nnen die Sch\u00fclerinnen und Sch\u00fcler ihre Positionen im Kontext der Texte anderer definieren und ihre eigenen Perspektiven zu bestimmten Themen darlegen. Ora Wetz, 2002"
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.001584063284099102,
-      "preprocess_ms": 2.5887079536914825,
-      "decode_ms": 465.8690000651404,
-      "total_ms": 468.46524998545647,
+      "load_ms": 0.0013329554349184036,
+      "preprocess_ms": 2.586832968518138,
+      "decode_ms": 462.18112495262176,
+      "total_ms": 464.7737500490621,
       "peak_gpu_bytes": 3919289208,
-      "active_gpu_bytes": 2527783826,
+      "active_gpu_bytes": 2521385858,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 468.48045906517655
+      "wall_ms": 464.78791593108326
     },
     {
       "id": "fleurs-hi_in-000",
@@ -878,17 +899,18 @@
           "text": "\u0915\u0941\u091b \u0905\u0923\u0941\u0913\u0902 \u092e\u0947\u0902 \u0906\u0938\u094d\u0925\u0930\u094d\u092f \u0915\u0947\u0902\u0926\u094d\u0930\u0915 \u0939\u094b\u0924\u093e \u0939\u0948, \u091c\u093f\u0938\u0915\u093e \u092e\u0924\u0932\u092c \u092f\u0939 \u0939\u0948 \u0915\u093f \u0909\u0928\u092e\u0947\u0902 \u0925\u094b\u0921\u093c\u0947 \u092f\u093e \u092c\u093f\u0928\u093e \u0915\u093f\u0938\u0940 \u091d\u091f\u0915\u0947 \u0938\u0947 \u091f\u0942\u091f\u0928\u0947 \u0915\u0940 \u092a\u094d\u0930\u0935\u0943\u0924\u094d\u0924\u093f \u0939\u094b\u0924\u0940 \u0939\u0948\u0964"
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.00100000761449337,
-      "preprocess_ms": 0.7655409863218665,
-      "decode_ms": 569.274540990591,
-      "total_ms": 570.0460829539225,
+      "load_ms": 0.001500011421740055,
+      "preprocess_ms": 0.806374941021204,
+      "decode_ms": 554.2493329849094,
+      "total_ms": 555.0633328966796,
       "peak_gpu_bytes": 3571709812,
       "active_gpu_bytes": 2492275618,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 570.0632500229403
+      "wall_ms": 555.0847080303356
     },
     {
       "id": "fleurs-hi_in-001",
@@ -913,17 +935,18 @@
           "text": "Greenland \u0915\u094b \u092c\u0939\u0941\u0924 \u0915\u092e \u091c\u0917\u0939 \u092c\u0938\u093e\u092f\u093e \u0917\u092f\u093e \u0925\u093e\u0964 North \u0938\u0917\u093e\u0938 \u092e\u0947\u0902 \u0935\u0947 \u0915\u0939\u0924\u0947 \u0939\u0948\u0902 \u0915\u093f Eric Red \u0939\u0924\u094d\u092f\u093e \u0915\u0947 \u0932\u093f\u090f Iceland \u0938\u0947 \u0928\u093f\u0930\u094d\u0935\u093e\u0938\u093f\u0924 \u0915\u093f\u092f\u093e \u0917\u092f\u093e \u0925\u093e, \u0914\u0930 \u0906\u0917\u0947 \u092a\u0936\u094d\u091a\u093f\u092e \u0915\u0940 \u092f\u093e\u0924\u094d\u0930\u093e \u0915\u0930\u0924\u0947 \u0938\u092e\u092f Greenland \u092e\u093f\u0932\u093e \u091c\u093f\u0938\u0947 Greenland \u0928\u093e\u092e \u0926\u093f\u092f\u093e \u0917\u092f\u093e\u0964"
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0017499551177024841,
-      "preprocess_ms": 0.9940000018104911,
-      "decode_ms": 711.5314160473645,
-      "total_ms": 712.5327499816194,
+      "load_ms": 0.0017080456018447876,
+      "preprocess_ms": 0.9781250264495611,
+      "decode_ms": 694.2656669998541,
+      "total_ms": 695.2522090869024,
       "peak_gpu_bytes": 3649793788,
       "active_gpu_bytes": 2508909458,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 712.5490830512717
+      "wall_ms": 695.2706660376862
     },
     {
       "id": "fleurs-hi_in-002",
@@ -948,17 +971,18 @@
           "text": "\u0910\u0938\u0940 \u0915\u094b\u0908 \u0935\u093e\u0938\u094d\u0924\u0935\u093f\u0915 \u092a\u0930\u093f\u092d\u093e\u0937\u093e \u0928\u0939\u0940\u0902 \u0939\u0948, \u091c\u093f\u0938\u0915\u0947 \u0932\u093f\u090f \u0928\u093f\u0930\u094d\u092e\u093f\u0924 \u0938\u093e\u092e\u093e\u0928 \u090f\u0902\u091f\u0940\u0915 \u0939\u094b\u0924\u0947 \u0939\u0948\u0902, \u0915\u0941\u091b \u0915\u0930 \u090f\u091c\u0947\u0902\u0938\u093f\u092f\u093e\u0902 \u0936\u0949\u0935 \u0938\u093e\u0932 \u0938\u0947 \u092a\u0941\u0930\u093e\u0928\u0947 \u0938\u093e\u092e\u093e\u0928 \u0915\u094b \u090f\u0902\u091f\u0940\u0915 \u0915\u0947 \u0924\u094c\u0930 \u092a\u0930 \u092a\u0930\u093f\u092d\u093e\u0937\u093f\u0924 \u0915\u0930\u0924\u0940 \u0939\u0948\u0902\u0964"
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
       "load_ms": 0.0018329592421650887,
-      "preprocess_ms": 1.0614170460030437,
-      "decode_ms": 707.2167909936979,
-      "total_ms": 708.2860830705613,
+      "preprocess_ms": 1.0575419291853905,
+      "decode_ms": 702.1663750056177,
+      "total_ms": 703.2304999884218,
       "peak_gpu_bytes": 3646485216,
       "active_gpu_bytes": 2508909458,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 708.2999170525
+      "wall_ms": 703.2476669410244
     },
     {
       "id": "fleurs-hi_in-003",
@@ -983,17 +1007,18 @@
           "text": "\u091f\u0947\u0932\u0940\u0935\u093f\u091c\u093c\u0928 \u0930\u093f\u092a\u094b\u0930\u094d\u091f\u094b\u0902 \u092e\u0947\u0902 \u092a\u094d\u0932\u093e\u0902\u091f \u0938\u0947 \u0928\u093f\u0915\u0932\u0928\u0947 \u0935\u093e\u0932\u093e \u0938\u092b\u093c\u0947\u0926 \u0927\u0941\u0906\u0902 \u0926\u093f\u0916\u093e\u092f\u093e \u0917\u092f\u093e \u0939\u0948"
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
       "load_ms": 0.001374981366097927,
-      "preprocess_ms": 0.5910829640924931,
-      "decode_ms": 367.4620420206338,
-      "total_ms": 368.05991700384766,
+      "preprocess_ms": 0.5739590851590037,
+      "decode_ms": 366.6842089733109,
+      "total_ms": 367.2647090861574,
       "peak_gpu_bytes": 3481486812,
       "active_gpu_bytes": 2492275618,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 368.0732499342412
+      "wall_ms": 367.2778750769794
     },
     {
       "id": "fleurs-hi_in-004",
@@ -1018,17 +1043,18 @@
           "text": "\u0907\u0902\u091f\u0930\u0928\u0947\u091f \u092a\u0930 \u092f\u0947 \u0916\u094b\u091c \u0938\u0924\u094d\u0930\u0941\u0924\u093e \u092a\u0942\u0930\u094d\u0923 \u092a\u0930\u094d\u092f\u093e\u0935\u0930\u0923 \u092a\u093e\u0920\u094d\u092f\u0915\u094d\u0930\u092e \u0915\u0947 \u0932\u093f\u090f \u0905\u0915\u094d\u0938\u0930 \u0906\u092a\u0915\u094b \u090f\u0915 \u0938\u094d\u0925\u093e\u0928\u0940\u092f \u0915\u0902\u092a\u0928\u0940 \u0915\u093e \u092a\u0924\u093e \u092a\u094d\u0930\u0926\u093e\u0928 \u0915\u0930\u0947\u0917\u0940\u0964"
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0011670636013150215,
-      "preprocess_ms": 1.1581670260056853,
-      "decode_ms": 487.2059590416029,
-      "total_ms": 488.3705830434337,
+      "load_ms": 0.0014579854905605316,
+      "preprocess_ms": 0.9542499901726842,
+      "decode_ms": 479.79808400850743,
+      "total_ms": 480.75854196213186,
       "peak_gpu_bytes": 3619794964,
-      "active_gpu_bytes": 2508909458,
+      "active_gpu_bytes": 2504641410,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 488.38562495075166
+      "wall_ms": 480.7755829533562
     },
     {
       "id": "fleurs-hi_in-005",
@@ -1053,17 +1079,18 @@
           "text": "\u0905\u092a\u0928\u0940 \u0938\u0930\u0915\u093e\u0930 \u0915\u0947 \u0905\u0932\u093e\u0935\u093e \u0905\u0928\u094d\u092f \u0926\u0947\u0936\u094b\u0902 \u0915\u0940 \u0938\u0930\u0915\u093e\u0930\u094b\u0902 \u0915\u0940 \u0938\u0932\u093e\u0939 \u0932\u0947 \u0938\u0915\u0924\u0947 \u0939\u0948\u0902, \u0939\u093e\u0932\u093e\u0902\u0915\u093f \u0909\u0928\u0915\u0940 \u0938\u0932\u093e\u0939 \u0909\u0928\u0915\u0947 \u0928\u093e\u0917\u0930\u093f\u0915\u094b\u0902 \u0915\u094b \u0927\u094d\u092f\u093e\u0928 \u092e\u0947\u0902 \u0930\u0916\u0915\u0930 \u0926\u0940 \u091c\u093e\u0924\u0940 \u0939\u0948\u0964"
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.002374988980591297,
-      "preprocess_ms": 0.8483330020681024,
-      "decode_ms": 571.0772919701412,
-      "total_ms": 571.9329580897465,
+      "load_ms": 0.00200001522898674,
+      "preprocess_ms": 0.8086659945547581,
+      "decode_ms": 570.7525829784572,
+      "total_ms": 571.5683749876916,
       "peak_gpu_bytes": 3608058892,
-      "active_gpu_bytes": 2508909458,
+      "active_gpu_bytes": 2508925842,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 571.9581249868497
+      "wall_ms": 571.5940420050174
     },
     {
       "id": "fleurs-hi_in-006",
@@ -1088,17 +1115,18 @@
           "text": "\u092a\u094d\u0930\u093e\u091a\u0940\u0928 \u0915\u093e\u0932 \u0938\u0947 \u0939\u0940 \u0932\u094b\u0917 \u0938\u094b\u0928\u0947 \u091a\u093e\u0902\u0926\u0940 \u0914\u0930 \u0924\u093e\u0902\u092c\u0947 \u091c\u0948\u0938\u0947 \u0930\u093e\u0938\u093e\u092f\u0928\u093f\u0915 \u0924\u0924\u094d\u0935\u094b\u0902 \u0915\u0947 \u092c\u093e\u0930\u0947 \u092e\u0947\u0902 \u0939\u0940 \u091c\u093e\u0928\u0915\u093e\u0930\u0940 \u0930\u0916\u0924\u0947 \u0939\u0948\u0902 \u0915\u094d\u092f\u094b\u0902\u0915\u093f \u0907\u0928\u094d\u0939\u0947\u0902 \u092a\u094d\u0930\u0915\u0943\u0924\u093f \u092e\u0947\u0902 \u092e\u0942\u0932 \u0938\u094d\u0935\u0930\u0942\u092a \u092e\u0947\u0902 \u0922\u0942\u0902\u0922\u093e \u091c\u093e \u0938\u0915\u0924\u093e \u0939\u0948 \u0914\u0930 \u0907\u0928\u094d\u0939\u0947\u0902 \u092a\u094d\u0930\u093e\u0925\u092e\u093f\u0915 \u0909\u092a\u0915\u0930\u0923\u094b\u0902 \u0915\u0947 \u091c\u0930\u093f\u090f \u0922\u0942\u0902\u0922\u0928\u093e \u0905\u092a\u0947\u0915\u094d\u0937\u093e\u0915\u0943\u0924 \u0906\u0938\u093e\u0928 \u0939\u0948\u0964"
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0018749851733446121,
-      "preprocess_ms": 1.1451670434325933,
-      "decode_ms": 992.8199999267235,
-      "total_ms": 993.9734590006992,
+      "load_ms": 0.001250067725777626,
+      "preprocess_ms": 1.1312079150229692,
+      "decode_ms": 974.0465419599786,
+      "total_ms": 975.1833329210058,
       "peak_gpu_bytes": 3672939384,
       "active_gpu_bytes": 2508909458,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 993.9921670593321
+      "wall_ms": 975.2367920009419
     },
     {
       "id": "fleurs-hi_in-007",
@@ -1123,17 +1151,18 @@
           "text": "\u0907\u0938\u0947 \u0915\u0947\u092e\u093f\u0915\u0932 \u0915\u093e \u092a\u0940\u090f\u091a \u0915\u0939\u093e \u091c\u093e\u0924\u093e \u0939\u0948 \u0906\u092a \u0932\u093e\u0932 \u0917\u094b\u092d\u0940 \u0915\u0947 \u091c\u0942\u0938 \u0915\u094b \u0907\u0938\u094d\u0924\u0947\u092e\u093e\u0932 \u0915\u0930\u0915\u0947 \u090f\u0915 \u0938\u0902\u0916\u094d\u092f\u093e \u0924\u0915 \u092c\u0928\u093e \u0938\u0915\u0924\u0947 \u0939\u0948\u0902"
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.001625041477382183,
-      "preprocess_ms": 0.7224999135360122,
-      "decode_ms": 449.55191598273814,
-      "total_ms": 450.28133399318904,
+      "load_ms": 0.001500011421740055,
+      "preprocess_ms": 0.7524590473622084,
+      "decode_ms": 446.09837501775473,
+      "total_ms": 446.85791700612754,
       "peak_gpu_bytes": 3531105980,
       "active_gpu_bytes": 2492275618,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 450.29887498822063
+      "wall_ms": 446.875249966979
     },
     {
       "id": "fleurs-hi_in-008",
@@ -1158,17 +1187,18 @@
           "text": "\u0938\u092c\u0938\u0947 \u0928\u091c\u0926\u0940\u0915\u0940 \u0915\u093f\u0938\u0940 \u0930\u0947\u0916\u093e \u092a\u0930 \u0915\u094d\u0930\u0938\u094d\u091f \u0915\u0940 \u092e\u094b\u091f\u093e\u0908 \u0915\u0930\u0940\u092c \u0938\u0924\u094d\u0924\u0930 \u0915\u093f\u0932\u094b\u092e\u0940\u091f\u0930 \u0939\u0948 \u0914\u0930 \u0938\u092c\u0938\u0947 \u0926\u0942\u0930 \u0915\u093f\u0938\u0940 \u0930\u0947\u0916\u093e \u092a\u0930 \u092f\u0939 \u0938\u094c \u0915\u093f\u0932\u094b\u092e\u0940\u091f\u0930 \u0939\u0948\u0964"
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.002125045284628868,
-      "preprocess_ms": 0.7724169408902526,
-      "decode_ms": 493.90633299481124,
-      "total_ms": 494.68745896592736,
+      "load_ms": 0.0015420373529195786,
+      "preprocess_ms": 0.7962920935824513,
+      "decode_ms": 504.3662079842761,
+      "total_ms": 505.1691250409931,
       "peak_gpu_bytes": 3525142156,
       "active_gpu_bytes": 2492275618,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 494.7015839861706
+      "wall_ms": 505.1827079150826
     },
     {
       "id": "fleurs-hi_in-009",
@@ -1193,17 +1223,18 @@
           "text": "\u092f\u0939 \u0938\u0902\u092c\u0902\u0927\u093f\u0924 \u0939\u0948, \u0932\u0947\u0915\u093f\u0928 \u0906\u092e\u0924\u094c\u0930 \u092a\u0930 \u0907\u0938\u092e\u0947\u0902 \u0905\u0932\u094d\u092a\u093e\u0907\u0928 \u0938\u0948\u0932\u0940 \u0915\u0940 \u0938\u094d\u0915\u0940 \u091f\u0942\u0930\u093f\u0902\u0917 \u092f\u093e \u092e\u093e\u0909\u0902\u091f\u0947\u0928 \u0908\u0930\u093f\u0902\u0917 \u0936\u093e\u092e\u093f\u0932 \u0928\u0939\u0940\u0902 \u0939\u094b\u0924\u0940 \u0939\u0948, \u091c\u093f\u0938\u0947 \u0916\u0921\u093c\u0947 \u0907\u0932\u093e\u0915\u094b\u0902 \u092e\u0947\u0902 \u0915\u093f\u092f\u093e \u091c\u093e\u0924\u093e \u0939\u0948 \u0914\u0930 \u091c\u093f\u0938\u0915\u0947 \u0932\u093f\u090f \u092c\u0939\u0941\u0924 \u0915\u0921\u093c\u0940 \u0938\u094d\u0915\u0940 \u0914\u0930 \u092c\u0942\u091f \u0915\u0940 \u091c\u0930\u0942\u0930\u0924 \u0939\u094b\u0924\u0940 \u0939\u0948\u0964"
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
       "load_ms": 0.0015420373529195786,
-      "preprocess_ms": 0.9772500488907099,
-      "decode_ms": 879.323499975726,
-      "total_ms": 880.3082080557942,
+      "preprocess_ms": 1.1187089839950204,
+      "decode_ms": 945.6865830579773,
+      "total_ms": 946.8124590348452,
       "peak_gpu_bytes": 3645238900,
       "active_gpu_bytes": 2508909458,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 880.330792046152
+      "wall_ms": 946.8445419333875
     },
     {
       "id": "fleurs-ja_jp-000",
@@ -1228,17 +1259,18 @@
           "text": "\u30a4\u30f3\u30bf\u30fc\u30cd\u30c3\u30c8\u3067\u9069\u4f53\u9069\u74b0\u5883\u30b3\u30fc\u30b9\u306b\u3064\u3044\u3066\u691c\u7d22\u3059\u308b\u3068\u3001\u304a\u305d\u3089\u304f\u73fe\u5730\u4f01\u696d\u306e\u4f4f\u6240\u304c\u51fa\u3066\u304f\u308b\u3067\u3057\u3087\u3046\u3002"
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0012919772416353226,
-      "preprocess_ms": 0.8594579994678497,
-      "decode_ms": 174.96720899362117,
-      "total_ms": 175.8324159309268,
+      "load_ms": 0.002040993422269821,
+      "preprocess_ms": 1.0120829101651907,
+      "decode_ms": 192.00724991969764,
+      "total_ms": 193.02741601131856,
       "peak_gpu_bytes": 3604929476,
-      "active_gpu_bytes": 2492275618,
+      "active_gpu_bytes": 2492292002,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 175.8513329550624
+      "wall_ms": 193.0422920268029
     },
     {
       "id": "fleurs-ja_jp-001",
@@ -1263,17 +1295,18 @@
           "text": "\u307e\u305f\u5317\u5074\u306b\u884c\u304f\u306a\u3089\u3001\u4e16\u754c\u7684\u306b\u6709\u540d\u306a\u30de\u30ea\u30a2\u50cf\u306e\u8056\u5730\u3067\u3042\u308b\u30d5\u30a1\u30c6\u30a3\u30de\u306e\u8056\u6bcd\u306e\u8056\u57df\u3001\u795e\u793e\u3092\u8a2a\u308c\u307e\u3057\u3087\u3046\u3002"
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0012079253792762756,
-      "preprocess_ms": 1.1084999423474073,
-      "decode_ms": 225.41495808400214,
-      "total_ms": 226.52916691731662,
+      "load_ms": 0.0021670712158083916,
+      "preprocess_ms": 1.0925830574706197,
+      "decode_ms": 241.18816596455872,
+      "total_ms": 242.28812498040497,
       "peak_gpu_bytes": 3642421676,
       "active_gpu_bytes": 2492275618,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 226.54295805841684
+      "wall_ms": 242.30174999684095
     },
     {
       "id": "fleurs-ja_jp-002",
@@ -1298,17 +1331,18 @@
           "text": "\u30d0\u30eb\u30bb\u30a2\u30ca\u306e\u516c\u7528\u8a9e\u306f\u30ab\u30bf\u30eb\u30fc\u30cb\u30e3\u8a9e\u3068\u30b9\u30da\u30a4\u30f3\u8a9e\u3067\u3059\u3002\u7d04\u534a\u6570\u304c\u30ab\u30bf\u30eb\u30fc\u30cb\u30e3\u8a9e\u3092\u597d\u307f\u3001\u5927\u591a\u6570\u304c\u30ab\u30bf\u30eb\u30fc\u30cb\u30e3\u8a9e\u3092\u7406\u89e3\u3057\u3001\u307b\u307c\u5168\u54e1\u304c\u30b9\u30da\u30a4\u30f3\u8a9e\u3092\u77e5\u3063\u3066\u3044\u307e\u3059\u3002"
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0021670712158083916,
-      "preprocess_ms": 0.9818749967962503,
-      "decode_ms": 322.9696659836918,
-      "total_ms": 323.96099995821714,
+      "load_ms": 0.0018749851733446121,
+      "preprocess_ms": 1.0060830973088741,
+      "decode_ms": 337.203917093575,
+      "total_ms": 338.21729104965925,
       "peak_gpu_bytes": 3653775236,
       "active_gpu_bytes": 2492275618,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 323.9760840078816
+      "wall_ms": 338.2394580403343
     },
     {
       "id": "fleurs-ja_jp-003",
@@ -1333,17 +1367,18 @@
           "text": "\u305d\u306e\u9577\u3044\u984e\u306b\u306f70\u672c\u4ee5\u4e0a\u306e\u92ed\u3044\u6b6f\u304c\u4e26\u3073\u3001\u53e3\u84cb\u306b\u306f\u5225\u306e\u652f\u96e2\u304c\u3042\u308a\u3001\u3064\u307e\u308a\u3053\u3053\u3092\u901a\u3063\u305f\u3089\u9003\u3052\u3081\u3061\u3083\u308f\u306a\u3044\u3068\u3044\u3046\u3053\u3068\u306b\u306a\u308a\u307e\u3059\u3002"
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.002374988980591297,
-      "preprocess_ms": 1.0581669630482793,
-      "decode_ms": 256.284375092946,
-      "total_ms": 257.3514999821782,
+      "load_ms": 0.0017910497263073921,
+      "preprocess_ms": 0.9546669898554683,
+      "decode_ms": 252.0523329731077,
+      "total_ms": 253.01287497859448,
       "peak_gpu_bytes": 3649793804,
       "active_gpu_bytes": 2492275618,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 257.3644999647513
+      "wall_ms": 253.02470801398158
     },
     {
       "id": "fleurs-ja_jp-004",
@@ -1368,17 +1403,18 @@
           "text": "\u30ed\u30b9\u30d3\u30fc\u6570\u304c\u5c0f\u3055\u3044\u307b\u3069\u3001\u6642\u8a08\u5224\u5b9a\u306b\u95a2\u3057\u3066\u661f\u306e\u6d3b\u6027\u304c\u4f4e\u4e0b\u3059\u308b\u308f\u3051\u3067\u3059\u3002"
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.001375097781419754,
-      "preprocess_ms": 0.9978750022128224,
-      "decode_ms": 166.36445792391896,
-      "total_ms": 167.36829199362546,
+      "load_ms": 0.001208973117172718,
+      "preprocess_ms": 0.8844580734148622,
+      "decode_ms": 168.95116702653468,
+      "total_ms": 169.84108299948275,
       "peak_gpu_bytes": 3644960332,
       "active_gpu_bytes": 2492275618,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 167.38191596232355
+      "wall_ms": 169.85183395445347
     },
     {
       "id": "fleurs-ja_jp-005",
@@ -1403,17 +1439,18 @@
           "text": "\u306f\u3002"
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0010830117389559746,
-      "preprocess_ms": 0.7293750531971455,
-      "decode_ms": 68.03295901045203,
-      "total_ms": 68.76795901916921,
+      "load_ms": 0.0017919810488820076,
+      "preprocess_ms": 0.7179999956861138,
+      "decode_ms": 67.58491694927216,
+      "total_ms": 68.30941699445248,
       "peak_gpu_bytes": 3410666744,
       "active_gpu_bytes": 2492275618,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 68.77933302894235
+      "wall_ms": 68.31895897630602
     },
     {
       "id": "fleurs-ja_jp-006",
@@ -1438,17 +1475,18 @@
           "text": "\u30d1\u30ea\u30b8\u30e3\u30f3\u306f\u81ea\u5df1\u4e2d\u5fc3\u7684\u3060\u3001\u6a2a\u67c4\u3067\u5931\u793c\u306a\u4eba\u304c\u591a\u3044\u3068\u8a00\u308f\u308c\u3066\u3044\u307e\u3059\u3002"
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0018330756574869156,
-      "preprocess_ms": 0.8859171066433191,
-      "decode_ms": 161.9546249276027,
-      "total_ms": 162.84820903092623,
+      "load_ms": 0.0019170111045241356,
+      "preprocess_ms": 0.7260000566020608,
+      "decode_ms": 163.17316703498363,
+      "total_ms": 163.9060830930248,
       "peak_gpu_bytes": 3576281972,
       "active_gpu_bytes": 2492357538,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 162.86095802206546
+      "wall_ms": 163.9260840602219
     },
     {
       "id": "fleurs-ja_jp-007",
@@ -1473,17 +1511,18 @@
           "text": "\u30e1\u30a4\u30f3\u30b9\u30c6\u30fc\u30b8\u306e\u97f3\u697d\u304c\u7d42\u308f\u3063\u3066\u3082\u3001\u30d5\u30a7\u30b9\u30c6\u30a3\u30d0\u30eb\u306b\u306f\u591c\u9045\u304f\u307e\u3067\u6f14\u594f\u3092\u6d41\u3057\u7d9a\u3051\u308b\u30bb\u30af\u30b7\u30e7\u30f3\u304c\u3042\u308b\u304b\u3082\u3057\u308c\u306a\u3044\u3053\u3068\u3092\u899a\u3048\u3066\u304a\u3044\u3066\u304f\u3060\u3055\u3044\u3002"
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0020419247448444366,
-      "preprocess_ms": 1.013459055684507,
-      "decode_ms": 246.44916609395295,
-      "total_ms": 247.4691669922322,
+      "load_ms": 0.0021669548004865646,
+      "preprocess_ms": 0.9122920455411077,
+      "decode_ms": 259.027290972881,
+      "total_ms": 259.94820904452354,
       "peak_gpu_bytes": 3654053812,
       "active_gpu_bytes": 2492275618,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 247.48412508051842
+      "wall_ms": 259.96237504296005
     },
     {
       "id": "fleurs-ja_jp-008",
@@ -1508,17 +1547,18 @@
           "text": "\u53c2\u5217\u8005\u306e\u6570\u304c\u591a\u3059\u304e\u3066\u3001\u5168\u54e1\u304c\u30b5\u30f3\u30d4\u30a8\u30c8\u30eb\u5e83\u5834\u3067\u306e\u846c\u5100\u306b\u53c2\u52a0\u3059\u308b\u3053\u3068\u306f\u4e0d\u53ef\u80fd\u3067\u3057\u305f\u3002"
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0015420373529195786,
-      "preprocess_ms": 0.8371250005438924,
-      "decode_ms": 195.85833395831287,
-      "total_ms": 196.70204201247543,
+      "load_ms": 0.0010830117389559746,
+      "preprocess_ms": 0.7860000478103757,
+      "decode_ms": 191.6276670526713,
+      "total_ms": 192.41900008637458,
       "peak_gpu_bytes": 3591351156,
       "active_gpu_bytes": 2492275618,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 196.72370795160532
+      "wall_ms": 192.45083292480558
     },
     {
       "id": "fleurs-ja_jp-009",
@@ -1543,17 +1583,18 @@
           "text": "\u9999\u6e2f\u306e\u6700\u9ad8\u306e\u666f\u8272\u3092\u898b\u308b\u306b\u306f\u3001\u5cf6\u304b\u3089\u51fa\u3066\u7a7a\u30ed\u306e\u30a6\u30a9\u30fc\u30bf\u30fc\u30d5\u30ed\u30f3\u30c8\u306b\u5411\u304b\u3044\u307e\u3057\u3087\u3046\u3002"
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0015420373529195786,
-      "preprocess_ms": 0.8579170098528266,
-      "decode_ms": 188.95537499338388,
-      "total_ms": 189.81966702267528,
+      "load_ms": 0.001125037670135498,
+      "preprocess_ms": 0.7686660392209888,
+      "decode_ms": 183.22020897176117,
+      "total_ms": 183.99479100480676,
       "peak_gpu_bytes": 3587976052,
       "active_gpu_bytes": 2492275618,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 189.83562500216067
+      "wall_ms": 184.0122500434518
     },
     {
       "id": "fleurs-cmn_hans_cn-000",
@@ -1578,17 +1619,18 @@
           "text": "\u8fd9\u5e76\u4e0d\u662f\u544a\u522b\uff0c\u8fd9\u662f\u4e00\u4e2a\u7bc7\u7ae0\u7684\u7ed3\u675f\uff0c\u4e5f\u662f\u65b0\u7bc7\u7ae0\u7684\u5f00\u59cb\u3002"
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0011670636013150215,
-      "preprocess_ms": 0.9236671030521393,
-      "decode_ms": 136.4278750261292,
-      "total_ms": 137.3578750062734,
+      "load_ms": 0.0012919772416353226,
+      "preprocess_ms": 0.7902919314801693,
+      "decode_ms": 130.3925410611555,
+      "total_ms": 131.18966692127287,
       "peak_gpu_bytes": 3503781436,
       "active_gpu_bytes": 2492275618,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 137.37499993294477
+      "wall_ms": 131.20216701645404
     },
     {
       "id": "fleurs-cmn_hans_cn-001",
@@ -1613,17 +1655,18 @@
           "text": "\u9499\u3001\u94be\u7b49\u5143\u7d20\u5c5e\u4e8e\u91d1\u5c5e\uff0c\u94f6\u548c\u91d1\u7b49\u5143\u7d20\uff0c\u5f53\u7136\u4e5f\u662f\u91d1\u5c5e\u3002"
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0015420373529195786,
-      "preprocess_ms": 0.7599579403176904,
-      "decode_ms": 156.22133307624608,
-      "total_ms": 156.98774997144938,
+      "load_ms": 0.00100000761449337,
+      "preprocess_ms": 0.7350420346483588,
+      "decode_ms": 147.69891602918506,
+      "total_ms": 148.43937498517334,
       "peak_gpu_bytes": 3503781436,
       "active_gpu_bytes": 2492275618,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 157.00295800343156
+      "wall_ms": 148.45158299431205
     },
     {
       "id": "fleurs-cmn_hans_cn-002",
@@ -1648,17 +1691,18 @@
           "text": "\u6865\u4e0b\u5782\u76f4\u51c0\u7a7a\u5341\u4e94\u7c73\u3002\u8be5\u9879\u76ee\u4e8e\u4e8c\u96f6\u4e00\u4e00\u5e74\u516b\u6708\u5b8c\u5de5\uff0c\u4f46\u76f4\u5230\u4e8c\u96f6\u4e00\u4e03\u5e74\u4e09\u6708\u624d\u5f00\u59cb\u901a\u8f66\u3002"
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0017910497263073921,
-      "preprocess_ms": 1.1477910447865725,
-      "decode_ms": 215.91974992770702,
-      "total_ms": 217.07645803689957,
+      "load_ms": 0.0009170034900307655,
+      "preprocess_ms": 0.9801660198718309,
+      "decode_ms": 206.538625061512,
+      "total_ms": 207.52358296886086,
       "peak_gpu_bytes": 3604929492,
-      "active_gpu_bytes": 2492292002,
+      "active_gpu_bytes": 2492275618,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 217.09312498569489
+      "wall_ms": 207.5559579534456
     },
     {
       "id": "fleurs-cmn_hans_cn-003",
@@ -1683,17 +1727,18 @@
           "text": "\u9002\u5f53\u4f7f\u7528\u535a\u5ba2\u53ef\u4ee5\u4f7f\u5b66\u751f\u53d8\u5f97\u66f4\u5584\u4e8e\u5206\u6790\u548c\u8fdb\u884c\u601d\u8fa8\u3002\u901a\u8fc7\u79ef\u6781\u56de\u5fc6\u7f51\u7edc\u6750\u6599\uff0c\u5b66\u751f\u4eec\u53ef\u4ee5\u5728\u4ed6\u4eba\u7684\u6587\u7ae0\u7684\u4e0a\u4e0b\u6587\u8bed\u5883\u4e2d\u627e\u5230\u81ea\u5df1\u7684\u7acb\u573a\uff0c\u5e76\u80fd\u591f\u9488\u5bf9\u7279\u5b9a\u95ee\u9898\u63d0\u51fa\u81ea\u5df1\u7684\u89c2\u70b9\u3002Work 2002\u3002"
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.002166023477911949,
-      "preprocess_ms": 1.168167102150619,
-      "decode_ms": 309.2652920167893,
-      "total_ms": 310.44045800808817,
+      "load_ms": 0.001999898813664913,
+      "preprocess_ms": 1.0311249643564224,
+      "decode_ms": 300.321500049904,
+      "total_ms": 301.35924997739494,
       "peak_gpu_bytes": 3642683852,
-      "active_gpu_bytes": 2492275618,
+      "active_gpu_bytes": 2490035090,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 310.4522079229355
+      "wall_ms": 301.3748750090599
     },
     {
       "id": "fleurs-cmn_hans_cn-004",
@@ -1718,17 +1763,18 @@
           "text": "\u79d1\u5b66\u5bb6\u4eec\u53ef\u4ee5\u5f97\u51fa\u7ed3\u8bba\uff1a\u6697\u7269\u8d28\u5bf9\u5176\u4ed6\u6697\u7269\u8d28\u7684\u5f71\u54cd\u65b9\u5f0f\u4e0e\u666e\u901a\u7269\u8d28\u76f8\u540c\u3002"
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.002249958924949169,
-      "preprocess_ms": 1.065916963852942,
-      "decode_ms": 160.87812511250377,
-      "total_ms": 161.95224993862212,
+      "load_ms": 0.002666027285158634,
+      "preprocess_ms": 1.2863329611718655,
+      "decode_ms": 164.8344158893451,
+      "total_ms": 166.1327079636976,
       "peak_gpu_bytes": 3579980660,
       "active_gpu_bytes": 2492275618,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 161.9680420262739
+      "wall_ms": 166.14729107823223
     },
     {
       "id": "fleurs-cmn_hans_cn-005",
@@ -1753,17 +1799,18 @@
           "text": "\u5927\u591a\u6570\u73b0\u4ee3\u79d1\u7814\u671b\u8fdc\u955c\u90fd\u662f\u5de8\u578b\u8bbe\u65bd\uff0c\u4f4d\u4e8e\u5927\u6c14\u5927\u6c14\u6761\u4ef6\u4f18\u826f\u7684\u504f\u8fdc\u5730\u533a\u3002"
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0019159633666276932,
-      "preprocess_ms": 1.0680420091375709,
-      "decode_ms": 164.1988749615848,
-      "total_ms": 165.27487500570714,
+      "load_ms": 0.001249951310455799,
+      "preprocess_ms": 0.9678329806774855,
+      "decode_ms": 161.45974991377443,
+      "total_ms": 162.43304091040045,
       "peak_gpu_bytes": 3650088740,
       "active_gpu_bytes": 2492275618,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 165.28687498066574
+      "wall_ms": 162.44779201224446
     },
     {
       "id": "fleurs-cmn_hans_cn-006",
@@ -1788,17 +1835,18 @@
           "text": "\u4e00\u4e5d\u516d\u4e09\u5e74\u5927\u575d\u5efa\u6210\u540e\uff0c\u5b63\u8282\u6027\u6d2a\u6c34\u88ab\u63a7\u5236\u4f4f\u4e86\uff0c\u6c89\u79ef\u7269\u4e0d\u518d\u51b2\u6563\u5230\u6cb3\u6d41\u91cc\u3002"
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0021669548004865646,
-      "preprocess_ms": 1.0730840731412172,
-      "decode_ms": 180.91229093261063,
-      "total_ms": 181.99308402836323,
+      "load_ms": 0.0015420373529195786,
+      "preprocess_ms": 1.022916054353118,
+      "decode_ms": 178.71499992907047,
+      "total_ms": 179.7445829724893,
       "peak_gpu_bytes": 3588828020,
       "active_gpu_bytes": 2492275618,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 182.00758309103549
+      "wall_ms": 179.76154200732708
     },
     {
       "id": "fleurs-cmn_hans_cn-007",
@@ -1823,17 +1871,18 @@
           "text": "\u5b83\u7684\u957f\u4e0b\u989a\u4e0a\u5e03\u6ee1\u4e86\u4e03\u5341\u591a\u9897\u5243\u5200\u822c\u950b\u5229\u7684\u7259\u9f7f\uff0c\u4e0a\u989a\u4e0a\u8fd8\u6709\u4e00\u6392\u3002\u8fd9\u610f\u5473\u7740\u4efb\u4f55\u4e0e\u5b83\u76f8\u9047\u7684\u4e1c\u897f\u90fd\u65e0\u8def\u53ef\u9003\u3002"
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.001459033228456974,
-      "preprocess_ms": 1.1171249207109213,
-      "decode_ms": 240.45691604260355,
-      "total_ms": 241.5804578922689,
+      "load_ms": 0.0017919810488820076,
+      "preprocess_ms": 1.326874946244061,
+      "decode_ms": 242.74020793382078,
+      "total_ms": 244.07775001600385,
       "peak_gpu_bytes": 3629469116,
       "active_gpu_bytes": 2492275618,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 241.5928749833256
+      "wall_ms": 244.09725004807115
     },
     {
       "id": "fleurs-cmn_hans_cn-008",
@@ -1858,17 +1907,18 @@
           "text": "Scoturb \u56db\u96f6\u4e09\u8def\u516c\u4ea4\u6c7d\u8f66\u5b9a\u671f\u53d1\u8f66\uff0c\u524d\u5f80\u65b0\u7279\u62c9\uff0c\u5728\u7f57\u5361\u89d2\u505c\u9760\u3002"
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0019579892978072166,
-      "preprocess_ms": 0.6910830270498991,
-      "decode_ms": 185.55762502364814,
-      "total_ms": 186.25649996101856,
+      "load_ms": 0.001374981366097927,
+      "preprocess_ms": 0.6757499650120735,
+      "decode_ms": 185.9781249659136,
+      "total_ms": 186.66112492792308,
       "peak_gpu_bytes": 3534743308,
       "active_gpu_bytes": 2492275618,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 186.27470801584423
+      "wall_ms": 186.6745000006631
     },
     {
       "id": "fleurs-cmn_hans_cn-009",
@@ -1893,17 +1943,18 @@
           "text": "\u8fd9\u91cc\u51e0\u4e4e\u90fd\u662f\u6c99\u6ee9\uff0c\u6e38\u6cf3\u5f88\u5b89\u5168\u3002\u5927\u90e8\u5206\u5730\u65b9\u90fd\u6709\u65b0\u897f\u5170\u5723\u8bde\u6811\u7684\u6811\u836b\u3002"
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.00208395067602396,
-      "preprocess_ms": 0.7564169354736805,
-      "decode_ms": 160.80391604918987,
-      "total_ms": 161.56912490259856,
+      "load_ms": 0.0017080456018447876,
+      "preprocess_ms": 0.8245829958468676,
+      "decode_ms": 154.5387499500066,
+      "total_ms": 155.36929108202457,
       "peak_gpu_bytes": 3502634540,
       "active_gpu_bytes": 2492275618,
       "vocabulary_applied": false,
       "timestamp_granularity": "utterance",
-      "wall_ms": 161.58429102506489
+      "wall_ms": 155.38491704501212
     }
   ],
   "limitations": [

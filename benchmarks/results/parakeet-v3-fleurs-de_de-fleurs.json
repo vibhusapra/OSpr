@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-10-22T09:41:27.291788+00:00",
+  "timestamp": "2026-10-22T11:51:30.353229+00:00",
   "model": "parakeet-v3",
   "model_spec": {
     "repo": "mlx-community/parakeet-tdt-0.6b-v3",
@@ -12,8 +12,8 @@
   "machine": "arm64",
   "hardware": "Apple M5 Max",
   "memory_bytes": 137438953472,
-  "source_sha256": "20195f0ec8063a8fcc87052ff2e89656eccdf45d66669979e0c39a95a809a46b",
-  "git_commit": "5b57f1413077f87335ce2099d47044686806f337",
+  "source_sha256": "b966ca85111801981eb11fa263d8dc46a2725571b6d8bbcaa16e3657dd846558",
+  "git_commit": "9659dea9541cd5ce1f1460594ef6c669a6e513f0",
   "working_tree_dirty": true,
   "versions": {
     "mlx": "0.32.4",
@@ -42,18 +42,19 @@
         "text": " F\u00fcr die besten Aussichten auf Hongkong sollten Sie die Insel verlassen und zum gegen\u00fcberliegenden Ufer von Kowloon fahren."
       }
     ],
+    "words": [],
     "language": "de",
     "silence": false,
     "warm": false,
-    "load_ms": 230.1573749864474,
-    "preprocess_ms": 1.3485000235959888,
-    "decode_ms": 145.18779097124934,
-    "total_ms": 376.6986250411719,
-    "peak_gpu_bytes": 3225016800,
-    "active_gpu_bytes": 1296345292,
+    "load_ms": 209.95362498797476,
+    "preprocess_ms": 1.2721249368041754,
+    "decode_ms": 154.16925004683435,
+    "total_ms": 365.39941595401615,
+    "peak_gpu_bytes": 3609670150,
+    "active_gpu_bytes": 1296312524,
     "vocabulary_applied": false,
     "timestamp_granularity": "segment",
-    "wall_ms": 376.715415972285
+    "wall_ms": 365.4204159975052
   },
   "summary": {
     "fleurs-de_de": {
@@ -64,13 +65,13 @@
       "substitutions": 8,
       "deletions": 1,
       "insertions": 0,
-      "p50_ms": 76.74350001616403,
-      "p95_ms": 177.22360843326882,
-      "aggregate_rtf": 0.005802929835080983,
+      "p50_ms": 78.74072896083817,
+      "p95_ms": 175.59471217682574,
+      "aggregate_rtf": 0.005975697605638247,
       "hallucinated_silence": 0
     }
   },
-  "process_peak_rss_bytes": 1832943616,
+  "process_peak_rss_bytes": 1691942912,
   "corpus": {
     "dataset": "google/fleurs",
     "revision": "70bb2e84b976b7e960aa89f1c648e09c59f894dd",
@@ -122,17 +123,18 @@
           "text": " F\u00fcr die besten Aussichten auf Hongkong sollten Sie die Insel verlassen und zum gegen\u00fcberliegenden Ufer von Kowloon fahren."
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.001625041477382183,
-      "preprocess_ms": 1.1848750291392207,
-      "decode_ms": 59.03204204514623,
-      "total_ms": 60.22191606462002,
-      "peak_gpu_bytes": 2251538928,
-      "active_gpu_bytes": 1296345292,
+      "load_ms": 0.0016660196706652641,
+      "preprocess_ms": 1.131374971009791,
+      "decode_ms": 74.19320801272988,
+      "total_ms": 75.33037499524653,
+      "peak_gpu_bytes": 2251506160,
+      "active_gpu_bytes": 1296312524,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 60.235625016503036
+      "wall_ms": 75.34416695125401
     },
     {
       "id": "fleurs-de_de-001",
@@ -160,17 +162,18 @@
           "text": " Selbst ein gro\u00dfer Dinosaurier wie der T-Rex war ihm nicht gewachsen."
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0024579931050539017,
-      "preprocess_ms": 0.7666670717298985,
-      "decode_ms": 63.64145805127919,
-      "total_ms": 64.41429210826755,
-      "peak_gpu_bytes": 2234532336,
-      "active_gpu_bytes": 1296296140,
+      "load_ms": 0.0019170111045241356,
+      "preprocess_ms": 0.8043330162763596,
+      "decode_ms": 64.45204094052315,
+      "total_ms": 65.2610829565674,
+      "peak_gpu_bytes": 2234499568,
+      "active_gpu_bytes": 1296263372,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 64.42670791875571
+      "wall_ms": 65.2738749049604
     },
     {
       "id": "fleurs-de_de-002",
@@ -193,17 +196,18 @@
           "text": " Wenn Sie den Film Das Verm\u00e4chtnis der Tempelritter gesehen haben, denken Sie vielleicht, dass auf der R\u00fcckseite der Unabh\u00e4ngigkeitserkl\u00e4rung eine Schatzkarte gezeichnet wurde."
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0017080456018447876,
-      "preprocess_ms": 0.9454170940443873,
-      "decode_ms": 80.31454205047339,
-      "total_ms": 81.26570901367813,
-      "peak_gpu_bytes": 2290319856,
-      "active_gpu_bytes": 1296459980,
+      "load_ms": 0.001374981366097927,
+      "preprocess_ms": 0.8030420867726207,
+      "decode_ms": 81.36887499131262,
+      "total_ms": 82.17662503011525,
+      "peak_gpu_bytes": 2290287088,
+      "active_gpu_bytes": 1296427212,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 81.27820794470608
+      "wall_ms": 82.19120802823454
     },
     {
       "id": "fleurs-de_de-003",
@@ -226,17 +230,18 @@
           "text": " Es leben noch viele M\u00e4nner und Frauen, die ihre Zeit hier \u00fcberlebt haben und viele weitere mit Angeh\u00f6rigen, die dort ermordet wurden oder sich zu Tode arbeiteten Juden und Nichtjuden gleicherma\u00dfen."
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0010830117389559746,
-      "preprocess_ms": 0.6918340222910047,
-      "decode_ms": 89.53041606582701,
-      "total_ms": 90.22650006227195,
-      "peak_gpu_bytes": 2260419056,
-      "active_gpu_bytes": 1296378060,
+      "load_ms": 0.001249951310455799,
+      "preprocess_ms": 0.7365000201389194,
+      "decode_ms": 101.68366692960262,
+      "total_ms": 102.42454195395112,
+      "peak_gpu_bytes": 2260386288,
+      "active_gpu_bytes": 1296345292,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 90.23958398029208
+      "wall_ms": 102.43645799346268
     },
     {
       "id": "fleurs-de_de-004",
@@ -259,17 +264,18 @@
           "text": " Die H\u00f6hle befindet sich auf der Spitze eines der Berge n\u00f6rdlich von Mekka und ist vom Rest der Welt v\u00f6llig isoliert."
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0012919772416353226,
-      "preprocess_ms": 0.6984170759096742,
-      "decode_ms": 61.078125028871,
-      "total_ms": 61.78154202643782,
-      "peak_gpu_bytes": 2224243184,
-      "active_gpu_bytes": 1296263372,
+      "load_ms": 0.0013329554349184036,
+      "preprocess_ms": 0.6605420494452119,
+      "decode_ms": 61.00112502463162,
+      "total_ms": 61.666417052038014,
+      "peak_gpu_bytes": 2224210416,
+      "active_gpu_bytes": 1296230604,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 61.794625013135374
+      "wall_ms": 61.67812494095415
     },
     {
       "id": "fleurs-de_de-005",
@@ -292,17 +298,18 @@
           "text": " Dieses Sediment war n\u00f6tig, um Sandb\u00e4nke und Str\u00e4nde zu bilden, die als Lebensr\u00e4ume f\u00fcr Wildtiere dienten."
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0009168870747089386,
-      "preprocess_ms": 0.5906670121476054,
-      "decode_ms": 60.423208051361144,
-      "total_ms": 61.017250060103834,
-      "peak_gpu_bytes": 2213167600,
-      "active_gpu_bytes": 1296246988,
+      "load_ms": 0.0007499475032091141,
+      "preprocess_ms": 0.6012499798089266,
+      "decode_ms": 60.656291083432734,
+      "total_ms": 61.26174994278699,
+      "peak_gpu_bytes": 2214363632,
+      "active_gpu_bytes": 1296214220,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 61.02845794521272
+      "wall_ms": 61.27499998547137
     },
     {
       "id": "fleurs-de_de-006",
@@ -330,17 +337,18 @@
           "text": " Zwar haben Sch\u00fcler am Anfang ihrer Bloggerfahrung oft eine schlampige Grammatik und Rechtschreibung, aber das \u00e4ndert sich normalerweise, wenn es ein Publikum gibt."
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0010830117389559746,
-      "preprocess_ms": 0.8020410314202309,
-      "decode_ms": 106.95024998858571,
-      "total_ms": 107.75612504221499,
-      "peak_gpu_bytes": 2304147952,
-      "active_gpu_bytes": 1296509132,
+      "load_ms": 0.0009170034900307655,
+      "preprocess_ms": 0.8016249630600214,
+      "decode_ms": 107.5489999493584,
+      "total_ms": 108.35470794700086,
+      "peak_gpu_bytes": 2304115184,
+      "active_gpu_bytes": 1296476364,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 107.77070897165686
+      "wall_ms": 108.36816602386534
     },
     {
       "id": "fleurs-de_de-007",
@@ -363,17 +371,18 @@
           "text": " Nachdem der Darm neunzehnhundertdreiundsechzig erbaut worden war, kamen die jahreszeitlichen \u00dcberflutungen, die Sedimente im Fluss verteilen, zum Stillstand."
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.001125037670135498,
-      "preprocess_ms": 1.0897499741986394,
-      "decode_ms": 79.94525006506592,
-      "total_ms": 81.03966701310128,
-      "peak_gpu_bytes": 2305065456,
-      "active_gpu_bytes": 1296509132,
+      "load_ms": 0.0010828953236341476,
+      "preprocess_ms": 1.105208066292107,
+      "decode_ms": 81.01629209704697,
+      "total_ms": 82.12550007738173,
+      "peak_gpu_bytes": 2305032688,
+      "active_gpu_bytes": 1296476364,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 81.05375000741333
+      "wall_ms": 82.13729097042233
     },
     {
       "id": "fleurs-de_de-008",
@@ -396,17 +405,18 @@
           "text": " Insbesondere wird behauptet, dass man erkennen kann, ob jemand l\u00fcgt, indem man minimale Ver\u00e4nderungen des Gesichtsausdrucks richtig deutet."
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
       "load_ms": 0.00108394306153059,
-      "preprocess_ms": 0.7712080841884017,
-      "decode_ms": 71.64562493562698,
-      "total_ms": 72.42129207588732,
-      "peak_gpu_bytes": 2277114352,
-      "active_gpu_bytes": 1296345292,
+      "preprocess_ms": 0.72508305311203,
+      "decode_ms": 71.48879207670689,
+      "total_ms": 72.21783301793039,
+      "peak_gpu_bytes": 2280473072,
+      "active_gpu_bytes": 1296312524,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 72.43325002491474
+      "wall_ms": 72.22837500739843
     },
     {
       "id": "fleurs-de_de-009",
@@ -439,17 +449,18 @@
           "text": " Orawetz zweitausendwei."
         }
       ],
+      "words": [],
       "silence": false,
       "warm": true,
-      "load_ms": 0.0017079291865229607,
-      "preprocess_ms": 2.6577910175547004,
-      "decode_ms": 231.34708299767226,
-      "total_ms": 234.01400004513562,
-      "peak_gpu_bytes": 2648820040,
-      "active_gpu_bytes": 1295837388,
+      "load_ms": 0.0015830155462026596,
+      "preprocess_ms": 2.4399590911343694,
+      "decode_ms": 228.12125005293638,
+      "total_ms": 230.5693340022117,
+      "peak_gpu_bytes": 2648787272,
+      "active_gpu_bytes": 1295804620,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 234.04870799276978
+      "wall_ms": 230.598249938339
     }
   ],
   "limitations": [

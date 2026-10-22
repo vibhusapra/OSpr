@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-10-22T09:37:04.223012+00:00",
+  "timestamp": "2026-10-22T11:47:01.214334+00:00",
   "model": "whisper-turbo",
   "model_spec": {
     "repo": "mlx-community/whisper-large-v3-turbo",
@@ -12,8 +12,8 @@
   "machine": "arm64",
   "hardware": "Apple M5 Max",
   "memory_bytes": 137438953472,
-  "source_sha256": "20195f0ec8063a8fcc87052ff2e89656eccdf45d66669979e0c39a95a809a46b",
-  "git_commit": "5b57f1413077f87335ce2099d47044686806f337",
+  "source_sha256": "b966ca85111801981eb11fa263d8dc46a2725571b6d8bbcaa16e3657dd846558",
+  "git_commit": "1b872f4ae4e437641a580cf9c50c4f0304ee1f81",
   "working_tree_dirty": true,
   "versions": {
     "mlx": "0.32.4",
@@ -42,18 +42,19 @@
         "text": "Mr. Quilter is the apostle of the middle classes and we are glad to welcome his gospel."
       }
     ],
+    "words": [],
     "language": "en",
     "silence": false,
     "warm": false,
-    "load_ms": 229.22345902770758,
-    "preprocess_ms": 0.6782499840483069,
-    "decode_ms": 222.57412504404783,
-    "total_ms": 452.4854579940438,
+    "load_ms": 258.4504579426721,
+    "preprocess_ms": 0.7617080118507147,
+    "decode_ms": 245.24366692639887,
+    "total_ms": 504.46512503549457,
     "peak_gpu_bytes": 2556661650,
     "active_gpu_bytes": 1618307758,
     "vocabulary_applied": false,
     "timestamp_granularity": "segment",
-    "wall_ms": 452.49920804053545
+    "wall_ms": 504.4817079324275
   },
   "summary": {
     "human-clean": {
@@ -64,9 +65,9 @@
       "substitutions": 48,
       "deletions": 7,
       "insertions": 4,
-      "p50_ms": 109.48145808652043,
-      "p95_ms": 135.95126655418426,
-      "aggregate_rtf": 0.01706629819868733,
+      "p50_ms": 105.01108306925744,
+      "p95_ms": 135.69851659704,
+      "aggregate_rtf": 0.016538548521526076,
       "hallucinated_silence": 0
     },
     "human-long": {
@@ -77,9 +78,9 @@
       "substitutions": 13,
       "deletions": 2,
       "insertions": 1,
-      "p50_ms": 968.4026249451563,
-      "p95_ms": 968.4026249451563,
-      "aggregate_rtf": 0.008665407587536632,
+      "p50_ms": 910.5941250454634,
+      "p95_ms": 910.5941250454634,
+      "aggregate_rtf": 0.008148128719479786,
       "hallucinated_silence": 0
     },
     "human-noise10db": {
@@ -90,9 +91,9 @@
       "substitutions": 21,
       "deletions": 2,
       "insertions": 0,
-      "p50_ms": 122.47650005156174,
-      "p95_ms": 238.00302482559334,
-      "aggregate_rtf": 0.013280870760750673,
+      "p50_ms": 112.01747902669013,
+      "p95_ms": 216.1493106104898,
+      "aggregate_rtf": 0.012159493877349367,
       "hallucinated_silence": 0
     },
     "human-quiet": {
@@ -103,9 +104,9 @@
       "substitutions": 15,
       "deletions": 2,
       "insertions": 0,
-      "p50_ms": 121.10704154474661,
-      "p95_ms": 237.028876756085,
-      "aggregate_rtf": 0.013328019522871151,
+      "p50_ms": 112.24643752211705,
+      "p95_ms": 221.38546452624715,
+      "aggregate_rtf": 0.01226746123274108,
       "hallucinated_silence": 0
     },
     "silence": {
@@ -116,13 +117,13 @@
       "substitutions": null,
       "deletions": null,
       "insertions": null,
-      "p50_ms": 0.4977504722774029,
-      "p95_ms": 0.5647631594911218,
-      "aggregate_rtf": 9.955009445548058e-05,
+      "p50_ms": 0.46897894935682416,
+      "p95_ms": 0.5452728655654937,
+      "aggregate_rtf": 9.379578987136483e-05,
       "hallucinated_silence": 0
     }
   },
-  "process_peak_rss_bytes": 1912176640,
+  "process_peak_rss_bytes": 1910030336,
   "corpus": {
     "dataset": "hf-internal-testing/librispeech_asr_dummy",
     "revision": "5be91486e11a2d616f4ec5db8d3fd248585ac07a",
@@ -152,18 +153,19 @@
           "text": "Mr. Quilter is the apostle of the middle classes and we are glad to welcome his gospel."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0029579969123005867,
-      "preprocess_ms": 0.6912499666213989,
-      "decode_ms": 108.7744579417631,
-      "total_ms": 109.47237501386553,
+      "load_ms": 0.003583962097764015,
+      "preprocess_ms": 0.6937079597264528,
+      "decode_ms": 112.10374999791384,
+      "total_ms": 112.80499992426485,
       "peak_gpu_bytes": 2550082422,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 109.48145808652043
+      "wall_ms": 112.81754192896187
     },
     {
       "id": "1272-128104-0001",
@@ -185,18 +187,19 @@
           "text": "Nor is Mr. Quilter's manner less interesting than his matter."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0016249250620603561,
-      "preprocess_ms": 0.4902499495074153,
-      "decode_ms": 102.13050001766533,
-      "total_ms": 102.62566700112075,
+      "load_ms": 0.0022080494090914726,
+      "preprocess_ms": 0.6586669478565454,
+      "decode_ms": 104.33629201725125,
+      "total_ms": 105.00195901840925,
       "peak_gpu_bytes": 2550033270,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 102.63562493491918
+      "wall_ms": 105.01108306925744
     },
     {
       "id": "1272-128104-0002",
@@ -218,18 +221,19 @@
           "text": "He tells us that at this festive season of the year, with Christmas and roast beef looming before us, similes drawn from eating and its results occur most readily to the mind."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.001334003172814846,
-      "preprocess_ms": 1.0795410489663482,
-      "decode_ms": 132.08970800042152,
-      "total_ms": 133.17416608333588,
+      "load_ms": 0.001374981366097927,
+      "preprocess_ms": 1.0194999631494284,
+      "decode_ms": 135.2132079191506,
+      "total_ms": 136.2370839342475,
       "peak_gpu_bytes": 2550442870,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 133.18112504202873
+      "wall_ms": 136.24366698786616
     },
     {
       "id": "1272-128104-0003",
@@ -251,18 +255,19 @@
           "text": "He has grave doubts whether Sir Frederick Layton's work is really Greek after all, and can discover in it but little of rocky Ithaca."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0014579854905605316,
-      "preprocess_ms": 0.760124996304512,
-      "decode_ms": 121.74891692120582,
-      "total_ms": 122.51354102045298,
+      "load_ms": 0.001375097781419754,
+      "preprocess_ms": 0.7997079519554973,
+      "decode_ms": 125.12433400843292,
+      "total_ms": 125.92933303676546,
       "peak_gpu_bytes": 2550311798,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 122.52058309968561
+      "wall_ms": 125.93670794740319
     },
     {
       "id": "1272-128104-0004",
@@ -289,18 +294,19 @@
           "text": "mr burkett foster's landscapes smile at one much in the same way that mr carker used to flash his teeth and mr john collier gives his sitter a cheerful slap on the back before he says like a shampooer in a turkish bath next man"
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0015420373529195786,
-      "preprocess_ms": 1.868791994638741,
-      "decode_ms": 211.07204200234264,
-      "total_ms": 212.9455420654267,
+      "load_ms": 0.0014168908819556236,
+      "preprocess_ms": 1.984959002584219,
+      "decode_ms": 216.07304108329117,
+      "total_ms": 218.06358394678682,
       "peak_gpu_bytes": 2554555810,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 212.95737498439848
+      "wall_ms": 218.07529195211828
     },
     {
       "id": "1272-128104-0005",
@@ -322,18 +328,19 @@
           "text": "It is obviously unnecessary for us to point out how luminous these criticisms are, how delicate an expression."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0012080417945981026,
-      "preprocess_ms": 0.7646250305697322,
-      "decode_ms": 109.07654208131135,
-      "total_ms": 109.84541696961969,
+      "load_ms": 0.0011670636013150215,
+      "preprocess_ms": 0.7081669755280018,
+      "decode_ms": 109.90050004329532,
+      "total_ms": 110.61291699297726,
       "peak_gpu_bytes": 2550262646,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 109.85145799349993
+      "wall_ms": 110.62016698997468
     },
     {
       "id": "1272-128104-0006",
@@ -355,18 +362,19 @@
           "text": "On the general principles of art, Mr. Quilter writes with equal lucidity."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.000959029421210289,
-      "preprocess_ms": 0.48979197163134813,
-      "decode_ms": 104.18975003995001,
-      "total_ms": 104.68308394774795,
+      "load_ms": 0.0014581019058823586,
+      "preprocess_ms": 0.5611670203506947,
+      "decode_ms": 105.93404108658433,
+      "total_ms": 106.50033398997039,
       "peak_gpu_bytes": 2550098806,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 104.6884999377653
+      "wall_ms": 106.5084170550108
     },
     {
       "id": "1272-128104-0007",
@@ -393,18 +401,19 @@
           "text": "Finnish in art is adding more fact."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0009579816833138466,
-      "preprocess_ms": 0.6293340120464563,
-      "decode_ms": 114.08720805775374,
-      "total_ms": 114.72062498796731,
+      "load_ms": 0.001374981366097927,
+      "preprocess_ms": 0.7677079411223531,
+      "decode_ms": 116.00820906460285,
+      "total_ms": 116.78037501405925,
       "peak_gpu_bytes": 2550262646,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 114.72774995490909
+      "wall_ms": 116.79708305746317
     },
     {
       "id": "1272-128104-0008",
@@ -426,18 +435,19 @@
           "text": "As for etchings, they are of two kinds, British and foreign."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0009159557521343231,
-      "preprocess_ms": 0.4902919754385948,
-      "decode_ms": 102.67208307050169,
-      "total_ms": 103.16616704221815,
+      "load_ms": 0.0014170072972774506,
+      "preprocess_ms": 0.5228329682722688,
+      "decode_ms": 102.56816598121077,
+      "total_ms": 103.09583297930658,
       "peak_gpu_bytes": 2550066038,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 103.171749971807
+      "wall_ms": 103.10237505473197
     },
     {
       "id": "1272-128104-0009",
@@ -459,18 +469,19 @@
           "text": "He laments most bitterly the divorce that has been made between decorative art and what we usually call pictures, makes a customary appeal to the last judgment and reminds us that in the great days of art Michelangelo was the furnishing upholsterer."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.001500011421740055,
-      "preprocess_ms": 1.0693749645724893,
-      "decode_ms": 154.87362502608448,
-      "total_ms": 155.94754193443805,
+      "load_ms": 0.0016669509932398796,
+      "preprocess_ms": 1.4009170699864626,
+      "decode_ms": 155.83308297209442,
+      "total_ms": 157.23908401560038,
       "peak_gpu_bytes": 2550737782,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 155.95362498424947
+      "wall_ms": 157.24545798730105
     },
     {
       "id": "1272-128104-0010",
@@ -492,18 +503,19 @@
           "text": "near the fire and the ornaments Fred brought home from India on the mantel board"
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0010419171303510666,
-      "preprocess_ms": 0.5747920367866755,
-      "decode_ms": 103.59291709028184,
-      "total_ms": 104.17216701898724,
+      "load_ms": 0.001249951310455799,
+      "preprocess_ms": 0.5735419690608978,
+      "decode_ms": 101.07712505850941,
+      "total_ms": 101.65612504351884,
       "peak_gpu_bytes": 2550098806,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 104.17837498243898
+      "wall_ms": 101.66445898357779
     },
     {
       "id": "1272-128104-0011",
@@ -525,18 +537,19 @@
           "text": "in fact he is quite severe on mr ruskin for not recognizing that a picture should denote the frailty of man and remarks with pleasing courtesy and felicitous grace that many phases of feeling"
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0016249250620603561,
-      "preprocess_ms": 0.9095000568777323,
-      "decode_ms": 135.19287505187094,
-      "total_ms": 136.10725000035018,
+      "load_ms": 0.0014159595593810081,
+      "preprocess_ms": 1.0069160489365458,
+      "decode_ms": 134.31662507355213,
+      "total_ms": 135.32754103653133,
       "peak_gpu_bytes": 2550590326,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 136.11491594929248
+      "wall_ms": 135.3350830031559
     },
     {
       "id": "1272-128104-0012",
@@ -558,18 +571,19 @@
           "text": "Only, unfortunately, his own work never does get good."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.000833999365568161,
-      "preprocess_ms": 0.5175829865038395,
-      "decode_ms": 97.50466700643301,
-      "total_ms": 98.02604198921472,
+      "load_ms": 0.0011249212548136711,
+      "preprocess_ms": 0.5065829027444124,
+      "decode_ms": 97.5385830970481,
+      "total_ms": 98.04966591764241,
       "peak_gpu_bytes": 2550082422,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 98.03162491880357
+      "wall_ms": 98.05683291051537
     },
     {
       "id": "1272-128104-0013",
@@ -591,18 +605,19 @@
           "text": "mr quilter has missed his chance for he has failed even to make himself the tupper of painting"
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.000959029421210289,
-      "preprocess_ms": 0.5781670333817601,
-      "decode_ms": 110.79566599801183,
-      "total_ms": 111.37749999761581,
+      "load_ms": 0.001249951310455799,
+      "preprocess_ms": 0.5895000649616122,
+      "decode_ms": 116.59687489736825,
+      "total_ms": 117.19150003045797,
       "peak_gpu_bytes": 2550164342,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 111.38387501705438
+      "wall_ms": 117.20450001303107
     },
     {
       "id": "1272-128104-0014",
@@ -624,18 +639,19 @@
           "text": "by Harry Quilter, M.A."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0010419171303510666,
-      "preprocess_ms": 0.3999999025836587,
-      "decode_ms": 95.27633292600513,
-      "total_ms": 95.68095789290965,
+      "load_ms": 0.001374981366097927,
+      "preprocess_ms": 0.43283298145979643,
+      "decode_ms": 94.59041699301451,
+      "total_ms": 95.02791694831103,
       "peak_gpu_bytes": 2549918582,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 95.68804199807346
+      "wall_ms": 95.03637498710304
     },
     {
       "id": "1272-135031-0000",
@@ -657,18 +673,19 @@
           "text": "Because you were sleeping instead of conquering, the lovely Rose Princess has become a fiddle without a bow, while poor Shaggy sits there a cooing dove."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.001374981366097927,
-      "preprocess_ms": 0.850916956551373,
-      "decode_ms": 131.64562499150634,
-      "total_ms": 132.50204198993742,
+      "load_ms": 0.001458916813135147,
+      "preprocess_ms": 0.7856669835746288,
+      "decode_ms": 129.80312493164092,
+      "total_ms": 130.59316703584045,
       "peak_gpu_bytes": 2550377334,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 132.50920793507248
+      "wall_ms": 130.6015830487013
     },
     {
       "id": "1272-135031-0001",
@@ -690,18 +707,19 @@
           "text": "he has gone and gone for good answered polychrome who had managed to squeeze into the room beside the dragon and had witnessed the occurrences with much interest"
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.001084059476852417,
-      "preprocess_ms": 0.814375001937151,
-      "decode_ms": 128.1158330384642,
-      "total_ms": 128.9342090021819,
+      "load_ms": 0.0017499551177024841,
+      "preprocess_ms": 0.7735419785603881,
+      "decode_ms": 123.7038749968633,
+      "total_ms": 124.48220804799348,
       "peak_gpu_bytes": 2550393718,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 128.94074991345406
+      "wall_ms": 124.48916595894843
     },
     {
       "id": "1272-135031-0002",
@@ -723,18 +741,19 @@
           "text": "i have remained a prisoner only because i wish to be one and with this he stepped forward and burst the stout chains as easily as if they had been threads"
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0014170072972774506,
-      "preprocess_ms": 1.0648330207914114,
-      "decode_ms": 128.64695896860212,
-      "total_ms": 129.7177909873426,
+      "load_ms": 0.0017920974642038345,
+      "preprocess_ms": 1.107583986595273,
+      "decode_ms": 128.67508293129504,
+      "total_ms": 129.78775007650256,
       "peak_gpu_bytes": 2550393718,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 129.7256660182029
+      "wall_ms": 129.79462498333305
     },
     {
       "id": "1272-135031-0003",
@@ -756,18 +775,19 @@
           "text": "The little girl had been asleep, but she heard the raps and opened the door."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.00100000761449337,
-      "preprocess_ms": 0.5231250543147326,
-      "decode_ms": 105.07308307569474,
-      "total_ms": 105.6000420358032,
+      "load_ms": 0.0014159595593810081,
+      "preprocess_ms": 0.5181659944355488,
+      "decode_ms": 104.66270800679922,
+      "total_ms": 105.18537508323789,
       "peak_gpu_bytes": 2550066038,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 105.60629109386355
+      "wall_ms": 105.19229201599956
     },
     {
       "id": "1272-135031-0004",
@@ -789,18 +809,19 @@
           "text": "The king has fled the disgrace and your friends are asking for you."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.001291045919060707,
-      "preprocess_ms": 0.49949996173381805,
-      "decode_ms": 100.28754197992384,
-      "total_ms": 100.79116700217128,
+      "load_ms": 0.001125037670135498,
+      "preprocess_ms": 0.45250006951391697,
+      "decode_ms": 98.73795800376683,
+      "total_ms": 99.1939160740003,
       "peak_gpu_bytes": 2550033270,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 100.79799999948591
+      "wall_ms": 99.2003328865394
     },
     {
       "id": "1272-135031-0005",
@@ -822,18 +843,19 @@
           "text": "I begged Ruggedo long ago to send him away, but he would not do so."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0008749775588512421,
-      "preprocess_ms": 0.49391703214496374,
-      "decode_ms": 106.80016700644046,
-      "total_ms": 107.29758301749825,
+      "load_ms": 0.001374981366097927,
+      "preprocess_ms": 0.4487918922677636,
+      "decode_ms": 104.64870801661164,
+      "total_ms": 105.1014579134062,
       "peak_gpu_bytes": 2550049654,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 107.30433405842632
+      "wall_ms": 105.10733304545283
     },
     {
       "id": "1272-135031-0006",
@@ -855,18 +877,19 @@
           "text": "I also offered to help your brother to escape, but he would not go."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.00100000761449337,
-      "preprocess_ms": 0.4683329025283456,
-      "decode_ms": 102.61604201514274,
-      "total_ms": 103.08895795606077,
+      "load_ms": 0.001500011421740055,
+      "preprocess_ms": 0.6830829661339521,
+      "decode_ms": 102.12462488561869,
+      "total_ms": 102.81291604042053,
       "peak_gpu_bytes": 2550033270,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 103.09445799794048
+      "wall_ms": 102.81941597349942
     },
     {
       "id": "1272-135031-0007",
@@ -888,18 +911,19 @@
           "text": "He eats and sleeps very steadily, replied the new king."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0010420335456728935,
-      "preprocess_ms": 0.426500104367733,
-      "decode_ms": 96.96033305954188,
-      "total_ms": 97.3903751000762,
+      "load_ms": 0.001125037670135498,
+      "preprocess_ms": 0.45441603288054466,
+      "decode_ms": 95.5809170845896,
+      "total_ms": 96.03920800145715,
       "peak_gpu_bytes": 2550033270,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 97.39754092879593
+      "wall_ms": 96.04654205031693
     },
     {
       "id": "1272-135031-0008",
@@ -921,18 +945,19 @@
           "text": "I hope he doesn't work too hard, said Shaggy."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.001041102223098278,
-      "preprocess_ms": 0.44887501280754805,
-      "decode_ms": 100.49604205414653,
-      "total_ms": 100.94879090320319,
+      "load_ms": 0.0011249212548136711,
+      "preprocess_ms": 0.42212498374283314,
+      "decode_ms": 99.01312494184822,
+      "total_ms": 99.43904099054635,
       "peak_gpu_bytes": 2550000502,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 100.95504205673933
+      "wall_ms": 99.44537503179163
     },
     {
       "id": "1272-135031-0009",
@@ -954,18 +979,19 @@
           "text": "he doesn't work at all"
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0007910421118140221,
-      "preprocess_ms": 0.37937494926154613,
-      "decode_ms": 88.48037500865757,
-      "total_ms": 88.86337501462549,
+      "load_ms": 0.001291045919060707,
+      "preprocess_ms": 0.3345409641042352,
+      "decode_ms": 87.77375007048249,
+      "total_ms": 88.11187499668449,
       "peak_gpu_bytes": 2549918582,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 88.8688329141587
+      "wall_ms": 88.11758400406688
     },
     {
       "id": "1272-135031-0010",
@@ -992,18 +1018,19 @@
           "text": "whose numbers are so great that it worries us to keep them all busy."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.000708969309926033,
-      "preprocess_ms": 0.6547500379383564,
-      "decode_ms": 134.49245796073228,
-      "total_ms": 135.1507919607684,
+      "load_ms": 0.001374981366097927,
+      "preprocess_ms": 0.6058330181986094,
+      "decode_ms": 131.8862910848111,
+      "total_ms": 132.4965419480577,
       "peak_gpu_bytes": 2550279030,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 135.15650003682822
+      "wall_ms": 132.50458298716694
     },
     {
       "id": "1272-135031-0011",
@@ -1025,18 +1052,19 @@
           "text": "Not exactly, returned Calico."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.000959029421210289,
-      "preprocess_ms": 0.3990840632468462,
-      "decode_ms": 89.4591249525547,
-      "total_ms": 89.86208401620388,
+      "load_ms": 0.0009579816833138466,
+      "preprocess_ms": 0.4052079748362303,
+      "decode_ms": 89.31566693354398,
+      "total_ms": 89.72445805557072,
       "peak_gpu_bytes": 2549984118,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 89.86804203595966
+      "wall_ms": 89.73112504463643
     },
     {
       "id": "1272-135031-0012",
@@ -1058,18 +1086,19 @@
           "text": "Where is my brother now?"
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.00108394306153059,
-      "preprocess_ms": 0.3380420384928584,
-      "decode_ms": 89.05187505297363,
-      "total_ms": 89.39420897513628,
+      "load_ms": 0.0013330718502402306,
+      "preprocess_ms": 0.3483749460428953,
+      "decode_ms": 88.59837497584522,
+      "total_ms": 88.95083295647055,
       "peak_gpu_bytes": 2549934966,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 89.40037502907217
+      "wall_ms": 88.95733300596476
     },
     {
       "id": "1272-135031-0013",
@@ -1091,18 +1120,19 @@
           "text": "Inquired Shaggy in the metal forest."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0009160721674561501,
-      "preprocess_ms": 0.40983303915709257,
-      "decode_ms": 96.97833308018744,
-      "total_ms": 97.39187511149794,
+      "load_ms": 0.00100000761449337,
+      "preprocess_ms": 0.41141698602586985,
+      "decode_ms": 95.25170898996294,
+      "total_ms": 95.66700004506856,
       "peak_gpu_bytes": 2550000502,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 97.39804093260318
+      "wall_ms": 95.67304200027138
     },
     {
       "id": "1272-135031-0014",
@@ -1124,18 +1154,19 @@
           "text": "Where is that?"
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0010409858077764511,
-      "preprocess_ms": 0.3293330082669854,
-      "decode_ms": 87.90966693777591,
-      "total_ms": 88.24345807079226,
+      "load_ms": 0.0012919772416353226,
+      "preprocess_ms": 0.31875004060566425,
+      "decode_ms": 85.44479100964963,
+      "total_ms": 85.76712501235306,
       "peak_gpu_bytes": 2549869430,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 88.24950002599508
+      "wall_ms": 85.77341702766716
     },
     {
       "id": "1272-135031-0015",
@@ -1157,18 +1188,19 @@
           "text": "the metal forest is in the great domed cavern the largest in all our dominions replied calico"
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0010830117389559746,
-      "preprocess_ms": 0.6189590785652399,
-      "decode_ms": 111.28745810128748,
-      "total_ms": 111.91033408977091,
+      "load_ms": 0.001250067725777626,
+      "preprocess_ms": 0.5982499569654465,
+      "decode_ms": 109.3436669325456,
+      "total_ms": 109.94599992409348,
       "peak_gpu_bytes": 2550197110,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 111.91641702316701
+      "wall_ms": 109.95191696565598
     },
     {
       "id": "1272-135031-0016",
@@ -1190,18 +1222,19 @@
           "text": "Calico hesitated."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.000833999365568161,
-      "preprocess_ms": 0.3811659989878535,
-      "decode_ms": 92.24095800891519,
-      "total_ms": 92.62600005604327,
+      "load_ms": 0.0014579854905605316,
+      "preprocess_ms": 0.34899997990578413,
+      "decode_ms": 87.06033299677074,
+      "total_ms": 87.41379098501056,
       "peak_gpu_bytes": 2549902198,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 92.63349999673665
+      "wall_ms": 87.4217499513179
     },
     {
       "id": "1272-135031-0017",
@@ -1223,18 +1256,19 @@
           "text": "However, if we look sharp, we may be able to discover one of these secret ways."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.001334003172814846,
-      "preprocess_ms": 0.6637918995693326,
-      "decode_ms": 109.87524990923703,
-      "total_ms": 110.54470797535032,
+      "load_ms": 0.0010409858077764511,
+      "preprocess_ms": 0.5262080812826753,
+      "decode_ms": 108.63266594242305,
+      "total_ms": 109.16233307216316,
       "peak_gpu_bytes": 2550180726,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 110.5514169903472
+      "wall_ms": 109.16850005742162
     },
     {
       "id": "1272-135031-0018",
@@ -1256,18 +1290,19 @@
           "text": "Oh no, I'm quite sure he didn't."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.001166015863418579,
-      "preprocess_ms": 0.39458402898162603,
-      "decode_ms": 96.81120899040252,
-      "total_ms": 97.20987500622869,
+      "load_ms": 0.0012919772416353226,
+      "preprocess_ms": 0.36458298563957214,
+      "decode_ms": 96.8295419588685,
+      "total_ms": 97.19804103951901,
       "peak_gpu_bytes": 2549934966,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 97.21620799973607
+      "wall_ms": 97.20404190011322
     },
     {
       "id": "1272-135031-0019",
@@ -1289,18 +1324,19 @@
           "text": "That's funny, remarked Betsy thoughtfully."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.00100000761449337,
-      "preprocess_ms": 0.46070897951722145,
-      "decode_ms": 96.2802090216428,
-      "total_ms": 96.7447500443086,
+      "load_ms": 0.0013330718502402306,
+      "preprocess_ms": 0.4022089997306466,
+      "decode_ms": 96.67937504127622,
+      "total_ms": 97.0854590414092,
       "peak_gpu_bytes": 2549984118,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 96.75066696945578
+      "wall_ms": 97.09162497892976
     },
     {
       "id": "1272-135031-0020",
@@ -1322,18 +1358,19 @@
           "text": "I don't believe Anne knew any magic or she'd have worked it before."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0008329516276717186,
-      "preprocess_ms": 0.48920896369963884,
-      "decode_ms": 103.26070804148912,
-      "total_ms": 103.75349991954863,
+      "load_ms": 0.0013329554349184036,
+      "preprocess_ms": 0.4469589330255985,
+      "decode_ms": 102.62649995274842,
+      "total_ms": 103.07712492067367,
       "peak_gpu_bytes": 2550049654,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 103.75862498767674
+      "wall_ms": 103.08375000022352
     },
     {
       "id": "1272-135031-0021",
@@ -1355,18 +1392,19 @@
           "text": "I do not know, confessed Shaggy."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.001125037670135498,
-      "preprocess_ms": 0.3736669896170497,
-      "decode_ms": 95.13345803134143,
-      "total_ms": 95.51091701723635,
+      "load_ms": 0.001334003172814846,
+      "preprocess_ms": 0.3840409917756915,
+      "decode_ms": 94.49987497646362,
+      "total_ms": 94.88799993414432,
       "peak_gpu_bytes": 2549951350,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 95.5163330072537
+      "wall_ms": 94.89383292384446
     },
     {
       "id": "1272-135031-0022",
@@ -1388,18 +1426,19 @@
           "text": "True, agreed Calico."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0009160721674561501,
-      "preprocess_ms": 0.38004200905561447,
-      "decode_ms": 90.20708396565169,
-      "total_ms": 90.59066697955132,
+      "load_ms": 0.001374981366097927,
+      "preprocess_ms": 0.3584580263122916,
+      "decode_ms": 89.94324994273484,
+      "total_ms": 90.3053330257535,
       "peak_gpu_bytes": 2549967734,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 90.59670800343156
+      "wall_ms": 90.31229093670845
     },
     {
       "id": "1272-135031-0023",
@@ -1421,18 +1460,19 @@
           "text": "Calico went to the big gong and pounded on it just as Virgato used to do, but no one answered the summons."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.00100000761449337,
-      "preprocess_ms": 0.5766249960288405,
-      "decode_ms": 124.27033390849829,
-      "total_ms": 124.85079106409103,
+      "load_ms": 0.0015828991308808327,
+      "preprocess_ms": 0.6073750555515289,
+      "decode_ms": 124.10037498921156,
+      "total_ms": 124.71254100091755,
       "peak_gpu_bytes": 2550213494,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 124.8569170711562
+      "wall_ms": 124.71995805390179
     },
     {
       "id": "1272-135031-0024",
@@ -1454,18 +1494,19 @@
           "text": "Having returned to the royal cavern, Calico first pounded the gong and then sat in the throne wearing Ruggedo's discarded ruby crown and holding in his hand the scepter which Ruggedo had so often thrown at his head."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.001500011421740055,
-      "preprocess_ms": 1.0821669129654765,
-      "decode_ms": 155.57174989953637,
-      "total_ms": 156.658791936934,
+      "load_ms": 0.001166015863418579,
+      "preprocess_ms": 0.8950000628829002,
+      "decode_ms": 154.79945903643966,
+      "total_ms": 155.69854201748967,
       "peak_gpu_bytes": 2550557558,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 156.66562505066395
+      "wall_ms": 155.70495801512152
     },
     {
       "id": "1272-141231-0000",
@@ -1487,18 +1528,19 @@
           "text": "A man said to the universe, Sir, I exist."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.001500011421740055,
-      "preprocess_ms": 0.6346249720081687,
-      "decode_ms": 98.78687502350658,
-      "total_ms": 99.4272920070216,
+      "load_ms": 0.0012080417945981026,
+      "preprocess_ms": 0.45020796824246645,
+      "decode_ms": 96.82299999985844,
+      "total_ms": 97.27708296850324,
       "peak_gpu_bytes": 2550033270,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 99.4355418952182
+      "wall_ms": 97.28383307810873
     },
     {
       "id": "1272-141231-0001",
@@ -1520,18 +1562,19 @@
           "text": "Sweat covered Brion's body trickling into the tight loin cloth. That was the only garment he wore"
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0009580980986356735,
-      "preprocess_ms": 0.6048750365152955,
-      "decode_ms": 113.12095890752971,
-      "total_ms": 113.7298330431804,
+      "load_ms": 0.001208973117172718,
+      "preprocess_ms": 0.5344579694792628,
+      "decode_ms": 110.96166702918708,
+      "total_ms": 111.49999999906868,
       "peak_gpu_bytes": 2550131574,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 113.73774998355657
+      "wall_ms": 111.50674999225885
     },
     {
       "id": "1272-141231-0002",
@@ -1553,18 +1596,19 @@
           "text": "the cut on his chest still dripping blood the ache of his overstrained eyes even the soaring arena around him with the thousands of spectators were trivialities not worth thinking about"
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0016659032553434372,
-      "preprocess_ms": 1.0361670283600688,
-      "decode_ms": 134.79429204016924,
-      "total_ms": 135.83541696425527,
+      "load_ms": 0.0012919772416353226,
+      "preprocess_ms": 0.8510840125381947,
+      "decode_ms": 129.45295905228704,
+      "total_ms": 130.3082089871168,
       "peak_gpu_bytes": 2550475638,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 135.84216695744544
+      "wall_ms": 130.31433301512152
     },
     {
       "id": "1272-141231-0003",
@@ -1586,18 +1630,19 @@
           "text": "His instant panic was followed by a small sharp blow high on his chest."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0014170072972774506,
-      "preprocess_ms": 0.6074589909985662,
-      "decode_ms": 102.6352500775829,
-      "total_ms": 103.24716696050018,
+      "load_ms": 0.0012080417945981026,
+      "preprocess_ms": 0.4981249803677201,
+      "decode_ms": 100.56341590825468,
+      "total_ms": 101.06566699687392,
       "peak_gpu_bytes": 2550066038,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 103.25466690119356
+      "wall_ms": 101.07312491163611
     },
     {
       "id": "1272-141231-0004",
@@ -1619,18 +1664,19 @@
           "text": "One minute, a voice said, and the time buzzer sounded."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0012080417945981026,
-      "preprocess_ms": 0.7348330691456795,
-      "decode_ms": 101.78487503435463,
-      "total_ms": 102.5252080289647,
+      "load_ms": 0.0010420335456728935,
+      "preprocess_ms": 0.5033330526202917,
+      "decode_ms": 99.05916603747755,
+      "total_ms": 99.56654207780957,
       "peak_gpu_bytes": 2550049654,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 102.53154195379466
+      "wall_ms": 99.57320801913738
     },
     {
       "id": "1272-141231-0005",
@@ -1652,18 +1698,19 @@
           "text": "A minute is not a very large measure of time and his body needed every fraction of it."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0015830155462026596,
-      "preprocess_ms": 0.7299169665202498,
-      "decode_ms": 111.02641699835658,
-      "total_ms": 111.76158301532269,
+      "load_ms": 0.001334003172814846,
+      "preprocess_ms": 0.5280409241095185,
+      "decode_ms": 108.94366702996194,
+      "total_ms": 109.47670799214393,
       "peak_gpu_bytes": 2550098806,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 111.76791589241475
+      "wall_ms": 109.53712498303503
     },
     {
       "id": "1272-141231-0006",
@@ -1685,18 +1732,19 @@
           "text": "The buzzer of swerve triggered his muscles into complete relaxation."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0011669471859931946,
-      "preprocess_ms": 0.5430419696494937,
-      "decode_ms": 112.96308401506394,
-      "total_ms": 113.51066699717194,
+      "load_ms": 0.0014170072972774506,
+      "preprocess_ms": 0.6632090080529451,
+      "decode_ms": 102.23758302163333,
+      "total_ms": 102.90658404119313,
       "peak_gpu_bytes": 2550066038,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 113.51741699036211
+      "wall_ms": 102.91325009893626
     },
     {
       "id": "1272-141231-0007",
@@ -1718,18 +1766,19 @@
           "text": "Only his heart and lungs worked on at a strong measured rate."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.001500011421740055,
-      "preprocess_ms": 0.5029999883845448,
-      "decode_ms": 108.66641707252711,
-      "total_ms": 109.17412501294166,
+      "load_ms": 0.001750071533024311,
+      "preprocess_ms": 0.49520900938659906,
+      "decode_ms": 98.92016707453877,
+      "total_ms": 99.41958403214812,
       "peak_gpu_bytes": 2550033270,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 109.18091598432511
+      "wall_ms": 99.42587499972433
     },
     {
       "id": "1272-141231-0008",
@@ -1751,18 +1800,19 @@
           "text": "He was in reverie, sliding along the borders of consciousness."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0009170034900307655,
-      "preprocess_ms": 0.4724999889731407,
-      "decode_ms": 108.07483294047415,
-      "total_ms": 108.55141701176763,
+      "load_ms": 0.001416075974702835,
+      "preprocess_ms": 0.46637491323053837,
+      "decode_ms": 96.9214589567855,
+      "total_ms": 97.39237499888986,
       "peak_gpu_bytes": 2550033270,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 108.55845792684704
+      "wall_ms": 97.39979193545878
     },
     {
       "id": "1272-141231-0009",
@@ -1784,18 +1834,19 @@
           "text": "The contestants in the 20s needed undisturbed rest. Therefore, nights in the dormitories were as quiet as death."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0011249212548136711,
-      "preprocess_ms": 0.8001669775694609,
-      "decode_ms": 131.03124999906868,
-      "total_ms": 131.83600001502782,
+      "load_ms": 0.0012920936569571495,
+      "preprocess_ms": 0.6414579693228006,
+      "decode_ms": 116.56041606329381,
+      "total_ms": 117.20587499439716,
       "peak_gpu_bytes": 2550229878,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 131.8441249895841
+      "wall_ms": 117.2120829578489
     },
     {
       "id": "1272-141231-0010",
@@ -1817,18 +1868,19 @@
           "text": "particularly so on this last night when only two of the little cubicles were occupied the thousands of others standing with dark empty doors"
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0012919772416353226,
-      "preprocess_ms": 0.876624952070415,
-      "decode_ms": 127.71887495182455,
-      "total_ms": 128.60125000588596,
+      "load_ms": 0.001374981366097927,
+      "preprocess_ms": 0.7133330218493938,
+      "decode_ms": 113.68958302773535,
+      "total_ms": 114.40704192500561,
       "peak_gpu_bytes": 2550328182,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 128.61000001430511
+      "wall_ms": 114.41574990749359
     },
     {
       "id": "1272-141231-0011",
@@ -1850,18 +1902,19 @@
           "text": "The other voice snapped with a harsh urgency, clearly used to command."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0012079253792762756,
-      "preprocess_ms": 0.7173330523073673,
-      "decode_ms": 109.9879170069471,
-      "total_ms": 110.71150004863739,
+      "load_ms": 0.0010420335456728935,
+      "preprocess_ms": 0.48870802856981754,
+      "decode_ms": 98.64225005730987,
+      "total_ms": 99.13470793981105,
       "peak_gpu_bytes": 2550049654,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 110.72233307641
+      "wall_ms": 99.14183302316815
     },
     {
       "id": "1272-141231-0012",
@@ -1888,18 +1941,19 @@
           "text": "Now stand aside!"
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0014170072972774506,
-      "preprocess_ms": 0.969666987657547,
-      "decode_ms": 124.74616698455065,
-      "total_ms": 125.72241702582687,
+      "load_ms": 0.0013329554349184036,
+      "preprocess_ms": 0.6242910167202353,
+      "decode_ms": 116.09029094688594,
+      "total_ms": 116.71900004148483,
       "peak_gpu_bytes": 2550180726,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 125.73304097168148
+      "wall_ms": 116.7267500422895
     },
     {
       "id": "1272-141231-0013",
@@ -1921,18 +1975,19 @@
           "text": "the twenties"
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.001249951310455799,
-      "preprocess_ms": 0.44895801693201065,
-      "decode_ms": 85.24537493940443,
-      "total_ms": 85.69950005039573,
+      "load_ms": 0.0010830117389559746,
+      "preprocess_ms": 0.33908290788531303,
+      "decode_ms": 82.11229206062853,
+      "total_ms": 82.45449990499765,
       "peak_gpu_bytes": 2549885814,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 85.70808393415064
+      "wall_ms": 82.46037503704429
     },
     {
       "id": "1272-141231-0014",
@@ -1954,18 +2009,19 @@
           "text": "he must have drawn his gun because the intruder said quickly put that away your being a fool out"
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0013330718502402306,
-      "preprocess_ms": 0.7850420661270618,
-      "decode_ms": 111.73949996009469,
-      "total_ms": 112.529749982059,
+      "load_ms": 0.0013329554349184036,
+      "preprocess_ms": 0.5876669893041253,
+      "decode_ms": 107.5923329917714,
+      "total_ms": 108.18404192104936,
       "peak_gpu_bytes": 2550180726,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 112.53595806192607
+      "wall_ms": 108.18987502716482
     },
     {
       "id": "1272-141231-0015",
@@ -1987,18 +2043,19 @@
           "text": "There was silence then, and, still wondering, Brienne was once more asleep."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.001500011421740055,
-      "preprocess_ms": 0.5705420626327395,
-      "decode_ms": 107.8171250410378,
-      "total_ms": 108.39204210788012,
+      "load_ms": 0.001166015863418579,
+      "preprocess_ms": 0.4907500697299838,
+      "decode_ms": 104.34612503740937,
+      "total_ms": 104.84100005123764,
       "peak_gpu_bytes": 2550082422,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 108.39783307164907
+      "wall_ms": 104.84775004442781
     },
     {
       "id": "1272-141231-0016",
@@ -2020,18 +2077,19 @@
           "text": "10 seconds."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0008749775588512421,
-      "preprocess_ms": 0.3549169050529599,
-      "decode_ms": 88.49570795428008,
-      "total_ms": 88.85483292397112,
+      "load_ms": 0.0010830117389559746,
+      "preprocess_ms": 0.3422501031309366,
+      "decode_ms": 83.99933308828622,
+      "total_ms": 84.3453750712797,
       "peak_gpu_bytes": 2549885814,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 88.86300004087389
+      "wall_ms": 84.35300004202873
     },
     {
       "id": "1272-141231-0017",
@@ -2053,18 +2111,19 @@
           "text": "He asked the handler who was needing his aching muscles."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.001249951310455799,
-      "preprocess_ms": 0.4996249917894602,
-      "decode_ms": 102.39704209379852,
-      "total_ms": 102.90145804174244,
+      "load_ms": 0.0014170072972774506,
+      "preprocess_ms": 0.43345801532268524,
+      "decode_ms": 97.34029101673514,
+      "total_ms": 97.77812496758997,
       "peak_gpu_bytes": 2550000502,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 102.9092080425471
+      "wall_ms": 97.78529196046293
     },
     {
       "id": "1272-141231-0018",
@@ -2086,18 +2145,19 @@
           "text": "A red-haired mountain of a man with an apparently inexhaustible store of energy."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0008749775588512421,
-      "preprocess_ms": 0.5710829282179475,
-      "decode_ms": 115.9602920524776,
-      "total_ms": 116.5352079551667,
+      "load_ms": 0.0013330718502402306,
+      "preprocess_ms": 0.5386669654399157,
+      "decode_ms": 107.71641600877047,
+      "total_ms": 108.25904202647507,
       "peak_gpu_bytes": 2550082422,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 116.54204200021923
+      "wall_ms": 108.26600005384535
     },
     {
       "id": "1272-141231-0019",
@@ -2119,18 +2179,19 @@
           "text": "There could be little art in this last and final round of fencing."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0011670636013150215,
-      "preprocess_ms": 0.5238329758867621,
-      "decode_ms": 106.82791692670435,
-      "total_ms": 107.35612502321601,
+      "load_ms": 0.0009170034900307655,
+      "preprocess_ms": 0.46374998055398464,
+      "decode_ms": 101.00091702770442,
+      "total_ms": 101.46812500897795,
       "peak_gpu_bytes": 2550049654,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 107.36333404202014
+      "wall_ms": 101.47387499455363
     },
     {
       "id": "1272-141231-0020",
@@ -2152,18 +2213,19 @@
           "text": "Just thrust and parry and victory to the stronger."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0011670636013150215,
-      "preprocess_ms": 0.6253749597817659,
-      "decode_ms": 102.10220806766301,
-      "total_ms": 102.73266595322639,
+      "load_ms": 0.0009170034900307655,
+      "preprocess_ms": 0.4276670515537262,
+      "decode_ms": 96.40754200518131,
+      "total_ms": 96.83908405713737,
       "peak_gpu_bytes": 2550016886,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 102.74099989328533
+      "wall_ms": 96.84541693422943
     },
     {
       "id": "1272-141231-0021",
@@ -2185,18 +2247,19 @@
           "text": "Every man who entered the 20s had his own training tricks."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.00100000761449337,
-      "preprocess_ms": 0.5010409513488412,
-      "decode_ms": 111.4282920025289,
-      "total_ms": 111.93320795428008,
+      "load_ms": 0.0014170072972774506,
+      "preprocess_ms": 0.4951659357175231,
+      "decode_ms": 97.53708401694894,
+      "total_ms": 98.03712496068329,
       "peak_gpu_bytes": 2550033270,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 111.93958297371864
+      "wall_ms": 98.04529196117073
     },
     {
       "id": "1272-141231-0022",
@@ -2223,18 +2286,19 @@
           "text": "as if the two were inextricably linked into one."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0013329554349184036,
-      "preprocess_ms": 0.7682919967919588,
-      "decode_ms": 126.84037501458079,
-      "total_ms": 127.61295796371996,
+      "load_ms": 0.001125037670135498,
+      "preprocess_ms": 0.6259579677134752,
+      "decode_ms": 114.93829195387661,
+      "total_ms": 115.56791700422764,
       "peak_gpu_bytes": 2550213494,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 127.62062507681549
+      "wall_ms": 115.57379097212106
     },
     {
       "id": "1272-141231-0023",
@@ -2261,18 +2325,19 @@
           "text": "and unsupported except at two points the head and heels"
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0015420373529195786,
-      "preprocess_ms": 0.7866249652579427,
-      "decode_ms": 126.90270796883851,
-      "total_ms": 127.6945830322802,
+      "load_ms": 0.001249951310455799,
+      "preprocess_ms": 0.6142091006040573,
+      "decode_ms": 118.53804194834083,
+      "total_ms": 119.15612500160933,
       "peak_gpu_bytes": 2550229878,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 127.70145805552602
+      "wall_ms": 119.16258302517235
     },
     {
       "id": "1272-141231-0024",
@@ -2294,18 +2359,19 @@
           "text": "This is physically impossible when conscious."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0009170034900307655,
-      "preprocess_ms": 0.45470905024558306,
-      "decode_ms": 95.78095795586705,
-      "total_ms": 96.23912500683218,
+      "load_ms": 0.0013330718502402306,
+      "preprocess_ms": 0.4023329820483923,
+      "decode_ms": 89.63629207573831,
+      "total_ms": 90.04270797595382,
       "peak_gpu_bytes": 2549967734,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 96.24550002627075
+      "wall_ms": 90.05024994257838
     },
     {
       "id": "1272-141231-0025",
@@ -2327,18 +2393,19 @@
           "text": "Others had died before during the twenties, and death during the last round was, in some ways, easier than defeat."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.001208973117172718,
-      "preprocess_ms": 0.7035000016912818,
-      "decode_ms": 122.38408392295241,
-      "total_ms": 123.09208395890892,
+      "load_ms": 0.0012919772416353226,
+      "preprocess_ms": 0.6550420075654984,
+      "decode_ms": 113.3912910008803,
+      "total_ms": 114.05049997847527,
       "peak_gpu_bytes": 2550229878,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 123.0982500128448
+      "wall_ms": 114.05691702384502
     },
     {
       "id": "1272-141231-0026",
@@ -2360,18 +2427,19 @@
           "text": "Breathing deeply, Breon softly spoke the auto-hypnotic phrases that triggered the process."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.00100000761449337,
-      "preprocess_ms": 0.6243749521672726,
-      "decode_ms": 119.22808294184506,
-      "total_ms": 119.85687492415309,
+      "load_ms": 0.0012919772416353226,
+      "preprocess_ms": 0.5767910042777658,
+      "decode_ms": 108.19154197815806,
+      "total_ms": 108.77195803914219,
       "peak_gpu_bytes": 2550131574,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 119.86537498887628
+      "wall_ms": 108.77824993804097
     },
     {
       "id": "1272-141231-0027",
@@ -2393,18 +2461,19 @@
           "text": "When the buzzer sounded, he pulled his foil from his second startled grasp and ran forward."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0010420335456728935,
-      "preprocess_ms": 0.6085420027375221,
-      "decode_ms": 114.0167920384556,
-      "total_ms": 114.62937504984438,
+      "load_ms": 0.001500011421740055,
+      "preprocess_ms": 0.5303329089656472,
+      "decode_ms": 106.82250000536442,
+      "total_ms": 107.35716694034636,
       "peak_gpu_bytes": 2550115190,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 114.63570792693645
+      "wall_ms": 107.36270796041936
     },
     {
       "id": "1272-141231-0028",
@@ -2426,18 +2495,19 @@
           "text": "I rolled and looked amazed at the sudden fury of the attack, then smiled."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.001334003172814846,
-      "preprocess_ms": 0.5518749821931124,
-      "decode_ms": 110.41591595858335,
-      "total_ms": 110.97220901865512,
+      "load_ms": 0.0012079253792762756,
+      "preprocess_ms": 0.48520800191909075,
+      "decode_ms": 101.06141702271998,
+      "total_ms": 101.55074996873736,
       "peak_gpu_bytes": 2550082422,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 110.97854096442461
+      "wall_ms": 101.55766597017646
     },
     {
       "id": "1272-141231-0029",
@@ -2464,18 +2534,19 @@
           "text": "He knew how close they both were to exhaustion."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.001625041477382183,
-      "preprocess_ms": 0.6523750489577651,
-      "decode_ms": 122.97708401456475,
-      "total_ms": 123.63491696305573,
+      "load_ms": 0.001250067725777626,
+      "preprocess_ms": 0.5611249944195151,
+      "decode_ms": 109.77350000757724,
+      "total_ms": 110.33875006251037,
       "peak_gpu_bytes": 2550164342,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 123.6507500289008
+      "wall_ms": 110.34462507814169
     },
     {
       "id": "1272-141231-0030",
@@ -2497,18 +2568,19 @@
           "text": "Breon saw something close to panic on his opponent's face when the man finally recognized his error."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0010830117389559746,
-      "preprocess_ms": 0.6584579823538661,
-      "decode_ms": 115.89470808394253,
-      "total_ms": 116.55729194171727,
+      "load_ms": 0.0012079253792762756,
+      "preprocess_ms": 0.5669159581884742,
+      "decode_ms": 110.03404099028558,
+      "total_ms": 110.60491600073874,
       "peak_gpu_bytes": 2550147958,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 116.56441702507436
+      "wall_ms": 110.61216599773616
     },
     {
       "id": "1272-141231-0031",
@@ -2535,18 +2607,19 @@
           "text": "Brian sensed it and knew the fifth point was his."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.001166015863418579,
-      "preprocess_ms": 0.6637080805376172,
-      "decode_ms": 121.24699994456023,
-      "total_ms": 121.91520805936307,
+      "load_ms": 0.0009579816833138466,
+      "preprocess_ms": 0.5677909357473254,
+      "decode_ms": 116.67983303777874,
+      "total_ms": 117.25145799573511,
       "peak_gpu_bytes": 2550147958,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 121.92366702947766
+      "wall_ms": 117.25841707084328
     },
     {
       "id": "1272-141231-0032",
@@ -2568,18 +2641,19 @@
           "text": "then the powerful twist that thrust it aside in and under the guard"
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.001125037670135498,
-      "preprocess_ms": 0.5160409491509199,
-      "decode_ms": 104.63704203721136,
-      "total_ms": 105.15691596083343,
+      "load_ms": 0.001250067725777626,
+      "preprocess_ms": 0.4837089218199253,
+      "decode_ms": 98.91483397223055,
+      "total_ms": 99.4026669068262,
       "peak_gpu_bytes": 2550033270,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 105.16333405394107
+      "wall_ms": 99.40924996044487
     },
     {
       "id": "1272-128104-0000-noise10",
@@ -2601,18 +2675,19 @@
           "text": "Mr. Quilter is the apostle of the middle classes and we are glad to welcome his gospel."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0009579816833138466,
-      "preprocess_ms": 0.5893749184906483,
-      "decode_ms": 116.46787507925183,
-      "total_ms": 117.06195794977248,
+      "load_ms": 0.001125037670135498,
+      "preprocess_ms": 0.5143749294802547,
+      "decode_ms": 111.2765409052372,
+      "total_ms": 111.79474997334182,
       "peak_gpu_bytes": 2550131574,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 117.07058304455131
+      "wall_ms": 111.80275003425777
     },
     {
       "id": "1272-128104-0000-quiet",
@@ -2634,18 +2709,19 @@
           "text": "Mr. Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0012079253792762756,
-      "preprocess_ms": 0.6769580068066716,
-      "decode_ms": 117.54766595549881,
-      "total_ms": 118.2291250443086,
+      "load_ms": 0.0017919810488820076,
+      "preprocess_ms": 0.5601249868050218,
+      "decode_ms": 112.6507919980213,
+      "total_ms": 113.2165000308305,
       "peak_gpu_bytes": 2550082422,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 118.23762499261647
+      "wall_ms": 113.22479194495827
     },
     {
       "id": "1272-128104-0001-noise10",
@@ -2667,18 +2743,19 @@
           "text": "Nor is Mr. Cloter's manner less interesting than his matter."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0014170072972774506,
-      "preprocess_ms": 0.5587080959230661,
-      "decode_ms": 106.96162492968142,
-      "total_ms": 107.52537508960813,
+      "load_ms": 0.0011249212548136711,
+      "preprocess_ms": 0.47137506771832705,
+      "decode_ms": 100.5667500430718,
+      "total_ms": 101.04179207701236,
       "peak_gpu_bytes": 2550066038,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 107.53341694362462
+      "wall_ms": 101.04845801834017
     },
     {
       "id": "1272-128104-0001-quiet",
@@ -2700,18 +2777,19 @@
           "text": "Nor is Mr. Quilter's manner less interesting than his matter."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0015830155462026596,
-      "preprocess_ms": 0.6258749635890126,
-      "decode_ms": 111.17387504782528,
-      "total_ms": 111.80549999698997,
+      "load_ms": 0.0012919772416353226,
+      "preprocess_ms": 0.47454191371798515,
+      "decode_ms": 101.88537498470396,
+      "total_ms": 102.36408398486674,
       "peak_gpu_bytes": 2550033270,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 111.81237502023578
+      "wall_ms": 102.37229091580957
     },
     {
       "id": "1272-128104-0002-noise10",
@@ -2733,18 +2811,19 @@
           "text": "He tells us that at this festive season of the year, with Christmas and roast beef looming before us, similes drawn from eating and its results occur most readily to the mind."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0017499551177024841,
-      "preprocess_ms": 0.9674159809947014,
-      "decode_ms": 146.72045805491507,
-      "total_ms": 147.6925410097465,
+      "load_ms": 0.001500011421740055,
+      "preprocess_ms": 0.831458019092679,
+      "decode_ms": 133.53491597808897,
+      "total_ms": 134.3706250190735,
       "peak_gpu_bytes": 2557570466,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 147.69937505479902
+      "wall_ms": 134.37720900401473
     },
     {
       "id": "1272-128104-0002-quiet",
@@ -2771,18 +2850,19 @@
           "text": "Similes drawn from eating and its results occur most readily to the mind"
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.001500011421740055,
-      "preprocess_ms": 0.9471250232309103,
-      "decode_ms": 141.13591704517603,
-      "total_ms": 142.0882500242442,
+      "load_ms": 0.0010830117389559746,
+      "preprocess_ms": 0.7929590065032244,
+      "decode_ms": 130.0248340703547,
+      "total_ms": 130.82145911175758,
       "peak_gpu_bytes": 2550410102,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 142.09800004027784
+      "wall_ms": 130.8298750082031
     },
     {
       "id": "1272-128104-0003-noise10",
@@ -2804,18 +2884,19 @@
           "text": "He has grave doubts whether Sir Frederick Layton's work is really Greek after all, and can discover in it but little of walkie Ithaca."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.001166015863418579,
-      "preprocess_ms": 0.817666994407773,
-      "decode_ms": 132.70737510174513,
-      "total_ms": 133.5291670402512,
+      "load_ms": 0.0015420373529195786,
+      "preprocess_ms": 0.7444580551236868,
+      "decode_ms": 121.94354098755866,
+      "total_ms": 122.69283307250589,
       "peak_gpu_bytes": 2550787490,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 133.53670807555318
+      "wall_ms": 122.70666705444455
     },
     {
       "id": "1272-128104-0003-quiet",
@@ -2842,18 +2923,19 @@
           "text": "and can discover in it but little of rocky Ithaca."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0013330718502402306,
-      "preprocess_ms": 0.8914578938856721,
-      "decode_ms": 136.81383291259408,
-      "total_ms": 137.71004194859415,
+      "load_ms": 0.001250067725777626,
+      "preprocess_ms": 0.6839999696239829,
+      "decode_ms": 122.93354200664908,
+      "total_ms": 123.62137495074421,
       "peak_gpu_bytes": 2550295414,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 137.7170840278268
+      "wall_ms": 123.62750002648681
     },
     {
       "id": "1272-128104-0004-noise10",
@@ -2890,18 +2972,19 @@
           "text": "Next man."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0016249250620603561,
-      "preprocess_ms": 1.8041658913716674,
-      "decode_ms": 318.78404202871025,
-      "total_ms": 320.5934999277815,
+      "load_ms": 0.001374981366097927,
+      "preprocess_ms": 1.55608297791332,
+      "decode_ms": 291.78141604643315,
+      "total_ms": 293.3415409643203,
       "peak_gpu_bytes": 2564271522,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 320.6090829335153
+      "wall_ms": 293.355125002563
     },
     {
       "id": "1272-128104-0004-quiet",
@@ -2938,18 +3021,19 @@
           "text": "next man."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.001500011421740055,
-      "preprocess_ms": 1.9094169838353992,
-      "decode_ms": 306.7970830015838,
-      "total_ms": 308.71191702317446,
+      "load_ms": 0.0018329592421650887,
+      "preprocess_ms": 1.616207999177277,
+      "decode_ms": 291.8698749272153,
+      "total_ms": 293.4917079983279,
       "peak_gpu_bytes": 2569711010,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 308.72158298734576
+      "wall_ms": 293.4997919946909
     },
     {
       "id": "1272-128104-0005-noise10",
@@ -2971,18 +3055,19 @@
           "text": "It is obviously unnecessary for us to point out how luminous these criticisms are, how delicate an expression."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.001291045919060707,
-      "preprocess_ms": 0.8224589983001351,
-      "decode_ms": 114.48695801664144,
-      "total_ms": 115.31420890241861,
+      "load_ms": 0.0012909295037388802,
+      "preprocess_ms": 0.6563749630004168,
+      "decode_ms": 109.44129200652242,
+      "total_ms": 110.10133393574506,
       "peak_gpu_bytes": 2550279030,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 115.32283294945955
+      "wall_ms": 110.10795901529491
     },
     {
       "id": "1272-128104-0005-quiet",
@@ -3004,18 +3089,19 @@
           "text": "It is obviously unnecessary for us to point out how luminous these criticisms are, how delicate an expression."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
       "load_ms": 0.001250067725777626,
-      "preprocess_ms": 0.7671659113839269,
-      "decode_ms": 115.27695797849447,
-      "total_ms": 116.04866595007479,
+      "preprocess_ms": 0.8110000053420663,
+      "decode_ms": 110.44558300636709,
+      "total_ms": 111.2617920152843,
       "peak_gpu_bytes": 2550246262,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 116.05629103723913
+      "wall_ms": 111.26808309927583
     },
     {
       "id": "1272-128104-0006-noise10",
@@ -3037,18 +3123,19 @@
           "text": "On the general principles of art, Mr. Quilter writes with equal lucidity."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0008749775588512421,
-      "preprocess_ms": 0.5672079278156161,
-      "decode_ms": 114.23579207621515,
-      "total_ms": 114.80679200030863,
+      "load_ms": 0.0012919772416353226,
+      "preprocess_ms": 0.5039579700678587,
+      "decode_ms": 104.88941706717014,
+      "total_ms": 105.39724992122501,
       "peak_gpu_bytes": 2550115190,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 114.8145420011133
+      "wall_ms": 105.40316591504961
     },
     {
       "id": "1272-128104-0006-quiet",
@@ -3070,18 +3157,19 @@
           "text": "On the general principles of art, Mr. Quilter writes with equal lucidity."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0014579854905605316,
-      "preprocess_ms": 0.7005420047789812,
-      "decode_ms": 116.56724999193102,
-      "total_ms": 117.27329203858972,
+      "load_ms": 0.001500011421740055,
+      "preprocess_ms": 0.50866708625108,
+      "decode_ms": 104.60787499323487,
+      "total_ms": 105.12070800177753,
       "peak_gpu_bytes": 2550066038,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 117.282958002761
+      "wall_ms": 105.1276670768857
     },
     {
       "id": "1272-128104-0007-noise10",
@@ -3103,18 +3191,19 @@
           "text": "Painting, he tells us, is of a different quality to mathematics and finish in art is adding more fact."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.001583946868777275,
-      "preprocess_ms": 0.8913750061765313,
-      "decode_ms": 126.97704194579273,
-      "total_ms": 127.87450000178069,
+      "load_ms": 0.001375097781419754,
+      "preprocess_ms": 0.6365829613059759,
+      "decode_ms": 111.5834160009399,
+      "total_ms": 112.22458304837346,
       "peak_gpu_bytes": 2550295414,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 127.88241705857217
+      "wall_ms": 112.23220801912248
     },
     {
       "id": "1272-128104-0007-quiet",
@@ -3136,18 +3225,19 @@
           "text": "Painting he tells us is of a different quality to mathematics and finish in art is adding more fact"
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0012909295037388802,
-      "preprocess_ms": 0.757165951654315,
-      "decode_ms": 123.20870894473046,
-      "total_ms": 123.97029099520296,
+      "load_ms": 0.0009579816833138466,
+      "preprocess_ms": 0.6736250361427665,
+      "decode_ms": 106.91570804920048,
+      "total_ms": 107.59283299557865,
       "peak_gpu_bytes": 2550246262,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 123.97645809687674
+      "wall_ms": 107.59875003714114
     },
     {
       "id": "1272-128104-0008-noise10",
@@ -3169,18 +3259,19 @@
           "text": "As for etchings, they are of two kinds, British and foreign."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0011249212548136711,
-      "preprocess_ms": 0.5455829668790102,
-      "decode_ms": 114.2283339286223,
-      "total_ms": 114.77787490002811,
+      "load_ms": 0.001208973117172718,
+      "preprocess_ms": 0.45220903120934963,
+      "decode_ms": 102.09025000222027,
+      "total_ms": 102.54616697784513,
       "peak_gpu_bytes": 2550082422,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 114.78375003207475
+      "wall_ms": 102.55241603590548
     },
     {
       "id": "1272-128104-0008-quiet",
@@ -3202,18 +3293,19 @@
           "text": "As for etchings, they are of two kinds, British and foreign."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
       "load_ms": 0.001374981366097927,
-      "preprocess_ms": 0.5221669562160969,
-      "decode_ms": 116.03020806796849,
-      "total_ms": 116.55679193791002,
+      "preprocess_ms": 0.4938750062137842,
+      "decode_ms": 101.98145802132785,
+      "total_ms": 102.479291963391,
       "peak_gpu_bytes": 2550033270,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 116.56508303713053
+      "wall_ms": 102.486209012568
     },
     {
       "id": "1272-128104-0009-noise10",
@@ -3235,18 +3327,19 @@
           "text": "he laments most bitterly the divorce that has been made between decorative art and what we usually call pictures makes a customary appeal to the last judgment and reminds us that in the great days of art michelangelo was the furnishing upholsterer"
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.001374981366097927,
-      "preprocess_ms": 1.2138329911977053,
-      "decode_ms": 169.18637498747557,
-      "total_ms": 170.40537495631725,
+      "load_ms": 0.001500011421740055,
+      "preprocess_ms": 1.091709011234343,
+      "decode_ms": 151.87887498177588,
+      "total_ms": 152.9753339709714,
       "peak_gpu_bytes": 2559700386,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 170.41625001002103
+      "wall_ms": 152.98091701697558
     },
     {
       "id": "1272-128104-0009-quiet",
@@ -3278,18 +3371,19 @@
           "text": "that in the great days of art, Michelangelo was the furnishing upholsterer."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0016660196706652641,
-      "preprocess_ms": 1.2908749049529433,
-      "decode_ms": 177.06600006204098,
-      "total_ms": 178.3624169183895,
+      "load_ms": 0.001334003172814846,
+      "preprocess_ms": 1.0531659936532378,
+      "decode_ms": 161.31745802704245,
+      "total_ms": 162.37512498628348,
       "peak_gpu_bytes": 2551262626,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 178.37120802141726
+      "wall_ms": 162.38283296115696
     },
     {
       "id": "1272-128104-0010-noise10",
@@ -3311,18 +3405,19 @@
           "text": "near the fire, and the ornaments Fred brought home from India on the mental board."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0012919772416353226,
-      "preprocess_ms": 0.5743750371038914,
-      "decode_ms": 112.18295793514699,
-      "total_ms": 112.7619999460876,
+      "load_ms": 0.001125037670135498,
+      "preprocess_ms": 0.5100840935483575,
+      "decode_ms": 102.18012507539243,
+      "total_ms": 102.69416705705225,
       "peak_gpu_bytes": 2550115190,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 112.76825005188584
+      "wall_ms": 102.69987501669675
     },
     {
       "id": "1272-128104-0010-quiet",
@@ -3344,18 +3439,19 @@
           "text": "near the fire and the ornaments fred brought home from india on the mantel board"
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0010420335456728935,
-      "preprocess_ms": 0.5600829608738422,
-      "decode_ms": 116.84516700915992,
-      "total_ms": 117.40916594862938,
+      "load_ms": 0.0012919772416353226,
+      "preprocess_ms": 0.47500000800937414,
+      "decode_ms": 104.81562500353903,
+      "total_ms": 105.29479198157787,
       "peak_gpu_bytes": 2550082422,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 117.41587496362627
+      "wall_ms": 105.3032090421766
     },
     {
       "id": "1272-128104-0011-noise10",
@@ -3377,18 +3473,19 @@
           "text": "In fact, he is quite severe on Mr. Ruskin for not recognizing that a picture should denote the frailty of man, and remarks with pleasing courtesy and solicitous grace that many phases of feeling"
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.001250067725777626,
-      "preprocess_ms": 1.0371670359745622,
-      "decode_ms": 149.26941599696875,
-      "total_ms": 150.3113330109045,
+      "load_ms": 0.001249951310455799,
+      "preprocess_ms": 0.9545000502839684,
+      "decode_ms": 136.21620798949152,
+      "total_ms": 137.17504206579179,
       "peak_gpu_bytes": 2550590326,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 150.3179999999702
+      "wall_ms": 137.18241604510695
     },
     {
       "id": "1272-128104-0011-quiet",
@@ -3415,18 +3512,19 @@
           "text": "frailty of man and remarks with pleasing courtesy and felicitous grace that many phases of feeling"
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0014579854905605316,
-      "preprocess_ms": 1.2860000133514404,
-      "decode_ms": 149.35304096434265,
-      "total_ms": 150.64387500751764,
+      "load_ms": 0.0013329554349184036,
+      "preprocess_ms": 0.903083011507988,
+      "decode_ms": 141.90112496726215,
+      "total_ms": 142.80833303928375,
       "peak_gpu_bytes": 2556161442,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 150.6521669216454
+      "wall_ms": 142.81466591637582
     },
     {
       "id": "silence-5",
@@ -3447,9 +3545,9 @@
       "warm": true,
       "load_ms": 0,
       "decode_ms": 0,
-      "preprocess_ms": 0.5658749723806977,
-      "total_ms": 0.5658749723806977,
-      "wall_ms": 0.5722090136259794
+      "preprocess_ms": 0.5495829973369837,
+      "total_ms": 0.5495829973369837,
+      "wall_ms": 0.553749967366457
     },
     {
       "id": "low-noise-5",
@@ -3470,9 +3568,9 @@
       "warm": true,
       "load_ms": 0,
       "decode_ms": 0,
-      "preprocess_ms": 0.4201249685138464,
-      "total_ms": 0.4201249685138464,
-      "wall_ms": 0.42329193092882633
+      "preprocess_ms": 0.3814590163528919,
+      "total_ms": 0.3814590163528919,
+      "wall_ms": 0.38420793134719133
     },
     {
       "id": "long-concat",
@@ -3599,18 +3697,19 @@
           "text": "that in the great days of art Michelangelo was the furnishing upholsterer."
         }
       ],
+      "words": [],
       "language": "en",
       "silence": false,
       "warm": true,
-      "load_ms": 0.0017919810488820076,
-      "preprocess_ms": 7.1378330467268825,
-      "decode_ms": 961.2432499416173,
-      "total_ms": 968.3884580153972,
+      "load_ms": 0.001500011421740055,
+      "preprocess_ms": 6.488832994364202,
+      "decode_ms": 904.0806659031659,
+      "total_ms": 910.5757500510663,
       "peak_gpu_bytes": 2609851806,
       "active_gpu_bytes": 1618307758,
       "vocabulary_applied": false,
       "timestamp_granularity": "segment",
-      "wall_ms": 968.4026249451563
+      "wall_ms": 910.5941250454634
     }
   ],
   "limitations": [

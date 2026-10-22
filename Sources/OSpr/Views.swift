@@ -293,7 +293,7 @@ struct ModelsView: View {
         ("parakeet-v3", "Parakeet v3", "FAST DAILY DICTATION", "600M parameters · 25 European languages · segment timestamps. MLX on Metal. Recommended starting point."),
         ("whisper-turbo", "Whisper Large v3 Turbo", "BROAD LANGUAGE COVERAGE", "809M parameters · 99 languages · vocabulary prompting. MLX on Metal. A strong multilingual fallback."),
         ("whisper-small", "Whisper Small", "SMALLER FOOTPRINT", "244M parameters · 99 languages · vocabulary prompting. Lower memory use; measure the accuracy tradeoff."),
-        ("qwen3-asr", "Qwen3 ASR 1.7B", "EXPERIMENTAL QUALITY", "8-bit MLX · 30 languages and Chinese dialects. Utterance-level timestamps. Requires the research extra."),
+        ("qwen3-asr", "Qwen3 ASR 1.7B", "EXPERIMENTAL QUALITY", "8-bit MLX · 30 languages and Chinese dialects. Utterance-level timestamps. Compare measured accuracy by language in Research."),
         ("nemotron-streaming", "Nemotron 3.5 ASR", "INCREMENTAL PREVIEW", "8-bit MLX · multilingual, cache-aware streaming. Enable live preview in Settings. Utterance timestamps; microphone validation pending.")]
     var body: some View {
         ScrollView { VStack(alignment: .leading, spacing: 20) {
