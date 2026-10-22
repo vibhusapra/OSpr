@@ -175,7 +175,7 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
   one or two word errors among 485 reference words; no accuracy winner claim.
   Cache-primed process starts, different default preprocessing, no GUI/voice/energy
   or top-three ranking claim. Raw results and official-release provenance retained.
-- [ ] Profile and reduce the measured cold-process startup gap.
+- [x] Profile and reduce the measured Parakeet cold-process startup gap.
   Initial import tracing found `scipy.signal` consuming about 901 ms inclusive
   during a 1,121 ms instrumented worker boot. The raw diagnostic is retained;
   candidate code now imports resampling only when needed and loads Parakeet's
@@ -184,8 +184,17 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
   public-suite texts/segments/word timings match upstream loading exactly.
   All 515 normalized inputs plus eight mono/stereo rate controls are bit-identical
   to the earlier audio path. Explicit preparation now primes 48 kHz conversion.
-  Candidate bundle, paired latency measurements and six-model preparation checks
-  are still pending; no startup improvement is claimed yet.
+  The identical 180-command product pilot reran without failure: Parakeet p50
+  1.866 → 0.757 s (59.5% lower), p95 0.805 s; Vibe rerun p50 0.943 s.
+  Whisper Turbo did not improve (1.985 → 2.108 s). Every one of the 180 texts
+  matches the earlier pilot. These are 16 kHz CLI file commands on a shared Mac,
+  with primed OS caches; no GUI/microphone/top-three ranking claim.
+  Twenty-four paired worker controls show boot around 1.10 → 0.21 s. Native-rate
+  conversion is deferred on an unprepared 48 kHz request; explicit preparation
+  now includes it, and prepared 16/48 kHz requests remain around 55 ms.
+  Three trials per combination and one clip do not establish a latency SLA.
+  Candidate bundle passed strict signing; final relocated six-model preparation
+  and release packaging checks are pending.
 - [ ] Equivalent installed consumer-app GUI/dictation benchmarks, correction effort and energy;
   broader speaker/accent/noise/spontaneous dictation and code-switching evaluation.
 - [ ] Validate on lower-memory and older Apple Silicon hardware.

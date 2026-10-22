@@ -12,7 +12,7 @@
     {
       "feature": "Local Metal inference: Parakeet v3",
       "status": "verified",
-      "evidence": "485 regression/English/supported-language cases rerun after direct long-file decoding; 482 outputs identical. Synthetic hour WER 12.38% → 2.72%. Four natural AMI controls retained bounded word timing with mixed WER and unchanged speaker DER.",
+      "evidence": "485 regression/English/supported-language cases rerun after direct long-file decoding; 482 outputs identical. Synthetic hour WER 12.38% → 2.72%. Four natural AMI controls retained bounded word timing with mixed WER and unchanged speaker DER. Startup loader preserves all 697 weight arrays and all 515 public-suite texts/segments/words exactly. Repeated real-product pilot: fresh CLI p50 1.866 → 0.757 s; prepared 16/48 kHz worker requests remain about 55 ms.",
       "gap": "Synthetic joins are not natural long conversation; shared-system timings and power are not isolated.",
       "priority": "P0"
     },
@@ -313,7 +313,7 @@
     {
       "feature": "Top-three product ranking",
       "status": "unproven",
-      "evidence": "OSpr engines measured against a persistent Metal whisper.cpp baseline. A real official Vibe 3.2.2 versus bundled OSpr CLI pilot completed 180 fresh-process commands on 20 preselected speakers with zero failures. Vibe fresh-command p50 was lower; quality totals differ by one or two errors. Raw trials and signature/version/GPU provenance are retained.",
+      "evidence": "Original official Vibe 3.2.2 versus bundled OSpr pilot completed 180 commands on 20 speakers with zero failures; Vibe was faster. The identical post-optimization pilot also passed: OSpr Parakeet p50 0.757 s versus Vibe 0.943 s, while OSpr Whisper Turbo did not improve (2.108 s). All 180 texts match their original outputs. This is a small file-command comparison with primed OS caches and shared desktop activity.",
       "gap": "Broader equivalent consumer-app GUI/dictation runs and user-task correction-cost study remain. Rootless whole-system energy experiments are exploratory; post-fix Parakeet idle drift was inconclusive, with no calibrated battery attribution.",
       "priority": "P0"
     },

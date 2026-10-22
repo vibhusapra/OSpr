@@ -1,0 +1,3387 @@
+{
+  "status": "passed",
+  "verified_at": "2026-10-22T22:32:01.518830+00:00",
+  "git_commit": "87e60c954eb906fbfd909748fae5c9194ffc3db3",
+  "build": {
+    "version": "0.1.0",
+    "built_at": "2026-10-22T22:26:51.607508+00:00",
+    "git_commit": "87e60c954eb906fbfd909748fae5c9194ffc3db3",
+    "tracked_changes": false,
+    "application_source_sha256": "1bbb48241915600e4a97da2aa739ab9e8af8a766579e4b2ff63a06ef9dcb040e",
+    "source_manifest_version": 2,
+    "signing_mode": "configured-identity",
+    "boundary": "Development build; configured signing identity; not notarized; weights downloaded separately."
+  },
+  "model": "parakeet-v3",
+  "fixture": "1272-128104-0000",
+  "fixture_sha256": "799f78ed4beb4de7ceae3a809262d4ce242394342ccd1d58cef7d49dbc2def46",
+  "manifest_sha256": "ea0df37dc8f5a7b519b115d44fcd71f16413e04f1bac48b15eec9399f4e43c2b",
+  "diagnostic_boot_ms": 224.52175000216812,
+  "diagnostic_first_request_ms": 487.55070799961686,
+  "diagnostic_exit_ms": 43.938291957601905,
+  "engine_reported_ms": {
+    "load_ms": 362.69933299627155,
+    "preprocess_ms": 0.5703329807147384,
+    "decode_ms": 124.13683393970132,
+    "total_ms": 487.41158295888454
+  },
+  "recognized_text": "mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+  "imports": [
+    {
+      "module": "_io",
+      "self_ms": 0.103,
+      "cumulative_ms": 0.103,
+      "phase": "boot"
+    },
+    {
+      "module": "marshal",
+      "self_ms": 0.015,
+      "cumulative_ms": 0.015,
+      "phase": "boot"
+    },
+    {
+      "module": "posix",
+      "self_ms": 0.102,
+      "cumulative_ms": 0.102,
+      "phase": "boot"
+    },
+    {
+      "module": "_frozen_importlib_external",
+      "self_ms": 0.126,
+      "cumulative_ms": 0.345,
+      "phase": "boot"
+    },
+    {
+      "module": "time",
+      "self_ms": 0.435,
+      "cumulative_ms": 0.435,
+      "phase": "boot"
+    },
+    {
+      "module": "zipimport",
+      "self_ms": 0.052,
+      "cumulative_ms": 0.487,
+      "phase": "boot"
+    },
+    {
+      "module": "_codecs",
+      "self_ms": 0.021,
+      "cumulative_ms": 0.021,
+      "phase": "boot"
+    },
+    {
+      "module": "codecs",
+      "self_ms": 0.089,
+      "cumulative_ms": 0.11,
+      "phase": "boot"
+    },
+    {
+      "module": "encodings.aliases",
+      "self_ms": 0.673,
+      "cumulative_ms": 0.673,
+      "phase": "boot"
+    },
+    {
+      "module": "encodings",
+      "self_ms": 1.197,
+      "cumulative_ms": 1.979,
+      "phase": "boot"
+    },
+    {
+      "module": "encodings.utf_8",
+      "self_ms": 0.174,
+      "cumulative_ms": 0.174,
+      "phase": "boot"
+    },
+    {
+      "module": "_signal",
+      "self_ms": 0.03,
+      "cumulative_ms": 0.03,
+      "phase": "boot"
+    },
+    {
+      "module": "_abc",
+      "self_ms": 0.012,
+      "cumulative_ms": 0.012,
+      "phase": "boot"
+    },
+    {
+      "module": "abc",
+      "self_ms": 0.048,
+      "cumulative_ms": 0.059,
+      "phase": "boot"
+    },
+    {
+      "module": "io",
+      "self_ms": 0.055,
+      "cumulative_ms": 0.113,
+      "phase": "boot"
+    },
+    {
+      "module": "_stat",
+      "self_ms": 0.016,
+      "cumulative_ms": 0.016,
+      "phase": "boot"
+    },
+    {
+      "module": "stat",
+      "self_ms": 0.018,
+      "cumulative_ms": 0.033,
+      "phase": "boot"
+    },
+    {
+      "module": "_collections_abc",
+      "self_ms": 0.268,
+      "cumulative_ms": 0.268,
+      "phase": "boot"
+    },
+    {
+      "module": "genericpath",
+      "self_ms": 0.016,
+      "cumulative_ms": 0.016,
+      "phase": "boot"
+    },
+    {
+      "module": "posixpath",
+      "self_ms": 0.02,
+      "cumulative_ms": 0.035,
+      "phase": "boot"
+    },
+    {
+      "module": "os",
+      "self_ms": 0.107,
+      "cumulative_ms": 0.442,
+      "phase": "boot"
+    },
+    {
+      "module": "_sitebuiltins",
+      "self_ms": 0.02,
+      "cumulative_ms": 0.02,
+      "phase": "boot"
+    },
+    {
+      "module": "sitecustomize",
+      "self_ms": 0.072,
+      "cumulative_ms": 0.072,
+      "phase": "boot"
+    },
+    {
+      "module": "site",
+      "self_ms": 0.11,
+      "cumulative_ms": 0.644,
+      "phase": "boot"
+    },
+    {
+      "module": "warnings",
+      "self_ms": 1.772,
+      "cumulative_ms": 1.772,
+      "phase": "boot"
+    },
+    {
+      "module": "importlib",
+      "self_ms": 0.343,
+      "cumulative_ms": 2.114,
+      "phase": "boot"
+    },
+    {
+      "module": "importlib.machinery",
+      "self_ms": 0.03,
+      "cumulative_ms": 2.144,
+      "phase": "boot"
+    },
+    {
+      "module": "importlib._abc",
+      "self_ms": 0.209,
+      "cumulative_ms": 0.209,
+      "phase": "boot"
+    },
+    {
+      "module": "types",
+      "self_ms": 0.767,
+      "cumulative_ms": 0.767,
+      "phase": "boot"
+    },
+    {
+      "module": "importlib.util",
+      "self_ms": 0.061,
+      "cumulative_ms": 1.036,
+      "phase": "boot"
+    },
+    {
+      "module": "runpy",
+      "self_ms": 0.057,
+      "cumulative_ms": 3.236,
+      "phase": "boot"
+    },
+    {
+      "module": "ospr_backend",
+      "self_ms": 0.077,
+      "cumulative_ms": 0.077,
+      "phase": "boot"
+    },
+    {
+      "module": "_operator",
+      "self_ms": 0.038,
+      "cumulative_ms": 0.038,
+      "phase": "boot"
+    },
+    {
+      "module": "operator",
+      "self_ms": 1.019,
+      "cumulative_ms": 1.057,
+      "phase": "boot"
+    },
+    {
+      "module": "itertools",
+      "self_ms": 0.052,
+      "cumulative_ms": 0.052,
+      "phase": "boot"
+    },
+    {
+      "module": "keyword",
+      "self_ms": 0.128,
+      "cumulative_ms": 0.128,
+      "phase": "boot"
+    },
+    {
+      "module": "reprlib",
+      "self_ms": 0.747,
+      "cumulative_ms": 0.747,
+      "phase": "boot"
+    },
+    {
+      "module": "_collections",
+      "self_ms": 0.037,
+      "cumulative_ms": 0.037,
+      "phase": "boot"
+    },
+    {
+      "module": "collections",
+      "self_ms": 3.338,
+      "cumulative_ms": 4.301,
+      "phase": "boot"
+    },
+    {
+      "module": "_functools",
+      "self_ms": 0.022,
+      "cumulative_ms": 0.022,
+      "phase": "boot"
+    },
+    {
+      "module": "functools",
+      "self_ms": 2.206,
+      "cumulative_ms": 6.528,
+      "phase": "boot"
+    },
+    {
+      "module": "enum",
+      "self_ms": 5.236,
+      "cumulative_ms": 12.82,
+      "phase": "boot"
+    },
+    {
+      "module": "_sre",
+      "self_ms": 0.039,
+      "cumulative_ms": 0.039,
+      "phase": "boot"
+    },
+    {
+      "module": "re._constants",
+      "self_ms": 0.437,
+      "cumulative_ms": 0.437,
+      "phase": "boot"
+    },
+    {
+      "module": "re._parser",
+      "self_ms": 2.877,
+      "cumulative_ms": 3.314,
+      "phase": "boot"
+    },
+    {
+      "module": "re._casefix",
+      "self_ms": 0.23,
+      "cumulative_ms": 0.23,
+      "phase": "boot"
+    },
+    {
+      "module": "re._compiler",
+      "self_ms": 2.112,
+      "cumulative_ms": 5.694,
+      "phase": "boot"
+    },
+    {
+      "module": "copyreg",
+      "self_ms": 0.479,
+      "cumulative_ms": 0.479,
+      "phase": "boot"
+    },
+    {
+      "module": "re",
+      "self_ms": 0.736,
+      "cumulative_ms": 19.727,
+      "phase": "boot"
+    },
+    {
+      "module": "_json",
+      "self_ms": 0.022,
+      "cumulative_ms": 0.022,
+      "phase": "boot"
+    },
+    {
+      "module": "json.scanner",
+      "self_ms": 0.386,
+      "cumulative_ms": 0.407,
+      "phase": "boot"
+    },
+    {
+      "module": "json.decoder",
+      "self_ms": 0.825,
+      "cumulative_ms": 20.958,
+      "phase": "boot"
+    },
+    {
+      "module": "json.encoder",
+      "self_ms": 0.922,
+      "cumulative_ms": 0.922,
+      "phase": "boot"
+    },
+    {
+      "module": "json",
+      "self_ms": 0.408,
+      "cumulative_ms": 22.288,
+      "phase": "boot"
+    },
+    {
+      "module": "collections.abc",
+      "self_ms": 0.129,
+      "cumulative_ms": 0.129,
+      "phase": "boot"
+    },
+    {
+      "module": "token",
+      "self_ms": 0.315,
+      "cumulative_ms": 0.315,
+      "phase": "boot"
+    },
+    {
+      "module": "_tokenize",
+      "self_ms": 0.019,
+      "cumulative_ms": 0.019,
+      "phase": "boot"
+    },
+    {
+      "module": "tokenize",
+      "self_ms": 1.612,
+      "cumulative_ms": 1.946,
+      "phase": "boot"
+    },
+    {
+      "module": "linecache",
+      "self_ms": 0.476,
+      "cumulative_ms": 2.421,
+      "phase": "boot"
+    },
+    {
+      "module": "textwrap",
+      "self_ms": 0.945,
+      "cumulative_ms": 0.945,
+      "phase": "boot"
+    },
+    {
+      "module": "contextlib",
+      "self_ms": 1.859,
+      "cumulative_ms": 1.859,
+      "phase": "boot"
+    },
+    {
+      "module": "traceback",
+      "self_ms": 2.813,
+      "cumulative_ms": 8.166,
+      "phase": "boot"
+    },
+    {
+      "module": "_weakrefset",
+      "self_ms": 1.037,
+      "cumulative_ms": 1.037,
+      "phase": "boot"
+    },
+    {
+      "module": "threading",
+      "self_ms": 4.034,
+      "cumulative_ms": 5.071,
+      "phase": "boot"
+    },
+    {
+      "module": "gc",
+      "self_ms": 0.041,
+      "cumulative_ms": 0.041,
+      "phase": "boot"
+    },
+    {
+      "module": "_wmi",
+      "self_ms": 0.073,
+      "cumulative_ms": 0.073,
+      "phase": "boot"
+    },
+    {
+      "module": "platform",
+      "self_ms": 3.244,
+      "cumulative_ms": 3.316,
+      "phase": "boot"
+    },
+    {
+      "module": "_uuid",
+      "self_ms": 0.103,
+      "cumulative_ms": 0.103,
+      "phase": "boot"
+    },
+    {
+      "module": "uuid",
+      "self_ms": 2.641,
+      "cumulative_ms": 2.744,
+      "phase": "boot"
+    },
+    {
+      "module": "fnmatch",
+      "self_ms": 0.714,
+      "cumulative_ms": 0.714,
+      "phase": "boot"
+    },
+    {
+      "module": "_winapi",
+      "self_ms": 0.042,
+      "cumulative_ms": 0.042,
+      "phase": "boot"
+    },
+    {
+      "module": "nt",
+      "self_ms": 0.028,
+      "cumulative_ms": 0.028,
+      "phase": "boot"
+    },
+    {
+      "module": "nt",
+      "self_ms": 0.024,
+      "cumulative_ms": 0.024,
+      "phase": "boot"
+    },
+    {
+      "module": "nt",
+      "self_ms": 0.022,
+      "cumulative_ms": 0.022,
+      "phase": "boot"
+    },
+    {
+      "module": "nt",
+      "self_ms": 0.071,
+      "cumulative_ms": 0.071,
+      "phase": "boot"
+    },
+    {
+      "module": "nt",
+      "self_ms": 0.032,
+      "cumulative_ms": 0.032,
+      "phase": "boot"
+    },
+    {
+      "module": "nt",
+      "self_ms": 0.061,
+      "cumulative_ms": 0.061,
+      "phase": "boot"
+    },
+    {
+      "module": "ntpath",
+      "self_ms": 0.077,
+      "cumulative_ms": 0.352,
+      "phase": "boot"
+    },
+    {
+      "module": "errno",
+      "self_ms": 0.025,
+      "cumulative_ms": 0.025,
+      "phase": "boot"
+    },
+    {
+      "module": "urllib",
+      "self_ms": 0.106,
+      "cumulative_ms": 0.106,
+      "phase": "boot"
+    },
+    {
+      "module": "math",
+      "self_ms": 0.047,
+      "cumulative_ms": 0.047,
+      "phase": "boot"
+    },
+    {
+      "module": "ipaddress",
+      "self_ms": 6.616,
+      "cumulative_ms": 6.616,
+      "phase": "boot"
+    },
+    {
+      "module": "urllib.parse",
+      "self_ms": 4.22,
+      "cumulative_ms": 10.987,
+      "phase": "boot"
+    },
+    {
+      "module": "pathlib",
+      "self_ms": 4.739,
+      "cumulative_ms": 16.816,
+      "phase": "boot"
+    },
+    {
+      "module": "zlib",
+      "self_ms": 0.073,
+      "cumulative_ms": 0.073,
+      "phase": "boot"
+    },
+    {
+      "module": "_compression",
+      "self_ms": 0.515,
+      "cumulative_ms": 0.515,
+      "phase": "boot"
+    },
+    {
+      "module": "_bz2",
+      "self_ms": 0.029,
+      "cumulative_ms": 0.029,
+      "phase": "boot"
+    },
+    {
+      "module": "bz2",
+      "self_ms": 0.839,
+      "cumulative_ms": 1.381,
+      "phase": "boot"
+    },
+    {
+      "module": "_lzma",
+      "self_ms": 0.031,
+      "cumulative_ms": 0.031,
+      "phase": "boot"
+    },
+    {
+      "module": "lzma",
+      "self_ms": 0.668,
+      "cumulative_ms": 0.699,
+      "phase": "boot"
+    },
+    {
+      "module": "shutil",
+      "self_ms": 4.523,
+      "cumulative_ms": 6.675,
+      "phase": "boot"
+    },
+    {
+      "module": "_locale",
+      "self_ms": 0.048,
+      "cumulative_ms": 0.048,
+      "phase": "boot"
+    },
+    {
+      "module": "locale",
+      "self_ms": 3.324,
+      "cumulative_ms": 3.371,
+      "phase": "boot"
+    },
+    {
+      "module": "signal",
+      "self_ms": 0.493,
+      "cumulative_ms": 0.493,
+      "phase": "boot"
+    },
+    {
+      "module": "fcntl",
+      "self_ms": 0.025,
+      "cumulative_ms": 0.025,
+      "phase": "boot"
+    },
+    {
+      "module": "msvcrt",
+      "self_ms": 0.03,
+      "cumulative_ms": 0.03,
+      "phase": "boot"
+    },
+    {
+      "module": "_posixsubprocess",
+      "self_ms": 0.01,
+      "cumulative_ms": 0.01,
+      "phase": "boot"
+    },
+    {
+      "module": "select",
+      "self_ms": 0.03,
+      "cumulative_ms": 0.03,
+      "phase": "boot"
+    },
+    {
+      "module": "selectors",
+      "self_ms": 1.408,
+      "cumulative_ms": 1.408,
+      "phase": "boot"
+    },
+    {
+      "module": "subprocess",
+      "self_ms": 4.747,
+      "cumulative_ms": 10.112,
+      "phase": "boot"
+    },
+    {
+      "module": "_bisect",
+      "self_ms": 0.016,
+      "cumulative_ms": 0.016,
+      "phase": "boot"
+    },
+    {
+      "module": "bisect",
+      "self_ms": 0.275,
+      "cumulative_ms": 0.29,
+      "phase": "boot"
+    },
+    {
+      "module": "_random",
+      "self_ms": 0.013,
+      "cumulative_ms": 0.013,
+      "phase": "boot"
+    },
+    {
+      "module": "_sha2",
+      "self_ms": 0.014,
+      "cumulative_ms": 0.014,
+      "phase": "boot"
+    },
+    {
+      "module": "random",
+      "self_ms": 1.75,
+      "cumulative_ms": 2.064,
+      "phase": "boot"
+    },
+    {
+      "module": "weakref",
+      "self_ms": 1.551,
+      "cumulative_ms": 1.551,
+      "phase": "boot"
+    },
+    {
+      "module": "tempfile",
+      "self_ms": 1.842,
+      "cumulative_ms": 5.457,
+      "phase": "boot"
+    },
+    {
+      "module": "ospr_backend.temporary",
+      "self_ms": 0.233,
+      "cumulative_ms": 5.689,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy.version",
+      "self_ms": 0.208,
+      "cumulative_ms": 0.208,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._expired_attrs_2_0",
+      "self_ms": 0.152,
+      "cumulative_ms": 0.152,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._utils._conversions",
+      "self_ms": 0.109,
+      "cumulative_ms": 0.109,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._utils",
+      "self_ms": 0.2,
+      "cumulative_ms": 0.309,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._globals",
+      "self_ms": 0.271,
+      "cumulative_ms": 0.579,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._distributor_init_local",
+      "self_ms": 0.014,
+      "cumulative_ms": 0.014,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._distributor_init",
+      "self_ms": 0.117,
+      "cumulative_ms": 0.131,
+      "phase": "boot"
+    },
+    {
+      "module": "_datetime",
+      "self_ms": 0.05,
+      "cumulative_ms": 0.05,
+      "phase": "boot"
+    },
+    {
+      "module": "datetime",
+      "self_ms": 0.106,
+      "cumulative_ms": 0.156,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy.exceptions",
+      "self_ms": 0.245,
+      "cumulative_ms": 0.245,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._core._exceptions",
+      "self_ms": 0.454,
+      "cumulative_ms": 0.454,
+      "phase": "boot"
+    },
+    {
+      "module": "_contextvars",
+      "self_ms": 0.012,
+      "cumulative_ms": 0.012,
+      "phase": "boot"
+    },
+    {
+      "module": "contextvars",
+      "self_ms": 0.065,
+      "cumulative_ms": 0.077,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._core.printoptions",
+      "self_ms": 0.093,
+      "cumulative_ms": 0.17,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy.dtypes",
+      "self_ms": 0.181,
+      "cumulative_ms": 0.181,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._core._multiarray_umath",
+      "self_ms": 2.469,
+      "cumulative_ms": 3.672,
+      "phase": "boot"
+    },
+    {
+      "module": "_ast",
+      "self_ms": 0.043,
+      "cumulative_ms": 0.043,
+      "phase": "boot"
+    },
+    {
+      "module": "ast",
+      "self_ms": 5.274,
+      "cumulative_ms": 5.316,
+      "phase": "boot"
+    },
+    {
+      "module": "_opcode",
+      "self_ms": 0.015,
+      "cumulative_ms": 0.015,
+      "phase": "boot"
+    },
+    {
+      "module": "opcode",
+      "self_ms": 0.992,
+      "cumulative_ms": 1.007,
+      "phase": "boot"
+    },
+    {
+      "module": "dis",
+      "self_ms": 2.158,
+      "cumulative_ms": 3.164,
+      "phase": "boot"
+    },
+    {
+      "module": "inspect",
+      "self_ms": 7.868,
+      "cumulative_ms": 16.348,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._utils._inspect",
+      "self_ms": 0.554,
+      "cumulative_ms": 0.554,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._core.overrides",
+      "self_ms": 0.494,
+      "cumulative_ms": 17.394,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._core.multiarray",
+      "self_ms": 1.417,
+      "cumulative_ms": 22.482,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._core.umath",
+      "self_ms": 0.276,
+      "cumulative_ms": 0.276,
+      "phase": "boot"
+    },
+    {
+      "module": "numbers",
+      "self_ms": 0.586,
+      "cumulative_ms": 0.586,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._core._string_helpers",
+      "self_ms": 0.132,
+      "cumulative_ms": 0.132,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._core._type_aliases",
+      "self_ms": 0.335,
+      "cumulative_ms": 0.335,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._core.numerictypes",
+      "self_ms": 0.692,
+      "cumulative_ms": 1.744,
+      "phase": "boot"
+    },
+    {
+      "module": "_struct",
+      "self_ms": 0.049,
+      "cumulative_ms": 0.049,
+      "phase": "boot"
+    },
+    {
+      "module": "struct",
+      "self_ms": 0.127,
+      "cumulative_ms": 0.175,
+      "phase": "boot"
+    },
+    {
+      "module": "_compat_pickle",
+      "self_ms": 0.527,
+      "cumulative_ms": 0.527,
+      "phase": "boot"
+    },
+    {
+      "module": "_pickle",
+      "self_ms": 0.043,
+      "cumulative_ms": 0.043,
+      "phase": "boot"
+    },
+    {
+      "module": "pickle",
+      "self_ms": 4.135,
+      "cumulative_ms": 4.879,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._core._methods",
+      "self_ms": 0.865,
+      "cumulative_ms": 5.744,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._core.fromnumeric",
+      "self_ms": 2.319,
+      "cumulative_ms": 8.063,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._core.shape_base",
+      "self_ms": 1.169,
+      "cumulative_ms": 9.231,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._core._ufunc_config",
+      "self_ms": 0.404,
+      "cumulative_ms": 0.404,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._core._asarray",
+      "self_ms": 0.251,
+      "cumulative_ms": 0.251,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._core.arrayprint",
+      "self_ms": 2.847,
+      "cumulative_ms": 2.847,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._core.numeric",
+      "self_ms": 2.804,
+      "cumulative_ms": 15.534,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._core.einsumfunc",
+      "self_ms": 2.251,
+      "cumulative_ms": 17.785,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._core.function_base",
+      "self_ms": 0.614,
+      "cumulative_ms": 0.614,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._core.getlimits",
+      "self_ms": 0.849,
+      "cumulative_ms": 0.849,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._core.memmap",
+      "self_ms": 0.493,
+      "cumulative_ms": 0.493,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._core.records",
+      "self_ms": 1.822,
+      "cumulative_ms": 1.822,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._core._add_newdocs",
+      "self_ms": 3.746,
+      "cumulative_ms": 3.746,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._core._add_newdocs_scalars",
+      "self_ms": 0.643,
+      "cumulative_ms": 0.643,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._core._dtype",
+      "self_ms": 0.71,
+      "cumulative_ms": 0.71,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._core._dtype_ctypes",
+      "self_ms": 0.26,
+      "cumulative_ms": 0.26,
+      "phase": "boot"
+    },
+    {
+      "module": "_ctypes",
+      "self_ms": 0.122,
+      "cumulative_ms": 0.122,
+      "phase": "boot"
+    },
+    {
+      "module": "ctypes._endian",
+      "self_ms": 0.359,
+      "cumulative_ms": 0.359,
+      "phase": "boot"
+    },
+    {
+      "module": "ctypes",
+      "self_ms": 1.673,
+      "cumulative_ms": 2.153,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._core._internal",
+      "self_ms": 2.108,
+      "cumulative_ms": 4.26,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._pytesttester",
+      "self_ms": 0.248,
+      "cumulative_ms": 0.248,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._core",
+      "self_ms": 0.56,
+      "cumulative_ms": 56.486,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._core._multiarray_umath",
+      "self_ms": 0.012,
+      "cumulative_ms": 56.497,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy.__config__",
+      "self_ms": 0.422,
+      "cumulative_ms": 56.919,
+      "phase": "boot"
+    },
+    {
+      "module": "_typing",
+      "self_ms": 0.025,
+      "cumulative_ms": 0.025,
+      "phase": "boot"
+    },
+    {
+      "module": "typing",
+      "self_ms": 7.16,
+      "cumulative_ms": 7.184,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._typing._nbit_base",
+      "self_ms": 0.191,
+      "cumulative_ms": 0.191,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._typing._nested_sequence",
+      "self_ms": 0.178,
+      "cumulative_ms": 0.178,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._typing._shape",
+      "self_ms": 0.071,
+      "cumulative_ms": 0.071,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._typing._array_like",
+      "self_ms": 0.437,
+      "cumulative_ms": 0.876,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._typing._char_codes",
+      "self_ms": 0.481,
+      "cumulative_ms": 0.481,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._typing._dtype_like",
+      "self_ms": 0.404,
+      "cumulative_ms": 0.404,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._typing._nbit",
+      "self_ms": 0.101,
+      "cumulative_ms": 0.101,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._typing._scalars",
+      "self_ms": 0.101,
+      "cumulative_ms": 0.101,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._typing._ufunc",
+      "self_ms": 0.056,
+      "cumulative_ms": 0.056,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._typing",
+      "self_ms": 0.225,
+      "cumulative_ms": 2.243,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy.lib._array_utils_impl",
+      "self_ms": 0.118,
+      "cumulative_ms": 0.118,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy.lib._stride_tricks_impl",
+      "self_ms": 0.62,
+      "cumulative_ms": 0.737,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy.lib._twodim_base_impl",
+      "self_ms": 0.94,
+      "cumulative_ms": 1.676,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy.lib.array_utils",
+      "self_ms": 0.056,
+      "cumulative_ms": 0.056,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy.linalg._umath_linalg",
+      "self_ms": 0.554,
+      "cumulative_ms": 0.554,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy.linalg._linalg",
+      "self_ms": 3.592,
+      "cumulative_ms": 8.12,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy.linalg",
+      "self_ms": 0.102,
+      "cumulative_ms": 8.221,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy.matrixlib.defmatrix",
+      "self_ms": 1.083,
+      "cumulative_ms": 9.304,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy.matrixlib",
+      "self_ms": 0.119,
+      "cumulative_ms": 9.423,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy.lib._histograms_impl",
+      "self_ms": 1.344,
+      "cumulative_ms": 1.344,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy.lib._function_base_impl",
+      "self_ms": 7.102,
+      "cumulative_ms": 8.446,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy.lib._index_tricks_impl",
+      "self_ms": 1.387,
+      "cumulative_ms": 19.255,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy.lib._arraypad_impl",
+      "self_ms": 1.22,
+      "cumulative_ms": 27.659,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy.lib._arraysetops_impl",
+      "self_ms": 1.431,
+      "cumulative_ms": 1.431,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy.lib._arrayterator_impl",
+      "self_ms": 0.44,
+      "cumulative_ms": 0.44,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy.lib._nanfunctions_impl",
+      "self_ms": 1.801,
+      "cumulative_ms": 1.801,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy.lib._utils_impl",
+      "self_ms": 0.894,
+      "cumulative_ms": 0.894,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy.lib._format_impl",
+      "self_ms": 1.347,
+      "cumulative_ms": 2.24,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy.lib.format",
+      "self_ms": 0.106,
+      "cumulative_ms": 2.346,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy.lib._datasource",
+      "self_ms": 0.734,
+      "cumulative_ms": 0.734,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy.lib._iotools",
+      "self_ms": 1.427,
+      "cumulative_ms": 1.427,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy.lib._npyio_impl",
+      "self_ms": 3.733,
+      "cumulative_ms": 8.238,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy.lib._ufunclike_impl",
+      "self_ms": 0.278,
+      "cumulative_ms": 0.278,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy.lib._type_check_impl",
+      "self_ms": 0.674,
+      "cumulative_ms": 0.952,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy.lib._polynomial_impl",
+      "self_ms": 1.762,
+      "cumulative_ms": 2.714,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy.lib._shape_base_impl",
+      "self_ms": 1.239,
+      "cumulative_ms": 1.239,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy.lib._version",
+      "self_ms": 0.329,
+      "cumulative_ms": 0.329,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy.lib.introspect",
+      "self_ms": 0.148,
+      "cumulative_ms": 0.148,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy.lib.mixins",
+      "self_ms": 0.303,
+      "cumulative_ms": 0.303,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy.lib.npyio",
+      "self_ms": 0.056,
+      "cumulative_ms": 0.056,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy.lib._scimath_impl",
+      "self_ms": 0.373,
+      "cumulative_ms": 0.373,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy.lib.scimath",
+      "self_ms": 0.058,
+      "cumulative_ms": 0.431,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy.lib.stride_tricks",
+      "self_ms": 0.053,
+      "cumulative_ms": 0.053,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy.lib",
+      "self_ms": 0.271,
+      "cumulative_ms": 45.107,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy._array_api_info",
+      "self_ms": 0.33,
+      "cumulative_ms": 0.33,
+      "phase": "boot"
+    },
+    {
+      "module": "numpy",
+      "self_ms": 1.577,
+      "cumulative_ms": 104.998,
+      "phase": "boot"
+    },
+    {
+      "module": "ctypes.macholib",
+      "self_ms": 0.067,
+      "cumulative_ms": 0.067,
+      "phase": "boot"
+    },
+    {
+      "module": "ctypes.macholib.framework",
+      "self_ms": 0.163,
+      "cumulative_ms": 0.163,
+      "phase": "boot"
+    },
+    {
+      "module": "ctypes.macholib.dylib",
+      "self_ms": 0.132,
+      "cumulative_ms": 0.132,
+      "phase": "boot"
+    },
+    {
+      "module": "ctypes.macholib.dyld",
+      "self_ms": 0.446,
+      "cumulative_ms": 0.806,
+      "phase": "boot"
+    },
+    {
+      "module": "ctypes.util",
+      "self_ms": 0.91,
+      "cumulative_ms": 1.716,
+      "phase": "boot"
+    },
+    {
+      "module": "_socket",
+      "self_ms": 0.076,
+      "cumulative_ms": 0.076,
+      "phase": "boot"
+    },
+    {
+      "module": "typing_extensions",
+      "self_ms": 8.915,
+      "cumulative_ms": 8.991,
+      "phase": "boot"
+    },
+    {
+      "module": "_cffi_backend",
+      "self_ms": 0.507,
+      "cumulative_ms": 0.507,
+      "phase": "boot"
+    },
+    {
+      "module": "_soundfile",
+      "self_ms": 0.243,
+      "cumulative_ms": 0.75,
+      "phase": "boot"
+    },
+    {
+      "module": "_soundfile_data",
+      "self_ms": 0.075,
+      "cumulative_ms": 0.075,
+      "phase": "boot"
+    },
+    {
+      "module": "soundfile",
+      "self_ms": 3.641,
+      "cumulative_ms": 15.171,
+      "phase": "boot"
+    },
+    {
+      "module": "ospr_backend.audio",
+      "self_ms": 0.561,
+      "cumulative_ms": 143.203,
+      "phase": "boot"
+    },
+    {
+      "module": "ospr_backend.engine",
+      "self_ms": 2.267,
+      "cumulative_ms": 168.385,
+      "phase": "boot"
+    },
+    {
+      "module": "mlx",
+      "self_ms": 0.063,
+      "cumulative_ms": 0.063,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "atexit",
+      "self_ms": 0.018,
+      "cumulative_ms": 0.018,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "array",
+      "self_ms": 0.03,
+      "cumulative_ms": 0.03,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "mlx._reprlib_fix",
+      "self_ms": 0.105,
+      "cumulative_ms": 0.135,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "mlx.__array_api_info",
+      "self_ms": 0.322,
+      "cumulative_ms": 0.322,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "mlx.core",
+      "self_ms": 23.575,
+      "cumulative_ms": 24.111,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "huggingface_hub",
+      "self_ms": 1.538,
+      "cumulative_ms": 1.538,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "_csv",
+      "self_ms": 0.028,
+      "cumulative_ms": 0.028,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "csv",
+      "self_ms": 1.102,
+      "cumulative_ms": 1.129,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "email",
+      "self_ms": 0.133,
+      "cumulative_ms": 0.133,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "binascii",
+      "self_ms": 0.041,
+      "cumulative_ms": 0.041,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "zipfile._path.glob",
+      "self_ms": 0.145,
+      "cumulative_ms": 0.145,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "zipfile._path",
+      "self_ms": 0.805,
+      "cumulative_ms": 0.949,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "zipfile",
+      "self_ms": 5.16,
+      "cumulative_ms": 6.149,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "quopri",
+      "self_ms": 0.622,
+      "cumulative_ms": 0.622,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "socket",
+      "self_ms": 2.171,
+      "cumulative_ms": 2.171,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "calendar",
+      "self_ms": 2.163,
+      "cumulative_ms": 2.163,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "email._parseaddr",
+      "self_ms": 1.176,
+      "cumulative_ms": 3.338,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "base64",
+      "self_ms": 1.221,
+      "cumulative_ms": 1.221,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "email.base64mime",
+      "self_ms": 0.279,
+      "cumulative_ms": 1.5,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "_string",
+      "self_ms": 0.016,
+      "cumulative_ms": 0.016,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "string",
+      "self_ms": 0.797,
+      "cumulative_ms": 0.812,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "email.quoprimime",
+      "self_ms": 0.505,
+      "cumulative_ms": 1.317,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "email.errors",
+      "self_ms": 0.36,
+      "cumulative_ms": 0.36,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "email.encoders",
+      "self_ms": 0.144,
+      "cumulative_ms": 0.144,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "email.charset",
+      "self_ms": 0.771,
+      "cumulative_ms": 4.09,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "email.utils",
+      "self_ms": 0.932,
+      "cumulative_ms": 10.529,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "email.header",
+      "self_ms": 1.239,
+      "cumulative_ms": 1.239,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "email._policybase",
+      "self_ms": 0.581,
+      "cumulative_ms": 1.819,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "email._encoded_words",
+      "self_ms": 0.427,
+      "cumulative_ms": 0.427,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "email.iterators",
+      "self_ms": 0.23,
+      "cumulative_ms": 0.23,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "email.message",
+      "self_ms": 2.294,
+      "cumulative_ms": 15.919,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "importlib.metadata._functools",
+      "self_ms": 0.117,
+      "cumulative_ms": 0.117,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "importlib.metadata._text",
+      "self_ms": 0.163,
+      "cumulative_ms": 0.279,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "importlib.metadata._adapters",
+      "self_ms": 0.287,
+      "cumulative_ms": 16.485,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "importlib.metadata._meta",
+      "self_ms": 0.3,
+      "cumulative_ms": 0.3,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "importlib.metadata._collections",
+      "self_ms": 0.155,
+      "cumulative_ms": 0.155,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "importlib.metadata._itertools",
+      "self_ms": 0.124,
+      "cumulative_ms": 0.124,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "importlib.resources.abc",
+      "self_ms": 0.464,
+      "cumulative_ms": 0.464,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "importlib.resources._adapters",
+      "self_ms": 0.516,
+      "cumulative_ms": 0.516,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "importlib.resources._common",
+      "self_ms": 0.502,
+      "cumulative_ms": 1.481,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "importlib.resources._legacy",
+      "self_ms": 0.255,
+      "cumulative_ms": 0.255,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "importlib.resources",
+      "self_ms": 0.093,
+      "cumulative_ms": 1.827,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "importlib.abc",
+      "self_ms": 0.458,
+      "cumulative_ms": 2.284,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "importlib.metadata",
+      "self_ms": 2.019,
+      "cumulative_ms": 28.776,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "email.feedparser",
+      "self_ms": 1.082,
+      "cumulative_ms": 1.082,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "email.parser",
+      "self_ms": 0.323,
+      "cumulative_ms": 1.405,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpx2.__version__",
+      "self_ms": 0.552,
+      "cumulative_ms": 30.732,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "__future__",
+      "self_ms": 0.281,
+      "cumulative_ms": 0.281,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpx2._alias",
+      "self_ms": 0.366,
+      "cumulative_ms": 0.646,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "logging",
+      "self_ms": 4.021,
+      "cumulative_ms": 4.021,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "_hashlib",
+      "self_ms": 0.642,
+      "cumulative_ms": 0.642,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "_blake2",
+      "self_ms": 0.017,
+      "cumulative_ms": 0.017,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "hashlib",
+      "self_ms": 0.452,
+      "cumulative_ms": 1.11,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "http",
+      "self_ms": 0.622,
+      "cumulative_ms": 0.622,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "_ssl",
+      "self_ms": 0.227,
+      "cumulative_ms": 0.227,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "ssl",
+      "self_ms": 3.208,
+      "cumulative_ms": 3.434,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "http.client",
+      "self_ms": 2.868,
+      "cumulative_ms": 6.923,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "urllib.response",
+      "self_ms": 0.239,
+      "cumulative_ms": 0.239,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "urllib.error",
+      "self_ms": 0.25,
+      "cumulative_ms": 0.489,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "_scproxy",
+      "self_ms": 0.014,
+      "cumulative_ms": 0.014,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "urllib.request",
+      "self_ms": 6.695,
+      "cumulative_ms": 14.12,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpx2._exceptions",
+      "self_ms": 0.594,
+      "cumulative_ms": 0.594,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "copy",
+      "self_ms": 0.628,
+      "cumulative_ms": 0.628,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "http.cookiejar",
+      "self_ms": 4.604,
+      "cumulative_ms": 5.231,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "_winapi",
+      "self_ms": 0.031,
+      "cumulative_ms": 0.031,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "winreg",
+      "self_ms": 0.02,
+      "cumulative_ms": 0.02,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "mimetypes",
+      "self_ms": 1.092,
+      "cumulative_ms": 1.142,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpx2._types",
+      "self_ms": 0.416,
+      "cumulative_ms": 0.416,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpx2._utils",
+      "self_ms": 0.73,
+      "cumulative_ms": 0.73,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpx2._multipart",
+      "self_ms": 0.924,
+      "cumulative_ms": 3.21,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpx2._content",
+      "self_ms": 0.729,
+      "cumulative_ms": 3.938,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpx2._cookies",
+      "self_ms": 0.275,
+      "cumulative_ms": 0.275,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "brotli",
+      "self_ms": 0.027,
+      "cumulative_ms": 0.027,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "brotlicffi",
+      "self_ms": 0.02,
+      "cumulative_ms": 0.02,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "backports",
+      "self_ms": 0.019,
+      "cumulative_ms": 0.019,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "backports.zstd",
+      "self_ms": 0.006,
+      "cumulative_ms": 0.024,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpx2._decoders",
+      "self_ms": 1.086,
+      "cumulative_ms": 1.156,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpx2._status_codes",
+      "self_ms": 0.695,
+      "cumulative_ms": 0.695,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "dataclasses",
+      "self_ms": 2.942,
+      "cumulative_ms": 2.942,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "unicodedata",
+      "self_ms": 0.027,
+      "cumulative_ms": 0.027,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "idna.idnadata",
+      "self_ms": 1.091,
+      "cumulative_ms": 1.091,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "idna.intranges",
+      "self_ms": 0.19,
+      "cumulative_ms": 0.19,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "idna.core",
+      "self_ms": 1.857,
+      "cumulative_ms": 3.163,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "idna.package_data",
+      "self_ms": 0.057,
+      "cumulative_ms": 0.057,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "idna",
+      "self_ms": 0.151,
+      "cumulative_ms": 3.369,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpx2._urlparse",
+      "self_ms": 1.381,
+      "cumulative_ms": 1.381,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpx2._urls",
+      "self_ms": 1.577,
+      "cumulative_ms": 9.267,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpx2._models",
+      "self_ms": 3.263,
+      "cumulative_ms": 23.822,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpx2._auth",
+      "self_ms": 0.995,
+      "cumulative_ms": 40.639,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpx2._config",
+      "self_ms": 0.739,
+      "cumulative_ms": 0.739,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpx2._sse",
+      "self_ms": 0.896,
+      "cumulative_ms": 0.896,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpx2._transports.base",
+      "self_ms": 0.185,
+      "cumulative_ms": 0.185,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpx2._transports.asgi",
+      "self_ms": 0.515,
+      "cumulative_ms": 0.7,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpx2._transports.mock",
+      "self_ms": 0.148,
+      "cumulative_ms": 0.148,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpx2._transports.wsgi",
+      "self_ms": 0.357,
+      "cumulative_ms": 0.357,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpx2._transports.default",
+      "self_ms": 0.898,
+      "cumulative_ms": 0.898,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpx2._transports",
+      "self_ms": 0.118,
+      "cumulative_ms": 2.219,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpx2._client",
+      "self_ms": 3.904,
+      "cumulative_ms": 52.414,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpx2._api",
+      "self_ms": 0.673,
+      "cumulative_ms": 53.086,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpx2",
+      "self_ms": 0.229,
+      "cumulative_ms": 84.692,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "tqdm._monitor",
+      "self_ms": 0.316,
+      "cumulative_ms": 0.316,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "tqdm._tqdm_pandas",
+      "self_ms": 0.136,
+      "cumulative_ms": 0.136,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "envwrap",
+      "self_ms": 0.032,
+      "cumulative_ms": 0.032,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "tqdm.utils",
+      "self_ms": 0.957,
+      "cumulative_ms": 0.988,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "tqdm.std",
+      "self_ms": 3.311,
+      "cumulative_ms": 4.299,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "tqdm.version",
+      "self_ms": 0.568,
+      "cumulative_ms": 0.568,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "tqdm.cli",
+      "self_ms": 0.934,
+      "cumulative_ms": 5.8,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "tqdm.gui",
+      "self_ms": 0.492,
+      "cumulative_ms": 0.492,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "tqdm",
+      "self_ms": 0.177,
+      "cumulative_ms": 6.919,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "tqdm.autonotebook",
+      "self_ms": 0.134,
+      "cumulative_ms": 0.134,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "concurrent",
+      "self_ms": 0.111,
+      "cumulative_ms": 0.111,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "concurrent.futures._base",
+      "self_ms": 1.364,
+      "cumulative_ms": 1.364,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "concurrent.futures",
+      "self_ms": 0.193,
+      "cumulative_ms": 1.667,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "_heapq",
+      "self_ms": 0.017,
+      "cumulative_ms": 0.017,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "heapq",
+      "self_ms": 0.86,
+      "cumulative_ms": 0.876,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "asyncio.constants",
+      "self_ms": 0.144,
+      "cumulative_ms": 0.144,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "asyncio.coroutines",
+      "self_ms": 0.345,
+      "cumulative_ms": 0.345,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "asyncio.format_helpers",
+      "self_ms": 0.238,
+      "cumulative_ms": 0.238,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "asyncio.base_futures",
+      "self_ms": 0.201,
+      "cumulative_ms": 0.201,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "asyncio.exceptions",
+      "self_ms": 0.237,
+      "cumulative_ms": 0.237,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "asyncio.base_tasks",
+      "self_ms": 0.262,
+      "cumulative_ms": 0.262,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "_asyncio",
+      "self_ms": 0.062,
+      "cumulative_ms": 0.761,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "asyncio.events",
+      "self_ms": 1.379,
+      "cumulative_ms": 2.377,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "asyncio.futures",
+      "self_ms": 0.746,
+      "cumulative_ms": 0.746,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "asyncio.protocols",
+      "self_ms": 0.227,
+      "cumulative_ms": 0.227,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "asyncio.transports",
+      "self_ms": 0.519,
+      "cumulative_ms": 0.519,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "asyncio.log",
+      "self_ms": 0.064,
+      "cumulative_ms": 0.064,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "asyncio.sslproto",
+      "self_ms": 1.861,
+      "cumulative_ms": 2.442,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "asyncio.mixins",
+      "self_ms": 0.103,
+      "cumulative_ms": 0.103,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "asyncio.locks",
+      "self_ms": 1.148,
+      "cumulative_ms": 1.25,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "asyncio.timeouts",
+      "self_ms": 0.431,
+      "cumulative_ms": 0.431,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "asyncio.tasks",
+      "self_ms": 1.814,
+      "cumulative_ms": 2.245,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "asyncio.staggered",
+      "self_ms": 0.342,
+      "cumulative_ms": 3.836,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "asyncio.trsock",
+      "self_ms": 0.241,
+      "cumulative_ms": 0.241,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "asyncio.base_events",
+      "self_ms": 5.063,
+      "cumulative_ms": 17.959,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "asyncio.runners",
+      "self_ms": 0.448,
+      "cumulative_ms": 0.448,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "asyncio.queues",
+      "self_ms": 0.504,
+      "cumulative_ms": 0.504,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "asyncio.streams",
+      "self_ms": 1.414,
+      "cumulative_ms": 1.414,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "asyncio.subprocess",
+      "self_ms": 0.623,
+      "cumulative_ms": 0.623,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "asyncio.taskgroups",
+      "self_ms": 0.47,
+      "cumulative_ms": 0.47,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "asyncio.threads",
+      "self_ms": 0.085,
+      "cumulative_ms": 0.085,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "asyncio.base_subprocess",
+      "self_ms": 0.762,
+      "cumulative_ms": 0.762,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "asyncio.selector_events",
+      "self_ms": 3.071,
+      "cumulative_ms": 3.071,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "asyncio.unix_events",
+      "self_ms": 3.222,
+      "cumulative_ms": 7.054,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "asyncio",
+      "self_ms": 0.17,
+      "cumulative_ms": 28.722,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "tqdm.asyncio",
+      "self_ms": 0.318,
+      "cumulative_ms": 29.039,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "tqdm.auto",
+      "self_ms": 0.123,
+      "cumulative_ms": 36.213,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "huggingface_hub.constants",
+      "self_ms": 0.71,
+      "cumulative_ms": 0.71,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "huggingface_hub._revision",
+      "self_ms": 0.155,
+      "cumulative_ms": 0.155,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "huggingface_hub.utils",
+      "self_ms": 0.502,
+      "cumulative_ms": 0.502,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "huggingface_hub.utils._paths",
+      "self_ms": 0.365,
+      "cumulative_ms": 0.365,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "shlex",
+      "self_ms": 0.862,
+      "cumulative_ms": 0.862,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "huggingface_hub.errors",
+      "self_ms": 0.95,
+      "cumulative_ms": 0.95,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "huggingface_hub.utils._lfs",
+      "self_ms": 0.252,
+      "cumulative_ms": 0.252,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "huggingface_hub.utils._typing",
+      "self_ms": 0.289,
+      "cumulative_ms": 0.289,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "huggingface_hub.utils._xet",
+      "self_ms": 4.414,
+      "cumulative_ms": 6.765,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "huggingface_hub._tree_cache",
+      "self_ms": 1.074,
+      "cumulative_ms": 8.705,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "yaml.error",
+      "self_ms": 0.325,
+      "cumulative_ms": 0.325,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "yaml.tokens",
+      "self_ms": 0.319,
+      "cumulative_ms": 0.319,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "yaml.events",
+      "self_ms": 0.283,
+      "cumulative_ms": 0.283,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "yaml.nodes",
+      "self_ms": 0.139,
+      "cumulative_ms": 0.139,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "yaml.reader",
+      "self_ms": 1.928,
+      "cumulative_ms": 1.928,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "yaml.scanner",
+      "self_ms": 2.45,
+      "cumulative_ms": 2.45,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "yaml.parser",
+      "self_ms": 1.119,
+      "cumulative_ms": 1.119,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "yaml.composer",
+      "self_ms": 0.34,
+      "cumulative_ms": 0.34,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "yaml.constructor",
+      "self_ms": 1.906,
+      "cumulative_ms": 1.906,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "yaml.resolver",
+      "self_ms": 0.965,
+      "cumulative_ms": 0.965,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "yaml.loader",
+      "self_ms": 0.278,
+      "cumulative_ms": 8.983,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "yaml.emitter",
+      "self_ms": 2.857,
+      "cumulative_ms": 2.857,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "yaml.serializer",
+      "self_ms": 0.412,
+      "cumulative_ms": 0.412,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "yaml.representer",
+      "self_ms": 0.961,
+      "cumulative_ms": 0.961,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "yaml.dumper",
+      "self_ms": 0.301,
+      "cumulative_ms": 4.53,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "yaml._yaml",
+      "self_ms": 0.526,
+      "cumulative_ms": 0.526,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "yaml.cyaml",
+      "self_ms": 0.371,
+      "cumulative_ms": 0.897,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "yaml",
+      "self_ms": 0.742,
+      "cumulative_ms": 16.215,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "hmac",
+      "self_ms": 0.523,
+      "cumulative_ms": 0.523,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "secrets",
+      "self_ms": 0.206,
+      "cumulative_ms": 0.728,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "_decimal",
+      "self_ms": 0.199,
+      "cumulative_ms": 0.199,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "decimal",
+      "self_ms": 0.089,
+      "cumulative_ms": 0.288,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "filelock._error",
+      "self_ms": 0.287,
+      "cumulative_ms": 0.287,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "filelock._util",
+      "self_ms": 0.925,
+      "cumulative_ms": 0.925,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "filelock._api",
+      "self_ms": 7.106,
+      "cumulative_ms": 9.333,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "filelock._unix",
+      "self_ms": 0.612,
+      "cumulative_ms": 0.612,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "filelock._descriptor",
+      "self_ms": 0.181,
+      "cumulative_ms": 0.792,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "filelock._windows",
+      "self_ms": 1.672,
+      "cumulative_ms": 1.672,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "filelock.version",
+      "self_ms": 0.097,
+      "cumulative_ms": 0.097,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "filelock",
+      "self_ms": 0.347,
+      "cumulative_ms": 12.24,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "filelock._identity",
+      "self_ms": 0.856,
+      "cumulative_ms": 0.856,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "filelock._soft_protocol",
+      "self_ms": 0.071,
+      "cumulative_ms": 0.071,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "huggingface_hub._local_folder",
+      "self_ms": 3.678,
+      "cumulative_ms": 33.058,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "configparser",
+      "self_ms": 3.103,
+      "cumulative_ms": 3.103,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "huggingface_hub.utils._oauth_device",
+      "self_ms": 0.461,
+      "cumulative_ms": 0.461,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "huggingface_hub.utils._runtime",
+      "self_ms": 0.718,
+      "cumulative_ms": 0.718,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "huggingface_hub.utils._auth",
+      "self_ms": 0.958,
+      "cumulative_ms": 5.238,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "huggingface_hub.utils._detect_agent",
+      "self_ms": 0.5,
+      "cumulative_ms": 0.5,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "huggingface_hub.utils._shared_blobs",
+      "self_ms": 1.855,
+      "cumulative_ms": 1.855,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "huggingface_hub.utils.insecure_hashlib",
+      "self_ms": 0.078,
+      "cumulative_ms": 0.078,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "huggingface_hub.utils.sha",
+      "self_ms": 0.167,
+      "cumulative_ms": 0.244,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "_queue",
+      "self_ms": 0.03,
+      "cumulative_ms": 0.03,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "queue",
+      "self_ms": 0.611,
+      "cumulative_ms": 0.64,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "concurrent.futures.thread",
+      "self_ms": 0.568,
+      "cumulative_ms": 1.207,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "huggingface_hub.utils.tqdm",
+      "self_ms": 0.729,
+      "cumulative_ms": 1.936,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "huggingface_hub.file_download",
+      "self_ms": 4.435,
+      "cumulative_ms": 47.263,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpcore2._utils",
+      "self_ms": 0.195,
+      "cumulative_ms": 0.195,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpcore2._models",
+      "self_ms": 1.18,
+      "cumulative_ms": 1.374,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpcore2._backends",
+      "self_ms": 0.055,
+      "cumulative_ms": 0.055,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpcore2._exceptions",
+      "self_ms": 0.228,
+      "cumulative_ms": 0.228,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpcore2._backends.base",
+      "self_ms": 0.271,
+      "cumulative_ms": 0.271,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpcore2._backends.sync",
+      "self_ms": 0.65,
+      "cumulative_ms": 1.203,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "truststore._ssl_constants",
+      "self_ms": 0.108,
+      "cumulative_ms": 0.108,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "xml",
+      "self_ms": 0.12,
+      "cumulative_ms": 0.12,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "xml.parsers",
+      "self_ms": 0.116,
+      "cumulative_ms": 0.235,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "pyexpat",
+      "self_ms": 0.072,
+      "cumulative_ms": 0.072,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "xml.parsers.expat",
+      "self_ms": 0.11,
+      "cumulative_ms": 0.417,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "plistlib",
+      "self_ms": 2.318,
+      "cumulative_ms": 2.734,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "truststore._macos",
+      "self_ms": 1.25,
+      "cumulative_ms": 3.983,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "truststore._api",
+      "self_ms": 0.935,
+      "cumulative_ms": 5.025,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "truststore",
+      "self_ms": 0.124,
+      "cumulative_ms": 5.148,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpcore2._ssl",
+      "self_ms": 0.16,
+      "cumulative_ms": 5.308,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "trio",
+      "self_ms": 0.038,
+      "cumulative_ms": 0.038,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "anyio._lazyimport",
+      "self_ms": 0.659,
+      "cumulative_ms": 0.659,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "anyio",
+      "self_ms": 0.799,
+      "cumulative_ms": 1.458,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "sniffio",
+      "self_ms": 0.037,
+      "cumulative_ms": 0.037,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpcore2._synchronization",
+      "self_ms": 0.8,
+      "cumulative_ms": 2.332,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpcore2._trace",
+      "self_ms": 0.388,
+      "cumulative_ms": 0.388,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "h11._abnf",
+      "self_ms": 0.143,
+      "cumulative_ms": 0.143,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "h11._util",
+      "self_ms": 0.335,
+      "cumulative_ms": 0.335,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "h11._headers",
+      "self_ms": 0.957,
+      "cumulative_ms": 1.291,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "h11._events",
+      "self_ms": 1.579,
+      "cumulative_ms": 3.011,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "h11._receivebuffer",
+      "self_ms": 0.326,
+      "cumulative_ms": 0.326,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "h11._state",
+      "self_ms": 0.629,
+      "cumulative_ms": 0.629,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "h11._readers",
+      "self_ms": 1.138,
+      "cumulative_ms": 2.093,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "h11._writers",
+      "self_ms": 0.438,
+      "cumulative_ms": 0.438,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "h11._connection",
+      "self_ms": 1.137,
+      "cumulative_ms": 6.677,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "h11._version",
+      "self_ms": 0.068,
+      "cumulative_ms": 0.068,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "h11",
+      "self_ms": 0.128,
+      "cumulative_ms": 6.873,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpcore2._sync.interfaces",
+      "self_ms": 0.313,
+      "cumulative_ms": 0.313,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpcore2._sync.http11",
+      "self_ms": 1.013,
+      "cumulative_ms": 8.197,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpcore2._sync.connection",
+      "self_ms": 0.649,
+      "cumulative_ms": 18.074,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpcore2._sync.connection_pool",
+      "self_ms": 0.978,
+      "cumulative_ms": 0.978,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpcore2._sync.http_proxy",
+      "self_ms": 0.883,
+      "cumulative_ms": 0.883,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "h2",
+      "self_ms": 0.041,
+      "cumulative_ms": 0.041,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "h2.config",
+      "self_ms": 0.013,
+      "cumulative_ms": 0.053,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpcore2._sync.http2",
+      "self_ms": 1.587,
+      "cumulative_ms": 1.639,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "socksio",
+      "self_ms": 0.034,
+      "cumulative_ms": 0.034,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpcore2._sync.socks_proxy",
+      "self_ms": 0.725,
+      "cumulative_ms": 0.758,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpcore2._sync",
+      "self_ms": 0.169,
+      "cumulative_ms": 22.499,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpcore2._sync.connection_pool",
+      "self_ms": 0.012,
+      "cumulative_ms": 22.51,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpcore2._api",
+      "self_ms": 0.229,
+      "cumulative_ms": 24.113,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpcore2._backends.auto",
+      "self_ms": 0.193,
+      "cumulative_ms": 0.193,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpcore2._async.interfaces",
+      "self_ms": 0.298,
+      "cumulative_ms": 0.298,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpcore2._async.http11",
+      "self_ms": 1.048,
+      "cumulative_ms": 1.345,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpcore2._async.connection",
+      "self_ms": 0.661,
+      "cumulative_ms": 2.198,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpcore2._async.connection_pool",
+      "self_ms": 0.92,
+      "cumulative_ms": 0.92,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpcore2._async.http_proxy",
+      "self_ms": 0.849,
+      "cumulative_ms": 0.849,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "h2",
+      "self_ms": 0.037,
+      "cumulative_ms": 0.037,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "h2.config",
+      "self_ms": 0.01,
+      "cumulative_ms": 0.047,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpcore2._async.http2",
+      "self_ms": 1.462,
+      "cumulative_ms": 1.508,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "socksio",
+      "self_ms": 0.047,
+      "cumulative_ms": 0.047,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpcore2._async.socks_proxy",
+      "self_ms": 0.83,
+      "cumulative_ms": 0.876,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpcore2._async",
+      "self_ms": 0.179,
+      "cumulative_ms": 6.527,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpcore2._backends.mock",
+      "self_ms": 0.478,
+      "cumulative_ms": 0.478,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "anyio.abc",
+      "self_ms": 0.338,
+      "cumulative_ms": 0.338,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "anyio.streams",
+      "self_ms": 0.063,
+      "cumulative_ms": 0.063,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "sniffio",
+      "self_ms": 0.04,
+      "cumulative_ms": 0.04,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "anyio._core._eventloop",
+      "self_ms": 0.451,
+      "cumulative_ms": 0.49,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "anyio._core._tasks",
+      "self_ms": 1.589,
+      "cumulative_ms": 2.078,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "anyio._core._typedattr",
+      "self_ms": 0.219,
+      "cumulative_ms": 0.219,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "anyio.streams.tls",
+      "self_ms": 2.676,
+      "cumulative_ms": 5.035,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpcore2._backends.anyio",
+      "self_ms": 0.489,
+      "cumulative_ms": 5.86,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "trio",
+      "self_ms": 0.03,
+      "cumulative_ms": 0.03,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpcore2._backends.trio",
+      "self_ms": 0.501,
+      "cumulative_ms": 0.531,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "httpcore2",
+      "self_ms": 0.717,
+      "cumulative_ms": 38.223,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "huggingface_hub._eval_results",
+      "self_ms": 0.534,
+      "cumulative_ms": 0.534,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "huggingface_hub._inference_endpoints",
+      "self_ms": 1.964,
+      "cumulative_ms": 1.964,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "huggingface_hub._space_api",
+      "self_ms": 3.677,
+      "cumulative_ms": 3.677,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "huggingface_hub._jobs_api",
+      "self_ms": 2.918,
+      "cumulative_ms": 6.594,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "huggingface_hub.community",
+      "self_ms": 1.321,
+      "cumulative_ms": 1.321,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "huggingface_hub.repocard_data",
+      "self_ms": 1.563,
+      "cumulative_ms": 1.563,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "huggingface_hub.utils.endpoint_helpers",
+      "self_ms": 0.139,
+      "cumulative_ms": 0.139,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "huggingface_hub.hf_api",
+      "self_ms": 45.616,
+      "cumulative_ms": 95.951,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "huggingface_hub.utils._xet_progress_reporting",
+      "self_ms": 1.041,
+      "cumulative_ms": 1.041,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "ospr_backend.parakeet_loader",
+      "self_ms": 0.268,
+      "cumulative_ms": 0.268,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "dacite.cache",
+      "self_ms": 0.176,
+      "cumulative_ms": 0.176,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "dacite.frozen_dict",
+      "self_ms": 0.149,
+      "cumulative_ms": 0.149,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "dacite.config",
+      "self_ms": 0.441,
+      "cumulative_ms": 0.589,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "dacite.data",
+      "self_ms": 0.115,
+      "cumulative_ms": 0.115,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "dacite.types",
+      "self_ms": 0.569,
+      "cumulative_ms": 0.569,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "dacite.dataclasses",
+      "self_ms": 0.208,
+      "cumulative_ms": 0.776,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "dacite.exceptions",
+      "self_ms": 0.377,
+      "cumulative_ms": 0.377,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "dacite.generics",
+      "self_ms": 0.338,
+      "cumulative_ms": 0.338,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "dacite.core",
+      "self_ms": 0.559,
+      "cumulative_ms": 2.163,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "dacite",
+      "self_ms": 0.104,
+      "cumulative_ms": 3.032,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "mlx.utils",
+      "self_ms": 0.722,
+      "cumulative_ms": 0.722,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "parakeet_mlx.alignment",
+      "self_ms": 1.5,
+      "cumulative_ms": 1.5,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "mlx.nn.init",
+      "self_ms": 0.668,
+      "cumulative_ms": 0.668,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "mlx.nn.losses",
+      "self_ms": 0.805,
+      "cumulative_ms": 0.805,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "mlx.nn.layers.base",
+      "self_ms": 1.314,
+      "cumulative_ms": 1.314,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "mlx.nn.layers.activations",
+      "self_ms": 1.001,
+      "cumulative_ms": 2.315,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "mlx.nn.layers.containers",
+      "self_ms": 0.097,
+      "cumulative_ms": 0.097,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "mlx.nn.layers.convolution",
+      "self_ms": 0.471,
+      "cumulative_ms": 0.471,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "mlx.nn.layers.convolution_transpose",
+      "self_ms": 0.409,
+      "cumulative_ms": 0.409,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "mlx.nn.layers.quantized",
+      "self_ms": 0.756,
+      "cumulative_ms": 0.756,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "mlx.nn.layers.linear",
+      "self_ms": 0.348,
+      "cumulative_ms": 1.103,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "mlx.nn.layers.distributed",
+      "self_ms": 1.497,
+      "cumulative_ms": 2.6,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "mlx.nn.layers.dropout",
+      "self_ms": 0.315,
+      "cumulative_ms": 0.315,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "mlx.nn.layers.embedding",
+      "self_ms": 0.147,
+      "cumulative_ms": 0.147,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "mlx.nn.layers.normalization",
+      "self_ms": 0.732,
+      "cumulative_ms": 0.732,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "mlx.nn.layers.pooling",
+      "self_ms": 0.922,
+      "cumulative_ms": 0.922,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "mlx.nn.layers.positional_encoding",
+      "self_ms": 0.421,
+      "cumulative_ms": 0.421,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "mlx.nn.layers.recurrent",
+      "self_ms": 0.522,
+      "cumulative_ms": 0.522,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "mlx.nn.utils",
+      "self_ms": 0.566,
+      "cumulative_ms": 0.566,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "mlx.nn.layers.transformer",
+      "self_ms": 0.73,
+      "cumulative_ms": 1.296,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "mlx.nn.layers.upsample",
+      "self_ms": 1.041,
+      "cumulative_ms": 1.041,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "mlx.nn.layers",
+      "self_ms": 0.227,
+      "cumulative_ms": 11.508,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "mlx.nn",
+      "self_ms": 0.145,
+      "cumulative_ms": 13.125,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "parakeet_mlx.tokenizer",
+      "self_ms": 0.089,
+      "cumulative_ms": 0.089,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "lazy_loader",
+      "self_ms": 0.632,
+      "cumulative_ms": 0.632,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "librosa.version",
+      "self_ms": 0.21,
+      "cumulative_ms": 0.21,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "librosa",
+      "self_ms": 0.348,
+      "cumulative_ms": 1.189,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "parakeet_mlx.audio",
+      "self_ms": 0.792,
+      "cumulative_ms": 1.98,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "parakeet_mlx.cache",
+      "self_ms": 0.524,
+      "cumulative_ms": 0.524,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "parakeet_mlx.attention",
+      "self_ms": 1.245,
+      "cumulative_ms": 1.245,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "parakeet_mlx.conformer",
+      "self_ms": 1.34,
+      "cumulative_ms": 2.585,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "parakeet_mlx.ctc",
+      "self_ms": 0.344,
+      "cumulative_ms": 0.344,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "parakeet_mlx.rnnt",
+      "self_ms": 0.928,
+      "cumulative_ms": 0.928,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "parakeet_mlx.parakeet",
+      "self_ms": 3.464,
+      "cumulative_ms": 23.034,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "parakeet_mlx.utils",
+      "self_ms": 0.242,
+      "cumulative_ms": 0.242,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "parakeet_mlx",
+      "self_ms": 0.132,
+      "cumulative_ms": 24.906,
+      "phase": "first-transcription"
+    },
+    {
+      "module": "parakeet_mlx.audio",
+      "self_ms": 0.008,
+      "cumulative_ms": 24.913,
+      "phase": "first-transcription"
+    }
+  ],
+  "harness_sha256": "3f90a5d0e1722966aa7dab719b33c31945f46571debcadc601c307520aa81056",
+  "boundary": "Bundled Python worker, -X importtime, one cold public request and EOF exit. No Swift/GUI/capture. Instrumentation perturbs timings; cumulative imports overlap and must not be summed. Not a product latency benchmark."
+}

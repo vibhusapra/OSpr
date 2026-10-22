@@ -362,3 +362,12 @@ preparation. Three trials per combination use seeded randomized serial order.
 This checks where deferred resampling cost lands; it does not test a microphone
 or provide a latency SLA. The portable-app check explicitly prepares all six
 shipping engines at 48 kHz before release packaging.
+
+The repeated `product-cli-after-startup.json` pilot has zero failures and all
+180 texts match the original pilot. Parakeet p50 is 756.6 ms versus 1866.2 ms
+before; Vibe rerun is 943.5 ms. Whisper Turbo shows no improvement (2107.9 ms
+versus 1984.7 ms before). Shared-system timing changes are not isolated causal
+effects. The worker controls show faster boot and more work during explicit
+preparation; prepared public requests remain about 55 ms at both rates. An
+unprepared native-rate request still pays the SciPy import cost. Preserve these
+controls alongside the attractive 16 kHz command result.

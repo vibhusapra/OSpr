@@ -1,0 +1,1015 @@
+{
+  "status": "passed",
+  "verified_at": "2026-10-22T22:31:49.098352+00:00",
+  "builds": {
+    "before": {
+      "version": "0.1.0",
+      "built_at": "2026-10-22T21:19:04.335060+00:00",
+      "git_commit": "1bbbe061090c3b10cc7e62170fe9fd6bcfff48ee",
+      "tracked_changes": false,
+      "application_source_sha256": "adedf1a631530b4700d5e0097e0621494777b15cbd03f8160cfd0a351ac374b4",
+      "signing_mode": "configured-identity",
+      "boundary": "Development build; configured signing identity; not notarized; weights downloaded separately."
+    },
+    "after": {
+      "version": "0.1.0",
+      "built_at": "2026-10-22T22:26:51.607508+00:00",
+      "git_commit": "87e60c954eb906fbfd909748fae5c9194ffc3db3",
+      "tracked_changes": false,
+      "application_source_sha256": "1bbb48241915600e4a97da2aa739ab9e8af8a766579e4b2ff63a06ef9dcb040e",
+      "source_manifest_version": 2,
+      "signing_mode": "configured-identity",
+      "boundary": "Development build; configured signing identity; not notarized; weights downloaded separately."
+    }
+  },
+  "fixture_id": "1272-128104-0000",
+  "source_sha256": "799f78ed4beb4de7ceae3a809262d4ce242394342ccd1d58cef7d49dbc2def46",
+  "input_sha256": {
+    "16000": "b1ec9188aa8e9b8998d5a18327990989944935a97f885b483c2c00f17f9a267a",
+    "48000": "cccad491e799e3deb3a31155b43c95a7c9eec5afec3e66849f73bc708307ec84"
+  },
+  "harness_sha256": "8cfd29b18ff061504212358a487ccbd0e6981df8f326c372590772518245d6a1",
+  "summary": [
+    {
+      "build": "before",
+      "sample_rate": 16000,
+      "prepared": false,
+      "trials": 3,
+      "boot_ms": 1094.609208055772,
+      "request_ms": 807.4324999470264,
+      "preparation_ms": null
+    },
+    {
+      "build": "before",
+      "sample_rate": 16000,
+      "prepared": true,
+      "trials": 3,
+      "boot_ms": 1095.0738749234006,
+      "request_ms": 54.269792046397924,
+      "preparation_ms": 767.8065000800416
+    },
+    {
+      "build": "before",
+      "sample_rate": 48000,
+      "prepared": false,
+      "trials": 3,
+      "boot_ms": 1082.5885410886258,
+      "request_ms": 828.7552919937298,
+      "preparation_ms": null
+    },
+    {
+      "build": "before",
+      "sample_rate": 48000,
+      "prepared": true,
+      "trials": 3,
+      "boot_ms": 1102.1295000100508,
+      "request_ms": 53.95879200659692,
+      "preparation_ms": 770.3124999534339
+    },
+    {
+      "build": "after",
+      "sample_rate": 16000,
+      "prepared": false,
+      "trials": 3,
+      "boot_ms": 206.0718749416992,
+      "request_ms": 502.9052500613034,
+      "preparation_ms": null
+    },
+    {
+      "build": "after",
+      "sample_rate": 16000,
+      "prepared": true,
+      "trials": 3,
+      "boot_ms": 207.72358297836035,
+      "request_ms": 55.10320793837309,
+      "preparation_ms": 1326.6366249881685
+    },
+    {
+      "build": "after",
+      "sample_rate": 48000,
+      "prepared": false,
+      "trials": 3,
+      "boot_ms": 207.6430410379544,
+      "request_ms": 1342.6260830601677,
+      "preparation_ms": null
+    },
+    {
+      "build": "after",
+      "sample_rate": 48000,
+      "prepared": true,
+      "trials": 3,
+      "boot_ms": 210.73845797218382,
+      "request_ms": 55.75325002428144,
+      "preparation_ms": 1329.8725419444963
+    }
+  ],
+  "records": [
+    {
+      "build": "after",
+      "sample_rate": 48000,
+      "prepared": true,
+      "repeat": 2,
+      "boot_ms": 210.73845797218382,
+      "preparation_ms": 1340.0130829541013,
+      "preparation": {
+        "model": "parakeet-v3",
+        "load_ms": 369.11295901518315,
+        "prime_ms": 970.7030000863597,
+        "primed_sample_rate": 48000,
+        "total_ms": 1339.8495420115069
+      },
+      "request_ms": 53.407416911795735,
+      "response": {
+        "model": "parakeet-v3",
+        "audio_seconds": 5.855,
+        "speech_seconds": 5.2,
+        "text": "mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+        "segments": [
+          {
+            "start": 0.38,
+            "end": 5.5,
+            "text": " mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."
+          }
+        ],
+        "words": [],
+        "language": null,
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.001625041477382183,
+        "preprocess_ms": 1.5648750122636557,
+        "decode_ms": 51.522042020224035,
+        "total_ms": 53.09162498451769,
+        "peak_gpu_bytes": 2158916368,
+        "active_gpu_bytes": 1296030188,
+        "vocabulary_applied": false,
+        "timestamp_granularity": "segment"
+      }
+    },
+    {
+      "build": "after",
+      "sample_rate": 16000,
+      "prepared": false,
+      "repeat": 0,
+      "boot_ms": 206.0718749416992,
+      "preparation_ms": null,
+      "preparation": null,
+      "request_ms": 489.78241602890193,
+      "response": {
+        "model": "parakeet-v3",
+        "audio_seconds": 5.855,
+        "speech_seconds": 5.2,
+        "text": "mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+        "segments": [
+          {
+            "start": 0.38,
+            "end": 5.5,
+            "text": " mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."
+          }
+        ],
+        "words": [],
+        "language": null,
+        "silence": false,
+        "warm": false,
+        "load_ms": 363.24808304198086,
+        "preprocess_ms": 0.45866600703448057,
+        "decode_ms": 125.7579589728266,
+        "total_ms": 489.4693329697475,
+        "peak_gpu_bytes": 2477357584,
+        "active_gpu_bytes": 1296165068,
+        "vocabulary_applied": false,
+        "timestamp_granularity": "segment"
+      }
+    },
+    {
+      "build": "after",
+      "sample_rate": 16000,
+      "prepared": false,
+      "repeat": 1,
+      "boot_ms": 205.36204206291586,
+      "preparation_ms": null,
+      "preparation": null,
+      "request_ms": 504.0450419764966,
+      "response": {
+        "model": "parakeet-v3",
+        "audio_seconds": 5.855,
+        "speech_seconds": 5.2,
+        "text": "mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+        "segments": [
+          {
+            "start": 0.38,
+            "end": 5.5,
+            "text": " mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."
+          }
+        ],
+        "words": [],
+        "language": null,
+        "silence": false,
+        "warm": false,
+        "load_ms": 380.72487502358854,
+        "preprocess_ms": 0.49700005911290646,
+        "decode_ms": 122.4963340209797,
+        "total_ms": 503.72266699559987,
+        "peak_gpu_bytes": 2495246832,
+        "active_gpu_bytes": 1296148684,
+        "vocabulary_applied": false,
+        "timestamp_granularity": "segment"
+      }
+    },
+    {
+      "build": "before",
+      "sample_rate": 48000,
+      "prepared": true,
+      "repeat": 1,
+      "boot_ms": 1863.3878330001608,
+      "preparation_ms": 1846.1242499761283,
+      "preparation": {
+        "model": "parakeet-v3",
+        "load_ms": 1743.671957985498,
+        "prime_ms": 102.27424988988787,
+        "total_ms": 1845.9789579501376
+      },
+      "request_ms": 55.591083015315235,
+      "response": {
+        "model": "parakeet-v3",
+        "audio_seconds": 5.855,
+        "speech_seconds": 5.2,
+        "text": "mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+        "segments": [
+          {
+            "start": 0.38,
+            "end": 5.5,
+            "text": " mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."
+          }
+        ],
+        "words": [],
+        "language": null,
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0021670712158083916,
+        "preprocess_ms": 2.271167002618313,
+        "decode_ms": 53.00249997526407,
+        "total_ms": 55.280875065363944,
+        "peak_gpu_bytes": 2158945328,
+        "active_gpu_bytes": 1296009996,
+        "vocabulary_applied": false,
+        "timestamp_granularity": "segment"
+      }
+    },
+    {
+      "build": "after",
+      "sample_rate": 16000,
+      "prepared": true,
+      "repeat": 0,
+      "boot_ms": 211.75424999091774,
+      "preparation_ms": 1349.0591670852154,
+      "preparation": {
+        "model": "parakeet-v3",
+        "load_ms": 368.9894999843091,
+        "prime_ms": 979.8780409619212,
+        "primed_sample_rate": 48000,
+        "total_ms": 1348.9020840497687
+      },
+      "request_ms": 59.524624957703054,
+      "response": {
+        "model": "parakeet-v3",
+        "audio_seconds": 5.855,
+        "speech_seconds": 5.2,
+        "text": "mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+        "segments": [
+          {
+            "start": 0.38,
+            "end": 5.5,
+            "text": " mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."
+          }
+        ],
+        "words": [],
+        "language": null,
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0018329592421650887,
+        "preprocess_ms": 0.42504200246185064,
+        "decode_ms": 58.778833015821874,
+        "total_ms": 59.20920905191451,
+        "peak_gpu_bytes": 2158879792,
+        "active_gpu_bytes": 1295993612,
+        "vocabulary_applied": false,
+        "timestamp_granularity": "segment"
+      }
+    },
+    {
+      "build": "before",
+      "sample_rate": 48000,
+      "prepared": false,
+      "repeat": 0,
+      "boot_ms": 1079.4097499456257,
+      "preparation_ms": null,
+      "preparation": null,
+      "request_ms": 828.7552919937298,
+      "response": {
+        "model": "parakeet-v3",
+        "audio_seconds": 5.855,
+        "speech_seconds": 5.2,
+        "text": "mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+        "segments": [
+          {
+            "start": 0.38,
+            "end": 5.5,
+            "text": " mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."
+          }
+        ],
+        "words": [],
+        "language": null,
+        "silence": false,
+        "warm": false,
+        "load_ms": 700.9517500409856,
+        "preprocess_ms": 1.6192919574677944,
+        "decode_ms": 125.85529102943838,
+        "total_ms": 828.4322080435231,
+        "peak_gpu_bytes": 2724739542,
+        "active_gpu_bytes": 1296148684,
+        "vocabulary_applied": false,
+        "timestamp_granularity": "segment"
+      }
+    },
+    {
+      "build": "after",
+      "sample_rate": 48000,
+      "prepared": false,
+      "repeat": 1,
+      "boot_ms": 205.26537497062236,
+      "preparation_ms": null,
+      "preparation": null,
+      "request_ms": 1342.6260830601677,
+      "response": {
+        "model": "parakeet-v3",
+        "audio_seconds": 5.855,
+        "speech_seconds": 5.2,
+        "text": "mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+        "segments": [
+          {
+            "start": 0.38,
+            "end": 5.5,
+            "text": " mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."
+          }
+        ],
+        "words": [],
+        "language": null,
+        "silence": false,
+        "warm": false,
+        "load_ms": 327.6889589615166,
+        "preprocess_ms": 884.7101250430569,
+        "decode_ms": 129.9110830295831,
+        "total_ms": 1342.3156250501052,
+        "peak_gpu_bytes": 3042734550,
+        "active_gpu_bytes": 1296132300,
+        "vocabulary_applied": false,
+        "timestamp_granularity": "segment"
+      }
+    },
+    {
+      "build": "before",
+      "sample_rate": 16000,
+      "prepared": true,
+      "repeat": 1,
+      "boot_ms": 1070.9279170259833,
+      "preparation_ms": 788.8297500321642,
+      "preparation": {
+        "model": "parakeet-v3",
+        "load_ms": 684.9343340145424,
+        "prime_ms": 103.71187492273748,
+        "total_ms": 788.6797090759501
+      },
+      "request_ms": 54.269792046397924,
+      "response": {
+        "model": "parakeet-v3",
+        "audio_seconds": 5.855,
+        "speech_seconds": 5.2,
+        "text": "mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+        "segments": [
+          {
+            "start": 0.38,
+            "end": 5.5,
+            "text": " mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."
+          }
+        ],
+        "words": [],
+        "language": null,
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0017919810488820076,
+        "preprocess_ms": 0.41262502782046795,
+        "decode_ms": 53.52341698016971,
+        "total_ms": 53.94183401949704,
+        "peak_gpu_bytes": 2158896176,
+        "active_gpu_bytes": 1296026380,
+        "vocabulary_applied": false,
+        "timestamp_granularity": "segment"
+      }
+    },
+    {
+      "build": "after",
+      "sample_rate": 48000,
+      "prepared": false,
+      "repeat": 2,
+      "boot_ms": 207.6430410379544,
+      "preparation_ms": null,
+      "preparation": null,
+      "request_ms": 1349.5256250025705,
+      "response": {
+        "model": "parakeet-v3",
+        "audio_seconds": 5.855,
+        "speech_seconds": 5.2,
+        "text": "mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+        "segments": [
+          {
+            "start": 0.38,
+            "end": 5.5,
+            "text": " mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."
+          }
+        ],
+        "words": [],
+        "language": null,
+        "silence": false,
+        "warm": false,
+        "load_ms": 330.481042037718,
+        "preprocess_ms": 894.786125048995,
+        "decode_ms": 123.93837503623217,
+        "total_ms": 1349.2111670784652,
+        "peak_gpu_bytes": 2767378876,
+        "active_gpu_bytes": 1296099532,
+        "vocabulary_applied": false,
+        "timestamp_granularity": "segment"
+      }
+    },
+    {
+      "build": "before",
+      "sample_rate": 16000,
+      "prepared": true,
+      "repeat": 0,
+      "boot_ms": 1102.534917066805,
+      "preparation_ms": 767.8065000800416,
+      "preparation": {
+        "model": "parakeet-v3",
+        "load_ms": 665.9668339416385,
+        "prime_ms": 101.65954194962978,
+        "total_ms": 767.6568749593571
+      },
+      "request_ms": 52.05020902212709,
+      "response": {
+        "model": "parakeet-v3",
+        "audio_seconds": 5.855,
+        "speech_seconds": 5.2,
+        "text": "mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+        "segments": [
+          {
+            "start": 0.38,
+            "end": 5.5,
+            "text": " mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."
+          }
+        ],
+        "words": [],
+        "language": null,
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0020830193534493446,
+        "preprocess_ms": 0.4604170098900795,
+        "decode_ms": 51.26700003165752,
+        "total_ms": 51.7339170910418,
+        "peak_gpu_bytes": 2158965520,
+        "active_gpu_bytes": 1296013804,
+        "vocabulary_applied": false,
+        "timestamp_granularity": "segment"
+      }
+    },
+    {
+      "build": "after",
+      "sample_rate": 16000,
+      "prepared": false,
+      "repeat": 2,
+      "boot_ms": 218.50312501192093,
+      "preparation_ms": null,
+      "preparation": null,
+      "request_ms": 502.9052500613034,
+      "response": {
+        "model": "parakeet-v3",
+        "audio_seconds": 5.855,
+        "speech_seconds": 5.2,
+        "text": "mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+        "segments": [
+          {
+            "start": 0.38,
+            "end": 5.5,
+            "text": " mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."
+          }
+        ],
+        "words": [],
+        "language": null,
+        "silence": false,
+        "warm": false,
+        "load_ms": 367.3774170456454,
+        "preprocess_ms": 0.4920830251649022,
+        "decode_ms": 134.70866694115102,
+        "total_ms": 502.5845830095932,
+        "peak_gpu_bytes": 2710821382,
+        "active_gpu_bytes": 1296115916,
+        "vocabulary_applied": false,
+        "timestamp_granularity": "segment"
+      }
+    },
+    {
+      "build": "before",
+      "sample_rate": 16000,
+      "prepared": false,
+      "repeat": 2,
+      "boot_ms": 1094.609208055772,
+      "preparation_ms": null,
+      "preparation": null,
+      "request_ms": 820.1483329758048,
+      "response": {
+        "model": "parakeet-v3",
+        "audio_seconds": 5.855,
+        "speech_seconds": 5.2,
+        "text": "mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+        "segments": [
+          {
+            "start": 0.38,
+            "end": 5.5,
+            "text": " mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."
+          }
+        ],
+        "words": [],
+        "language": null,
+        "silence": false,
+        "warm": false,
+        "load_ms": 697.5636249408126,
+        "preprocess_ms": 0.47924998216331005,
+        "decode_ms": 121.77320790942758,
+        "total_ms": 819.8217080207542,
+        "peak_gpu_bytes": 2568679902,
+        "active_gpu_bytes": 1296099532,
+        "vocabulary_applied": false,
+        "timestamp_granularity": "segment"
+      }
+    },
+    {
+      "build": "before",
+      "sample_rate": 48000,
+      "prepared": false,
+      "repeat": 2,
+      "boot_ms": 1089.8617500206456,
+      "preparation_ms": null,
+      "preparation": null,
+      "request_ms": 827.462250017561,
+      "response": {
+        "model": "parakeet-v3",
+        "audio_seconds": 5.855,
+        "speech_seconds": 5.2,
+        "text": "mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+        "segments": [
+          {
+            "start": 0.38,
+            "end": 5.5,
+            "text": " mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."
+          }
+        ],
+        "words": [],
+        "language": null,
+        "silence": false,
+        "warm": false,
+        "load_ms": 698.7312079872936,
+        "preprocess_ms": 1.7208750359714031,
+        "decode_ms": 126.68441608548164,
+        "total_ms": 827.1416660863906,
+        "peak_gpu_bytes": 2938986962,
+        "active_gpu_bytes": 1296099532,
+        "vocabulary_applied": false,
+        "timestamp_granularity": "segment"
+      }
+    },
+    {
+      "build": "after",
+      "sample_rate": 48000,
+      "prepared": true,
+      "repeat": 1,
+      "boot_ms": 209.86212498974055,
+      "preparation_ms": 1329.8725419444963,
+      "preparation": {
+        "model": "parakeet-v3",
+        "load_ms": 365.08058302570134,
+        "prime_ms": 964.5359159912914,
+        "primed_sample_rate": 48000,
+        "total_ms": 1329.6492079971358
+      },
+      "request_ms": 55.84437504876405,
+      "response": {
+        "model": "parakeet-v3",
+        "audio_seconds": 5.855,
+        "speech_seconds": 5.2,
+        "text": "mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+        "segments": [
+          {
+            "start": 0.38,
+            "end": 5.5,
+            "text": " mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."
+          }
+        ],
+        "words": [],
+        "language": null,
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0020420411601662636,
+        "preprocess_ms": 1.532917027361691,
+        "decode_ms": 53.982125013135374,
+        "total_ms": 55.52070902194828,
+        "peak_gpu_bytes": 2158912560,
+        "active_gpu_bytes": 1295993612,
+        "vocabulary_applied": false,
+        "timestamp_granularity": "segment"
+      }
+    },
+    {
+      "build": "before",
+      "sample_rate": 16000,
+      "prepared": false,
+      "repeat": 0,
+      "boot_ms": 1082.736250013113,
+      "preparation_ms": null,
+      "preparation": null,
+      "request_ms": 807.4324999470264,
+      "response": {
+        "model": "parakeet-v3",
+        "audio_seconds": 5.855,
+        "speech_seconds": 5.2,
+        "text": "mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+        "segments": [
+          {
+            "start": 0.38,
+            "end": 5.5,
+            "text": " mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."
+          }
+        ],
+        "words": [],
+        "language": null,
+        "silence": false,
+        "warm": false,
+        "load_ms": 683.3112499443814,
+        "preprocess_ms": 0.48983399756252766,
+        "decode_ms": 123.31112497486174,
+        "total_ms": 807.1174169890583,
+        "peak_gpu_bytes": 2813043162,
+        "active_gpu_bytes": 1296148684,
+        "vocabulary_applied": false,
+        "timestamp_granularity": "segment"
+      }
+    },
+    {
+      "build": "after",
+      "sample_rate": 16000,
+      "prepared": true,
+      "repeat": 1,
+      "boot_ms": 207.22879201639444,
+      "preparation_ms": 1326.6366249881685,
+      "preparation": {
+        "model": "parakeet-v3",
+        "load_ms": 363.69316605851054,
+        "prime_ms": 962.7544590039179,
+        "primed_sample_rate": 48000,
+        "total_ms": 1326.477749971673
+      },
+      "request_ms": 53.116625058464706,
+      "response": {
+        "model": "parakeet-v3",
+        "audio_seconds": 5.855,
+        "speech_seconds": 5.2,
+        "text": "mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+        "segments": [
+          {
+            "start": 0.38,
+            "end": 5.5,
+            "text": " mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."
+          }
+        ],
+        "words": [],
+        "language": null,
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.001459033228456974,
+        "preprocess_ms": 0.42416597716510296,
+        "decode_ms": 52.343167015351355,
+        "total_ms": 52.77204094454646,
+        "peak_gpu_bytes": 2159047440,
+        "active_gpu_bytes": 1296112108,
+        "vocabulary_applied": false,
+        "timestamp_granularity": "segment"
+      }
+    },
+    {
+      "build": "after",
+      "sample_rate": 16000,
+      "prepared": true,
+      "repeat": 2,
+      "boot_ms": 207.72358297836035,
+      "preparation_ms": 1317.0378329232335,
+      "preparation": {
+        "model": "parakeet-v3",
+        "load_ms": 361.6965829860419,
+        "prime_ms": 955.1512079779059,
+        "primed_sample_rate": 48000,
+        "total_ms": 1316.8841250007972
+      },
+      "request_ms": 55.10320793837309,
+      "response": {
+        "model": "parakeet-v3",
+        "audio_seconds": 5.855,
+        "speech_seconds": 5.2,
+        "text": "mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+        "segments": [
+          {
+            "start": 0.38,
+            "end": 5.5,
+            "text": " mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."
+          }
+        ],
+        "words": [],
+        "language": null,
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0017499551177024841,
+        "preprocess_ms": 0.40687492582947016,
+        "decode_ms": 54.375584004446864,
+        "total_ms": 54.78725000284612,
+        "peak_gpu_bytes": 2158932752,
+        "active_gpu_bytes": 1295997420,
+        "vocabulary_applied": false,
+        "timestamp_granularity": "segment"
+      }
+    },
+    {
+      "build": "before",
+      "sample_rate": 48000,
+      "prepared": false,
+      "repeat": 1,
+      "boot_ms": 1082.5885410886258,
+      "preparation_ms": null,
+      "preparation": null,
+      "request_ms": 853.7650830112398,
+      "response": {
+        "model": "parakeet-v3",
+        "audio_seconds": 5.855,
+        "speech_seconds": 5.2,
+        "text": "mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+        "segments": [
+          {
+            "start": 0.38,
+            "end": 5.5,
+            "text": " mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."
+          }
+        ],
+        "words": [],
+        "language": null,
+        "silence": false,
+        "warm": false,
+        "load_ms": 718.0732920533046,
+        "preprocess_ms": 1.6451249830424786,
+        "decode_ms": 133.62179102841765,
+        "total_ms": 853.3461659681052,
+        "peak_gpu_bytes": 3012239834,
+        "active_gpu_bytes": 1296132300,
+        "vocabulary_applied": false,
+        "timestamp_granularity": "segment"
+      }
+    },
+    {
+      "build": "before",
+      "sample_rate": 16000,
+      "prepared": false,
+      "repeat": 1,
+      "boot_ms": 1115.9603749401867,
+      "preparation_ms": null,
+      "preparation": null,
+      "request_ms": 786.4107920322567,
+      "response": {
+        "model": "parakeet-v3",
+        "audio_seconds": 5.855,
+        "speech_seconds": 5.2,
+        "text": "mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+        "segments": [
+          {
+            "start": 0.38,
+            "end": 5.5,
+            "text": " mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."
+          }
+        ],
+        "words": [],
+        "language": null,
+        "silence": false,
+        "warm": false,
+        "load_ms": 661.9026670232415,
+        "preprocess_ms": 0.5648749647662044,
+        "decode_ms": 123.62220790237188,
+        "total_ms": 786.095208954066,
+        "peak_gpu_bytes": 2910601674,
+        "active_gpu_bytes": 1296148684,
+        "vocabulary_applied": false,
+        "timestamp_granularity": "segment"
+      }
+    },
+    {
+      "build": "before",
+      "sample_rate": 16000,
+      "prepared": true,
+      "repeat": 2,
+      "boot_ms": 1095.0738749234006,
+      "preparation_ms": 763.1913329241797,
+      "preparation": {
+        "model": "parakeet-v3",
+        "load_ms": 661.2065000226721,
+        "prime_ms": 101.81229200679809,
+        "total_ms": 763.049624976702
+      },
+      "request_ms": 58.80279210396111,
+      "response": {
+        "model": "parakeet-v3",
+        "audio_seconds": 5.855,
+        "speech_seconds": 5.2,
+        "text": "mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+        "segments": [
+          {
+            "start": 0.38,
+            "end": 5.5,
+            "text": " mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."
+          }
+        ],
+        "words": [],
+        "language": null,
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.001374981366097927,
+        "preprocess_ms": 0.4177920054644346,
+        "decode_ms": 58.0687919864431,
+        "total_ms": 58.492082986049354,
+        "peak_gpu_bytes": 2158965520,
+        "active_gpu_bytes": 1296030188,
+        "vocabulary_applied": false,
+        "timestamp_granularity": "segment"
+      }
+    },
+    {
+      "build": "before",
+      "sample_rate": 48000,
+      "prepared": true,
+      "repeat": 0,
+      "boot_ms": 1102.1295000100508,
+      "preparation_ms": 761.3739999942482,
+      "preparation": {
+        "model": "parakeet-v3",
+        "load_ms": 664.569583022967,
+        "prime_ms": 96.63183300290257,
+        "total_ms": 761.2309580435976
+      },
+      "request_ms": 53.95879200659692,
+      "response": {
+        "model": "parakeet-v3",
+        "audio_seconds": 5.855,
+        "speech_seconds": 5.2,
+        "text": "mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+        "segments": [
+          {
+            "start": 0.38,
+            "end": 5.5,
+            "text": " mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."
+          }
+        ],
+        "words": [],
+        "language": null,
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0015830155462026596,
+        "preprocess_ms": 1.6791669186204672,
+        "decode_ms": 51.957583986222744,
+        "total_ms": 53.642624989151955,
+        "peak_gpu_bytes": 2158969328,
+        "active_gpu_bytes": 1296017612,
+        "vocabulary_applied": false,
+        "timestamp_granularity": "segment"
+      }
+    },
+    {
+      "build": "after",
+      "sample_rate": 48000,
+      "prepared": false,
+      "repeat": 0,
+      "boot_ms": 219.5814159931615,
+      "preparation_ms": null,
+      "preparation": null,
+      "request_ms": 1318.8437919598073,
+      "response": {
+        "model": "parakeet-v3",
+        "audio_seconds": 5.855,
+        "speech_seconds": 5.2,
+        "text": "mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+        "segments": [
+          {
+            "start": 0.38,
+            "end": 5.5,
+            "text": " mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."
+          }
+        ],
+        "words": [],
+        "language": null,
+        "silence": false,
+        "warm": false,
+        "load_ms": 326.82170905172825,
+        "preprocess_ms": 868.7737908912823,
+        "decode_ms": 122.93549999594688,
+        "total_ms": 1318.5357908951119,
+        "peak_gpu_bytes": 2628075976,
+        "active_gpu_bytes": 1296132300,
+        "vocabulary_applied": false,
+        "timestamp_granularity": "segment"
+      }
+    },
+    {
+      "build": "before",
+      "sample_rate": 48000,
+      "prepared": true,
+      "repeat": 2,
+      "boot_ms": 1099.3146250257269,
+      "preparation_ms": 770.3124999534339,
+      "preparation": {
+        "model": "parakeet-v3",
+        "load_ms": 668.3910000137985,
+        "prime_ms": 101.73745907377452,
+        "total_ms": 770.1634999830276
+      },
+      "request_ms": 53.92249999567866,
+      "response": {
+        "model": "parakeet-v3",
+        "audio_seconds": 5.855,
+        "speech_seconds": 5.2,
+        "text": "mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+        "segments": [
+          {
+            "start": 0.38,
+            "end": 5.5,
+            "text": " mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."
+          }
+        ],
+        "words": [],
+        "language": null,
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.002166023477911949,
+        "preprocess_ms": 1.605166937224567,
+        "decode_ms": 51.9799169851467,
+        "total_ms": 53.5917499801144,
+        "peak_gpu_bytes": 2158932752,
+        "active_gpu_bytes": 1296030188,
+        "vocabulary_applied": false,
+        "timestamp_granularity": "segment"
+      }
+    },
+    {
+      "build": "after",
+      "sample_rate": 48000,
+      "prepared": true,
+      "repeat": 0,
+      "boot_ms": 217.83462504390627,
+      "preparation_ms": 1307.3207919951528,
+      "preparation": {
+        "model": "parakeet-v3",
+        "load_ms": 363.6100000003353,
+        "prime_ms": 943.5163749149069,
+        "primed_sample_rate": 48000,
+        "total_ms": 1307.1617080131546
+      },
+      "request_ms": 55.75325002428144,
+      "response": {
+        "model": "parakeet-v3",
+        "audio_seconds": 5.855,
+        "speech_seconds": 5.2,
+        "text": "mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+        "segments": [
+          {
+            "start": 0.38,
+            "end": 5.5,
+            "text": " mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."
+          }
+        ],
+        "words": [],
+        "language": null,
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.002125045284628868,
+        "preprocess_ms": 1.5445409808307886,
+        "decode_ms": 53.885624976828694,
+        "total_ms": 55.43633294291794,
+        "peak_gpu_bytes": 2158961712,
+        "active_gpu_bytes": 1296075532,
+        "vocabulary_applied": false,
+        "timestamp_granularity": "segment"
+      }
+    }
+  ],
+  "boundary": "24 seeded-random serial fresh workers, three trials per build/rate/preparation combination. Public 16 kHz speech and its 48 kHz resampling; explicit warm precedes prepared requests. No Swift, GUI, actual microphone, endpointing, insertion or uncached OS startup. Shared active Mac; three trials establish a control, not a latency SLA."
+}
