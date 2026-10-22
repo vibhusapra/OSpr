@@ -7,9 +7,9 @@ export PATH="$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:$PATH"
 [[ "$(uname -m)" == arm64 ]] || { echo 'Apple Silicon required' >&2; exit 1; }
 [[ -x .venv/bin/python ]] || scripts/setup.sh
 scripts/build-app.sh
-app="dist/standalone/OSpr.app"
+app="${OSPR_BUNDLE_OUTPUT:-dist/standalone/OSpr.app}"
 [[ ! -e "$app" ]] || { echo "Move or remove the existing $app before rebuilding." >&2; exit 1; }
-mkdir -p dist/standalone
+mkdir -p "$(dirname "$app")"
 cp -R dist/OSpr.app "$app"
 resources="$app/Contents/Resources"
 minimum_macos="${OSPR_MACOS_TARGET:-$(sw_vers -productVersion)}"

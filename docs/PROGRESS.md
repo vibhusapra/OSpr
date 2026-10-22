@@ -65,7 +65,7 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
 ## Verification and evidence
 
-- [x] Native tests: 83 passed, covering text fidelity rules, Unicode snippets, retention/storage,
+- [x] Native tests: 88 passed, covering text fidelity rules, Unicode snippets, retention/storage,
   provider endpoint restrictions, multipart/chat/Anthropic loopback contracts,
   30 concurrent worker requests, timeout/restart, audio frame integrity/overflow,
   secure-field early rejection and recovery store restart/corrupt-metadata cases.
@@ -101,8 +101,12 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
   auto-stop, interruption and sustained-session checks on an unlocked Mac.
 - [ ] Target app matrix: TextEdit, browser, editor, secure fields, moved cursor,
   clipboard restoration and selection editing. Current code/tests are not this QA.
-- [ ] Native recovery retry/export/discard, incremental streaming and retained
-  audio playback/rate/seek/export walkthrough.
+- [x] Native public-file import, history edit, playback clock/end/pause, 0.5×/2× rate,
+  slider/segment seeking, reprocessing preserving edits, WAV and TXT/SRT export.
+  WAV preserved full float samples. Manual transcript mode 0644 and setup/privacy
+  copy issues were found and fixed in source; latest-build native retest pending.
+- [ ] Native recovery retry/export/discard, incremental streaming, recognizer-word
+  seeking and human audible-output acceptance.
 - [ ] Clean standalone installation, move/upgrade, signing/notarization and updater.
 - [ ] Neural endpointing/VAD calibration, word alignment, deeper URL/app context.
 - [x] Opt-in local audio review, speed/scrubbing, segment/word seeking and WAV

@@ -1,0 +1,76 @@
+{
+  "verified_at": "2026-10-22T18:04:11.131894+00:00",
+  "status": "partial",
+  "build": {
+    "version": "0.1.0",
+    "built_at": "2026-10-22T17:17:04.239312+00:00",
+    "git_commit": "38e104d06fa54cd89a2635295cd8bae2c6d673f3",
+    "tracked_changes": false,
+    "application_source_sha256": "47af22b74462afeef0fb0a10929d5406f9c6dd569750d76d26ea3b1e518f27d5",
+    "boundary": "Development build; ad-hoc signature; weights downloaded separately."
+  },
+  "method": "Native CUA interaction in one packaged OSpr process, using only the named public speech fixture. No microphone audio or unrelated user data is included.",
+  "fixture": "1272-128104-0000",
+  "checks": {
+    "cached_model_load": true,
+    "native_file_picker_import": true,
+    "history_edit": true,
+    "reprocess_created_separate_verbatim_record": true,
+    "original_edit_preserved": true,
+    "playback_clock_and_end": true,
+    "pause_before_end": true,
+    "rate_choices": [
+      0.5,
+      2.0
+    ],
+    "accessible_slider_seek": true,
+    "original_timestamp_seek": true,
+    "raw_timing_separate_from_edits": true,
+    "wav_export": {
+      "seconds": 5.855,
+      "subtype": "FLOAT",
+      "mode": "0o600",
+      "sha256": "837b1b4f8baa301ba3f0f3252745c6afded98b789a7a1a5ec9f1d0ab587efcdc",
+      "full_source_float_samples_preserved": true
+    },
+    "txt_export": {
+      "edit_preserved": true,
+      "mode": "0o644"
+    },
+    "srt_export": {
+      "original_text_not_edited": true,
+      "mode": "0o644"
+    }
+  },
+  "issues_found": [
+    {
+      "issue": "Manual transcript exports were mode 0644",
+      "fixed_in_source": "527a37c",
+      "latest_native_retest": false
+    },
+    {
+      "issue": "Studio retention text ignored retention setting",
+      "fixed_in_source": "527a37c",
+      "latest_native_retest": false
+    },
+    {
+      "issue": "Setup card disappeared after loading before insertion permission",
+      "fixed_in_source": "527a37c",
+      "latest_native_retest": false
+    }
+  ],
+  "remaining": [
+    "Latest export/setup UI retest",
+    "Microphone, physical device routes, PTT and interruption",
+    "Insertion/selection/secure-field/clipboard live matrix",
+    "Word-level seek UI when recognizer supplies words",
+    "Physical desktop capture and native watched-folder/recovery flows",
+    "Human audible-output listening"
+  ],
+  "temporary_test_settings": {
+    "keep_audio_original": false,
+    "keep_audio_current": true,
+    "restore_pending": true
+  },
+  "limitation": "Desktop became accessible for the public-file checks and subsequently locked again. Core export fixes pass 88 Swift tests, but this receipt only covers the recorded older packaged build."
+}
