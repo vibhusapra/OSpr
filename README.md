@@ -154,6 +154,11 @@ an unflushed edit; large-history launch loading/search indexing remain open.
 
 Model language coverage differs. Parakeet has 25 European languages and no
 vocabulary prompting in this adapter. Whisper supports broader language coverage.
+Long Parakeet imports use the direct float32 front end with bounded low-energy
+chunks and independent recognizer word timing. This avoids the previous overlap
+merger’s deletions in the tested long-file pipeline; it can still change accuracy
+at boundaries. Natural-meeting and full source results remain available.
+
 Long Qwen imports use bounded low-energy chunks and a fresh token budget per
 chunk; reaching the budget fails instead of saving partial text. Chunk timestamps
 are coarse, and cutting context can change accuracy. Exact before/after results

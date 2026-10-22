@@ -66,9 +66,13 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
   provider endpoint restrictions, multipart/chat/Anthropic loopback contracts,
   30 concurrent worker requests, timeout/restart, audio frame integrity/overflow,
   secure-field early rejection and recovery store restart/corrupt-metadata cases.
-- [x] Backend tests: 75 passed, covering normalization, invalid/media input, real AAC/FFmpeg decoding,
+- [x] Backend tests: 81 passed, covering normalization, invalid/media input, real AAC/FFmpeg decoding,
   silence without loading weights, stdio recovery, MCP boundary, Cohere layout
   adapter and streaming session fencing/packet bounds.
+- [x] Direct bounded Parakeet long-file decoding: no temporary WAV/FFmpeg round trip,
+  no overlap token merger, preserved repetitions, independent and bounded word times.
+  Hour-long synthetic WER 12.38% → 2.72%; 482/485 existing outputs identical.
+  Four natural AMI controls had mixed WER changes and unchanged poor speaker DER.
 - [x] Qwen long-file budget reset: contiguous low-energy chunks, fresh per-chunk
   token limits, no text deduplication, and explicit failure on exhausted budget.
   Hour-long output and memory improved; the ten-minute fixture worsened slightly.
@@ -122,7 +126,8 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 - [x] Exploratory rootless system-power experiment: six shipping engines plus the
   rejected legacy Cohere control, public speech, resident-model idle/load/idle,
   filtered telemetry, exact tool/source/model provenance and signed idle subtraction.
-  Shared-system drift is visible; no calibrated attribution or battery claim.
+  Shared-system drift is visible; post-fix Parakeet power was inconclusive with
+  another render active. No calibrated attribution or battery claim.
 - [ ] Equivalent installed consumer-app benchmarks, correction effort and energy;
   broader speaker/accent/noise/spontaneous dictation and code-switching evaluation.
 - [ ] Validate on lower-memory and older Apple Silicon hardware.

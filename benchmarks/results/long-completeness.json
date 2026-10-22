@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-10-22T16:49:11.362945+00:00",
+  "timestamp": "2026-10-22T17:10:11.306955+00:00",
   "manifest_sha256": "024725d90b2c7dddabef4fa9cc2fe2f278cfcdd3eb782e8899791aec1706374e",
-  "summary_source_sha256": "e2cce16fd8a0e411a7791e33636b3acea8f279590372e17ea88cd70bbd40612a",
+  "summary_source_sha256": "8b48b39d403238e6cb5a9693a2af67922b2f964aa7ebb4039252792afdc4ac82",
   "completed_models": [
     "parakeet-v3",
     "whisper-turbo",
@@ -76,13 +76,71 @@
       }
     ]
   },
+  "parakeet_before": {
+    "file": "parakeet-v3-notrim-long-session-before-direct-chunks.json",
+    "sha256": "693f5294b3069bf236a1188e9c85e358eedf57fe90b1c1b03ff3e84e8816ee42",
+    "model": "parakeet-v3",
+    "source_sha256": "f61e12f1d01095b84118de4c87447bdfc7a8de628d4f62438badc1cde13abbb1",
+    "git_commit": "2adcd5684154b6da6eec9f1d53d2da3fe113115c",
+    "working_tree_dirty": true,
+    "cases": [
+      {
+        "id": "public-concat-10m",
+        "seconds": 608.285125,
+        "error": null,
+        "score": {
+          "cases": 1,
+          "errors": 0,
+          "wer": 0.06903353057199212,
+          "cer": 0.05956158061724834,
+          "substitutions": 23,
+          "deletions": 82,
+          "insertions": 0,
+          "p50_ms": 3932.4197079986334,
+          "p95_ms": 3932.4197079986334,
+          "aggregate_rtf": 0.006464763885190573,
+          "hallucinated_silence": 0
+        },
+        "reference_words": 1521,
+        "output_words": 1439,
+        "wall_ms": 3932.4197079986334,
+        "peak_gpu_bytes": 2718515524,
+        "decoder_chunks": null,
+        "max_tokens_per_chunk": null
+      },
+      {
+        "id": "public-concat-60m",
+        "seconds": 3606.5305,
+        "error": null,
+        "score": {
+          "cases": 1,
+          "errors": 0,
+          "wer": 0.1237821080602303,
+          "cer": 0.1049369264666715,
+          "substitutions": 181,
+          "deletions": 931,
+          "insertions": 6,
+          "p50_ms": 22772.214749944396,
+          "p95_ms": 22772.214749944396,
+          "aggregate_rtf": 0.0063141611446082034,
+          "hallucinated_silence": 0
+        },
+        "reference_words": 9032,
+        "output_words": 8107,
+        "wall_ms": 22772.214749944396,
+        "peak_gpu_bytes": 2910404932,
+        "decoder_chunks": null,
+        "max_tokens_per_chunk": null
+      }
+    ]
+  },
   "models": {
     "parakeet-v3": {
       "file": "parakeet-v3-notrim-long-session.json",
-      "sha256": "693f5294b3069bf236a1188e9c85e358eedf57fe90b1c1b03ff3e84e8816ee42",
+      "sha256": "d0d288a60d152b57869936e1839bf6c9460b5abe153a294f6ed7087f15779f46",
       "model": "parakeet-v3",
-      "source_sha256": "f61e12f1d01095b84118de4c87447bdfc7a8de628d4f62438badc1cde13abbb1",
-      "git_commit": "2adcd5684154b6da6eec9f1d53d2da3fe113115c",
+      "source_sha256": "f718d7a9c4dc59b146e5cd87241c3a6b4ba43560ca9e9fce2fc96fdb88505124",
+      "git_commit": "6ce7abc2728797df3d0cc61f5d899b3f17cb2cd1",
       "working_tree_dirty": true,
       "cases": [
         {
@@ -92,21 +150,21 @@
           "score": {
             "cases": 1,
             "errors": 0,
-            "wer": 0.06903353057199212,
-            "cer": 0.05956158061724834,
-            "substitutions": 23,
-            "deletions": 82,
+            "wer": 0.015121630506245891,
+            "cer": 0.00490337467551197,
+            "substitutions": 21,
+            "deletions": 2,
             "insertions": 0,
-            "p50_ms": 3932.4197079986334,
-            "p95_ms": 3932.4197079986334,
-            "aggregate_rtf": 0.006464763885190573,
+            "p50_ms": 3582.2411249391735,
+            "p95_ms": 3582.2411249391735,
+            "aggregate_rtf": 0.005889082237444445,
             "hallucinated_silence": 0
           },
           "reference_words": 1521,
-          "output_words": 1439,
-          "wall_ms": 3932.4197079986334,
-          "peak_gpu_bytes": 2718515524,
-          "decoder_chunks": null,
+          "output_words": 1519,
+          "wall_ms": 3582.2411249391735,
+          "peak_gpu_bytes": 2731516228,
+          "decoder_chunks": 23,
           "max_tokens_per_chunk": null
         },
         {
@@ -116,21 +174,21 @@
           "score": {
             "cases": 1,
             "errors": 0,
-            "wer": 0.1237821080602303,
-            "cer": 0.1049369264666715,
-            "substitutions": 181,
-            "deletions": 931,
-            "insertions": 6,
-            "p50_ms": 22772.214749944396,
-            "p95_ms": 22772.214749944396,
-            "aggregate_rtf": 0.0063141611446082034,
+            "wer": 0.02723649247121346,
+            "cer": 0.010629282583956805,
+            "substitutions": 178,
+            "deletions": 57,
+            "insertions": 11,
+            "p50_ms": 30649.5325419819,
+            "p95_ms": 30649.5325419819,
+            "aggregate_rtf": 0.008498342809517874,
             "hallucinated_silence": 0
           },
           "reference_words": 9032,
-          "output_words": 8107,
-          "wall_ms": 22772.214749944396,
-          "peak_gpu_bytes": 2910404932,
-          "decoder_chunks": null,
+          "output_words": 8986,
+          "wall_ms": 30649.5325419819,
+          "peak_gpu_bytes": 2753864004,
+          "decoder_chunks": 132,
           "max_tokens_per_chunk": null
         }
       ]
@@ -806,6 +864,368 @@
       }
     }
   ],
+  "parakeet_short_checks": [
+    {
+      "before_file": "parakeet-v3.json",
+      "after_file": "parakeet-v3-after-long-fix.json",
+      "before_sha256": "4b8c23ee40d4b6a269352acf5d406cf69975c9daf73e3185c187ddd6657a349f",
+      "after_sha256": "eb5b39719faf528d146d07cc01835bd5c0de386c9270e0afedfc8584177054d3",
+      "cases": 100,
+      "changed_outputs": [
+        {
+          "id": "long-concat",
+          "seconds": 111.755,
+          "error": null
+        }
+      ],
+      "summary_before": {
+        "human-clean": {
+          "cases": 73,
+          "errors": 0,
+          "wer": 0.035652173913043476,
+          "cer": 0.012048192771084338,
+          "substitutions": 35,
+          "deletions": 3,
+          "insertions": 3,
+          "p50_ms": 46.007458004169166,
+          "p95_ms": 92.01130836736401,
+          "aggregate_rtf": 0.007925393565057058,
+          "hallucinated_silence": 0
+        },
+        "human-long": {
+          "cases": 1,
+          "errors": 0,
+          "wer": 0.051181102362204724,
+          "cer": 0.028472821397756688,
+          "substitutions": 11,
+          "deletions": 2,
+          "insertions": 0,
+          "p50_ms": 773.7303749890998,
+          "p95_ms": 773.7303749890998,
+          "aggregate_rtf": 0.00692345197073151,
+          "hallucinated_silence": 0
+        },
+        "human-noise10db": {
+          "cases": 12,
+          "errors": 0,
+          "wer": 0.0429042904290429,
+          "cer": 0.015861571737563085,
+          "substitutions": 10,
+          "deletions": 2,
+          "insertions": 1,
+          "p50_ms": 58.38783347280696,
+          "p95_ms": 141.4288186875637,
+          "aggregate_rtf": 0.006776981612267273,
+          "hallucinated_silence": 0
+        },
+        "human-quiet": {
+          "cases": 12,
+          "errors": 0,
+          "wer": 0.052805280528052806,
+          "cer": 0.0273972602739726,
+          "substitutions": 14,
+          "deletions": 2,
+          "insertions": 0,
+          "p50_ms": 56.72533297911286,
+          "p95_ms": 138.75989607768128,
+          "aggregate_rtf": 0.006677932980389483,
+          "hallucinated_silence": 0
+        },
+        "silence": {
+          "cases": 2,
+          "errors": 0,
+          "wer": null,
+          "cer": null,
+          "substitutions": null,
+          "deletions": null,
+          "insertions": null,
+          "p50_ms": 0.3918129950761795,
+          "p95_ms": 0.4369444097392261,
+          "aggregate_rtf": 7.83625990152359e-05,
+          "hallucinated_silence": 0
+        }
+      },
+      "summary_after": {
+        "human-clean": {
+          "cases": 73,
+          "errors": 0,
+          "wer": 0.035652173913043476,
+          "cer": 0.012048192771084338,
+          "substitutions": 35,
+          "deletions": 3,
+          "insertions": 3,
+          "p50_ms": 68.39604105334729,
+          "p95_ms": 147.96514119952917,
+          "aggregate_rtf": 0.011589903875157525,
+          "hallucinated_silence": 0
+        },
+        "human-long": {
+          "cases": 1,
+          "errors": 0,
+          "wer": 0.047244094488188976,
+          "cer": 0.026747195858498704,
+          "substitutions": 10,
+          "deletions": 2,
+          "insertions": 0,
+          "p50_ms": 1116.9374160235748,
+          "p95_ms": 1116.9374160235748,
+          "aggregate_rtf": 0.009994518509449912,
+          "hallucinated_silence": 0
+        },
+        "human-noise10db": {
+          "cases": 12,
+          "errors": 0,
+          "wer": 0.0429042904290429,
+          "cer": 0.015861571737563085,
+          "substitutions": 10,
+          "deletions": 2,
+          "insertions": 1,
+          "p50_ms": 75.98974998109043,
+          "p95_ms": 189.75983714335587,
+          "aggregate_rtf": 0.008986307179375843,
+          "hallucinated_silence": 0
+        },
+        "human-quiet": {
+          "cases": 12,
+          "errors": 0,
+          "wer": 0.052805280528052806,
+          "cer": 0.0273972602739726,
+          "substitutions": 14,
+          "deletions": 2,
+          "insertions": 0,
+          "p50_ms": 80.67995851160958,
+          "p95_ms": 197.0120206242426,
+          "aggregate_rtf": 0.008780730551074025,
+          "hallucinated_silence": 0
+        },
+        "silence": {
+          "cases": 2,
+          "errors": 0,
+          "wer": null,
+          "cer": null,
+          "substitutions": null,
+          "deletions": null,
+          "insertions": null,
+          "p50_ms": 0.5451249307952821,
+          "p95_ms": 0.5640249175485224,
+          "aggregate_rtf": 0.00010902498615905643,
+          "hallucinated_silence": 0
+        }
+      }
+    },
+    {
+      "before_file": "parakeet-v3-test-clean.json",
+      "after_file": "parakeet-v3-test-clean-after-long-fix.json",
+      "before_sha256": "6fce8035eafb0e9484e2f5743698797d9d16399cac6b45a8609793483e0996a6",
+      "after_sha256": "69d767a9df9ff23af6c8f0a584e4ab8e0ecd03ed89ee7a83529427d3c15d2040",
+      "cases": 200,
+      "changed_outputs": [
+        {
+          "id": "7021-79730-0003",
+          "seconds": 32.88,
+          "error": null
+        }
+      ],
+      "summary_before": {
+        "librispeech-test-clean": {
+          "cases": 200,
+          "errors": 0,
+          "wer": 0.025558419243986254,
+          "cer": 0.007151931492024656,
+          "substitutions": 99,
+          "deletions": 16,
+          "insertions": 4,
+          "p50_ms": 60.93633297132328,
+          "p95_ms": 123.21544828009787,
+          "aggregate_rtf": 0.007344795091695931,
+          "hallucinated_silence": 0
+        }
+      },
+      "summary_after": {
+        "librispeech-test-clean": {
+          "cases": 200,
+          "errors": 0,
+          "wer": 0.025128865979381444,
+          "cer": 0.007151931492024656,
+          "substitutions": 98,
+          "deletions": 15,
+          "insertions": 4,
+          "p50_ms": 67.06506252521649,
+          "p95_ms": 136.20903774863103,
+          "aggregate_rtf": 0.00812879664426946,
+          "hallucinated_silence": 0
+        }
+      }
+    },
+    {
+      "before_file": "parakeet-v3-test-other.json",
+      "after_file": "parakeet-v3-test-other-after-long-fix.json",
+      "before_sha256": "02e8247153584929986a664212fcbb10efcb3d593098ff9c5ca318fc54bd83ae",
+      "after_sha256": "6b591e9f3620ac3dee769cd682fff2112cdbf2f3a444dddfae06acb274c0af70",
+      "cases": 165,
+      "changed_outputs": [],
+      "summary_before": {
+        "librispeech-test-other": {
+          "cases": 165,
+          "errors": 0,
+          "wer": 0.039562560308780956,
+          "cer": 0.01459691760521636,
+          "substitutions": 100,
+          "deletions": 18,
+          "insertions": 5,
+          "p50_ms": 50.25362491142005,
+          "p95_ms": 100.89203317183998,
+          "aggregate_rtf": 0.007949873105706388,
+          "hallucinated_silence": 0
+        }
+      },
+      "summary_after": {
+        "librispeech-test-other": {
+          "cases": 165,
+          "errors": 0,
+          "wer": 0.039562560308780956,
+          "cer": 0.01459691760521636,
+          "substitutions": 100,
+          "deletions": 18,
+          "insertions": 5,
+          "p50_ms": 55.328749935142696,
+          "p95_ms": 119.32090886402874,
+          "aggregate_rtf": 0.009018686563945437,
+          "hallucinated_silence": 0
+        }
+      }
+    },
+    {
+      "before_file": "parakeet-v3-fleurs-es_419-fleurs.json",
+      "after_file": "parakeet-v3-fleurs-es_419-fleurs-after-long-fix.json",
+      "before_sha256": "ebf85e68fb17315c5ba1b2eeae73457bbfe63f90646a487568d6be66631f1e34",
+      "after_sha256": "d4866c7da92c71a855f187dedde3079a81542ca6938ec05b969a92cd30c1387f",
+      "cases": 10,
+      "changed_outputs": [],
+      "summary_before": {
+        "fleurs-es_419": {
+          "cases": 10,
+          "errors": 0,
+          "wer": 0.03404255319148936,
+          "cer": 0.00856898029134533,
+          "substitutions": 6,
+          "deletions": 2,
+          "insertions": 0,
+          "p50_ms": 69.01406240649521,
+          "p95_ms": 114.04786239727395,
+          "aggregate_rtf": 0.006773799650936879,
+          "hallucinated_silence": 0
+        }
+      },
+      "summary_after": {
+        "fleurs-es_419": {
+          "cases": 10,
+          "errors": 0,
+          "wer": 0.03404255319148936,
+          "cer": 0.00856898029134533,
+          "substitutions": 6,
+          "deletions": 2,
+          "insertions": 0,
+          "p50_ms": 67.09902052534744,
+          "p95_ms": 109.64574396493839,
+          "aggregate_rtf": 0.006498128361833085,
+          "hallucinated_silence": 0
+        }
+      }
+    },
+    {
+      "before_file": "parakeet-v3-fleurs-de_de-fleurs.json",
+      "after_file": "parakeet-v3-fleurs-de_de-fleurs-after-long-fix.json",
+      "before_sha256": "79bd0739becc836ce2789474a3377cca355e6c238a90d1023d1e62bc46e44d48",
+      "after_sha256": "f8fb6b0f4c55bd4b5726190c7a3b2454e1d46f4f4886175de3fc106c8e33fe7d",
+      "cases": 10,
+      "changed_outputs": [
+        {
+          "id": "fleurs-de_de-009",
+          "seconds": 43.38,
+          "error": null
+        }
+      ],
+      "summary_before": {
+        "fleurs-de_de": {
+          "cases": 10,
+          "errors": 0,
+          "wer": 0.036885245901639344,
+          "cer": 0.03614457831325301,
+          "substitutions": 8,
+          "deletions": 1,
+          "insertions": 0,
+          "p50_ms": 78.22581246728078,
+          "p95_ms": 182.29369141045015,
+          "aggregate_rtf": 0.006035162793635787,
+          "hallucinated_silence": 0
+        }
+      },
+      "summary_after": {
+        "fleurs-de_de": {
+          "cases": 10,
+          "errors": 0,
+          "wer": 0.036885245901639344,
+          "cer": 0.03543586109142452,
+          "substitutions": 8,
+          "deletions": 1,
+          "insertions": 0,
+          "p50_ms": 78.72852048603818,
+          "p95_ms": 159.30382498772806,
+          "aggregate_rtf": 0.005741624352552931,
+          "hallucinated_silence": 0
+        }
+      }
+    }
+  ],
+  "parakeet_meetings": {
+    "before_file": "ami-parakeet-v3.json",
+    "after_file": "ami-parakeet-v3-after-long-fix.json",
+    "before_sha256": "c17cec6cc85a663fa0732e696f5002de3eb684496152eeb97147fcc5c2dcb220",
+    "after_sha256": "b8281c176bb72e8c8484098ddc4b3a4df6e3ab2184537339920c8c5a4fecd6c2",
+    "cases": [
+      {
+        "id": "ami-ES2004a-180s",
+        "wer_before": 0.17049180327868851,
+        "wer_after": 0.17704918032786884,
+        "der_0ms_before": 0.3159235668789809,
+        "der_0ms_after": 0.3159235668789809,
+        "der_250ms_before": 0.2981522685498694,
+        "der_250ms_after": 0.2981522685498694,
+        "bounded_ordered_recognizer_words": 276
+      },
+      {
+        "id": "ami-EN2002a-180s",
+        "wer_before": 0.2559055118110236,
+        "wer_after": 0.23622047244094488,
+        "der_0ms_before": 0.29954760878931497,
+        "der_0ms_after": 0.29954760878931497,
+        "der_250ms_before": 0.26632117377843584,
+        "der_250ms_after": 0.26632117377843584,
+        "bounded_ordered_recognizer_words": 453
+      },
+      {
+        "id": "ami-IS1009a-180s",
+        "wer_before": 0.22382671480144403,
+        "wer_after": 0.21299638989169675,
+        "der_0ms_before": 0.3095779381239498,
+        "der_0ms_after": 0.3095779381239498,
+        "der_250ms_before": 0.28621019870720615,
+        "der_250ms_after": 0.28621019870720615,
+        "bounded_ordered_recognizer_words": 296
+      },
+      {
+        "id": "ami-TS3003a-180s",
+        "wer_before": 0.1696969696969697,
+        "wer_after": 0.15757575757575756,
+        "der_0ms_before": 0.3717819646195887,
+        "der_0ms_after": 0.3717819646195887,
+        "der_250ms_before": 0.34659736884846515,
+        "der_250ms_after": 0.34659736884846515,
+        "bounded_ordered_recognizer_words": 308
+      }
+    ]
+  },
   "boundary": "One warm decode per deterministic 10-minute/hour-long input per model. Complete utterance concatenation, repeated public read speech, 250ms gaps. In-process Engine, no microphone, UI or insertion.",
   "limitations": [
     "Not natural long conversation, independent new speakers, full-corpus or production accuracy.",

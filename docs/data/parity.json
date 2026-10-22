@@ -12,8 +12,8 @@
     {
       "feature": "Local Metal inference: Parakeet v3",
       "status": "verified",
-      "evidence": "100 stress/regression cases + 365 stratified human test clips; raw outputs committed.",
-      "gap": "",
+      "evidence": "485 regression/English/supported-language cases rerun after direct long-file decoding; 482 outputs identical. Synthetic hour WER 12.38% → 2.72%. Four natural AMI controls retained bounded word timing with mixed WER and unchanged speaker DER.",
+      "gap": "Synthetic joins are not natural long conversation; shared-system timings and power are not isolated.",
       "priority": "P0"
     },
     {
