@@ -378,3 +378,28 @@ distribution or a claim of full union parity/top-three product placement.
   captured app was Google Chrome. Only a silent 0.1-second public-fixture
   playback preflight ran; no speech was played into an unintended target.
   The frozen Soniox ZIP and its 215-test evidence remain an older snapshot.
+
+## Local refinement fidelity
+
+- [x] JSON-quoted transcript data and explicit task routing separate ordinary
+  cleanup from deliberate selection editing and extractive source-ID notes.
+  Type/task/size validation happens before model loading; the pinned refiner,
+  one-resident-model policy and source-selection output budget are unchanged.
+- [x] Clean questions cannot lose every question mark; short inputs also receive
+  expansion checks. Curly apostrophes and additional English negative
+  contractions are recognized by the native preservation tripwire.
+- [x] A source-verified old engine and final source `f8ba4a0` replayed the same
+  36 synthetic cases with the actual Clean instruction. Raw lexical checks:
+  28/36 → 31/36. All 72 raw outputs repeated exactly. The same current Swift
+  guard rejected 12 old-prompt and six candidate outputs. All final lexical
+  sentinels survived by using the original when rejected; this is not a semantic
+  score or a measure of successful model edits. Raw negation/content losses remain.
+- [x] Eight task smokes and two exact-span notes smokes passed on the cached local
+  4B refiner. Five Swift guard regressions include all 72 recorded-output decisions.
+  Local full validation: 224 Swift / 105 Python tests, lint, release app build and
+  strict signature verification. Build source is clean `f8ba4a0`; the app is an
+  ad-hoc development build. Receipts: `refinement-fidelity-v1.json`,
+  `refinement-task-smoke.json`, `refinement-validation.json`.
+- [ ] Representative, independently graded rewrite fidelity and native selection
+  replacement remain open. The new prompt does not guarantee preservation;
+  refinement stays optional/off. The frozen Soniox ZIP predates these changes.

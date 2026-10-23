@@ -180,8 +180,8 @@
     {
       "feature": "Local text refinement",
       "status": "partial",
-      "evidence": "Qwen3 4B Instruct selected after 1.7B dropped a sentence; preservation tripwire.",
-      "gap": "A guard is not semantic proof; wider edit evaluation pending.",
+      "evidence": "Pinned Qwen3 4B Instruct; JSON-quoted transcript input and separate deliberate selection-edit/source-ID tasks. Five Swift guard regressions cover question removal, short expansions, curly/additional English negations and all 72 recorded before/after model-output decisions. A 36-case synthetic development/challenge replay with the actual Clean instruction improved raw lexical sentinels from 28 to 31 passes; the same current native guard required 12 previous-prompt versus six candidate original-text fallbacks. Final lexical sentinels survived all cases, including fallback. Eight task and two exact-span notes smokes passed; all 224 Swift and 105 Python tests, lint and the local release app build pass at clean source f8ba4a0.",
+      "gap": "Raw candidate outputs still lost negations/content or changed number/path formatting in six cases, requiring fallback. Substring checks and native tripwires are not semantic proof. Refinement remains optional and off by default. Native selection replacement and representative, independently graded rewrite evaluation remain unverified. The frozen soniox-v0 ZIP predates this change.",
       "priority": "P0"
     },
     {

@@ -111,6 +111,10 @@ an Apple Development signed preview with native interaction gates still open.
 - Optional local Qwen3 4B Instruct refinement, Ollama/compatible services, or BYOK
   compatible/Anthropic rewriting. Refinement can change meaning; raw text is kept
   and a conservative preservation check rejects several obvious regressions.
+  Local cleanup now passes the transcript as JSON-quoted data, with separate
+  tasks for deliberate selection editing and extractive notes. A 36-case probe
+  still required six original-text fallbacks. Refinement stays off by default;
+  [raw outputs and limits](docs/architecture/refinement-fidelity.md) are published.
 - Separate optional BYOK audio transcription with compatible endpoints (including
   Groq and the current OpenAI `gpt-transcribe` request contract). Oversized audio
   is normalized locally into contiguous PCM16 parts of at most ten minutes. Each

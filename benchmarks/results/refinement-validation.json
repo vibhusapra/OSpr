@@ -1,0 +1,28 @@
+{
+  "status": "development-validation-passed",
+  "build": {
+    "version": "0.1.0",
+    "built_at": "2026-10-23T19:59:43.568177+00:00",
+    "git_commit": "f8ba4a063f7696449b5bdbe6d0f49c4678de582f",
+    "tracked_changes": false,
+    "application_source_sha256": "7402e042fa3e53fdc65621825dd540f86cd5ba054e51d47af753d4d05b333001",
+    "source_manifest_version": 2,
+    "signing_mode": "ad-hoc",
+    "boundary": "Development build; ad-hoc signature; not notarized; weights downloaded separately."
+  },
+  "application_sha256": "33ae776086ccc7debf2d1ba331c554ea982fed4e9739941addee4a0d77d689e9",
+  "cli_sha256": "0588afdbd99f685e46a6d6309b242557197b0c5b1a5f40369c5fda784a1ff9a6",
+  "checks": {
+    "swift_tests": 224,
+    "python_tests": 105,
+    "ruff": true,
+    "release_build": true,
+    "deep_strict_code_signature": true,
+    "model_replay_outputs": 72,
+    "candidate_cases": 36,
+    "same_outputs_on_repeat": true,
+    "task_smokes": 8,
+    "notes_smokes": 2
+  },
+  "boundary": "Local source, build, protocol, recorded-output fallback and offline model checks. Development/ad-hoc app; no native dictation/insertion/selection acceptance, portable-package validation or notarization is claimed. The frozen soniox-v0 ZIP predates this source."
+}
