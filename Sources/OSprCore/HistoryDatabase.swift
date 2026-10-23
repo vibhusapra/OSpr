@@ -161,6 +161,12 @@ public final class HistoryDatabase {
         try execute("PRAGMA journal_mode=DELETE; PRAGMA synchronous=FULL; PRAGMA secure_delete=ON; PRAGMA temp_store=MEMORY; PRAGMA cache_size=-4096;")
         if version == 0 { try createSchema() }
         else if version == 1 { try upgradeVersionOne() }
+        else if try integer("SELECT v FROM history_search_config WHERE k='version'") < 5 {
+            // Earlier v2 builds could leave format 4 committed until the first
+            // delete. A failed first delete can leave old SQLite's cached format
+            // ahead of the rolled-back disk metadata. Commit format 5 up front.
+            try transaction { try seedSecureDeleteFormat(); try verifyIntegrity() }
+        }
         try migrateLegacyIfNeeded()
     }
 
@@ -189,6 +195,7 @@ public final class HistoryDatabase {
                 PRAGMA user_version=2;
                 """)
             try execute(Self.triggerSQL)
+            try seedSecureDeleteFormat()
         }
     }
 
@@ -224,15 +231,22 @@ public final class HistoryDatabase {
             try execute("DROP TRIGGER IF EXISTS history_insert; DROP TRIGGER IF EXISTS history_delete; DROP TRIGGER IF EXISTS history_update;")
             try execute(Self.triggerSQL)
             // A v1 archive may already contain secure-deleted data with stale
-            // FTS format metadata. One temporary empty row, inserted and removed
+            // FTS format metadata. One temporary probe, inserted and removed
             // through the normal API, upgrades that metadata without rebuilding
             // or repairing any existing index entry. No probe survives commit.
-            let probe = Transcript(rawText: "", text: "", model: "storage-format-upgrade", mode: .verbatim, duration: 0, latencyMS: 0)
-            try put(probe)
-            try execute("DELETE FROM history WHERE id=?", [.text(probe.id.uuidString)])
+            try seedSecureDeleteFormat()
             try verifyIntegrity()
             try execute("PRAGMA user_version=2")
         }
+    }
+
+    private func seedSecureDeleteFormat() throws {
+        // Actual tokens are needed: newer SQLite may avoid changing format for
+        // an empty document that has no posting lists to delete.
+        let text = "OSpr history format migration probe"
+        let probe = Transcript(rawText: text, text: text, model: "storage-format-upgrade", mode: .verbatim, duration: 0, latencyMS: 0)
+        try put(probe)
+        try execute("DELETE FROM history WHERE id=?", [.text(probe.id.uuidString)])
     }
 
     private func migrateLegacyIfNeeded() throws {
@@ -538,6 +552,9 @@ public final class HistoryDatabase {
         try execute("UPDATE history_stats SET records=0,words=0 WHERE singleton=1")
         try execute(trigger)
         try execute("DELETE FROM history_meta WHERE key='legacy_sha256'")
+        // FTS rebuild deliberately resets format metadata to 4. Commit the
+        // secure-delete format before exposing this store to a fallible edit.
+        try seedSecureDeleteFormat()
     }
 
     public func verifyIntegrity() throws {

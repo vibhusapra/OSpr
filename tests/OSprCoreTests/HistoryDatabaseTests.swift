@@ -335,6 +335,31 @@ final class HistoryDatabaseTests: XCTestCase {
         XCTAssertEqual(try Data(contentsOf: path.appendingPathComponent(HistoryDatabase.fileName)), bytes)
     }
 
+    func testSecureDeleteFormatIsCommittedBeforeFallibleUserEditsAndAfterClearing() throws {
+        let path = try directory(), database = try HistoryDatabase(directory: path)
+        func format() -> Int64 {
+            var connection: OpaquePointer?, statement: OpaquePointer?
+            XCTAssertEqual(sqlite3_open(path.appendingPathComponent(HistoryDatabase.fileName).path, &connection), SQLITE_OK)
+            defer { sqlite3_finalize(statement); sqlite3_close(connection) }
+            XCTAssertEqual(sqlite3_prepare_v2(connection, "SELECT v FROM history_search_config WHERE k='version'", -1, &statement, nil), SQLITE_OK)
+            XCTAssertEqual(sqlite3_step(statement), SQLITE_ROW)
+            return sqlite3_column_int64(statement, 0)
+        }
+        XCTAssertGreaterThanOrEqual(format(), 5)
+        var original = record("Before"), invalid = record("Bad row")
+        try database.upsert([original]); original.text = "After"; invalid.duration = .nan
+        XCTAssertThrowsError(try database.upsert([original, invalid]))
+        XCTAssertGreaterThanOrEqual(format(), 5)
+        try database.upsert([original])
+        // Use a separate connection: old SQLite's cached format could otherwise
+        // hide stale on-disk metadata after rolling back its first deletion.
+        let observer = try HistoryDatabase(directory: path)
+        try observer.verifyIntegrity()
+        try database.clear()
+        XCTAssertGreaterThanOrEqual(format(), 5)
+        try observer.verifyIntegrity()
+    }
+
     func testClearRemovesSavedTextSearchStatsAndAudioLinks() throws {
         let path = try directory(), database = try HistoryDatabase(directory: path)
         let sentinel = "ZXQ_ONLY_PRIVATE_PAYLOAD_9281463720"

@@ -18,6 +18,14 @@ def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def seed_sql():
+    return "INSERT INTO history(id,created,text,raw,preview,mode,model,app,duration,latency,word_count,payload) VALUES('upgrade-probe',1,'OSpr history format migration probe','OSpr history format migration probe','','verbatim','','',0,0,5,x'7b7d'); DELETE FROM history WHERE id='upgrade-probe';\n"
+
+
+def format_sql():
+    return "SELECT CASE WHEN (SELECT v FROM history_search_config WHERE k='version')>=5 THEN 'seeded-format' ELSE 'wrong-format' END;\n"
+
+
 LEGACY_COMMIT = "1dc00b49806bc112e4627ec2d6fb724119b6e54f"
 
 
@@ -28,7 +36,7 @@ def schema(legacy=False):
     source = (ROOT / "Sources/OSprCore/HistoryDatabase.swift").read_text()
     tables = re.search(r"CREATE TABLE history \(.*?PRAGMA user_version=2;", source, re.S).group()
     triggers = re.search(r'private static let triggerSQL = """(.*?)"""', source, re.S).group(1)
-    return tables + "\n" + triggers
+    return tables + "\n" + triggers + "\nBEGIN IMMEDIATE; " + seed_sql() + "COMMIT;\n" + format_sql()
 
 
 def fixture(legacy=False):
@@ -57,23 +65,29 @@ def run(shell):
     number = int(parts[0]) * 1_000_000 + int(parts[1]) * 1_000 + int(parts[2])
     assert number >= 3_042_000, version
     cases = []
-    for name in ("legacy_special_delete", "current_maintenance", "current_empty_index", "legacy_empty_upgrade", "legacy_corrupt_upgrade", "divergent_index"):
+    for name in ("legacy_special_delete", "current_maintenance", "current_empty_index", "legacy_nonempty_upgrade", "legacy_empty_upgrade", "legacy_corrupt_upgrade", "stable_format_after_rollback", "divergent_index"):
         sql = fixture(legacy=name.startswith("legacy"))
         if name in ("current_empty_index", "legacy_empty_upgrade"):
             sql += "DELETE FROM history;\n"
         if name == "legacy_corrupt_upgrade":
             sql += "DELETE FROM history_search;\n"
-        if name in ("legacy_empty_upgrade", "legacy_corrupt_upgrade"):
+        if name in ("legacy_nonempty_upgrade", "legacy_empty_upgrade", "legacy_corrupt_upgrade"):
             triggers = re.search(r'private static let triggerSQL = """(.*?)"""', (ROOT / "Sources/OSprCore/HistoryDatabase.swift").read_text(), re.S).group(1)
             sql += "BEGIN IMMEDIATE; DROP TRIGGER history_insert; DROP TRIGGER history_delete; DROP TRIGGER history_update;\n" + triggers
-            sql += "INSERT INTO history(id,created,text,raw,preview,mode,model,app,duration,latency,word_count,payload) VALUES('upgrade-probe',1,'','','','verbatim','','',0,0,0,x'7b7d'); DELETE FROM history WHERE id='upgrade-probe';\n"
+            sql += seed_sql()
+        if name == "stable_format_after_rollback":
+            sql += "BEGIN IMMEDIATE; UPDATE history SET text='uncommitted text' WHERE id='recent'; ROLLBACK; UPDATE history SET text='committed text' WHERE id='recent'; SELECT CASE WHEN (SELECT v FROM history_search_config WHERE k='version')>=5 THEN 'stable-format' ELSE 'wrong-format' END;\n"
         if name == "divergent_index":
             sql += "DELETE FROM history_search;\n"
         sql += "PRAGMA quick_check;\nINSERT INTO history_search(history_search,rank) VALUES('integrity-check',1);\n"
-        if name in ("legacy_empty_upgrade", "legacy_corrupt_upgrade"):
-            sql += "PRAGMA user_version=2; COMMIT;\n"
+        if name in ("legacy_nonempty_upgrade", "legacy_empty_upgrade", "legacy_corrupt_upgrade"):
+            sql += "PRAGMA user_version=2; COMMIT;\n" + format_sql()
         result = subprocess.run([str(shell), "-batch", ":memory:"], input=sql, capture_output=True, text=True, timeout=30)
-        success = result.returncode == 0 and result.stdout.splitlines()[-1] == "ok"
+        success = result.returncode == 0 and "ok" in result.stdout.splitlines()
+        if name not in ("legacy_special_delete", "legacy_corrupt_upgrade"):
+            assert "seeded-format" in result.stdout and "wrong-format" not in result.stdout, (version, name, result.stdout, result.stderr)
+        if name == "stable_format_after_rollback":
+            assert "stable-format" in result.stdout and "wrong-format" not in result.stdout
         if name == "legacy_special_delete":
             assert success == (number >= 3_046_001), (version, name, result.stdout, result.stderr)
         elif name not in ("divergent_index", "legacy_corrupt_upgrade"):
