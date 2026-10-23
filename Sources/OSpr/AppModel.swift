@@ -729,10 +729,9 @@ import OSprCore
         defer {
             if let uploadSnapshot { Task { try? await audioArchive.discardUploadSource(uploadSnapshot) } }
             if let archived {
+                let keep = historyState.retainsResultAudio(id: recordID, name: archived.name)
                 Task {
                     do {
-                        let record = try await historyState.record(id: recordID)
-                        let keep = historyState.savingEnabled && record?.audioFile == archived.name
                         try await audioArchive.finishLease(archived.name, keep: keep); audioBytesUsed = try await audioArchive.bytesUsed()
                     }
                     catch { self.error = "Audio cleanup: \(error.localizedDescription)" }

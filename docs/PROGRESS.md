@@ -175,13 +175,14 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
   upgrades. Forty-five controls across five runtimes still reject damaged indexes.
   Current source wires the repository into AppModel and a paged/debounced history
   UI, field-specific edits/notes, full-record copy/export, settings durability
-  and an asynchronous quit barrier. Ten presentation/application regressions add
+  and an asynchronous quit barrier. Eleven presentation/application regressions add
   coverage for startup migration, complete details, selection and failed saves/quit.
   A separate 235-record native QA profile passes migration, full edits, pagination,
   session-only/restore, pending-edit quit/restart, complete TXT export and context
-  copy through TextEdit. Every persisted full payload is verified. All 196 Swift
-  and 94 Python tests plus runtime/package CI pass on macOS 15. The previously
-  packaged preview still uses JSON; a new package remains before upgrade acceptance. See `architecture/indexed-history.md`.
+  copy through TextEdit. Every persisted full payload is verified. The application stage passes macOS 15 CI with 196 Swift/94 Python tests; the
+  additional no-query audio-lease regression raises local coverage to 197 Swift
+  tests. Distribution remains a developer preview; normal-archive upgrade and
+  broader native workflow acceptance are separate from isolated history QA. See `architecture/indexed-history.md`.
 - [x] Experimental speaker-labeled file imports with recognizer word timestamps;
   stitched-speech and natural AMI prefix measurements. Labels still need review.
 - [x] Experimental ScreenCaptureKit desktop plus optional microphone capture, separate

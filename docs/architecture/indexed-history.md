@@ -143,7 +143,7 @@ including failures and explicit retry results. UI consumers must always perform
 committed audio cleanup even when their presentation token is stale.
 
 The storage stage passed 186 local Swift tests and macOS 15 CI run 39880778334.
-Current source adds ten presentation/application regressions, including actual
+Current source adds eleven presentation/application regressions, including actual
 AppModel startup migration, full detail/copy access, search/paging, notes/edits,
 background-selection preservation, session mode and failed/successful quit. SQLite before 3.46.1 has a documented
 [secure-delete format issue](https://www.sqlite.org/releaselog/3_46_1.html): its
@@ -212,7 +212,7 @@ transaction, clears all content, recreates the empty index, resets counters and
 restores the exact trigger. `secure_delete` stays enabled. Encoding failure later
 in the batch rolls back content, index, counters and trigger together. Ordinary
 individual deletions retain their normal maintenance. Current source checks
-total 196 Swift tests, including 15 session tests, two bulk-clear and two v1-upgrade regressions.
+total 197 Swift tests, including 15 session tests, two bulk-clear and two v1-upgrade regressions.
 
 The revised 100,000-record control passed. All ordered complete-payload hashes
 and counts match before, during and after the round trip, as does the selected
@@ -265,3 +265,9 @@ characters of the complete edited record. See
 `benchmarks/results/history-native-ui.json`. macOS 15 CI run 39881939294 passes
 196 Swift/94 Python tests and the app/report/standalone runtime checks. These
 checks do not measure end-to-end latency or validate microphone/shortcut/insertion.
+
+Audio lease completion uses the complete cached result published by the current
+transcriber, without opening or querying the archive. A failed take publishes no
+result, so an unrelated unreadable legacy file cannot prevent releasing its lease.
+Successfully recognized text/audio remains available after a save failure. A
+regression covers both cases plus stripped audio; the local suite totals 197.

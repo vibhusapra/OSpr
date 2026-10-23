@@ -109,6 +109,14 @@ import OSprCore
         return try await repository.record(id: id)
     }
 
+    /// The transcriber ends its lease before admitting another take. Its newest
+    /// result is a complete cached record, including failed/pending saves. A
+    /// failed ASR take was never published here and must release its audio even
+    /// if an unrelated unreadable archive prevents repository queries.
+    func retainsResultAudio(id: UUID, name: String) -> Bool {
+        savingEnabled && latest?.id == id && latest?.audioFile == name
+    }
+
     func submit(_ value: Transcript, select: Bool) {
         var record = value
         if !savingEnabled { record.audioFile = nil }

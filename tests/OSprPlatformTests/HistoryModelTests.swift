@@ -184,4 +184,23 @@ final class HistoryModelTests: XCTestCase {
         let pending = try await app.historyState.record(id: value.id)
         XCTAssertEqual(pending?.text, value.text)
     }
+
+    @MainActor func testAudioLeaseDecisionDoesNotReadAnUnreadableArchive() async throws {
+        let path = try directory()
+        try Data("broken history".utf8).write(to: path.appendingPathComponent("history.json"))
+        let model = HistoryModel(repository: HistoryRepository(directory: path), saving: true)
+        var completed = record("Recognized but not yet durable")
+        completed.audioFile = "owned-result.wav"
+        let failedTake = UUID()
+        // No transcript was admitted for failedTake; it must not leak a lease
+        // just because a history read would throw on the corrupt legacy input.
+        XCTAssertFalse(model.retainsResultAudio(id: failedTake, name: "failed-take.wav"))
+        model.submit(completed, select: true)
+        do { try await model.flush(); XCTFail("Expected migration failure") } catch {}
+        XCTAssertTrue(model.retainsResultAudio(id: completed.id, name: "owned-result.wav"))
+        XCTAssertFalse(model.retainsResultAudio(id: completed.id, name: "different.wav"))
+        XCTAssertFalse(model.retainsResultAudio(id: failedTake, name: "failed-take.wav"))
+        model.stripAudio(.all)
+        XCTAssertFalse(model.retainsResultAudio(id: completed.id, name: "owned-result.wav"))
+    }
 }
