@@ -309,9 +309,18 @@ distribution or a claim of full union parity/top-three product placement.
   Receipts: `soniox-upload-parts.json`, `soniox-compatible-regression.json` and
   `soniox-deepgram-regression.json` under `benchmarks/results/`. Fake provider
   sentinels prove transport, not real recognition, account quotas or latency.
-- [ ] Soniox native picker/Keychain acceptance, real account quality/quota checks
-  and WebSocket streaming remain. See `architecture/soniox-byok.md`. The frozen
-  history-v0 ZIP predates this source integration.
+- [x] Native Soniox picker defaults, dummy Keychain save/quit/restart/use, short
+  public-file import and persisted text/times passed. Injected cleanup failure
+  retains text and a History warning. Source `054de0b` also shows this warning in
+  Studio after restart and discloses cloud charges in the footer. Dummy key
+  removed, isolated app reset local-only/quit, fixture server stopped; normal
+  preview settings/history remain unchanged. Receipt: `soniox-native-ui.json`.
+- [x] Source `e9b196c` passes macOS 15 CI run 39891673474 (215 Swift/94 Python,
+  report/app build and clean-runner standalone runtime). The later Studio-only
+  fix compiled and passed native presentation checks; its CI is separate.
+- [ ] Soniox long-file native UI, real account quality/quota and WebSocket
+  streaming remain. See `architecture/soniox-byok.md`. The frozen history-v0 ZIP
+  predates this source integration.
 - [x] After manual unlock, the same-identity history candidate loaded its separate
   fixture profile with both permissions ready. The shortcut recorder accepted
   Command–Shift–Y, but neither that chord nor Control–Option–Space started capture

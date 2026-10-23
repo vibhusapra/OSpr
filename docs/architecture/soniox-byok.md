@@ -71,7 +71,16 @@ All 76,800,000 samples, nine part offsets and all 36 create/delete lifecycle eve
 passed. Compatible/Deepgram controls passed on the same source. The fake provider
 text is a sentinel, not recognition or a paid-account quality/latency result.
 
-Native Soniox picker/Keychain/restart acceptance remains pending. No real
+Native Soniox picker defaults, dummy Keychain save/quit/restart/use, a short
+public-file import and persisted full text/timing passed in a distinct fixture
+app at source `e9b196c`. Injected cleanup failure retained text and a History
+warning. Source `054de0b` also shows warnings in Studio after restart and
+discloses provider charges in the cloud footer. The dummy key was removed,
+the QA app reset local-only and quit, and the fixture server stopped. Normal
+preview settings/history were unchanged. See
+[the native receipt](../../benchmarks/results/soniox-native-ui.json) for build
+fingerprints and boundaries. Source `e9b196c` passes macOS 15 CI 39891673474.
+Soniox long-file native UI and real-account checks remain separate. No real
 Soniox account call or Soniox real-time WebSocket path has been tested/implemented.
 Part boundaries can affect real recognition context; actual quota, retention and
 accuracy behavior remain controlled by Soniox.
