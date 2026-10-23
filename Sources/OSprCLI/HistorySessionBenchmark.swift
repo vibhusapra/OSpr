@@ -58,14 +58,14 @@ enum HistorySessionBenchmark {
         let disableMS = Double(DispatchTime.now().uptimeNanoseconds - start) / 1e6
         let session = try await repository.statistics(), sessionHash = try await repository.contentFingerprint()
         let clearedBytes = try bytes()
-        let cleared = try HistoryDatabase(directory: directory)
-        guard try cleared.statistics() == HistoryStatistics(records: 0, words: 0), try cleared.page(query: "API").rows.isEmpty else {
-            throw OSprError.message("Session transition did not clear disk content and search.")
-        }
-        try cleared.verifyIntegrity()
-        let clearedEmpty = try cleared.statistics().records == 0
-        // Explicitly scope the extra read connection before the next transfer.
-        withExtendedLifetime(cleared) {}
+        let clearedEmpty: Bool = try {
+            let cleared = try HistoryDatabase(directory: directory)
+            guard try cleared.statistics() == HistoryStatistics(records: 0, words: 0), try cleared.page(query: "API").rows.isEmpty else {
+                throw OSprError.message("Session transition did not clear disk content and search.")
+            }
+            try cleared.verifyIntegrity()
+            return true
+        }()
         start = DispatchTime.now().uptimeNanoseconds
         repository.setSaving(true); try await repository.flushAsync()
         let enableMS = Double(DispatchTime.now().uptimeNanoseconds - start) / 1e6

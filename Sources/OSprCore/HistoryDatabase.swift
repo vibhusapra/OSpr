@@ -155,11 +155,12 @@ public final class HistoryDatabase {
         }
         sqlite3_busy_timeout(database, 2_000)
         let version = try integer("PRAGMA user_version")
-        guard version == 0 || version == 1 else {
+        guard version == 0 || version == 1 || version == 2 else {
             throw OSprError.message("This history database needs a newer OSpr version. Existing files were preserved.")
         }
         try execute("PRAGMA journal_mode=DELETE; PRAGMA synchronous=FULL; PRAGMA secure_delete=ON; PRAGMA temp_store=MEMORY; PRAGMA cache_size=-4096;")
         if version == 0 { try createSchema() }
+        else if version == 1 { try upgradeVersionOne() }
         try migrateLegacyIfNeeded()
     }
 
@@ -185,21 +186,52 @@ public final class HistoryDatabase {
                 INSERT INTO history_stats VALUES(1,0,0);
                 CREATE VIRTUAL TABLE history_search USING fts5(text,raw,content='history',content_rowid='position',tokenize='trigram');
                 INSERT INTO history_search(history_search,rank) VALUES('secure-delete',1);
-                CREATE TRIGGER history_insert AFTER INSERT ON history BEGIN
-                    INSERT INTO history_search(rowid,text,raw) VALUES(new.position,new.text,new.raw);
-                    UPDATE history_stats SET records=records+1,words=words+new.word_count WHERE singleton=1;
-                END;
-                CREATE TRIGGER history_delete AFTER DELETE ON history BEGIN
-                    INSERT INTO history_search(history_search,rowid,text,raw) VALUES('delete',old.position,old.text,old.raw);
-                    UPDATE history_stats SET records=records-1,words=words-old.word_count WHERE singleton=1;
-                END;
-                CREATE TRIGGER history_update AFTER UPDATE ON history BEGIN
-                    INSERT INTO history_search(history_search,rowid,text,raw) VALUES('delete',old.position,old.text,old.raw);
-                    INSERT INTO history_search(rowid,text,raw) VALUES(new.position,new.text,new.raw);
-                    UPDATE history_stats SET words=words-old.word_count+new.word_count WHERE singleton=1;
-                END;
-                PRAGMA user_version=1;
+                PRAGMA user_version=2;
                 """)
+            try execute(Self.triggerSQL)
+        }
+    }
+
+    // Normal FTS DELETE runs BEFORE the content row changes, so the external
+    // index can read its old columns. Unlike FTS's special 'delete' command,
+    // this correctly upgrades secure-delete format metadata on SQLite <3.46.1.
+    // Unchanged text/raw avoids index work for notes, audio and case-only edits.
+    private static let triggerSQL = """
+        CREATE TRIGGER history_insert AFTER INSERT ON history BEGIN
+            INSERT INTO history_search(rowid,text,raw) VALUES(new.position,new.text,new.raw);
+            UPDATE history_stats SET records=records+1,words=words+new.word_count WHERE singleton=1;
+        END;
+        CREATE TRIGGER history_delete BEFORE DELETE ON history BEGIN
+            DELETE FROM history_search WHERE rowid=old.position;
+            UPDATE history_stats SET records=records-1,words=words-old.word_count WHERE singleton=1;
+        END;
+        CREATE TRIGGER history_search_before_update BEFORE UPDATE OF text,raw ON history
+        WHEN old.text IS NOT new.text OR old.raw IS NOT new.raw BEGIN
+            DELETE FROM history_search WHERE rowid=old.position;
+        END;
+        CREATE TRIGGER history_search_update AFTER UPDATE OF text,raw ON history
+        WHEN old.text IS NOT new.text OR old.raw IS NOT new.raw BEGIN
+            INSERT INTO history_search(rowid,text,raw) VALUES(new.position,new.text,new.raw);
+        END;
+        CREATE TRIGGER history_update AFTER UPDATE OF word_count ON history
+        WHEN old.word_count != new.word_count BEGIN
+            UPDATE history_stats SET words=words-old.word_count+new.word_count WHERE singleton=1;
+        END;
+        """
+
+    private func upgradeVersionOne() throws {
+        try transaction {
+            try execute("DROP TRIGGER IF EXISTS history_insert; DROP TRIGGER IF EXISTS history_delete; DROP TRIGGER IF EXISTS history_update;")
+            try execute(Self.triggerSQL)
+            // A v1 archive may already contain secure-deleted data with stale
+            // FTS format metadata. One temporary empty row, inserted and removed
+            // through the normal API, upgrades that metadata without rebuilding
+            // or repairing any existing index entry. No probe survives commit.
+            let probe = Transcript(rawText: "", text: "", model: "storage-format-upgrade", mode: .verbatim, duration: 0, latencyMS: 0)
+            try put(probe)
+            try execute("DELETE FROM history WHERE id=?", [.text(probe.id.uuidString)])
+            try verifyIntegrity()
+            try execute("PRAGMA user_version=2")
         }
     }
 
@@ -509,15 +541,6 @@ public final class HistoryDatabase {
     }
 
     public func verifyIntegrity() throws {
-        try verifyIntegrity(mergingForLegacyRuntime: sqlite3_libversion_number() < 3_046_001)
-    }
-
-    // SQLite 3.46.1 fixed false corruption reports after FTS5 secure deletion.
-    // Merge the existing index on older runtimes before checking it; do not
-    // rebuild from content, which could hide a genuinely divergent index.
-    // https://www.sqlite.org/releaselog/3_46_1.html
-    func verifyIntegrity(mergingForLegacyRuntime: Bool) throws {
-        if mergingForLegacyRuntime { try execute("INSERT INTO history_search(history_search) VALUES('optimize')") }
         var checks: [String] = []
         try rows("PRAGMA quick_check") { checks.append(text($0, 0)) }
         guard checks == ["ok"] else { throw OSprError.message("History database integrity check failed.") }

@@ -28,6 +28,26 @@ final class HistoryDatabaseTests: XCTestCase {
         defer { sqlite3_close(connection) }
         XCTAssertEqual(sqlite3_exec(connection, statement, nil, nil, nil), SQLITE_OK)
     }
+    private func versionOneTriggers(at directory: URL) throws {
+        try sql("""
+            DROP TRIGGER history_insert; DROP TRIGGER history_delete; DROP TRIGGER history_update;
+            DROP TRIGGER history_search_before_update; DROP TRIGGER history_search_update;
+            CREATE TRIGGER history_insert AFTER INSERT ON history BEGIN
+                INSERT INTO history_search(rowid,text,raw) VALUES(new.position,new.text,new.raw);
+                UPDATE history_stats SET records=records+1,words=words+new.word_count WHERE singleton=1;
+            END;
+            CREATE TRIGGER history_delete AFTER DELETE ON history BEGIN
+                INSERT INTO history_search(history_search,rowid,text,raw) VALUES('delete',old.position,old.text,old.raw);
+                UPDATE history_stats SET records=records-1,words=words-old.word_count WHERE singleton=1;
+            END;
+            CREATE TRIGGER history_update AFTER UPDATE ON history BEGIN
+                INSERT INTO history_search(history_search,rowid,text,raw) VALUES('delete',old.position,old.text,old.raw);
+                INSERT INTO history_search(rowid,text,raw) VALUES(new.position,new.text,new.raw);
+                UPDATE history_stats SET words=words-old.word_count+new.word_count WHERE singleton=1;
+            END;
+            PRAGMA user_version=1;
+            """, at: directory)
+    }
 
     func testMigrationPreservesEveryFieldAndArchiveOrderAcrossRestart() throws {
         let path = try directory()
@@ -242,14 +262,14 @@ final class HistoryDatabaseTests: XCTestCase {
         try database.verifyIntegrity()
     }
 
-    func testLegacyIntegrityMergeStillRejectsDivergentSearchContent() throws {
+    func testIntegrityChecksRejectDivergentSearchContent() throws {
         let path = try directory(), database = try HistoryDatabase(directory: path)
         let original = record("Known content")
         try database.upsert([original])
-        try database.verifyIntegrity(mergingForLegacyRuntime: true)
+        try database.verifyIntegrity()
         // Remove only its index entry, retaining the actual payload/content.
-        try sql("INSERT INTO history_search(history_search,rowid,text,raw) SELECT 'delete',position,text,raw FROM history", at: path)
-        XCTAssertThrowsError(try database.verifyIntegrity(mergingForLegacyRuntime: true))
+        try sql("DELETE FROM history_search", at: path)
+        XCTAssertThrowsError(try database.verifyIntegrity())
         XCTAssertEqual(try database.record(id: original.id)?.text, original.text)
     }
 
@@ -281,6 +301,38 @@ final class HistoryDatabaseTests: XCTestCase {
         XCTAssertEqual(try database.statistics().records, 0)
         XCTAssertTrue(try database.page(query: "Fresh").rows.isEmpty)
         try database.verifyIntegrity()
+    }
+
+    func testVersionOneUpgradePreservesAllPayloadsAndOrderIncludingEmptyArchives() throws {
+        for empty in [false, true] {
+            let path = try directory(), items = (0..<12).map { record("Version one \($0)") }
+            let before: String
+            do {
+                let original = try HistoryDatabase(directory: path)
+                try original.upsert(empty ? [] : items)
+                before = try original.contentFingerprint()
+            }
+            try versionOneTriggers(at: path)
+            let migrated = try HistoryDatabase(directory: path)
+            XCTAssertEqual(try migrated.contentFingerprint(), before)
+            XCTAssertEqual(try migrated.statistics().records, empty ? 0 : items.count)
+            XCTAssertEqual(try migrated.page().rows.map(\.id), empty ? [] : items.reversed().map(\.id))
+            try migrated.verifyIntegrity()
+            let fresh = record("Fresh after upgrade")
+            try migrated.upsert([fresh]); try migrated.remove(ids: [fresh.id])
+            XCTAssertEqual(try migrated.contentFingerprint(), before)
+            try migrated.verifyIntegrity()
+        }
+    }
+
+    func testFailedVersionOneUpgradeDoesNotRepairOrOverwriteADamagedIndex() throws {
+        let path = try directory(), original = record("Retain original content")
+        do { let database = try HistoryDatabase(directory: path); try database.upsert([original]) }
+        try versionOneTriggers(at: path)
+        try sql("DELETE FROM history_search", at: path) // Corrupt only the derived index.
+        let bytes = try Data(contentsOf: path.appendingPathComponent(HistoryDatabase.fileName))
+        XCTAssertThrowsError(try HistoryDatabase(directory: path))
+        XCTAssertEqual(try Data(contentsOf: path.appendingPathComponent(HistoryDatabase.fileName)), bytes)
     }
 
     func testClearRemovesSavedTextSearchStatsAndAudioLinks() throws {
