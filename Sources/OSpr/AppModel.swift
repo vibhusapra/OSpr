@@ -78,6 +78,14 @@ import OSprCore
     private var target: InsertionTarget?
     private var recordingMode: WritingMode = .clean
     private var recordingSettings = OSprSettings()
+    @Published private(set) var recordingProfileTitle: String?
+    var activeDictationModel: String? {
+        guard phase == "recording", !recordingDesktop else { return nil }
+        return recordingSettings.transcriptionProvider == "local"
+            ? (ProfileSpeechModel(rawValue: recordingSettings.model)?.title ?? recordingSettings.model)
+            : recordingSettings.transcriptionModel
+    }
+    var activeDictationStyle: WritingMode? { phase == "recording" && !recordingDesktop ? recordingMode : nil }
     private var recordingURL: URL?
     private var previewTask: Task<Void, Never>?
     private var operationTask: Task<Void, Never>?
@@ -422,10 +430,14 @@ import OSprCore
         audioReview.pause()
         guard !hasRecovery else { error = "Retry, export or discard the unfinished recording first."; tab = "Studio"; return }
         let captured = InsertionTarget.capture()
+        guard captured.focusConsistent else { error = "Focus changed before dictation started. Focus the destination and try again."; return }
         if captured.secure { error = "Recording is disabled in password fields."; return }
         target = captured.app?.bundleIdentifier == Bundle.main.bundleIdentifier ? nil : captured
-        recordingSettings = settings
-        recordingMode = settings.mode(for: target?.app?.bundleIdentifier ?? "")
+        let bundleID = target?.app?.bundleIdentifier ?? ""
+        let document = settings.profileDocument(for: bundleID) { target?.profileDocument() }
+        recordingSettings = settings.resolvedProfile(for: bundleID, document: document)
+        recordingMode = recordingSettings.mode
+        recordingProfileTitle = settings.matchingProfile(for: bundleID, document: document)?.title
         if recordingMode == .assistant && target?.selectedText.isEmpty != false { error = "Select text in the destination app before starting dictation."; return }
         generation = UUID(); let token = generation
         phase = "starting"; error = ""; preview = ""

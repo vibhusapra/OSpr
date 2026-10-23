@@ -1,0 +1,33 @@
+{
+  "status": "source-contracts-passed-native-partial",
+  "verified_at": "2026-10-23T21:06:30.049045+00:00",
+  "build": {
+    "version": "0.1.0",
+    "built_at": "2026-10-23T20:58:32.526239+00:00",
+    "git_commit": "2b7c02f2bdf331eac27df0c47b3df5bbb862cbf6",
+    "tracked_changes": false,
+    "application_source_sha256": "1417167dba5c6b4f2e1dedf34c099b771b6bfe490d983703920b025f787093dd",
+    "source_manifest_version": 2,
+    "signing_mode": "ad-hoc",
+    "boundary": "Development build; ad-hoc signature; not notarized; weights downloaded separately."
+  },
+  "application_sha256": "e70ab8efe018cdbea1a9a52caae00c74ce5ee8710af2251c80766a6fe67f8bd7",
+  "cli_sha256": "b0ae9a0e6a9990ae60881eb049cfa00bbcee092a725813deee53303eb2d09a36",
+  "checks": {
+    "swift_tests": 244,
+    "python_tests": 105,
+    "new_profile_and_document_tests": 20,
+    "cli_black_box_cases": 17,
+    "lint": true,
+    "release_build": true,
+    "deep_strict_signature": true,
+    "legacy_profiles_decode": true,
+    "modern_profiles_disabled_for_legacy_decoders": true,
+    "query_fragment_absent_from_snapshot": true,
+    "ax_process_id_api_control": true,
+    "synthetic_ancestor_ownership": true
+  },
+  "native_receipt": "context-profiles-native-ui.json",
+  "cli_receipt": "context-profile-cli.json",
+  "boundary": "Core matching, validation, serialization, snapshot, synthetic ancestor traversal, actual AX process-ID API and real CLI contracts pass. Native app/Modes startup is observed, but the automation service crashes while inspecting the editor sheet; no save/restart, live browser URL, microphone model/language switch or insertion acceptance is claimed. Existing refinement-v0 delivery and normal app/data are preserved; that ZIP predates this source."
+}

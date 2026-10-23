@@ -442,3 +442,69 @@ distribution or a claim of full union parity/top-three product placement.
   streaming/desktop acceptance, real provider accounts, clean-Mac installation,
   Developer ID/notarization and updater acceptance remain. No full union parity
   or top-three claim follows from this preview.
+
+
+## App and site profiles
+
+- [x] Source `2b7c02f` adds exact app/site rules, segment-bounded path prefixes,
+  deterministic specificity/fallback and immutable per-take settings. Profiles
+  choose writing mode, local model, recognition hint, Custom instruction and
+  translation target. Provider endpoints/credentials, insertion and retention
+  remain global choices. Imports/desktop capture retain their explicit settings.
+- [x] The editor adds app selection, naming, enable/disable, edit and duplicate-rule
+  validation. Studio reflects the active take's model/style; the HUD labels a profile.
+  Legacy app-only settings decode; extended profiles encode inactive for older
+  decoders so a site rule cannot silently broaden to its whole app.
+- [x] URL lookup is opt-in by enabled site rule for that app, follows at most 24
+  owned ancestors, selects the outer web area/window metadata and strips query/
+  fragment before matching. It reads no page text/address-bar/clipboard data.
+  An 80 ms admission deadline and temporary 10 ms per-object timeouts are not a
+  measured latency SLA. AX ownership is checked before selected-text capture
+  and before insertion; inconsistent initial focus prevents microphone start.
+- [x] Full local validation: 244 Swift / 105 Python tests, lint and release build.
+  Twenty new Swift contracts and 17 real dry-run CLI cases pass; the CLI harness
+  is in CI. CLI resolution runs with an unavailable engine root and calls no
+  model, microphone or provider. See `context-profiles-validation.json` and
+  `context-profile-cli.json`; implementation references are checked separately.
+- [x] Native startup and Modes presentation worked in a separate development-signed
+  fixture profile with both permissions ready. The normal app was restored and
+  settings/history match its private backup; zero QA history/audio was admitted.
+- [ ] Add profile inspection crashed SkyComputerUseService, including full AX and
+  screenshot attempts; OSpr stayed running. The disposable QA process was stopped.
+  No sheet visual/save/restart, live Chrome/Safari URL, model/language switch or
+  insertion pass is claimed. See `context-profiles-native-ui.json`. The existing
+  `refinement-v0` archive is preserved and predates these source changes.
+
+## App/site profile preview delivery
+
+- [x] Packaged source/docs head `db0987a` passes macOS 15 CI 40024734584:
+  244 Swift / 105 Python tests, 17 CLI profile cases, lint, app/report build and
+  clean-runner bundled-runtime imports. Decoded job 120657954042 confirms counts.
+- [x] New `dist/context-profiles-v0/OSpr.app` includes the profile implementation
+  and has the same application source fingerprint as the locally tested `2b7c02f`.
+  Relocated offline tests pass all six ASR engines, notes, speaker words, audio
+  utilities, model management/progress, CLI review and MCP. Metal is available;
+  the bundled MLX interpreter reports `Device(gpu, 0)` as its default.
+- [x] All 17 profile cases and three raw rewrite smokes pass through the bundled
+  Swift CLI. Both synthetic hour files pass again: Parakeet WER 2.72%, Qwen 2.37%.
+  All three 80-minute provider transports preserve every sample and timestamp
+  offset; Soniox removes all nine fake jobs/files. Timings and fake responses are
+  functional diagnostics, not product speed or provider-quality measurements.
+- [x] Verified ZIP: 383,408,121 bytes; SHA-256
+  `2d1ab59699891f28a97e8240860c6b61a415380ec688cc00c032a833915a096e`.
+  CRC, extraction, deep signatures and extracted CLI inventory pass. The 66,898
+  archive entries exclude private test directories, stores and checkout markers.
+  Receipts: `context-profiles-release-package.json` and
+  `context-profiles-delivery-validation.json` bind the exact app and related checks.
+  The bundled report precedes these final receipts; earlier previews are preserved.
+- [x] An isolated same-identity copy retained both permissions and started the
+  real microphone after countdown. TextEdit's owned fixture appeared focused to
+  automation, but OSpr captured another foreground app. The take was discarded
+  before recognition; no speech fixture played or insertion attempted. Zero QA
+  history/audio/recovery remains. Normal app/settings/history were restored
+  unchanged. See `context-profiles-insertion-preflight.json`.
+- [ ] Native profile sheet/save/restart, real browser metadata and model/language
+  routing, physical Fn/PTT, successful owned-field insertion, streaming/desktop
+  acceptance, clean-Mac installation, Developer ID/notarization and updater remain.
+  The preview is Apple Development signed, with separate model downloads.
+  Full feature-union and top-three product placement remain unproven.
