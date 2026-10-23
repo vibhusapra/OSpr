@@ -12,6 +12,11 @@ Nemotron 3.5 ASR and Nemotron 3 Diarization: NVIDIA, OpenMDW 1.1 (review pinned 
 Cohere Transcribe: Cohere Labs, Apache 2.0; native-layout 8-bit shipping route,
 legacy Swift-layout conversion and full-precision controls are research-only.
 Voxtral Mini 4B Realtime: Mistral AI, Apache 2.0; research-only MLX conversion.
+Silero VAD: Silero Team, MIT; optional speech-detection research.
+Core ML conversions: FluidInference, MIT. https://huggingface.co/FluidInference/silero-vad-coreml
+MLX conversion: MLX Community, MIT. https://huggingface.co/mlx-community/silero-vad-v6
+VAD weights are downloaded separately. The native adapter does not vendor
+FluidAudio implementation source; optional MLX evaluation uses installed mlx-audio (MIT).
 
 LibriSpeech: Vassil Panayotov, Guoguo Chen, Daniel Povey and Sanjeev Khudanpur;
 LibriVox readers, CC BY 4.0. https://www.openslr.org/12/

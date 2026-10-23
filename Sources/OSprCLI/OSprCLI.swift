@@ -11,6 +11,21 @@ import OSprCore
         do {
             let result: [String: Any]
             switch command {
+            case "_benchmark-speech-endpoints":
+                guard (2...4).contains(args.count) else { usage(); exit(2) }
+                result = ["records": try SpeechDetection.endpoints(manifestURL: URL(fileURLWithPath: args[1]),
+                    silenceSeconds: args.count >= 3 ? Double(args[2]) ?? .nan : 1.2,
+                    windowFrames: args.count == 4 ? Int(args[3]) ?? 0 : 1)]
+            case "analyze-speech", "_benchmark-speech-detector":
+                guard (3...5).contains(args.count) else { usage(); exit(2) }
+                let silence = args.count == 5 ? Double(args[4]) ?? .nan : 1.2
+                if command == "analyze-speech" {
+                    result = try SpeechDetection.run(audioURL: URL(fileURLWithPath: args[1]), modelURL: URL(fileURLWithPath: args[2]),
+                        units: args.count >= 4 ? args[3] : "cpu", silenceSeconds: silence)
+                } else {
+                    result = try SpeechDetection.replay(manifestURL: URL(fileURLWithPath: args[1]), modelURL: URL(fileURLWithPath: args[2]),
+                        units: args.count >= 4 ? args[3] : "cpu", silenceSeconds: silence)
+                }
             case "resolve-profile":
                 guard (3...4).contains(args.count) else { usage(); exit(2) }
                 result = try ProfileResolution.run(file: URL(fileURLWithPath: args[1]), bundleID: args[2], document: args.count == 4 ? args[3] : nil)
@@ -83,5 +98,5 @@ import OSprCore
             print(String(data: data, encoding: .utf8)!)
         } catch { FileHandle.standardError.write(Data((error.localizedDescription + "\n").utf8)); exit(1) }
     }
-    static func usage() { print("OSpr · Apple Silicon dictation\nUsage: ospr-cli resolve-profile <settings.json> <bundle-id> [document-url] | doctor | models | download <model> | warm [model] | transcribe <audio> [model] | transcribe-cloud <audio> <base-url> <model> [language] | transcribe-deepgram <audio> <base-url> <model> [language] | transcribe-soniox <audio> <base-url> <model> [language] | meeting <audio> [model] | benchmark <audio> [model] [repeats] | benchmark-history [rows] [edits] | benchmark-history-index [rows] [repeats] | benchmark-history-session [rows] | verify-audio-review <short-audio> | rewrite <text>\ntranscribe-cloud (compatible) transcribe-deepgram (native Listen), and transcribe-soniox (native async jobs) explicitly upload audio to the specified provider; the key is read from OSPR_TRANSCRIPTION_KEY, never a command-line argument. Other speech commands remain local. resolve-profile only inspects the supplied settings and URL; it does not load a model or contact a provider.\nProgress is on stderr; final result is JSON on stdout.\nBundled CLI discovers its engine; development commands use the checkout or OSPR_ROOT. Models: parakeet-v3, cohere-native8, whisper-turbo, whisper-small, qwen3-asr, nemotron-streaming") }
+    static func usage() { print("OSpr · Apple Silicon dictation\nUsage: ospr-cli analyze-speech <16k-mono.wav> <model.mlmodelc> [cpu|gpu|ane|all] [silence-seconds] | resolve-profile <settings.json> <bundle-id> [document-url] | doctor | models | download <model> | warm [model] | transcribe <audio> [model] | transcribe-cloud <audio> <base-url> <model> [language] | transcribe-deepgram <audio> <base-url> <model> [language] | transcribe-soniox <audio> <base-url> <model> [language] | meeting <audio> [model] | benchmark <audio> [model] [repeats] | benchmark-history [rows] [edits] | benchmark-history-index [rows] [repeats] | benchmark-history-session [rows] | verify-audio-review <short-audio> | rewrite <text>\ntranscribe-cloud (compatible) transcribe-deepgram (native Listen), and transcribe-soniox (native async jobs) explicitly upload audio to the specified provider; the key is read from OSPR_TRANSCRIPTION_KEY, never a command-line argument. Other speech commands remain local. resolve-profile only inspects the supplied settings and URL; it does not load a model or contact a provider.\nProgress is on stderr; final result is JSON on stdout.\nBundled CLI discovers its engine; development commands use the checkout or OSPR_ROOT. Models: parakeet-v3, cohere-native8, whisper-turbo, whisper-small, qwen3-asr, nemotron-streaming") }
 }

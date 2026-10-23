@@ -508,3 +508,68 @@ distribution or a claim of full union parity/top-three product placement.
   acceptance, clean-Mac installation, Developer ID/notarization and updater remain.
   The preview is Apple Development signed, with separate model downloads.
   Full feature-union and top-three product placement remain unproven.
+
+## Neural endpointing evaluation (work in progress)
+
+- [x] Local compiled Core ML speech-probability adapter, explicit recurrent/context
+  reset, strict shapes/precision/finiteness, reusable input arrays and serial API.
+- [x] Audio-time endpoint policy with hysteresis, minimum onset, examined-silence
+  budget, one-shot completion and fail-closed discontinuities. Twelve new native
+  input/policy tests pass. A real WAV short read exposed 533 unread frames; the
+  native input reader now drains the full declared sample timeline.
+- [x] Actual Core ML reset, partial-padding and invalid-input controls pass for
+  both pinned conversions. Compiled MLX CPU probabilities match the eager path
+  within 1.5e-7 on the first public control. These are initial controls, not a
+  completed corpus result or a calibrated production detector.
+- [x] Model revisions/full file hashes and a preselected 179-case public protocol.
+  The CLI can analyze a supplied local model; no model download or service occurs
+  inside native inference. See `architecture/neural-endpointing.md`.
+- [x] Frozen `5fc2bc8` completes 179 cases, 24 compute-eligibility probes and
+  750 ASR quality records (520 actual model inferences, 42 unique bypasses and
+  reused equal inputs). All 256 Swift/105 Python tests pass. The verifier checks
+  every input/model hash, 537 native event replays and WER arithmetic. Raw traces
+  are preserved in a 1.84 MB gzip archive beside `vad-candidate-v1.json`.
+- [x] Native 32 ms CPU prediction p95 is 0.0759 ms on the shared M5 Max. Its
+  candidate edge improves Parakeet original/noisy WER; −40 dB WER is 4.34% versus
+  95.09% for default RMS edges, but two utterances still become empty. The
+  candidate is not promoted. Auto-finish cuts remain a separate quality risk.
+- [x] Freeze a causal eight-frame score and validate on excluded speakers; the
+  completed follow-up below preserves failures and all ASR hypotheses.
+- [ ] Bounded off-callback native capture/resampling, recovery and device tests.
+  Delivered previews and the GUI retain their existing behavior.
+
+## Causal-score excluded-speaker validation
+
+- [x] Native causal scoring primitive with seven policy tests; total Swift suite
+  is 263 passing tests. The native implementation matches all 89,377 stored
+  development probabilities and every derived bound/event across 179 cases.
+- [x] Fixed protocol: twenty additional clean and thirteen additional other
+  speakers, three transforms each, plus five reused negative controls (104 cases).
+  These speakers were excluded from VAD tuning, but appeared in older ASR research.
+- [x] The score retains 224 ms of extra history, which is not a bound on delay
+  under continuing weak evidence. A native counterexample test and corrected
+  interpretation preserve that distinction. A raw 1.424 s control accounts only
+  for the fixed history span; actual coverage and delays are recorded too.
+- [x] Frozen `a09b6bd` replay and 3,432 quality records across Parakeet, Whisper
+  Turbo and Cohere native 8-bit. Eleven input policies separate edges, endpoint
+  cuts and combined chains; equal sample ranges are reused per model. Cached
+  weights and process-start Hugging Face offline mode; 2,181 actual inferences.
+- [x] Independent checker verifies all 104 input hashes, 12 VAD asset files,
+  35,924 exact causal scores, 312 native/reference event traces, every ASR input
+  range/reuse flag and score arithmetic. Separate CI passes 263 Swift / 105 Python,
+  17 profile CLI cases, lint, report/app build and clean-runner runtime imports.
+- [x] Causal edges and chains introduce no new empty transcript across the 297
+  speech/model pairs. All 99 speech cases finish after their source clip end;
+  five reused negatives never arm. Parakeet raw edges introduce one new empty.
+- [x] Preserve tradeoffs: causal edge WER original/quiet/noisy is
+  4.31/6.32/5.86% Parakeet, 4.01/5.55/6.32% Whisper Turbo and
+  3.24/4.47/4.47% Cohere. Full-input controls and every hypothesis are retained.
+  Causal chains suppress all five Whisper negative hallucinations, but no-trim
+  and endpoint-only inputs hallucinate on all five. Edge improvements are not
+  universal: Parakeet has 14 worse versus 10 better transformed utterances.
+- [x] Actual causal finish delay p95 original/quiet/noisy is 1.48/2.07/1.79 s
+  after source clip end (maximum 2.28 s). The raw 1.424 s control does not match
+  those delays. Clip end is not a last-phoneme annotation; no microphone timing.
+- [ ] Experimental bounded capture integration and physical-device acceptance.
+  The candidate is eligible for an explicit experiment, not default promotion.
+  Delivered preview and GUI remain unchanged. See `architecture/neural-endpointing.md`.
