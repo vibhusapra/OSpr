@@ -54,6 +54,74 @@ public final class HistoryDatabase {
         try self.init(directory: directory, afterMigrationCommit: {})
     }
 
+    /// A pure :memory: database, never an empty-name temporary disk database.
+    /// `temp_store=MEMORY` also keeps SQLite's temporary SQL work off disk.
+    public static func inMemory() throws -> HistoryDatabase { try HistoryDatabase(memoryPageSize: 4096) }
+
+    // Optional nondefault VFS is used by the no-disk-IO regression probe.
+    init(memoryPageSize: Int64, vfs: String? = nil) throws {
+        directory = URL(fileURLWithPath: "/") // No file operations use this for an in-memory instance.
+        afterMigrationCommit = {}
+        guard sqlite3_libversion_number() >= 3_042_000, sqlite3_compileoption_used("TEMP_STORE=0") == 0 else {
+            throw OSprError.message("This SQLite runtime cannot provide session-only history storage.")
+        }
+        // MEMORY is inherited by VACUUM's internal ATTACH as well. PRIVATECACHE
+        // keeps this connection isolated even if another client enables sharing.
+        let flags = SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE | SQLITE_OPEN_FULLMUTEX | SQLITE_OPEN_MEMORY | SQLITE_OPEN_PRIVATECACHE
+        let code = vfs.map { name in name.withCString { sqlite3_open_v2(":memory:", &database, flags, $0) } }
+            ?? sqlite3_open_v2(":memory:", &database, flags, nil)
+        guard code == SQLITE_OK else {
+            throw OSprError.message("Cannot create session-only history storage.")
+        }
+        try execute("PRAGMA page_size=\(memoryPageSize); PRAGMA secure_delete=ON; PRAGMA temp_store=MEMORY; PRAGMA cache_size=-4096;")
+        try createSchema()
+        try setMetadata("ready", value: "1")
+    }
+
+    /// Snapshot all pages without materializing transcript arrays. SQLite's
+    /// backup API holds the destination write transaction until completion.
+    /// https://www.sqlite.org/backup.html
+    public func memoryCopy() throws -> HistoryDatabase {
+        let memory = try HistoryDatabase(memoryPageSize: integer("PRAGMA page_size"))
+        try copyContents(to: memory)
+        try memory.reclaimUnusedPages()
+        return memory
+    }
+
+    /// Full clearing should release disk space, and a sparse disk archive should
+    /// not retain its entire historical file size in a session snapshot. This
+    /// maintenance runs after a data commit; callers retain cleanup receipts if
+    /// it fails. Memory-store VACUUM never writes a transcript copy to disk.
+    public func reclaimUnusedPages() throws {
+        let free = try integer("PRAGMA freelist_count")
+        guard free > 0 else { return }
+        let empty = try integer("SELECT records FROM history_stats WHERE singleton=1") == 0
+        let pages = try integer("PRAGMA page_count")
+        if empty || (free > 1024 && free > pages / 4) { try execute("VACUUM") }
+    }
+
+    public func copyContents(to destination: HistoryDatabase) throws {
+        guard self !== destination, let source = database, let target = destination.database,
+              let backup = sqlite3_backup_init(target, "main", source, "main") else {
+            throw OSprError.message("Cannot prepare history transfer. Both stores were preserved.")
+        }
+        let step = sqlite3_backup_step(backup, -1)
+        let finish = sqlite3_backup_finish(backup)
+        guard step == SQLITE_DONE, finish == SQLITE_OK else {
+            throw OSprError.message("History transfer failed (SQLite \(step)). Both stores were preserved; retry the storage preference.")
+        }
+    }
+
+    /// Inspect without creating a disk store or following a dangling symlink.
+    public static func storageExists(directory: URL) throws -> Bool {
+        for name in [fileName, "history.json"] {
+            var attributes = stat()
+            if lstat(directory.appendingPathComponent(name).path, &attributes) == 0 { return true }
+            if errno != ENOENT { throw OSprError.message("Cannot inspect saved history. Existing files were preserved.") }
+        }
+        return false
+    }
+
     // Filesystem handoff boundary for interrupted/external-write regression tests.
     init(directory: URL, afterMigrationCommit: @escaping () throws -> Void) throws {
         self.afterMigrationCommit = afterMigrationCommit
@@ -300,6 +368,16 @@ public final class HistoryDatabase {
             value = HistoryStatistics(records: Int(sqlite3_column_int64(statement, 0)), words: Int(sqlite3_column_int64(statement, 1)))
         }
         return value
+    }
+
+    /// Explicit validation/export tooling only, never a render-time aggregate.
+    /// Hash every complete payload in list order without retaining the archive.
+    public func contentFingerprint() throws -> String {
+        var hash = SHA256()
+        try rows("SELECT payload FROM history ORDER BY position DESC") { statement in
+            autoreleasepool { digest(blob(statement, 0), into: &hash) }
+        }
+        return hash.finalize().map { String(format: "%02x", $0) }.joined()
     }
 
     public func page(query: String = "", before: Int64? = nil, limit: Int = 100) throws -> HistoryPage {

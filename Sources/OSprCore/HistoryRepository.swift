@@ -18,8 +18,16 @@ public final class HistoryRepository: @unchecked Sendable {
     private let open: @Sendable () throws -> HistoryDatabase
     private let reset: @Sendable () throws -> HistoryDatabase
     private let beforeCommit: @Sendable () throws -> Void
+    private let hasPersistentData: @Sendable () throws -> Bool
+    private let beforeTransition: @Sendable (Transition) throws -> Void
     private let instanceLock: AppInstanceLock?
     private var database: HistoryDatabase?
+    private var sessionDatabase: HistoryDatabase?
+    private var saveHistory: Bool
+    private var modeRequested: Bool
+    private var purgeDisk = false
+    private var sessionReadableAfterFailure = false
+    private var unacknowledgedAudio: Set<String> = []
     private var pending: [UUID: Pending] = [:]
     private var ordinal: UInt64 = 0
     private var revision: UInt64 = 0
@@ -30,17 +38,24 @@ public final class HistoryRepository: @unchecked Sendable {
     private var completion: Completion?
     private var scheduled: DispatchWorkItem?
 
-    public convenience init(directory: URL, instanceLock: AppInstanceLock? = nil) {
+    public convenience init(directory: URL, saveHistory: Bool = true, instanceLock: AppInstanceLock? = nil) {
         self.init(open: { try HistoryDatabase(directory: directory) },
-                  reset: { try HistoryDatabase.reset(directory: directory) }, instanceLock: instanceLock)
+                  reset: { try HistoryDatabase.reset(directory: directory) },
+                  hasPersistentData: { try HistoryDatabase.storageExists(directory: directory) },
+                  saveHistory: saveHistory, instanceLock: instanceLock)
     }
 
     // Injectable boundaries for slow-open, ordering and failure tests. Both
     // closures must create/return connections confined to this repository.
     init(open: @escaping @Sendable () throws -> HistoryDatabase,
          reset: @escaping @Sendable () throws -> HistoryDatabase,
-         beforeCommit: @escaping @Sendable () throws -> Void = {}, instanceLock: AppInstanceLock? = nil) {
+         beforeCommit: @escaping @Sendable () throws -> Void = {},
+         hasPersistentData: @escaping @Sendable () throws -> Bool = { true },
+         beforeTransition: @escaping @Sendable (Transition) throws -> Void = { _ in },
+         saveHistory: Bool = true, instanceLock: AppInstanceLock? = nil) {
         self.open = open; self.reset = reset; self.beforeCommit = beforeCommit
+        self.hasPersistentData = hasPersistentData; self.beforeTransition = beforeTransition
+        self.saveHistory = saveHistory; modeRequested = !saveHistory
         self.instanceLock = instanceLock
         queue.setSpecific(key: queueKey, value: true)
     }
@@ -48,8 +63,8 @@ public final class HistoryRepository: @unchecked Sendable {
     deinit {
         // SQLite destruction also belongs off the UI executor. The queue owns
         // the last connection reference once this repository is released.
-        let connection = database, lease = instanceLock
-        queue.async { withExtendedLifetime(lease) { connection?.close() } }
+        let connection = database, session = sessionDatabase, lease = instanceLock
+        queue.async { withExtendedLifetime(lease) { session?.close(); connection?.close() } }
     }
 
     /// Coalesce repeated edits to an ID; preserve the first admission order of
@@ -102,6 +117,17 @@ public final class HistoryRepository: @unchecked Sendable {
         }
     }
 
+    /// This is an ordered privacy barrier. Once admitted, subsequent submissions
+    /// cannot write transcript content to disk while saving is disabled, even if
+    /// snapshotting or erasing the old disk archive fails. Failure is surfaced;
+    /// the request and all edits remain retryable until flush succeeds.
+    public func setSaving(_ enabled: Bool, completion: Completion? = nil) {
+        queue.async { [self] in
+            saveHistory = enabled; modeRequested = true
+            schedule(delay: 0, completion: completion)
+        }
+    }
+
     public func stripAudio(_ removal: HistoryAudioRemoval = .all, completion: Completion? = nil) {
         queue.async { [self] in
             switch (audioRemoval, removal) {
@@ -118,6 +144,7 @@ public final class HistoryRepository: @unchecked Sendable {
     }
     public func statistics() async throws -> HistoryStatistics { try await read { try $0.statistics() } }
     public func audioFiles() async throws -> Set<String> { try await read { try $0.audioFiles() } }
+    public func contentFingerprint() async throws -> String { try await read { try $0.contentFingerprint() } }
 
     /// Read-your-edit without forcing a disk write per editor keystroke. Details
     /// are always a full Transcript, never reconstructed from a summary row.
@@ -145,8 +172,14 @@ public final class HistoryRepository: @unchecked Sendable {
 
     private func read<T: Sendable>(_ operation: @escaping @Sendable (HistoryDatabase) throws -> T) async throws -> T {
         try await perform {
-            _ = try self.commitPending()
-            return try operation(self.connection())
+            do { _ = try self.commitPending() }
+            catch {
+                // A failed disk purge/transfer must not make the successfully
+                // updated session disappear. The write observer still reports
+                // the failure and flush still throws until durability succeeds.
+                guard self.sessionReadableAfterFailure, self.sessionDatabase != nil else { throw error }
+            }
+            return try operation(self.activeConnection())
         }
     }
     /// Skip queued obsolete searches/details and fence completed results. An
@@ -175,8 +208,9 @@ public final class HistoryRepository: @unchecked Sendable {
     private func currentRecord(id: UUID) throws -> Transcript? {
         var record: Transcript?
         if let value = pending[id] { record = value.record }
-        else if !clearRequested { record = try connection().record(id: id) }
+        else if !clearRequested { record = try activeConnection().record(id: id) }
         if let name = record?.audioFile {
+            if !saveHistory { record?.audioFile = nil; return record }
             switch audioRemoval {
             case .all?: record?.audioFile = nil
             case .names(let names)? where names.contains(name): record?.audioFile = nil
@@ -199,6 +233,7 @@ public final class HistoryRepository: @unchecked Sendable {
     }
     private func schedule(delay: TimeInterval, completion: Completion?) {
         revision &+= 1; let token = revision
+        sessionReadableAfterFailure = false
         self.completion = completion
         scheduled?.cancel()
         let work = DispatchWorkItem { [weak self] in
@@ -217,16 +252,45 @@ public final class HistoryRepository: @unchecked Sendable {
         }
         return database!
     }
+    private func activeConnection() throws -> HistoryDatabase {
+        if let sessionDatabase { return sessionDatabase }
+        if !saveHistory {
+            try beforeTransition(.snapshotMemory)
+            if try hasPersistentData() {
+                sessionDatabase = try connection().memoryCopy()
+                purgeDisk = true
+            } else { sessionDatabase = try HistoryDatabase.inMemory() }
+            return sessionDatabase!
+        }
+        return try connection()
+    }
     @discardableResult private func commitPending() throws -> Set<String> {
-        guard !pending.isEmpty || clearRequested || audioRemoval != nil || maintenanceRequested else { return [] }
+        guard !pending.isEmpty || clearRequested || audioRemoval != nil || maintenanceRequested || modeRequested else { return [] }
         do {
-            let database = try connection()
+            let working = try activeConnection()
             try beforeCommit()
             let values = pending.values.sorted { $0.ordinal < $1.ordinal }.compactMap(\.record)
             let ids = pending.compactMap { $0.value.record == nil ? $0.key : nil }
-            let removed = try database.apply(upserts: values, removing: ids, clear: clearRequested,
-                stripAudio: audioRemoval, retentionDays: retentionDays)
-            pending.removeAll(); clearRequested = false; audioRemoval = nil; maintenanceRequested = false
+            unacknowledgedAudio.formUnion(try working.apply(upserts: values, removing: ids, clear: clearRequested,
+                stripAudio: saveHistory ? audioRemoval : .all, retentionDays: retentionDays))
+            sessionReadableAfterFailure = sessionDatabase != nil
+            if clearRequested { try working.reclaimUnusedPages() }
+            if !saveHistory && purgeDisk {
+                try beforeTransition(.purgeDisk)
+                unacknowledgedAudio.formUnion(try connection().clear())
+                try connection().reclaimUnusedPages()
+                purgeDisk = false
+            } else if saveHistory, let sessionDatabase {
+                try beforeTransition(.persistSession)
+                try sessionDatabase.copyContents(to: connection())
+                sessionDatabase.close(); self.sessionDatabase = nil; purgeDisk = false
+            }
+            // A memory commit can precede a failed disk transition. Keep its
+            // cleanup receipts through later edits/retries, but never delete a
+            // name that a newer record now owns.
+            let removed = unacknowledgedAudio.isEmpty ? [] : unacknowledgedAudio.subtracting(try activeConnection().audioFiles())
+            unacknowledgedAudio.removeAll()
+            pending.removeAll(); clearRequested = false; audioRemoval = nil; maintenanceRequested = false; modeRequested = false
             let observer = completion; completion = nil
             observer?(WriteResult(orphanedAudio: removed, failure: nil))
             return removed
@@ -235,6 +299,8 @@ public final class HistoryRepository: @unchecked Sendable {
             throw error // Keep all pending edits, tombstones and policy requests.
         }
     }
+
+    enum Transition: Sendable { case snapshotMemory, purgeDisk, persistSession }
 
     private final class ReadCancellation: @unchecked Sendable {
         private let lock = NSLock()

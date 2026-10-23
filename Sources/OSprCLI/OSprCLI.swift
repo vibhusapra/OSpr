@@ -17,9 +17,11 @@ import OSprCore
                 result = try await AudioReviewCheck.run(source: URL(fileURLWithPath: args[1]), worker: worker)
             case "benchmark-history": result = try await HistoryBenchmark.run(rows: args.count > 1 ? Int(args[1]) ?? 10_000 : 10_000, edits: args.count > 2 ? Int(args[2]) ?? 50 : 50)
             case "benchmark-history-index": result = try HistoryIndexBenchmark.run(rows: args.count > 1 ? Int(args[1]) ?? 25_000 : 25_000, repeats: args.count > 2 ? Int(args[2]) ?? 3 : 3)
+            case "benchmark-history-session": result = try HistorySessionBenchmark.run(rows: args.count > 1 ? Int(args[1]) ?? 25_000 : 25_000)
             case "_benchmark-history-index-case":
                 guard args.count == 4, let count = Int(args[3]) else { usage(); exit(2) }
-                result = try HistoryIndexBenchmark.measure(directory: URL(fileURLWithPath: args[1]), mode: args[2], count: count)
+                if args[2] == "session" { result = try await HistorySessionBenchmark.measure(directory: URL(fileURLWithPath: args[1]), count: count) }
+                else { result = try HistoryIndexBenchmark.measure(directory: URL(fileURLWithPath: args[1]), mode: args[2], count: count) }
             case "models": result = try await worker.request(["action": "model_status"])
             case "download":
                 guard args.count > 1 else { usage(); exit(2) }
@@ -78,5 +80,5 @@ import OSprCore
             print(String(data: data, encoding: .utf8)!)
         } catch { FileHandle.standardError.write(Data((error.localizedDescription + "\n").utf8)); exit(1) }
     }
-    static func usage() { print("OSpr · Apple Silicon dictation\nUsage: ospr-cli doctor | models | download <model> | warm [model] | transcribe <audio> [model] | transcribe-cloud <audio> <base-url> <model> [language] | transcribe-deepgram <audio> <base-url> <model> [language] | meeting <audio> [model] | benchmark <audio> [model] [repeats] | benchmark-history [rows] [edits] | benchmark-history-index [rows] [repeats] | verify-audio-review <short-audio> | rewrite <text>\ntranscribe-cloud (compatible) and transcribe-deepgram (native Listen) explicitly upload audio to the specified provider; the key is read from OSPR_TRANSCRIPTION_KEY, never a command-line argument. Other speech commands remain local.\nProgress is on stderr; final result is JSON on stdout.\nBundled CLI discovers its engine; development commands use the checkout or OSPR_ROOT. Models: parakeet-v3, cohere-native8, whisper-turbo, whisper-small, qwen3-asr, nemotron-streaming") }
+    static func usage() { print("OSpr · Apple Silicon dictation\nUsage: ospr-cli doctor | models | download <model> | warm [model] | transcribe <audio> [model] | transcribe-cloud <audio> <base-url> <model> [language] | transcribe-deepgram <audio> <base-url> <model> [language] | meeting <audio> [model] | benchmark <audio> [model] [repeats] | benchmark-history [rows] [edits] | benchmark-history-index [rows] [repeats] | benchmark-history-session [rows] | verify-audio-review <short-audio> | rewrite <text>\ntranscribe-cloud (compatible) and transcribe-deepgram (native Listen) explicitly upload audio to the specified provider; the key is read from OSPR_TRANSCRIPTION_KEY, never a command-line argument. Other speech commands remain local.\nProgress is on stderr; final result is JSON on stdout.\nBundled CLI discovers its engine; development commands use the checkout or OSPR_ROOT. Models: parakeet-v3, cohere-native8, whisper-turbo, whisper-small, qwen3-asr, nemotron-streaming") }
 }

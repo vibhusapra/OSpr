@@ -123,7 +123,7 @@ enum HistoryIndexBenchmark {
                 "records": count, "words": totalWords]
     }
 
-    private static func child(directory: URL, mode: String, count: Int) throws -> [String: Any] {
+    static func child(directory: URL, mode: String, count: Int) throws -> [String: Any] {
         let process = Process(), output = Pipe(), errors = Pipe()
         process.executableURL = URL(fileURLWithPath: CommandLine.arguments[0]).resolvingSymlinksInPath()
         process.arguments = ["_benchmark-history-index-case", directory.path, mode, String(count)]
@@ -141,7 +141,7 @@ enum HistoryIndexBenchmark {
         return try require(JSONSerialization.jsonObject(with: bytes) as? [String: Any])
     }
 
-    private static func writeFixture(rows: Int, to url: URL) throws -> [String: Any] {
+    static func writeFixture(rows: Int, to url: URL) throws -> [String: Any] {
         FileManager.default.createFile(atPath: url.path, contents: nil, attributes: [.posixPermissions: 0o600])
         let file = try FileHandle(forWritingTo: url); defer { try? file.close() }
         let encoder = JSONEncoder(); encoder.outputFormatting = [.sortedKeys, .prettyPrinted]
@@ -178,7 +178,7 @@ enum HistoryIndexBenchmark {
     private static func require<T>(_ value: T?) throws -> T {
         guard let value else { throw OSprError.message("Synthetic history benchmark response is incomplete.") }; return value
     }
-    private static func digest(_ data: Data) -> String { SHA256.hash(data: data).map { String(format: "%02x", $0) }.joined() }
+    static func digest(_ data: Data) -> String { SHA256.hash(data: data).map { String(format: "%02x", $0) }.joined() }
     private static func milliseconds(since start: UInt64) -> Double { Double(DispatchTime.now().uptimeNanoseconds - start) / 1e6 }
     private static func median(_ values: [Double]) -> Double { percentile(values, 0.5) }
     private static func percentile(_ values: [Double], _ fraction: Double) -> Double {
@@ -186,7 +186,7 @@ enum HistoryIndexBenchmark {
         let lower = Int(position), upper = min(sorted.count - 1, lower + 1)
         return sorted[lower] + (sorted[upper] - sorted[lower]) * (position - Double(lower))
     }
-    private static func git(_ arguments: [String], at directory: URL) -> String? {
+    static func git(_ arguments: [String], at directory: URL) -> String? {
         let process = Process(), output = Pipe()
         process.executableURL = URL(fileURLWithPath: "/usr/bin/git"); process.arguments = ["-C", directory.path] + arguments
         process.standardOutput = output; process.standardError = FileHandle.nullDevice
