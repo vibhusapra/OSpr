@@ -1,0 +1,3556 @@
+{
+  "version": 1,
+  "selection": "First utterance of each of the first twenty unique speakers in the existing test-clean and test-other manifests. Each gains one-second leading and three-second trailing padding; original, -40 dB gain and continuous seeded Gaussian 10 dB SNR variants. All four existing AMI prefixes and all fifty FLEURS clips are included without selection by VAD outcome.",
+  "seed": 20261023,
+  "sample_rate": 16000,
+  "input_manifests": {
+    "fixtures/test-clean.json": "91b33742ba81809c5e4739cb2beea34b17294de738185d31d2e45b87a2057569",
+    "fixtures/test-other.json": "47a626549dc07aed91ecb2149ea09d94351010d3369ebcc05ba95915ed9ba339",
+    "fixtures/ami.json": "9c3153e8f8d959947987aed099f53d47e81ffe97064165a5116d9a11d7bda696",
+    "fixtures/fleurs.json": "c510080d128d13d5253427bce81ba84f1d88274a2b08b24c5a6a0881086433d6"
+  },
+  "endpoint": {
+    "start_threshold": 0.5,
+    "continue_threshold": 0.35,
+    "minimum_speech_seconds": 0.096,
+    "silence_seconds": 1.2
+  },
+  "primary_candidate": "coreml-32-v6.0/cpu, preselected for 32ms granularity and independence from the ASR GPU; no product default changes before quality/integration gates",
+  "limitations": [
+    "Public development fixtures reused from OSpr research, not a sealed holdout or a standard VAD benchmark.",
+    "Gain/noise/padding variants share the same forty read-English utterances; they are not independent samples.",
+    "Source clip end is a conservative content boundary, not an acoustic last-word annotation.",
+    "AMI only_words/manual-segment masks are timing proxies, not hand-labeled speech/non-speech frames; no collar is applied.",
+    "Synthetic negative controls do not represent real keyboards, music, echo or physical microphone routes.",
+    "The Core ML 32ms model is v6.0; Core ML 256ms and MLX 32ms use v6.2.1. Runtime and model-version effects are confounded."
+  ],
+  "items": [
+    {
+      "id": "test-clean-1089-134686-0000-original",
+      "path": "fixtures/audio/vad-candidate/test-clean-1089-134686-0000-original.wav",
+      "sha256": "836c7f9668df0a0788cc60c60440f53ab4009d586afb2b88a00b1576708a423d",
+      "samples": 230960,
+      "suite": "original",
+      "source_id": "1089-134686-0000",
+      "source_sha256": "0b1785dba56f22af426ccb25d318f7e103558fd40e1c3ab064b455dba2afae12",
+      "speaker_id": "1089",
+      "source_start_sample": 16000,
+      "source_end_sample": 182960,
+      "reference": "HE HOPED THERE WOULD BE STEW FOR DINNER TURNIPS AND CARROTS AND BRUISED POTATOES AND FAT MUTTON PIECES TO BE LADLED OUT IN THICK PEPPERED FLOUR FATTENED SAUCE",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-1089-134686-0000-quiet40db",
+      "path": "fixtures/audio/vad-candidate/test-clean-1089-134686-0000-quiet40db.wav",
+      "sha256": "6886aede2dce3dc2a83ee3715c749806cbf18ea1e12fe84c8eceedaafa7d355a",
+      "samples": 230960,
+      "suite": "quiet40db",
+      "source_id": "1089-134686-0000",
+      "source_sha256": "0b1785dba56f22af426ccb25d318f7e103558fd40e1c3ab064b455dba2afae12",
+      "speaker_id": "1089",
+      "source_start_sample": 16000,
+      "source_end_sample": 182960,
+      "reference": "HE HOPED THERE WOULD BE STEW FOR DINNER TURNIPS AND CARROTS AND BRUISED POTATOES AND FAT MUTTON PIECES TO BE LADLED OUT IN THICK PEPPERED FLOUR FATTENED SAUCE",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-1089-134686-0000-noise10db",
+      "path": "fixtures/audio/vad-candidate/test-clean-1089-134686-0000-noise10db.wav",
+      "sha256": "df6362cb2a2c08bc609d10c9219bacf54339502878074605f4b38962a3cd7692",
+      "samples": 230960,
+      "suite": "noise10db",
+      "source_id": "1089-134686-0000",
+      "source_sha256": "0b1785dba56f22af426ccb25d318f7e103558fd40e1c3ab064b455dba2afae12",
+      "speaker_id": "1089",
+      "source_start_sample": 16000,
+      "source_end_sample": 182960,
+      "reference": "HE HOPED THERE WOULD BE STEW FOR DINNER TURNIPS AND CARROTS AND BRUISED POTATOES AND FAT MUTTON PIECES TO BE LADLED OUT IN THICK PEPPERED FLOUR FATTENED SAUCE",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-1188-133604-0000-original",
+      "path": "fixtures/audio/vad-candidate/test-clean-1188-133604-0000-original.wav",
+      "sha256": "789a4d64eb279fbdb95da517dbf3f77bfeb13652ef07d88cb823c9c421dea1f3",
+      "samples": 235600,
+      "suite": "original",
+      "source_id": "1188-133604-0000",
+      "source_sha256": "7103ea9b2746ea371e053c5e44aa65e3d69fdc84194e4af12722cd72a721c822",
+      "speaker_id": "1188",
+      "source_start_sample": 16000,
+      "source_end_sample": 187600,
+      "reference": "YOU WILL FIND ME CONTINUALLY SPEAKING OF FOUR MEN TITIAN HOLBEIN TURNER AND TINTORET IN ALMOST THE SAME TERMS",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-1188-133604-0000-quiet40db",
+      "path": "fixtures/audio/vad-candidate/test-clean-1188-133604-0000-quiet40db.wav",
+      "sha256": "68396fe9f7626455deba21c306936b52d2740effdd8057e46ce7100add602e20",
+      "samples": 235600,
+      "suite": "quiet40db",
+      "source_id": "1188-133604-0000",
+      "source_sha256": "7103ea9b2746ea371e053c5e44aa65e3d69fdc84194e4af12722cd72a721c822",
+      "speaker_id": "1188",
+      "source_start_sample": 16000,
+      "source_end_sample": 187600,
+      "reference": "YOU WILL FIND ME CONTINUALLY SPEAKING OF FOUR MEN TITIAN HOLBEIN TURNER AND TINTORET IN ALMOST THE SAME TERMS",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-1188-133604-0000-noise10db",
+      "path": "fixtures/audio/vad-candidate/test-clean-1188-133604-0000-noise10db.wav",
+      "sha256": "db425d751ff20eef1b3a9a8de753bde51d0f0795f503ec40511d7bdd2402a586",
+      "samples": 235600,
+      "suite": "noise10db",
+      "source_id": "1188-133604-0000",
+      "source_sha256": "7103ea9b2746ea371e053c5e44aa65e3d69fdc84194e4af12722cd72a721c822",
+      "speaker_id": "1188",
+      "source_start_sample": 16000,
+      "source_end_sample": 187600,
+      "reference": "YOU WILL FIND ME CONTINUALLY SPEAKING OF FOUR MEN TITIAN HOLBEIN TURNER AND TINTORET IN ALMOST THE SAME TERMS",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-121-121726-0000-original",
+      "path": "fixtures/audio/vad-candidate/test-clean-121-121726-0000-original.wav",
+      "sha256": "4e0a82bf1102be5884756db2ce788cb3218b1d953ea8cbb41c1929b449a5e100",
+      "samples": 199360,
+      "suite": "original",
+      "source_id": "121-121726-0000",
+      "source_sha256": "3b046c957d3014ff744d589229e81112366a4912c59deaf00b8e816621db120f",
+      "speaker_id": "121",
+      "source_start_sample": 16000,
+      "source_end_sample": 151360,
+      "reference": "ALSO A POPULAR CONTRIVANCE WHEREBY LOVE MAKING MAY BE SUSPENDED BUT NOT STOPPED DURING THE PICNIC SEASON",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-121-121726-0000-quiet40db",
+      "path": "fixtures/audio/vad-candidate/test-clean-121-121726-0000-quiet40db.wav",
+      "sha256": "5c56643b39bbbd0dbfc9bb0df67b1e0900416c5d662d7dff2826d1d73f22a4bb",
+      "samples": 199360,
+      "suite": "quiet40db",
+      "source_id": "121-121726-0000",
+      "source_sha256": "3b046c957d3014ff744d589229e81112366a4912c59deaf00b8e816621db120f",
+      "speaker_id": "121",
+      "source_start_sample": 16000,
+      "source_end_sample": 151360,
+      "reference": "ALSO A POPULAR CONTRIVANCE WHEREBY LOVE MAKING MAY BE SUSPENDED BUT NOT STOPPED DURING THE PICNIC SEASON",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-121-121726-0000-noise10db",
+      "path": "fixtures/audio/vad-candidate/test-clean-121-121726-0000-noise10db.wav",
+      "sha256": "718217624ded57fb5037ac01838463b42831331877ccc9400824ea2825b1f772",
+      "samples": 199360,
+      "suite": "noise10db",
+      "source_id": "121-121726-0000",
+      "source_sha256": "3b046c957d3014ff744d589229e81112366a4912c59deaf00b8e816621db120f",
+      "speaker_id": "121",
+      "source_start_sample": 16000,
+      "source_end_sample": 151360,
+      "reference": "ALSO A POPULAR CONTRIVANCE WHEREBY LOVE MAKING MAY BE SUSPENDED BUT NOT STOPPED DURING THE PICNIC SEASON",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-1221-135766-0000-original",
+      "path": "fixtures/audio/vad-candidate/test-clean-1221-135766-0000-original.wav",
+      "sha256": "1eb5d3b89497eeb90ca9567cf7afe2c82c403eff6deb15c19c0c99cafeb74e1d",
+      "samples": 262960,
+      "suite": "original",
+      "source_id": "1221-135766-0000",
+      "source_sha256": "29c67807e2be8a661b38ac883f3197be8d0550b3940eb3c09e24b72c0d0dde48",
+      "speaker_id": "1221",
+      "source_start_sample": 16000,
+      "source_end_sample": 214960,
+      "reference": "HOW STRANGE IT SEEMED TO THE SAD WOMAN AS SHE WATCHED THE GROWTH AND THE BEAUTY THAT BECAME EVERY DAY MORE BRILLIANT AND THE INTELLIGENCE THAT THREW ITS QUIVERING SUNSHINE OVER THE TINY FEATURES OF THIS CHILD",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-1221-135766-0000-quiet40db",
+      "path": "fixtures/audio/vad-candidate/test-clean-1221-135766-0000-quiet40db.wav",
+      "sha256": "b703fac1239bde70a430295314d0758458c25e3e0aac490f26b4a50f198ca652",
+      "samples": 262960,
+      "suite": "quiet40db",
+      "source_id": "1221-135766-0000",
+      "source_sha256": "29c67807e2be8a661b38ac883f3197be8d0550b3940eb3c09e24b72c0d0dde48",
+      "speaker_id": "1221",
+      "source_start_sample": 16000,
+      "source_end_sample": 214960,
+      "reference": "HOW STRANGE IT SEEMED TO THE SAD WOMAN AS SHE WATCHED THE GROWTH AND THE BEAUTY THAT BECAME EVERY DAY MORE BRILLIANT AND THE INTELLIGENCE THAT THREW ITS QUIVERING SUNSHINE OVER THE TINY FEATURES OF THIS CHILD",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-1221-135766-0000-noise10db",
+      "path": "fixtures/audio/vad-candidate/test-clean-1221-135766-0000-noise10db.wav",
+      "sha256": "9614fdd6873413d5b50914105f3a9eeccb15188fe17318dbc1c6d5bc67761193",
+      "samples": 262960,
+      "suite": "noise10db",
+      "source_id": "1221-135766-0000",
+      "source_sha256": "29c67807e2be8a661b38ac883f3197be8d0550b3940eb3c09e24b72c0d0dde48",
+      "speaker_id": "1221",
+      "source_start_sample": 16000,
+      "source_end_sample": 214960,
+      "reference": "HOW STRANGE IT SEEMED TO THE SAD WOMAN AS SHE WATCHED THE GROWTH AND THE BEAUTY THAT BECAME EVERY DAY MORE BRILLIANT AND THE INTELLIGENCE THAT THREW ITS QUIVERING SUNSHINE OVER THE TINY FEATURES OF THIS CHILD",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-1284-1180-0000-original",
+      "path": "fixtures/audio/vad-candidate/test-clean-1284-1180-0000-original.wav",
+      "sha256": "644715d617e0141524b3a20ff2ffe4132e952a87d2f123555425438957f42537",
+      "samples": 193920,
+      "suite": "original",
+      "source_id": "1284-1180-0000",
+      "source_sha256": "336b4070e4127640713fabde7d22c10f45f32e8680cb60f0eb76f9454ee8e98b",
+      "speaker_id": "1284",
+      "source_start_sample": 16000,
+      "source_end_sample": 145920,
+      "reference": "HE WORE BLUE SILK STOCKINGS BLUE KNEE PANTS WITH GOLD BUCKLES A BLUE RUFFLED WAIST AND A JACKET OF BRIGHT BLUE BRAIDED WITH GOLD",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-1284-1180-0000-quiet40db",
+      "path": "fixtures/audio/vad-candidate/test-clean-1284-1180-0000-quiet40db.wav",
+      "sha256": "db61fd1fc97a4cd3845106ee9ecc325a51c173117426541c63a96bdda6d260ad",
+      "samples": 193920,
+      "suite": "quiet40db",
+      "source_id": "1284-1180-0000",
+      "source_sha256": "336b4070e4127640713fabde7d22c10f45f32e8680cb60f0eb76f9454ee8e98b",
+      "speaker_id": "1284",
+      "source_start_sample": 16000,
+      "source_end_sample": 145920,
+      "reference": "HE WORE BLUE SILK STOCKINGS BLUE KNEE PANTS WITH GOLD BUCKLES A BLUE RUFFLED WAIST AND A JACKET OF BRIGHT BLUE BRAIDED WITH GOLD",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-1284-1180-0000-noise10db",
+      "path": "fixtures/audio/vad-candidate/test-clean-1284-1180-0000-noise10db.wav",
+      "sha256": "f2d8d02907098dee4e7acaad2eefe2fbe3771f2754178c55b630f7ef0cec21cc",
+      "samples": 193920,
+      "suite": "noise10db",
+      "source_id": "1284-1180-0000",
+      "source_sha256": "336b4070e4127640713fabde7d22c10f45f32e8680cb60f0eb76f9454ee8e98b",
+      "speaker_id": "1284",
+      "source_start_sample": 16000,
+      "source_end_sample": 145920,
+      "reference": "HE WORE BLUE SILK STOCKINGS BLUE KNEE PANTS WITH GOLD BUCKLES A BLUE RUFFLED WAIST AND A JACKET OF BRIGHT BLUE BRAIDED WITH GOLD",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-1320-122612-0000-original",
+      "path": "fixtures/audio/vad-candidate/test-clean-1320-122612-0000-original.wav",
+      "sha256": "1378339044a19c5ce713852147c4032474aec63600083c6430bfca4d88ad2375",
+      "samples": 279680,
+      "suite": "original",
+      "source_id": "1320-122612-0000",
+      "source_sha256": "8f1455cbf2b5b2941ba48cbcadb384a5bf8da5f04ce9f92dab69bdd1907bbf45",
+      "speaker_id": "1320",
+      "source_start_sample": 16000,
+      "source_end_sample": 231680,
+      "reference": "SINCE THE PERIOD OF OUR TALE THE ACTIVE SPIRIT OF THE COUNTRY HAS SURROUNDED IT WITH A BELT OF RICH AND THRIVING SETTLEMENTS THOUGH NONE BUT THE HUNTER OR THE SAVAGE IS EVER KNOWN EVEN NOW TO PENETRATE ITS WILD RECESSES",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-1320-122612-0000-quiet40db",
+      "path": "fixtures/audio/vad-candidate/test-clean-1320-122612-0000-quiet40db.wav",
+      "sha256": "237080e57b0e8da6a09c278042338f9601683f98e5af78531fc41101890f9b81",
+      "samples": 279680,
+      "suite": "quiet40db",
+      "source_id": "1320-122612-0000",
+      "source_sha256": "8f1455cbf2b5b2941ba48cbcadb384a5bf8da5f04ce9f92dab69bdd1907bbf45",
+      "speaker_id": "1320",
+      "source_start_sample": 16000,
+      "source_end_sample": 231680,
+      "reference": "SINCE THE PERIOD OF OUR TALE THE ACTIVE SPIRIT OF THE COUNTRY HAS SURROUNDED IT WITH A BELT OF RICH AND THRIVING SETTLEMENTS THOUGH NONE BUT THE HUNTER OR THE SAVAGE IS EVER KNOWN EVEN NOW TO PENETRATE ITS WILD RECESSES",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-1320-122612-0000-noise10db",
+      "path": "fixtures/audio/vad-candidate/test-clean-1320-122612-0000-noise10db.wav",
+      "sha256": "0dcf64613d58542879bde166eac3e5d76fe050f0bed3b08c3646b60b7b57d36b",
+      "samples": 279680,
+      "suite": "noise10db",
+      "source_id": "1320-122612-0000",
+      "source_sha256": "8f1455cbf2b5b2941ba48cbcadb384a5bf8da5f04ce9f92dab69bdd1907bbf45",
+      "speaker_id": "1320",
+      "source_start_sample": 16000,
+      "source_end_sample": 231680,
+      "reference": "SINCE THE PERIOD OF OUR TALE THE ACTIVE SPIRIT OF THE COUNTRY HAS SURROUNDED IT WITH A BELT OF RICH AND THRIVING SETTLEMENTS THOUGH NONE BUT THE HUNTER OR THE SAVAGE IS EVER KNOWN EVEN NOW TO PENETRATE ITS WILD RECESSES",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-1580-141083-0000-original",
+      "path": "fixtures/audio/vad-candidate/test-clean-1580-141083-0000-original.wav",
+      "sha256": "16fd50de73332e9c6463aabf8d711bb6c4726245419a3f3a20d27e3bc13892c3",
+      "samples": 207040,
+      "suite": "original",
+      "source_id": "1580-141083-0000",
+      "source_sha256": "0e929f3bd9f9252e06e12a8a072bd16a3d9a418cbfe8a3d284adbca6188cd8e2",
+      "speaker_id": "1580",
+      "source_start_sample": 16000,
+      "source_end_sample": 159040,
+      "reference": "I WILL ENDEAVOUR IN MY STATEMENT TO AVOID SUCH TERMS AS WOULD SERVE TO LIMIT THE EVENTS TO ANY PARTICULAR PLACE OR GIVE A CLUE AS TO THE PEOPLE CONCERNED",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-1580-141083-0000-quiet40db",
+      "path": "fixtures/audio/vad-candidate/test-clean-1580-141083-0000-quiet40db.wav",
+      "sha256": "090fcb731e27c766dd4aef84b07bf1067ea0aef8ae753d0a5946f0f76049dcb7",
+      "samples": 207040,
+      "suite": "quiet40db",
+      "source_id": "1580-141083-0000",
+      "source_sha256": "0e929f3bd9f9252e06e12a8a072bd16a3d9a418cbfe8a3d284adbca6188cd8e2",
+      "speaker_id": "1580",
+      "source_start_sample": 16000,
+      "source_end_sample": 159040,
+      "reference": "I WILL ENDEAVOUR IN MY STATEMENT TO AVOID SUCH TERMS AS WOULD SERVE TO LIMIT THE EVENTS TO ANY PARTICULAR PLACE OR GIVE A CLUE AS TO THE PEOPLE CONCERNED",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-1580-141083-0000-noise10db",
+      "path": "fixtures/audio/vad-candidate/test-clean-1580-141083-0000-noise10db.wav",
+      "sha256": "54aad90be685ddf977de703f990ab59fa7f5eec24ac7ddbc4784801990f02e02",
+      "samples": 207040,
+      "suite": "noise10db",
+      "source_id": "1580-141083-0000",
+      "source_sha256": "0e929f3bd9f9252e06e12a8a072bd16a3d9a418cbfe8a3d284adbca6188cd8e2",
+      "speaker_id": "1580",
+      "source_start_sample": 16000,
+      "source_end_sample": 159040,
+      "reference": "I WILL ENDEAVOUR IN MY STATEMENT TO AVOID SUCH TERMS AS WOULD SERVE TO LIMIT THE EVENTS TO ANY PARTICULAR PLACE OR GIVE A CLUE AS TO THE PEOPLE CONCERNED",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-1995-1826-0000-original",
+      "path": "fixtures/audio/vad-candidate/test-clean-1995-1826-0000-original.wav",
+      "sha256": "6686949a5fe4b0c7898a693a9da9e704eb391e42e482e119804ae0ead3664de5",
+      "samples": 215760,
+      "suite": "original",
+      "source_id": "1995-1826-0000",
+      "source_sha256": "03ac3f6a371c4ef5fd518588c0df859e6de2b82ca1cbe464533d53be303f5e5a",
+      "speaker_id": "1995",
+      "source_start_sample": 16000,
+      "source_end_sample": 167760,
+      "reference": "IN THE DEBATE BETWEEN THE SENIOR SOCIETIES HER DEFENCE OF THE FIFTEENTH AMENDMENT HAD BEEN NOT ONLY A NOTABLE BIT OF REASONING BUT DELIVERED WITH REAL ENTHUSIASM",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-1995-1826-0000-quiet40db",
+      "path": "fixtures/audio/vad-candidate/test-clean-1995-1826-0000-quiet40db.wav",
+      "sha256": "5d162103d5d255dc67c6d25d71042327f153f7fa40395d6fef243e23dcbe9d11",
+      "samples": 215760,
+      "suite": "quiet40db",
+      "source_id": "1995-1826-0000",
+      "source_sha256": "03ac3f6a371c4ef5fd518588c0df859e6de2b82ca1cbe464533d53be303f5e5a",
+      "speaker_id": "1995",
+      "source_start_sample": 16000,
+      "source_end_sample": 167760,
+      "reference": "IN THE DEBATE BETWEEN THE SENIOR SOCIETIES HER DEFENCE OF THE FIFTEENTH AMENDMENT HAD BEEN NOT ONLY A NOTABLE BIT OF REASONING BUT DELIVERED WITH REAL ENTHUSIASM",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-1995-1826-0000-noise10db",
+      "path": "fixtures/audio/vad-candidate/test-clean-1995-1826-0000-noise10db.wav",
+      "sha256": "5307a881eea198198ce5f07520b43a0c9fb2acf6b2adc191d13e87f7445b5b87",
+      "samples": 215760,
+      "suite": "noise10db",
+      "source_id": "1995-1826-0000",
+      "source_sha256": "03ac3f6a371c4ef5fd518588c0df859e6de2b82ca1cbe464533d53be303f5e5a",
+      "speaker_id": "1995",
+      "source_start_sample": 16000,
+      "source_end_sample": 167760,
+      "reference": "IN THE DEBATE BETWEEN THE SENIOR SOCIETIES HER DEFENCE OF THE FIFTEENTH AMENDMENT HAD BEEN NOT ONLY A NOTABLE BIT OF REASONING BUT DELIVERED WITH REAL ENTHUSIASM",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-2094-142345-0000-original",
+      "path": "fixtures/audio/vad-candidate/test-clean-2094-142345-0000-original.wav",
+      "sha256": "740e4dc97632faf3d791423a8d58dd2993f66d63a84ac4c91ceddacbf994e810",
+      "samples": 425120,
+      "suite": "original",
+      "source_id": "2094-142345-0000",
+      "source_sha256": "72fab69f58aa47a6cb82c13c8fcb23979098329e52c42db69ac3a8a5649c123d",
+      "speaker_id": "2094",
+      "source_start_sample": 16000,
+      "source_end_sample": 377120,
+      "reference": "IT IS A VERY FINE OLD PLACE OF RED BRICK SOFTENED BY A PALE POWDERY LICHEN WHICH HAS DISPERSED ITSELF WITH HAPPY IRREGULARITY SO AS TO BRING THE RED BRICK INTO TERMS OF FRIENDLY COMPANIONSHIP WITH THE LIMESTONE ORNAMENTS SURROUNDING THE THREE GABLES THE WINDOWS AND THE DOOR PLACE",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-2094-142345-0000-quiet40db",
+      "path": "fixtures/audio/vad-candidate/test-clean-2094-142345-0000-quiet40db.wav",
+      "sha256": "e0dddc209feb27b5d1b53e37bc9f9d68b2ffd76f13699e28406f7f667a97c6a7",
+      "samples": 425120,
+      "suite": "quiet40db",
+      "source_id": "2094-142345-0000",
+      "source_sha256": "72fab69f58aa47a6cb82c13c8fcb23979098329e52c42db69ac3a8a5649c123d",
+      "speaker_id": "2094",
+      "source_start_sample": 16000,
+      "source_end_sample": 377120,
+      "reference": "IT IS A VERY FINE OLD PLACE OF RED BRICK SOFTENED BY A PALE POWDERY LICHEN WHICH HAS DISPERSED ITSELF WITH HAPPY IRREGULARITY SO AS TO BRING THE RED BRICK INTO TERMS OF FRIENDLY COMPANIONSHIP WITH THE LIMESTONE ORNAMENTS SURROUNDING THE THREE GABLES THE WINDOWS AND THE DOOR PLACE",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-2094-142345-0000-noise10db",
+      "path": "fixtures/audio/vad-candidate/test-clean-2094-142345-0000-noise10db.wav",
+      "sha256": "9c5fae685fd038c7870e4afc4542c115712922d7d304db17205c85831549fba9",
+      "samples": 425120,
+      "suite": "noise10db",
+      "source_id": "2094-142345-0000",
+      "source_sha256": "72fab69f58aa47a6cb82c13c8fcb23979098329e52c42db69ac3a8a5649c123d",
+      "speaker_id": "2094",
+      "source_start_sample": 16000,
+      "source_end_sample": 377120,
+      "reference": "IT IS A VERY FINE OLD PLACE OF RED BRICK SOFTENED BY A PALE POWDERY LICHEN WHICH HAS DISPERSED ITSELF WITH HAPPY IRREGULARITY SO AS TO BRING THE RED BRICK INTO TERMS OF FRIENDLY COMPANIONSHIP WITH THE LIMESTONE ORNAMENTS SURROUNDING THE THREE GABLES THE WINDOWS AND THE DOOR PLACE",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-2300-131720-0000-original",
+      "path": "fixtures/audio/vad-candidate/test-clean-2300-131720-0000-original.wav",
+      "sha256": "aee34840c38fd3e16d5524986ff3e9ad9c762e761f48d81e1087b2d39e0e96f4",
+      "samples": 145280,
+      "suite": "original",
+      "source_id": "2300-131720-0000",
+      "source_sha256": "3d0982c92b827a8dd3bb1d1af8a3d77a4869f45d30e3158080c8fc34dd04857c",
+      "speaker_id": "2300",
+      "source_start_sample": 16000,
+      "source_end_sample": 97280,
+      "reference": "THE PARIS PLANT LIKE THAT AT THE CRYSTAL PALACE WAS A TEMPORARY EXHIBIT",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-2300-131720-0000-quiet40db",
+      "path": "fixtures/audio/vad-candidate/test-clean-2300-131720-0000-quiet40db.wav",
+      "sha256": "5c773c3816b92b19c753a406e25df5e6b7e33b63000f918c4c8aa03ed156a57b",
+      "samples": 145280,
+      "suite": "quiet40db",
+      "source_id": "2300-131720-0000",
+      "source_sha256": "3d0982c92b827a8dd3bb1d1af8a3d77a4869f45d30e3158080c8fc34dd04857c",
+      "speaker_id": "2300",
+      "source_start_sample": 16000,
+      "source_end_sample": 97280,
+      "reference": "THE PARIS PLANT LIKE THAT AT THE CRYSTAL PALACE WAS A TEMPORARY EXHIBIT",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-2300-131720-0000-noise10db",
+      "path": "fixtures/audio/vad-candidate/test-clean-2300-131720-0000-noise10db.wav",
+      "sha256": "44c797d3fe0e34bdfc9d12f8d33efd78b0f1a8ab1d5e987498e2f9a00fa6efe4",
+      "samples": 145280,
+      "suite": "noise10db",
+      "source_id": "2300-131720-0000",
+      "source_sha256": "3d0982c92b827a8dd3bb1d1af8a3d77a4869f45d30e3158080c8fc34dd04857c",
+      "speaker_id": "2300",
+      "source_start_sample": 16000,
+      "source_end_sample": 97280,
+      "reference": "THE PARIS PLANT LIKE THAT AT THE CRYSTAL PALACE WAS A TEMPORARY EXHIBIT",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-237-126133-0000-original",
+      "path": "fixtures/audio/vad-candidate/test-clean-237-126133-0000-original.wav",
+      "sha256": "94d1bd1c9021ee90a32608b80b43253e8145b2b032b4c497ea7dfd1c6b62063f",
+      "samples": 276640,
+      "suite": "original",
+      "source_id": "237-126133-0000",
+      "source_sha256": "600640180ec9918c158d5df8bcc9096fc9b75b46a94b85a03ffdba9a5cdadfe7",
+      "speaker_id": "237",
+      "source_start_sample": 16000,
+      "source_end_sample": 228640,
+      "reference": "HERE SHE WOULD STAY COMFORTED AND SOOTHED AMONG THE LOVELY PLANTS AND RICH EXOTICS REJOICING THE HEART OF OLD TURNER THE GARDENER WHO SINCE POLLY'S FIRST RAPTUROUS ENTRANCE HAD TAKEN HER INTO HIS GOOD GRACES FOR ALL TIME",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-237-126133-0000-quiet40db",
+      "path": "fixtures/audio/vad-candidate/test-clean-237-126133-0000-quiet40db.wav",
+      "sha256": "ca036aa8867f64872fcbb03fc10f213cd2711fa164350f601b90c1ed4c30a20b",
+      "samples": 276640,
+      "suite": "quiet40db",
+      "source_id": "237-126133-0000",
+      "source_sha256": "600640180ec9918c158d5df8bcc9096fc9b75b46a94b85a03ffdba9a5cdadfe7",
+      "speaker_id": "237",
+      "source_start_sample": 16000,
+      "source_end_sample": 228640,
+      "reference": "HERE SHE WOULD STAY COMFORTED AND SOOTHED AMONG THE LOVELY PLANTS AND RICH EXOTICS REJOICING THE HEART OF OLD TURNER THE GARDENER WHO SINCE POLLY'S FIRST RAPTUROUS ENTRANCE HAD TAKEN HER INTO HIS GOOD GRACES FOR ALL TIME",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-237-126133-0000-noise10db",
+      "path": "fixtures/audio/vad-candidate/test-clean-237-126133-0000-noise10db.wav",
+      "sha256": "3767c68ee07b393dbeb8074911781ba92813025560201d56655e10b37d41ccfe",
+      "samples": 276640,
+      "suite": "noise10db",
+      "source_id": "237-126133-0000",
+      "source_sha256": "600640180ec9918c158d5df8bcc9096fc9b75b46a94b85a03ffdba9a5cdadfe7",
+      "speaker_id": "237",
+      "source_start_sample": 16000,
+      "source_end_sample": 228640,
+      "reference": "HERE SHE WOULD STAY COMFORTED AND SOOTHED AMONG THE LOVELY PLANTS AND RICH EXOTICS REJOICING THE HEART OF OLD TURNER THE GARDENER WHO SINCE POLLY'S FIRST RAPTUROUS ENTRANCE HAD TAKEN HER INTO HIS GOOD GRACES FOR ALL TIME",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-260-123286-0000-original",
+      "path": "fixtures/audio/vad-candidate/test-clean-260-123286-0000-original.wav",
+      "sha256": "fc625b233b08f25447c77cbb82e55f2307205275f2594143ead2474c1d38d9cc",
+      "samples": 176640,
+      "suite": "original",
+      "source_id": "260-123286-0000",
+      "source_sha256": "be2a972d7d4a6b5c0e5805b2f5cab8182cff9a0878b172b38c684830775b36e5",
+      "speaker_id": "260",
+      "source_start_sample": 16000,
+      "source_end_sample": 128640,
+      "reference": "SATURDAY AUGUST FIFTEENTH THE SEA UNBROKEN ALL ROUND NO LAND IN SIGHT",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-260-123286-0000-quiet40db",
+      "path": "fixtures/audio/vad-candidate/test-clean-260-123286-0000-quiet40db.wav",
+      "sha256": "58a7c115d9fa41d0d7b3e5e5faf021ddd65f04d37fe7851c17a272c3f3a39996",
+      "samples": 176640,
+      "suite": "quiet40db",
+      "source_id": "260-123286-0000",
+      "source_sha256": "be2a972d7d4a6b5c0e5805b2f5cab8182cff9a0878b172b38c684830775b36e5",
+      "speaker_id": "260",
+      "source_start_sample": 16000,
+      "source_end_sample": 128640,
+      "reference": "SATURDAY AUGUST FIFTEENTH THE SEA UNBROKEN ALL ROUND NO LAND IN SIGHT",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-260-123286-0000-noise10db",
+      "path": "fixtures/audio/vad-candidate/test-clean-260-123286-0000-noise10db.wav",
+      "sha256": "d0f5067e24f7346a32be5ba72a0af7c89f5cfb82ad0486f0bd7719999395e1aa",
+      "samples": 176640,
+      "suite": "noise10db",
+      "source_id": "260-123286-0000",
+      "source_sha256": "be2a972d7d4a6b5c0e5805b2f5cab8182cff9a0878b172b38c684830775b36e5",
+      "speaker_id": "260",
+      "source_start_sample": 16000,
+      "source_end_sample": 128640,
+      "reference": "SATURDAY AUGUST FIFTEENTH THE SEA UNBROKEN ALL ROUND NO LAND IN SIGHT",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-2830-3979-0000-original",
+      "path": "fixtures/audio/vad-candidate/test-clean-2830-3979-0000-original.wav",
+      "sha256": "bb4ab69e72730e748cf562d83c8ce319ad64a7149eddf94eb6ad493472a5b0d7",
+      "samples": 161920,
+      "suite": "original",
+      "source_id": "2830-3979-0000",
+      "source_sha256": "3da4db750a8f47783f6d5a9d5951ec8642bb9d0692305b62b9db02d75467ddcf",
+      "speaker_id": "2830",
+      "source_start_sample": 16000,
+      "source_end_sample": 113920,
+      "reference": "WE WANT YOU TO HELP US PUBLISH SOME LEADING WORK OF LUTHER'S FOR THE GENERAL AMERICAN MARKET WILL YOU DO IT",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-2830-3979-0000-quiet40db",
+      "path": "fixtures/audio/vad-candidate/test-clean-2830-3979-0000-quiet40db.wav",
+      "sha256": "16e6883520d0c12121c423e5eaea9eabcd86397638e2b40ed1d6f941be5ba2ea",
+      "samples": 161920,
+      "suite": "quiet40db",
+      "source_id": "2830-3979-0000",
+      "source_sha256": "3da4db750a8f47783f6d5a9d5951ec8642bb9d0692305b62b9db02d75467ddcf",
+      "speaker_id": "2830",
+      "source_start_sample": 16000,
+      "source_end_sample": 113920,
+      "reference": "WE WANT YOU TO HELP US PUBLISH SOME LEADING WORK OF LUTHER'S FOR THE GENERAL AMERICAN MARKET WILL YOU DO IT",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-2830-3979-0000-noise10db",
+      "path": "fixtures/audio/vad-candidate/test-clean-2830-3979-0000-noise10db.wav",
+      "sha256": "34b8e7cf3560ecd0a591b0dee22c7b0720a84cbbe8e1151eae01039deae862e4",
+      "samples": 161920,
+      "suite": "noise10db",
+      "source_id": "2830-3979-0000",
+      "source_sha256": "3da4db750a8f47783f6d5a9d5951ec8642bb9d0692305b62b9db02d75467ddcf",
+      "speaker_id": "2830",
+      "source_start_sample": 16000,
+      "source_end_sample": 113920,
+      "reference": "WE WANT YOU TO HELP US PUBLISH SOME LEADING WORK OF LUTHER'S FOR THE GENERAL AMERICAN MARKET WILL YOU DO IT",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-2961-960-0000-original",
+      "path": "fixtures/audio/vad-candidate/test-clean-2961-960-0000-original.wav",
+      "sha256": "b6352f582d7485bdaf4c9dd55c1e54f122143cabeed4abdd9fb397f73a7c90e0",
+      "samples": 498880,
+      "suite": "original",
+      "source_id": "2961-960-0000",
+      "source_sha256": "e6f9675ba6cb79ab0fd3e558c6289cd22c50c1517485d58593917d399d2da813",
+      "speaker_id": "2961",
+      "source_start_sample": 16000,
+      "source_end_sample": 450880,
+      "reference": "HE PASSES ABRUPTLY FROM PERSONS TO IDEAS AND NUMBERS AND FROM IDEAS AND NUMBERS TO PERSONS FROM THE HEAVENS TO MAN FROM ASTRONOMY TO PHYSIOLOGY HE CONFUSES OR RATHER DOES NOT DISTINGUISH SUBJECT AND OBJECT FIRST AND FINAL CAUSES AND IS DREAMING OF GEOMETRICAL FIGURES LOST IN A FLUX OF SENSE",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-2961-960-0000-quiet40db",
+      "path": "fixtures/audio/vad-candidate/test-clean-2961-960-0000-quiet40db.wav",
+      "sha256": "f4be99b6f5986567d182626572926382244b7656fd8e4998287b7e6694e740aa",
+      "samples": 498880,
+      "suite": "quiet40db",
+      "source_id": "2961-960-0000",
+      "source_sha256": "e6f9675ba6cb79ab0fd3e558c6289cd22c50c1517485d58593917d399d2da813",
+      "speaker_id": "2961",
+      "source_start_sample": 16000,
+      "source_end_sample": 450880,
+      "reference": "HE PASSES ABRUPTLY FROM PERSONS TO IDEAS AND NUMBERS AND FROM IDEAS AND NUMBERS TO PERSONS FROM THE HEAVENS TO MAN FROM ASTRONOMY TO PHYSIOLOGY HE CONFUSES OR RATHER DOES NOT DISTINGUISH SUBJECT AND OBJECT FIRST AND FINAL CAUSES AND IS DREAMING OF GEOMETRICAL FIGURES LOST IN A FLUX OF SENSE",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-2961-960-0000-noise10db",
+      "path": "fixtures/audio/vad-candidate/test-clean-2961-960-0000-noise10db.wav",
+      "sha256": "e7ab0328d617d2b07eae227db2993157d1184056fc8db969f66442284213ac71",
+      "samples": 498880,
+      "suite": "noise10db",
+      "source_id": "2961-960-0000",
+      "source_sha256": "e6f9675ba6cb79ab0fd3e558c6289cd22c50c1517485d58593917d399d2da813",
+      "speaker_id": "2961",
+      "source_start_sample": 16000,
+      "source_end_sample": 450880,
+      "reference": "HE PASSES ABRUPTLY FROM PERSONS TO IDEAS AND NUMBERS AND FROM IDEAS AND NUMBERS TO PERSONS FROM THE HEAVENS TO MAN FROM ASTRONOMY TO PHYSIOLOGY HE CONFUSES OR RATHER DOES NOT DISTINGUISH SUBJECT AND OBJECT FIRST AND FINAL CAUSES AND IS DREAMING OF GEOMETRICAL FIGURES LOST IN A FLUX OF SENSE",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-3570-5694-0000-original",
+      "path": "fixtures/audio/vad-candidate/test-clean-3570-5694-0000-original.wav",
+      "sha256": "c9d644cd4029a485cbb7ec3c0507e512ccd031f619ae5bf52b8d8d92c9cda4b6",
+      "samples": 257360,
+      "suite": "original",
+      "source_id": "3570-5694-0000",
+      "source_sha256": "98d5183084b11bf9387473f5c7187357d5d537ce93ae66d6464dbf4808f4e1a3",
+      "speaker_id": "3570",
+      "source_start_sample": 16000,
+      "source_end_sample": 209360,
+      "reference": "BUT ALREADY AT A POINT IN ECONOMIC EVOLUTION FAR ANTEDATING THE EMERGENCE OF THE LADY SPECIALISED CONSUMPTION OF GOODS AS AN EVIDENCE OF PECUNIARY STRENGTH HAD BEGUN TO WORK OUT IN A MORE OR LESS ELABORATE SYSTEM",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-3570-5694-0000-quiet40db",
+      "path": "fixtures/audio/vad-candidate/test-clean-3570-5694-0000-quiet40db.wav",
+      "sha256": "3226f631c6647d33beeb1e6fc5f561c3d22a7ae4ecec8974bbbeb172ed851a34",
+      "samples": 257360,
+      "suite": "quiet40db",
+      "source_id": "3570-5694-0000",
+      "source_sha256": "98d5183084b11bf9387473f5c7187357d5d537ce93ae66d6464dbf4808f4e1a3",
+      "speaker_id": "3570",
+      "source_start_sample": 16000,
+      "source_end_sample": 209360,
+      "reference": "BUT ALREADY AT A POINT IN ECONOMIC EVOLUTION FAR ANTEDATING THE EMERGENCE OF THE LADY SPECIALISED CONSUMPTION OF GOODS AS AN EVIDENCE OF PECUNIARY STRENGTH HAD BEGUN TO WORK OUT IN A MORE OR LESS ELABORATE SYSTEM",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-3570-5694-0000-noise10db",
+      "path": "fixtures/audio/vad-candidate/test-clean-3570-5694-0000-noise10db.wav",
+      "sha256": "51f1265e30ca05a95e6d3cc7733a49a953f6a6695434ba84ee2d16fa4a14e9e6",
+      "samples": 257360,
+      "suite": "noise10db",
+      "source_id": "3570-5694-0000",
+      "source_sha256": "98d5183084b11bf9387473f5c7187357d5d537ce93ae66d6464dbf4808f4e1a3",
+      "speaker_id": "3570",
+      "source_start_sample": 16000,
+      "source_end_sample": 209360,
+      "reference": "BUT ALREADY AT A POINT IN ECONOMIC EVOLUTION FAR ANTEDATING THE EMERGENCE OF THE LADY SPECIALISED CONSUMPTION OF GOODS AS AN EVIDENCE OF PECUNIARY STRENGTH HAD BEGUN TO WORK OUT IN A MORE OR LESS ELABORATE SYSTEM",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-3575-170457-0000-original",
+      "path": "fixtures/audio/vad-candidate/test-clean-3575-170457-0000-original.wav",
+      "sha256": "f7bcbc7f86e7b072c92ad16d30329a7c6155f0ceac494f4b408880ddce848624",
+      "samples": 195680,
+      "suite": "original",
+      "source_id": "3575-170457-0000",
+      "source_sha256": "6aaf21d7747b079cb4f860823e2a9f4b09809474dd7f32754c9bf91a2313d72b",
+      "speaker_id": "3575",
+      "source_start_sample": 16000,
+      "source_end_sample": 147680,
+      "reference": "AND OFTEN HAS MY MOTHER SAID WHILE ON HER LAP I LAID MY HEAD SHE FEARED FOR TIME I WAS NOT MADE BUT FOR ETERNITY",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-3575-170457-0000-quiet40db",
+      "path": "fixtures/audio/vad-candidate/test-clean-3575-170457-0000-quiet40db.wav",
+      "sha256": "5e70f025ddae0bd8f05c689476aa31c1771ba912883d1320b4fb2fd6cb5f8f09",
+      "samples": 195680,
+      "suite": "quiet40db",
+      "source_id": "3575-170457-0000",
+      "source_sha256": "6aaf21d7747b079cb4f860823e2a9f4b09809474dd7f32754c9bf91a2313d72b",
+      "speaker_id": "3575",
+      "source_start_sample": 16000,
+      "source_end_sample": 147680,
+      "reference": "AND OFTEN HAS MY MOTHER SAID WHILE ON HER LAP I LAID MY HEAD SHE FEARED FOR TIME I WAS NOT MADE BUT FOR ETERNITY",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-3575-170457-0000-noise10db",
+      "path": "fixtures/audio/vad-candidate/test-clean-3575-170457-0000-noise10db.wav",
+      "sha256": "b0b05475a213fc1e30c3be0370b618275a148c41d6df64f83f0add5c1cc92bc7",
+      "samples": 195680,
+      "suite": "noise10db",
+      "source_id": "3575-170457-0000",
+      "source_sha256": "6aaf21d7747b079cb4f860823e2a9f4b09809474dd7f32754c9bf91a2313d72b",
+      "speaker_id": "3575",
+      "source_start_sample": 16000,
+      "source_end_sample": 147680,
+      "reference": "AND OFTEN HAS MY MOTHER SAID WHILE ON HER LAP I LAID MY HEAD SHE FEARED FOR TIME I WAS NOT MADE BUT FOR ETERNITY",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-3729-6852-0000-original",
+      "path": "fixtures/audio/vad-candidate/test-clean-3729-6852-0000-original.wav",
+      "sha256": "cbbc99bdda87a3bf7044273f5af6e70fa54f351412db3a8baacc7c296d6c0073",
+      "samples": 242720,
+      "suite": "original",
+      "source_id": "3729-6852-0000",
+      "source_sha256": "04f7f3a5f3b662d43252fa574c7fc641524864efcf0f119ca3234cb857d89b55",
+      "speaker_id": "3729",
+      "source_start_sample": 16000,
+      "source_end_sample": 194720,
+      "reference": "TO CELEBRATE THE ARRIVAL OF HER SON SILVIA GAVE A SPLENDID SUPPER TO WHICH SHE HAD INVITED ALL HER RELATIVES AND IT WAS A GOOD OPPORTUNITY FOR ME TO MAKE THEIR ACQUAINTANCE",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-3729-6852-0000-quiet40db",
+      "path": "fixtures/audio/vad-candidate/test-clean-3729-6852-0000-quiet40db.wav",
+      "sha256": "d5c3a1afe4fd93a657ee29eba71eb95768f76da790d5c532b4417f645a9371df",
+      "samples": 242720,
+      "suite": "quiet40db",
+      "source_id": "3729-6852-0000",
+      "source_sha256": "04f7f3a5f3b662d43252fa574c7fc641524864efcf0f119ca3234cb857d89b55",
+      "speaker_id": "3729",
+      "source_start_sample": 16000,
+      "source_end_sample": 194720,
+      "reference": "TO CELEBRATE THE ARRIVAL OF HER SON SILVIA GAVE A SPLENDID SUPPER TO WHICH SHE HAD INVITED ALL HER RELATIVES AND IT WAS A GOOD OPPORTUNITY FOR ME TO MAKE THEIR ACQUAINTANCE",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-3729-6852-0000-noise10db",
+      "path": "fixtures/audio/vad-candidate/test-clean-3729-6852-0000-noise10db.wav",
+      "sha256": "59c65f98034e7db933fd8cd8e4ad99686e64390cf57ee40eb8dc6026899eb918",
+      "samples": 242720,
+      "suite": "noise10db",
+      "source_id": "3729-6852-0000",
+      "source_sha256": "04f7f3a5f3b662d43252fa574c7fc641524864efcf0f119ca3234cb857d89b55",
+      "speaker_id": "3729",
+      "source_start_sample": 16000,
+      "source_end_sample": 194720,
+      "reference": "TO CELEBRATE THE ARRIVAL OF HER SON SILVIA GAVE A SPLENDID SUPPER TO WHICH SHE HAD INVITED ALL HER RELATIVES AND IT WAS A GOOD OPPORTUNITY FOR ME TO MAKE THEIR ACQUAINTANCE",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-4077-13751-0000-original",
+      "path": "fixtures/audio/vad-candidate/test-clean-4077-13751-0000-original.wav",
+      "sha256": "895db0a14361908cd7520c2ad221957de4165de3932d2b00cc2d4dbc45258626",
+      "samples": 216960,
+      "suite": "original",
+      "source_id": "4077-13751-0000",
+      "source_sha256": "5d270ddc3f01afa2c31a8a2162d59c404faed75bbbc9f184903f8c36a53ceef9",
+      "speaker_id": "4077",
+      "source_start_sample": 16000,
+      "source_end_sample": 168960,
+      "reference": "ON THE SIXTH OF APRIL EIGHTEEN THIRTY THE CHURCH OF JESUS CHRIST OF LATTER DAY SAINTS WAS FORMALLY ORGANIZED AND THUS TOOK ON A LEGAL EXISTENCE",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-4077-13751-0000-quiet40db",
+      "path": "fixtures/audio/vad-candidate/test-clean-4077-13751-0000-quiet40db.wav",
+      "sha256": "68ab4b8e360d61b05afd9c8e224f5e036df0d90de5435420958a55302c7e1a1b",
+      "samples": 216960,
+      "suite": "quiet40db",
+      "source_id": "4077-13751-0000",
+      "source_sha256": "5d270ddc3f01afa2c31a8a2162d59c404faed75bbbc9f184903f8c36a53ceef9",
+      "speaker_id": "4077",
+      "source_start_sample": 16000,
+      "source_end_sample": 168960,
+      "reference": "ON THE SIXTH OF APRIL EIGHTEEN THIRTY THE CHURCH OF JESUS CHRIST OF LATTER DAY SAINTS WAS FORMALLY ORGANIZED AND THUS TOOK ON A LEGAL EXISTENCE",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-4077-13751-0000-noise10db",
+      "path": "fixtures/audio/vad-candidate/test-clean-4077-13751-0000-noise10db.wav",
+      "sha256": "0875e1a3e483677c77c3f7d47b9ab6a4a6c444dfbe202d5803e0df27b2ec0cdd",
+      "samples": 216960,
+      "suite": "noise10db",
+      "source_id": "4077-13751-0000",
+      "source_sha256": "5d270ddc3f01afa2c31a8a2162d59c404faed75bbbc9f184903f8c36a53ceef9",
+      "speaker_id": "4077",
+      "source_start_sample": 16000,
+      "source_end_sample": 168960,
+      "reference": "ON THE SIXTH OF APRIL EIGHTEEN THIRTY THE CHURCH OF JESUS CHRIST OF LATTER DAY SAINTS WAS FORMALLY ORGANIZED AND THUS TOOK ON A LEGAL EXISTENCE",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-4446-2271-0000-original",
+      "path": "fixtures/audio/vad-candidate/test-clean-4446-2271-0000-original.wav",
+      "sha256": "11ad08346d82d4e058638e7fdda625c037fd38ec9cb01a14a52ff4b084b6a144",
+      "samples": 119920,
+      "suite": "original",
+      "source_id": "4446-2271-0000",
+      "source_sha256": "49aaa700017a0d06640bff0461b38d4c7e90933b3ce47c25fd11aff085d4b88b",
+      "speaker_id": "4446",
+      "source_start_sample": 16000,
+      "source_end_sample": 71920,
+      "reference": "MAINHALL LIKED ALEXANDER BECAUSE HE WAS AN ENGINEER",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-4446-2271-0000-quiet40db",
+      "path": "fixtures/audio/vad-candidate/test-clean-4446-2271-0000-quiet40db.wav",
+      "sha256": "4f7bf5aa24357e0c2fe6f3f5e40f8cf49b994afc592bef8c2284713d95d57ea2",
+      "samples": 119920,
+      "suite": "quiet40db",
+      "source_id": "4446-2271-0000",
+      "source_sha256": "49aaa700017a0d06640bff0461b38d4c7e90933b3ce47c25fd11aff085d4b88b",
+      "speaker_id": "4446",
+      "source_start_sample": 16000,
+      "source_end_sample": 71920,
+      "reference": "MAINHALL LIKED ALEXANDER BECAUSE HE WAS AN ENGINEER",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-4446-2271-0000-noise10db",
+      "path": "fixtures/audio/vad-candidate/test-clean-4446-2271-0000-noise10db.wav",
+      "sha256": "5592bef71e42ab57b4b67779b23276bd814c37d65eab453c7273d18834860d24",
+      "samples": 119920,
+      "suite": "noise10db",
+      "source_id": "4446-2271-0000",
+      "source_sha256": "49aaa700017a0d06640bff0461b38d4c7e90933b3ce47c25fd11aff085d4b88b",
+      "speaker_id": "4446",
+      "source_start_sample": 16000,
+      "source_end_sample": 71920,
+      "reference": "MAINHALL LIKED ALEXANDER BECAUSE HE WAS AN ENGINEER",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-4507-16021-0000-original",
+      "path": "fixtures/audio/vad-candidate/test-clean-4507-16021-0000-original.wav",
+      "sha256": "35dc0e067a3a71daa024843cfbe4148fd042b261e18fe0dd0d7fe6e90b16bc6a",
+      "samples": 105440,
+      "suite": "original",
+      "source_id": "4507-16021-0000",
+      "source_sha256": "e0778288261ee7f4c16fb87ac0fcd1bd62a00ec60d42b884ca88ae1ed09adf0e",
+      "speaker_id": "4507",
+      "source_start_sample": 16000,
+      "source_end_sample": 57440,
+      "reference": "CHAPTER ONE ORIGIN",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-4507-16021-0000-quiet40db",
+      "path": "fixtures/audio/vad-candidate/test-clean-4507-16021-0000-quiet40db.wav",
+      "sha256": "699ab6ad2ae164768755fee1a4a151cd12f6ec5d88396afb29b6f43665aaa8a6",
+      "samples": 105440,
+      "suite": "quiet40db",
+      "source_id": "4507-16021-0000",
+      "source_sha256": "e0778288261ee7f4c16fb87ac0fcd1bd62a00ec60d42b884ca88ae1ed09adf0e",
+      "speaker_id": "4507",
+      "source_start_sample": 16000,
+      "source_end_sample": 57440,
+      "reference": "CHAPTER ONE ORIGIN",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-clean-4507-16021-0000-noise10db",
+      "path": "fixtures/audio/vad-candidate/test-clean-4507-16021-0000-noise10db.wav",
+      "sha256": "404869fe7f5503ceb8aee94cdd4798f2350f807f81d9abd4dddc11679035ee27",
+      "samples": 105440,
+      "suite": "noise10db",
+      "source_id": "4507-16021-0000",
+      "source_sha256": "e0778288261ee7f4c16fb87ac0fcd1bd62a00ec60d42b884ca88ae1ed09adf0e",
+      "speaker_id": "4507",
+      "source_start_sample": 16000,
+      "source_end_sample": 57440,
+      "reference": "CHAPTER ONE ORIGIN",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-1688-142285-0000-original",
+      "path": "fixtures/audio/vad-candidate/test-other-1688-142285-0000-original.wav",
+      "sha256": "e74e147a4d8bffbd1191c2a7bc42ef753e48ef6edbe2ba454718bf1a5c021441",
+      "samples": 304000,
+      "suite": "original",
+      "source_id": "1688-142285-0000",
+      "source_sha256": "3ccaba01380aef96461bf8a71c72b275d0222c33aecefe0b398812749333efa7",
+      "speaker_id": "1688",
+      "source_start_sample": 16000,
+      "source_end_sample": 256000,
+      "reference": "THERE'S IRON THEY SAY IN ALL OUR BLOOD AND A GRAIN OR TWO PERHAPS IS GOOD BUT HIS HE MAKES ME HARSHLY FEEL HAS GOT A LITTLE TOO MUCH OF STEEL ANON",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-1688-142285-0000-quiet40db",
+      "path": "fixtures/audio/vad-candidate/test-other-1688-142285-0000-quiet40db.wav",
+      "sha256": "a5a4ec49dceaddefd0bc8b1a1aaebd3d3cede4307369ae1bc2f4a434fe9e9e3b",
+      "samples": 304000,
+      "suite": "quiet40db",
+      "source_id": "1688-142285-0000",
+      "source_sha256": "3ccaba01380aef96461bf8a71c72b275d0222c33aecefe0b398812749333efa7",
+      "speaker_id": "1688",
+      "source_start_sample": 16000,
+      "source_end_sample": 256000,
+      "reference": "THERE'S IRON THEY SAY IN ALL OUR BLOOD AND A GRAIN OR TWO PERHAPS IS GOOD BUT HIS HE MAKES ME HARSHLY FEEL HAS GOT A LITTLE TOO MUCH OF STEEL ANON",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-1688-142285-0000-noise10db",
+      "path": "fixtures/audio/vad-candidate/test-other-1688-142285-0000-noise10db.wav",
+      "sha256": "a0f0e68a5be94a27e0aac5aca8af62bce2f8cb8112708f9d6847e988c84da1ac",
+      "samples": 304000,
+      "suite": "noise10db",
+      "source_id": "1688-142285-0000",
+      "source_sha256": "3ccaba01380aef96461bf8a71c72b275d0222c33aecefe0b398812749333efa7",
+      "speaker_id": "1688",
+      "source_start_sample": 16000,
+      "source_end_sample": 256000,
+      "reference": "THERE'S IRON THEY SAY IN ALL OUR BLOOD AND A GRAIN OR TWO PERHAPS IS GOOD BUT HIS HE MAKES ME HARSHLY FEEL HAS GOT A LITTLE TOO MUCH OF STEEL ANON",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-1998-15444-0000-original",
+      "path": "fixtures/audio/vad-candidate/test-other-1998-15444-0000-original.wav",
+      "sha256": "2807e9ec330b3a08a2aa8419b53a39180b4026640ec3c8005047948029478b9f",
+      "samples": 277040,
+      "suite": "original",
+      "source_id": "1998-15444-0000",
+      "source_sha256": "b832923b11fae9986739dddb5f2081d30c24a41426f8fd96611915550ff5730d",
+      "speaker_id": "1998",
+      "source_start_sample": 16000,
+      "source_end_sample": 229040,
+      "reference": "IF CALLED TO A CASE SUPPOSED OR SUSPECTED TO BE ONE OF POISONING THE MEDICAL MAN HAS TWO DUTIES TO PERFORM TO SAVE THE PATIENT'S LIFE AND TO PLACE HIMSELF IN A POSITION TO GIVE EVIDENCE IF CALLED ON TO DO SO",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-1998-15444-0000-quiet40db",
+      "path": "fixtures/audio/vad-candidate/test-other-1998-15444-0000-quiet40db.wav",
+      "sha256": "e3fda308aa3d5770a85aa0fc3305d2544bf14f43404d7d5322d5f81b010be0ce",
+      "samples": 277040,
+      "suite": "quiet40db",
+      "source_id": "1998-15444-0000",
+      "source_sha256": "b832923b11fae9986739dddb5f2081d30c24a41426f8fd96611915550ff5730d",
+      "speaker_id": "1998",
+      "source_start_sample": 16000,
+      "source_end_sample": 229040,
+      "reference": "IF CALLED TO A CASE SUPPOSED OR SUSPECTED TO BE ONE OF POISONING THE MEDICAL MAN HAS TWO DUTIES TO PERFORM TO SAVE THE PATIENT'S LIFE AND TO PLACE HIMSELF IN A POSITION TO GIVE EVIDENCE IF CALLED ON TO DO SO",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-1998-15444-0000-noise10db",
+      "path": "fixtures/audio/vad-candidate/test-other-1998-15444-0000-noise10db.wav",
+      "sha256": "a08d32e329bc66f3a16b1bd819e821da7b5be60df3af48762e8cad5075d3ed5f",
+      "samples": 277040,
+      "suite": "noise10db",
+      "source_id": "1998-15444-0000",
+      "source_sha256": "b832923b11fae9986739dddb5f2081d30c24a41426f8fd96611915550ff5730d",
+      "speaker_id": "1998",
+      "source_start_sample": 16000,
+      "source_end_sample": 229040,
+      "reference": "IF CALLED TO A CASE SUPPOSED OR SUSPECTED TO BE ONE OF POISONING THE MEDICAL MAN HAS TWO DUTIES TO PERFORM TO SAVE THE PATIENT'S LIFE AND TO PLACE HIMSELF IN A POSITION TO GIVE EVIDENCE IF CALLED ON TO DO SO",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-2033-164914-0000-original",
+      "path": "fixtures/audio/vad-candidate/test-other-2033-164914-0000-original.wav",
+      "sha256": "7f8db8d979511e43512ef1f1fb5be81ca085b42c4d7c1f31e9ca98f9fa82d45a",
+      "samples": 209200,
+      "suite": "original",
+      "source_id": "2033-164914-0000",
+      "source_sha256": "c995ea70c61d39f2c51608fb82c4c94087f8ec030265d879bf4595ac4f35cf9a",
+      "speaker_id": "2033",
+      "source_start_sample": 16000,
+      "source_end_sample": 161200,
+      "reference": "REPLIED HE OF A TRUTH I HEARD HIM NOT AND I WOT HIM NOT AND FOLKS ARE ALL SLEEPING",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-2033-164914-0000-quiet40db",
+      "path": "fixtures/audio/vad-candidate/test-other-2033-164914-0000-quiet40db.wav",
+      "sha256": "5fc71121cb925719e50cd6c1da1767b9b9d70e0996e25de7153d42c1e267999e",
+      "samples": 209200,
+      "suite": "quiet40db",
+      "source_id": "2033-164914-0000",
+      "source_sha256": "c995ea70c61d39f2c51608fb82c4c94087f8ec030265d879bf4595ac4f35cf9a",
+      "speaker_id": "2033",
+      "source_start_sample": 16000,
+      "source_end_sample": 161200,
+      "reference": "REPLIED HE OF A TRUTH I HEARD HIM NOT AND I WOT HIM NOT AND FOLKS ARE ALL SLEEPING",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-2033-164914-0000-noise10db",
+      "path": "fixtures/audio/vad-candidate/test-other-2033-164914-0000-noise10db.wav",
+      "sha256": "7a1e77c69aa9685104537121c951cc3a9e099672f67d2b3d96bce71c082a8114",
+      "samples": 209200,
+      "suite": "noise10db",
+      "source_id": "2033-164914-0000",
+      "source_sha256": "c995ea70c61d39f2c51608fb82c4c94087f8ec030265d879bf4595ac4f35cf9a",
+      "speaker_id": "2033",
+      "source_start_sample": 16000,
+      "source_end_sample": 161200,
+      "reference": "REPLIED HE OF A TRUTH I HEARD HIM NOT AND I WOT HIM NOT AND FOLKS ARE ALL SLEEPING",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-2414-128291-0000-original",
+      "path": "fixtures/audio/vad-candidate/test-other-2414-128291-0000-original.wav",
+      "sha256": "409a72b85e53a097c52a605f8b2e962237ccfef5cd40d239c60b104240e2df31",
+      "samples": 110560,
+      "suite": "original",
+      "source_id": "2414-128291-0000",
+      "source_sha256": "ab2ba4df436a8743c7f2f34f1ab12b6145ee58decf3c6397e0eda1f4f421bfe4",
+      "speaker_id": "2414",
+      "source_start_sample": 16000,
+      "source_end_sample": 62560,
+      "reference": "WHAT HATH HAPPENED UNTO ME",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-2414-128291-0000-quiet40db",
+      "path": "fixtures/audio/vad-candidate/test-other-2414-128291-0000-quiet40db.wav",
+      "sha256": "9df8fba1d6bcd893db2a35d23f8fb125e2c1303901c65f6372f20d2ec2a45d4f",
+      "samples": 110560,
+      "suite": "quiet40db",
+      "source_id": "2414-128291-0000",
+      "source_sha256": "ab2ba4df436a8743c7f2f34f1ab12b6145ee58decf3c6397e0eda1f4f421bfe4",
+      "speaker_id": "2414",
+      "source_start_sample": 16000,
+      "source_end_sample": 62560,
+      "reference": "WHAT HATH HAPPENED UNTO ME",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-2414-128291-0000-noise10db",
+      "path": "fixtures/audio/vad-candidate/test-other-2414-128291-0000-noise10db.wav",
+      "sha256": "2389b3c4f71bce8c84f79ef4e97acd77c52462a7ba9c67fd15827bd1db7d7638",
+      "samples": 110560,
+      "suite": "noise10db",
+      "source_id": "2414-128291-0000",
+      "source_sha256": "ab2ba4df436a8743c7f2f34f1ab12b6145ee58decf3c6397e0eda1f4f421bfe4",
+      "speaker_id": "2414",
+      "source_start_sample": 16000,
+      "source_end_sample": 62560,
+      "reference": "WHAT HATH HAPPENED UNTO ME",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-2609-156975-0000-original",
+      "path": "fixtures/audio/vad-candidate/test-other-2609-156975-0000-original.wav",
+      "sha256": "9d1e446e8f599de6528a339ca164e4f34b4057e1af07fef6bea31409e3d6bd60",
+      "samples": 135840,
+      "suite": "original",
+      "source_id": "2609-156975-0000",
+      "source_sha256": "93e66197161e8031fb6f65e02a47f9f0a25706f77d81493e4045b49f2c2e87f8",
+      "speaker_id": "2609",
+      "source_start_sample": 16000,
+      "source_end_sample": 87840,
+      "reference": "THEN MOSES WAS AFRAID AND SAID SURELY THE THING IS KNOWN",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-2609-156975-0000-quiet40db",
+      "path": "fixtures/audio/vad-candidate/test-other-2609-156975-0000-quiet40db.wav",
+      "sha256": "6e67e599ed9d178eef283c0ab71404532855ffecc835c4f65a7b7c4819a00fda",
+      "samples": 135840,
+      "suite": "quiet40db",
+      "source_id": "2609-156975-0000",
+      "source_sha256": "93e66197161e8031fb6f65e02a47f9f0a25706f77d81493e4045b49f2c2e87f8",
+      "speaker_id": "2609",
+      "source_start_sample": 16000,
+      "source_end_sample": 87840,
+      "reference": "THEN MOSES WAS AFRAID AND SAID SURELY THE THING IS KNOWN",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-2609-156975-0000-noise10db",
+      "path": "fixtures/audio/vad-candidate/test-other-2609-156975-0000-noise10db.wav",
+      "sha256": "10ffcef29099663c9412c3f0a87dcdf447fe335367f5837146a1bd22ee703167",
+      "samples": 135840,
+      "suite": "noise10db",
+      "source_id": "2609-156975-0000",
+      "source_sha256": "93e66197161e8031fb6f65e02a47f9f0a25706f77d81493e4045b49f2c2e87f8",
+      "speaker_id": "2609",
+      "source_start_sample": 16000,
+      "source_end_sample": 87840,
+      "reference": "THEN MOSES WAS AFRAID AND SAID SURELY THE THING IS KNOWN",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-3005-163389-0000-original",
+      "path": "fixtures/audio/vad-candidate/test-other-3005-163389-0000-original.wav",
+      "sha256": "0dc700dc43bc6a223be00ef5931259d355f1b18aed91704a6441728a499b57e7",
+      "samples": 198000,
+      "suite": "original",
+      "source_id": "3005-163389-0000",
+      "source_sha256": "52f509679a91b278816249818ebbfc119e4bced35940f636e6cdb1a8137c6716",
+      "speaker_id": "3005",
+      "source_start_sample": 16000,
+      "source_end_sample": 150000,
+      "reference": "THEY SWARMED UP IN FRONT OF SHERBURN'S PALINGS AS THICK AS THEY COULD JAM TOGETHER AND YOU COULDN'T HEAR YOURSELF THINK FOR THE NOISE",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-3005-163389-0000-quiet40db",
+      "path": "fixtures/audio/vad-candidate/test-other-3005-163389-0000-quiet40db.wav",
+      "sha256": "193c5887629c85e64b5602eded0e20c46e8d09d8383f9d3c1ad414244c9e3672",
+      "samples": 198000,
+      "suite": "quiet40db",
+      "source_id": "3005-163389-0000",
+      "source_sha256": "52f509679a91b278816249818ebbfc119e4bced35940f636e6cdb1a8137c6716",
+      "speaker_id": "3005",
+      "source_start_sample": 16000,
+      "source_end_sample": 150000,
+      "reference": "THEY SWARMED UP IN FRONT OF SHERBURN'S PALINGS AS THICK AS THEY COULD JAM TOGETHER AND YOU COULDN'T HEAR YOURSELF THINK FOR THE NOISE",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-3005-163389-0000-noise10db",
+      "path": "fixtures/audio/vad-candidate/test-other-3005-163389-0000-noise10db.wav",
+      "sha256": "e0f35c259d43d33c94ba3f747c9bc0fcdfe36cfc7351de2dc01b1731fc120a8d",
+      "samples": 198000,
+      "suite": "noise10db",
+      "source_id": "3005-163389-0000",
+      "source_sha256": "52f509679a91b278816249818ebbfc119e4bced35940f636e6cdb1a8137c6716",
+      "speaker_id": "3005",
+      "source_start_sample": 16000,
+      "source_end_sample": 150000,
+      "reference": "THEY SWARMED UP IN FRONT OF SHERBURN'S PALINGS AS THICK AS THEY COULD JAM TOGETHER AND YOU COULDN'T HEAR YOURSELF THINK FOR THE NOISE",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-3080-5032-0000-original",
+      "path": "fixtures/audio/vad-candidate/test-other-3080-5032-0000-original.wav",
+      "sha256": "96c7600a00ff1b05134b995f872a9b0c15330fc48787c07510058d6c8f93ae15",
+      "samples": 136880,
+      "suite": "original",
+      "source_id": "3080-5032-0000",
+      "source_sha256": "235a602efdf83ee47c172ff6c29ce155afe58c966ea0c2f7a297b98a1d6086ba",
+      "speaker_id": "3080",
+      "source_start_sample": 16000,
+      "source_end_sample": 88880,
+      "reference": "BUT I AM HUGELY PLEASED THAT YOU HAVE SEEN MY LADY",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-3080-5032-0000-quiet40db",
+      "path": "fixtures/audio/vad-candidate/test-other-3080-5032-0000-quiet40db.wav",
+      "sha256": "8794dc023a7c1c8053bc8244956416c1a0300e5294bcfbcac7e2cfb516012c07",
+      "samples": 136880,
+      "suite": "quiet40db",
+      "source_id": "3080-5032-0000",
+      "source_sha256": "235a602efdf83ee47c172ff6c29ce155afe58c966ea0c2f7a297b98a1d6086ba",
+      "speaker_id": "3080",
+      "source_start_sample": 16000,
+      "source_end_sample": 88880,
+      "reference": "BUT I AM HUGELY PLEASED THAT YOU HAVE SEEN MY LADY",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-3080-5032-0000-noise10db",
+      "path": "fixtures/audio/vad-candidate/test-other-3080-5032-0000-noise10db.wav",
+      "sha256": "4934451dfc66a46240e733eb5a3e5d05bb9be5cdbb02794cbd291a2a456b8f2d",
+      "samples": 136880,
+      "suite": "noise10db",
+      "source_id": "3080-5032-0000",
+      "source_sha256": "235a602efdf83ee47c172ff6c29ce155afe58c966ea0c2f7a297b98a1d6086ba",
+      "speaker_id": "3080",
+      "source_start_sample": 16000,
+      "source_end_sample": 88880,
+      "reference": "BUT I AM HUGELY PLEASED THAT YOU HAVE SEEN MY LADY",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-3331-159605-0000-original",
+      "path": "fixtures/audio/vad-candidate/test-other-3331-159605-0000-original.wav",
+      "sha256": "e8c5bff03640439228421eda67d9c7f0a3cdd1cd16caf5acdea1a8c8a8a71d8d",
+      "samples": 282720,
+      "suite": "original",
+      "source_id": "3331-159605-0000",
+      "source_sha256": "d5df0650bd87f697c4cb9635ec913d6394475726bb5db85df4c8b4c054df7931",
+      "speaker_id": "3331",
+      "source_start_sample": 16000,
+      "source_end_sample": 234720,
+      "reference": "SHE PULLED HER HAIR DOWN TURNED HER SKIRT BACK PUT HER FEET ON THE FENDER AND TOOK PUTTEL INTO HER LAP ALL OF WHICH ARRANGEMENTS SIGNIFIED THAT SOMETHING VERY IMPORTANT HAD GOT TO BE THOUGHT OVER AND SETTLED",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-3331-159605-0000-quiet40db",
+      "path": "fixtures/audio/vad-candidate/test-other-3331-159605-0000-quiet40db.wav",
+      "sha256": "40877424958916614632aa25574aabc7f682c5eb9d49ba5ea70a0c5b027d003d",
+      "samples": 282720,
+      "suite": "quiet40db",
+      "source_id": "3331-159605-0000",
+      "source_sha256": "d5df0650bd87f697c4cb9635ec913d6394475726bb5db85df4c8b4c054df7931",
+      "speaker_id": "3331",
+      "source_start_sample": 16000,
+      "source_end_sample": 234720,
+      "reference": "SHE PULLED HER HAIR DOWN TURNED HER SKIRT BACK PUT HER FEET ON THE FENDER AND TOOK PUTTEL INTO HER LAP ALL OF WHICH ARRANGEMENTS SIGNIFIED THAT SOMETHING VERY IMPORTANT HAD GOT TO BE THOUGHT OVER AND SETTLED",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-3331-159605-0000-noise10db",
+      "path": "fixtures/audio/vad-candidate/test-other-3331-159605-0000-noise10db.wav",
+      "sha256": "18398e2ef438f516111d09f4bb18ae67bcb32b621453921e27e715c54d887c72",
+      "samples": 282720,
+      "suite": "noise10db",
+      "source_id": "3331-159605-0000",
+      "source_sha256": "d5df0650bd87f697c4cb9635ec913d6394475726bb5db85df4c8b4c054df7931",
+      "speaker_id": "3331",
+      "source_start_sample": 16000,
+      "source_end_sample": 234720,
+      "reference": "SHE PULLED HER HAIR DOWN TURNED HER SKIRT BACK PUT HER FEET ON THE FENDER AND TOOK PUTTEL INTO HER LAP ALL OF WHICH ARRANGEMENTS SIGNIFIED THAT SOMETHING VERY IMPORTANT HAD GOT TO BE THOUGHT OVER AND SETTLED",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-3528-168656-0000-original",
+      "path": "fixtures/audio/vad-candidate/test-other-3528-168656-0000-original.wav",
+      "sha256": "3489b7e1b7cc29626661d03f25042189b971a80fa7948983963449b4df448dce",
+      "samples": 118160,
+      "suite": "original",
+      "source_id": "3528-168656-0000",
+      "source_sha256": "e9f9b0159fc5336c50fcee48538a26b2d168c6932948e8fe7970c39e2034dc02",
+      "speaker_id": "3528",
+      "source_start_sample": 16000,
+      "source_end_sample": 70160,
+      "reference": "SHE HAD EVEN BEEN IN SOCIETY BEFORE THE REVOLUTION",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-3528-168656-0000-quiet40db",
+      "path": "fixtures/audio/vad-candidate/test-other-3528-168656-0000-quiet40db.wav",
+      "sha256": "5c752e23ccc53019376fdf605398a8d5b4fbe34d2c3ba7293d3696f5399b826b",
+      "samples": 118160,
+      "suite": "quiet40db",
+      "source_id": "3528-168656-0000",
+      "source_sha256": "e9f9b0159fc5336c50fcee48538a26b2d168c6932948e8fe7970c39e2034dc02",
+      "speaker_id": "3528",
+      "source_start_sample": 16000,
+      "source_end_sample": 70160,
+      "reference": "SHE HAD EVEN BEEN IN SOCIETY BEFORE THE REVOLUTION",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-3528-168656-0000-noise10db",
+      "path": "fixtures/audio/vad-candidate/test-other-3528-168656-0000-noise10db.wav",
+      "sha256": "6b4aebe16289d1e8bd93ab06cc966c1e10e39c51152c55da95f97319bbd5e35b",
+      "samples": 118160,
+      "suite": "noise10db",
+      "source_id": "3528-168656-0000",
+      "source_sha256": "e9f9b0159fc5336c50fcee48538a26b2d168c6932948e8fe7970c39e2034dc02",
+      "speaker_id": "3528",
+      "source_start_sample": 16000,
+      "source_end_sample": 70160,
+      "reference": "SHE HAD EVEN BEEN IN SOCIETY BEFORE THE REVOLUTION",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-3538-142836-0000-original",
+      "path": "fixtures/audio/vad-candidate/test-other-3538-142836-0000-original.wav",
+      "sha256": "2ae23cc98399d1f9eb3f4e90c112bc908d01b5a079c1a0b66f00a4381abddffd",
+      "samples": 146560,
+      "suite": "original",
+      "source_id": "3538-142836-0000",
+      "source_sha256": "13019aa724ef6664a2bd70b0d49fb4cd7a3a86ea1c6c19e971fcd4bc2eb1a83e",
+      "speaker_id": "3538",
+      "source_start_sample": 16000,
+      "source_end_sample": 98560,
+      "reference": "GENERAL OBSERVATIONS ON PRESERVES CONFECTIONARY ICES AND DESSERT DISHES",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-3538-142836-0000-quiet40db",
+      "path": "fixtures/audio/vad-candidate/test-other-3538-142836-0000-quiet40db.wav",
+      "sha256": "1ec067e18f50f6cf7085312730d8ddb28207e4e33560b6ffb3899de50990a693",
+      "samples": 146560,
+      "suite": "quiet40db",
+      "source_id": "3538-142836-0000",
+      "source_sha256": "13019aa724ef6664a2bd70b0d49fb4cd7a3a86ea1c6c19e971fcd4bc2eb1a83e",
+      "speaker_id": "3538",
+      "source_start_sample": 16000,
+      "source_end_sample": 98560,
+      "reference": "GENERAL OBSERVATIONS ON PRESERVES CONFECTIONARY ICES AND DESSERT DISHES",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-3538-142836-0000-noise10db",
+      "path": "fixtures/audio/vad-candidate/test-other-3538-142836-0000-noise10db.wav",
+      "sha256": "2bae05f9eda2dcb6447adbc7c57c77dd76ce67e8d9d938fca54caa9b95172a9e",
+      "samples": 146560,
+      "suite": "noise10db",
+      "source_id": "3538-142836-0000",
+      "source_sha256": "13019aa724ef6664a2bd70b0d49fb4cd7a3a86ea1c6c19e971fcd4bc2eb1a83e",
+      "speaker_id": "3538",
+      "source_start_sample": 16000,
+      "source_end_sample": 98560,
+      "reference": "GENERAL OBSERVATIONS ON PRESERVES CONFECTIONARY ICES AND DESSERT DISHES",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-367-130732-0000-original",
+      "path": "fixtures/audio/vad-candidate/test-other-367-130732-0000-original.wav",
+      "sha256": "ee5c45d4b68e8542c3b0a3161dcda4971e04017eb93d3aa40f599b6e5f95c637",
+      "samples": 101840,
+      "suite": "original",
+      "source_id": "367-130732-0000",
+      "source_sha256": "9abf15ee9910b7b9e060b8045d9571f2fb77e90d2db3b36926723993634e2078",
+      "speaker_id": "367",
+      "source_start_sample": 16000,
+      "source_end_sample": 53840,
+      "reference": "LOBSTERS AND LOBSTERS",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-367-130732-0000-quiet40db",
+      "path": "fixtures/audio/vad-candidate/test-other-367-130732-0000-quiet40db.wav",
+      "sha256": "1be51433ecf8fabf43d90e0cae79adaf7ca8de4c40327a730edb35fe5ec3034e",
+      "samples": 101840,
+      "suite": "quiet40db",
+      "source_id": "367-130732-0000",
+      "source_sha256": "9abf15ee9910b7b9e060b8045d9571f2fb77e90d2db3b36926723993634e2078",
+      "speaker_id": "367",
+      "source_start_sample": 16000,
+      "source_end_sample": 53840,
+      "reference": "LOBSTERS AND LOBSTERS",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-367-130732-0000-noise10db",
+      "path": "fixtures/audio/vad-candidate/test-other-367-130732-0000-noise10db.wav",
+      "sha256": "3e3e54572aa233d8c1387a142212a990b25ab18d189fc79804b91adc5d99f06e",
+      "samples": 101840,
+      "suite": "noise10db",
+      "source_id": "367-130732-0000",
+      "source_sha256": "9abf15ee9910b7b9e060b8045d9571f2fb77e90d2db3b36926723993634e2078",
+      "speaker_id": "367",
+      "source_start_sample": 16000,
+      "source_end_sample": 53840,
+      "reference": "LOBSTERS AND LOBSTERS",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-3764-168670-0000-original",
+      "path": "fixtures/audio/vad-candidate/test-other-3764-168670-0000-original.wav",
+      "sha256": "14a63982476855640c8981f8269ec1e7e6f9617dc86094698f4754bf4b90f03b",
+      "samples": 204800,
+      "suite": "original",
+      "source_id": "3764-168670-0000",
+      "source_sha256": "946b2514fbadb8852117f7c63672c008796a6b7ea02cca490f0c750fc4c682d0",
+      "speaker_id": "3764",
+      "source_start_sample": 16000,
+      "source_end_sample": 156800,
+      "reference": "THE STRIDES OF A LAME MAN ARE LIKE THE OGLING GLANCES OF A ONE EYED MAN THEY DO NOT REACH THEIR GOAL VERY PROMPTLY",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-3764-168670-0000-quiet40db",
+      "path": "fixtures/audio/vad-candidate/test-other-3764-168670-0000-quiet40db.wav",
+      "sha256": "1ca319d7914e379506b067729ca5d5552348800dcb51f0b53a3e2bc9bd3fc20e",
+      "samples": 204800,
+      "suite": "quiet40db",
+      "source_id": "3764-168670-0000",
+      "source_sha256": "946b2514fbadb8852117f7c63672c008796a6b7ea02cca490f0c750fc4c682d0",
+      "speaker_id": "3764",
+      "source_start_sample": 16000,
+      "source_end_sample": 156800,
+      "reference": "THE STRIDES OF A LAME MAN ARE LIKE THE OGLING GLANCES OF A ONE EYED MAN THEY DO NOT REACH THEIR GOAL VERY PROMPTLY",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-3764-168670-0000-noise10db",
+      "path": "fixtures/audio/vad-candidate/test-other-3764-168670-0000-noise10db.wav",
+      "sha256": "e1d0b3032617ee6f9a30bebe8b898b8a5c4e0822fee85b4c507e700371fd3dbf",
+      "samples": 204800,
+      "suite": "noise10db",
+      "source_id": "3764-168670-0000",
+      "source_sha256": "946b2514fbadb8852117f7c63672c008796a6b7ea02cca490f0c750fc4c682d0",
+      "speaker_id": "3764",
+      "source_start_sample": 16000,
+      "source_end_sample": 156800,
+      "reference": "THE STRIDES OF A LAME MAN ARE LIKE THE OGLING GLANCES OF A ONE EYED MAN THEY DO NOT REACH THEIR GOAL VERY PROMPTLY",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-3997-180294-0000-original",
+      "path": "fixtures/audio/vad-candidate/test-other-3997-180294-0000-original.wav",
+      "sha256": "2f96ffedfcbc25d1c15c80ac3157fd1fc877a903f790c8c32becb493d376f684",
+      "samples": 191280,
+      "suite": "original",
+      "source_id": "3997-180294-0000",
+      "source_sha256": "960bbb8edc0f813a1aed51942b2a15482ec2f60fc4aea73e4c43bc641b602f18",
+      "speaker_id": "3997",
+      "source_start_sample": 16000,
+      "source_end_sample": 143280,
+      "reference": "THE DUKE COMES EVERY MORNING THEY WILL TELL HIM WHEN HE COMES THAT I AM ASLEEP AND PERHAPS HE WILL WAIT UNTIL I WAKE",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-3997-180294-0000-quiet40db",
+      "path": "fixtures/audio/vad-candidate/test-other-3997-180294-0000-quiet40db.wav",
+      "sha256": "70faef528c7c21be4713fccda82f0f442f18b9ec85e401b188567a24259fa532",
+      "samples": 191280,
+      "suite": "quiet40db",
+      "source_id": "3997-180294-0000",
+      "source_sha256": "960bbb8edc0f813a1aed51942b2a15482ec2f60fc4aea73e4c43bc641b602f18",
+      "speaker_id": "3997",
+      "source_start_sample": 16000,
+      "source_end_sample": 143280,
+      "reference": "THE DUKE COMES EVERY MORNING THEY WILL TELL HIM WHEN HE COMES THAT I AM ASLEEP AND PERHAPS HE WILL WAIT UNTIL I WAKE",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-3997-180294-0000-noise10db",
+      "path": "fixtures/audio/vad-candidate/test-other-3997-180294-0000-noise10db.wav",
+      "sha256": "cbc7f06b8bb22ac2c6bf05ff99c6d30dfe0e89c4fbbb45c7f0006507cd2be192",
+      "samples": 191280,
+      "suite": "noise10db",
+      "source_id": "3997-180294-0000",
+      "source_sha256": "960bbb8edc0f813a1aed51942b2a15482ec2f60fc4aea73e4c43bc641b602f18",
+      "speaker_id": "3997",
+      "source_start_sample": 16000,
+      "source_end_sample": 143280,
+      "reference": "THE DUKE COMES EVERY MORNING THEY WILL TELL HIM WHEN HE COMES THAT I AM ASLEEP AND PERHAPS HE WILL WAIT UNTIL I WAKE",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-4198-12259-0000-original",
+      "path": "fixtures/audio/vad-candidate/test-other-4198-12259-0000-original.wav",
+      "sha256": "613647dac194126738e40c4dfb3fcf60b89e454faaf4b9937fff08ee540ba916",
+      "samples": 155040,
+      "suite": "original",
+      "source_id": "4198-12259-0000",
+      "source_sha256": "49c4aa314f0519efbf6d96da7f87e4126ea249d4137d2f0afe9c98c8df4ee2ba",
+      "speaker_id": "4198",
+      "source_start_sample": 16000,
+      "source_end_sample": 107040,
+      "reference": "DRAW REACH FILL MIX GIVE IT ME WITHOUT WATER",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-4198-12259-0000-quiet40db",
+      "path": "fixtures/audio/vad-candidate/test-other-4198-12259-0000-quiet40db.wav",
+      "sha256": "ed0c71154bf1f358b5080668723fd0def44facea4dce0c5f7ce0e3067061e982",
+      "samples": 155040,
+      "suite": "quiet40db",
+      "source_id": "4198-12259-0000",
+      "source_sha256": "49c4aa314f0519efbf6d96da7f87e4126ea249d4137d2f0afe9c98c8df4ee2ba",
+      "speaker_id": "4198",
+      "source_start_sample": 16000,
+      "source_end_sample": 107040,
+      "reference": "DRAW REACH FILL MIX GIVE IT ME WITHOUT WATER",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-4198-12259-0000-noise10db",
+      "path": "fixtures/audio/vad-candidate/test-other-4198-12259-0000-noise10db.wav",
+      "sha256": "05f8e8fe5bcf801f5f7202d05c7a000a4a8781c2a041bfa9b245df739f1badd7",
+      "samples": 155040,
+      "suite": "noise10db",
+      "source_id": "4198-12259-0000",
+      "source_sha256": "49c4aa314f0519efbf6d96da7f87e4126ea249d4137d2f0afe9c98c8df4ee2ba",
+      "speaker_id": "4198",
+      "source_start_sample": 16000,
+      "source_end_sample": 107040,
+      "reference": "DRAW REACH FILL MIX GIVE IT ME WITHOUT WATER",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-4294-14317-0000-original",
+      "path": "fixtures/audio/vad-candidate/test-other-4294-14317-0000-original.wav",
+      "sha256": "cfd49c7ef7f9d74b5ddb4d115eb3c6ca6be0b45f0c02da876783971aca8ecf8a",
+      "samples": 184240,
+      "suite": "original",
+      "source_id": "4294-14317-0000",
+      "source_sha256": "f7c1c279c97e2a659e3bc3cc88e537761d731bcb09e12fa769a5cb723f55268d",
+      "speaker_id": "4294",
+      "source_start_sample": 16000,
+      "source_end_sample": 136240,
+      "reference": "AS I THOUGHT THAT THIS WAS DUE TO SOME FAULT IN THE EARTH I WANTED TO MAKE THESE FIRST EXPERIMENTS BEFORE I UNDERTOOK MY PERSEUS",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-4294-14317-0000-quiet40db",
+      "path": "fixtures/audio/vad-candidate/test-other-4294-14317-0000-quiet40db.wav",
+      "sha256": "f5b10407265c0c9de2c71550d01a1277c3ec1ec8694ac6a21ab427acd934b1e5",
+      "samples": 184240,
+      "suite": "quiet40db",
+      "source_id": "4294-14317-0000",
+      "source_sha256": "f7c1c279c97e2a659e3bc3cc88e537761d731bcb09e12fa769a5cb723f55268d",
+      "speaker_id": "4294",
+      "source_start_sample": 16000,
+      "source_end_sample": 136240,
+      "reference": "AS I THOUGHT THAT THIS WAS DUE TO SOME FAULT IN THE EARTH I WANTED TO MAKE THESE FIRST EXPERIMENTS BEFORE I UNDERTOOK MY PERSEUS",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-4294-14317-0000-noise10db",
+      "path": "fixtures/audio/vad-candidate/test-other-4294-14317-0000-noise10db.wav",
+      "sha256": "2c82f4ff50b0fbe30ebfe5df6167919287bfa83275922ba7dd10b103cb9d26c9",
+      "samples": 184240,
+      "suite": "noise10db",
+      "source_id": "4294-14317-0000",
+      "source_sha256": "f7c1c279c97e2a659e3bc3cc88e537761d731bcb09e12fa769a5cb723f55268d",
+      "speaker_id": "4294",
+      "source_start_sample": 16000,
+      "source_end_sample": 136240,
+      "reference": "AS I THOUGHT THAT THIS WAS DUE TO SOME FAULT IN THE EARTH I WANTED TO MAKE THESE FIRST EXPERIMENTS BEFORE I UNDERTOOK MY PERSEUS",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-4350-10919-0000-original",
+      "path": "fixtures/audio/vad-candidate/test-other-4350-10919-0000-original.wav",
+      "sha256": "4d160120eeaf9e64b936a56c0a27627ebd544811b2cc8e8600f207dc8b4d796c",
+      "samples": 146479,
+      "suite": "original",
+      "source_id": "4350-10919-0000",
+      "source_sha256": "56174c870e2ec092a907b1abdaa25f3e918471aa5f2cf6041d99d34d5a2f44a3",
+      "speaker_id": "4350",
+      "source_start_sample": 16000,
+      "source_end_sample": 98479,
+      "reference": "HE PERCEIVED THAT IT WAS NO GOOD TALKING TO THE OLD MAN AND THAT THE PRINCIPAL PERSON IN THE HOUSE WAS THE MOTHER",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-4350-10919-0000-quiet40db",
+      "path": "fixtures/audio/vad-candidate/test-other-4350-10919-0000-quiet40db.wav",
+      "sha256": "95ea29589afcb255693be0a132a4a30f15aadfa1197fe34cd87e467da1155d9e",
+      "samples": 146479,
+      "suite": "quiet40db",
+      "source_id": "4350-10919-0000",
+      "source_sha256": "56174c870e2ec092a907b1abdaa25f3e918471aa5f2cf6041d99d34d5a2f44a3",
+      "speaker_id": "4350",
+      "source_start_sample": 16000,
+      "source_end_sample": 98479,
+      "reference": "HE PERCEIVED THAT IT WAS NO GOOD TALKING TO THE OLD MAN AND THAT THE PRINCIPAL PERSON IN THE HOUSE WAS THE MOTHER",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-4350-10919-0000-noise10db",
+      "path": "fixtures/audio/vad-candidate/test-other-4350-10919-0000-noise10db.wav",
+      "sha256": "a235c3f17210ad744b569ca27886b57daa70fb9837538153c3ee7d8b18d26414",
+      "samples": 146479,
+      "suite": "noise10db",
+      "source_id": "4350-10919-0000",
+      "source_sha256": "56174c870e2ec092a907b1abdaa25f3e918471aa5f2cf6041d99d34d5a2f44a3",
+      "speaker_id": "4350",
+      "source_start_sample": 16000,
+      "source_end_sample": 98479,
+      "reference": "HE PERCEIVED THAT IT WAS NO GOOD TALKING TO THE OLD MAN AND THAT THE PRINCIPAL PERSON IN THE HOUSE WAS THE MOTHER",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-4852-28311-0000-original",
+      "path": "fixtures/audio/vad-candidate/test-other-4852-28311-0000-original.wav",
+      "sha256": "ef73cba881d13bf956a8e82f69d3c68624a9e033903788153159f6bbc272c2a6",
+      "samples": 96400,
+      "suite": "original",
+      "source_id": "4852-28311-0000",
+      "source_sha256": "94cb81b064d92692aad65bfc078001ef0e8ffcc73cd8ff0953f6634f7204d86f",
+      "speaker_id": "4852",
+      "source_start_sample": 16000,
+      "source_end_sample": 48400,
+      "reference": "SAY YOU KNOW SUMTHIN",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-4852-28311-0000-quiet40db",
+      "path": "fixtures/audio/vad-candidate/test-other-4852-28311-0000-quiet40db.wav",
+      "sha256": "01576416332fcac6d7f78167bfe4cdb07a91d70deea34ec940a7575270324548",
+      "samples": 96400,
+      "suite": "quiet40db",
+      "source_id": "4852-28311-0000",
+      "source_sha256": "94cb81b064d92692aad65bfc078001ef0e8ffcc73cd8ff0953f6634f7204d86f",
+      "speaker_id": "4852",
+      "source_start_sample": 16000,
+      "source_end_sample": 48400,
+      "reference": "SAY YOU KNOW SUMTHIN",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-4852-28311-0000-noise10db",
+      "path": "fixtures/audio/vad-candidate/test-other-4852-28311-0000-noise10db.wav",
+      "sha256": "407bfe14f2fd3f3859c971b887f6708b41ac517cfa9ffa64cc224c9bc4a346fb",
+      "samples": 96400,
+      "suite": "noise10db",
+      "source_id": "4852-28311-0000",
+      "source_sha256": "94cb81b064d92692aad65bfc078001ef0e8ffcc73cd8ff0953f6634f7204d86f",
+      "speaker_id": "4852",
+      "source_start_sample": 16000,
+      "source_end_sample": 48400,
+      "reference": "SAY YOU KNOW SUMTHIN",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-533-1066-0000-original",
+      "path": "fixtures/audio/vad-candidate/test-other-533-1066-0000-original.wav",
+      "sha256": "f26221db87b47c4bbf78034f8f0c92cf97a6463be2dc5b85371059dded1b909b",
+      "samples": 104800,
+      "suite": "original",
+      "source_id": "533-1066-0000",
+      "source_sha256": "1186ce8ced09710ba7a01b338fd05493af572c63d706001972a918959764c5a2",
+      "speaker_id": "533",
+      "source_start_sample": 16000,
+      "source_end_sample": 56800,
+      "reference": "WHEN CHURCHYARDS YAWN",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-533-1066-0000-quiet40db",
+      "path": "fixtures/audio/vad-candidate/test-other-533-1066-0000-quiet40db.wav",
+      "sha256": "89e25511cef473ef35d7ad35003a0345d91fee09e4255550a6aad1458b11563b",
+      "samples": 104800,
+      "suite": "quiet40db",
+      "source_id": "533-1066-0000",
+      "source_sha256": "1186ce8ced09710ba7a01b338fd05493af572c63d706001972a918959764c5a2",
+      "speaker_id": "533",
+      "source_start_sample": 16000,
+      "source_end_sample": 56800,
+      "reference": "WHEN CHURCHYARDS YAWN",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-533-1066-0000-noise10db",
+      "path": "fixtures/audio/vad-candidate/test-other-533-1066-0000-noise10db.wav",
+      "sha256": "a39b9114e96a4fe1a3326cd9992cb4f073d93eb3afd7227b45a5f2e6bc4ad861",
+      "samples": 104800,
+      "suite": "noise10db",
+      "source_id": "533-1066-0000",
+      "source_sha256": "1186ce8ced09710ba7a01b338fd05493af572c63d706001972a918959764c5a2",
+      "speaker_id": "533",
+      "source_start_sample": 16000,
+      "source_end_sample": 56800,
+      "reference": "WHEN CHURCHYARDS YAWN",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-5442-32873-0000-original",
+      "path": "fixtures/audio/vad-candidate/test-other-5442-32873-0000-original.wav",
+      "sha256": "ceaabc23586979ff44754cc30af2dc4e902204bb0f8068a40f38e8f0a7305cc4",
+      "samples": 126560,
+      "suite": "original",
+      "source_id": "5442-32873-0000",
+      "source_sha256": "8e31c7789222974988b0797e807c25bc7e60adb3e27ddf99770c48c68cf82a1a",
+      "speaker_id": "5442",
+      "source_start_sample": 16000,
+      "source_end_sample": 78560,
+      "reference": "CAPTAIN LAKE DID NOT LOOK AT ALL LIKE A LONDON DANDY NOW",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-5442-32873-0000-quiet40db",
+      "path": "fixtures/audio/vad-candidate/test-other-5442-32873-0000-quiet40db.wav",
+      "sha256": "1e4cbb54afd45c2d5ceda147f32c28ba58e7a20dfeddc37ca3ad7708c3116149",
+      "samples": 126560,
+      "suite": "quiet40db",
+      "source_id": "5442-32873-0000",
+      "source_sha256": "8e31c7789222974988b0797e807c25bc7e60adb3e27ddf99770c48c68cf82a1a",
+      "speaker_id": "5442",
+      "source_start_sample": 16000,
+      "source_end_sample": 78560,
+      "reference": "CAPTAIN LAKE DID NOT LOOK AT ALL LIKE A LONDON DANDY NOW",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-5442-32873-0000-noise10db",
+      "path": "fixtures/audio/vad-candidate/test-other-5442-32873-0000-noise10db.wav",
+      "sha256": "04911053c88c7bf10241565890aeb2b864dbe2e50c22a9be98e4a9a553c9cf7e",
+      "samples": 126560,
+      "suite": "noise10db",
+      "source_id": "5442-32873-0000",
+      "source_sha256": "8e31c7789222974988b0797e807c25bc7e60adb3e27ddf99770c48c68cf82a1a",
+      "speaker_id": "5442",
+      "source_start_sample": 16000,
+      "source_end_sample": 78560,
+      "reference": "CAPTAIN LAKE DID NOT LOOK AT ALL LIKE A LONDON DANDY NOW",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-5484-24317-0000-original",
+      "path": "fixtures/audio/vad-candidate/test-other-5484-24317-0000-original.wav",
+      "sha256": "824b47f1079a23e00143dc55c76cf777206ecd2df4c4d8e992d4301a8c0a3474",
+      "samples": 120640,
+      "suite": "original",
+      "source_id": "5484-24317-0000",
+      "source_sha256": "40edb7860a58126dc99ab0550d141f048409be1a7f9dfc83639e71ba07611812",
+      "speaker_id": "5484",
+      "source_start_sample": 16000,
+      "source_end_sample": 72640,
+      "reference": "WHEN HE CAME FROM THE BATH PROCLUS VISITED HIM AGAIN",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-5484-24317-0000-quiet40db",
+      "path": "fixtures/audio/vad-candidate/test-other-5484-24317-0000-quiet40db.wav",
+      "sha256": "94d0c2493d6ec984bd096dcc29439fef7083df50586c3f2d47429a3f25852c43",
+      "samples": 120640,
+      "suite": "quiet40db",
+      "source_id": "5484-24317-0000",
+      "source_sha256": "40edb7860a58126dc99ab0550d141f048409be1a7f9dfc83639e71ba07611812",
+      "speaker_id": "5484",
+      "source_start_sample": 16000,
+      "source_end_sample": 72640,
+      "reference": "WHEN HE CAME FROM THE BATH PROCLUS VISITED HIM AGAIN",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "test-other-5484-24317-0000-noise10db",
+      "path": "fixtures/audio/vad-candidate/test-other-5484-24317-0000-noise10db.wav",
+      "sha256": "7d16f1385e1deb50d1ebf4a6afc0bdc21a7405eda8e0a2c4186b1ae5790868b4",
+      "samples": 120640,
+      "suite": "noise10db",
+      "source_id": "5484-24317-0000",
+      "source_sha256": "40edb7860a58126dc99ab0550d141f048409be1a7f9dfc83639e71ba07611812",
+      "speaker_id": "5484",
+      "source_start_sample": 16000,
+      "source_end_sample": 72640,
+      "reference": "WHEN HE CAME FROM THE BATH PROCLUS VISITED HIM AGAIN",
+      "language": "en",
+      "expected_speech": true
+    },
+    {
+      "id": "synthetic-silence",
+      "path": "fixtures/audio/vad-candidate/synthetic-silence.wav",
+      "sha256": "754600f871902b78686a437542199c86f9ce21d65e7bdfed3e330311c5c0e24c",
+      "samples": 80000,
+      "suite": "synthetic-negative",
+      "reference": "",
+      "expected_speech": false
+    },
+    {
+      "id": "synthetic-gaussian",
+      "path": "fixtures/audio/vad-candidate/synthetic-gaussian.wav",
+      "sha256": "6b34811b5d3990bf0f259ee818bb4f9b8058e91191a0d777ecc7cde1444d3f93",
+      "samples": 80000,
+      "suite": "synthetic-negative",
+      "reference": "",
+      "expected_speech": false
+    },
+    {
+      "id": "synthetic-hum60hz",
+      "path": "fixtures/audio/vad-candidate/synthetic-hum60hz.wav",
+      "sha256": "73a714dcd4913f4bf482554421c5ad4138fbf8cfda2feedd6243d9292cf69ac7",
+      "samples": 80000,
+      "suite": "synthetic-negative",
+      "reference": "",
+      "expected_speech": false
+    },
+    {
+      "id": "synthetic-tone440hz",
+      "path": "fixtures/audio/vad-candidate/synthetic-tone440hz.wav",
+      "sha256": "97bcfd1c79e067d58a4fbafad752263d2dfa05068b081cfc71facb263e0b7e7f",
+      "samples": 80000,
+      "suite": "synthetic-negative",
+      "reference": "",
+      "expected_speech": false
+    },
+    {
+      "id": "synthetic-clicks",
+      "path": "fixtures/audio/vad-candidate/synthetic-clicks.wav",
+      "sha256": "66f52ecdb7cbb0558748fb50370538ee886d13914005875f312d9f0d62464bd2",
+      "samples": 80000,
+      "suite": "synthetic-negative",
+      "reference": "",
+      "expected_speech": false
+    },
+    {
+      "id": "ami-ES2004a-180s",
+      "path": "fixtures/audio/ami-ES2004a-180s.wav",
+      "sha256": "587b6f421a267a3ed9411deb8c0c570653041feb9dc895a80748d0a500d60b5b",
+      "samples": 2880000,
+      "suite": "ami",
+      "language": "en",
+      "expected_speech": true,
+      "only_words": [
+        {
+          "start": 0.37,
+          "end": 1.7599999999999998,
+          "speaker": 0
+        },
+        {
+          "start": 10.99,
+          "end": 14.530000000000001,
+          "speaker": 1
+        },
+        {
+          "start": 17.88,
+          "end": 18.15,
+          "speaker": 0
+        },
+        {
+          "start": 18.87,
+          "end": 20.29,
+          "speaker": 1
+        },
+        {
+          "start": 22.37,
+          "end": 23.810000000000002,
+          "speaker": 1
+        },
+        {
+          "start": 25.15,
+          "end": 26.83,
+          "speaker": 3
+        },
+        {
+          "start": 25.18,
+          "end": 25.6,
+          "speaker": 1
+        },
+        {
+          "start": 29.12,
+          "end": 30.48,
+          "speaker": 3
+        },
+        {
+          "start": 29.86,
+          "end": 31.98,
+          "speaker": 1
+        },
+        {
+          "start": 31.3,
+          "end": 33.39,
+          "speaker": 3
+        },
+        {
+          "start": 34.26,
+          "end": 34.72,
+          "speaker": 1
+        },
+        {
+          "start": 42.63,
+          "end": 43.29,
+          "speaker": 3
+        },
+        {
+          "start": 49.75,
+          "end": 53.18,
+          "speaker": 3
+        },
+        {
+          "start": 63.81,
+          "end": 66.33,
+          "speaker": 0
+        },
+        {
+          "start": 71.95,
+          "end": 72.06,
+          "speaker": 0
+        },
+        {
+          "start": 80.49,
+          "end": 94.61999999999999,
+          "speaker": 1
+        },
+        {
+          "start": 80.5,
+          "end": 81.66,
+          "speaker": 0
+        },
+        {
+          "start": 83.22,
+          "end": 84.03,
+          "speaker": 0
+        },
+        {
+          "start": 95.68,
+          "end": 115.89000000000001,
+          "speaker": 1
+        },
+        {
+          "start": 117.62,
+          "end": 160.95,
+          "speaker": 1
+        },
+        {
+          "start": 162.31,
+          "end": 167.8,
+          "speaker": 1
+        },
+        {
+          "start": 168.79,
+          "end": 168.88,
+          "speaker": 0
+        },
+        {
+          "start": 170.38,
+          "end": 180,
+          "speaker": 1
+        }
+      ],
+      "manual_segments": [
+        {
+          "start": 0,
+          "end": 1.792,
+          "speaker": 0
+        },
+        {
+          "start": 17.619,
+          "end": 18.391,
+          "speaker": 0
+        },
+        {
+          "start": 63.063,
+          "end": 66.416,
+          "speaker": 0
+        },
+        {
+          "start": 71.087,
+          "end": 72.624,
+          "speaker": 0
+        },
+        {
+          "start": 80.443,
+          "end": 81.985,
+          "speaker": 0
+        },
+        {
+          "start": 83.2,
+          "end": 84.332,
+          "speaker": 0
+        },
+        {
+          "start": 168.768,
+          "end": 169.04,
+          "speaker": 0
+        },
+        {
+          "start": 0,
+          "end": 1.575,
+          "speaker": 1
+        },
+        {
+          "start": 10.944,
+          "end": 14.737,
+          "speaker": 1
+        },
+        {
+          "start": 18.722,
+          "end": 20.32,
+          "speaker": 1
+        },
+        {
+          "start": 22.352,
+          "end": 23.872,
+          "speaker": 1
+        },
+        {
+          "start": 25.163,
+          "end": 25.98,
+          "speaker": 1
+        },
+        {
+          "start": 29.098,
+          "end": 32.297,
+          "speaker": 1
+        },
+        {
+          "start": 34.112,
+          "end": 34.764,
+          "speaker": 1
+        },
+        {
+          "start": 44.48,
+          "end": 47.136,
+          "speaker": 1
+        },
+        {
+          "start": 80.272,
+          "end": 94.743,
+          "speaker": 1
+        },
+        {
+          "start": 95.664,
+          "end": 115.952,
+          "speaker": 1
+        },
+        {
+          "start": 117.6,
+          "end": 161.04,
+          "speaker": 1
+        },
+        {
+          "start": 162.288,
+          "end": 167.904,
+          "speaker": 1
+        },
+        {
+          "start": 170.288,
+          "end": 180,
+          "speaker": 1
+        },
+        {
+          "start": 24.992,
+          "end": 27.024,
+          "speaker": 3
+        },
+        {
+          "start": 28.56,
+          "end": 30.59,
+          "speaker": 3
+        },
+        {
+          "start": 31.28,
+          "end": 33.48,
+          "speaker": 3
+        },
+        {
+          "start": 42.017,
+          "end": 43.386,
+          "speaker": 3
+        },
+        {
+          "start": 49.613,
+          "end": 53.228,
+          "speaker": 3
+        }
+      ]
+    },
+    {
+      "id": "ami-EN2002a-180s",
+      "path": "fixtures/audio/ami-EN2002a-180s.wav",
+      "sha256": "c058b5cade821d30409427828c64daba2ecf15f35636e985c453af9d3cbd5501",
+      "samples": 2880000,
+      "suite": "ami",
+      "language": "en",
+      "expected_speech": true,
+      "only_words": [
+        {
+          "start": 0.37,
+          "end": 1.7400000000000002,
+          "speaker": 3
+        },
+        {
+          "start": 0.96,
+          "end": 6.85,
+          "speaker": 0
+        },
+        {
+          "start": 3.58,
+          "end": 5.38,
+          "speaker": 2
+        },
+        {
+          "start": 3.75,
+          "end": 12.13,
+          "speaker": 3
+        },
+        {
+          "start": 8.6,
+          "end": 8.95,
+          "speaker": 1
+        },
+        {
+          "start": 12.32,
+          "end": 15.22,
+          "speaker": 1
+        },
+        {
+          "start": 13.2,
+          "end": 13.66,
+          "speaker": 2
+        },
+        {
+          "start": 14.98,
+          "end": 15.48,
+          "speaker": 3
+        },
+        {
+          "start": 15.21,
+          "end": 25.22,
+          "speaker": 2
+        },
+        {
+          "start": 19.08,
+          "end": 23.689999999999998,
+          "speaker": 3
+        },
+        {
+          "start": 21.47,
+          "end": 23.29,
+          "speaker": 0
+        },
+        {
+          "start": 25.5,
+          "end": 29.77,
+          "speaker": 0
+        },
+        {
+          "start": 25.76,
+          "end": 26.150000000000002,
+          "speaker": 1
+        },
+        {
+          "start": 28.43,
+          "end": 29.9,
+          "speaker": 3
+        },
+        {
+          "start": 29.84,
+          "end": 34.41,
+          "speaker": 2
+        },
+        {
+          "start": 30.51,
+          "end": 30.650000000000002,
+          "speaker": 1
+        },
+        {
+          "start": 32.53,
+          "end": 32.71,
+          "speaker": 1
+        },
+        {
+          "start": 32.58,
+          "end": 32.71,
+          "speaker": 0
+        },
+        {
+          "start": 35.49,
+          "end": 45.5,
+          "speaker": 1
+        },
+        {
+          "start": 36.34,
+          "end": 36.6,
+          "speaker": 2
+        },
+        {
+          "start": 41.78,
+          "end": 43.42,
+          "speaker": 3
+        },
+        {
+          "start": 43.96,
+          "end": 44.13,
+          "speaker": 2
+        },
+        {
+          "start": 48.29,
+          "end": 50.06,
+          "speaker": 1
+        },
+        {
+          "start": 48.72,
+          "end": 49.019999999999996,
+          "speaker": 2
+        },
+        {
+          "start": 50.38,
+          "end": 66.81,
+          "speaker": 2
+        },
+        {
+          "start": 68.23,
+          "end": 68.55,
+          "speaker": 3
+        },
+        {
+          "start": 68.79,
+          "end": 84.75,
+          "speaker": 2
+        },
+        {
+          "start": 86.48,
+          "end": 87.07000000000001,
+          "speaker": 2
+        },
+        {
+          "start": 88.61,
+          "end": 103.91,
+          "speaker": 2
+        },
+        {
+          "start": 106.2,
+          "end": 134.81,
+          "speaker": 2
+        },
+        {
+          "start": 106.38,
+          "end": 106.61999999999999,
+          "speaker": 3
+        },
+        {
+          "start": 106.69,
+          "end": 106.87,
+          "speaker": 0
+        },
+        {
+          "start": 136.62,
+          "end": 160.74,
+          "speaker": 2
+        },
+        {
+          "start": 138.78,
+          "end": 140.55,
+          "speaker": 3
+        },
+        {
+          "start": 140.88,
+          "end": 141.12,
+          "speaker": 1
+        },
+        {
+          "start": 142.17,
+          "end": 142.51,
+          "speaker": 3
+        },
+        {
+          "start": 142.58,
+          "end": 144.01000000000002,
+          "speaker": 1
+        },
+        {
+          "start": 152.4,
+          "end": 152.8,
+          "speaker": 1
+        },
+        {
+          "start": 162.68,
+          "end": 168.75,
+          "speaker": 2
+        },
+        {
+          "start": 169.45,
+          "end": 170.92999999999998,
+          "speaker": 3
+        },
+        {
+          "start": 170.64,
+          "end": 176.69,
+          "speaker": 2
+        },
+        {
+          "start": 176.92,
+          "end": 179.67999999999998,
+          "speaker": 3
+        }
+      ],
+      "manual_segments": [
+        {
+          "start": 0.944,
+          "end": 7.068,
+          "speaker": 0
+        },
+        {
+          "start": 20.124,
+          "end": 21.168,
+          "speaker": 0
+        },
+        {
+          "start": 21.4,
+          "end": 23.328,
+          "speaker": 0
+        },
+        {
+          "start": 25.344,
+          "end": 30.166,
+          "speaker": 0
+        },
+        {
+          "start": 32.484,
+          "end": 32.871,
+          "speaker": 0
+        },
+        {
+          "start": 106.656,
+          "end": 107.034,
+          "speaker": 0
+        },
+        {
+          "start": 3.692,
+          "end": 5.579,
+          "speaker": 1
+        },
+        {
+          "start": 7.891,
+          "end": 9.005,
+          "speaker": 1
+        },
+        {
+          "start": 12.133,
+          "end": 15.434,
+          "speaker": 1
+        },
+        {
+          "start": 19.006,
+          "end": 19.491,
+          "speaker": 1
+        },
+        {
+          "start": 20.222,
+          "end": 21.444,
+          "speaker": 1
+        },
+        {
+          "start": 23.49,
+          "end": 24.24,
+          "speaker": 1
+        },
+        {
+          "start": 25.658,
+          "end": 26.208,
+          "speaker": 1
+        },
+        {
+          "start": 28.016,
+          "end": 30.737,
+          "speaker": 1
+        },
+        {
+          "start": 32.416,
+          "end": 32.807,
+          "speaker": 1
+        },
+        {
+          "start": 34.048,
+          "end": 45.728,
+          "speaker": 1
+        },
+        {
+          "start": 48.256,
+          "end": 50.252,
+          "speaker": 1
+        },
+        {
+          "start": 140.852,
+          "end": 141.176,
+          "speaker": 1
+        },
+        {
+          "start": 142.533,
+          "end": 144.113,
+          "speaker": 1
+        },
+        {
+          "start": 152.304,
+          "end": 152.832,
+          "speaker": 1
+        },
+        {
+          "start": 3.492,
+          "end": 5.446,
+          "speaker": 2
+        },
+        {
+          "start": 8.544,
+          "end": 11.76,
+          "speaker": 2
+        },
+        {
+          "start": 13.12,
+          "end": 13.722,
+          "speaker": 2
+        },
+        {
+          "start": 15.109,
+          "end": 25.264,
+          "speaker": 2
+        },
+        {
+          "start": 27.879,
+          "end": 34.652,
+          "speaker": 2
+        },
+        {
+          "start": 36.272,
+          "end": 36.73,
+          "speaker": 2
+        },
+        {
+          "start": 40.912,
+          "end": 44.309,
+          "speaker": 2
+        },
+        {
+          "start": 48.704,
+          "end": 49.128,
+          "speaker": 2
+        },
+        {
+          "start": 50.192,
+          "end": 66.96,
+          "speaker": 2
+        },
+        {
+          "start": 68.768,
+          "end": 84.808,
+          "speaker": 2
+        },
+        {
+          "start": 86.464,
+          "end": 87.104,
+          "speaker": 2
+        },
+        {
+          "start": 88.576,
+          "end": 103.984,
+          "speaker": 2
+        },
+        {
+          "start": 106.167,
+          "end": 134.894,
+          "speaker": 2
+        },
+        {
+          "start": 136.526,
+          "end": 160.784,
+          "speaker": 2
+        },
+        {
+          "start": 162.621,
+          "end": 168.784,
+          "speaker": 2
+        },
+        {
+          "start": 170.603,
+          "end": 176.744,
+          "speaker": 2
+        },
+        {
+          "start": 0,
+          "end": 1.901,
+          "speaker": 3
+        },
+        {
+          "start": 3.612,
+          "end": 12.288,
+          "speaker": 3
+        },
+        {
+          "start": 14.959,
+          "end": 15.625,
+          "speaker": 3
+        },
+        {
+          "start": 19.008,
+          "end": 23.804,
+          "speaker": 3
+        },
+        {
+          "start": 27.792,
+          "end": 30.281,
+          "speaker": 3
+        },
+        {
+          "start": 34.246,
+          "end": 36.24,
+          "speaker": 3
+        },
+        {
+          "start": 41.523,
+          "end": 43.57,
+          "speaker": 3
+        },
+        {
+          "start": 45.232,
+          "end": 45.536,
+          "speaker": 3
+        },
+        {
+          "start": 49.383,
+          "end": 49.682,
+          "speaker": 3
+        },
+        {
+          "start": 68.208,
+          "end": 68.674,
+          "speaker": 3
+        },
+        {
+          "start": 106.183,
+          "end": 106.808,
+          "speaker": 3
+        },
+        {
+          "start": 138.752,
+          "end": 140.615,
+          "speaker": 3
+        },
+        {
+          "start": 142.112,
+          "end": 142.608,
+          "speaker": 3
+        },
+        {
+          "start": 169.395,
+          "end": 170.967,
+          "speaker": 3
+        },
+        {
+          "start": 176.896,
+          "end": 179.888,
+          "speaker": 3
+        }
+      ]
+    },
+    {
+      "id": "ami-IS1009a-180s",
+      "path": "fixtures/audio/ami-IS1009a-180s.wav",
+      "sha256": "4e79ce62d4a55f91b14b485f44a6db04dabd5472de4ad5261b55cbb1efa8f428",
+      "samples": 2880000,
+      "suite": "ami",
+      "language": "en",
+      "expected_speech": true,
+      "only_words": [
+        {
+          "start": 54.95,
+          "end": 60.85,
+          "speaker": 0
+        },
+        {
+          "start": 55.7,
+          "end": 56.03,
+          "speaker": 3
+        },
+        {
+          "start": 56.9,
+          "end": 57.04,
+          "speaker": 2
+        },
+        {
+          "start": 57.25,
+          "end": 57.7,
+          "speaker": 3
+        },
+        {
+          "start": 61.54,
+          "end": 62.57,
+          "speaker": 3
+        },
+        {
+          "start": 62.0,
+          "end": 67.29,
+          "speaker": 0
+        },
+        {
+          "start": 66.63,
+          "end": 80.83,
+          "speaker": 1
+        },
+        {
+          "start": 76.08,
+          "end": 76.42999999999999,
+          "speaker": 0
+        },
+        {
+          "start": 81.04,
+          "end": 82.05000000000001,
+          "speaker": 0
+        },
+        {
+          "start": 83.39,
+          "end": 86.94,
+          "speaker": 3
+        },
+        {
+          "start": 87.49,
+          "end": 88.58999999999999,
+          "speaker": 0
+        },
+        {
+          "start": 88.82,
+          "end": 89.69,
+          "speaker": 3
+        },
+        {
+          "start": 90.21,
+          "end": 90.52,
+          "speaker": 0
+        },
+        {
+          "start": 91.31,
+          "end": 107.4,
+          "speaker": 2
+        },
+        {
+          "start": 107.88,
+          "end": 118.16999999999999,
+          "speaker": 0
+        },
+        {
+          "start": 118.76,
+          "end": 119.05000000000001,
+          "speaker": 3
+        },
+        {
+          "start": 119.38,
+          "end": 119.91,
+          "speaker": 0
+        },
+        {
+          "start": 122.4,
+          "end": 132.39000000000001,
+          "speaker": 0
+        },
+        {
+          "start": 131.13,
+          "end": 131.49,
+          "speaker": 3
+        },
+        {
+          "start": 132.87,
+          "end": 146.77,
+          "speaker": 0
+        },
+        {
+          "start": 145.55,
+          "end": 145.79000000000002,
+          "speaker": 3
+        },
+        {
+          "start": 149.44,
+          "end": 162.32,
+          "speaker": 0
+        },
+        {
+          "start": 159.51,
+          "end": 159.78,
+          "speaker": 3
+        },
+        {
+          "start": 165.19,
+          "end": 166.99,
+          "speaker": 0
+        }
+      ],
+      "manual_segments": [
+        {
+          "start": 54.928,
+          "end": 60.88,
+          "speaker": 0
+        },
+        {
+          "start": 61.984,
+          "end": 67.328,
+          "speaker": 0
+        },
+        {
+          "start": 76.048,
+          "end": 76.528,
+          "speaker": 0
+        },
+        {
+          "start": 81.008,
+          "end": 82.192,
+          "speaker": 0
+        },
+        {
+          "start": 87.424,
+          "end": 88.624,
+          "speaker": 0
+        },
+        {
+          "start": 90.16,
+          "end": 90.576,
+          "speaker": 0
+        },
+        {
+          "start": 107.856,
+          "end": 118.208,
+          "speaker": 0
+        },
+        {
+          "start": 118.757,
+          "end": 119.984,
+          "speaker": 0
+        },
+        {
+          "start": 121.344,
+          "end": 132.845,
+          "speaker": 0
+        },
+        {
+          "start": 132.845,
+          "end": 146.8,
+          "speaker": 0
+        },
+        {
+          "start": 149.424,
+          "end": 162.352,
+          "speaker": 0
+        },
+        {
+          "start": 165.104,
+          "end": 167.14,
+          "speaker": 0
+        },
+        {
+          "start": 66.608,
+          "end": 80.88,
+          "speaker": 1
+        },
+        {
+          "start": 56.864,
+          "end": 57.088,
+          "speaker": 2
+        },
+        {
+          "start": 91.182,
+          "end": 107.504,
+          "speaker": 2
+        },
+        {
+          "start": 55.68,
+          "end": 56.102,
+          "speaker": 3
+        },
+        {
+          "start": 57.232,
+          "end": 57.744,
+          "speaker": 3
+        },
+        {
+          "start": 61.312,
+          "end": 62.637,
+          "speaker": 3
+        },
+        {
+          "start": 83.024,
+          "end": 86.976,
+          "speaker": 3
+        },
+        {
+          "start": 88.688,
+          "end": 89.728,
+          "speaker": 3
+        },
+        {
+          "start": 118.736,
+          "end": 119.12,
+          "speaker": 3
+        },
+        {
+          "start": 131.104,
+          "end": 131.568,
+          "speaker": 3
+        },
+        {
+          "start": 145.52,
+          "end": 145.856,
+          "speaker": 3
+        },
+        {
+          "start": 159.472,
+          "end": 160.057,
+          "speaker": 3
+        },
+        {
+          "start": 162.992,
+          "end": 163.392,
+          "speaker": 3
+        },
+        {
+          "start": 164.672,
+          "end": 165.008,
+          "speaker": 3
+        }
+      ]
+    },
+    {
+      "id": "ami-TS3003a-180s",
+      "path": "fixtures/audio/ami-TS3003a-180s.wav",
+      "sha256": "8c1d748e3e24773a3cbec9f6744f0c9b75c0230c7f8fc819715ac33938ec706f",
+      "samples": 2880000,
+      "suite": "ami",
+      "language": "en",
+      "expected_speech": true,
+      "only_words": [
+        {
+          "start": 13.46,
+          "end": 27.11,
+          "speaker": 0
+        },
+        {
+          "start": 15.344,
+          "end": 15.568,
+          "speaker": 1
+        },
+        {
+          "start": 15.37,
+          "end": 15.809999999999999,
+          "speaker": 3
+        },
+        {
+          "start": 16.42,
+          "end": 16.700000000000003,
+          "speaker": 2
+        },
+        {
+          "start": 19.67,
+          "end": 20.03,
+          "speaker": 3
+        },
+        {
+          "start": 32.64,
+          "end": 33.37,
+          "speaker": 0
+        },
+        {
+          "start": 35.95,
+          "end": 48.42,
+          "speaker": 0
+        },
+        {
+          "start": 40.79,
+          "end": 41.49,
+          "speaker": 3
+        },
+        {
+          "start": 42.99,
+          "end": 43.620000000000005,
+          "speaker": 1
+        },
+        {
+          "start": 48.1,
+          "end": 48.440000000000005,
+          "speaker": 3
+        },
+        {
+          "start": 50.14,
+          "end": 58.01,
+          "speaker": 0
+        },
+        {
+          "start": 62.27,
+          "end": 62.92,
+          "speaker": 0
+        },
+        {
+          "start": 65.58,
+          "end": 101.44999999999999,
+          "speaker": 0
+        },
+        {
+          "start": 106.87,
+          "end": 113.75,
+          "speaker": 0
+        },
+        {
+          "start": 111.31,
+          "end": 113.53,
+          "speaker": 3
+        },
+        {
+          "start": 116.66,
+          "end": 138.65,
+          "speaker": 0
+        },
+        {
+          "start": 140.63,
+          "end": 141.76999999999998,
+          "speaker": 0
+        },
+        {
+          "start": 143.39,
+          "end": 147.70999999999998,
+          "speaker": 0
+        },
+        {
+          "start": 149.67,
+          "end": 159.01999999999998,
+          "speaker": 0
+        },
+        {
+          "start": 161.34,
+          "end": 180,
+          "speaker": 0
+        },
+        {
+          "start": 163.72,
+          "end": 164.0,
+          "speaker": 3
+        }
+      ],
+      "manual_segments": [
+        {
+          "start": 13.32,
+          "end": 27.181,
+          "speaker": 0
+        },
+        {
+          "start": 32.351,
+          "end": 33.44,
+          "speaker": 0
+        },
+        {
+          "start": 35.619,
+          "end": 48.784,
+          "speaker": 0
+        },
+        {
+          "start": 50.08,
+          "end": 58.144,
+          "speaker": 0
+        },
+        {
+          "start": 61.875,
+          "end": 62.987,
+          "speaker": 0
+        },
+        {
+          "start": 65.35,
+          "end": 101.488,
+          "speaker": 0
+        },
+        {
+          "start": 106.775,
+          "end": 114.096,
+          "speaker": 0
+        },
+        {
+          "start": 116.64,
+          "end": 139.296,
+          "speaker": 0
+        },
+        {
+          "start": 140.608,
+          "end": 141.856,
+          "speaker": 0
+        },
+        {
+          "start": 142.902,
+          "end": 148.336,
+          "speaker": 0
+        },
+        {
+          "start": 149.648,
+          "end": 159.424,
+          "speaker": 0
+        },
+        {
+          "start": 161.216,
+          "end": 180,
+          "speaker": 0
+        },
+        {
+          "start": 15.344,
+          "end": 15.568,
+          "speaker": 1
+        },
+        {
+          "start": 42.944,
+          "end": 43.76,
+          "speaker": 1
+        },
+        {
+          "start": 109.92,
+          "end": 111.904,
+          "speaker": 1
+        },
+        {
+          "start": 16.304,
+          "end": 16.736,
+          "speaker": 2
+        },
+        {
+          "start": 45.44,
+          "end": 45.92,
+          "speaker": 2
+        },
+        {
+          "start": 15.055,
+          "end": 15.856,
+          "speaker": 3
+        },
+        {
+          "start": 19.605,
+          "end": 20.197,
+          "speaker": 3
+        },
+        {
+          "start": 40.527,
+          "end": 41.563,
+          "speaker": 3
+        },
+        {
+          "start": 48.08,
+          "end": 48.48,
+          "speaker": 3
+        },
+        {
+          "start": 109.472,
+          "end": 113.722,
+          "speaker": 3
+        },
+        {
+          "start": 143.88,
+          "end": 144.912,
+          "speaker": 3
+        },
+        {
+          "start": 163.696,
+          "end": 164.48,
+          "speaker": 3
+        }
+      ]
+    },
+    {
+      "id": "fleurs-es_419-000",
+      "path": "fixtures/audio/fleurs/es_419/000.wav",
+      "sha256": "518e4998d7fc4cb32bf9cb6c479b4cfe632bc68c6a2db376eeff98b68fea2bd1",
+      "samples": 205440,
+      "suite": "fleurs",
+      "language": "es",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-es_419-001",
+      "path": "fixtures/audio/fleurs/es_419/001.wav",
+      "sha256": "2c87d0b144fb5cd37b91058c4e7cbb92a2e423216c56f1f4cd7a39189bbd5e63",
+      "samples": 341760,
+      "suite": "fleurs",
+      "language": "es",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-es_419-002",
+      "path": "fixtures/audio/fleurs/es_419/002.wav",
+      "sha256": "24624100418fb70f3947df1912c4b64c6a7ae67a84936c98e3eb9e0162055a6f",
+      "samples": 155520,
+      "suite": "fleurs",
+      "language": "es",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-es_419-003",
+      "path": "fixtures/audio/fleurs/es_419/003.wav",
+      "sha256": "54f941743dbd5d484a3f4b2b72a5621d4ebb00c0e2c65d8a896bc05adc95a205",
+      "samples": 137280,
+      "suite": "fleurs",
+      "language": "es",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-es_419-004",
+      "path": "fixtures/audio/fleurs/es_419/004.wav",
+      "sha256": "5bfbd4442ae4495351febcb516663c779438444e562d4a959efd6dd6e454c38c",
+      "samples": 169920,
+      "suite": "fleurs",
+      "language": "es",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-es_419-005",
+      "path": "fixtures/audio/fleurs/es_419/005.wav",
+      "sha256": "0ad471471e9af79e91856bd07ff1e31594ad703356f6eb67251d867958975a2c",
+      "samples": 156480,
+      "suite": "fleurs",
+      "language": "es",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-es_419-006",
+      "path": "fixtures/audio/fleurs/es_419/006.wav",
+      "sha256": "26b7d441771ca7af5679f154631351081ac224cb7ae257dda34d43799854c54b",
+      "samples": 90240,
+      "suite": "fleurs",
+      "language": "es",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-es_419-007",
+      "path": "fixtures/audio/fleurs/es_419/007.wav",
+      "sha256": "425b17fb98176ba058dc0345f4a8d54c343c8d51db0daa6b337f8bf9f2d97479",
+      "samples": 164160,
+      "suite": "fleurs",
+      "language": "es",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-es_419-008",
+      "path": "fixtures/audio/fleurs/es_419/008.wav",
+      "sha256": "97256089ff27aef9a3ee609ba3bf4e6ba4ca20d060081155b8a4455f298df437",
+      "samples": 170880,
+      "suite": "fleurs",
+      "language": "es",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-es_419-009",
+      "path": "fixtures/audio/fleurs/es_419/009.wav",
+      "sha256": "920432a55b7e8eb606c8fea177ad4bb61f871e2dd49462e1de231c3d9a8274ef",
+      "samples": 193920,
+      "suite": "fleurs",
+      "language": "es",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-de_de-000",
+      "path": "fixtures/audio/fleurs/de_de/000.wav",
+      "sha256": "7131c007c5c5c7b72c2fae333c9bccf5e2c02a4abb32b740f314e58b1488f149",
+      "samples": 287040,
+      "suite": "fleurs",
+      "language": "de",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-de_de-001",
+      "path": "fixtures/audio/fleurs/de_de/001.wav",
+      "sha256": "5ced4640ec223bd9f59601722534acbb2f47087c71167529c513741a86cdae01",
+      "samples": 178560,
+      "suite": "fleurs",
+      "language": "de",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-de_de-002",
+      "path": "fixtures/audio/fleurs/de_de/002.wav",
+      "sha256": "d0859482db2b8461ba8726bce55e00f54760b3aae48aba674e67c893804d8d51",
+      "samples": 198720,
+      "suite": "fleurs",
+      "language": "de",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-de_de-003",
+      "path": "fixtures/audio/fleurs/de_de/003.wav",
+      "sha256": "bd345ef2d18cd274fb955cf510cb7f223c9ac6bb52c62fc4280eade47f9a56ee",
+      "samples": 170880,
+      "suite": "fleurs",
+      "language": "de",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-de_de-004",
+      "path": "fixtures/audio/fleurs/de_de/004.wav",
+      "sha256": "8bd38645c6abbb987e601e98b8c7ead49a81d849972fa26e658fe7345fab019f",
+      "samples": 158400,
+      "suite": "fleurs",
+      "language": "de",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-de_de-005",
+      "path": "fixtures/audio/fleurs/de_de/005.wav",
+      "sha256": "88988cc0b268d4a2fdef8163fcbaec565a3e7eccf2a81bef8b3afb03c2ba0eba",
+      "samples": 134400,
+      "suite": "fleurs",
+      "language": "de",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-de_de-006",
+      "path": "fixtures/audio/fleurs/de_de/006.wav",
+      "sha256": "68799b17c059180cbc70ca8e3b67034db9c99439881c5f34f67b3ba681868e61",
+      "samples": 207360,
+      "suite": "fleurs",
+      "language": "de",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-de_de-007",
+      "path": "fixtures/audio/fleurs/de_de/007.wav",
+      "sha256": "3c20827a16e7c24fecbb22cf6e4518b9a14f1f1f3cad0339d15e3bd9047a5544",
+      "samples": 314880,
+      "suite": "fleurs",
+      "language": "de",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-de_de-008",
+      "path": "fixtures/audio/fleurs/de_de/008.wav",
+      "sha256": "7b72181c650b318e1a0894c49a7cb2a2bcbef46aaa65274b1481e9b74e82b448",
+      "samples": 176640,
+      "suite": "fleurs",
+      "language": "de",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-de_de-009",
+      "path": "fixtures/audio/fleurs/de_de/009.wav",
+      "sha256": "0b1cf28352386d0918258af21bfc0e4853b0c6a7357637a239fe2a221677325c",
+      "samples": 694080,
+      "suite": "fleurs",
+      "language": "de",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-hi_in-000",
+      "path": "fixtures/audio/fleurs/hi_in/000.wav",
+      "sha256": "38cf0e883d64ae257288bce89cf41a9c4a693b218c3381d5bd462d90bf7b7ed6",
+      "samples": 145920,
+      "suite": "fleurs",
+      "language": "hi",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-hi_in-001",
+      "path": "fixtures/audio/fleurs/hi_in/001.wav",
+      "sha256": "39f91e5112c883518169024a6853921d2f4bea402f1e6a3bd3c05d99f9a5fae9",
+      "samples": 220800,
+      "suite": "fleurs",
+      "language": "hi",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-hi_in-002",
+      "path": "fixtures/audio/fleurs/hi_in/002.wav",
+      "sha256": "3423fa5ade955d770be244a88158ae875d0b30d84b5fda63a682aa2042ccccf3",
+      "samples": 240000,
+      "suite": "fleurs",
+      "language": "hi",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-hi_in-003",
+      "path": "fixtures/audio/fleurs/hi_in/003.wav",
+      "sha256": "82c6f2f156f1e2a2bfbc2c88e228c102e304e92ba228ef7f7171ecceb359af01",
+      "samples": 81600,
+      "suite": "fleurs",
+      "language": "hi",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-hi_in-004",
+      "path": "fixtures/audio/fleurs/hi_in/004.wav",
+      "sha256": "4641aae648169bbdd1be72e8c940a2773390a3753d6aac04febb9ff05afd42a4",
+      "samples": 211200,
+      "suite": "fleurs",
+      "language": "hi",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-hi_in-005",
+      "path": "fixtures/audio/fleurs/hi_in/005.wav",
+      "sha256": "3a0e7c20df4f601e65045bd80b376fb4190ac70dc43dcb8d8cd1b8e2a9d3d3b1",
+      "samples": 169920,
+      "suite": "fleurs",
+      "language": "hi",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-hi_in-006",
+      "path": "fixtures/audio/fleurs/hi_in/006.wav",
+      "sha256": "16222cd2193f43b92242a375ab66c7ace5c15ff77d780a02d5b3f2326f5da5e5",
+      "samples": 273600,
+      "suite": "fleurs",
+      "language": "hi",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-hi_in-007",
+      "path": "fixtures/audio/fleurs/hi_in/007.wav",
+      "sha256": "69e66f2b7ad1ebaa1a5ecb5d16b726d28f23cc39f833e99f0811db609c2f54bc",
+      "samples": 131520,
+      "suite": "fleurs",
+      "language": "hi",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-hi_in-008",
+      "path": "fixtures/audio/fleurs/hi_in/008.wav",
+      "sha256": "bc5230a5dd011fce5c2aa6a13648a461270d2b74370df31e8890cc15d72c1076",
+      "samples": 124800,
+      "suite": "fleurs",
+      "language": "hi",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-hi_in-009",
+      "path": "fixtures/audio/fleurs/hi_in/009.wav",
+      "sha256": "0f8f18c712c651660c73fd84e05ad2e0bd3102aecaaf988d9cfdd7aa1a8208d3",
+      "samples": 218880,
+      "suite": "fleurs",
+      "language": "hi",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-ja_jp-000",
+      "path": "fixtures/audio/fleurs/ja_jp/000.wav",
+      "sha256": "26b6cd491b5d52cf05d89207cb88499cdaba89749aebc29c8f216e834e3d9071",
+      "samples": 167040,
+      "suite": "fleurs",
+      "language": "ja",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-ja_jp-001",
+      "path": "fixtures/audio/fleurs/ja_jp/001.wav",
+      "sha256": "258fe8b9954d74c44bcfeb93317fff647f0a0f9135c472f4af32f6db5b02281e",
+      "samples": 227520,
+      "suite": "fleurs",
+      "language": "ja",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-ja_jp-002",
+      "path": "fixtures/audio/fleurs/ja_jp/002.wav",
+      "sha256": "bc4947522ebee189fa5f375e24b5f4cb84a66f264a39bfff241c5bfee01b0a34",
+      "samples": 205440,
+      "suite": "fleurs",
+      "language": "ja",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-ja_jp-003",
+      "path": "fixtures/audio/fleurs/ja_jp/003.wav",
+      "sha256": "b97654c603f2e4e66984fcca51c064be8054ed3b97a81a8890d71579bfdc8a00",
+      "samples": 200640,
+      "suite": "fleurs",
+      "language": "ja",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-ja_jp-004",
+      "path": "fixtures/audio/fleurs/ja_jp/004.wav",
+      "sha256": "d57545db2234856ae80dea142adfbcacf23fd7a351183f56431734f93ec3e58d",
+      "samples": 192960,
+      "suite": "fleurs",
+      "language": "ja",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-ja_jp-005",
+      "path": "fixtures/audio/fleurs/ja_jp/005.wav",
+      "sha256": "00b5efdbd751c1f133a964db6086bd8294fc64a4d729165bdc6f267cb9b2c618",
+      "samples": 111360,
+      "suite": "fleurs",
+      "language": "ja",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-ja_jp-006",
+      "path": "fixtures/audio/fleurs/ja_jp/006.wav",
+      "sha256": "959077418140484e2bcb2b708480127392272eb179121e7e2ceb1903b6be519e",
+      "samples": 142080,
+      "suite": "fleurs",
+      "language": "ja",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-ja_jp-007",
+      "path": "fixtures/audio/fleurs/ja_jp/007.wav",
+      "sha256": "a744212bc2eb19672f31cb39a4ead66c58854bcb898097c1a573eef103724def",
+      "samples": 207360,
+      "suite": "fleurs",
+      "language": "ja",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-ja_jp-008",
+      "path": "fixtures/audio/fleurs/ja_jp/008.wav",
+      "sha256": "5150ec65463847f16459396ed1fd4cdec683c0429cdc6e8d521a659e891636ea",
+      "samples": 151680,
+      "suite": "fleurs",
+      "language": "ja",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-ja_jp-009",
+      "path": "fixtures/audio/fleurs/ja_jp/009.wav",
+      "sha256": "65618a629d07f06e3ed564f2970789cc122c54b04232362674d9ca2a50daf4bc",
+      "samples": 154560,
+      "suite": "fleurs",
+      "language": "ja",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-000",
+      "path": "fixtures/audio/fleurs/cmn_hans_cn/000.wav",
+      "sha256": "5214e16584b6498ddbd22f321738c0f62b19117ab1880b21e405fba983986b6a",
+      "samples": 166080,
+      "suite": "fleurs",
+      "language": "zh",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-001",
+      "path": "fixtures/audio/fleurs/cmn_hans_cn/001.wav",
+      "sha256": "d2ff70aa3a9b965bd2cab664852f2b5eb90d02dca4ed9066686d926152ade514",
+      "samples": 132480,
+      "suite": "fleurs",
+      "language": "zh",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-002",
+      "path": "fixtures/audio/fleurs/cmn_hans_cn/002.wav",
+      "sha256": "a50269a834d0efd270df29173bbe5f53a1a17184fe3998dabb1a73cbd223fd6a",
+      "samples": 221760,
+      "suite": "fleurs",
+      "language": "zh",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-003",
+      "path": "fixtures/audio/fleurs/cmn_hans_cn/003.wav",
+      "sha256": "63b40619cf2947db1fd13f0ab63bc502326eb40d73d87b3dbd969df426940536",
+      "samples": 246720,
+      "suite": "fleurs",
+      "language": "zh",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-004",
+      "path": "fixtures/audio/fleurs/cmn_hans_cn/004.wav",
+      "sha256": "e98bd3a78fa3eb617164375180940917a8c8a87ce90b0dbffbfff156a009bf17",
+      "samples": 206400,
+      "suite": "fleurs",
+      "language": "zh",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-005",
+      "path": "fixtures/audio/fleurs/cmn_hans_cn/005.wav",
+      "sha256": "6f0cc2a1a2a1f24736b9dd7a2e0109a64e4d1a2c88a0257ca1a83a734f700d09",
+      "samples": 219840,
+      "suite": "fleurs",
+      "language": "zh",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-006",
+      "path": "fixtures/audio/fleurs/cmn_hans_cn/006.wav",
+      "sha256": "81969af9e5b4592eb1a92d37b36943c07aa696d1665abac8b142d1579f423028",
+      "samples": 242880,
+      "suite": "fleurs",
+      "language": "zh",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-007",
+      "path": "fixtures/audio/fleurs/cmn_hans_cn/007.wav",
+      "sha256": "086e972a47a47ae056531d43e38acee2173307afc8c87c656b31aab12452aff3",
+      "samples": 247360,
+      "suite": "fleurs",
+      "language": "zh",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-008",
+      "path": "fixtures/audio/fleurs/cmn_hans_cn/008.wav",
+      "sha256": "5a61b505a5e00041724676529bb876a149ad10af288804f39c1c70252d900bff",
+      "samples": 121920,
+      "suite": "fleurs",
+      "language": "zh",
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-009",
+      "path": "fixtures/audio/fleurs/cmn_hans_cn/009.wav",
+      "sha256": "e86c5fd3203f2de1bb5140b9606ed11e4596eee00e658d6ed7dc178a562869df",
+      "samples": 109440,
+      "suite": "fleurs",
+      "language": "zh",
+      "expected_speech": true
+    }
+  ]
+}

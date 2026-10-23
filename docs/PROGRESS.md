@@ -508,3 +508,23 @@ distribution or a claim of full union parity/top-three product placement.
   acceptance, clean-Mac installation, Developer ID/notarization and updater remain.
   The preview is Apple Development signed, with separate model downloads.
   Full feature-union and top-three product placement remain unproven.
+
+## Neural endpointing evaluation (work in progress)
+
+- [x] Local compiled Core ML speech-probability adapter, explicit recurrent/context
+  reset, strict shapes/precision/finiteness, reusable input arrays and serial API.
+- [x] Audio-time endpoint policy with hysteresis, minimum onset, examined-silence
+  budget, one-shot completion and fail-closed discontinuities. Twelve new native
+  input/policy tests pass. A real WAV short read exposed 533 unread frames; the
+  native input reader now drains the full declared sample timeline.
+- [x] Actual Core ML reset, partial-padding and invalid-input controls pass for
+  both pinned conversions. Compiled MLX CPU probabilities match the eager path
+  within 1.5e-7 on the first public control. These are initial controls, not a
+  completed corpus result or a calibrated production detector.
+- [x] Model revisions/full file hashes and a preselected 179-case public protocol.
+  The CLI can analyze a supplied local model; no model download or service occurs
+  inside native inference. See `architecture/neural-endpointing.md`.
+- [ ] Complete runtime probes, full probability/endpoint replay, AMI timing-proxy
+  scores and actual downstream ASR edge/cut controls before choosing integration.
+- [ ] Bounded off-callback native capture/resampling, recovery and device tests.
+  Delivered previews and the GUI retain their existing behavior.
