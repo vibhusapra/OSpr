@@ -24,6 +24,13 @@
       "priority": "P0"
     },
     {
+      "feature": "Mouse-start dictation countdown",
+      "status": "implemented",
+      "evidence": "Explicit three-second Studio start with a nonactivating HUD. The focused destination is captured at completion, not at button click. Cancellable timer generation prevents a late start after replacement, owner teardown or cancellation; four dedicated tests and the full 219-test Swift suite pass.",
+      "gap": "Native countdown/HUD, microphone, auto-stop and cross-app insertion acceptance remain pending. The frozen soniox-v0 ZIP predates this feature.",
+      "priority": "P1"
+    },
+    {
       "feature": "Local Metal inference: Qwen3 ASR",
       "status": "verified",
       "evidence": "365 English clips, 100 regression cases and 50 multilingual clips rerun after bounding long-file chunks; 512/515 outputs identical. Hour-long WER 26.85% → 2.36% in a synthetic completeness fixture; ten-minute case worsened slightly.",

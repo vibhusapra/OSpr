@@ -51,7 +51,7 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
   edited, old settings gain defaults, shortcuts retain their previous binding on
   conflict, and the menu bar can reopen a closed workspace.
 - [x] Current official-source guide: 27 offerings, plans, feature comparison,
-  46-item acceptance ledger, model strategy, ten optimization tracks, training plan.
+  47-item acceptance ledger, model strategy, ten optimization tracks, training plan.
 - [x] Relocatable app bundle; all six engines passed offline after moving it to
   a path with spaces, from a temporary cwd and with an unrelated PYTHONPATH.
 - [x] Portable app rechecked after capture/notes changes: six offline ASR engines,
@@ -351,3 +351,19 @@ distribution or a claim of full union parity/top-three product placement.
 - [ ] Full native microphone/shortcut/insertion, streaming/desktop acceptance,
   real-account quality/quota behavior, clean-Mac installation, Developer ID,
   notarization and an updater remain. No full feature union or top-three claim.
+
+
+## Mouse-start dictation
+
+- [x] Explicit three-second Studio countdown and nonactivating HUD; destination
+  capture happens at the end. Microphone permission must already be granted.
+  Password-field protection and original app/field/cursor checks still apply.
+- [x] HUD/Studio cancellation, global-shortcut cancellation and quit teardown
+  invalidate the timer. Staying in OSpr at expiry reports a destination error.
+  Selected-text editing can use the focused selection at expiry.
+- [x] Four timer regressions cover tick ordering, late cancellation/replacement,
+  owner teardown and reentrant callbacks. All 219 Swift tests pass. The initial
+  restricted run could not use loopback fixtures/isolated pasteboards; the
+  authorized full run passes without skips. Source log is private under `.local`.
+- [ ] Native countdown/HUD and microphone-to-insertion acceptance are next. The
+  frozen Soniox ZIP and its 215-test evidence remain a separate older snapshot.
