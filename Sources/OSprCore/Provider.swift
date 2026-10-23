@@ -16,6 +16,7 @@ public enum ProviderClient {
         switch provider {
         case "compatible": return try endpoint(base: base, path: "audio/transcriptions")
         case "deepgram": return try endpoint(base: base, path: "listen")
+        case "soniox": return try endpoint(base: base, path: "files")
         default: throw OSprError.message("Choose a supported speech provider in Settings.")
         }
     }
@@ -76,6 +77,7 @@ public enum ProviderClient {
 
     public static func transcribe(file: URL, base: String, model: String, key: String, language: String, vocabulary: String, provider: String = "compatible") async throws -> [String: Any] {
         if provider == "deepgram" { return try await DeepgramSpeech.transcribe(file: file, base: base, model: model, key: key, language: language, vocabulary: vocabulary) }
+        if provider == "soniox" { return try await SonioxSpeech.transcribe(file: file, base: base, model: model, key: key, language: language, vocabulary: vocabulary) }
         _ = try speechEndpoint(base: base, provider: provider)
         var request = URLRequest(url: try endpoint(base: base, path: "audio/transcriptions"))
         request.httpMethod = "POST"

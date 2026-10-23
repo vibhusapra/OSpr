@@ -287,7 +287,7 @@ The machine-readable acceptance ledger is authoritative for feature status;
   signatures and extracted CLI are verified. Versioned receipts start with
   `benchmarks/results/history-`; `history-release-package.json` pins the archive.
 - [ ] Normal-archive upgrade and remaining microphone/Fn/PTT/insertion, streaming
-  and system-capture native acceptance are separate. The running preview remains
+  and system-capture native acceptance are separate. The normal preview’s stored preferences remain
   local MLX with refinement off; its archive was not used as a destructive fixture.
 
 The package is a frozen source snapshot; the repository's newer prose ledger
@@ -295,3 +295,18 @@ clarifies SQLite acceptance. Native history UI acceptance was performed at sourc
 `163a113`, before the subsequent audio-lease fix (covered by the 197-test suite).
 This is an Apple Development signed macOS 26.6.2 arm64 preview, not a notarized
 distribution or a claim of full union parity/top-three product placement.
+
+## Native Soniox BYOK work
+
+- [x] Source-level native Files/Transcriptions adapter, async model preset, app and
+  CLI dispatch, locally prepared parts, token-derived word groups, bounded polling,
+  cancellation, safe resource IDs, no-redirect credentials and cleanup warnings.
+- [x] Eighteen Soniox contract/regression cases; total 215 Swift/94 Python tests.
+  Deadline testing found and fixed an invalidated-session task-creation crash.
+- [ ] Real Swift/worker 80-minute Soniox loopback receipt, native picker/Keychain
+  acceptance, and real account quality/quota checks. Soniox WebSocket streaming
+  remains separate. See `architecture/soniox-byok.md` for lifecycle limits.
+- [ ] Native shortcut tests are waiting for manual Mac unlock. The isolated
+  same-identity candidate is using `.local/native-interaction-qa/profile`; the
+  normal preview was quit normally and its store privately backed up. Restore
+  the normal preview after testing. No capture was started in this attempt.

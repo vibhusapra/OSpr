@@ -474,13 +474,16 @@ struct PreferencesView: View {
                     model.settings.transcriptionProvider = provider
                     if provider == "deepgram" {
                         model.settings.transcriptionURL = "https://api.deepgram.com/v1"; model.settings.transcriptionModel = "nova-3"
-                    } else if provider == "compatible" && previous == "deepgram" {
+                    } else if provider == "soniox" {
+                        model.settings.transcriptionURL = "https://api.soniox.com/v1"; model.settings.transcriptionModel = "stt-async-v5"
+                    } else if provider == "compatible" && (["deepgram", "soniox"].contains(previous) || ["api.deepgram.com", "api.soniox.com"].contains(URL(string: model.settings.transcriptionURL)?.host ?? "")) {
                         model.settings.transcriptionURL = "https://api.groq.com/openai/v1"; model.settings.transcriptionModel = "whisper-large-v3-turbo"
                     }
                 })) {
                     Text("Local MLX · audio stays on Mac").tag("local")
                     Text("BYOK · compatible speech API").tag("compatible")
                     Text("BYOK · Deepgram prerecorded API").tag("deepgram")
+                    Text("BYOK · Soniox async API").tag("soniox")
                 }
                 if model.settings.transcriptionProvider != "local" {
                     Text("Recordings will be uploaded to this endpoint. Charges and retention are controlled by your provider.").font(.caption).foregroundStyle(.orange)
@@ -492,6 +495,9 @@ struct PreferencesView: View {
                     Text("Keys are remembered separately for each provider origin.").font(.caption).foregroundStyle(.secondary)
                     if model.settings.transcriptionProvider == "deepgram" {
                         Text("Deepgram receives locally normalized mono audio. Nova-3 keyterms, punctuation and word times are supported. Blank language uses its detection, which may select another supported Deepgram model. This route does not stream audio or request cloud speaker labels, summaries or smart number formatting.").font(.caption).foregroundStyle(.secondary)
+                    }
+                    if model.settings.transcriptionProvider == "soniox" {
+                        Text("Soniox receives locally normalized audio and creates remote transcription jobs. OSpr polls for completion, then attempts to delete its job and upload. Cancellation, timeouts or a failed cleanup can leave resources in the Soniox console; check your account. No automatic retry, translation or cloud speaker labels. Token-derived word times are included only when word boundaries match token boundaries.").font(.caption).foregroundStyle(.secondary)
                     }
                 }
             }
@@ -558,6 +564,7 @@ struct ProviderPresetPicker: View {
                 Button("Groq · Whisper Turbo") { model.settings.transcriptionProvider = "compatible"; model.settings.transcriptionURL = "https://api.groq.com/openai/v1"; model.settings.transcriptionModel = "whisper-large-v3-turbo" }
                 Button("OpenAI · gpt-transcribe") { model.settings.transcriptionProvider = "compatible"; model.settings.transcriptionURL = "https://api.openai.com/v1"; model.settings.transcriptionModel = "gpt-transcribe" }
                 Button("Deepgram · Nova-3") { model.settings.transcriptionProvider = "deepgram"; model.settings.transcriptionURL = "https://api.deepgram.com/v1"; model.settings.transcriptionModel = "nova-3" }
+                Button("Soniox · Async v5") { model.settings.transcriptionProvider = "soniox"; model.settings.transcriptionURL = "https://api.soniox.com/v1"; model.settings.transcriptionModel = "stt-async-v5" }
                 Button("Local compatible server") { model.settings.transcriptionProvider = "compatible"; model.settings.transcriptionURL = "http://127.0.0.1:8080/v1"; model.settings.transcriptionModel = "whisper-1" }
             } else {
                 Button("Ollama · Qwen3 1.7B") { model.settings.rewriteProvider = "ollama"; model.settings.rewriteURL = "http://127.0.0.1:11434/v1"; model.settings.rewriteModel = "qwen3:1.7b" }

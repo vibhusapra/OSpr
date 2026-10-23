@@ -39,9 +39,9 @@ import OSprCore
                 guard args.count > 1 else { usage(); exit(2) }
                 result = try await worker.request(["action": "transcribe", "path": URL(fileURLWithPath: args[1]).path,
                     "model": args.count > 2 ? args[2] : "parakeet-v3"])
-            case "transcribe-cloud", "transcribe-deepgram":
+            case "transcribe-cloud", "transcribe-deepgram", "transcribe-soniox":
                 guard args.count >= 4 else { usage(); exit(2) }
-                let provider = command == "transcribe-deepgram" ? "deepgram" : "compatible"
+                let provider = command == "transcribe-deepgram" ? "deepgram" : command == "transcribe-soniox" ? "soniox" : "compatible"
                 _ = try ProviderClient.speechEndpoint(base: args[2], provider: provider)
                 let workspace = try ProviderUploadWorkspace()
                 defer { workspace.close() }
@@ -80,5 +80,5 @@ import OSprCore
             print(String(data: data, encoding: .utf8)!)
         } catch { FileHandle.standardError.write(Data((error.localizedDescription + "\n").utf8)); exit(1) }
     }
-    static func usage() { print("OSpr · Apple Silicon dictation\nUsage: ospr-cli doctor | models | download <model> | warm [model] | transcribe <audio> [model] | transcribe-cloud <audio> <base-url> <model> [language] | transcribe-deepgram <audio> <base-url> <model> [language] | meeting <audio> [model] | benchmark <audio> [model] [repeats] | benchmark-history [rows] [edits] | benchmark-history-index [rows] [repeats] | benchmark-history-session [rows] | verify-audio-review <short-audio> | rewrite <text>\ntranscribe-cloud (compatible) and transcribe-deepgram (native Listen) explicitly upload audio to the specified provider; the key is read from OSPR_TRANSCRIPTION_KEY, never a command-line argument. Other speech commands remain local.\nProgress is on stderr; final result is JSON on stdout.\nBundled CLI discovers its engine; development commands use the checkout or OSPR_ROOT. Models: parakeet-v3, cohere-native8, whisper-turbo, whisper-small, qwen3-asr, nemotron-streaming") }
+    static func usage() { print("OSpr · Apple Silicon dictation\nUsage: ospr-cli doctor | models | download <model> | warm [model] | transcribe <audio> [model] | transcribe-cloud <audio> <base-url> <model> [language] | transcribe-deepgram <audio> <base-url> <model> [language] | transcribe-soniox <audio> <base-url> <model> [language] | meeting <audio> [model] | benchmark <audio> [model] [repeats] | benchmark-history [rows] [edits] | benchmark-history-index [rows] [repeats] | benchmark-history-session [rows] | verify-audio-review <short-audio> | rewrite <text>\ntranscribe-cloud (compatible) transcribe-deepgram (native Listen), and transcribe-soniox (native async jobs) explicitly upload audio to the specified provider; the key is read from OSPR_TRANSCRIPTION_KEY, never a command-line argument. Other speech commands remain local.\nProgress is on stderr; final result is JSON on stdout.\nBundled CLI discovers its engine; development commands use the checkout or OSPR_ROOT. Models: parakeet-v3, cohere-native8, whisper-turbo, whisper-small, qwen3-asr, nemotron-streaming") }
 }

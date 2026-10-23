@@ -100,7 +100,7 @@ public struct OSprSettings: Codable, Sendable {
     public var rewriteProvider = "none" // none, local, ollama, compatible, anthropic
     public var rewriteURL = "http://127.0.0.1:11434/v1"
     public var rewriteModel = "qwen3:1.7b"
-    public var transcriptionProvider = "local" // local, compatible or deepgram
+    public var transcriptionProvider = "local" // local, compatible, deepgram or soniox
     public var transcriptionURL = "https://api.groq.com/openai/v1"
     public var transcriptionModel = "whisper-large-v3-turbo"
     public var customPrompt = "Make the text clear and concise. Preserve meaning."

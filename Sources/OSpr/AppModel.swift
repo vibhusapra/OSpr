@@ -772,7 +772,7 @@ import OSprCore
                 let upload = uploadSnapshot ?? file
                 let directFormats = ["wav", "mp3", "m4a", "flac", "ogg"]
                 let uploadBytes = try upload.resourceValues(forKeys: [.fileSizeKey]).fileSize ?? 0
-                if config.transcriptionProvider == "deepgram" || uploadBytes >= ProviderClient.directUploadBytes || !directFormats.contains(upload.pathExtension.lowercased()) {
+                if ["deepgram", "soniox"].contains(config.transcriptionProvider) || uploadBytes >= ProviderClient.directUploadBytes || !directFormats.contains(upload.pathExtension.lowercased()) {
                     status = "Preparing audio upload parts locally…"
                     let workspace = try ProviderUploadWorkspace()
                     defer { workspace.close() }
@@ -869,6 +869,9 @@ import OSprCore
             app: target?.app?.localizedName ?? "", duration: result["audio_seconds"] as? Double ?? duration,
             latencyMS: Date().timeIntervalSince(started) * 1000, segments: segments, words: words, warning: source == "recovered recording" ? pending?.captureWarning : nil, source: source)
         record.id = id; record.audioFile = audioFile
+        if config.transcriptionProvider == "soniox", let warning = result["warning"] as? String {
+            record.warning = [record.warning, warning].compactMap { $0 }.joined(separator: " ")
+        }
         if let audioWarning { record.warning = [record.warning, audioWarning].compactMap { $0 }.joined(separator: " ") }
         historyState.submit(record, select: !backgroundImportActive)
         status = "Ready · \(Int(record.latencyMS)) ms"; preview = ""
