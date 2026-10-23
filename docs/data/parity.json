@@ -25,9 +25,9 @@
     },
     {
       "feature": "Mouse-start dictation countdown",
-      "status": "implemented",
-      "evidence": "Explicit three-second Studio start with a nonactivating HUD. The focused destination is captured at completion, not at button click. Cancellable timer generation prevents a late start after replacement, owner teardown or cancellation; four dedicated tests and the full 219-test Swift suite pass.",
-      "gap": "Native countdown/HUD, microphone, auto-stop and cross-app insertion acceptance remain pending. The frozen soniox-v0 ZIP predates this feature.",
+      "status": "partial",
+      "evidence": "Explicit three-second Studio start with a nonactivating HUD. The focused destination is captured at completion, not at button click. Cancellable timer generation prevents a late start after replacement, owner teardown or cancellation; four dedicated tests and the full 219-test Swift suite pass. Source 643b631 passes macOS 15 CI 39915171803 with 219 Swift/94 Python tests, app/report build and clean-runner standalone runtime. A same-identity native candidate retained both permissions, expired into real local microphone capture and discarded two starts through its Cancel button; no history or retained audio was admitted. Normal local-only settings/history were restored unchanged.",
+      "gap": "Native early ticks/HUD and cancellation before expiry, public acoustic auto-stop, owned external destination and successful insertion remain unverified. App-bound automation operates TextEdit but macOS continued to report ChatGPT as foreground. A human foreground handoff is pending. The frozen soniox-v0 ZIP predates this feature.",
       "priority": "P1"
     },
     {

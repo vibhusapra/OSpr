@@ -365,5 +365,14 @@ distribution or a claim of full union parity/top-three product placement.
   owner teardown and reentrant callbacks. All 219 Swift tests pass. The initial
   restricted run could not use loopback fixtures/isolated pasteboards; the
   authorized full run passes without skips. Source log is private under `.local`.
-- [ ] Native countdown/HUD and microphone-to-insertion acceptance are next. The
-  frozen Soniox ZIP and its 215-test evidence remain a separate older snapshot.
+- [x] Source `643b631` passes macOS 15 CI 39915171803: 219 Swift / 94 Python
+  tests, app/report build and clean-runner standalone runtime.
+- [x] Same-identity native candidate retained both permissions. Countdown expiry
+  started the real local microphone; native Cancel discarded two starts with
+  zero history/audio retention. Normal preview restored; settings/history match
+  the private pre-test backup. Receipt: `countdown-native-ui.json`.
+- [ ] Native early countdown/HUD rendering, cancel before expiry, public acoustic
+  auto-stop and successful insertion remain. App-bound TextEdit control and
+  Bring All to Front did not change the captured macOS foreground app, so both
+  takes were discarded before recognition. A human focus handoff is pending.
+  The frozen Soniox ZIP and its 215-test evidence remain an older snapshot.
