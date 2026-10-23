@@ -91,7 +91,7 @@ def dispatch(engine, request):
         text, instruction = request.get("text", ""), request.get("instruction", "")
         if len(text) > 100000 or len(instruction) > 16000:
             raise ValueError("Rewrite input too long.")
-        return engine.rewrite(text, instruction)
+        return engine.rewrite(text, instruction, task=request.get("task", "transcript"))
     if action == "notes":
         return engine.notes(request.get("text", ""))
     raise ValueError("Unknown action.")

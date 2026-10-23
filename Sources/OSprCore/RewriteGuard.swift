@@ -7,7 +7,9 @@ public enum RewriteGuard {
         guard !rewritten.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return "The rewrite was empty." }
         guard mode == .clean || mode == .email || mode == .bullets || mode == .code else { return nil }
         func tokens(_ text: String) -> [String] {
-            text.lowercased().split { !$0.isLetter && !$0.isNumber && $0 != "'" }.map(String.init)
+            text.lowercased().replacingOccurrences(of: "’", with: "'")
+                .replacingOccurrences(of: "‘", with: "'").replacingOccurrences(of: "ʼ", with: "'")
+                .split { !$0.isLetter && !$0.isNumber && $0 != "'" }.map(String.init)
         }
         let source = tokens(original), output = tokens(rewritten)
         let fillers: Set<String> = ["um", "uh", "erm", "hmm"]
@@ -19,9 +21,14 @@ public enum RewriteGuard {
                 return count
             }
             if Double(kept) / Double(significant.count) < 0.72 { return "The rewrite removed too much content." }
-            if output.count > max(16, significant.count * 2) { return "The rewrite added too much content." }
         }
-        let negations: Set<String> = ["not", "no", "never", "without", "don't", "doesn't", "didn't", "can't", "cannot", "won't", "shouldn't", "isn't", "aren't"]
+        if mode == .clean {
+            if output.count > max(16, significant.count * 2) { return "The rewrite added too much content." }
+            if original.contains(where: { $0 == "?" || $0 == "？" }) && !rewritten.contains(where: { $0 == "?" || $0 == "？" }) {
+                return "The rewrite removed a question. Original retained for review."
+            }
+        }
+        let negations: Set<String> = ["not", "no", "never", "without", "don't", "doesn't", "didn't", "can't", "cannot", "won't", "shouldn't", "isn't", "aren't", "wasn't", "weren't", "haven't", "hasn't", "hadn't", "couldn't", "wouldn't", "mustn't", "needn't"]
         let sourceNegations = source.filter { negations.contains($0) }.count
         let outputNegations = output.filter { negations.contains($0) }.count
         if sourceNegations != outputNegations {

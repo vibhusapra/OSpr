@@ -378,3 +378,67 @@ distribution or a claim of full union parity/top-three product placement.
   captured app was Google Chrome. Only a silent 0.1-second public-fixture
   playback preflight ran; no speech was played into an unintended target.
   The frozen Soniox ZIP and its 215-test evidence remain an older snapshot.
+
+## Local refinement fidelity
+
+- [x] JSON-quoted transcript data and explicit task routing separate ordinary
+  cleanup from deliberate selection editing and extractive source-ID notes.
+  Type/task/size validation happens before model loading; the pinned refiner,
+  one-resident-model policy and source-selection output budget are unchanged.
+- [x] Clean questions cannot lose every question mark; short inputs also receive
+  expansion checks. Curly apostrophes and additional English negative
+  contractions are recognized by the native preservation tripwire.
+- [x] A source-verified old engine and final source `f8ba4a0` replayed the same
+  36 synthetic cases with the actual Clean instruction. Raw lexical checks:
+  28/36 → 31/36. All 72 raw outputs repeated exactly. The same current Swift
+  guard rejected 12 old-prompt and six candidate outputs. All final lexical
+  sentinels survived by using the original when rejected; this is not a semantic
+  score or a measure of successful model edits. Raw negation/content losses remain.
+- [x] Eight task smokes and two exact-span notes smokes passed on the cached local
+  4B refiner. Five Swift guard regressions include all 72 recorded-output decisions.
+  Local full validation: 224 Swift / 105 Python tests, lint, release app build and
+  strict signature verification. Build source is clean `f8ba4a0`; the app is an
+  ad-hoc development build. Receipts: `refinement-fidelity-v1.json`,
+  `refinement-task-smoke.json`, `refinement-validation.json`.
+- [x] PR #5 source/docs head `3b7ddb0` passes macOS 15 CI 40016038194:
+  224 Swift / 105 Python tests, lint, app/report build and clean-runner
+  standalone runtime. Decoded job 120628218162 logs confirm the counts.
+- [x] A separate Apple Development signed portable candidate at `3b7ddb0` passed
+  relocated/offline six-engine inference, notes, speaker words, audio utilities,
+  model management/progress, native CLI review and MCP listing. Three explicit
+  bundled Swift CLI rewrite smokes also passed from a foreign cwd with hostile
+  PYTHONPATH. Receipts: `refinement-portable-app-smoke.json` and
+  `refinement-bundled-cli-smoke.json`. Its bundled report predates these receipts.
+  The subsequent hour-file/upload/package checks are recorded below.
+- [ ] Representative, independently graded rewrite fidelity and native selection
+  replacement remain open. The new prompt does not guarantee preservation;
+  refinement stays optional/off. The frozen Soniox ZIP predates these changes.
+
+
+## Countdown/refinement preview delivery
+
+- [x] Frozen source `3b7ddb0` includes indexed history, Soniox, mouse-start
+  countdown and explicit local refinement tasks. CI 40016038194 passes 224 Swift /
+  105 Python tests, app/report build and clean-runner standalone runtime. Later
+  receipt/docs head `ce06c48` also passes CI 40017019983 with the same counts.
+- [x] The separately signed portable candidate passes relocated/offline six-engine
+  and extras smoke plus three raw rewrite checks through its bundled Swift CLI.
+  Its bundled MLX runtime reports GPU as the default device and Metal available.
+- [x] Both bundled synthetic hour-file regressions pass: Parakeet WER 2.72%,
+  Qwen 2.37%. All three 80-minute transports pass every-sample, repetition and
+  timestamp checks in nine bounded requests each. Soniox removes all nine fake
+  jobs/files with 36 matching lifecycle events. These are completeness/transport
+  checks; timings are shared-system diagnostics, not product speed or provider quality.
+- [x] Verified ZIP: 383,227,858 bytes; SHA-256
+  `ae0415014b57769448263e4f97f03f1a8f7f591aec54ecb88213b583e1e33f2e`.
+  CRC, extraction, deep signatures and extracted CLI inventory pass. Receipts:
+  `refinement-release-package.json`, `refinement-native-long-files.json` and
+  `refinement-package-{compatible,deepgram,soniox}.json`. The earlier Soniox
+  package is preserved. The new bundled report predates these final receipts.
+- [ ] The owned Chrome textarea and isolated native profile are prepared, but
+  native control reported the Mac locked before candidate launch. No new native
+  take or audio playback started, and the normal app was not quit or changed.
+  See `browser-insertion-preflight.json`. Full native microphone/Fn/PTT/insertion,
+  streaming/desktop acceptance, real provider accounts, clean-Mac installation,
+  Developer ID/notarization and updater acceptance remain. No full union parity
+  or top-three claim follows from this preview.

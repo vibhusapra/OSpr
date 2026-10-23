@@ -27,7 +27,7 @@
       "feature": "Mouse-start dictation countdown",
       "status": "partial",
       "evidence": "Explicit three-second Studio start with a nonactivating HUD. The focused destination is captured at completion, not at button click. Cancellable timer generation prevents a late start after replacement, owner teardown or cancellation; four dedicated tests and the full 219-test Swift suite pass. Source 643b631 passes macOS 15 CI 39915171803 with 219 Swift/94 Python tests, app/report build and clean-runner standalone runtime. A same-identity native candidate retained both permissions, expired into real local microphone capture and discarded three starts through its Cancel button; no history or retained audio was admitted. Normal local-only settings/history were restored unchanged.",
-      "gap": "Native early ticks/HUD and cancellation before expiry, public acoustic auto-stop, owned external destination and successful insertion remain unverified. App-bound automation operates TextEdit but macOS reported ChatGPT in the first two starts and Google Chrome after a human focus handoff. All takes were discarded before recognition. The frozen soniox-v0 ZIP predates this feature.",
+      "gap": "Native early ticks/HUD and cancellation before expiry, public acoustic auto-stop, owned external destination and successful insertion remain unverified. App-bound automation operates TextEdit but macOS reported ChatGPT in the first two starts and Google Chrome after a human focus handoff. All takes were discarded before recognition. The verified refinement-v0 ZIP includes this feature. A later owned Chrome-field attempt stopped before launch when native control reported the Mac locked; no new take started.",
       "priority": "P1"
     },
     {
@@ -111,7 +111,7 @@
       "feature": "Insertion into original field",
       "status": "implemented",
       "evidence": "AX selected-text insertion and clipboard fallback; app, field, cursor checks.",
-      "gap": "TextEdit, browser and editor matrix still pending.",
+      "gap": "TextEdit, browser and editor matrix still pending. An owned Chrome textarea was prepared, but native control reported the Mac locked before the isolated candidate was launched. No new native take or insertion is claimed.",
       "priority": "P0"
     },
     {
@@ -180,8 +180,8 @@
     {
       "feature": "Local text refinement",
       "status": "partial",
-      "evidence": "Qwen3 4B Instruct selected after 1.7B dropped a sentence; preservation tripwire.",
-      "gap": "A guard is not semantic proof; wider edit evaluation pending.",
+      "evidence": "Pinned Qwen3 4B Instruct; JSON-quoted transcript input and separate deliberate selection-edit/source-ID tasks. Five Swift guard regressions cover question removal, short expansions, curly/additional English negations and all 72 recorded before/after model-output decisions. A 36-case synthetic development/challenge replay with the actual Clean instruction improved raw lexical sentinels from 28 to 31 passes; the same current native guard required 12 previous-prompt versus six candidate original-text fallbacks. Final lexical sentinels survived all cases, including fallback. Eight task and two exact-span notes smokes passed; all 224 Swift and 105 Python tests, lint and the local release app build pass at clean source f8ba4a0. Source/docs head 3b7ddb0 passes macOS 15 CI 40016038194 with matching 224/105 counts and clean-runner standalone runtime. A separate signed portable candidate at that head passes relocated/offline six-engine and extras smoke plus three explicit bundled Swift CLI rewrite smokes with hostile PYTHONPATH and a foreign cwd. The verified refinement-v0 ZIP now includes this source, with both bundled hour regressions and all three 80-minute transports rerun before ZIP verification.",
+      "gap": "Raw candidate outputs still lost negations/content or changed number/path formatting in six cases, requiring fallback. Substring checks and native tripwires are not semantic proof. Refinement remains optional and off by default. Native selection replacement and representative, independently graded rewrite evaluation remain unverified. The refinement-v0 ZIP includes this change; its native interaction acceptance remains separate.",
       "priority": "P0"
     },
     {
@@ -313,7 +313,7 @@
     {
       "feature": "Signed/notarized standalone installer",
       "status": "partial",
-      "evidence": "Relocatable Python app bundle; moved-path, hostile PYTHONPATH, temporary cwd and all six offline engines passed. Ad-hoc signature verified. Explicit signing identity supported. Local development-signed portable build passed offline engines, two hour-long requests, CRC/extraction/signature gates and matching source fingerprint. Different resource hashes retained the same designated requirement.",
+      "evidence": "Relocatable Python app bundle; moved-path, hostile PYTHONPATH, temporary cwd and all six offline engines passed. Ad-hoc signature verified. Explicit signing identity supported. Local development-signed portable build passed offline engines, two hour-long requests, CRC/extraction/signature gates and matching source fingerprint. Different resource hashes retained the same designated requirement. The latest refinement-v0 package at source 3b7ddb0 passes all six offline engines and extras after relocation, three bundled rewrite smokes, both synthetic hour-file regressions, all three every-sample 80-minute transports and ZIP CRC/extraction/signature/CLI checks. The manifest pins 224 Swift and 105 Python tests; the same source/docs head passes macOS 15 CI 40016038194. The earlier delivery is preserved.",
       "gap": "Apple Development signing is not Developer ID/notarization; clean-Mac interactive installation, updater and older-OS acceptance remain.",
       "priority": "P0"
     },

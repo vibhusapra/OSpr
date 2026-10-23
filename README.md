@@ -83,13 +83,19 @@ models used by the preceding portable smoke suite; weights are never embedded.
 Builds use ad-hoc signing by default; the current local preview uses an Apple Development signature. Developer ID distribution signing, notarization and an updater are not complete. Do not overwrite an existing installation
 until its transcripts/settings are backed up.
 
-The latest checked local delivery is `dist/soniox-v0/OSpr.app` and its ZIP,
-frozen at source `fb2ad6f`. Its [SHA-256 manifest](benchmarks/results/soniox-release-package.json)
-pins the 215 Swift/94 Python CI result, relocated offline smoke, both hour-file
-regressions and all three 80-minute transports. Quit other OSpr copies before
-opening a new bundle. Back up existing settings/history before an archive upgrade;
-the normal older preview was restored after isolated native testing. This remains
-an Apple Development signed preview with native interaction gates still open.
+The latest checked local delivery is `dist/refinement-v0/OSpr.app` and
+`dist/refinement-v0/OSpr-v0.1.0-macOS26.6.2-arm64.zip`, frozen at source `3b7ddb0`.
+It includes indexed history, Soniox BYOK, the mouse-start countdown and explicit
+local refinement tasks. Its [SHA-256 manifest](benchmarks/results/refinement-release-package.json)
+pins 224 Swift/105 Python tests, relocated offline smoke, both synthetic hour-file
+regressions and all three 80-minute transports. Three explicit bundled rewrite
+smokes also pass. Quit other OSpr copies before opening a new bundle. Back up
+existing settings/history before an archive upgrade; the normal older preview
+remains unchanged. This is an Apple Development signed macOS 26.6.2 arm64 preview,
+with separate weight downloads and native interaction gates still open. Its bundled
+report is a snapshot preceding the final artifact receipts. The earlier
+`soniox-v0` delivery and [manifest](benchmarks/results/soniox-release-package.json)
+remain available.
 
 ## Included
 
@@ -98,7 +104,7 @@ an Apple Development signed preview with native interaction gates still open.
 - A three-second mouse-start countdown gives you time to focus the destination
   field before recording. Allow microphone access first; cancel from the HUD,
   Studio or the global shortcut. Native countdown/insertion acceptance is pending;
-  the frozen `soniox-v0` preview predates this feature.
+  the latest `refinement-v0` preview includes this feature.
 - Local MLX/Metal ASR: Parakeet v3, Whisper Turbo/Small, Qwen3 ASR 1.7B 8-bit,
   Nemotron 3.5 ASR 8-bit, and native-layout Cohere Transcribe 8-bit. Cohere
   supports 14 languages with an explicit hint; blank uses English. Exact revisions are in
@@ -111,6 +117,10 @@ an Apple Development signed preview with native interaction gates still open.
 - Optional local Qwen3 4B Instruct refinement, Ollama/compatible services, or BYOK
   compatible/Anthropic rewriting. Refinement can change meaning; raw text is kept
   and a conservative preservation check rejects several obvious regressions.
+  Local cleanup now passes the transcript as JSON-quoted data, with separate
+  tasks for deliberate selection editing and extractive notes. A 36-case probe
+  still required six original-text fallbacks. Refinement stays off by default;
+  [raw outputs and limits](docs/architecture/refinement-fidelity.md) are published.
 - Separate optional BYOK audio transcription with compatible endpoints (including
   Groq and the current OpenAI `gpt-transcribe` request contract). Oversized audio
   is normalized locally into contiguous PCM16 parts of at most ten minutes. Each

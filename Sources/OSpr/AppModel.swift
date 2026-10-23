@@ -842,7 +842,8 @@ import OSprCore
                     let beforeRewrite = text
                     let instruction = mode.instruction(custom: config.customPrompt, language: config.translationLanguage)
                     if config.rewriteProvider == "local" {
-                        let rewritten = try await worker.request(["action": "rewrite", "text": input, "instruction": instruction])
+                        let rewritten = try await worker.request(["action": "rewrite", "text": input, "instruction": instruction,
+                            "task": mode == .assistant ? "edit-selection" : "transcript"])
                         text = rewritten["text"] as? String ?? text
                     } else {
                         text = try await ProviderClient.rewrite(text: input, instruction: instruction, provider: config.rewriteProvider,
