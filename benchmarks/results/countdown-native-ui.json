@@ -1,6 +1,6 @@
 {
   "status": "incomplete",
-  "verified_at": "2026-10-23T07:18:12.498321+00:00",
+  "verified_at": "2026-10-23T17:24:39.664753+00:00",
   "build": {
     "version": "0.1.0",
     "built_at": "2026-10-23T07:00:59.132951+00:00",
@@ -17,14 +17,15 @@
     "accessibility_permission_ready": true,
     "studio_countdown_action_available": true,
     "countdown_expired_to_recording": true,
-    "actual_destination_observed": "ChatGPT",
-    "native_starts_discarded": 2,
+    "actual_destination_observed": "Google Chrome",
+    "native_starts_discarded": 3,
     "recording_cancel_button": true,
     "history_records_after_cancel": 0,
     "retained_audio_after_cancel": 0,
     "normal_preview_restored": true,
     "normal_local_only": true,
-    "normal_settings_and_history_unchanged": true
+    "normal_settings_and_history_unchanged": true,
+    "public_audio_playback_preflight": true
   },
   "pending": [
     "Count-down tick/HUD rendering; accessibility snapshot settled after expiry",
@@ -33,5 +34,5 @@
     "Physical Fn/PTT and Escape command delivery",
     "Public acoustic auto-stop path"
   ],
-  "boundary": "A separate same-identity fixture profile used real native capture. Automation operated TextEdit and Bring All to Front, but macOS still reported ChatGPT as the captured destination. Both takes were discarded before recognition; no successful insertion, global shortcut or acoustic quality result is claimed. Native app controls were used, without fake ASR output or weakened target guards."
+  "boundary": "A separate same-identity fixture profile used real native capture. App-bound automation operated TextEdit and Bring All to Front; the first two starts captured ChatGPT. After the human focus handoff, the third start captured Google Chrome. All three takes were discarded before recognition, with no history, retained audio or recovery WAV. A narrowly scoped afplay preflight played only the silent first 0.1 seconds of the owned public fixture; no acoustic speech or insertion result is claimed. Native app controls were used, without fake ASR output or weakened target guards. The normal local-only app was restored with unchanged settings/history."
 }

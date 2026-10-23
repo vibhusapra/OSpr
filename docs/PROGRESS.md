@@ -368,11 +368,13 @@ distribution or a claim of full union parity/top-three product placement.
 - [x] Source `643b631` passes macOS 15 CI 39915171803: 219 Swift / 94 Python
   tests, app/report build and clean-runner standalone runtime.
 - [x] Same-identity native candidate retained both permissions. Countdown expiry
-  started the real local microphone; native Cancel discarded two starts with
+  started the real local microphone; native Cancel discarded three starts with
   zero history/audio retention. Normal preview restored; settings/history match
   the private pre-test backup. Receipt: `countdown-native-ui.json`.
 - [ ] Native early countdown/HUD rendering, cancel before expiry, public acoustic
   auto-stop and successful insertion remain. App-bound TextEdit control and
-  Bring All to Front did not change the captured macOS foreground app, so both
-  takes were discarded before recognition. A human focus handoff is pending.
+  Bring All to Front did not change the captured macOS foreground app, so all three
+  takes were discarded before recognition. After the human focus handoff the
+  captured app was Google Chrome. Only a silent 0.1-second public-fixture
+  playback preflight ran; no speech was played into an unintended target.
   The frozen Soniox ZIP and its 215-test evidence remain an older snapshot.
