@@ -21,6 +21,7 @@ import OSprCore
     @Published var status = "Your voice. Your Mac."
     @Published var error = ""
     @Published var preview = ""
+    @Published private(set) var countdownSeconds: Int?
     var selection: UUID? { get { historyState.selection } set { historyState.selection = newValue } }
     @Published var tab = "Studio"
     @Published var setupRunning = false
@@ -80,6 +81,7 @@ import OSprCore
     private var recordingURL: URL?
     private var previewTask: Task<Void, Never>?
     private var operationTask: Task<Void, Never>?
+    private let dictationCountdown = DictationCountdown()
     private var streamSession: (generation: UUID, id: String)?
     private var generation = UUID()
     private var uploadingGeneration: UUID?
@@ -385,9 +387,35 @@ import OSprCore
     }
 
     func toggle() {
+        if phase == "countdown" { cancel(); return }
         if backgroundImportActive { cancel(); start(); return }
         if phase == "recording" { stop() }
         else if phase == "idle" { start() }
+    }
+    func startDictationCountdown() {
+        guard !busy else { return }
+        guard !hasRecovery else { error = "Retry, export or discard the unfinished recording first."; tab = "Studio"; return }
+        refreshPermissions()
+        guard microphoneReady else { error = "Allow microphone access before starting the countdown."; tab = "Studio"; return }
+        audioReview.pause()
+        generation = UUID(); let token = generation
+        phase = "countdown"; error = ""; preview = ""
+        dictationCountdown.start(tick: { [weak self] remaining in
+            guard let self, self.generation == token, !self.quitting else { return }
+            self.countdownSeconds = remaining
+            self.status = "Starting in \(remaining)… · focus your destination"
+        }, completion: { [weak self] in
+            guard let self, self.generation == token, !self.quitting else { return }
+            self.countdownSeconds = nil; self.phase = "idle"; self.overlay?.orderOut(nil)
+            guard let app = NSWorkspace.shared.frontmostApplication,
+                  app.bundleIdentifier != Bundle.main.bundleIdentifier else {
+                self.status = "Countdown finished · choose a destination"
+                self.error = "Focus the destination app during the countdown, then try again."
+                return
+            }
+            self.start()
+        })
+        showOverlay()
     }
     func start() {
         guard !busy else { return }
@@ -398,7 +426,7 @@ import OSprCore
         target = captured.app?.bundleIdentifier == Bundle.main.bundleIdentifier ? nil : captured
         recordingSettings = settings
         recordingMode = settings.mode(for: target?.app?.bundleIdentifier ?? "")
-        if recordingMode == .assistant && target?.selectedText.isEmpty != false { error = "Select text in another app first, then use the global shortcut."; return }
+        if recordingMode == .assistant && target?.selectedText.isEmpty != false { error = "Select text in the destination app before starting dictation."; return }
         generation = UUID(); let token = generation
         phase = "starting"; error = ""; preview = ""
         operationTask = Task {
@@ -504,6 +532,8 @@ import OSprCore
         // Stop admissions before the final asynchronous durability barrier.
         // A canceled quit leaves any unfinished take available for recovery.
         quitting = true
+        dictationCountdown.cancel(); countdownSeconds = nil
+        if phase == "countdown" { phase = "idle"; status = "Scheduled dictation cancelled"; overlay?.orderOut(nil) }
         do {
             // Settings/startup audio reconciliation can admit link updates after
             // an await. Let that already-admitted maintenance finish first.
@@ -646,6 +676,7 @@ import OSprCore
     }
 
     func cancel() {
+        dictationCountdown.cancel(); countdownSeconds = nil
         let wasCapture = phase == "recording" || phase == "starting"
         generation = UUID(); operationTask?.cancel(); operationTask = nil; previewTask?.cancel()
         if phase == "warming" || phase == "transcribing" || previewTask != nil { worker.shutdown(); ready = false; residentModels = [] }

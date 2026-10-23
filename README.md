@@ -95,6 +95,10 @@ an Apple Development signed preview with native interaction gates still open.
 
 - Native SwiftUI studio, menu bar control, floating HUD and microphone selection.
 - Toggle / hold-to-talk global shortcut with a visual shortcut editor.
+- A three-second mouse-start countdown gives you time to focus the destination
+  field before recording. Allow microphone access first; cancel from the HUD,
+  Studio or the global shortcut. Native countdown/insertion acceptance is pending;
+  the frozen `soniox-v0` preview predates this feature.
 - Local MLX/Metal ASR: Parakeet v3, Whisper Turbo/Small, Qwen3 ASR 1.7B 8-bit,
   Nemotron 3.5 ASR 8-bit, and native-layout Cohere Transcribe 8-bit. Cohere
   supports 14 languages with an explicit hint; blank uses English. Exact revisions are in
