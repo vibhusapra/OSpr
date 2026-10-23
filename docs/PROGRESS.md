@@ -287,7 +287,7 @@ The machine-readable acceptance ledger is authoritative for feature status;
   signatures and extracted CLI are verified. Versioned receipts start with
   `benchmarks/results/history-`; `history-release-package.json` pins the archive.
 - [ ] Normal-archive upgrade and remaining microphone/Fn/PTT/insertion, streaming
-  and system-capture native acceptance are separate. The running preview remains
+  and system-capture native acceptance are separate. The normal preview’s stored preferences remain
   local MLX with refinement off; its archive was not used as a destructive fixture.
 
 The package is a frozen source snapshot; the repository's newer prose ledger
@@ -295,3 +295,59 @@ clarifies SQLite acceptance. Native history UI acceptance was performed at sourc
 `163a113`, before the subsequent audio-lease fix (covered by the 197-test suite).
 This is an Apple Development signed macOS 26.6.2 arm64 preview, not a notarized
 distribution or a claim of full union parity/top-three product placement.
+
+## Native Soniox BYOK work
+
+- [x] Source-level native Files/Transcriptions adapter, async model preset, app and
+  CLI dispatch, locally prepared parts, token-derived word groups, bounded polling,
+  cancellation, safe resource IDs, no-redirect credentials and cleanup warnings.
+- [x] Eighteen Soniox contract/regression cases; total 215 Swift/94 Python tests.
+  Deadline testing found and fixed an invalidated-session task-creation crash.
+- [x] Source `4fae54b` real Swift/worker 80-minute loopback control: nine parts,
+  all 76,800,000 PCM samples checked, token time offsets and all owned remote
+  resources removed. Compatible and Deepgram regressions passed on the same CLI.
+  Receipts: `soniox-upload-parts.json`, `soniox-compatible-regression.json` and
+  `soniox-deepgram-regression.json` under `benchmarks/results/`. Fake provider
+  sentinels prove transport, not real recognition, account quotas or latency.
+- [x] Native Soniox picker defaults, dummy Keychain save/quit/restart/use, short
+  public-file import and persisted text/times passed. Injected cleanup failure
+  retains text and a History warning. Source `054de0b` also shows this warning in
+  Studio after restart and discloses cloud charges in the footer. Dummy key
+  removed, isolated app reset local-only/quit, fixture server stopped; normal
+  preview settings/history remain unchanged. Receipt: `soniox-native-ui.json`.
+- [x] Source `e9b196c` passes macOS 15 CI run 39891673474 (215 Swift/94 Python,
+  report/app build and clean-runner standalone runtime). The later Studio-only
+  fix compiled and passed native presentation checks; its CI is separate.
+- [ ] Soniox long-file native UI, real account quality/quota and WebSocket
+  streaming remain. See `architecture/soniox-byok.md`. The frozen history-v0 ZIP
+  predates this source integration.
+- [x] After manual unlock, the same-identity history candidate loaded its separate
+  fixture profile with both permissions ready. The shortcut recorder accepted
+  Command–Shift–Y, but neither that chord nor Control–Option–Space started capture
+  via automated native key input, even with OSpr foreground. No global shortcut,
+  PTT or insertion pass is claimed. The normal standalone app was restored; UI
+  confirms Local MLX and refinement off, and normal settings/history bytes match
+  the private pre-test backup. Its archive was not migrated or replaced.
+
+
+## Soniox preview delivery
+
+- [x] Frozen source `fb2ad6f` passes macOS 15 CI 39892523094: 215 Swift / 94
+  Python tests, app/report build and clean-runner standalone runtime.
+- [x] New `dist/soniox-v0/OSpr.app` includes Soniox and the Studio warning fix.
+  Relocated offline checks pass all six ASR engines, notes, speaker attribution,
+  track mix, review, preparation, MCP and 48 kHz model priming.
+- [x] Both bundled synthetic hour files pass (Parakeet WER 2.72%, Qwen 2.37%).
+  These are regression checks on repeated public speech, not natural meetings
+  or a product latency comparison.
+- [x] All three bundled 80-minute transports preserve every normalized sample,
+  repeated text and offsets. Soniox deletes every owned fake job/file. The
+  release gate also rejects stale builds, retained resources and missing deletes.
+- [x] Verified ZIP: 383,131,695 bytes; SHA-256
+  `fc1c5a5e6218465f574fef152ad43843eb1f0cbb0dc1568ca37e03405da057a9`.
+  CRC, extracted deep signatures and extracted CLI inventory pass. See
+  `benchmarks/results/soniox-release-package.json` and the `soniox-package-*`
+  receipts. The bundled report is a frozen snapshot preceding these receipts.
+- [ ] Full native microphone/shortcut/insertion, streaming/desktop acceptance,
+  real-account quality/quota behavior, clean-Mac installation, Developer ID,
+  notarization and an updater remain. No full feature union or top-three claim.

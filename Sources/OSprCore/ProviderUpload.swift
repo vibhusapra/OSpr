@@ -90,11 +90,13 @@ extension ProviderClient {
         let began = Date()
         var texts: [String] = [], segments: [[String: Any]] = [], words: [[String: Any]] = []
         var allWordTimes = true, coarseTiming = false, languages = Set<String>()
+        var warnings: [String] = []
         for (index, part) in plan.parts.enumerated() {
             try Task.checkCancellation(); progress?(index + 1, plan.parts.count)
             let result = try await transcribe(file: part.file, base: base, model: model, key: key, language: language, vocabulary: vocabulary, provider: provider)
             try Task.checkCancellation()
             let text = result["text"] as? String ?? ""
+            if let warning = result["warning"] as? String, !warning.isEmpty { warnings.append(warning) }
             if let tag = result["language"] as? String, !tag.isEmpty { languages.insert(tag) }
             guard !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { continue }
             texts.append(text)
@@ -111,6 +113,7 @@ extension ProviderClient {
             "language": languages.count == 1 ? languages.first! : languages.isEmpty ? language : "mul",
             "total_ms": Date().timeIntervalSince(began) * 1000]
         if allWordTimes && !words.isEmpty { result["words"] = words }
+        if !warnings.isEmpty { result["warning"] = warnings.joined(separator: "\n") }
         return result
     }
     private static func shiftedTimes(_ value: Any?, part: ProviderAudioPart, words: Bool) -> [[String: Any]]? {

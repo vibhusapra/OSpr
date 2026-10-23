@@ -18,6 +18,7 @@ import subprocess
 import tempfile
 import threading
 import time
+import uuid
 from urllib.parse import parse_qs, urlsplit
 
 import numpy as np
@@ -34,11 +35,11 @@ def sha(path):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--cli", type=Path, default=ROOT / ".build/debug/ospr-cli")
-    parser.add_argument("--provider", choices=("compatible", "deepgram"), default="compatible")
+    parser.add_argument("--provider", choices=("compatible", "deepgram", "soniox"), default="compatible")
     parser.add_argument("--output", type=Path)
     args = parser.parse_args()
     if args.output is None:
-        args.output = ROOT / "benchmarks/results" / ("deepgram-upload-parts.json" if args.provider == "deepgram" else "upload-parts.json")
+        args.output = ROOT / "benchmarks/results" / ({"deepgram": "deepgram-upload-parts.json", "soniox": "soniox-upload-parts.json"}.get(args.provider, "upload-parts.json"))
     manifest_path = ROOT / "benchmarks/fixtures/long-session.json"
     manifest = json.loads(manifest_path.read_text())
     source_item = next(x for x in manifest["items"] if x["id"] == "public-concat-60m")
@@ -62,10 +63,59 @@ def main():
         recording_sha = sha(recording)
         cursor = 0
         lock = threading.Lock()
+        remote_files, remote_jobs, resource_events = {}, {}, []
 
         class Handler(BaseHTTPRequestHandler):
             def log_message(self, *_):
                 pass
+
+            def reply(self, code, value=None):
+                data = b"" if value is None else json.dumps(value).encode()
+                self.send_response(code)
+                self.send_header("Content-Type", "application/json")
+                self.send_header("Content-Length", str(len(data)))
+                self.end_headers()
+                self.wfile.write(data)
+
+            def do_GET(self):
+                try:
+                    assert args.provider == "soniox"
+                    assert self.headers["Authorization"] == "Bearer ospr-public-fixture-key"
+                    parts = self.path.strip("/").split("/")
+                    assert parts[:2] == ["v1", "transcriptions"]
+                    job = remote_jobs[parts[2]]
+                    record = records[job["index"]]
+                    if len(parts) == 4:
+                        assert parts[3] == "transcript"
+                        text = f"Part {record['index'] + 1}. Keep this repeated phrase."
+                        tokens = [dict(text=(" " if n else "") + word, start_ms=100 + n * 50,
+                                       end_ms=150 + n * 50, confidence=.99, language="en")
+                                  for n, word in enumerate(text.split())]
+                        self.reply(200, dict(id=parts[2], text=text, tokens=tokens))
+                    else:
+                        self.reply(200, dict(id=parts[2], status="completed", audio_duration_ms=record["frames"] / 16))
+                except Exception as error:
+                    errors.append(type(error).__name__)
+                    self.reply(400, dict(error="public-fixture contract failed"))
+
+            def do_DELETE(self):
+                try:
+                    assert args.provider == "soniox"
+                    assert self.headers["Authorization"] == "Bearer ospr-public-fixture-key"
+                    prefix, kind, identifier = self.path.strip("/").split("/")
+                    assert prefix == "v1"
+                    with lock:
+                        if kind == "transcriptions":
+                            del remote_jobs[identifier]
+                        else:
+                            assert kind == "files"
+                            assert not any(job["file_id"] == identifier for job in remote_jobs.values())
+                            del remote_files[identifier]
+                        resource_events.append(dict(method="DELETE", kind=kind, id=identifier))
+                    self.reply(204)
+                except Exception as error:
+                    errors.append(type(error).__name__)
+                    self.reply(400, dict(error="public-fixture contract failed"))
 
             def do_POST(self):
                 nonlocal cursor
@@ -73,6 +123,21 @@ def main():
                     length = int(self.headers["Content-Length"])
                     assert length < 25_000_000
                     body = self.rfile.read(length)
+                    if args.provider == "soniox" and self.path == "/v1/transcriptions":
+                        assert self.headers["Authorization"] == "Bearer ospr-public-fixture-key"
+                        config = json.loads(body)
+                        assert config["model"] == "stt-async-v5" and config["language_hints"] == ["en"]
+                        assert config["enable_speaker_diarization"] is False and config["enable_language_identification"] is True
+                        assert config["client_reference_id"].startswith("OSpr-")
+                        assert "audio_url" not in config and "translation" not in config and "webhook_url" not in config
+                        item = str(uuid.uuid4())
+                        with lock:
+                            record = records[remote_files[config["file_id"]]]
+                            record["job_id"] = item
+                            remote_jobs[item] = dict(index=record["index"], file_id=config["file_id"])
+                            resource_events.append(dict(method="POST", kind="transcriptions", id=item))
+                        self.reply(201, dict(id=item, status="completed", audio_duration_ms=record["frames"] / 16))
+                        return
                     if args.provider == "deepgram":
                         route = urlsplit(self.path)
                         query = parse_qs(route.query)
@@ -82,13 +147,16 @@ def main():
                         assert self.headers["Content-Type"] == "audio/wav"
                         fields = {"file": body}
                     else:
-                        assert self.path == "/v1/audio/transcriptions"
+                        assert self.path == ("/v1/files" if args.provider == "soniox" else "/v1/audio/transcriptions")
                         assert self.headers["Authorization"] == "Bearer ospr-public-fixture-key"
                         message = BytesParser(policy=default).parsebytes(
                             ("Content-Type: " + self.headers["Content-Type"] + "\r\nMIME-Version: 1.0\r\n\r\n").encode() + body
                         )
                         fields = {p.get_param("name", header="Content-Disposition"): p.get_payload(decode=True) for p in message.iter_parts()}
-                        assert fields["model"] == b"fixture-parts" and fields["language"] == b"en"
+                        if args.provider == "soniox":
+                            assert fields["client_reference_id"].startswith(b"OSpr-")
+                        else:
+                            assert fields["model"] == b"fixture-parts" and fields["language"] == b"en"
                     with sf.SoundFile(io.BytesIO(fields["file"])) as audio:
                         assert audio.samplerate == 16000 and audio.channels == 1 and audio.subtype == "PCM_16"
                         decoded = audio.read(dtype="float32")
@@ -102,6 +170,14 @@ def main():
                         index = len(records)
                         records.append(dict(index=index, start_frame=cursor, frames=len(decoded), request_bytes=length, max_pcm16_error=maximum_error))
                         cursor += len(decoded)
+                    if args.provider == "soniox":
+                        item = str(uuid.uuid4())
+                        with lock:
+                            remote_files[item] = index
+                            records[index]["file_id"] = item
+                            resource_events.append(dict(method="POST", kind="files", id=item))
+                        self.reply(201, dict(id=item))
+                        return
                     text = f"Part {index + 1}. Keep this repeated phrase."
                     result = {"text": text, "language": "en", "segments": [{"start": .1, "end": .4, "text": text}]}
                     if args.provider == "deepgram":
@@ -129,8 +205,8 @@ def main():
         environment.pop("OSPR_ROOT", None)
         if not bundled:
             environment["OSPR_ROOT"] = str(ROOT)
-        command = "transcribe-deepgram" if args.provider == "deepgram" else "transcribe-cloud"
-        model = "nova-3" if args.provider == "deepgram" else "fixture-parts"
+        command = {"deepgram": "transcribe-deepgram", "soniox": "transcribe-soniox"}.get(args.provider, "transcribe-cloud")
+        model = {"deepgram": "nova-3", "soniox": "stt-async-v5"}.get(args.provider, "fixture-parts")
         process = subprocess.Popen([str(cli), command, str(recording), f"http://127.0.0.1:{server.server_port}/v1", model, "en"],
             cwd=directory, env=environment,
             stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
@@ -155,6 +231,13 @@ def main():
             for record, word in zip(records, result["words"], strict=True):
                 assert word["text"] == "Keep"
                 assert abs(word["start"] - (record["start_frame"] / 16000 + .1)) < 1e-8
+        if args.provider == "soniox":
+            assert not remote_jobs and not remote_files and "warning" not in result
+            assert len(resource_events) == 4 * len(records)
+            words = result["words"]
+            assert len(words) == 6 * len(records)
+            for index, record in enumerate(records):
+                assert abs(words[index * 6]["start"] - (record["start_frame"] / 16000 + .1)) < 1e-8
         assert sha(recording) == recording_sha
         workspace_root = Path(tempfile.gettempdir()) / "OSpr-Engine"
         assert not list(workspace_root.glob(f"{process.pid}-upload-*"))
@@ -172,6 +255,9 @@ def main():
             build=build, signature_valid_after_upload=True if bundled else None,
             source_preserved=True, workspace_removed=True, native_wall_ms=elapsed,
             boundary="Real Swift CLI → owned Python preparation → serial loopback provider → assembled timestamps. Every sample checked within PCM16 quantization. Fake provider text is a sentinel, not ASR, paid-provider validation, native UI, or a timing benchmark.")
+        if args.provider == "soniox":
+            evidence["remote_resource_events"] = resource_events
+            evidence["all_owned_files_and_jobs_removed"] = not remote_jobs and not remote_files
         args.output.parent.mkdir(parents=True, exist_ok=True)
         args.output.write_text(json.dumps(evidence, indent=2) + "\n")
         print(json.dumps({"status": "passed", "seconds": 4800, "parts": len(records), "native_wall_ms": elapsed}))

@@ -64,12 +64,13 @@ the runtime boundary, not interactive microphone/insertion behavior.
 
 After running `benchmarks/portable_app.py`, the bundled hour-long regression
 check (`PYTHONPATH=backend .venv/bin/python benchmarks/native_long.py --app dist/standalone/OSpr.app`),
-both public 80-minute loopback transport checks, and successful native/Python
+all three public 80-minute loopback transport checks, and successful native/Python
 test logs, create a verified delivery archive with:
 
 ```sh
 .venv/bin/python benchmarks/upload_parts.py --cli dist/standalone/OSpr.app/Contents/MacOS/ospr-cli
 .venv/bin/python benchmarks/upload_parts.py --cli dist/standalone/OSpr.app/Contents/MacOS/ospr-cli --provider deepgram
+.venv/bin/python benchmarks/upload_parts.py --cli dist/standalone/OSpr.app/Contents/MacOS/ospr-cli --provider soniox
 .venv/bin/python scripts/package-release.py --swift-log .local/swift-tests.log --python-log .local/python-tests.log
 ```
 
@@ -81,6 +82,14 @@ models used by the preceding portable smoke suite; weights are never embedded.
 
 Builds use ad-hoc signing by default; the current local preview uses an Apple Development signature. Developer ID distribution signing, notarization and an updater are not complete. Do not overwrite an existing installation
 until its transcripts/settings are backed up.
+
+The latest checked local delivery is `dist/soniox-v0/OSpr.app` and its ZIP,
+frozen at source `fb2ad6f`. Its [SHA-256 manifest](benchmarks/results/soniox-release-package.json)
+pins the 215 Swift/94 Python CI result, relocated offline smoke, both hour-file
+regressions and all three 80-minute transports. Quit other OSpr copies before
+opening a new bundle. Back up existing settings/history before an archive upgrade;
+the normal older preview was restored after isolated native testing. This remains
+an Apple Development signed preview with native interaction gates still open.
 
 ## Included
 
@@ -107,6 +116,12 @@ until its transcripts/settings are backed up.
   language detection or an explicit hint, and utterance/word timestamps. Audio is
   normalized locally before upload; automatic number formatting and paid add-on
   features are not requested. Cloud streaming and paid-account validation remain open.
+- Native Soniox async BYOK uses Files/Transcriptions with `stt-async-v5`, optional
+  language/vocabulary hints and conservative token-derived word times. Owned jobs
+  and uploads are deleted after completion when possible; processing or ambiguous
+  jobs may need console cleanup. No automatic recognition retry. [Lifecycle and
+  validation limits](docs/architecture/soniox-byok.md). This is current source;
+  the newer `dist/soniox-v0` preview includes Soniox; `dist/history-v0` predates it.
 - File/batch import, searchable editable local history, copy/delete/retention,
   and TXT/JSON/SRT/VTT export. Subtitles use **original** transcript timing.
 - Experimental local speaker-labeled imports: Nemotron 3 Diarization (up to eight
