@@ -539,7 +539,7 @@ public final class HistoryDatabase {
 
     private func clearRows() throws {
         // A full wipe need not securely edit the same FTS posting lists once per
-        // row. Drop only our delete-maintenance trigger, clear content, rebuild
+        // row. Drop only our delete-maintenance trigger, clear content, recreate
         // the now-empty index and reset counters, then restore the exact trigger.
         // This all belongs to the caller's transaction: failure rolls back the
         // content, index, counters AND trigger. secure_delete remains enabled.
@@ -548,12 +548,17 @@ public final class HistoryDatabase {
         guard let trigger else { throw OSprError.message("History delete maintenance is missing. Existing data was preserved.") }
         try execute("DROP TRIGGER history_delete")
         try execute("DELETE FROM history")
-        try execute("INSERT INTO history_search(history_search) VALUES('rebuild')")
+        // Recreate instead of FTS 'rebuild': older SQLite resets its stored
+        // format to 4 during rebuild but can retain cached format 5, preventing
+        // the subsequent normal delete from updating that on-disk metadata.
+        try execute("DROP TABLE history_search")
+        try execute("CREATE VIRTUAL TABLE history_search USING fts5(text,raw,content='history',content_rowid='position',tokenize='trigram')")
+        try execute("INSERT INTO history_search(history_search,rank) VALUES('secure-delete',1)")
         try execute("UPDATE history_stats SET records=0,words=0 WHERE singleton=1")
         try execute(trigger)
         try execute("DELETE FROM history_meta WHERE key='legacy_sha256'")
-        // FTS rebuild deliberately resets format metadata to 4. Commit the
-        // secure-delete format before exposing this store to a fallible edit.
+        // Commit the secure-delete format before exposing the fresh index to a
+        // fallible user edit; its vtab and on-disk format now begin in sync.
         try seedSecureDeleteFormat()
     }
 

@@ -65,10 +65,16 @@ def run(shell):
     number = int(parts[0]) * 1_000_000 + int(parts[1]) * 1_000 + int(parts[2])
     assert number >= 3_042_000, version
     cases = []
-    for name in ("legacy_special_delete", "current_maintenance", "current_empty_index", "legacy_nonempty_upgrade", "legacy_empty_upgrade", "legacy_corrupt_upgrade", "stable_format_after_rollback", "divergent_index"):
+    for name in ("legacy_special_delete", "current_maintenance", "current_empty_index", "current_full_clear", "legacy_nonempty_upgrade", "legacy_empty_upgrade", "legacy_corrupt_upgrade", "stable_format_after_rollback", "divergent_index"):
         sql = fixture(legacy=name.startswith("legacy"))
         if name in ("current_empty_index", "legacy_empty_upgrade"):
             sql += "DELETE FROM history;\n"
+        if name == "current_full_clear":
+            trigger = re.search(r"CREATE TRIGGER history_delete .*?END;", schema(), re.S).group()
+            search = re.search(r"CREATE VIRTUAL TABLE history_search .*?;", schema(), re.S).group()
+            sql += "BEGIN IMMEDIATE; DROP TRIGGER history_delete; DELETE FROM history; DROP TABLE history_search;\n"
+            sql += search + "\nINSERT INTO history_search(history_search,rank) VALUES('secure-delete',1); UPDATE history_stats SET records=0,words=0;\n"
+            sql += trigger + seed_sql() + "COMMIT;\n" + format_sql()
         if name == "legacy_corrupt_upgrade":
             sql += "DELETE FROM history_search;\n"
         if name in ("legacy_nonempty_upgrade", "legacy_empty_upgrade", "legacy_corrupt_upgrade"):
