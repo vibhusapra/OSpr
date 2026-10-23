@@ -4,6 +4,7 @@ import OSprCore
 import Darwin
 
 @main struct OSprApp: App {
+    @NSApplicationDelegateAdaptor(ApplicationDelegate.self) private var appDelegate
     @StateObject private var model: AppModel
     @Environment(\.openWindow) private var openWindow
     init() {
@@ -19,8 +20,18 @@ import Darwin
             exit(EXIT_SUCCESS)
         }
         do {
-            let lock = try AppInstanceLock(directory: LocalStore.applicationDirectory)
-            _model = StateObject(wrappedValue: AppModel(instanceLock: lock))
+            // Explicit launch profiles allow isolated QA without touching the
+            // normal archive, global shortcuts, watcher or credential scopes.
+            let profile = ProcessInfo.processInfo.environment["OSPR_DATA_DIRECTORY"]
+                ?? Bundle.main.object(forInfoDictionaryKey: "OSprDataDirectory") as? String
+            if let profile, !profile.hasPrefix("/") { fatalError("OSPR_DATA_DIRECTORY must be an absolute path") }
+            let directory = profile.map { URL(fileURLWithPath: $0, isDirectory: true) } ?? LocalStore.applicationDirectory
+            let lock = try AppInstanceLock(directory: directory)
+            let value = AppModel(instanceLock: lock, directory: directory,
+                enableServices: ProcessInfo.processInfo.environment["OSPR_DISABLE_BACKGROUND_SERVICES"] != "1"
+                    && Bundle.main.object(forInfoDictionaryKey: "OSprDisableBackgroundServices") as? Bool != true)
+            _model = StateObject(wrappedValue: value)
+            appDelegate.model = value
         } catch AppInstanceLock.Failure.alreadyRunning {
             if let running = existing.first { _ = running.activate(options: []) }
             exit(EXIT_SUCCESS)

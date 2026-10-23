@@ -1,8 +1,8 @@
 # Indexed history — implementation in progress
 
 The storage engine and isolated benchmark are implemented on
-`codex/indexed-history`, based on the verified v0 preview. The app still uses its
-existing JSON history and coalescing writer. No real user archive has been
+`codex/indexed-history`, based on the verified v0 preview. Current source connects the asynchronous repository to paged history, details,
+search, settings, edits and shutdown. Native acceptance is still pending. No real user archive has been
 migrated, and this prototype is not included in the previously packaged preview.
 
 ## Storage contract
@@ -79,15 +79,16 @@ fixture are fingerprinted. This does not measure SwiftUI rendering or app launch
 - Integrate the implemented serial repository into AppModel. Core tests cover
   coalescing, read-your-edit, failed batches, tombstones, clear barriers,
   whole-archive retention/audio changes and async/quit flushes. Opening and
-  callbacks stay off MainActor. UI wiring and session-only transitions remain.
+  callbacks stay off MainActor. Session-only transitions now have dedicated tests; UI wiring remains.
 - Replace the full-array UI model with summary pages, aggregate counts and
   separately loaded selected/latest details. A summary must never overwrite a
   complete stored transcript. Fence stale detail/search/page responses.
 - Debounce search, reset cursors when queries change and preserve selection while
   recordings or watched imports arrive. Exercise long transcripts and histories.
-- Apply retention, disable-saving, clear-all and audio eviction to the complete
-  archive. Preserve session-only behavior without leaving content/index copies
-  on disk. Confirm storage before releasing completed-take recovery.
+- Connect the tested complete-archive retention, disable-saving, clear-all and
+  audio-eviction APIs to the UI. Preserve session-only semantics and make failed
+  privacy/durability transitions visible. Confirm requested durability before
+  releasing completed-take recovery.
 - Validate migration/restart, edits/notes/reprocessing, all exports, recovery,
   watched imports, retained audio and settings transitions through the actual
   app. Repeat portable and distribution gates before replacing the preview.
@@ -112,7 +113,7 @@ initial data takes 32.34 s and peaks at 98.02 MiB. Per-read autorelease pools
 reduced the initial migration's 891.91 MiB peak. These are synthetic storage
 measurements; the shipped UI has not adopted this path.
 
-The database occupies 515,993,600 bytes versus 303,900,003 bytes of legacy JSON.
+The database occupies 515,985,408 bytes versus 303,900,003 bytes of legacy JSON.
 A separate 8 KiB page control measured 514,293,760 bytes (0.3% less) and a larger
 181.27 MiB migration peak. It offered no useful packing improvement on this
 fixture, so 4 KiB remains the default. Both complete raw controls are retained.
@@ -141,20 +142,114 @@ latest coalesced observer receives batch completion on the repository queue,
 including failures and explicit retry results. UI consumers must always perform
 committed audio cleanup even when their presentation token is stale.
 
-Eighteen repository regressions and twenty-one database regressions pass as
-part of 166 Swift tests. The initial macOS 15 CI run exposed SQLite's documented
-[pre-3.46.1 secure-delete integrity false positive](https://www.sqlite.org/releaselog/3_46_1.html).
-A conditional FTS `optimize` before diagnostics merges the existing index; it
-does not rebuild it from transcript content. Controls on SQLite 3.42.0, 3.43.2,
-3.46.0, 3.46.1 and the system 3.51.0 reproduce the old report, pass the correction
-and still reject a deliberately divergent index. The actual Swift test also
-checks the legacy branch with a damaged index. The macOS 15.7.9 Swift suite (165 tests), Python checks (94 tests) and standalone
-runtime gates passed on Apple SQLite 3.43.2 in run 39873308963 on commit dabd41b; the subsequent lease-lifetime test also passes locally.
-The shell controls are not native-app acceptance or timing results.
-See `benchmarks/results/history-sqlite-compatibility.json` and the reproduction
-script `benchmarks/history_sqlite_compatibility.py`.
+The storage stage passed 186 local Swift tests and macOS 15 CI run 39880778334.
+Current source adds ten presentation/application regressions, including actual
+AppModel startup migration, full detail/copy access, search/paging, notes/edits,
+background-selection preservation, session mode and failed/successful quit. SQLite before 3.46.1 has a documented
+[secure-delete format issue](https://www.sqlite.org/releaselog/3_46_1.html): its
+special FTS delete command fails to update secure-delete format metadata. An
+initial merge-before-diagnostics control passed nonempty cases but failed empty
+ones in macOS 15 CI; that incomplete workaround is superseded.
+
+Schema v2 uses normal FTS DELETE in BEFORE triggers, while the old content row
+is still readable. Only changed normalized text/raw is reindexed; notes, audio
+and case-only edits avoid index churn. Existing v1 databases upgrade in one
+transaction. A temporary row containing nonempty probe text is inserted and deleted through the normal
+API to update legacy format metadata, with no surviving probe and no rebuild of
+existing index entries. The secure-delete format is seeded before user edits can fail and roll back; metadata is checked after commit. Full clearing recreates the empty FTS virtual table because older SQLite can keep a stale cached format after rebuild. Full integrity checks precede migration commit. A damaged v1 index
+fails migration with its original file bytes intact. Future payload changes
+require a storage-version review so older writers cannot silently drop fields.
+
+Forty-five shell controls across SQLite 3.42.0, 3.43.2, 3.46.0, 3.46.1 and system
+3.51.0 cover the original failure, current nonempty/empty state, successful
+legacy empty/nonempty upgrades, full clearing, rollback-stable format metadata and rejection of damaged current/legacy indexes. These
+controls do not replace full older-OS Swift CI or native-app acceptance. The
+complete raw matrix is `benchmarks/results/history-sqlite-compatibility.json`;
+the earlier limited merge control is retained separately.
 
 The GUI passes its `AppInstanceLock` into the repository. The repository retains
 that lease through queued operations and explicitly closes its SQLite connection
 on the private queue before releasing the lease. A lifetime regression verifies
 that a second owner is rejected until this teardown completes.
+
+## Session-only history
+
+Disabling saving is an ordered repository barrier. It snapshots every stored page
+into a private `:memory:` database without materializing the transcript archive,
+applies pending edits and removes audio links, then clears the persistent content
+and search index. A new session-only archive creates no history file. Enabling
+saving transfers the complete current session back through SQLite's transactional
+[backup API](https://www.sqlite.org/backup.html). All subsequent writes stay off
+disk while saving is disabled, including after a failed snapshot or purge.
+
+Snapshot/purge/persist failures retain the request and pending changes. A memory
+batch that already succeeded remains readable after a disk transition failure;
+flush continues to throw and its observer reports failure until the requested
+state succeeds. Cleanup receipts survive later edits/retries, and current audio
+owners are rechecked before returning orphaned names. Unreadable legacy archives
+are preserved until an explicit clear; disabling saving does not silently
+destroy a source that could not be snapshotted.
+
+Full-session visibility uses more memory than ordinary paged disk history.
+Snapshots compact heavily unused pages in memory, and empty disk archives reclaim
+space after the clear commit. The pure memory connection uses `SQLITE_OPEN_MEMORY`,
+`PRIVATECACHE` and `temp_store=MEMORY`; a file-only temporary-storage runtime is
+rejected. A nondefault SQLite VFS probe records zero file opens through inserts,
+queries, deletion, compaction and integrity checks, with a positive control that
+detects a real file open. This concerns application history storage; temporary
+capture, unresolved-take recovery, intentional exports and OS memory management
+remain separate boundaries.
+
+The first 100,000-record transition control failed without a completed receipt.
+A one-second sample while its worker was active at about 104 seconds found the
+repository inside per-row FTS secure-delete work during full clearing. The helper
+had a 180-second watchdog but did not retain the exact child exit reason. It is
+a failed exploratory control, not a completed latency baseline. Its binary and
+full profile remain private; the sanitized receipt fingerprints both.
+
+Full clearing now drops only its own delete-maintenance trigger within the same
+transaction, clears all content, recreates the empty index, resets counters and
+restores the exact trigger. `secure_delete` stays enabled. Encoding failure later
+in the batch rolls back content, index, counters and trigger together. Ordinary
+individual deletions retain their normal maintenance. Current source checks
+total 196 Swift tests, including 15 session tests, two bulk-clear and two v1-upgrade regressions.
+
+The revised 100,000-record control passed. All ordered complete-payload hashes
+and counts match before, during and after the round trip, as does the selected
+detail. Disable/clear flush took 1,461.5 ms; enable/persist flush took 290.9 ms.
+The disk archive shrank from 515,985,408 bytes to 49,152 bytes while off, then
+returned to its original size on restore. Lifetime child peak RSS was 663,388,160
+bytes (632.7 MiB), including the full snapshot and verification. This is one
+exploratory round trip, not a p50/p95 or SLA. Timed barriers exclude migration,
+fingerprint verification, GUI, CLI spawn and audio cleanup. Raw result:
+`benchmarks/results/history-session.json`. The independent verifier checks its
+shared fixture against the earlier storage control, all counts/hashes and every
+committed Swift source fingerprint, plus the preserved measured CLI hash.
+
+## App integration and isolated native acceptance
+
+`HistoryModel` owns the current summary page(s), aggregate counts, latest and
+selected complete records, and uncommitted new results retained for export after
+a storage failure. Search is debounced 180 ms and canceled/epoch-fenced; detail
+loads have an independent epoch. New background results preserve selection.
+Context-menu copy resolves the complete record instead of copying a truncated
+preview. Text and notes edits use repository field updates. Committed orphan
+cleanup runs even when its presentation callback has been superseded.
+
+AppModel construction no longer decodes `history.json`. Migration, retention and
+archive-wide audio reconciliation run through startup background work. Settings
+report success after the history policy/cleanup barrier, even when an unrelated
+Keychain failure needs separate attention. App termination stops new admissions,
+lets admitted maintenance finish, preserves unfinished capture, cancels inference
+and asynchronously flushes edits. A failed flush offers keeping the app open or
+explicitly quitting without saving.
+
+For isolated local QA, set an absolute `OSPR_DATA_DIRECTORY` launch environment
+variable (or an `OSprDataDirectory` string in a separately signed QA bundle).
+`OSPR_DISABLE_BACKGROUND_SERVICES=1` or an `OSprDisableBackgroundServices` boolean
+in that bundle suppresses global shortcuts, watcher, Keychain and login-item
+operations. Use a distinct bundle identifier so single-instance activation does
+not redirect to the regular app. These are explicit launch profiles, not normal
+settings. The standard bundle continues to use Application Support/OSpr. Native
+QA must use generated public fixtures, preserve the production archive and leave
+the existing running preview untouched until upgrade acceptance is complete.

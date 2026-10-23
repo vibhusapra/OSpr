@@ -151,7 +151,7 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 - [ ] Large-history launch loading and indexed search. WIP on
   `codex/indexed-history`: transactional SQLite, streaming verified migration,
   summary pages, on-demand detail, literal Unicode substring search and counters.
-  Twenty-one database and eighteen repository regressions pass; the source suite totals 166 Swift tests.
+  Twenty-six database, eighteen repository and fifteen session regressions pass; the storage stage totals 186 Swift tests and passes macOS 15 CI.
   In six fresh storage-only processes on a deterministic 100,000-record archive,
   initial data p50 is 3.45 s for JSON versus 2.98 ms for the indexed prototype;
   median process peak RSS is 1.83 GB versus 17.6 MB. Matching IDs/counts/detail
@@ -162,11 +162,23 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
   peak, so the default remains 4 KiB. Raw results for both controls are retained.
   The serial asynchronous repository is implemented and tested, including coalesced
   edits, failed-write retry, deletion/clear barriers, whole-archive maintenance
-  and canceled reads. A documented older-SQLite FTS integrity false positive was
-  reproduced and corrected without hiding a deliberately damaged index.
-  The current app and packaged preview continue using JSON. App repository wiring,
-  paged UI/selection/search, session-only/privacy transitions and
-  native acceptance remain before activation. See `architecture/indexed-history.md`.
+  and canceled reads. Session-only snapshots, disk clearing/restore, failed privacy
+  transitions, retained cleanup receipts and disk-space reclamation are tested. A
+  VFS probe detects no file opens during in-memory work and detects its positive
+  control. A 100,000-record transition attempt exposed slow per-row full-index
+  clearing; a transactional bulk-clear route replaces it, with rollback/trigger
+  restoration regressions. The revised 100,000-record round trip preserves every
+  complete payload hash/count, with 1.46 s disable/clear and 291 ms restore in one
+  exploratory trial. The empty disk archive is 48 KiB; lifetime transition-child
+  peak is 633 MiB, explicitly above ordinary paged-history memory. Older SQLite special-delete format metadata failures, including empty indexes,
+  are avoided through normal before-content FTS deletes and transactional v1
+  upgrades. Forty-five controls across five runtimes still reject damaged indexes.
+  Current source wires the repository into AppModel and a paged/debounced history
+  UI, field-specific edits/notes, full-record copy/export, settings durability
+  and an asynchronous quit barrier. Ten presentation/application regressions add
+  coverage for startup migration, complete details, selection and failed saves/quit.
+  The previously packaged preview still uses JSON; native QA and a new package
+  remain before upgrade acceptance. See `architecture/indexed-history.md`.
 - [x] Experimental speaker-labeled file imports with recognizer word timestamps;
   stitched-speech and natural AMI prefix measurements. Labels still need review.
 - [x] Experimental ScreenCaptureKit desktop plus optional microphone capture, separate

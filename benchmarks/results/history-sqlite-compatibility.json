@@ -2,18 +2,19 @@
   "status": "passed",
   "boundary": "Synthetic in-memory C API/shell compatibility; not native Swift integration or performance.",
   "source_files_sha256": {
-    "Sources/OSprCore/HistoryDatabase.swift": "6dfb96ecc9968e6a1745934ab44953e2649abb3fb5d1fca78ef47b08031e7a26",
-    "benchmarks/history_sqlite_compatibility.py": "e31d572f305f1ce7bcca73365df2207f303b3e2738a07acb301b5bfa3253b630"
+    "Sources/OSprCore/HistoryDatabase.swift": "a72e509f2c19ec5f05309360b46d06f58853edab7853a43f4f218e16b6a18c59",
+    "benchmarks/history_sqlite_compatibility.py": "047e78991dcc22837047d4c6f33fe532b77aa72570a3b441fff84b38a73c2149"
   },
   "fix_reference": "https://www.sqlite.org/releaselog/3_46_1.html",
-  "schema_and_fixture_sha256": "3ace4837ece1a2bc91d8514d6d61475cca89046b145a7b908cb5e18006a44539",
+  "legacy_schema_commit": "1dc00b49806bc112e4627ec2d6fb724119b6e54f",
+  "schema_and_fixture_sha256": "81ff20a0ebfa76fb4393907155747ee142be864cb274f914759ef38756ad9505",
   "runtimes": [
     {
       "version": "3.42.0 2023-05-16 12:36:15 831d0fb2836b71c9bc51067c49fee4b8f18047814f2ff22d817d25195cf350b0",
       "shell_sha256": "e3036adc13432e303443171c024fbabe6bf487c8a9367a29820f4187b17954fc",
       "cases": [
         {
-          "case": "unmerged_baseline",
+          "case": "legacy_special_delete",
           "sql_sha256": "ad0d1c75241904c09c2c55f53b5c7b1291187e9d5dd007f7e055525ee4303dd9",
           "exit_code": 1,
           "stdout": "1\nok",
@@ -21,19 +22,67 @@
           "integrity_passed": false
         },
         {
-          "case": "legacy_merge_fix",
-          "sql_sha256": "8dfa7a9ab0ac7f85919ca213cc17c872b8c5f26a52c9d5e67a9ff7e5829b431a",
+          "case": "current_maintenance",
+          "sql_sha256": "8eb76795c89faffa02cf19c51049cdd2f34e0bef55abb8d21870b8279f65f41c",
           "exit_code": 0,
+          "stdout": "1\nseeded-format\nok",
+          "stderr": "",
+          "integrity_passed": true
+        },
+        {
+          "case": "current_empty_index",
+          "sql_sha256": "3b281f952d8cfd54dc32d9f6a05ae1a4af023078e7808553c7d402b31372c773",
+          "exit_code": 0,
+          "stdout": "1\nseeded-format\nok",
+          "stderr": "",
+          "integrity_passed": true
+        },
+        {
+          "case": "current_full_clear",
+          "sql_sha256": "9754cfdffdb05ec22a06de165f5b300cc66e360edbcb6664b23ec6e0e2fd85bb",
+          "exit_code": 0,
+          "stdout": "1\nseeded-format\nseeded-format\nok",
+          "stderr": "",
+          "integrity_passed": true
+        },
+        {
+          "case": "legacy_nonempty_upgrade",
+          "sql_sha256": "e716f2bc2210c42f653d2170d9531ae7d0d8d9b7b06a41a8b3eb9381dbd48b6a",
+          "exit_code": 0,
+          "stdout": "1\nok\nseeded-format",
+          "stderr": "",
+          "integrity_passed": true
+        },
+        {
+          "case": "legacy_empty_upgrade",
+          "sql_sha256": "65740cbbc8d846f801c993abc246a59971cc3910e74ba43cd5885ef2b32a4052",
+          "exit_code": 0,
+          "stdout": "1\nok\nseeded-format",
+          "stderr": "",
+          "integrity_passed": true
+        },
+        {
+          "case": "legacy_corrupt_upgrade",
+          "sql_sha256": "9eaddc0faa947aaf9f4c98611ae8a273b1765359ddc1446e8e38b6ab779ee516",
+          "exit_code": 1,
           "stdout": "1\nok",
+          "stderr": "Runtime error near line 70: database disk image is malformed (11)",
+          "integrity_passed": false
+        },
+        {
+          "case": "stable_format_after_rollback",
+          "sql_sha256": "fdfdd6f3f084b8e17a980baa1ec0a304617b01c4c845cd329b294d4e98381d45",
+          "exit_code": 0,
+          "stdout": "1\nseeded-format\nstable-format\nok",
           "stderr": "",
           "integrity_passed": true
         },
         {
           "case": "divergent_index",
-          "sql_sha256": "5eb2464eba8b3683300d45c80c19d9029db9ed2f3d1de3f3ea450971c5c404f0",
+          "sql_sha256": "04d5efa2f74f5da4c4b95fc3a5af3e57129a67fe1d9a8a5c8f1d272d2ab9cbc1",
           "exit_code": 1,
-          "stdout": "1\nok",
-          "stderr": "Runtime error near line 48: database disk image is malformed (11)",
+          "stdout": "1\nseeded-format\nok",
+          "stderr": "Runtime error near line 60: database disk image is malformed (11)",
           "integrity_passed": false
         }
       ],
@@ -62,7 +111,7 @@
       "shell_sha256": "969b4d28f8c7186877d0a005d16aab07315bf85f3fe10c16733f12175768ae74",
       "cases": [
         {
-          "case": "unmerged_baseline",
+          "case": "legacy_special_delete",
           "sql_sha256": "ad0d1c75241904c09c2c55f53b5c7b1291187e9d5dd007f7e055525ee4303dd9",
           "exit_code": 1,
           "stdout": "1\nok",
@@ -70,19 +119,67 @@
           "integrity_passed": false
         },
         {
-          "case": "legacy_merge_fix",
-          "sql_sha256": "8dfa7a9ab0ac7f85919ca213cc17c872b8c5f26a52c9d5e67a9ff7e5829b431a",
+          "case": "current_maintenance",
+          "sql_sha256": "8eb76795c89faffa02cf19c51049cdd2f34e0bef55abb8d21870b8279f65f41c",
           "exit_code": 0,
+          "stdout": "1\nseeded-format\nok",
+          "stderr": "",
+          "integrity_passed": true
+        },
+        {
+          "case": "current_empty_index",
+          "sql_sha256": "3b281f952d8cfd54dc32d9f6a05ae1a4af023078e7808553c7d402b31372c773",
+          "exit_code": 0,
+          "stdout": "1\nseeded-format\nok",
+          "stderr": "",
+          "integrity_passed": true
+        },
+        {
+          "case": "current_full_clear",
+          "sql_sha256": "9754cfdffdb05ec22a06de165f5b300cc66e360edbcb6664b23ec6e0e2fd85bb",
+          "exit_code": 0,
+          "stdout": "1\nseeded-format\nseeded-format\nok",
+          "stderr": "",
+          "integrity_passed": true
+        },
+        {
+          "case": "legacy_nonempty_upgrade",
+          "sql_sha256": "e716f2bc2210c42f653d2170d9531ae7d0d8d9b7b06a41a8b3eb9381dbd48b6a",
+          "exit_code": 0,
+          "stdout": "1\nok\nseeded-format",
+          "stderr": "",
+          "integrity_passed": true
+        },
+        {
+          "case": "legacy_empty_upgrade",
+          "sql_sha256": "65740cbbc8d846f801c993abc246a59971cc3910e74ba43cd5885ef2b32a4052",
+          "exit_code": 0,
+          "stdout": "1\nok\nseeded-format",
+          "stderr": "",
+          "integrity_passed": true
+        },
+        {
+          "case": "legacy_corrupt_upgrade",
+          "sql_sha256": "9eaddc0faa947aaf9f4c98611ae8a273b1765359ddc1446e8e38b6ab779ee516",
+          "exit_code": 1,
           "stdout": "1\nok",
+          "stderr": "Runtime error near line 70: database disk image is malformed (11)",
+          "integrity_passed": false
+        },
+        {
+          "case": "stable_format_after_rollback",
+          "sql_sha256": "fdfdd6f3f084b8e17a980baa1ec0a304617b01c4c845cd329b294d4e98381d45",
+          "exit_code": 0,
+          "stdout": "1\nseeded-format\nstable-format\nok",
           "stderr": "",
           "integrity_passed": true
         },
         {
           "case": "divergent_index",
-          "sql_sha256": "5eb2464eba8b3683300d45c80c19d9029db9ed2f3d1de3f3ea450971c5c404f0",
+          "sql_sha256": "04d5efa2f74f5da4c4b95fc3a5af3e57129a67fe1d9a8a5c8f1d272d2ab9cbc1",
           "exit_code": 1,
-          "stdout": "1\nok",
-          "stderr": "Runtime error near line 48: database disk image is malformed (11)",
+          "stdout": "1\nseeded-format\nok",
+          "stderr": "Runtime error near line 60: database disk image is malformed (11)",
           "integrity_passed": false
         }
       ],
@@ -111,7 +208,7 @@
       "shell_sha256": "cb4535317410daee6a3d1c81562a9dd159abdab8308edb4860fece007a68a639",
       "cases": [
         {
-          "case": "unmerged_baseline",
+          "case": "legacy_special_delete",
           "sql_sha256": "ad0d1c75241904c09c2c55f53b5c7b1291187e9d5dd007f7e055525ee4303dd9",
           "exit_code": 1,
           "stdout": "1\nmalformed inverted index for FTS5 table main.history_search",
@@ -119,19 +216,67 @@
           "integrity_passed": false
         },
         {
-          "case": "legacy_merge_fix",
-          "sql_sha256": "8dfa7a9ab0ac7f85919ca213cc17c872b8c5f26a52c9d5e67a9ff7e5829b431a",
+          "case": "current_maintenance",
+          "sql_sha256": "8eb76795c89faffa02cf19c51049cdd2f34e0bef55abb8d21870b8279f65f41c",
           "exit_code": 0,
+          "stdout": "1\nseeded-format\nok",
+          "stderr": "",
+          "integrity_passed": true
+        },
+        {
+          "case": "current_empty_index",
+          "sql_sha256": "3b281f952d8cfd54dc32d9f6a05ae1a4af023078e7808553c7d402b31372c773",
+          "exit_code": 0,
+          "stdout": "1\nseeded-format\nok",
+          "stderr": "",
+          "integrity_passed": true
+        },
+        {
+          "case": "current_full_clear",
+          "sql_sha256": "9754cfdffdb05ec22a06de165f5b300cc66e360edbcb6664b23ec6e0e2fd85bb",
+          "exit_code": 0,
+          "stdout": "1\nseeded-format\nseeded-format\nok",
+          "stderr": "",
+          "integrity_passed": true
+        },
+        {
+          "case": "legacy_nonempty_upgrade",
+          "sql_sha256": "e716f2bc2210c42f653d2170d9531ae7d0d8d9b7b06a41a8b3eb9381dbd48b6a",
+          "exit_code": 0,
+          "stdout": "1\nok\nseeded-format",
+          "stderr": "",
+          "integrity_passed": true
+        },
+        {
+          "case": "legacy_empty_upgrade",
+          "sql_sha256": "65740cbbc8d846f801c993abc246a59971cc3910e74ba43cd5885ef2b32a4052",
+          "exit_code": 0,
+          "stdout": "1\nok\nseeded-format",
+          "stderr": "",
+          "integrity_passed": true
+        },
+        {
+          "case": "legacy_corrupt_upgrade",
+          "sql_sha256": "9eaddc0faa947aaf9f4c98611ae8a273b1765359ddc1446e8e38b6ab779ee516",
+          "exit_code": 1,
           "stdout": "1\nok",
+          "stderr": "Runtime error near line 70: database disk image is malformed (11)",
+          "integrity_passed": false
+        },
+        {
+          "case": "stable_format_after_rollback",
+          "sql_sha256": "fdfdd6f3f084b8e17a980baa1ec0a304617b01c4c845cd329b294d4e98381d45",
+          "exit_code": 0,
+          "stdout": "1\nseeded-format\nstable-format\nok",
           "stderr": "",
           "integrity_passed": true
         },
         {
           "case": "divergent_index",
-          "sql_sha256": "5eb2464eba8b3683300d45c80c19d9029db9ed2f3d1de3f3ea450971c5c404f0",
+          "sql_sha256": "04d5efa2f74f5da4c4b95fc3a5af3e57129a67fe1d9a8a5c8f1d272d2ab9cbc1",
           "exit_code": 1,
-          "stdout": "1\nok",
-          "stderr": "Runtime error near line 48: database disk image is malformed (11)",
+          "stdout": "1\nseeded-format\nok",
+          "stderr": "Runtime error near line 60: database disk image is malformed (11)",
           "integrity_passed": false
         }
       ],
@@ -160,7 +305,7 @@
       "shell_sha256": "6d79c642480943e4a2375251cdb8d407eb1047c85f7de2024de2a325a5c1668c",
       "cases": [
         {
-          "case": "unmerged_baseline",
+          "case": "legacy_special_delete",
           "sql_sha256": "ad0d1c75241904c09c2c55f53b5c7b1291187e9d5dd007f7e055525ee4303dd9",
           "exit_code": 0,
           "stdout": "1\nok",
@@ -168,19 +313,67 @@
           "integrity_passed": true
         },
         {
-          "case": "legacy_merge_fix",
-          "sql_sha256": "ad0d1c75241904c09c2c55f53b5c7b1291187e9d5dd007f7e055525ee4303dd9",
+          "case": "current_maintenance",
+          "sql_sha256": "8eb76795c89faffa02cf19c51049cdd2f34e0bef55abb8d21870b8279f65f41c",
           "exit_code": 0,
+          "stdout": "1\nseeded-format\nok",
+          "stderr": "",
+          "integrity_passed": true
+        },
+        {
+          "case": "current_empty_index",
+          "sql_sha256": "3b281f952d8cfd54dc32d9f6a05ae1a4af023078e7808553c7d402b31372c773",
+          "exit_code": 0,
+          "stdout": "1\nseeded-format\nok",
+          "stderr": "",
+          "integrity_passed": true
+        },
+        {
+          "case": "current_full_clear",
+          "sql_sha256": "9754cfdffdb05ec22a06de165f5b300cc66e360edbcb6664b23ec6e0e2fd85bb",
+          "exit_code": 0,
+          "stdout": "1\nseeded-format\nseeded-format\nok",
+          "stderr": "",
+          "integrity_passed": true
+        },
+        {
+          "case": "legacy_nonempty_upgrade",
+          "sql_sha256": "e716f2bc2210c42f653d2170d9531ae7d0d8d9b7b06a41a8b3eb9381dbd48b6a",
+          "exit_code": 0,
+          "stdout": "1\nok\nseeded-format",
+          "stderr": "",
+          "integrity_passed": true
+        },
+        {
+          "case": "legacy_empty_upgrade",
+          "sql_sha256": "65740cbbc8d846f801c993abc246a59971cc3910e74ba43cd5885ef2b32a4052",
+          "exit_code": 0,
+          "stdout": "1\nok\nseeded-format",
+          "stderr": "",
+          "integrity_passed": true
+        },
+        {
+          "case": "legacy_corrupt_upgrade",
+          "sql_sha256": "9eaddc0faa947aaf9f4c98611ae8a273b1765359ddc1446e8e38b6ab779ee516",
+          "exit_code": 1,
           "stdout": "1\nok",
+          "stderr": "Runtime error near line 70: database disk image is malformed (11)",
+          "integrity_passed": false
+        },
+        {
+          "case": "stable_format_after_rollback",
+          "sql_sha256": "fdfdd6f3f084b8e17a980baa1ec0a304617b01c4c845cd329b294d4e98381d45",
+          "exit_code": 0,
+          "stdout": "1\nseeded-format\nstable-format\nok",
           "stderr": "",
           "integrity_passed": true
         },
         {
           "case": "divergent_index",
-          "sql_sha256": "1135b0cb2177023ab05278d2ac87645506e8668d8e88c64f8e4e1fad54f21a53",
+          "sql_sha256": "04d5efa2f74f5da4c4b95fc3a5af3e57129a67fe1d9a8a5c8f1d272d2ab9cbc1",
           "exit_code": 1,
-          "stdout": "1\nok",
-          "stderr": "Runtime error near line 47: database disk image is malformed (11)",
+          "stdout": "1\nseeded-format\nok",
+          "stderr": "Runtime error near line 60: database disk image is malformed (11)",
           "integrity_passed": false
         }
       ],
@@ -209,7 +402,7 @@
       "shell_sha256": "441a1953829d6bff74a0e0070b0ab0a05ba2a2c1b1d330fc2f1a8e42b4a89723",
       "cases": [
         {
-          "case": "unmerged_baseline",
+          "case": "legacy_special_delete",
           "sql_sha256": "ad0d1c75241904c09c2c55f53b5c7b1291187e9d5dd007f7e055525ee4303dd9",
           "exit_code": 0,
           "stdout": "1\nok",
@@ -217,19 +410,67 @@
           "integrity_passed": true
         },
         {
-          "case": "legacy_merge_fix",
-          "sql_sha256": "ad0d1c75241904c09c2c55f53b5c7b1291187e9d5dd007f7e055525ee4303dd9",
+          "case": "current_maintenance",
+          "sql_sha256": "8eb76795c89faffa02cf19c51049cdd2f34e0bef55abb8d21870b8279f65f41c",
           "exit_code": 0,
+          "stdout": "1\nseeded-format\nok",
+          "stderr": "",
+          "integrity_passed": true
+        },
+        {
+          "case": "current_empty_index",
+          "sql_sha256": "3b281f952d8cfd54dc32d9f6a05ae1a4af023078e7808553c7d402b31372c773",
+          "exit_code": 0,
+          "stdout": "1\nseeded-format\nok",
+          "stderr": "",
+          "integrity_passed": true
+        },
+        {
+          "case": "current_full_clear",
+          "sql_sha256": "9754cfdffdb05ec22a06de165f5b300cc66e360edbcb6664b23ec6e0e2fd85bb",
+          "exit_code": 0,
+          "stdout": "1\nseeded-format\nseeded-format\nok",
+          "stderr": "",
+          "integrity_passed": true
+        },
+        {
+          "case": "legacy_nonempty_upgrade",
+          "sql_sha256": "e716f2bc2210c42f653d2170d9531ae7d0d8d9b7b06a41a8b3eb9381dbd48b6a",
+          "exit_code": 0,
+          "stdout": "1\nok\nseeded-format",
+          "stderr": "",
+          "integrity_passed": true
+        },
+        {
+          "case": "legacy_empty_upgrade",
+          "sql_sha256": "65740cbbc8d846f801c993abc246a59971cc3910e74ba43cd5885ef2b32a4052",
+          "exit_code": 0,
+          "stdout": "1\nok\nseeded-format",
+          "stderr": "",
+          "integrity_passed": true
+        },
+        {
+          "case": "legacy_corrupt_upgrade",
+          "sql_sha256": "9eaddc0faa947aaf9f4c98611ae8a273b1765359ddc1446e8e38b6ab779ee516",
+          "exit_code": 1,
           "stdout": "1\nok",
+          "stderr": "Runtime error near line 70: database disk image is malformed (11)",
+          "integrity_passed": false
+        },
+        {
+          "case": "stable_format_after_rollback",
+          "sql_sha256": "fdfdd6f3f084b8e17a980baa1ec0a304617b01c4c845cd329b294d4e98381d45",
+          "exit_code": 0,
+          "stdout": "1\nseeded-format\nstable-format\nok",
           "stderr": "",
           "integrity_passed": true
         },
         {
           "case": "divergent_index",
-          "sql_sha256": "1135b0cb2177023ab05278d2ac87645506e8668d8e88c64f8e4e1fad54f21a53",
+          "sql_sha256": "04d5efa2f74f5da4c4b95fc3a5af3e57129a67fe1d9a8a5c8f1d272d2ab9cbc1",
           "exit_code": 1,
-          "stdout": "1\nok",
-          "stderr": "Runtime error near line 47: database disk image is malformed (11)",
+          "stdout": "1\nseeded-format\nok",
+          "stderr": "Runtime error near line 60: database disk image is malformed (11)",
           "integrity_passed": false
         }
       ],
@@ -238,18 +479,15 @@
       }
     }
   ],
-  "verified_at": "2026-10-22T23:45:05.062651+00:00",
-  "git_base_commit": "f38c15bd4f77c6ce177a1b4988407f96037fa18b",
+  "verified_at": "2026-10-23T01:04:51.057266+00:00",
+  "legacy_source_sha256": "6dfb96ecc9968e6a1745934ab44953e2649abb3fb5d1fca78ef47b08031e7a26",
+  "git_base_commit": "6fd53ee89f53f119981a37afde0298a3082fb1c7",
   "source_changes_at_run": false,
   "swift_ci_control": {
-    "url": "https://github.com/vibhusapra/OSpr/actions/runs/39873308963",
-    "commit": "dabd41b99c09ee6e835987f3e53251fde717f9a1",
-    "status": "success",
-    "macOS": "15.7.9",
-    "system_sqlite": "3.43.2 2023-10-10 13:08:14 1b37c146ee9ebb7acd0160c0ab1fd11017a419fa8a3187386ed8cb32b709aapl",
-    "swift_tests": 165,
-    "python_tests": 94,
-    "app_report_standalone_runtime_signature_gates": "passed",
-    "boundary": "CI control precedes the subsequently added local-passing lease-lifetime regression."
+    "commit": "6fd53ee89f53f119981a37afde0298a3082fb1c7",
+    "run_id": 39880778334,
+    "url": "https://github.com/vibhusapra/OSpr/actions/runs/39880778334",
+    "conclusion": "success",
+    "boundary": "Storage stage: 186 Swift tests, 94 Python tests, app/report/standalone runtime and bundled session smoke on macOS 15; subsequent app integration requires its own CI."
   }
 }

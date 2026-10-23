@@ -403,9 +403,11 @@ peak; disk space and one-time migration costs are reported separately.
 `history_sqlite_compatibility.py --shell /absolute/path/to/sqlite-shell` accepts
 multiple `--shell` arguments. The owned in-memory SQL extracts the app's actual
 FTS schema/triggers and reproduces its insert, prune, edit, audio strip and delete
-sequence. Old runtimes falsely report corruption after secure deletion; merging
-the existing index before checking fixes that report while a deliberately
-divergent index still fails. This is a correctness control, not a performance
+sequence. Schema v2 uses normal FTS DELETE before content changes. Controls also
+load the pinned historical v1 schema to reproduce its stale format metadata,
+exercise transactional empty/nonempty upgrades, full clearing and rollback-stable format metadata, and reject damaged current/legacy
+indexes. The earlier merge-only diagnostic workaround did not cover empty
+indexes; its limited receipt is retained as `history-sqlite-compatibility-v1-merge.json`. This is a correctness control, not a performance
 comparison. `results/history-sqlite-compatibility.json` records all commands'
 hashes, outputs, exact runtimes and source fingerprints.
 
@@ -417,3 +419,34 @@ downloaded C sources and compiled controls are not runtime dependencies of
 OSpr and are kept under ignored `.local/sqlite-compat`; inputs are fingerprinted
 in the receipt, and each test database exists only in memory. Full macOS 15 Swift CI
 checks the real system-linked implementation independently.
+
+## Session privacy / durability control
+
+Build a fresh release CLI in the checkout and run
+`ospr-cli benchmark-history-session 100000`. It creates the same deterministic
+fixture as the indexed-history controls, migrates it in a separate child, then
+uses another fresh child to disable and re-enable saving through the actual
+asynchronous repository. Counts and ordered fingerprints of every complete
+payload must match before, during and after the round trip. It also verifies
+empty disk content/search while off, selected detail fidelity and file sizes.
+
+This is one exploratory transition, with no percentile/SLA claim. Timings exclude
+CLI spawn, migration, fingerprint verification, GUI and audio cleanup; lifetime
+peak RSS includes the full memory snapshot and verification. A session-only
+snapshot deliberately retains all currently visible records, using more RAM than
+normal paged disk history. Source provenance requires the build checkout; keep
+the freshly measured executable for optional hash verification.
+
+The original control failed under its child watchdog; a sampled active stack
+identified per-row FTS secure-delete work in full clearing.
+`results/history-session-before-bulk-clear.json` records what was observed and
+the missing exit-reason limitation, without inventing a completed timing.
+`verify_history_session.py <receipt> --cli <measured-binary> --baseline
+results/history-index.json` independently checks the subsequent complete receipt,
+source/binary provenance, shared fixture, counts and round-trip payload hashes.
+
+The current schema-v2 session receipt is `results/history-session.json`. The
+earlier schema-v1 successful full-clear control remains in
+`results/history-session-v1-bulk-clear.json`; with an earlier v2 preseed control in `results/history-session-v2-preseed.json`. These are exploratory single runs,
+not a paired latency comparison. The original failed per-row control remains
+separate. Every public receipt points to its exact measured source and binary.

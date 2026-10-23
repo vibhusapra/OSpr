@@ -128,6 +128,16 @@ public final class HistoryRepository: @unchecked Sendable {
         }
     }
 
+    /// Apply a settings save as one ordered policy barrier, with a single
+    /// completion/cleanup receipt for both durability mode and retention.
+    public func configure(saving enabled: Bool, retentionDays days: Int, completion: Completion? = nil) {
+        queue.async { [self] in
+            saveHistory = enabled; modeRequested = true
+            retentionDays = max(0, days); maintenanceRequested = true
+            schedule(delay: 0, completion: completion)
+        }
+    }
+
     public func stripAudio(_ removal: HistoryAudioRemoval = .all, completion: Completion? = nil) {
         queue.async { [self] in
             switch (audioRemoval, removal) {

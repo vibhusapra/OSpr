@@ -191,11 +191,11 @@ struct StudioView: View {
                     }
                 }
                 HStack(spacing: 14) {
-                    StatTile(title: "WORDS CAPTURED", value: "\(model.history.reduce(0) { $0 + $1.text.split(whereSeparator: \.isWhitespace).count })", icon: "text.alignleft")
-                    StatTile(title: "LAST PROCESSING", value: model.history.first.map { String(format: "%.2f s", $0.latencyMS / 1000) } ?? "—", icon: "bolt")
-                    StatTile(title: "SAVED LOCALLY", value: "\(model.history.count) sessions", icon: "internaldrive")
+                    StatTile(title: "WORDS CAPTURED", value: "\(model.historyState.statistics.words)", icon: "text.alignleft")
+                    StatTile(title: "LAST PROCESSING", value: model.historyState.latest.map { String(format: "%.2f s", $0.latencyMS / 1000) } ?? "—", icon: "bolt")
+                    StatTile(title: model.historyState.savingEnabled ? "SAVED LOCALLY" : "CURRENT SESSION", value: "\(model.historyState.statistics.records) sessions", icon: "internaldrive")
                 }
-                if let record = model.history.first {
+                if let record = model.historyState.latest {
                     Card {
                         VStack(alignment: .leading, spacing: 12) {
                             HStack { Text("Your latest words").font(.headline); Spacer(); Text(record.date, style: .time).font(.caption).foregroundStyle(.secondary) }
@@ -256,22 +256,28 @@ struct RecordingOverlay: View {
 
 struct HistoryView: View {
     @ObservedObject var model: AppModel
-    @State private var search = ""
     @State private var confirmDelete = false
-    var filtered: [Transcript] { model.history.filter { search.isEmpty || $0.text.localizedCaseInsensitiveContains(search) || $0.rawText.localizedCaseInsensitiveContains(search) } }
     var body: some View {
         HSplitView {
             VStack(spacing: 12) {
-                TextField("Search your words", text: $search).textFieldStyle(.roundedBorder).padding(.horizontal, 12).padding(.top, 18)
+                TextField("Search your words", text: Binding(get: { model.historyState.query }, set: { model.historyState.query = $0 })).textFieldStyle(.roundedBorder).padding(.horizontal, 12).padding(.top, 18)
                 List(selection: $model.selection) {
-                    ForEach(filtered) { record in
+                    ForEach(model.historyState.rows) { record in
                         VStack(alignment: .leading, spacing: 6) {
-                            Text(record.text).font(.system(size: 13)).lineLimit(2)
+                            Text(record.preview).font(.system(size: 13)).lineLimit(2)
                             HStack { Text(record.date, style: .date); Spacer(); Text(record.mode.title) }.font(.caption2).foregroundStyle(.secondary)
                         }.padding(.vertical, 6).tag(record.id)
-                        .contextMenu { Button("Copy") { model.copy(record.text) }; Button("Delete", role: .destructive) { model.remove(record) } }
+                        .contextMenu { Button("Copy full transcript") { model.copyHistoryRow(record.id) }; Button("Delete", role: .destructive) { model.removeHistoryRow(record.id) } }
                     }
                 }.listStyle(.sidebar)
+                if model.historyState.loading { ProgressView("Loading history…").font(.caption) }
+                if model.historyState.next != nil {
+                    Button("Load more") { model.historyState.loadMore() }.disabled(model.historyState.loading)
+                }
+                if !model.historySaveFailure.isEmpty {
+                    Text(model.historySaveFailure).font(.caption).foregroundStyle(.orange).padding(.horizontal, 12)
+                    Button("Retry history") { model.historyState.refresh() }.font(.caption)
+                }
                 Button("Delete all history", role: .destructive) { confirmDelete = true }.font(.caption).padding(.bottom, 16)
             }.frame(minWidth: 220, idealWidth: 270, maxWidth: 330)
             if let record = model.selected {
@@ -279,14 +285,14 @@ struct HistoryView: View {
                     HStack {
                         Text(record.date.formatted(date: .abbreviated, time: .shortened)).font(.headline)
                         Spacer()
-                        Text(model.historySaving ? "Saving…" : !model.historySaveFailure.isEmpty ? "Save failed" : model.settings.saveHistory ? "Saved locally" : "Session only")
+                        Text(model.historySaving ? "Saving…" : !model.historySaveFailure.isEmpty ? "Save failed" : model.historyState.savingEnabled ? "Saved locally" : "Session only")
                             .font(.caption).foregroundStyle(model.historySaveFailure.isEmpty ? Color.secondary : Color.orange)
                         Button { model.copy(record.text) } label: { Label("Copy", systemImage: "doc.on.doc") }
                     }
                     HStack(spacing: 16) { Label(record.model, systemImage: "cpu"); Text(record.mode.title); Text(String(format: "%.1fs audio · %.2fs processing", record.duration, record.latencyMS / 1000)) }.font(.caption).foregroundStyle(.secondary)
                     if let warning = record.warning { Label(warning, systemImage: "exclamationmark.triangle").font(.caption).foregroundStyle(.orange) }
                     if record.audioFile != nil { AudioReviewView(model: model, record: record) }
-                    TextEditor(text: Binding(get: { model.history.first { $0.id == record.id }?.text ?? record.text }, set: { model.updateText(record.id, text: $0) })).font(.system(size: 16)).lineSpacing(6).padding(10).background(Color(nsColor: .textBackgroundColor), in: RoundedRectangle(cornerRadius: 12))
+                    TextEditor(text: Binding(get: { model.selected?.id == record.id ? model.selected?.text ?? record.text : record.text }, set: { model.updateText(record.id, text: $0) })).font(.system(size: 16)).lineSpacing(6).padding(10).background(Color(nsColor: .textBackgroundColor), in: RoundedRectangle(cornerRadius: 12))
                     DisclosureGroup("Original transcript · subtitle exports use original timing") { Text(record.rawText).font(.caption).foregroundStyle(.secondary).textSelection(.enabled).frame(maxWidth: .infinity, alignment: .leading) }
                     if let notes = record.notes, notes.matches(record.rawText) {
                         DisclosureGroup("Key excerpts · local AI selection") {
@@ -305,6 +311,7 @@ struct HistoryView: View {
                         Spacer(); Button("Delete", role: .destructive) { model.remove(record) }
                     }
                 }.padding(28).frame(minWidth: 350)
+            } else if model.historyState.loadingDetail { ProgressView("Opening transcript…").frame(maxWidth: .infinity)
             } else { ContentUnavailableView("Your words will live here", systemImage: "text.bubble", description: Text("Record a thought or import an audio file to begin.")).frame(maxWidth: .infinity) }
         }.confirmationDialog("Delete all saved transcripts?", isPresented: $confirmDelete) { Button("Delete all history", role: .destructive) { model.clearHistory() } }
     }
@@ -525,7 +532,7 @@ struct PreferencesView: View {
                 }
                 Text("Audio retention is off by default. When enabled, OSpr keeps normalized audio without imported video or tags. Oldest clips are removed when the budget fills; deleting or expiring history also removes its audio. Turning retention off affects future transcripts; existing clips follow history retention until deleted.").font(.caption).foregroundStyle(.secondary)
                 Picker("Keep saved history", selection: $model.settings.retentionDays) { Text("1 day").tag(1); Text("7 days").tag(7); Text("30 days").tag(30); Text("90 days").tag(90); Text("Forever").tag(0) }
-                Text("Turning off saving removes persisted history when you save preferences. Current-session results remain visible until quit. Completed takes are kept in a private recovery slot until transcription succeeds or you discard them. History is stored as local JSON; use FileVault for disk encryption.").font(.caption).foregroundStyle(.secondary)
+                Text("Turning off saving removes persisted history when you save preferences. Current-session results remain visible until quit. Completed takes are kept in a private recovery slot until transcription succeeds or you discard them. History uses a local SQLite archive; use FileVault for disk encryption. Older JSON archives migrate on first use after verification.").font(.caption).foregroundStyle(.secondary)
                 Toggle("Launch OSpr at login", isOn: $model.settings.launchAtLogin)
                 Button("Open local data folder") { NSWorkspace.shared.open(FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("OSpr")) }
                 Button("Enable Accessibility for insertion") { model.requestAccessibility() }

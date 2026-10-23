@@ -1,4 +1,5 @@
 import AppKit
+import Combine
 import AVFoundation
 import SwiftUI
 import ServiceManagement
@@ -10,16 +11,17 @@ import OSprCore
             if credentialsReady && (oldValue.transcriptionURL != settings.transcriptionURL || oldValue.rewriteURL != settings.rewriteURL) { refreshCredentials() }
         }
     }
-    @Published var history: [Transcript] = []
-    @Published var historySaving = false
-    @Published var historySaveFailure = ""
+    let historyState: HistoryModel
+    private var historyObservation: AnyCancellable?
+    var historySaving: Bool { historyState.saving }
+    var historySaveFailure: String { historyState.failure }
     @Published var audioBytesUsed: Int64 = 0
     @Published var audioMaintenance = false
     @Published var phase = "idle"
     @Published var status = "Your voice. Your Mac."
     @Published var error = ""
     @Published var preview = ""
-    @Published var selection: UUID?
+    var selection: UUID? { get { historyState.selection } set { historyState.selection = newValue } }
     @Published var tab = "Studio"
     @Published var setupRunning = false
     @Published var setupLog = ""
@@ -69,9 +71,8 @@ import OSprCore
     private var credentialsReady = false
     private let store: LocalStore
     private let instanceLock: AppInstanceLock
-    private let historyWriter: HistoryPersistence
-    private var historyWriteToken = UUID()
-    private var appliedAudioBudget = 1024
+    private let servicesEnabled: Bool
+    private var settingsSaveToken = UUID()
     private let recovery: RecordingRecovery
     private var target: InsertionTarget?
     private var recordingMode: WritingMode = .clean
@@ -86,7 +87,8 @@ import OSprCore
     private var backgroundGeneration: UUID?
     var backgroundImportActive: Bool { backgroundGeneration == generation }
     private var overlay: NSPanel?
-    var busy: Bool { phase != "idle" || audioMaintenance }
+    @Published private(set) var quitting = false
+    var busy: Bool { phase != "idle" || audioMaintenance || quitting }
     var audioBudgetBytes: Int64 { Int64(settings.audioBudgetMB) * 1024 * 1024 }
     var effectiveShortcutSettings: OSprSettings {
         var value = settings
@@ -94,7 +96,7 @@ import OSprCore
         if let registered = hotkey.registeredCombination { value.hotkeyCode = registered.code; value.hotkeyModifiers = registered.modifiers }
         return value
     }
-    var selected: Transcript? { history.first { $0.id == selection } ?? history.first }
+    var selected: Transcript? { historyState.selected }
     var root: URL { URL(fileURLWithPath: settings.rootPath) }
     var engineBundled: Bool { Bundle.main.resourceURL?.appendingPathComponent("Engine").path == root.path }
     var engineInstalled: Bool { FileManager.default.isExecutableFile(atPath: root.appendingPathComponent(".venv/bin/python").path) }
@@ -105,14 +107,13 @@ import OSprCore
         return settings.transcriptionProvider == "local" && localRewrite
     }
 
-    init(instanceLock: AppInstanceLock) {
+    init(instanceLock: AppInstanceLock, directory: URL = LocalStore.applicationDirectory, enableServices: Bool = true) {
         self.instanceLock = instanceLock
-        let directory = LocalStore.applicationDirectory
+        servicesEnabled = enableServices
         // Application Support is required for state; an unwritable directory must
         // surface instead of silently putting transcripts somewhere unexpected.
         do {
             store = try LocalStore(directory: directory)
-            historyWriter = try HistoryPersistence(directory: directory)
             audioArchive = try AudioArchive(directory: directory.appendingPathComponent("Audio"))
             folderWatcher = try FolderWatcher(directory: directory)
             recovery = try RecordingRecovery(directory: directory.appendingPathComponent("Recovery"))
@@ -130,14 +131,17 @@ import OSprCore
             // the .app; never retain a build-machine absolute runtime path.
             settings.rootPath = bundledEngine.path
         }
-        self.settings = settings.validated()
+        settings = settings.validated()
+        self.settings = settings
         self.worker = WorkerClient(root: settings.rootPath)
-        appliedAudioBudget = self.settings.audioBudgetMB
-        do { history = LocalStore.retained(try store.read([Transcript].self, name: "history.json") ?? [], days: self.settings.retentionDays) } catch { loadError += " History could not be read. Original file was preserved." }
+        historyState = HistoryModel(repository: HistoryRepository(directory: directory, saveHistory: settings.saveHistory, instanceLock: instanceLock), saving: settings.saveHistory)
         do { pending = try recovery.load() } catch { loadError += " " + error.localizedDescription }
         hasRecovery = recovery.exists
         self.error = loadError + (folderWatcher.loadError.isEmpty ? "" : " " + folderWatcher.loadError)
-        credentialsReady = true; refreshCredentials()
+        credentialsReady = enableServices
+        if enableServices { refreshCredentials() }
+        historyObservation = historyState.objectWillChange.sink { [weak self] _ in self?.objectWillChange.send() }
+        historyState.onOrphanedAudio = { [weak self] names in self?.deleteAudioFiles(names) }
         hotkey.pressed = { [weak self] in
             guard let self else { return }
             self.shortcutCaptureGeneration = nil
@@ -159,7 +163,7 @@ import OSprCore
         }
         hotkey.failed = { [weak self] message in self?.error = message }
         capture.silenceReached = { [weak self] in self?.stop() }
-        do { try hotkey.register(code: settings.hotkeyCode, modifiers: settings.hotkeyModifiers, functionOnly: settings.hotkeyFnOnly) }
+        do { if enableServices { try hotkey.register(code: settings.hotkeyCode, modifiers: settings.hotkeyModifiers, functionOnly: settings.hotkeyFnOnly) } }
         catch {
             self.error = error.localizedDescription
             if settings.hotkeyFnOnly {
@@ -191,61 +195,90 @@ import OSprCore
         }
         folderWatcher.process = { [weak self] file in await self?.processWatchedFile(file) ?? false }
         folderWatcher.reportError = { [weak self] error in self?.error = "Watched folder: " + error }
-        folderWatcher.start()
+        if enableServices { folderWatcher.start() }
         // Persist pruning even when no new recording is made.
         if loadError.isEmpty {
             audioMaintenance = true; status = "Checking retained audio…"
             Task {
                 do {
-                    let keep = settings.saveHistory ? Set(history.compactMap(\.audioFile)) : []
+                    try await historyState.configure(saving: settings.saveHistory, retentionDays: settings.retentionDays)
+                    let keep = try await historyState.audioFiles()
                     let removed = try await audioArchive.reconcile(keeping: keep, limitBytes: audioBudgetBytes)
                     applyAudioEvictions(removed)
                     audioBytesUsed = try await audioArchive.bytesUsed()
                 } catch { self.error = "Audio maintenance: \(error.localizedDescription)" }
-                persistHistory(); audioMaintenance = false
+                audioMaintenance = false
                 if phase == "idle" { status = "Your voice. Your Mac." }
             }
         }
-        NotificationCenter.default.addObserver(forName: NSApplication.willTerminateNotification, object: nil, queue: .main) { [weak self] _ in
+        if enableServices { NotificationCenter.default.addObserver(forName: NSApplication.willTerminateNotification, object: nil, queue: .main) { [weak self] _ in
             MainActor.assumeIsolated {
-                self?.preserveOnQuit()
+                try? self?.preserveOnQuit()
                 self?.audioReview.stop()
-                do { try self?.historyWriter.flush() } catch { self?.error = "Could not save history before quitting: \(error.localizedDescription)" }
+                // applicationShouldTerminate completes the asynchronous save barrier.
+                // This final fallback also covers termination outside the normal menu.
+                do { try self?.historyState.flushOnQuit() } catch { self?.error = "Could not save history before quitting: \(error.localizedDescription)" }
                 self?.hotkey.unregister()
                 self?.operationTask?.cancel(); self?.worker.shutdown(); self?.previewTask?.cancel(); self?.discardAudio()
             }
-        }
+        } }
     }
 
     func saveOSprSettings() {
-        refreshPermissions()
+        guard !quitting else { return }
+        if servicesEnabled { refreshPermissions() }
         settings = settings.validated()
+        var settingsWritten = false
+        var ancillaryFailure: String?
         do {
-            try hotkey.register(code: settings.hotkeyCode, modifiers: settings.hotkeyModifiers, functionOnly: settings.hotkeyFnOnly)
-            refreshCredentials()
+            if servicesEnabled {
+                try hotkey.register(code: settings.hotkeyCode, modifiers: settings.hotkeyModifiers, functionOnly: settings.hotkeyFnOnly)
+                refreshCredentials()
+            }
             guard transcriptionKey.isEmpty || transcriptionKeyScope != nil, rewriteKey.isEmpty || rewriteKeyScope != nil else {
                 throw OSprError.message("Use a valid provider URL before saving its API key.")
             }
             try store.write(settings, name: "settings.json")
-            // Apply history privacy even if a separate Keychain/login-item
-            // operation later fails after the settings file was saved.
-            persistHistory()
-            let budgetChanged = settings.audioBudgetMB != appliedAudioBudget
-            appliedAudioBudget = settings.audioBudgetMB
-            if !settings.saveHistory && audioBytesUsed > 0 { eraseRetainedAudio(showStatus: false) }
-            else if budgetChanged { enforceAudioBudget() }
+            settingsWritten = true
             // An unavailable/locked Keychain read must not turn a model or mode
             // preference save into a credential deletion. Write only edited keys.
-            if transcriptionKey != savedTranscriptionKey || transcriptionKeyScope != savedTranscriptionScope, let scope = transcriptionKeyScope {
+            if servicesEnabled, transcriptionKey != savedTranscriptionKey || transcriptionKeyScope != savedTranscriptionScope, let scope = transcriptionKeyScope {
                 try KeyVault.write(transcriptionKey, account: scope.account); savedTranscriptionKey = transcriptionKey; savedTranscriptionScope = scope
             }
-            if rewriteKey != savedRewriteKey || rewriteKeyScope != savedRewriteScope, let scope = rewriteKeyScope {
+            if servicesEnabled, rewriteKey != savedRewriteKey || rewriteKeyScope != savedRewriteScope, let scope = rewriteKeyScope {
                 try KeyVault.write(rewriteKey, account: scope.account); savedRewriteKey = rewriteKey; savedRewriteScope = scope
             }
-            if settings.launchAtLogin && SMAppService.mainApp.status != .enabled { try SMAppService.mainApp.register() }
-            else if !settings.launchAtLogin && SMAppService.mainApp.status == .enabled { try SMAppService.mainApp.unregister() }
-            status = "Preferences saved"
-        } catch { self.error = error.localizedDescription }
+            if servicesEnabled {
+                if settings.launchAtLogin && SMAppService.mainApp.status != .enabled { try SMAppService.mainApp.register() }
+                else if !settings.launchAtLogin && SMAppService.mainApp.status == .enabled { try SMAppService.mainApp.unregister() }
+            }
+        } catch { ancillaryFailure = error.localizedDescription; self.error = error.localizedDescription }
+        guard settingsWritten else { return }
+        // File persistence, history durability and Keychain/login-item writes
+        // have distinct failure boundaries. Always honor a saved privacy request.
+        let config = settings, token = UUID(); settingsSaveToken = token
+        audioMaintenance = true; status = "Applying history preferences…"
+        Task {
+            defer { if settingsSaveToken == token { audioMaintenance = false } }
+            do {
+                try await historyState.configure(saving: config.saveHistory, retentionDays: config.retentionDays)
+                guard settingsSaveToken == token else { return }
+                let keep = try await historyState.audioFiles()
+                let removed = try await audioArchive.reconcile(keeping: keep,
+                    limitBytes: Int64(config.audioBudgetMB) * 1024 * 1024)
+                applyAudioEvictions(removed)
+                try await historyState.flush()
+                audioBytesUsed = try await audioArchive.bytesUsed()
+                if settingsSaveToken == token {
+                    status = ancillaryFailure == nil ? "Preferences saved" : "History preferences applied · other settings need attention"
+                }
+            } catch {
+                if settingsSaveToken == token {
+                    self.error = "Could not apply history preferences: \(error.localizedDescription)"
+                    status = "History preferences need attention · retry saving"
+                }
+            }
+        }
     }
 
     private func refreshCredentials() {
@@ -467,10 +500,33 @@ import OSprCore
             overlay?.orderOut(nil)
         }
     }
-    private func preserveOnQuit() {
+    func prepareForTermination() async throws {
+        // Stop admissions before the final asynchronous durability barrier.
+        // A canceled quit leaves any unfinished take available for recovery.
+        quitting = true
+        do {
+            // Settings/startup audio reconciliation can admit link updates after
+            // an await. Let that already-admitted maintenance finish first.
+            let deadline = Date().addingTimeInterval(60)
+            while audioMaintenance {
+                guard Date() < deadline else { throw OSprError.message("History maintenance is still running. Keep OSpr open and retry quitting after it finishes.") }
+                try await Task.sleep(for: .milliseconds(20))
+            }
+            try preserveOnQuit()
+            generation = UUID(); operationTask?.cancel(); previewTask?.cancel()
+            worker.shutdown(); ready = false; residentModels = []
+            meetingTimer?.invalidate(); meetingTimer = nil
+            if let meetingSession { await meetingSession.discard() }
+            meetingSession = nil; recordingDesktop = false
+            _ = try? capture.stop(); phase = "idle"; overlay?.orderOut(nil)
+            try await historyState.flush()
+        } catch { quitting = false; throw error }
+    }
+    func cancelTermination() { quitting = false }
+
+    private func preserveOnQuit() throws {
         ClipboardRestorer.shared.restorePending()
         guard !hasRecovery else { return }
-        do {
             if let meetingSession {
                 let tracks = try meetingSession.snapshotForQuit()
                 if !tracks.isEmpty {
@@ -482,7 +538,6 @@ import OSprCore
                 pending = try recovery.preserve(audio: file, duration: capture.seconds, settings: recordingSettings, mode: recordingMode)
                 hasRecovery = true
             }
-        } catch { /* Original private capture files remain available if persistence failed. */ }
     }
     func startMeeting() {
         guard !busy, !hasRecovery else { return }
@@ -674,9 +729,12 @@ import OSprCore
         defer {
             if let uploadSnapshot { Task { try? await audioArchive.discardUploadSource(uploadSnapshot) } }
             if let archived {
-                let keep = settings.saveHistory && history.contains { $0.id == recordID && $0.audioFile == archived.name }
                 Task {
-                    do { try await audioArchive.finishLease(archived.name, keep: keep); audioBytesUsed = try await audioArchive.bytesUsed() }
+                    do {
+                        let record = try await historyState.record(id: recordID)
+                        let keep = historyState.savingEnabled && record?.audioFile == archived.name
+                        try await audioArchive.finishLease(archived.name, keep: keep); audioBytesUsed = try await audioArchive.bytesUsed()
+                    }
                     catch { self.error = "Audio cleanup: \(error.localizedDescription)" }
                 }
             }
@@ -694,7 +752,7 @@ import OSprCore
                     _ = try await worker.request(["action": "prepare_review", "path": (uploadSnapshot ?? originalFile).path, "output": output.path, "limit_bytes": budget])
                     guard generation == token else { try? await audioArchive.discardStaging(output); return false }
                     archived = try await audioArchive.adoptPrepared(output, id: recordID, limitBytes: budget)
-                    if let archived { file = archived.url; applyAudioEvictions(archived.evicted); if !archived.evicted.isEmpty { persistHistory() } }
+                    if let archived { file = archived.url; applyAudioEvictions(archived.evicted) }
                 } catch {
                     if let staging { try? await audioArchive.discardStaging(staging) }
                     guard generation == token else { return false }
@@ -790,8 +848,7 @@ import OSprCore
     }
     private func finishResultStorage(config: OSprSettings, token: UUID, preserveRecovery: Bool) async -> Bool {
         guard generation == token else { return false }
-        guard config.saveHistory else { return true }
-        do { try await historyWriter.flushAsync(); return generation == token }
+        do { try await historyState.flush(); return generation == token }
         catch {
             if generation == token {
                 self.error = "Transcript is available in this session, but history could not be saved: \(error.localizedDescription) " + (preserveRecovery ? "Completed recording audio is kept for recovery." : "The imported source is unchanged; transcript export remains available.")
@@ -814,41 +871,24 @@ import OSprCore
             latencyMS: Date().timeIntervalSince(started) * 1000, segments: segments, words: words, warning: source == "recovered recording" ? pending?.captureWarning : nil, source: source)
         record.id = id; record.audioFile = audioFile
         if let audioWarning { record.warning = [record.warning, audioWarning].compactMap { $0 }.joined(separator: " ") }
-        history.insert(record, at: 0)
-        if !backgroundImportActive || selection == nil { selection = record.id }
-        if config.saveHistory { persistHistory() }
+        historyState.submit(record, select: !backgroundImportActive)
         status = "Ready · \(Int(record.latencyMS)) ms"; preview = ""
     }
-    private func persistHistory(debounce: Bool = false, allowReset: Bool = false) {
-        let pruning = LocalStore.pruning(history, days: settings.retentionDays)
-        history = pruning.items
-        var removedAudio = pruning.expiredAudio
-        if !settings.saveHistory {
-            for index in history.indices {
-                if let name = history[index].audioFile { removedAudio.insert(name) }
-                history[index].audioFile = nil
-            }
-        }
-        deleteAudioFiles(removedAudio)
-        let token = UUID(); historyWriteToken = token
-        historySaving = true
-        historyWriter.submit(settings.saveHistory ? history : [], delay: debounce ? 0.3 : 0,
-                             allowReset: allowReset || !settings.saveHistory) { [weak self] failure in
-            Task { @MainActor [weak self] in
-                guard let self, self.historyWriteToken == token else { return }
-                self.historySaving = false; self.historySaveFailure = failure ?? ""
-                if let failure { self.error = "Could not save history: \(failure)" }
-            }
+    func remove(_ record: Transcript) { if !quitting { historyState.remove(id: record.id) } }
+    func removeHistoryRow(_ id: UUID) { if !quitting { historyState.remove(id: id) } }
+    func clearHistory() { if !quitting { historyState.clear() } }
+    func updateText(_ id: UUID, text: String) { if !quitting { historyState.updateText(id: id, text: text) } }
+    func copyHistoryRow(_ id: UUID) {
+        Task {
+            do { if let record = try await historyState.record(id: id) { copy(record.text) } }
+            catch { self.error = "Could not load transcript: \(error.localizedDescription)" }
         }
     }
-    func remove(_ record: Transcript) { history.removeAll { $0.id == record.id }; if let audio = record.audioFile { deleteAudioFiles([audio]) }; persistHistory() }
-    func clearHistory() { let audio = Set(history.compactMap(\.audioFile)); history.removeAll(); selection = nil; deleteAudioFiles(audio); persistHistory(allowReset: true) }
-    func updateText(_ id: UUID, text: String) { if let index = history.firstIndex(where: { $0.id == id }) { history[index].text = text; persistHistory(debounce: true) } }
     func copy(_ text: String) { NSPasteboard.general.clearContents(); NSPasteboard.general.setString(text, forType: .string); status = "Copied" }
 
     private func applyAudioEvictions(_ names: Set<String>) {
         if names.contains(audioReview.fileName ?? "") { audioReview.stop() }
-        for index in history.indices where names.contains(history[index].audioFile ?? "") { history[index].audioFile = nil }
+        if !names.isEmpty { historyState.stripAudio(.names(names)) }
     }
     private func deleteAudioFiles(_ names: Set<String>) {
         guard !names.isEmpty else { return }
@@ -858,27 +898,16 @@ import OSprCore
             catch { self.error = "Could not remove retained audio: \(error.localizedDescription)" }
         }
     }
-    private func enforceAudioBudget() {
-        guard !busy else { return }
-        audioMaintenance = true
-        Task {
-            defer { audioMaintenance = false }
-            do {
-                let removed = try await audioArchive.trimToBudget(audioBudgetBytes)
-                applyAudioEvictions(removed); if !removed.isEmpty { persistHistory() }
-                audioBytesUsed = try await audioArchive.bytesUsed()
-            } catch { self.error = "Audio budget: \(error.localizedDescription)" }
-        }
-    }
     func eraseRetainedAudio(showStatus: Bool = true) {
         guard !busy else { return }
         audioMaintenance = true; audioReview.stop()
         Task {
             defer { audioMaintenance = false }
             do {
+                historyState.stripAudio(.all)
+                try await historyState.flush()
                 try await audioArchive.eraseAll()
-                for index in history.indices { history[index].audioFile = nil }
-                audioBytesUsed = 0; persistHistory()
+                audioBytesUsed = 0
                 if showStatus { status = "Retained audio removed · transcript text kept" }
             } catch { self.error = "Could not remove retained audio: \(error.localizedDescription)" }
         }
@@ -929,9 +958,7 @@ import OSprCore
                     return NoteExcerpt(id: id, text: text)
                 }
                 let notes = try MeetingNotes(source: record.rawText, excerpts: excerpts, model: result["model"] as? String ?? "local")
-                if let index = history.firstIndex(where: { $0.id == record.id }), history[index].rawText == record.rawText {
-                    history[index].notes = notes; persistHistory()
-                }
+                try await historyState.updateNotes(id: record.id, notes: notes, expectedRawText: record.rawText)
                 status = notes.excerpts.isEmpty ? "No key excerpts selected · original text retained" : "Key excerpts ready · review the original context"
             } catch { if token == generation { self.error = error.localizedDescription } }
             if token == generation { phase = "idle" }
@@ -953,7 +980,7 @@ import OSprCore
         generation = UUID(); let token = generation
         backgroundGeneration = token
         phase = "transcribing"; status = "Watched file · \(file.lastPathComponent)"
-        let before = history.first?.id
+        let before = historyState.latest?.id
         let success = await transcribe(file: file, duration: 0, config: config, mode: .verbatim,
             target: nil, source: file.lastPathComponent, token: token)
         defer {
@@ -961,7 +988,7 @@ import OSprCore
             if token == generation { phase = "idle" }
         }
         guard token == generation, success else { return false }
-        guard let record = history.first, record.id != before else { return true } // Silence is consumed without inventing a transcript.
+        guard let record = historyState.latest, record.id != before else { return true } // Silence is consumed without inventing a transcript.
         do {
             let output = file.deletingLastPathComponent().appendingPathComponent("OSpr Transcripts")
             _ = try LocalStore(directory: output)
