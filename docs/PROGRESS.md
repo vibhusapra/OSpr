@@ -538,3 +538,22 @@ distribution or a claim of full union parity/top-three product placement.
   synthetic negatives, but needs actual ASR and independent-slice checks.
 - [ ] Bounded off-callback native capture/resampling, recovery and device tests.
   Delivered previews and the GUI retain their existing behavior.
+
+## Causal-score excluded-speaker validation (work in progress)
+
+- [x] Native causal scoring primitive with seven policy tests; total Swift suite
+  is 263 passing tests. The native implementation matches all 89,377 stored
+  development probabilities and every derived bound/event across 179 cases.
+- [x] Fixed protocol: twenty additional clean and thirteen additional other
+  speakers, three transforms each, plus five reused negative controls (104 cases).
+  These speakers were excluded from VAD tuning, but appeared in older ASR research.
+- [x] The score retains 224 ms of extra history, which is not a bound on delay
+  under continuing weak evidence. A native counterexample test and corrected
+  interpretation preserve that distinction. A raw 1.424 s control accounts only
+  for the fixed history span; actual coverage and delays are recorded too.
+- [ ] Frozen-policy replay and 3,432 quality records across Parakeet, Whisper
+  Turbo and Cohere native 8-bit. Eleven input policies separate edges, endpoint
+  cuts and combined chains; equal sample ranges are reused per model. This needs
+  already-cached weights and process-start Hugging Face offline mode.
+- [ ] Inspect all new empty results, per-model WER, negative hallucinations and
+  finish coverage before deciding whether to integrate the candidate.

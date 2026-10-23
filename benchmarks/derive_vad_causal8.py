@@ -66,7 +66,7 @@ def main():
         smoothing_cost_measured=False,
         summary=summarize(json.loads(protocol_path.read_text()), rows),
         records=[dict(id=row["id"], bounds=list(bounds(row)), events=row["events"]) for row in rows],
-        boundary="Same development inputs and fixed raw model probabilities used to choose this follow-up. Overlapping probabilities are correlated: noisy-OR is an aggregation score, not a calibrated speech probability. It can extend activity by up to 224ms, so a latency-matched raw-threshold control is needed. The GUI/defaults and delivered preview are unchanged; new speakers, actual ASR outputs, live capture and scheduling remain open.",
+        boundary="Same development inputs and fixed raw model probabilities used to choose this follow-up. Overlapping probabilities are correlated: noisy-OR is an aggregation score, not a calibrated speech probability. Each input remains in history for seven extra hops (224ms); continuing weak evidence may sustain activity longer. A raw-threshold 1.424s silence control accounts only for that fixed history span; actual finish coverage/delay must also be measured. The GUI/defaults and delivered preview are unchanged; new speakers, actual ASR outputs, live capture and scheduling remain open.",
     )
     args.output.write_text(json.dumps(result, indent=2) + "\n")
     print(json.dumps(result["summary"], indent=2))

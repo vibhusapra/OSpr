@@ -12,8 +12,10 @@ import OSprCore
             let result: [String: Any]
             switch command {
             case "_benchmark-speech-endpoints":
-                guard (2...3).contains(args.count) else { usage(); exit(2) }
-                result = ["records": try SpeechDetection.endpoints(manifestURL: URL(fileURLWithPath: args[1]), silenceSeconds: args.count == 3 ? Double(args[2]) ?? .nan : 1.2)]
+                guard (2...4).contains(args.count) else { usage(); exit(2) }
+                result = ["records": try SpeechDetection.endpoints(manifestURL: URL(fileURLWithPath: args[1]),
+                    silenceSeconds: args.count >= 3 ? Double(args[2]) ?? .nan : 1.2,
+                    windowFrames: args.count == 4 ? Int(args[3]) ?? 0 : 1)]
             case "analyze-speech", "_benchmark-speech-detector":
                 guard (3...5).contains(args.count) else { usage(); exit(2) }
                 let silence = args.count == 5 ? Double(args[4]) ?? .nan : 1.2

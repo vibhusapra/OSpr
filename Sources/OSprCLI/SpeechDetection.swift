@@ -3,7 +3,7 @@ import CoreML
 import OSprCore
 
 enum SpeechDetection {
-    static func endpoints(manifestURL: URL, silenceSeconds: Double) throws -> [[String: Any]] {
+    static func endpoints(manifestURL: URL, silenceSeconds: Double, windowFrames: Int = 1) throws -> [[String: Any]] {
         struct Trace: Decodable { let id: String; let probabilities: [Double]; let audio_samples: Int; let chunk_samples: Int }
         let file = try FileHandle(forReadingFrom: manifestURL); defer { try? file.close() }
         let bytes = try file.read(upToCount: 8 * 1024 * 1024 + 1) ?? Data()
@@ -13,18 +13,27 @@ enum SpeechDetection {
             throw OSprError.message("Speech replay needs 1–500 uniquely identified traces.")
         }
         let config = try SpeechEndpoint.Configuration(silenceSeconds: silenceSeconds)
+        _ = try CausalSpeechScore(windowFrames: windowFrames)
         return try traces.map { trace in
             guard [512, 4096].contains(trace.chunk_samples), (1...300 * 16_000).contains(trace.audio_samples),
                   trace.probabilities.count == (trace.audio_samples + trace.chunk_samples - 1) / trace.chunk_samples else {
                 throw OSprError.message("Speech replay trace has an invalid frame count.")
             }
+            guard windowFrames == 1 || trace.chunk_samples == 512 else {
+                throw OSprError.message("Eight-frame aggregation is evaluated only for 32 ms detector frames.")
+            }
             var endpoint = SpeechEndpoint(configuration: config); var events = [SpeechEndpoint.Event]()
+            var scoring = try CausalSpeechScore(windowFrames: windowFrames); var scores = [Double]()
             for (index, probability) in trace.probabilities.enumerated() {
                 let start = index * trace.chunk_samples
-                events += try endpoint.observe(probability: probability, startSample: start,
+                let score = try scoring.consume(probability)
+                if windowFrames != 1 { scores.append(score) }
+                events += try endpoint.observe(probability: score, startSample: start,
                     sampleCount: min(trace.chunk_samples, trace.audio_samples - start))
             }
-            return ["id": trace.id, "events": try JSONSerialization.jsonObject(with: JSONEncoder().encode(events))]
+            var result: [String: Any] = ["id": trace.id, "events": try JSONSerialization.jsonObject(with: JSONEncoder().encode(events))]
+            if windowFrames != 1 { result["activity_scores"] = scores; result["score_window_frames"] = windowFrames }
+            return result
         }
     }
     static func run(audioURL: URL, modelURL: URL, units: String, silenceSeconds: Double) throws -> [String: Any] {

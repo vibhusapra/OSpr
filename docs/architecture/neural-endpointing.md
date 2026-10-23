@@ -109,9 +109,11 @@ That is not a new ASR result or independent validation. Freeze the policy before
 testing additional speakers, and preserve the original unsmoothed result.
 
 The exact score is `s[t] = 1 - product(1 - p[j])`, over `j=max(0,t-7)..t`.
-These correlated frames do not yield a calibrated probability. The trailing
-window can extend activity by up to 224 ms, so the next experiment also needs a
-latency-matched raw-threshold control. Use the remaining twenty clean and thirteen
+These correlated frames do not yield a calibrated probability. Each input stays
+in history for seven extra hops (224 ms), while continued weak evidence may keep
+the score active longer. A raw 1.424 s silence control accounts for the history
+span but is not a fully latency-matched operating point; actual finish coverage
+and delay must also be measured. Use the remaining twenty clean and thirteen
 other speakers excluded from this VAD development slice; do not retune against
 their outcomes. They are not a sealed ASR holdout, because the existing broader
 ASR research already used their source manifests.
@@ -154,6 +156,29 @@ v6.2.1. No winner is assumed before these checks.
   neural edge bounds separately from auto-finish; never remove interior silence.
 - Exercise microphone/device changes, actual pauses, quiet speech, background
   noise, ASR/preview contention and a sustained session before changing defaults.
+
+## Excluded-speaker protocol
+
+The [second protocol](../../benchmarks/fixtures/vad-causal8-validation-protocol.json)
+fixes 104 cases, the causal score, raw 1.2/1.424 s controls and eleven ASR input
+policies before their outcomes are inspected. It includes both endpoint-only and
+endpoint-plus-edge chains. Parakeet, Whisper Turbo and Cohere native 8-bit each
+evaluate the same sample ranges/settings; equal inputs may reuse a hypothesis
+within that model. Source audio and the complete original recordings stay intact.
+
+```sh
+uv run --frozen --all-extras python benchmarks/prepare_vad_validation.py
+HF_HUB_OFFLINE=1 HF_HUB_DISABLE_TELEMETRY=1 PYTHONPATH=backend \
+  uv run --frozen --all-extras python benchmarks/vad_causal_validation.py \
+  --cli .build/release/ospr-cli --output benchmarks/results/vad-causal8-validation.json
+```
+
+Prepare pinned models separately first. The harness checks the imported offline
+constant, rather than setting an environment variable too late after the Hub
+library is imported. This controls Hub access; it is not an OS network sandbox.
+The seven native score tests include a sustained weak-evidence counterexample.
+The full suite currently passes 263 Swift tests. No GUI/default promotion follows
+from this protocol alone.
 
 ## Primary sources and provenance
 
