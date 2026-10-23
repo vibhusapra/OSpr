@@ -58,10 +58,21 @@ including a dictated request to select an invalid ID. All passed their limited
 checks. These are engine tests; native selection replacement remains unverified.
 All 224 Swift tests, 105 Python tests, lint, the release build and strict signature
 verification pass locally. The development app uses ad-hoc signing and its checkout.
+Source/docs head `3b7ddb0` also passes macOS 15 CI 40016038194 with the same
+224/105 test counts, lint, app/report build and clean-runner standalone runtime.
+A separate Apple Development signed portable candidate at that head passed
+relocated/offline six-engine inference and the existing notes, speaker, audio,
+model-management, CLI review and MCP smokes. Three explicit rewrite examples also
+passed through its bundled Swift CLI/worker from a foreign cwd with hostile
+PYTHONPATH. These are runtime smokes; full hour-file, upload and release-package
+gates have not yet been rerun on that candidate. Its bundled report predates the
+portable and CI receipt updates.
 
 - [Complete before/after outputs and native fallback decisions](../../benchmarks/results/refinement-fidelity-v1.json)
 - [Task and source-selection outputs](../../benchmarks/results/refinement-task-smoke.json)
 - [Build and validation boundary](../../benchmarks/results/refinement-validation.json)
+- [Portable runtime checks](../../benchmarks/results/refinement-portable-app-smoke.json)
+- [Bundled rewrite CLI checks](../../benchmarks/results/refinement-bundled-cli-smoke.json)
 
 ## Reproduction
 
@@ -83,4 +94,4 @@ The Swift test replays the committed recorded outputs through the real guard.
 Sequential shared-Mac timings are diagnostic; they are not a speed comparison.
 No representative held-out evaluation, consumer-app ranking or full-product
 latency claim follows from these tests. The frozen Soniox preview ZIP predates
-this change. Native dictation, selection and distribution acceptance remain open.
+this change. Native dictation, selection and full distribution acceptance remain open.

@@ -24,5 +24,28 @@
     "task_smokes": 8,
     "notes_smokes": 2
   },
-  "boundary": "Local source, build, protocol, recorded-output fallback and offline model checks. Development/ad-hoc app; no native dictation/insertion/selection acceptance, portable-package validation or notarization is claimed. The frozen soniox-v0 ZIP predates this source."
+  "boundary": "Local source f8ba4a0 build, protocol, recorded-output fallback and offline model checks; separately, source 3b7ddb0 passed CI and signed portable runtime smoke. The latter contains the same application sources. No native dictation/insertion/selection acceptance, full release-package validation or notarization is claimed. The frozen soniox-v0 ZIP predates this source.",
+  "ci": {
+    "status": "passed",
+    "head_commit": "3b7ddb0be9b0efdc20ef967cd8b5f66ababf6924",
+    "run_id": 40016038194,
+    "job_id": 120628218162,
+    "runner": "macos-15",
+    "swift_tests": 224,
+    "python_tests": 105,
+    "lint": true,
+    "app_and_report_build": true,
+    "clean_runner_standalone_runtime": true,
+    "boundary": "Completed GitHub job/steps and decoded logs checked. Bundled library imports use CPU on the clean runner; this is not GPU recognition or native GUI acceptance."
+  },
+  "portable_runtime": {
+    "status": "passed",
+    "source_commit": "3b7ddb0be9b0efdc20ef967cd8b5f66ababf6924",
+    "receipt": "refinement-portable-app-smoke.json",
+    "rewrite_cli_receipt": "refinement-bundled-cli-smoke.json",
+    "six_asr_engines": true,
+    "rewrite_cli_cases": 3,
+    "native_gui": false,
+    "full_release_packaging": false
+  }
 }

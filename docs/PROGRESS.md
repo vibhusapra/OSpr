@@ -400,6 +400,16 @@ distribution or a claim of full union parity/top-three product placement.
   strict signature verification. Build source is clean `f8ba4a0`; the app is an
   ad-hoc development build. Receipts: `refinement-fidelity-v1.json`,
   `refinement-task-smoke.json`, `refinement-validation.json`.
+- [x] PR #5 source/docs head `3b7ddb0` passes macOS 15 CI 40016038194:
+  224 Swift / 105 Python tests, lint, app/report build and clean-runner
+  standalone runtime. Decoded job 120628218162 logs confirm the counts.
+- [x] A separate Apple Development signed portable candidate at `3b7ddb0` passed
+  relocated/offline six-engine inference, notes, speaker words, audio utilities,
+  model management/progress, native CLI review and MCP listing. Three explicit
+  bundled Swift CLI rewrite smokes also passed from a foreign cwd with hostile
+  PYTHONPATH. Receipts: `refinement-portable-app-smoke.json` and
+  `refinement-bundled-cli-smoke.json`. Its bundled report predates these receipts.
+  Full hour-file/upload/package gates have not been rerun on this candidate.
 - [ ] Representative, independently graded rewrite fidelity and native selection
   replacement remain open. The new prompt does not guarantee preservation;
   refinement stays optional/off. The frozen Soniox ZIP predates these changes.
