@@ -223,12 +223,18 @@ enum KeyVault {
     let selectedText: String
     let secure: Bool
     var selectedRange: CFTypeRef? = nil
+    var focusConsistent = true
     static func capture() -> InsertionTarget {
         let app = NSWorkspace.shared.frontmostApplication
         let system = AXUIElementCreateSystemWide()
         var focused: CFTypeRef?
         AXUIElementCopyAttributeValue(system, kAXFocusedUIElementAttribute as CFString, &focused)
         let element = focused.flatMap { CFGetTypeID($0) == AXUIElementGetTypeID() ? unsafeBitCast($0, to: AXUIElement.self) : nil }
+        if let element {
+            guard let app, AccessibilityOwner.matches(element, pid: app.processIdentifier) else {
+                return .init(app: app, element: nil, selectedText: "", secure: false, focusConsistent: false)
+            }
+        }
         var selected: CFTypeRef?; var subrole: CFTypeRef?; var range: CFTypeRef?
         if let element {
             AXUIElementCopyAttributeValue(element, kAXSelectedTextAttribute as CFString, &selected)
@@ -238,6 +244,7 @@ enum KeyVault {
         return .init(app: app, element: element, selectedText: selected as? String ?? "", secure: subrole as? String == "AXSecureTextField", selectedRange: range)
     }
     func paste(_ text: String, restoreClipboard: Bool, allowUnverified: Bool = false) async throws {
+        guard focusConsistent else { throw OSprError.message("Focus changed while choosing the destination. Copy the transcript from OSpr.") }
         guard !secure else { throw OSprError.message("Dictation into password fields is disabled. The transcript is available in OSpr.") }
         guard AXIsProcessTrusted() else { throw OSprError.message("Allow OSpr Accessibility access to paste into other apps. The transcript is ready to copy.") }
         guard let app, !app.isTerminated, app.bundleIdentifier != Bundle.main.bundleIdentifier else {
@@ -251,6 +258,9 @@ enum KeyVault {
             throw OSprError.message("The destination field or cursor could not be verified. Copy the transcript, or enable unverified-field fallback in Settings for this app.")
         }
         if let element {
+            guard AccessibilityOwner.matches(element, pid: app.processIdentifier) else {
+                throw OSprError.message("The destination belongs to a different app. Copy the transcript from OSpr.")
+            }
             var current: CFTypeRef?
             AXUIElementCopyAttributeValue(AXUIElementCreateSystemWide(), kAXFocusedUIElementAttribute as CFString, &current)
             guard let current, CFEqual(current, element) else { throw OSprError.message("The focused field changed. Copy the result from OSpr.") }

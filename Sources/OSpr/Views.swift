@@ -112,7 +112,7 @@ struct StudioView: View {
                         HStack {
                             Label(model.localOnly ? "ON YOUR MAC" : "YOUR CHOSEN PROVIDER", systemImage: model.localOnly ? "cpu" : "cloud").font(.system(size: 10, weight: .semibold, design: .monospaced)).tracking(1).foregroundStyle(.secondary)
                             Spacer()
-                            Text(model.settings.transcriptionProvider == "local" ? (model.settings.model == "parakeet-v3" ? "Parakeet v3" : model.settings.model) : model.settings.transcriptionModel).font(.caption).foregroundStyle(.secondary)
+                            Text(model.activeDictationModel ?? (model.settings.transcriptionProvider == "local" ? (model.settings.model == "parakeet-v3" ? "Parakeet v3" : model.settings.model) : model.settings.transcriptionModel)).font(.caption).foregroundStyle(.secondary)
                         }
                         HStack(spacing: 26) {
                             Button { model.toggle() } label: {
@@ -152,7 +152,11 @@ struct StudioView: View {
                             }
                         }
                         HStack {
-                            Picker("Style", selection: $model.settings.mode) { ForEach(WritingMode.allCases) { Text($0.title).tag($0) } }.frame(maxWidth: 240)
+                            if let activeStyle = model.activeDictationStyle {
+                                Text("This take · \(activeStyle.title)").font(.callout.weight(.medium))
+                            } else {
+                                Picker("Style", selection: $model.settings.mode) { ForEach(WritingMode.allCases) { Text($0.title).tag($0) } }.frame(maxWidth: 240).disabled(model.busy)
+                            }
                             Spacer()
                             Button { model.importFiles() } label: { Label("Import files", systemImage: "arrow.down.doc") }.disabled(model.busy)
                         }
@@ -266,6 +270,9 @@ struct RecordingOverlay: View {
         VStack(spacing: 5) {
             HStack { Circle().fill(model.phase == "recording" ? .red : Color.osprPurple).frame(width: 7, height: 7); Text(model.countdownSeconds.map { "Starting in \($0)…" } ?? (model.phase == "recording" ? (model.recordingDesktop ? "Desktop audio" : "Listening") : "Working…")).font(.caption.weight(.medium)); Spacer(); if model.countdownSeconds == nil { Text(String(format: "%.1fs", model.displaySeconds)).font(.caption.monospacedDigit()) }; Button { if model.phase == "recording" { model.stop() } else { model.cancel() } } label: { Image(systemName: model.phase == "recording" ? "stop.circle.fill" : "xmark.circle.fill") }.buttonStyle(.plain).accessibilityLabel(model.phase == "recording" ? "Finish recording" : model.countdownSeconds != nil ? "Cancel countdown" : "Cancel processing") }
             if let destination = model.dictationDestination { Text(destination).font(.caption2).foregroundStyle(.secondary).lineLimit(1) }
+            if model.phase == "recording", !model.recordingDesktop, let profile = model.recordingProfileTitle {
+                Text("Profile · \(profile)").font(.caption2).foregroundStyle(.secondary).lineLimit(1)
+            }
             if model.countdownSeconds != nil { Text("Focus your destination field").font(.caption2).foregroundStyle(.secondary) }
             else { Waveform(level: model.displayLevel) }
         }.padding(14).background(.regularMaterial, in: RoundedRectangle(cornerRadius: 17)).overlay(RoundedRectangle(cornerRadius: 17).stroke(.quaternary))
@@ -426,8 +433,7 @@ struct DictionaryView: View {
 
 struct ModesView: View {
     @ObservedObject var model: AppModel
-    @State private var bundleID = ""
-    @State private var profileMode: WritingMode = .clean
+    @State private var profileDraft: AppProfile?
     var body: some View {
         ScrollView { VStack(alignment: .leading, spacing: 22) {
             PageTitle(eyebrow: "Set the tone", title: "One voice. Many ways to write.", description: "Verbatim preserves the model output. Clean removes basic fillers locally. Other styles use the rewrite provider you choose.")
@@ -445,12 +451,39 @@ struct ModesView: View {
                 Button("Save instructions") { model.saveOSprSettings() }
             } }
             Card { VStack(alignment: .leading, spacing: 14) {
-                Text("Automatically match an app").font(.headline)
-                Text("Use an app bundle ID such as com.apple.mail or com.microsoft.VSCode. A profile changes the writing mode when you start dictation there.").font(.caption).foregroundStyle(.secondary)
-                HStack { TextField("App bundle ID", text: $bundleID); Picker("Mode", selection: $profileMode) { ForEach(WritingMode.allCases) { Text($0.title).tag($0) } }; Button("Add") { model.settings.profiles.removeAll { $0.bundleID == bundleID }; model.settings.profiles.append(AppProfile(bundleID: bundleID, mode: profileMode)); bundleID = ""; model.saveOSprSettings() }.disabled(bundleID.isEmpty) }.textFieldStyle(.roundedBorder)
-                ForEach(model.settings.profiles) { profile in HStack { Text(profile.bundleID); Spacer(); Text(profile.mode.title).foregroundStyle(.secondary); Button { model.settings.profiles.removeAll { $0.id == profile.id }; model.saveOSprSettings() } label: { Image(systemName: "trash") }.buttonStyle(.plain) } }
+                HStack { Text("App & site profiles").font(.headline); Spacer(); Button("Add profile") { profileDraft = AppProfile(bundleID: "", mode: model.settings.mode) } }
+                Text("Choose a writing mode, local speech model, language or Custom instruction for an app. Site rules take priority over app rules; the longest matching path wins. Settings are captured when dictation starts.").font(.caption).foregroundStyle(.secondary)
+                if model.settings.profiles.isEmpty { Text("Start with an app you dictate into often.").foregroundStyle(.secondary).padding(.vertical, 8) }
+                ForEach(model.settings.profiles) { profile in
+                    HStack(alignment: .top, spacing: 12) {
+                        Image(systemName: profile.site == nil ? "app" : "globe").foregroundStyle(Color.osprInk).frame(width: 22)
+                        VStack(alignment: .leading, spacing: 4) {
+                            HStack { Text(profile.title).fontWeight(.medium); if !profile.enabled { Text("Off").font(.caption).foregroundStyle(.secondary) } }
+                            Text(profile.site ?? profile.bundleID).font(.caption).foregroundStyle(.secondary).lineLimit(2)
+                            Text(profileSummary(profile)).font(.caption).foregroundStyle(.secondary)
+                            if let error = profile.validationError { Text(error).font(.caption).foregroundStyle(.orange) }
+                        }
+                        Spacer()
+                        Button("Edit") { profileDraft = profile }
+                        Button { model.settings.profiles.removeAll { $0.id == profile.id }; model.saveOSprSettings() } label: { Image(systemName: "trash") }
+                            .buttonStyle(.plain).accessibilityLabel("Delete profile \(profile.title)")
+                    }
+                    Divider()
+                }
             } }
         }.padding(32) }
+        .sheet(item: $profileDraft) { profile in
+            ContextProfileEditor(profile: profile, localSpeech: model.settings.transcriptionProvider == "local", rewriteEnabled: model.settings.rewriteProvider != "none", globalTranslation: model.settings.translationLanguage) { edited in
+                try model.settings.upsertProfile(edited)
+                model.saveOSprSettings()
+            }
+        }
+    }
+    private func profileSummary(_ profile: AppProfile) -> String {
+        var parts = [profile.mode.title]
+        if let id = profile.localModel, let choice = ProfileSpeechModel(rawValue: id) { parts.append("Local: " + choice.title) }
+        if let language = profile.language { parts.append(language.isEmpty ? "Automatic language" : language) }
+        return parts.joined(separator: " · ")
     }
 }
 

@@ -56,8 +56,43 @@ public struct AppProfile: Codable, Identifiable, Equatable, Sendable {
     public var bundleID: String
     public var mode: WritingMode
     public var enabled: Bool
-    public init(id: UUID = UUID(), bundleID: String, mode: WritingMode = .clean, enabled: Bool = true) {
+    public var name: String?
+    public var site: String?
+    public var localModel: String?
+    public var language: String?
+    public var customPrompt: String?
+    public var translationLanguage: String?
+    public init(id: UUID = UUID(), bundleID: String, mode: WritingMode = .clean, enabled: Bool = true,
+                name: String? = nil, site: String? = nil, localModel: String? = nil,
+                language: String? = nil, customPrompt: String? = nil, translationLanguage: String? = nil) {
         self.id = id; self.bundleID = bundleID; self.mode = mode; self.enabled = enabled
+        self.name = name; self.site = site; self.localModel = localModel
+        self.language = language; self.customPrompt = customPrompt
+        self.translationLanguage = translationLanguage
+    }
+    private enum CodingKeys: String, CodingKey { case id, bundleID, mode, enabled, contextEnabled, name, site, localModel, language, customPrompt, translationLanguage }
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        id = try c.decode(UUID.self, forKey: .id); bundleID = try c.decode(String.self, forKey: .bundleID)
+        mode = try c.decode(WritingMode.self, forKey: .mode)
+        let legacyEnabled = try c.decode(Bool.self, forKey: .enabled)
+        enabled = try c.decodeIfPresent(Bool.self, forKey: .contextEnabled) ?? legacyEnabled
+        name = try c.decodeIfPresent(String.self, forKey: .name); site = try c.decodeIfPresent(String.self, forKey: .site)
+        localModel = try c.decodeIfPresent(String.self, forKey: .localModel); language = try c.decodeIfPresent(String.self, forKey: .language)
+        customPrompt = try c.decodeIfPresent(String.self, forKey: .customPrompt)
+        translationLanguage = try c.decodeIfPresent(String.self, forKey: .translationLanguage)
+    }
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.container(keyedBy: CodingKeys.self)
+        try c.encode(id, forKey: .id); try c.encode(bundleID, forKey: .bundleID); try c.encode(mode, forKey: .mode)
+        let modern = site != nil || localModel != nil || language != nil || customPrompt != nil || translationLanguage != nil
+        // Old builds understand only app+mode. They must not apply a site rule
+        // to an entire app or activate a mode without its required overrides.
+        try c.encode(modern ? false : enabled, forKey: .enabled)
+        if modern { try c.encode(enabled, forKey: .contextEnabled) }
+        try c.encodeIfPresent(name, forKey: .name); try c.encodeIfPresent(site, forKey: .site)
+        try c.encodeIfPresent(localModel, forKey: .localModel); try c.encodeIfPresent(language, forKey: .language)
+        try c.encodeIfPresent(customPrompt, forKey: .customPrompt); try c.encodeIfPresent(translationLanguage, forKey: .translationLanguage)
     }
 }
 
@@ -169,7 +204,7 @@ public struct OSprSettings: Codable, Sendable {
         rootPath = try c.decodeIfPresent(type(of: rootPath), forKey: .rootPath) ?? rootPath
     }
     public func mode(for bundleID: String) -> WritingMode {
-        profiles.first(where: { $0.enabled && $0.bundleID == bundleID })?.mode ?? mode
+        matchingProfile(for: bundleID)?.mode ?? mode
     }
     public func validated() -> OSprSettings {
         var result = self
