@@ -57,24 +57,26 @@ def run(shell):
     number = int(parts[0]) * 1_000_000 + int(parts[1]) * 1_000 + int(parts[2])
     assert number >= 3_042_000, version
     cases = []
-    for name in ("legacy_special_delete", "current_maintenance", "current_empty_index", "legacy_empty_upgrade", "divergent_index"):
+    for name in ("legacy_special_delete", "current_maintenance", "current_empty_index", "legacy_empty_upgrade", "legacy_corrupt_upgrade", "divergent_index"):
         sql = fixture(legacy=name.startswith("legacy"))
         if name in ("current_empty_index", "legacy_empty_upgrade"):
             sql += "DELETE FROM history;\n"
-        if name == "legacy_empty_upgrade":
+        if name == "legacy_corrupt_upgrade":
+            sql += "DELETE FROM history_search;\n"
+        if name in ("legacy_empty_upgrade", "legacy_corrupt_upgrade"):
             triggers = re.search(r'private static let triggerSQL = """(.*?)"""', (ROOT / "Sources/OSprCore/HistoryDatabase.swift").read_text(), re.S).group(1)
             sql += "BEGIN IMMEDIATE; DROP TRIGGER history_insert; DROP TRIGGER history_delete; DROP TRIGGER history_update;\n" + triggers
             sql += "INSERT INTO history(id,created,text,raw,preview,mode,model,app,duration,latency,word_count,payload) VALUES('upgrade-probe',1,'','','','verbatim','','',0,0,0,x'7b7d'); DELETE FROM history WHERE id='upgrade-probe';\n"
         if name == "divergent_index":
             sql += "DELETE FROM history_search;\n"
         sql += "PRAGMA quick_check;\nINSERT INTO history_search(history_search,rank) VALUES('integrity-check',1);\n"
-        if name == "legacy_empty_upgrade":
+        if name in ("legacy_empty_upgrade", "legacy_corrupt_upgrade"):
             sql += "PRAGMA user_version=2; COMMIT;\n"
         result = subprocess.run([str(shell), "-batch", ":memory:"], input=sql, capture_output=True, text=True, timeout=30)
         success = result.returncode == 0 and result.stdout.splitlines()[-1] == "ok"
         if name == "legacy_special_delete":
             assert success == (number >= 3_046_001), (version, name, result.stdout, result.stderr)
-        elif name != "divergent_index":
+        elif name not in ("divergent_index", "legacy_corrupt_upgrade"):
             assert success, (version, name, result.stdout, result.stderr)
         else:
             assert not success and "malformed" in result.stderr, (version, name, result.stdout, result.stderr)
