@@ -107,6 +107,12 @@ until its transcripts/settings are backed up.
   language detection or an explicit hint, and utterance/word timestamps. Audio is
   normalized locally before upload; automatic number formatting and paid add-on
   features are not requested. Cloud streaming and paid-account validation remain open.
+- Native Soniox async BYOK uses Files/Transcriptions with `stt-async-v5`, optional
+  language/vocabulary hints and conservative token-derived word times. Owned jobs
+  and uploads are deleted after completion when possible; processing or ambiguous
+  jobs may need console cleanup. No automatic recognition retry. [Lifecycle and
+  validation limits](docs/architecture/soniox-byok.md). This is current source;
+  the frozen `dist/history-v0` preview predates Soniox.
 - File/batch import, searchable editable local history, copy/delete/retention,
   and TXT/JSON/SRT/VTT export. Subtitles use **original** transcript timing.
 - Experimental local speaker-labeled imports: Nemotron 3 Diarization (up to eight

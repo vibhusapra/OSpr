@@ -303,10 +303,19 @@ distribution or a claim of full union parity/top-three product placement.
   cancellation, safe resource IDs, no-redirect credentials and cleanup warnings.
 - [x] Eighteen Soniox contract/regression cases; total 215 Swift/94 Python tests.
   Deadline testing found and fixed an invalidated-session task-creation crash.
-- [ ] Real Swift/worker 80-minute Soniox loopback receipt, native picker/Keychain
-  acceptance, and real account quality/quota checks. Soniox WebSocket streaming
-  remains separate. See `architecture/soniox-byok.md` for lifecycle limits.
-- [ ] Native shortcut tests are waiting for manual Mac unlock. The isolated
-  same-identity candidate is using `.local/native-interaction-qa/profile`; the
-  normal preview was quit normally and its store privately backed up. Restore
-  the normal preview after testing. No capture was started in this attempt.
+- [x] Source `4fae54b` real Swift/worker 80-minute loopback control: nine parts,
+  all 76,800,000 PCM samples checked, token time offsets and all owned remote
+  resources removed. Compatible and Deepgram regressions passed on the same CLI.
+  Receipts: `soniox-upload-parts.json`, `soniox-compatible-regression.json` and
+  `soniox-deepgram-regression.json` under `benchmarks/results/`. Fake provider
+  sentinels prove transport, not real recognition, account quotas or latency.
+- [ ] Soniox native picker/Keychain acceptance, real account quality/quota checks
+  and WebSocket streaming remain. See `architecture/soniox-byok.md`. The frozen
+  history-v0 ZIP predates this source integration.
+- [x] After manual unlock, the same-identity history candidate loaded its separate
+  fixture profile with both permissions ready. The shortcut recorder accepted
+  Command–Shift–Y, but neither that chord nor Control–Option–Space started capture
+  via automated native key input, even with OSpr foreground. No global shortcut,
+  PTT or insertion pass is claimed. The normal standalone app was restored; UI
+  confirms Local MLX and refinement off, and normal settings/history bytes match
+  the private pre-test backup. Its archive was not migrated or replaced.

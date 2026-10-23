@@ -65,10 +65,13 @@ missing keys, upload limits, cancellation, deadlines and the close/admission rac
 The current local suite passes 215 Swift tests and 94 Python tests. A separate
 80-minute real Swift/worker loopback control validates actual normalized samples,
 part assembly, token time offsets and owned resource cleanup; its versioned
-receipt is recorded after the source is committed. The fake provider text is a
-sentinel, not recognition or a paid-account quality/latency result.
+receipt is [soniox-upload-parts.json](../../benchmarks/results/soniox-upload-parts.json),
+pinned to source `4fae54bfee3cdcc67944b71b25de1f53bff14a3a` and the measured CLI.
+All 76,800,000 samples, nine part offsets and all 36 create/delete lifecycle events
+passed. Compatible/Deepgram controls passed on the same source. The fake provider
+text is a sentinel, not recognition or a paid-account quality/latency result.
 
-Native picker/Keychain/restart acceptance is pending an unlocked session. No real
+Native Soniox picker/Keychain/restart acceptance remains pending. No real
 Soniox account call or Soniox real-time WebSocket path has been tested/implemented.
 Part boundaries can affect real recognition context; actual quota, retention and
 accuracy behavior remain controlled by Soniox.
