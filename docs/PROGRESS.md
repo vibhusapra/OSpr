@@ -275,3 +275,23 @@ The machine-readable acceptance ledger is authoritative for feature status;
   verified. Exact-bundle Accessibility readiness survived GUI restart. Microphone
   prompting was delayed by macOS; native control then reported a locked Mac.
   Manual unlock/consent is pending. No physical insertion or global-key pass is claimed.
+
+## Indexed-history candidate delivery
+
+- [x] Source `af59a186861c313ee07810cd345887adc8fcd436` passes macOS 15
+  CI run 39884037124 with 197 Swift/94 Python tests.
+- [x] A new standalone candidate is at `dist/history-v0/OSpr.app`; the verified
+  ZIP and SHA-256 manifest sit beside it. All six offline engines, preparation,
+  notes/speakers/MCP, relocated runtime/help links, both hour-file models and
+  both 80-minute multipart adapters pass on this exact artifact. CRC, extracted
+  signatures and extracted CLI are verified. Versioned receipts start with
+  `benchmarks/results/history-`; `history-release-package.json` pins the archive.
+- [ ] Normal-archive upgrade and remaining microphone/Fn/PTT/insertion, streaming
+  and system-capture native acceptance are separate. The running preview remains
+  local MLX with refinement off; its archive was not used as a destructive fixture.
+
+The package is a frozen source snapshot; the repository's newer prose ledger
+clarifies SQLite acceptance. Native history UI acceptance was performed at source
+`163a113`, before the subsequent audio-lease fix (covered by the 197-test suite).
+This is an Apple Development signed macOS 26.6.2 arm64 preview, not a notarized
+distribution or a claim of full union parity/top-three product placement.

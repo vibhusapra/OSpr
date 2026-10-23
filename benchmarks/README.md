@@ -450,3 +450,17 @@ earlier schema-v1 successful full-clear control remains in
 `results/history-session-v1-bulk-clear.json`; with an earlier v2 preseed control in `results/history-session-v2-preseed.json`. These are exploratory single runs,
 not a paired latency comparison. The original failed per-row control remains
 separate. Every public receipt points to its exact measured source and binary.
+
+## Indexed-history candidate artifact
+
+`results/history-release-package.json` is the exact delivery manifest for source
+`af59a186861c313ee07810cd345887adc8fcd436`, with 197 Swift/94 Python tests.
+`history-portable-app-smoke.json`, `history-native-long-files.json`,
+`history-compatible-upload-parts.json` and `history-deepgram-upload-parts.json`
+pin checks to that artifact. This includes all six cached offline engines,
+relocation/foreign Python paths, notes, speaker labels, mixing/preparation/MCP,
+hour files, and every sample/time offset in both loopback 80-minute transports.
+`history-native-ui.json` separately records the earlier source's generated-profile
+UI acceptance. The final source adds the no-query audio-lease regression. These
+are distinct boundaries; packaging does not imply microphone/shortcut/insertion
+acceptance, notarization or a top-three product ranking.
