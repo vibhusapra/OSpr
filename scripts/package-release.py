@@ -23,6 +23,7 @@ def main():
     parser.add_argument("--native-long-receipt", type=Path, default=Path("benchmarks/results/native-long-files.json"))
     parser.add_argument("--upload-receipt", type=Path, default=Path("benchmarks/results/upload-parts.json"))
     parser.add_argument("--deepgram-receipt", type=Path, default=Path("benchmarks/results/deepgram-upload-parts.json"))
+    parser.add_argument("--soniox-receipt", type=Path, default=Path("benchmarks/results/soniox-upload-parts.json"))
     parser.add_argument("--swift-log", type=Path, required=True)
     parser.add_argument("--python-log", type=Path, required=True)
     parser.add_argument("--output", type=Path, default=Path("dist"))
@@ -47,13 +48,21 @@ def main():
     assert long_receipt["signature_valid_after_inference"], "Long-file inference changed the signed app"
     upload_receipt = json.loads(args.upload_receipt.read_text())
     deepgram_receipt = json.loads(args.deepgram_receipt.read_text())
-    for provider, checked in [("compatible", upload_receipt), ("deepgram", deepgram_receipt)]:
+    soniox_receipt = json.loads(args.soniox_receipt.read_text())
+    for provider, checked in [("compatible", upload_receipt), ("deepgram", deepgram_receipt), ("soniox", soniox_receipt)]:
         assert checked["provider"] == provider and checked["status"] == "passed" and checked["engine_binding"] == "bundled"
         assert checked["build"] == build, "Upload receipt is for a different build"
         assert checked["cli_sha256"] == long_receipt["cli_executable_sha256"], "Upload receipt CLI differs"
         assert checked["signature_valid_after_upload"] and checked["workspace_removed"] and checked["source_preserved"]
         assert checked["seconds"] == 4800 and sum(row["frames"] for row in checked["requests"]) == 4800 * 16000
         assert all(row["request_bytes"] < 25_000_000 for row in checked["requests"])
+    assert soniox_receipt["all_owned_files_and_jobs_removed"], "Soniox fixture resources were not removed"
+    expected_events = []
+    for part in soniox_receipt["requests"]:
+        expected_events += [dict(method=method, kind=kind, id=part[field]) for method, kind, field in [
+            ("POST", "files", "file_id"), ("POST", "transcriptions", "job_id"),
+            ("DELETE", "transcriptions", "job_id"), ("DELETE", "files", "file_id")]]
+    assert soniox_receipt["remote_resource_events"] == expected_events, "Soniox owned create/delete events differ"
     with (app / "Contents/Info.plist").open("rb") as file:
         info = plistlib.load(file)
     version = info["CFBundleShortVersionString"]
@@ -81,13 +90,15 @@ def main():
             sha = hashlib.file_digest(file, "sha256").hexdigest()
         manifest = dict(version=version, timestamp=datetime.datetime.now(datetime.UTC).isoformat(),
                         archive=name, bytes=archive.stat().st_size, sha256=sha, entries=entries, build=build,
-                        crc_passed=True, extracted_signature_verified=True, extracted_cli_six_models=True,
+                        crc_passed=True, extracted_signature_verified=True, extracted_cli_model_inventory=6,
                         portable_receipt_sha256=hashlib.sha256(args.receipt.read_bytes()).hexdigest(),
                         native_long_receipt_sha256=hashlib.sha256(args.native_long_receipt.read_bytes()).hexdigest(),
                         upload_receipt_sha256=hashlib.sha256(args.upload_receipt.read_bytes()).hexdigest(),
                         upload_parts=len(upload_receipt["requests"]),
                         deepgram_upload_receipt_sha256=hashlib.sha256(args.deepgram_receipt.read_bytes()).hexdigest(),
                         deepgram_upload_parts=len(deepgram_receipt["requests"]),
+                        soniox_upload_receipt_sha256=hashlib.sha256(args.soniox_receipt.read_bytes()).hexdigest(),
+                        soniox_upload_parts=len(soniox_receipt["requests"]),
                         native_long_models=[r["model"] for r in long_receipt["records"]],
                         tests=dict(swift=int(swift_counts[-1]), python=int(python_counts[-1])),
                         native_interaction_pending="Packaging does not exercise microphone, permissions or native target-app interaction. See docs/data/parity.json.")

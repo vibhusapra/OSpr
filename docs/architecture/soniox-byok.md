@@ -95,3 +95,21 @@ accuracy behavior remain controlled by Soniox.
 - [Delete transcription](https://soniox.com/docs/api-reference/stt/transcriptions/delete_transcription)
 - [Delete file](https://soniox.com/docs/api-reference/stt/files/delete_file)
 - [OpenAPI schema](https://soniox.com/docs/openapi.yaml)
+
+## Portable preview
+
+Source `fb2ad6f6f99bf83a25edba7cc7f43d4a9dfcfba0` passes macOS 15 CI run
+39892523094 with 215 Swift and 94 Python tests. The matching standalone preview
+is `dist/soniox-v0/OSpr.app`, with a 383,131,695-byte ZIP beside it.
+[The release manifest](../../benchmarks/results/soniox-release-package.json)
+pins its SHA-256, build and all receipt digests. Relocated/offline six-engine
+smoke, both synthetic hour files and all three 80-minute provider transports
+passed on this exact artifact. ZIP CRC, extracted signatures and the extracted
+CLI inventory also passed. Three black-box release-gate controls reject a stale
+Soniox build, retained owned resources and missing delete events. The extracted
+CLI inventory is distinct from the six inference checks in the relocated suite.
+
+Apple Development signing is not Developer ID/notarization. Weights are not
+bundled. The packaged report is a frozen pre-verification snapshot; repository
+receipts record the later artifact checks. Full native interaction, real provider
+accounts and streaming acceptance remain separate from packaging.

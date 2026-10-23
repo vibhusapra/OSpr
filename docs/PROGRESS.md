@@ -328,3 +328,26 @@ distribution or a claim of full union parity/top-three product placement.
   PTT or insertion pass is claimed. The normal standalone app was restored; UI
   confirms Local MLX and refinement off, and normal settings/history bytes match
   the private pre-test backup. Its archive was not migrated or replaced.
+
+
+## Soniox preview delivery
+
+- [x] Frozen source `fb2ad6f` passes macOS 15 CI 39892523094: 215 Swift / 94
+  Python tests, app/report build and clean-runner standalone runtime.
+- [x] New `dist/soniox-v0/OSpr.app` includes Soniox and the Studio warning fix.
+  Relocated offline checks pass all six ASR engines, notes, speaker attribution,
+  track mix, review, preparation, MCP and 48 kHz model priming.
+- [x] Both bundled synthetic hour files pass (Parakeet WER 2.72%, Qwen 2.37%).
+  These are regression checks on repeated public speech, not natural meetings
+  or a product latency comparison.
+- [x] All three bundled 80-minute transports preserve every normalized sample,
+  repeated text and offsets. Soniox deletes every owned fake job/file. The
+  release gate also rejects stale builds, retained resources and missing deletes.
+- [x] Verified ZIP: 383,131,695 bytes; SHA-256
+  `fc1c5a5e6218465f574fef152ad43843eb1f0cbb0dc1568ca37e03405da057a9`.
+  CRC, extracted deep signatures and extracted CLI inventory pass. See
+  `benchmarks/results/soniox-release-package.json` and the `soniox-package-*`
+  receipts. The bundled report is a frozen snapshot preceding these receipts.
+- [ ] Full native microphone/shortcut/insertion, streaming/desktop acceptance,
+  real-account quality/quota behavior, clean-Mac installation, Developer ID,
+  notarization and an updater remain. No full feature union or top-three claim.
