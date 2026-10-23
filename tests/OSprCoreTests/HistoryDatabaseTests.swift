@@ -253,6 +253,36 @@ final class HistoryDatabaseTests: XCTestCase {
         XCTAssertEqual(try database.record(id: original.id)?.text, original.text)
     }
 
+    func testBulkClearRollsBackTriggerContentAndIndexWhenLaterBatchEncodingFails() throws {
+        let path = try directory(), database = try HistoryDatabase(directory: path)
+        let original = record("Original before bulk clear")
+        try database.upsert([original])
+        let hash = try database.contentFingerprint()
+        var invalid = record("Bad new row"); invalid.duration = .nan
+        XCTAssertThrowsError(try database.apply(upserts: [invalid], clear: true))
+        XCTAssertEqual(try database.contentFingerprint(), hash)
+        XCTAssertEqual(try database.page(query: "Original").rows.map(\.id), [original.id])
+        // A subsequent individual delete must still maintain counts and FTS.
+        try database.remove(ids: [original.id])
+        XCTAssertEqual(try database.statistics(), HistoryStatistics(records: 0, words: 0))
+        XCTAssertTrue(try database.page(query: "Original").rows.isEmpty)
+        try database.verifyIntegrity()
+    }
+
+    func testBulkClearRestoresDeleteMaintenanceBeforeNewRowsArrive() throws {
+        let database = try HistoryDatabase(directory: directory())
+        let original = record("Old archive"), fresh = record("Fresh after clear")
+        try database.upsert([original])
+        try database.apply(upserts: [fresh], clear: true)
+        XCTAssertEqual(try database.statistics(), HistoryStatistics(records: 1, words: 3))
+        XCTAssertTrue(try database.page(query: "Old archive").rows.isEmpty)
+        XCTAssertEqual(try database.page(query: "Fresh").rows.map(\.id), [fresh.id])
+        try database.remove(ids: [fresh.id])
+        XCTAssertEqual(try database.statistics().records, 0)
+        XCTAssertTrue(try database.page(query: "Fresh").rows.isEmpty)
+        try database.verifyIntegrity()
+    }
+
     func testClearRemovesSavedTextSearchStatsAndAudioLinks() throws {
         let path = try directory(), database = try HistoryDatabase(directory: path)
         let sentinel = "ZXQ_ONLY_PRIVATE_PAYLOAD_9281463720"

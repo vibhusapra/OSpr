@@ -286,9 +286,7 @@ public final class HistoryDatabase {
         try transaction {
             if clear {
                 candidates.formUnion(try audioFiles())
-                try execute("DELETE FROM history")
-                try execute("INSERT INTO history_search(history_search) VALUES('rebuild')")
-                try execute("DELETE FROM history_meta WHERE key='legacy_sha256'")
+                try clearRows()
             }
             for id in removing {
                 try rows("SELECT audio FROM history WHERE id=? AND audio IS NOT NULL", [.text(id.uuidString)]) { candidates.insert(text($0, 0)) }
@@ -489,12 +487,25 @@ public final class HistoryDatabase {
 
     @discardableResult public func clear() throws -> Set<String> {
         let audio = try audioFiles()
-        try transaction {
-            try execute("DELETE FROM history")
-            try execute("INSERT INTO history_search(history_search) VALUES('rebuild')")
-            try execute("DELETE FROM history_meta WHERE key='legacy_sha256'")
-        }
+        try transaction { try clearRows() }
         return audio
+    }
+
+    private func clearRows() throws {
+        // A full wipe need not securely edit the same FTS posting lists once per
+        // row. Drop only our delete-maintenance trigger, clear content, rebuild
+        // the now-empty index and reset counters, then restore the exact trigger.
+        // This all belongs to the caller's transaction: failure rolls back the
+        // content, index, counters AND trigger. secure_delete remains enabled.
+        var trigger: String?
+        try rows("SELECT sql FROM sqlite_schema WHERE type='trigger' AND name='history_delete'") { trigger = text($0, 0) }
+        guard let trigger else { throw OSprError.message("History delete maintenance is missing. Existing data was preserved.") }
+        try execute("DROP TRIGGER history_delete")
+        try execute("DELETE FROM history")
+        try execute("INSERT INTO history_search(history_search) VALUES('rebuild')")
+        try execute("UPDATE history_stats SET records=0,words=0 WHERE singleton=1")
+        try execute(trigger)
+        try execute("DELETE FROM history_meta WHERE key='legacy_sha256'")
     }
 
     public func verifyIntegrity() throws {

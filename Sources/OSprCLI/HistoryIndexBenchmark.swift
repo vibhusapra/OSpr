@@ -136,7 +136,7 @@ enum HistoryIndexBenchmark {
         let bytes = output.fileHandleForReading.readDataToEndOfFile()
         process.waitUntilExit()
         guard process.terminationStatus == 0 else {
-            throw OSprError.message("Synthetic history benchmark case failed: " + (String(data: errors.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "unknown error"))
+            throw OSprError.message("Synthetic history benchmark case failed (status \(process.terminationStatus), reason \(process.terminationReason.rawValue), 180-second watchdog): " + (String(data: errors.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "unknown error"))
         }
         return try require(JSONSerialization.jsonObject(with: bytes) as? [String: Any])
     }
