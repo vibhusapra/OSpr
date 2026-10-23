@@ -208,8 +208,8 @@
     {
       "feature": "Transcript editor, search, copy, delete",
       "status": "implemented",
-      "evidence": "Local editable history, saved/session status, search/copy/delete. Serial background JSON persistence coalesces edits for 300 ms, flushes on quit and protects unreadable history; five ordering/failure tests and 10,000-record synthetic storage benchmark.",
-      "gap": "Native edit/persistence verified; irreversible deletion and large-history interaction matrix remain.",
+      "evidence": "Paged SQLite history with lightweight summaries, complete selected/latest records, aggregate counters and literal Unicode FTS5 search. Search is debounced/canceled and detail responses are fenced. Field-specific edits preserve raw text, timing, notes and audio. A separate 235-record native fixture passed migration, search beyond the first page, full editing, pagination, pending-edit quit/restart, complete TXT export and summary-row context copy through TextEdit. Synthetic 100,000-record storage controls and eleven presentation/application regressions are versioned.",
+      "gap": "Storage timings exclude GUI rendering and product launch. Native irreversible deletion and broader reprocessing/watched-import matrices remain separate; transaction/tombstone behavior is regression-tested.",
       "priority": "P1"
     },
     {
@@ -229,8 +229,8 @@
     {
       "feature": "History privacy and retention",
       "status": "verified",
-      "evidence": "Atomic owner-only JSON; configurable retention/disable saving. A dedicated serial writer coalesces edits, flushes on orderly quit, preserves unreadable files until explicit reset and confirms history before releasing recording recovery. Private temporary audio cleanup and opt-in diagnostics. Retained audio is opt-in, owner-only and size-limited; source upload snapshots are private and temporary.",
-      "gap": "History is not application-encrypted; use FileVault. Launch loading/search indexing remain work. An abrupt crash can lose an unflushed edit inside the 300 ms debounce window. Abrupt active capture can leave private temporary audio; no secure-erasure claim.",
+      "evidence": "Owner-only SQLite with streamed, full-payload-verified legacy JSON migration. Serial asynchronous repository coalesces edits for 300 ms, applies whole-archive retention/audio changes, preserves unreadable archives until explicit reset and confirms requested durability before releasing recording recovery. Disabling saving snapshots the complete archive into memory and clears disk content/search; enabling saving restores transactionally. Failure/retry, rollback, no-file-open memory storage and audio cleanup receipts are tested. Native session-only/restore and every-payload fidelity passed on a separate generated profile. Normal quit flushes asynchronously and reports failures before discarding unsaved changes.",
+      "gap": "Use FileVault for disk protection; no application encryption or secure-erasure claim. Session-only full-archive snapshots cost more RAM than ordinary paged disk history. Abrupt crashes can lose a debounced edit or unfinished capture. Actual production-archive upgrade, native failure dialogs and broader retained-audio interaction remain separate from generated-fixture acceptance.",
       "priority": "P0"
     },
     {
@@ -320,7 +320,7 @@
     {
       "feature": "Single-instance store ownership",
       "status": "implemented",
-      "evidence": "GUI preflight before AppModel creation plus owner-only nonblocking file lock retained by the model. Second process, release/reacquisition and symlink tests pass; CLI inference has no shared-store lock. A native launch of a second bundle left only the original GUI process and history available.",
+      "evidence": "GUI preflight before AppModel creation plus owner-only nonblocking file lock retained by the model. Second process, release/reacquisition and symlink tests pass; CLI inference has no shared-store lock. A native launch of a second bundle left only the original GUI process and history available. The SQLite repository retains the GUI lease through queued operations and closes its connections on the private queue before releasing it; a lifetime regression rejects a second owner until teardown finishes.",
       "gap": "Second-copy launch exited with a CUA timeout; foreground activation was not independently measured.",
       "priority": "P0"
     }

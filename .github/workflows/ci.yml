@@ -18,7 +18,9 @@ jobs:
         with:
           enable-cache: true
       - name: Verify native app and core contracts
-        run: swift test
+        run: |
+          /usr/bin/sqlite3 --version
+          swift test
       - name: Install locked Python environment
         run: uv sync --frozen --all-extras --python 3.12
       - name: Install media decoder for real codec and track-mixing tests
@@ -39,6 +41,7 @@ jobs:
           cd "$task_directory"
           "$bundle/Contents/Resources/Engine/.venv/bin/python" -c 'import mlx.core as mx; mx.set_default_device(mx.cpu); import mlx_whisper, parakeet_mlx, mlx_audio.stt, mlx_lm, mcp; value = mx.array([1]); mx.eval(value + 1); print("Bundled inference libraries imported successfully")'
           "$bundle/Contents/MacOS/ospr-cli" doctor
+          "$bundle/Contents/MacOS/ospr-cli" benchmark-history-session 100
           codesign --verify --deep --strict "$bundle"
       - name: Preserve executable bits and symlinks inside the development artifact
         run: ditto -c -k --sequesterRsrc --keepParent dist/OSpr.app dist/OSpr-development.zip

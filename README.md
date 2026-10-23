@@ -157,8 +157,8 @@ use macOS Keychain; settings contain no keys. Provider use may incur charges and
 has the provider's retention terms. HTTP is permitted only for loopback endpoints;
 redirects do not forward credentials.
 
-History is owner-only JSON in `~/Library/Application Support/OSpr`. It is not
-application-encrypted; use FileVault for disk protection. Capture uses temporary audio; a completed take is kept in a private recovery slot
+History uses an owner-only SQLite archive in `~/Library/Application Support/OSpr`. It is not
+application-encrypted; use FileVault for disk protection. Legacy JSON is streamed into SQLite, checked against every complete payload and removed only after verification. Keep a private backup before upgrading this developer preview; older JSON-only builds cannot read the new archive. Capture uses temporary audio; a completed take is kept in a private recovery slot
 until transcription succeeds or you explicitly discard it. Failed takes survive
 restart and can be retried or exported. In-progress capture before stop is not yet
 crash-recovered. No analytics or automatic screen/clipboard context
@@ -172,7 +172,7 @@ supports speed control, scrubbing and original segment/word seeking; retained WA
 export is separate from transcript export. Oldest clips are evicted to fit the
 budget, and history deletion/expiry removes their audio. Existing clips follow
 history retention when future audio retention is turned off. An abrupt crash can lose
-an unflushed edit; large-history launch loading/search indexing remain open.
+an unflushed edit. History loads bounded summary pages and on-demand details; literal Unicode search is debounced and runs off the UI executor. Saving-off snapshots the complete current archive in memory and clears disk content/search; enabling saving restores that session transactionally. A failed privacy or durability transition remains visible and retryable. Normal quit awaits pending edits and reports failures before allowing unsaved work to be discarded. See [storage and native acceptance](docs/architecture/indexed-history.md).
 
 Model language coverage differs. Parakeet has 25 European languages and no
 vocabulary prompting in this adapter. Whisper supports broader language coverage.

@@ -148,8 +148,41 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
   copy, creates a new verbatim transcript, and keeps existing edits.
   Native Core/worker/Metal/store-restart/AVFoundation integration passed;
   native controls and WAV/TXT/SRT export exercised; human audible listening remains.
-- [ ] Large-history launch loading and indexed search; current archive writes are
-  asynchronous but the JSON archive is still loaded into memory at launch.
+- [x] Paged large-history loading and indexed search. Implemented on
+  `codex/indexed-history`: transactional SQLite, streaming verified migration,
+  summary pages, on-demand detail, literal Unicode substring search and counters.
+  Twenty-six database, eighteen repository and fifteen session regressions pass; the storage stage totals 186 Swift tests and passes macOS 15 CI.
+  In six fresh storage-only processes on a deterministic 100,000-record archive,
+  initial data p50 is 3.45 s for JSON versus 2.98 ms for the indexed prototype;
+  median process peak RSS is 1.83 GB versus 17.6 MB. Matching IDs/counts/detail
+  and every percentile pass an independent verifier. One-time migration takes
+  32.34 s with 98 MiB peak after fixing retained FileHandle read buffers
+  (earlier 892 MiB). Index disk size is 516 MB versus 304 MB of legacy JSON.
+  An 8 KiB page control saved only 0.3% disk and had a larger observed migration
+  peak, so the default remains 4 KiB. Raw results for both controls are retained.
+  The serial asynchronous repository is implemented and tested, including coalesced
+  edits, failed-write retry, deletion/clear barriers, whole-archive maintenance
+  and canceled reads. Session-only snapshots, disk clearing/restore, failed privacy
+  transitions, retained cleanup receipts and disk-space reclamation are tested. A
+  VFS probe detects no file opens during in-memory work and detects its positive
+  control. A 100,000-record transition attempt exposed slow per-row full-index
+  clearing; a transactional bulk-clear route replaces it, with rollback/trigger
+  restoration regressions. The revised 100,000-record round trip preserves every
+  complete payload hash/count, with 1.46 s disable/clear and 291 ms restore in one
+  exploratory trial. The empty disk archive is 48 KiB; lifetime transition-child
+  peak is 633 MiB, explicitly above ordinary paged-history memory. Older SQLite special-delete format metadata failures, including empty indexes,
+  are avoided through normal before-content FTS deletes and transactional v1
+  upgrades. Forty-five controls across five runtimes still reject damaged indexes.
+  Current source wires the repository into AppModel and a paged/debounced history
+  UI, field-specific edits/notes, full-record copy/export, settings durability
+  and an asynchronous quit barrier. Eleven presentation/application regressions add
+  coverage for startup migration, complete details, selection and failed saves/quit.
+  A separate 235-record native QA profile passes migration, full edits, pagination,
+  session-only/restore, pending-edit quit/restart, complete TXT export and context
+  copy through TextEdit. Every persisted full payload is verified. The application stage passes macOS 15 CI with 196 Swift/94 Python tests; the
+  additional no-query audio-lease regression raises local coverage to 197 Swift
+  tests. Distribution remains a developer preview; normal-archive upgrade and
+  broader native workflow acceptance are separate from isolated history QA. See `architecture/indexed-history.md`.
 - [x] Experimental speaker-labeled file imports with recognizer word timestamps;
   stitched-speech and natural AMI prefix measurements. Labels still need review.
 - [x] Experimental ScreenCaptureKit desktop plus optional microphone capture, separate
@@ -242,3 +275,23 @@ The machine-readable acceptance ledger is authoritative for feature status;
   verified. Exact-bundle Accessibility readiness survived GUI restart. Microphone
   prompting was delayed by macOS; native control then reported a locked Mac.
   Manual unlock/consent is pending. No physical insertion or global-key pass is claimed.
+
+## Indexed-history candidate delivery
+
+- [x] Source `af59a186861c313ee07810cd345887adc8fcd436` passes macOS 15
+  CI run 39884037124 with 197 Swift/94 Python tests.
+- [x] A new standalone candidate is at `dist/history-v0/OSpr.app`; the verified
+  ZIP and SHA-256 manifest sit beside it. All six offline engines, preparation,
+  notes/speakers/MCP, relocated runtime/help links, both hour-file models and
+  both 80-minute multipart adapters pass on this exact artifact. CRC, extracted
+  signatures and extracted CLI are verified. Versioned receipts start with
+  `benchmarks/results/history-`; `history-release-package.json` pins the archive.
+- [ ] Normal-archive upgrade and remaining microphone/Fn/PTT/insertion, streaming
+  and system-capture native acceptance are separate. The running preview remains
+  local MLX with refinement off; its archive was not used as a destructive fixture.
+
+The package is a frozen source snapshot; the repository's newer prose ledger
+clarifies SQLite acceptance. Native history UI acceptance was performed at source
+`163a113`, before the subsequent audio-lease fix (covered by the 197-test suite).
+This is an Apple Development signed macOS 26.6.2 arm64 preview, not a notarized
+distribution or a claim of full union parity/top-three product placement.

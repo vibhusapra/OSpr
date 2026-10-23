@@ -371,3 +371,96 @@ effects. The worker controls show faster boot and more work during explicit
 preparation; prepared public requests remain about 55 ms at both rates. An
 unprepared native-rate request still pays the SciPy import cost. Preserve these
 controls alongside the attractive 16 kHz command result.
+
+## Indexed-history storage prototype
+
+On `codex/indexed-history`, build the release CLI and run
+`benchmark-history-index 100000 3`. It generates deterministic timing-rich
+transcripts in a private, owned temporary directory. Each mode/trial uses a fresh
+child process. Legacy JSON and paged SQLite must return identical top-100 IDs for
+eight literal queries, aggregate counts and the selected detail hash. Migration
+validates an ordered digest of every full payload. The app still uses JSON while
+its asynchronous repository and paged UI integration are in progress.
+
+`results/history-index.json` retains the 4 KiB-page result,
+`history-index-4096-pages.json` an earlier same-fixture 4 KiB control, and
+`history-index-8192-pages.json` the rejected page-packing experiment.
+`history-migration-memory-before.json` extracts the original migration's raw
+memory/time measurement before per-read autorelease pools bounded FileHandle
+buffers. The initial full receipt is retained locally; the extract fingerprints
+that receipt and the exact public source/fixture used.
+
+Run `.venv/bin/python benchmarks/verify_history_index.py
+benchmarks/results/history-index.json` for independent expected-ID/count/detail,
+Git provenance and NumPy percentile verification. Optional `--cli <executable>`
+checks the measured binary; `--baseline <receipt>` also checks the same fixture.
+Three trials are exploratory. Timings exclude CLI spawn, SwiftUI rendering, app
+launch, real user archives and human typing. RSS is the child's lifetime Darwin
+peak; disk space and one-time migration costs are reported separately.
+
+## SQLite compatibility control
+
+`history_sqlite_compatibility.py --shell /absolute/path/to/sqlite-shell` accepts
+multiple `--shell` arguments. The owned in-memory SQL extracts the app's actual
+FTS schema/triggers and reproduces its insert, prune, edit, audio strip and delete
+sequence. Schema v2 uses normal FTS DELETE before content changes. Controls also
+load the pinned historical v1 schema to reproduce its stale format metadata,
+exercise transactional empty/nonempty upgrades, full clearing and rollback-stable format metadata, and reject damaged current/legacy
+indexes. The earlier merge-only diagnostic workaround did not cover empty
+indexes; its limited receipt is retained as `history-sqlite-compatibility-v1-merge.json`. This is a correctness control, not a performance
+comparison. `results/history-sqlite-compatibility.json` records all commands'
+hashes, outputs, exact runtimes and source fingerprints.
+
+The local controls were compiled from official SQLite amalgamations 3.42.0 and
+3.43.2 (2023), 3.46.0 and 3.46.1 (2024), with `clang -O2 -DSQLITE_ENABLE_FTS5
+shell.c sqlite3.c -o sqlite-shell -lm`. The system shell supplies 3.51.0. Inputs
+are from `https://www.sqlite.org/<year>/sqlite-amalgamation-<version-number>.zip`;
+downloaded C sources and compiled controls are not runtime dependencies of
+OSpr and are kept under ignored `.local/sqlite-compat`; inputs are fingerprinted
+in the receipt, and each test database exists only in memory. Full macOS 15 Swift CI
+checks the real system-linked implementation independently.
+
+## Session privacy / durability control
+
+Build a fresh release CLI in the checkout and run
+`ospr-cli benchmark-history-session 100000`. It creates the same deterministic
+fixture as the indexed-history controls, migrates it in a separate child, then
+uses another fresh child to disable and re-enable saving through the actual
+asynchronous repository. Counts and ordered fingerprints of every complete
+payload must match before, during and after the round trip. It also verifies
+empty disk content/search while off, selected detail fidelity and file sizes.
+
+This is one exploratory transition, with no percentile/SLA claim. Timings exclude
+CLI spawn, migration, fingerprint verification, GUI and audio cleanup; lifetime
+peak RSS includes the full memory snapshot and verification. A session-only
+snapshot deliberately retains all currently visible records, using more RAM than
+normal paged disk history. Source provenance requires the build checkout; keep
+the freshly measured executable for optional hash verification.
+
+The original control failed under its child watchdog; a sampled active stack
+identified per-row FTS secure-delete work in full clearing.
+`results/history-session-before-bulk-clear.json` records what was observed and
+the missing exit-reason limitation, without inventing a completed timing.
+`verify_history_session.py <receipt> --cli <measured-binary> --baseline
+results/history-index.json` independently checks the subsequent complete receipt,
+source/binary provenance, shared fixture, counts and round-trip payload hashes.
+
+The current schema-v2 session receipt is `results/history-session.json`. The
+earlier schema-v1 successful full-clear control remains in
+`results/history-session-v1-bulk-clear.json`; with an earlier v2 preseed control in `results/history-session-v2-preseed.json`. These are exploratory single runs,
+not a paired latency comparison. The original failed per-row control remains
+separate. Every public receipt points to its exact measured source and binary.
+
+## Indexed-history candidate artifact
+
+`results/history-release-package.json` is the exact delivery manifest for source
+`af59a186861c313ee07810cd345887adc8fcd436`, with 197 Swift/94 Python tests.
+`history-portable-app-smoke.json`, `history-native-long-files.json`,
+`history-compatible-upload-parts.json` and `history-deepgram-upload-parts.json`
+pin checks to that artifact. This includes all six cached offline engines,
+relocation/foreign Python paths, notes, speaker labels, mixing/preparation/MCP,
+hour files, and every sample/time offset in both loopback 80-minute transports.
+`history-native-ui.json` separately records the earlier source's generated-profile
+UI acceptance. The final source adds the no-query audio-lease regression. These
+are distinct boundaries; packaging does not imply microphone/shortcut/insertion
+acceptance, notarization or a top-three product ranking.
