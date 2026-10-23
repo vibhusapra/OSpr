@@ -148,7 +148,7 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
   copy, creates a new verbatim transcript, and keeps existing edits.
   Native Core/worker/Metal/store-restart/AVFoundation integration passed;
   native controls and WAV/TXT/SRT export exercised; human audible listening remains.
-- [ ] Large-history launch loading and indexed search. WIP on
+- [x] Paged large-history loading and indexed search. Implemented on
   `codex/indexed-history`: transactional SQLite, streaming verified migration,
   summary pages, on-demand detail, literal Unicode substring search and counters.
   Twenty-six database, eighteen repository and fifteen session regressions pass; the storage stage totals 186 Swift tests and passes macOS 15 CI.
@@ -177,8 +177,11 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
   UI, field-specific edits/notes, full-record copy/export, settings durability
   and an asynchronous quit barrier. Ten presentation/application regressions add
   coverage for startup migration, complete details, selection and failed saves/quit.
-  The previously packaged preview still uses JSON; native QA and a new package
-  remain before upgrade acceptance. See `architecture/indexed-history.md`.
+  A separate 235-record native QA profile passes migration, full edits, pagination,
+  session-only/restore, pending-edit quit/restart, complete TXT export and context
+  copy through TextEdit. Every persisted full payload is verified. All 196 Swift
+  and 94 Python tests plus runtime/package CI pass on macOS 15. The previously
+  packaged preview still uses JSON; a new package remains before upgrade acceptance. See `architecture/indexed-history.md`.
 - [x] Experimental speaker-labeled file imports with recognizer word timestamps;
   stitched-speech and natural AMI prefix measurements. Labels still need review.
 - [x] Experimental ScreenCaptureKit desktop plus optional microphone capture, separate

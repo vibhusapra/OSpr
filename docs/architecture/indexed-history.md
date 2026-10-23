@@ -2,7 +2,7 @@
 
 The storage engine and isolated benchmark are implemented on
 `codex/indexed-history`, based on the verified v0 preview. Current source connects the asynchronous repository to paged history, details,
-search, settings, edits and shutdown. Native acceptance is still pending. No real user archive has been
+search, settings, edits and shutdown. Generated-fixture native history acceptance has passed. No real user archive has been
 migrated, and this prototype is not included in the previously packaged preview.
 
 ## Storage contract
@@ -76,20 +76,20 @@ fixture are fingerprinted. This does not measure SwiftUI rendering or app launch
 
 ## Integration gates
 
-- Integrate the implemented serial repository into AppModel. Core tests cover
+- [x] Integrate the implemented serial repository into AppModel. Core tests cover
   coalescing, read-your-edit, failed batches, tombstones, clear barriers,
   whole-archive retention/audio changes and async/quit flushes. Opening and
-  callbacks stay off MainActor. Session-only transitions now have dedicated tests; UI wiring remains.
-- Replace the full-array UI model with summary pages, aggregate counts and
+  callbacks stay off MainActor. Session-only transitions have dedicated tests; the app now uses this repository.
+- [x] Replace the full-array UI model with summary pages, aggregate counts and
   separately loaded selected/latest details. A summary must never overwrite a
   complete stored transcript. Fence stale detail/search/page responses.
-- Debounce search, reset cursors when queries change and preserve selection while
+- [x] Debounce search, reset cursors when queries change and preserve selection while
   recordings or watched imports arrive. Exercise long transcripts and histories.
-- Connect the tested complete-archive retention, disable-saving, clear-all and
+- [x] Connect the tested complete-archive retention, disable-saving, clear-all and
   audio-eviction APIs to the UI. Preserve session-only semantics and make failed
   privacy/durability transitions visible. Confirm requested durability before
   releasing completed-take recovery.
-- Validate migration/restart, edits/notes/reprocessing, all exports, recovery,
+- [ ] Broaden native validation beyond the generated history fixture: notes/reprocessing, all exports, recovery,
   watched imports, retained audio and settings transitions through the actual
   app. Repeat portable and distribution gates before replacing the preview.
 
@@ -113,7 +113,7 @@ initial data takes 32.34 s and peaks at 98.02 MiB. Per-read autorelease pools
 reduced the initial migration's 891.91 MiB peak. These are synthetic storage
 measurements; the shipped UI has not adopted this path.
 
-The database occupies 515,985,408 bytes versus 303,900,003 bytes of legacy JSON.
+The earlier storage-control database occupies 515,993,600 bytes versus 303,900,003 bytes of legacy JSON.
 A separate 8 KiB page control measured 514,293,760 bytes (0.3% less) and a larger
 181.27 MiB migration peak. It offered no useful packing improvement on this
 fixture, so 4 KiB remains the default. Both complete raw controls are retained.
@@ -253,3 +253,15 @@ not redirect to the regular app. These are explicit launch profiles, not normal
 settings. The standard bundle continues to use Application Support/OSpr. Native
 QA must use generated public fixtures, preserve the production archive and leave
 the existing running preview untouched until upgrade acceptance is complete.
+
+The native QA bundle at source `163a113eb187c565ae958a4d6862fdc43f57d769`
+passed a generated 235-record migration, initial 100-summary page, indexed lookup
+outside that page, full detail editing, load-more expansion to 235, session-only
+disk content/counters/search clearing, saving restore, pending-edit quit flush
+and restart. Every persisted full payload equals the fixture with only the two
+intentional edits; original text and timing remain intact. Native TXT export and
+summary-row context copy (pasted into an owned TextEdit file) both match all 1,407
+characters of the complete edited record. See
+`benchmarks/results/history-native-ui.json`. macOS 15 CI run 39881939294 passes
+196 Swift/94 Python tests and the app/report/standalone runtime checks. These
+checks do not measure end-to-end latency or validate microphone/shortcut/insertion.
