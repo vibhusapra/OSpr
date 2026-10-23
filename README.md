@@ -83,19 +83,24 @@ models used by the preceding portable smoke suite; weights are never embedded.
 Builds use ad-hoc signing by default; the current local preview uses an Apple Development signature. Developer ID distribution signing, notarization and an updater are not complete. Do not overwrite an existing installation
 until its transcripts/settings are backed up.
 
-The latest checked local delivery is `dist/refinement-v0/OSpr.app` and
-`dist/refinement-v0/OSpr-v0.1.0-macOS26.6.2-arm64.zip`, frozen at source `3b7ddb0`.
-It includes indexed history, Soniox BYOK, the mouse-start countdown and explicit
-local refinement tasks. Its [SHA-256 manifest](benchmarks/results/refinement-release-package.json)
-pins 224 Swift/105 Python tests, relocated offline smoke, both synthetic hour-file
-regressions and all three 80-minute transports. Three explicit bundled rewrite
-smokes also pass. Quit other OSpr copies before opening a new bundle. Back up
+The latest checked local delivery is `dist/context-profiles-v0/OSpr.app` and
+`dist/context-profiles-v0/OSpr-v0.1.0-macOS26.6.2-arm64.zip`, frozen at source `db0987a`.
+It includes app/site profiles with per-take model, language and instructions,
+indexed history, Soniox BYOK, the mouse-start countdown and explicit local
+refinement tasks. Its [SHA-256 manifest](benchmarks/results/context-profiles-release-package.json)
+pins 244 Swift/105 Python tests, relocated offline smoke, both synthetic hour-file
+regressions and all three 80-minute transports. The exact bundled CLI passes
+[17 profile cases](benchmarks/results/context-profiles-bundled-cli.json). Three [bundled rewrite smokes](benchmarks/results/context-profiles-bundled-rewrite-smoke.json) pass too.
+[CI at the packaged head](benchmarks/results/context-profiles-ci.json) also passes.
+Quit other OSpr copies before opening a new bundle. Back up
 existing settings/history before an archive upgrade; the normal older preview
 remains unchanged. This is an Apple Development signed macOS 26.6.2 arm64 preview,
 with separate weight downloads and native interaction gates still open. Its bundled
 report is a snapshot preceding the final artifact receipts. The earlier
-`soniox-v0` delivery and [manifest](benchmarks/results/soniox-release-package.json)
-remain available.
+`refinement-v0` delivery and [manifest](benchmarks/results/refinement-release-package.json)
+remain available. A new isolated microphone start was discarded before recognition
+when the captured foreground app differed from the intended TextEdit target;
+[insertion remains unverified](benchmarks/results/context-profiles-insertion-preflight.json).
 
 ## Included
 
@@ -104,7 +109,7 @@ remain available.
 - A three-second mouse-start countdown gives you time to focus the destination
   field before recording. Allow microphone access first; cancel from the HUD,
   Studio or the global shortcut. Native countdown/insertion acceptance is pending;
-  the latest `refinement-v0` preview includes this feature.
+  the latest `context-profiles-v0` preview includes this feature.
 - Local MLX/Metal ASR: Parakeet v3, Whisper Turbo/Small, Qwen3 ASR 1.7B 8-bit,
   Nemotron 3.5 ASR 8-bit, and native-layout Cohere Transcribe 8-bit. Cohere
   supports 14 languages with an explicit hint; blank uses English. Exact revisions are in
@@ -116,7 +121,7 @@ remain available.
   spoken punctuation, app/site profiles and selected-text voice editing.
   Current source adds per-profile local models, recognition language, translation
   targets and Custom instructions, with deterministic site/path matching and
-  per-take snapshots. The verified `refinement-v0` ZIP predates these profiles;
+  per-take snapshots. The verified `context-profiles-v0` ZIP includes these profiles;
   [native acceptance and compatibility limits](docs/architecture/context-profiles.md)
   are tracked separately.
 - Optional local Qwen3 4B Instruct refinement, Ollama/compatible services, or BYOK

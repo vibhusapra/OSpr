@@ -97,6 +97,10 @@ cover routing plus oversized/malformed settings. The CLI smoke is part of CI.
 - [Real CLI results](../../benchmarks/results/context-profile-cli.json)
 - [Native presentation boundary](../../benchmarks/results/context-profiles-native-ui.json)
 - [Checked implementation references](../data/context-profiles-contract.json)
+- [Packaged-head CI](../../benchmarks/results/context-profiles-ci.json)
+- [New portable delivery manifest](../../benchmarks/results/context-profiles-release-package.json)
+- [Bundled profile CLI cases](../../benchmarks/results/context-profiles-bundled-cli.json)
+- [Later insertion attempt](../../benchmarks/results/context-profiles-insertion-preflight.json)
 
 Native startup and Modes presentation were observed in an isolated profile with
 both permissions ready. On Add profile, SkyComputerUseService crashed during
@@ -104,5 +108,18 @@ inspection; full AX and screenshot attempts failed with its array-index assertio
 OSpr stayed running. The disposable test process was stopped and the normal app
 restored with byte-identical settings/history. No profile save/restart, editor
 visual acceptance, live browser URL, microphone model/language switch or insertion
-pass is claimed. The verified `refinement-v0` ZIP is preserved and predates these
-profiles. Full feature-union and top-three placement remain unproven.
+pass is claimed. The new `context-profiles-v0` ZIP at `db0987a` includes these
+profiles, with the same application source fingerprint as `2b7c02f`. All six
+engines and extras pass after offline relocation; the actual bundled CLI passes
+all 17 profile cases, both hour-file regressions and all three 80-minute transports.
+The ZIP passes CRC, extraction, deep signatures and extracted CLI inventory.
+The packaged head passes macOS 15 CI with 244 Swift/105 Python tests and the
+17 CLI cases. This is Apple Development signing, not Developer ID/notarization.
+
+A later isolated copy of that portable candidate started its countdown and real
+microphone. The intended TextEdit field appeared focused to the automation, but
+OSpr captured another foreground app. The take was discarded before recognition;
+no public speech was played or insertion attempted. Zero test history, audio or
+recovery remains, and the normal app/settings/history were restored unchanged.
+The earlier `refinement-v0` ZIP is preserved. Full feature-union and top-three
+placement remain unproven.

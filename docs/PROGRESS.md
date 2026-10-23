@@ -474,3 +474,37 @@ distribution or a claim of full union parity/top-three product placement.
   No sheet visual/save/restart, live Chrome/Safari URL, model/language switch or
   insertion pass is claimed. See `context-profiles-native-ui.json`. The existing
   `refinement-v0` archive is preserved and predates these source changes.
+
+## App/site profile preview delivery
+
+- [x] Packaged source/docs head `db0987a` passes macOS 15 CI 40024734584:
+  244 Swift / 105 Python tests, 17 CLI profile cases, lint, app/report build and
+  clean-runner bundled-runtime imports. Decoded job 120657954042 confirms counts.
+- [x] New `dist/context-profiles-v0/OSpr.app` includes the profile implementation
+  and has the same application source fingerprint as the locally tested `2b7c02f`.
+  Relocated offline tests pass all six ASR engines, notes, speaker words, audio
+  utilities, model management/progress, CLI review and MCP. Metal is available;
+  the bundled MLX interpreter reports `Device(gpu, 0)` as its default.
+- [x] All 17 profile cases and three raw rewrite smokes pass through the bundled
+  Swift CLI. Both synthetic hour files pass again: Parakeet WER 2.72%, Qwen 2.37%.
+  All three 80-minute provider transports preserve every sample and timestamp
+  offset; Soniox removes all nine fake jobs/files. Timings and fake responses are
+  functional diagnostics, not product speed or provider-quality measurements.
+- [x] Verified ZIP: 383,408,121 bytes; SHA-256
+  `2d1ab59699891f28a97e8240860c6b61a415380ec688cc00c032a833915a096e`.
+  CRC, extraction, deep signatures and extracted CLI inventory pass. The 66,898
+  archive entries exclude private test directories, stores and checkout markers.
+  Receipts: `context-profiles-release-package.json` and
+  `context-profiles-delivery-validation.json` bind the exact app and related checks.
+  The bundled report precedes these final receipts; earlier previews are preserved.
+- [x] An isolated same-identity copy retained both permissions and started the
+  real microphone after countdown. TextEdit's owned fixture appeared focused to
+  automation, but OSpr captured another foreground app. The take was discarded
+  before recognition; no speech fixture played or insertion attempted. Zero QA
+  history/audio/recovery remains. Normal app/settings/history were restored
+  unchanged. See `context-profiles-insertion-preflight.json`.
+- [ ] Native profile sheet/save/restart, real browser metadata and model/language
+  routing, physical Fn/PTT, successful owned-field insertion, streaming/desktop
+  acceptance, clean-Mac installation, Developer ID/notarization and updater remain.
+  The preview is Apple Development signed, with separate model downloads.
+  Full feature-union and top-three product placement remain unproven.
