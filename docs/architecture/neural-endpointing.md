@@ -147,8 +147,8 @@ v6.2.1. No winner is assumed before these checks.
 
 ## Remaining integration gates
 
-- Validate the causal score and actual ASR outputs on speakers excluded from the
-  VAD development slice, without retuning against their results.
+- Preserve the completed excluded-speaker results below without retuning against
+  their outcomes; separately test any changed policy on fresh evaluation data.
 - Select and pin a model only after the quality/runtime tradeoff is understood.
 - Feed a bounded off-callback native queue with continuous resampling and sample
   accounting; overflow, stale generation and detector failure must surface.
@@ -179,6 +179,92 @@ library is imported. This controls Hub access; it is not an OS network sandbox.
 The seven native score tests include a sustained weak-evidence counterexample.
 The full suite currently passes 263 Swift tests. No GUI/default promotion follows
 from this protocol alone.
+
+## Excluded-speaker results and decision
+
+Frozen source `a09b6bda1648cff96cf68bdaf5553b3009440156` completed all
+3,432 records: 2,181 actual ASR inferences, 105 unique short/empty bypasses and
+1,146 within-model equal-input reuses. The native causal score matches the
+reference on all 35,924 frames. Independent checks replay all 312 native and
+Python reference event traces, every ASR input range and all score arithmetic.
+CI at that source passes 263 Swift / 105 Python tests, 17 profile CLI cases,
+lint, report/app build and bundled-runtime imports. CI does not execute this
+separately cached model study.
+
+| ASR / input | Original WER | −40 dB WER | Noise WER |
+|---|---:|---:|---:|
+| Parakeet / full | 3.85% | 6.16% | 6.32% |
+| Parakeet / RMS default edge | 3.54% | 99.69% | 6.32% |
+| Parakeet / causal edge or chain | 4.31% | 6.32% | 5.86% |
+| Parakeet / causal endpoint only | 4.62% | 5.55% | 6.93% |
+| Whisper Turbo / full | 4.62% | 6.01% | 6.16% |
+| Whisper Turbo / RMS default edge | 4.01% | 99.69% | 6.16% |
+| Whisper Turbo / causal edge or chain | 4.01% | 5.55% | 6.32% |
+| Whisper Turbo / causal endpoint only | 4.78% | 6.47% | 6.32% |
+| Cohere native8 / full | 3.54% | 4.78% | 5.08% |
+| Cohere native8 / RMS default edge | 2.93% | 99.69% | 5.08% |
+| Cohere native8 / causal edge or chain | 3.24% | 4.47% | 4.47% |
+| Cohere native8 / causal endpoint only | 4.01% | 4.78% | 5.24% |
+
+Each speech column uses the same 33 utterances (649 normalized reference words)
+under a different transform. The three transforms are not independent samples.
+The edge/chain bounds happen to be identical on this slice; that is not a
+general equivalence of those policies. WER normalization retains number-format
+differences, so a correct written "13th" can count differently from "thirteenth."
+
+Causal edges and chains introduce zero new empty transcripts across 297
+speech/model pairs. Unsmooth raw edges introduce one Parakeet empty on quiet
+`test-clean-6930-75918-0000`. RMS default edges empty 30/33 quiet inputs for each
+ASR model. The five reused synthetic negatives never arm any neural policy.
+Whisper returns text on all five full/endpoint-only negatives; causal edges and
+chains bypass them all, while RMS edges still hallucinate on four. Parakeet and
+Cohere return no text for these controls even without edge trimming.
+
+This is not universal quality improvement. Causal edges improve/equal/worsen
+10/75/14 transformed utterances for Parakeet, 8/84/7 for Whisper and 14/77/8 for
+Cohere relative to each model's full input. Parakeet changes correctly recognized
+"Captain Lake" to "Captain Leake"; Cohere changes "Captain Murdoch" to
+"Captain Murdock." These lexical regressions remain in the receipt.
+
+| Policy | Original finish p95 | −40 dB finish p95 | Noise finish p95 |
+|---|---:|---:|---:|
+| Raw / 1.2 s silence | 1.237 s | 1.164 s | 1.200 s |
+| Raw / 1.424 s history control | 1.461 s | 1.388 s | 1.424 s |
+| Causal8 / 1.2 s silence | 1.477 s | 2.074 s | 1.793 s |
+
+These are observed-through sample positions minus source clip end, not measured
+last-phoneme-to-UI latency. All 99 speech cases finish and none finish before the
+source clip end; initial/trailing padding is fixed by the protocol. Causal maximum
+delay is 2.279 s. Default RMS finishes none of the 33 noisy cases and prematurely
+finishes the three quiet cases it arms. Low RMS arms all quiet cases but finishes
+five before clip end. The RMS replay approximates polling; it does not execute
+the hardware capture pipeline. Native prediction p95 is 0.075 ms, excluding
+scoring, loading, priming, resampling, queues and ASR.
+
+**Decision:** retain the frozen policy for an explicit experimental integration.
+Do not change default edge trimming or auto-finish based on aggregate WER.
+Preserve the complete recording, fail visibly to manual finish on backlog/error,
+and reject stale endpoint decisions when newer audio remains unexamined. Final
+edge bounds must refer to the exact normalized ASR input timeline. Remaining
+models, multilingual quiet speech, real environmental noise, paused spontaneous
+speech, devices and contention need separate evidence.
+
+- [Every quality hypothesis, policy and delay summary](../../benchmarks/results/vad-causal8-validation.json)
+- [Raw probabilities, activity scores, timings and events](../../benchmarks/results/vad-causal8-validation.traces.json.gz)
+- [Independent checks](../../benchmarks/results/vad-causal8-validation-checks.json)
+- [Source-bound CI](../../benchmarks/results/vad-causal8-ci.json)
+
+After the run, recheck the stored evidence without neural/ASR inference:
+
+```sh
+HF_HUB_OFFLINE=1 PYTHONPATH=backend uv run --frozen --all-extras python \
+  benchmarks/verify_vad_causal_validation.py \
+  --receipt benchmarks/results/vad-causal8-validation.json \
+  --cli .local/vad-candidates/source-a09b6bd-cli --output /tmp/causal8-checks.json
+```
+
+The verifier requires the source receipt's exact CLI hash. Rebuilding on another
+host requires a new replay receipt, rather than changing the archived hash.
 
 ## Primary sources and provenance
 
