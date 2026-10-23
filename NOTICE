@@ -15,7 +15,8 @@ Voxtral Mini 4B Realtime: Mistral AI, Apache 2.0; research-only MLX conversion.
 Silero VAD: Silero Team, MIT; optional speech-detection research.
 Core ML conversions: FluidInference, MIT. https://huggingface.co/FluidInference/silero-vad-coreml
 MLX conversion: MLX Community, MIT. https://huggingface.co/mlx-community/silero-vad-v6
-No VAD weights or third-party VAD implementation source are bundled here.
+VAD weights are downloaded separately. The native adapter does not vendor
+FluidAudio implementation source; optional MLX evaluation uses installed mlx-audio (MIT).
 
 LibriSpeech: Vassil Panayotov, Guoguo Chen, Daniel Povey and Sanjeev Khudanpur;
 LibriVox readers, CC BY 4.0. https://www.openslr.org/12/

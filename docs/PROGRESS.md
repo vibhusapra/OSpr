@@ -524,7 +524,17 @@ distribution or a claim of full union parity/top-three product placement.
 - [x] Model revisions/full file hashes and a preselected 179-case public protocol.
   The CLI can analyze a supplied local model; no model download or service occurs
   inside native inference. See `architecture/neural-endpointing.md`.
-- [ ] Complete runtime probes, full probability/endpoint replay, AMI timing-proxy
-  scores and actual downstream ASR edge/cut controls before choosing integration.
+- [x] Frozen `5fc2bc8` completes 179 cases, 24 compute-eligibility probes and
+  750 ASR quality records (520 actual model inferences, 42 unique bypasses and
+  reused equal inputs). All 256 Swift/105 Python tests pass. The verifier checks
+  every input/model hash, 537 native event replays and WER arithmetic. Raw traces
+  are preserved in a 1.84 MB gzip archive beside `vad-candidate-v1.json`.
+- [x] Native 32 ms CPU prediction p95 is 0.0759 ms on the shared M5 Max. Its
+  candidate edge improves Parakeet original/noisy WER; −40 dB WER is 4.34% versus
+  95.09% for default RMS edges, but two utterances still become empty. The
+  candidate is not promoted. Auto-finish cuts remain a separate quality risk.
+- [ ] Freeze a causal eight-frame score and validate on excluded speakers. The
+  development-only derived score removes the two empty edges and retains all five
+  synthetic negatives, but needs actual ASR and independent-slice checks.
 - [ ] Bounded off-callback native capture/resampling, recovery and device tests.
   Delivered previews and the GUI retain their existing behavior.

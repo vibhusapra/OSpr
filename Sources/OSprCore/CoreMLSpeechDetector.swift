@@ -2,7 +2,8 @@ import Foundation
 import CoreML
 
 /// Serial, explicitly reset Silero-compatible recurrent inference. Call off the
-/// audio callback and main actor. Loading never downloads or compiles a model.
+/// audio callback and main actor. OSpr uses supplied compiled assets with no
+/// application-managed model download or conversion step.
 public final class CoreMLSpeechDetector {
     public let chunkSamples: Int
     private let model: MLModel

@@ -252,7 +252,8 @@ separate limitation. No secure-erasure guarantee is made.
 .build/debug/ospr-cli analyze-speech public-16k-mono.wav /path/to/model.mlmodelc cpu 1.2
 ```
 
-`analyze-speech` is a research command for a supplied local Silero-compatible
+`analyze-speech` is in current source; the context-profiles-v0 ZIP predates it.
+It is a research command for a supplied local Silero-compatible
 Core ML model. It reports probabilities and audio-time endpoint events without
 microphone capture, ASR or network access. The GUI and delivered preview retain
 their existing detector behavior; see [evaluation and integration gates](docs/architecture/neural-endpointing.md).

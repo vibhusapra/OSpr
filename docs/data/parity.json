@@ -131,8 +131,8 @@
     {
       "feature": "Silence gate, edge trim, auto finish",
       "status": "partial",
-      "evidence": "RMS bounds, quiet/noise/silence fixtures; optional auto-stop and 5-minute cap.",
-      "gap": "Neural VAD and mic endpointing quality remain to evaluate.",
+      "evidence": "RMS bounds, quiet/noise/silence fixtures; optional auto-stop and 5-minute cap. A separate native Core ML detector/CLI and audio-time endpoint policy pass twelve new native contracts; a WAV short-read regression now preserves every sample. A frozen 179-case Core ML/MLX/RMS replay and 750 Parakeet quality records are published with raw traces and independent verification. On the M5 Max, native 32ms CPU prediction p95 is 0.0759ms. Candidate neural-edge WER on the synthetic -40dB slice is 4.34% versus default RMS 95.09%, but two utterances become empty.",
+      "gap": "The GUI and downloadable preview retain RMS behavior. The primary neural candidate is not promoted: two false empty edges, unvalidated live capture/queue/resampling and no physical endpoint acceptance. An eight-frame causal development score needs excluded-speaker and actual ASR validation. Timing masks are coarse AMI proxies; synthetic gain/noise is not a real microphone test.",
       "priority": "P1"
     },
     {
