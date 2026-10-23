@@ -442,3 +442,35 @@ distribution or a claim of full union parity/top-three product placement.
   streaming/desktop acceptance, real provider accounts, clean-Mac installation,
   Developer ID/notarization and updater acceptance remain. No full union parity
   or top-three claim follows from this preview.
+
+
+## App and site profiles
+
+- [x] Source `2b7c02f` adds exact app/site rules, segment-bounded path prefixes,
+  deterministic specificity/fallback and immutable per-take settings. Profiles
+  choose writing mode, local model, recognition hint, Custom instruction and
+  translation target. Provider endpoints/credentials, insertion and retention
+  remain global choices. Imports/desktop capture retain their explicit settings.
+- [x] The editor adds app selection, naming, enable/disable, edit and duplicate-rule
+  validation. Studio reflects the active take's model/style; the HUD labels a profile.
+  Legacy app-only settings decode; extended profiles encode inactive for older
+  decoders so a site rule cannot silently broaden to its whole app.
+- [x] URL lookup is opt-in by enabled site rule for that app, follows at most 24
+  owned ancestors, selects the outer web area/window metadata and strips query/
+  fragment before matching. It reads no page text/address-bar/clipboard data.
+  An 80 ms admission deadline and temporary 10 ms per-object timeouts are not a
+  measured latency SLA. AX ownership is checked before selected-text capture
+  and before insertion; inconsistent initial focus prevents microphone start.
+- [x] Full local validation: 244 Swift / 105 Python tests, lint and release build.
+  Twenty new Swift contracts and 17 real dry-run CLI cases pass; the CLI harness
+  is in CI. CLI resolution runs with an unavailable engine root and calls no
+  model, microphone or provider. See `context-profiles-validation.json` and
+  `context-profile-cli.json`; implementation references are checked separately.
+- [x] Native startup and Modes presentation worked in a separate development-signed
+  fixture profile with both permissions ready. The normal app was restored and
+  settings/history match its private backup; zero QA history/audio was admitted.
+- [ ] Add profile inspection crashed SkyComputerUseService, including full AX and
+  screenshot attempts; OSpr stayed running. The disposable QA process was stopped.
+  No sheet visual/save/restart, live Chrome/Safari URL, model/language switch or
+  insertion pass is claimed. See `context-profiles-native-ui.json`. The existing
+  `refinement-v0` archive is preserved and predates these source changes.

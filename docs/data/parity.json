@@ -171,10 +171,10 @@
       "priority": "P1"
     },
     {
-      "feature": "Per-app automatic modes",
-      "status": "verified",
-      "evidence": "Exact bundle-ID matching, disabled-rule and fallback tests.",
-      "gap": "URL-specific routing and per-profile engine/prompts remain open.",
+      "feature": "App and site dictation profiles",
+      "status": "partial",
+      "evidence": "Exact app and HTTP(S) origin/segment-prefix rules select mode, local model, recognition hint, Custom instruction or translation target into a value snapshot at dictation start. Most-specific site wins before the app/global fallback; duplicate canonical rules are rejected. Provider endpoints/credentials, insertion and retention stay global. Captured query/fragment and observed URLs do not enter the configuration snapshot. Narrow metadata lookup follows at most 24 same-process ancestors, with read-admission deadline and temporary per-object timeouts restored before insertion. The app verifies AX process ownership before reading selected text and before insertion. Native editor supports app picker, naming, enable/disable and editing; active take model/style and profile are visible. Legacy settings decode, and modern rules encode inactive for older decoders. Twenty new Swift contracts and 17 actual CLI dry-run cases pass; full local suite is 244 Swift/105 Python plus release build and lint. Isolated native startup and Modes presentation passed with both permissions ready; normal app/data restored unchanged.",
+      "gap": "Native sheet inspection crashes the automation service while OSpr remains alive. Profile save/restart, editor visual acceptance, real Chrome/Safari metadata, live model/language routing and insertion are unverified. URL lookup can fall back when accessibility metadata is unavailable; no universal browser compatibility or latency SLA is claimed. The verified refinement-v0 ZIP predates this source.",
       "priority": "P1"
     },
     {

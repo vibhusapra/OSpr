@@ -113,7 +113,12 @@ remain available.
   engines. Nemotron can flush final text from its cache; other engines finalize
   from the full recording. Native microphone streaming still needs acceptance QA.
 - Verbatim/basic clean output, vocabulary hints, literal replacements/snippets,
-  spoken punctuation, app-specific modes and selected-text voice editing.
+  spoken punctuation, app/site profiles and selected-text voice editing.
+  Current source adds per-profile local models, recognition language, translation
+  targets and Custom instructions, with deterministic site/path matching and
+  per-take snapshots. The verified `refinement-v0` ZIP predates these profiles;
+  [native acceptance and compatibility limits](docs/architecture/context-profiles.md)
+  are tracked separately.
 - Optional local Qwen3 4B Instruct refinement, Ollama/compatible services, or BYOK
   compatible/Anthropic rewriting. Refinement can change meaning; raw text is kept
   and a conservative preservation check rejects several obvious regressions.
@@ -238,6 +243,7 @@ separate limitation. No secure-erasure guarantee is made.
 .build/debug/ospr-cli models
 .build/debug/ospr-cli download whisper-small
 .build/debug/ospr-cli rewrite 'Um, keep every sentence and number.'
+.build/debug/ospr-cli resolve-profile settings.json com.example.browser https://example.org/team
 ```
 
 The standalone app also includes `Contents/MacOS/ospr-cli`, which discovers its

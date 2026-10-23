@@ -1,0 +1,36 @@
+{
+  "status": "partial-native-presentation",
+  "verified_at": "2026-10-23T21:03:32.003605+00:00",
+  "application_sha256": "5ae7822e80a95992032dd83efc6858699cb68236fb87771cc2a5beea983c2bc4",
+  "checks": {
+    "separate_profile": true,
+    "microphone_and_accessibility_ready": true,
+    "native_app_and_modes_page_opened": true,
+    "app_site_profile_heading_and_add_action_observed": true,
+    "add_action_attempted": true,
+    "editor_sheet_observed": false,
+    "saved_profile_observed": false,
+    "microphone_started": false,
+    "history_records": 0,
+    "audio_retained": 0,
+    "normal_app_restored": true,
+    "normal_settings_and_history_unchanged": true
+  },
+  "boundary": "Native app startup and Modes presentation passed in a separate same-identity profile. On Add profile, native automation disconnected; repeated full AX/screenshot inspections crashed SkyComputerUseService with an Array.remove(at:) assertion. OSpr remained running. The owned disposable QA process was stopped with SIGTERM and normal OSpr reopened through native control. No profile was saved and no microphone, browser URL, live model switch or insertion acceptance is claimed. This does not establish that the editor itself crashed.",
+  "source_build_info": {
+    "version": "0.1.0",
+    "built_at": "2026-10-23T20:58:32.526239+00:00",
+    "git_commit": "2b7c02f2bdf331eac27df0c47b3df5bbb862cbf6",
+    "tracked_changes": false,
+    "application_source_sha256": "1417167dba5c6b4f2e1dedf34c099b771b6bfe490d983703920b025f787093dd",
+    "source_manifest_version": 2,
+    "signing_mode": "ad-hoc",
+    "boundary": "Development build; ad-hoc signature; not notarized; weights downloaded separately."
+  },
+  "qa_adjustments": {
+    "data_directory_isolated": true,
+    "same_identity_development_resign": true,
+    "source_build_signing_mode": "ad-hoc",
+    "qa_signing_mode": "existing Apple Development identity"
+  }
+}
