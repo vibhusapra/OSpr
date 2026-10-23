@@ -64,15 +64,18 @@ A separate Apple Development signed portable candidate at that head passed
 relocated/offline six-engine inference and the existing notes, speaker, audio,
 model-management, CLI review and MCP smokes. Three explicit rewrite examples also
 passed through its bundled Swift CLI/worker from a foreign cwd with hostile
-PYTHONPATH. These are runtime smokes; full hour-file, upload and release-package
-gates have not yet been rerun on that candidate. Its bundled report predates the
-portable and CI receipt updates.
+PYTHONPATH. The candidate subsequently passed both bundled synthetic hour-file regressions,
+all three every-sample 80-minute loopback transports and ZIP CRC/extraction/
+signature/CLI checks. These remain functional regression and transport checks,
+not natural-meeting accuracy or cloud quality. Its bundled report predates the
+final portable, CI and package receipts.
 
 - [Complete before/after outputs and native fallback decisions](../../benchmarks/results/refinement-fidelity-v1.json)
 - [Task and source-selection outputs](../../benchmarks/results/refinement-task-smoke.json)
 - [Build and validation boundary](../../benchmarks/results/refinement-validation.json)
 - [Portable runtime checks](../../benchmarks/results/refinement-portable-app-smoke.json)
 - [Bundled rewrite CLI checks](../../benchmarks/results/refinement-bundled-cli-smoke.json)
+- [Verified preview package](../../benchmarks/results/refinement-release-package.json)
 
 ## Reproduction
 

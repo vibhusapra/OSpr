@@ -24,7 +24,7 @@
     "task_smokes": 8,
     "notes_smokes": 2
   },
-  "boundary": "Local source f8ba4a0 build, protocol, recorded-output fallback and offline model checks; separately, source 3b7ddb0 passed CI and signed portable runtime smoke. The latter contains the same application sources. No native dictation/insertion/selection acceptance, full release-package validation or notarization is claimed. The frozen soniox-v0 ZIP predates this source.",
+  "boundary": "Local source f8ba4a0 build, protocol, recorded-output fallback and offline model checks; separately, source 3b7ddb0 passed CI, signed portable runtime smoke, both bundled synthetic hour-file regressions, all three 80-minute loopback transports and verified ZIP extraction/signatures. The application sources match. No native dictation/insertion/selection acceptance, clean-Mac interactive installation or notarization is claimed.",
   "ci": {
     "status": "passed",
     "head_commit": "3b7ddb0be9b0efdc20ef967cd8b5f66ababf6924",
@@ -46,6 +46,17 @@
     "six_asr_engines": true,
     "rewrite_cli_cases": 3,
     "native_gui": false,
-    "full_release_packaging": false
+    "full_release_packaging": true
+  },
+  "distribution": {
+    "status": "verified-developer-preview",
+    "manifest": "refinement-release-package.json",
+    "manifest_sha256": "815d07f8c518ae9503e1135eb18de106a01a56c5b4b8833514942825245b0446",
+    "zip_sha256": "ae0415014b57769448263e4f97f03f1a8f7f591aec54ecb88213b583e1e33f2e",
+    "bytes": 383227858,
+    "native_interaction_verified": false,
+    "notarized": false,
+    "local_default_device": "Device(gpu, 0)",
+    "metal_available": true
   }
 }
