@@ -37,7 +37,7 @@ struct WorkspaceView: View {
                 VStack(alignment: .leading, spacing: 9) {
                     Label(model.localOnly ? "Local by choice" : "Cloud enabled", systemImage: model.localOnly ? "lock.shield" : "network")
                         .font(.system(size: 12, weight: .medium)).foregroundStyle(model.localOnly ? .green : .orange)
-                    Text("No account. No metering.\nBuilt to belong to you.").font(.caption).foregroundStyle(.secondary).lineSpacing(3)
+                    Text(model.localOnly ? "No account. No metering.\nBuilt to belong to you." : "Your provider, your key.\nProvider charges may apply.").font(.caption).foregroundStyle(.secondary).lineSpacing(3)
                     Text("v0.1 · Apple Silicon").font(.system(size: 10, design: .monospaced)).foregroundStyle(.tertiary)
                 }.padding(12).frame(maxWidth: .infinity, alignment: .leading).background(.quaternary.opacity(0.4), in: RoundedRectangle(cornerRadius: 10))
             }.padding(.horizontal, 18).padding(.bottom, 20).frame(width: 195).background(.regularMaterial)
@@ -200,6 +200,10 @@ struct StudioView: View {
                         VStack(alignment: .leading, spacing: 12) {
                             HStack { Text("Your latest words").font(.headline); Spacer(); Text(record.date, style: .time).font(.caption).foregroundStyle(.secondary) }
                             Text(record.text).font(.system(size: 15)).lineSpacing(5).lineLimit(5).textSelection(.enabled)
+                            if let warning = record.warning {
+                                Label(warning, systemImage: "exclamationmark.triangle")
+                                    .font(.caption).foregroundStyle(.orange).textSelection(.enabled)
+                            }
                             HStack { Button("Copy text") { model.copy(record.text) }; Button("Open in history") { model.tab = "History" }; Spacer(); Text(record.mode.title).font(.caption).foregroundStyle(.secondary) }
                         }
                     }
