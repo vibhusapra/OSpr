@@ -1,0 +1,32 @@
+{
+  "status": "validated-research-only-default-runtime-retained",
+  "timestamp": "2026-10-24T06:59:28.063473+00:00",
+  "versions": {
+    "torch": "2.14.1",
+    "transformers": "5.20.2",
+    "mlx-audio": "0.6.1",
+    "mlx": "0.32.4"
+  },
+  "upstream_source_sha256": {
+    "transformers/models/whisper/feature_extraction_whisper.py": "dcce2e7820be059e657a9e12a60e8a55cfd37b1a82ee202ca15fc7d0934374cb",
+    "mlx_audio/stt/models/qwen3_asr/qwen3_asr.py": "2d9aaadea36945b0c7ada65fec12eaa5ff378628b6d3030aac54b5698a165da1"
+  },
+  "default_runtime_changed": false,
+  "shipping_models_removed": 0,
+  "new_distribution": false,
+  "checked_delivery_source": "3feaf65bf771b3a67beceea7a3d74651bd8f2d1d",
+  "checks": {
+    "smoke_requests": 30,
+    "broader_requests": 422,
+    "broader_transcription_requests": 404,
+    "api_errors": 0,
+    "source_pcm_checks": 202,
+    "broader_text_pairs": 204,
+    "identical_broader_text_pairs": 203,
+    "multilingual_text_matches": 52,
+    "nonspeech_text_matches": 30,
+    "diagnostic_recognizer_calls": 6,
+    "independently_recomputed_upstream_frontends": 2
+  },
+  "boundary": "Research validation, not default/package promotion. Independent source/PCM/edit-distance checks and upstream Torch/NumPy feature recomputation pass. A Qwen name regression persists with NumPy and a SciPy F32 trial; full Torch runtime remains in the checked delivery. Duplicate preprocessing is observed but not optimized in production by this study. No native interaction, top-three ranking, latency/energy or calibrated memory improvement claim."
+}

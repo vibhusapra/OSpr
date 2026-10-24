@@ -2,6 +2,29 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## Runtime footprint research: Torch retained after a name regression
+
+Branch `codex/runtime-footprint` leaves the checked streaming-v0 app and all six
+shipping choices intact. A RECORD-filtered symlink runtime omits Torch while
+keeping the actual bundled Python/backend and all other modules identical.
+Thirty smoke API calls pass. The frozen broader replay completes **422 requests**
+(404 file-transcription requests plus warm/feature routes), zero API errors;
+203/204 text pairs match, including all 52 multilingual and 30 nonspeech pairs.
+Qwen changes `Nelly` to `Nellie` on one known English clip: errors 11→12 / 419
+words, WER **2.63%→2.86%**. The independent source/PCM/edit-distance checker passes
+and retains the regression. No reduced package or default change is promoted.
+
+The same-model six-call frontend diagnostic reproduces the spelling change twice
+per backend. Torch yields `Nelly`; NumPy and a SciPy F32 trial yield `Nellie`.
+The upstream F32 feature maximum difference is 1.2636185e-5, independently
+recomputed without loading recognizer weights. Two identical feature extractions
+per request are observed; the pinned generator repeats work for prompt-token
+accounting. Reusing the existing frontend is a separate next optimization gate.
+Torch-owned current ZIP entries contribute 124,925,792 compressed bytes, but no
+smaller distributable, calibrated memory/energy or latency win is claimed.
+See `runtime-footprint-full.json`, its raw traces/checker,
+`qwen-frontend-precision.json` and `docs/architecture/runtime-footprint.md`.
+
 ## Checked streaming preview: source 3feaf65
 
 `dist/streaming-v0/OSpr.app` and its separate arm64/macOS 26.6.2 ZIP include the

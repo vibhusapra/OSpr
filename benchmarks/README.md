@@ -578,3 +578,21 @@ previews are preserved. Apple Development signing does not provide notarization.
 This invokes the exact bundle's real MCP server on original and -40 dB public
 German speech against known full-audio text/PCM controls, plus exact-zero input.
 The pinned MCP client uses `is_error`. Native UI/capture is not exercised.
+
+## Runtime footprint and frontend sensitivity
+
+```sh
+.venv/bin/python benchmarks/runtime_footprint.py --app dist/streaming-v0/OSpr.app --output .local/runtime-footprint-smoke.json
+.venv/bin/python benchmarks/runtime_footprint.py --app dist/streaming-v0/OSpr.app --protocol benchmarks/fixtures/runtime-footprint-full-protocol.json --output .local/runtime-footprint-full.json
+PYTHONPATH=backend .venv/bin/python benchmarks/verify_runtime_footprint.py --result .local/runtime-footprint-full.json --protocol benchmarks/fixtures/runtime-footprint-full-protocol.json --output .local/runtime-footprint-full-checks.json
+PYTHONPATH=backend HF_HUB_OFFLINE=1 .venv/bin/python benchmarks/qwen_frontend_precision.py --output .local/qwen-frontend-precision.json
+PYTHONPATH=backend HF_HUB_OFFLINE=1 .venv/bin/python benchmarks/verify_qwen_frontend_precision.py --result .local/qwen-frontend-precision.json --output .local/qwen-frontend-precision-checks.json
+```
+
+These are isolated research probes, not a reduced package. Torch absence preserves
+all smoke features and 203/204 broader text pairs but changes one Qwen proper name,
+raising its twenty-clip English WER from 2.63% to 2.86%. All 52 multilingual and
+30 nonspeech outputs match; zero API errors across 422 requests. A same-model
+diagnostic reproduces the spelling change with the alternative feature backends.
+The checked app/default runtime remains untouched. Every output and an independent
+PCM/edit-distance checker remain public. See `docs/architecture/runtime-footprint.md`.
