@@ -138,7 +138,11 @@ struct StudioView: View {
                             Button("Discard recording", role: .destructive) { model.cancel() }.buttonStyle(.plain).font(.caption)
                         }
                         Divider()
-                        if let seconds = model.countdownSeconds {
+                        if model.recordingDesktop {
+                            Label("Verbatim · the complete recording is transcribed at finish", systemImage: "doc.text")
+                                .font(.caption).foregroundStyle(.secondary)
+                        } else {
+                          if let seconds = model.countdownSeconds {
                             HStack {
                                 Text("Starting in \(seconds)… Focus the field where you want to dictate.").font(.caption)
                                 Spacer()
@@ -160,15 +164,20 @@ struct StudioView: View {
                             Spacer()
                             Button { model.importFiles() } label: { Label("Import files", systemImage: "arrow.down.doc") }.disabled(model.busy)
                         }
+                        }
                     }
                 }
                 Card {
                     VStack(alignment: .leading, spacing: 12) {
                         Label("Desktop audio · experimental", systemImage: "person.2.wave.2").font(.headline)
                         Text("Record desktop sound, with an optional microphone track. Up to one hour per take. Audio stays local; no video is stored. macOS 15+, system audio permission and FFmpeg are required. Use headphones to reduce speaker bleed; echo cancellation is not included.").font(.caption).foregroundStyle(.secondary)
-                        if model.recordingDesktop && !model.preview.isEmpty {
+                        if model.recordingDesktop && model.settings.preview {
                             Text(model.meetingPreviewTitle).font(.caption.weight(.semibold)).foregroundStyle(.secondary)
-                            ScrollView { Text(model.preview).frame(maxWidth: .infinity, alignment: .leading).textSelection(.enabled) }
+                            ScrollView {
+                                Text(model.preview.isEmpty ? "Listening for speech…" : model.preview)
+                                    .frame(maxWidth: .infinity, alignment: .leading).textSelection(.enabled)
+                                    .foregroundStyle(model.preview.isEmpty ? Color.secondary : Color.primary)
+                            }
                                 .frame(height: 180)
                         }
                         HStack {

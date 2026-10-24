@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-10-23",
+  "as_of": "2026-10-24",
   "release": "Developer preview; not full union parity",
   "items": [
     {
@@ -272,8 +272,15 @@
       "feature": "Bot-free system/meeting audio capture",
       "status": "experimental",
       "evidence": "ScreenCaptureKit desktop audio and optional separate microphone track on macOS 15+. Timestamp-preserving FFmpeg mix, PCM conversion/gap/tail tests, raw-track recovery and partial-capture warnings.",
-      "gap": "Physical desktop-audio permission, playback capture, route loss, echo and end-to-end acceptance are untested. Requires local FFmpeg. One-hour capture cap. Meeting recognition runs after stop; no live meeting transcript yet.",
+      "gap": "Physical desktop-audio permission, playback capture, route loss, echo and end-to-end acceptance are untested. Requires local FFmpeg. One-hour capture cap. Source now supports optional live drafts with an independent complete final transcription; this is not yet in the checked distribution.",
       "priority": "P1"
+    },
+    {
+      "feature": "Live meeting transcript",
+      "status": "experimental",
+      "priority": "P1",
+      "evidence": "Opt-in native desktop/microphone draft mix with bounded FIFOs, clock offsets, continuous per-source AVAudioConverter, 500 ms reorder budget and visible failure isolation. Nemotron continuous draft or other models rolling 12 seconds. 21 new mixer/pipeline/AppModel tests. Three real local-ASR file replays preserve all 962,000 samples exactly against whole-track Apple conversion and across packet schedules; final text is invariant per model.",
+      "gap": "Source-only; physical ScreenCaptureKit/microphone/device/stop acceptance remains. Preview is provisional and has no live speaker labels; final transcription independently decodes full durable audio. Extra compute, fixed half gain in duplex mode, no echo cancellation, no consumer latency/energy/top-three claim."
     },
     {
       "feature": "Speaker diarization",

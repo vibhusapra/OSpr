@@ -2,6 +2,52 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## Live meeting drafts: source implementation and replay pass
+
+The `codex/meeting-live-preview` branch closes the prior post-stop-only source
+feature gap. Desktop recordings can opt into Live preview: Nemotron provides a
+continuous provisional draft, and other local models refresh the last twelve
+seconds. The meeting card labels that difference, reserves a bounded scrollable
+transcript, and retains Finish meeting outside it. The active take explicitly
+shows Verbatim and complete final recognition. Offscreen idle/long-draft renders
+were inspected; these are simulated layout fixtures, not physical capture tests.
+
+Original source buffers go to durable tracks before the optional draft mixer.
+Native-rate FIFOs, persistent source resamplers, sparse clock gaps and a 500 ms
+reordering budget keep audio bounded. Preview backlog or conversion failure
+warns without interrupting raw capture. Stop waits for admitted worker packets,
+cancels only its own draft stream, and independently recognizes the complete
+mixed recovery. Final ASR failure keeps that audio for retry.
+
+All **331 Swift / 248 Python tests** pass, including 21 new targeted mixer,
+pipeline and lifecycle contracts. A frozen public-file replay at source
+`b90d92c` uses simulated 44.1/48 kHz sources and a 125 ms offset. Three varied
+partition/cadence/delivery schedules preserve **962,000 samples exactly** against
+an independent whole-track Apple conversion and one another. Cached local
+Nemotron consumes every draft packet; independent full-file final recognition
+is text-invariant for both Nemotron and Parakeet. Descriptive conservative WER
+is 3/54 (5.56%) and 4/54 (7.41%) respectively. Three deliberately corrupted
+receipts are independently rejected. One repeated English speaker is not a
+natural-meeting quality or latency benchmark.
+
+The initial reference test failed before ASR: SciPy and Apple conversion filters
+produce different waveforms (maximum difference 0.1161, relative RMS 12.86%).
+That failure is retained, not erased or passed by relaxing its threshold. The
+revised protocol measures packet preservation against whole-track Apple
+conversion; differences from original PCM remain visible without a quality claim.
+An initial reference-helper end-of-stream drain failure is also retained.
+
+See `meeting-preview-real-v3.json`, every raw response, independent checks,
+`meeting-preview-reference-attempt.json` and
+`docs/architecture/meeting-live-preview.md`. No running app/settings/history,
+volume, microphone capture or approved player state changed in these tests.
+
+Remaining work: physical live desktop/microphone capture, route changes, stop
+interaction and echo checks; then exact-bundle replay and distribution gates.
+No checked-package promotion, full feature-union or top-three claim. Native
+insertion/shortcut acceptance and the single pending audible-test confirmation
+remain separate. The broader goal stays active.
+
 ## Native TextEdit delivery observed; audible reference test still open
 
 Finder's normal Open Finder item action activates TextEdit during countdown, and

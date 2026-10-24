@@ -35,7 +35,8 @@ cover raw-track independence, private packet export and capture failure prefixes
 Eight AppModel tests use the real WorkerClient with an isolated stdlib Python
 fixture worker; they check incremental/rolling modes, failed preview, missing
 session IDs, in-flight stop, generation replacement and final-error recovery.
-They do not request microphone or ScreenCaptureKit permissions.
+They do not request microphone or ScreenCaptureKit permissions. The complete
+local suites pass 331 Swift and 248 Python tests.
 
 `benchmarks/meeting_preview.py` and its frozen protocol replay two attributed
 public LibriSpeech clips through the production Swift mixer at 44.1 and 48 kHz,
@@ -49,3 +50,35 @@ peak memory, overlap quality or natural meeting accuracy.
 Physical desktop/system-audio/microphone capture, permission handling, route
 changes, echo, preview-to-stop interaction and clean-Mac acceptance remain open.
 This source change is not a checked distribution or full parity/top-three claim.
+
+## Frozen real replay
+
+Source `b90d92c97c95043c80b256af32803b81418bdcd3` produces three 60.125-second
+mixes, each 962,000 frames. Across 187, 188 and 21 draft packets, concatenated PCM
+is exactly equal to a separate whole-track AVAudioConverter path and across
+partitions. All source FIFOs drain. Logical Float sample capacity is 1,681,200
+(6,724,800 bytes) for the 44.1/48 kHz duplex case; this excludes AVAudioConverter,
+metadata, capture sink buffers, WAV snapshots, ASR and process peak memory.
+
+Independent checks re-read every file, verify source/lock/binary/trace hashes,
+recompute conservative word edit distance, and reject wrong scores, dropped
+packet events and reversed route order. Independent complete-file text is
+invariant across schedules for each model: Nemotron 3/54 errors (5.56% WER),
+Parakeet 4/54 (7.41%). These are two short clips, repeated once each, by one
+speaker without overlapping speech. Stream final flushing is diagnostic only.
+
+The original reference gate compared SciPy-upsampled/Apple-downsampled PCM
+against the unfiltered original and failed before ASR. Maximum sample difference
+is 0.1160975; relative RMS difference is 12.864%. This remains reported in every
+successful replay. The revised check compares packet preservation with whole
+Apple conversion, without claiming transparent resampling quality. An initial
+whole-track helper incorrectly expected endOfStream in one conversion call;
+it now drains explicitly. Both failed attempts are indexed publicly.
+
+Receipts: [replay](../../benchmarks/results/meeting-preview-real-v3.json),
+[raw replies](../../benchmarks/results/meeting-preview-real-v3.traces.json.gz),
+[independent checks](../../benchmarks/results/meeting-preview-checks.json),
+[rejected reference attempts](../../benchmarks/results/meeting-preview-reference-attempt.json),
+[mutated receipt controls](../../benchmarks/results/meeting-preview-verifier-controls.json).
+[Layout fixture](../assets/meeting-preview-layout.png) is a render of actual
+SwiftUI source with simulated state, not native capture/recognition evidence.

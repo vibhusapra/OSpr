@@ -1,0 +1,66 @@
+{
+  "status": "verified-public-file-production-mix-and-asr",
+  "study_commit": "b90d92c97c95043c80b256af32803b81418bdcd3",
+  "receipt_sha256": "2941b794392dc3f092c30365a7cf3b07815fbfada485a4acd05c05526502ef83",
+  "traces_sha256": "c955d48adef9c0b531a37939025f1beb0515ace279168bfb4ccaf4d527cf0ada",
+  "verifier_sha256": "1f09093701353c599e8979c4195e7810ac3acd73805e9d71a00cdbc5a5f6ddba",
+  "source_and_lock_checks": true,
+  "exact_whole_track_pcm": true,
+  "exact_packet_partition_pcm": true,
+  "complete_tail": true,
+  "independently_scored": true,
+  "variants": [
+    {
+      "id": "regular-320ms",
+      "packets": 187,
+      "samples": 962000,
+      "scores": {
+        "nemotron-streaming": {
+          "errors": 3,
+          "words": 54,
+          "wer": 0.05555555555555555
+        },
+        "parakeet-v3": {
+          "errors": 4,
+          "words": 54,
+          "wer": 0.07407407407407407
+        }
+      }
+    },
+    {
+      "id": "varied-320ms",
+      "packets": 188,
+      "samples": 962000,
+      "scores": {
+        "nemotron-streaming": {
+          "errors": 3,
+          "words": 54,
+          "wer": 0.05555555555555555
+        },
+        "parakeet-v3": {
+          "errors": 4,
+          "words": 54,
+          "wer": 0.07407407407407407
+        }
+      }
+    },
+    {
+      "id": "varied-3s",
+      "packets": 21,
+      "samples": 962000,
+      "scores": {
+        "nemotron-streaming": {
+          "errors": 3,
+          "words": 54,
+          "wer": 0.05555555555555555
+        },
+        "parakeet-v3": {
+          "errors": 4,
+          "words": 54,
+          "wer": 0.07407407407407407
+        }
+      }
+    }
+  ],
+  "boundary": "Unpaced native production mix from two public read-English clips by one speaker, placed without speech overlap on simulated 44.1/48 kHz sources. Three partition/cadence/delivery schedules, half gain per source and 125 ms source offset. Cached Nemotron receives every draft packet; its final stream flush is diagnostic only. The app cancels provisional draft and independently recognizes the complete durable mix. No microphone, ScreenCaptureKit, UI, physical stop, latency, peak-memory, energy, diarization, echo or broad natural-meeting quality claim. Whole-track AVAudioConverter comparison checks packet preservation. SciPy-to-Apple roundtrip differences are reported without a threshold; ASR WER is descriptive, not an accuracy acceptance threshold. No candidate/default/distribution promotion from this replay."
+}
