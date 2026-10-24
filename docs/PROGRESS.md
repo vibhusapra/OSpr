@@ -11,13 +11,29 @@ before recognizer outputs: twenty English, fifty FLEURS in five languages and
 five synthetic nonspeech controls, full-file plus 320 ms packet routes. No
 shipping model/default changes; full-audio-v0 remains the checked preview.
 
-The weight download is live. The weight-free mel diagnostic completes twenty
-partition cases: all shapes match, eighteen exceed the fixed 2e-5 tolerance,
-maximum difference 2.0528e-4. This numerical failure does not establish ASR harm;
-the threshold is retained and complete text evaluation is pending. Buffer
-retention is recorded. A benchmark filename that shadowed standard-library
-`statistics` is renamed, repairing the model-import path. Lint passes. Native
+The pinned weight download and all file hashes verify. Compatibility smoke passes
+both routes with identical text. The complete study performs **150 recognizer
+calls**, no API errors or early completions; all 150 normalized sample/hash checks
+and independent WER/CER calculations pass. Seventy of 75 text pairs are identical.
+One quiet Japanese source (`fleurs-ja_jp-005`, original RMS 0.00107) returns empty
+in both modes. All five raw nonspeech controls stay empty in both modes.
+
+English WER is 2.86% for both paths on twenty known clips; median first-partial
+input position is 1.60 s and final flush is about 371 ms. This is not microphone
+latency or an established win over the earlier Nemotron replay (1.28 s / 14.7 ms,
+with a different driver and explicit English hint). Group WER/CER and every
+partial remain published. Peak MLX allocation is 6,024,226,688 bytes, not total
+process RAM. Raw/adapter retention still needs bounded integration work.
+
+The standalone mel diagnostic completes twenty partition cases: all shapes
+match, eighteen exceed fixed tolerance 2e-5, maximum difference 2.0528e-4. The
+threshold is retained; this numerical failure alone does not establish ASR harm.
+The unchanged speaker-bootstrap producer is renamed to avoid shadowing Python's
+standard-library statistics during model imports. Lint passes; app-source CI at
+`df0e19c` is green. No shipping model/default or new ZIP promotion. Native
 restoration/interaction still requires an unlocked Mac.
+See `voxtral-study.json`, its traces/checker, `voxtral-source-validation.json` and
+`docs/architecture/voxtral-realtime-evaluation.md`.
 
 ## Previous work: preserve quiet audio by default
 

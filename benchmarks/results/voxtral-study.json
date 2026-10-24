@@ -1,0 +1,310 @@
+{
+  "status": "completed-research-not-shipping-promotion",
+  "timestamp": "2026-10-24T03:39:18.655302+00:00",
+  "git_commit": "df0e19c6c0aaa050ce548a65be58bd0de8204e1d",
+  "tracked_changes": false,
+  "phase": "study",
+  "model": {
+    "repo": "mlx-community/Voxtral-Mini-4B-Realtime-2602-4bit",
+    "revision": "fdebf7b2af834a1db4b8a3c99ab7480b333adf9e",
+    "required_files": {
+      "config.json": {
+        "bytes": 1513,
+        "sha256": "02060864a4f33df5e4944684fc17f3026af4011830cac4def6e9e025315b10c5"
+      },
+      "model.safetensors.index.json": {
+        "bytes": 118632,
+        "sha256": "80f68b80cf4b1638d864d1504061a266f59e37a8d90d7b20f2e1f30c2d034c2e"
+      },
+      "tekken.json": {
+        "bytes": 14910348,
+        "sha256": "8434af1d39eba99f0ef46cf1450bf1a63fa941a26933a1ef5dbbf4adf0d00e44"
+      },
+      "README.md": {
+        "bytes": 3135,
+        "sha256": "022af0f470bbb2036d1d8fea62118d1d14f64b9cbb38415004544990e653f99e"
+      },
+      "model.safetensors": {
+        "bytes": 3133798126,
+        "sha256": "6f59b425d8a1ceb2de795454558be63937cf75b59f9c9bc77accd85aaf32af05"
+      }
+    },
+    "license": "Apache-2.0",
+    "research_only": true
+  },
+  "protocol_sha256": "6812cda1d94c0e62da6ccb7dc9f287c21fe7570be6fa3c61f110b88f5cd72f98",
+  "harness_sha256": "387edae6cc336de4a699d10667367b3993158bd96c8db7a86fd55e9356c33ba5",
+  "dependency_lock_sha256": "8e306569ebe63c886e9938d06c2e0a6e39d661de20e116a1998321dbfd14a6d2",
+  "installed_adapter_sha256": {
+    "__init__.py": "1b25422856ce5457bfc048948e34c497990c7c7b8dee466adf19cb023eef5ca4",
+    "audio.py": "2e4cafbc0f60be91d43915fee3a2c2fd2dcca808b582d72084ccb32228d4fe84",
+    "config.py": "6a0e0c6d6a5f216770acce641016e546d6dab5bfcd1c47c0751aae060c7830bc",
+    "decoder.py": "b6c79dd0a58d30a4e9c29add6b15ee826126c02477c26dc77f73cae7b7857f51",
+    "encoder.py": "e1508c37d4c6ee5972fdcc82cdc0f95ae159b764ba2ad69fb1327f4049df1048",
+    "streaming.py": "77ce2b0e17777a0b15ecdfdc3c91dd8fbf3d5d1f68d03768fcf270f07854d971",
+    "tokenizer.py": "d61590f97440ba191f7a1ac6f6078c10c195687da6c47995d393a412d904b6a7",
+    "voxtral_realtime.py": "42f9a41c391da85629e8a6b3aa12c8a0b9af0372692d941601719541366879ff"
+  },
+  "host": {
+    "machine": "arm64",
+    "macos": "26.6.2",
+    "device": "Device(gpu, 0)"
+  },
+  "load_ms": 202.93491589836776,
+  "options": {
+    "transcription_delay_ms": 480,
+    "temperature": 0.0,
+    "max_tokens": 4096,
+    "packet_samples": 5120,
+    "step_max_decode_tokens": 256,
+    "final_timeout_seconds": 60
+  },
+  "cases": 75,
+  "actual_routes": 150,
+  "errors": 0,
+  "early_stream_completions": 0,
+  "summary": {
+    "offline": {
+      "fleurs-cmn_hans_cn": {
+        "cases": 10,
+        "errors": 0,
+        "wer": 0.9970059880239521,
+        "cer": 0.10626702997275204,
+        "substitutions": 11,
+        "deletions": 322,
+        "insertions": 0,
+        "p50_ms": 2778.87893805746,
+        "p95_ms": 4818.548414250835,
+        "aggregate_rtf": 0.25511846347034345,
+        "hallucinated_silence": 0
+      },
+      "fleurs-de_de": {
+        "cases": 10,
+        "errors": 0,
+        "wer": 0.040983606557377046,
+        "cer": 0.012048192771084338,
+        "substitutions": 9,
+        "deletions": 1,
+        "insertions": 0,
+        "p50_ms": 2740.985875017941,
+        "p95_ms": 6628.894566954108,
+        "aggregate_rtf": 0.21602963183544988,
+        "hallucinated_silence": 0
+      },
+      "fleurs-es_419": {
+        "cases": 10,
+        "errors": 0,
+        "wer": 0.02127659574468085,
+        "cer": 0.005998286203941731,
+        "substitutions": 4,
+        "deletions": 1,
+        "insertions": 0,
+        "p50_ms": 2376.961500500329,
+        "p95_ms": 3803.9330541156214,
+        "aggregate_rtf": 0.22820414466020655,
+        "hallucinated_silence": 0
+      },
+      "fleurs-hi_in": {
+        "cases": 10,
+        "errors": 0,
+        "wer": 0.2397003745318352,
+        "cer": 0.08455882352941177,
+        "substitutions": 56,
+        "deletions": 2,
+        "insertions": 6,
+        "p50_ms": 2490.331375040114,
+        "p95_ms": 3399.169089167844,
+        "aggregate_rtf": 0.21451953316644354,
+        "hallucinated_silence": 0
+      },
+      "fleurs-ja_jp": {
+        "cases": 10,
+        "errors": 0,
+        "wer": 1.0,
+        "cer": 0.1038374717832957,
+        "substitutions": 9,
+        "deletions": 15,
+        "insertions": 0,
+        "p50_ms": 2435.8897500205785,
+        "p95_ms": 2838.5782649274915,
+        "aggregate_rtf": 0.21444822564290822,
+        "hallucinated_silence": 0
+      },
+      "librispeech-test-clean": {
+        "cases": 20,
+        "errors": 0,
+        "wer": 0.028639618138424822,
+        "cer": 0.003045685279187817,
+        "substitutions": 8,
+        "deletions": 4,
+        "insertions": 0,
+        "p50_ms": 1829.773333040066,
+        "p95_ms": 3533.6570663377643,
+        "aggregate_rtf": 0.22316537926035285,
+        "hallucinated_silence": 0
+      },
+      "synthetic-negative": {
+        "cases": 5,
+        "errors": 0,
+        "wer": null,
+        "cer": null,
+        "substitutions": null,
+        "deletions": null,
+        "insertions": null,
+        "p50_ms": 1471.075417008251,
+        "p95_ms": 1507.8063828870654,
+        "aggregate_rtf": 0.29502476332709193,
+        "hallucinated_silence": 0
+      }
+    },
+    "stream": {
+      "fleurs-cmn_hans_cn": {
+        "cases": 10,
+        "errors": 0,
+        "wer": 0.9970059880239521,
+        "cer": 0.10626702997275204,
+        "substitutions": 11,
+        "deletions": 322,
+        "insertions": 0,
+        "p50_ms": 4121.819561929442,
+        "p95_ms": 5643.703545618337,
+        "aggregate_rtf": 0.3410116546678532,
+        "hallucinated_silence": 0
+      },
+      "fleurs-de_de": {
+        "cases": 10,
+        "errors": 0,
+        "wer": 0.036885245901639344,
+        "cer": 0.009213323883770375,
+        "substitutions": 8,
+        "deletions": 1,
+        "insertions": 0,
+        "p50_ms": 3754.77897899691,
+        "p95_ms": 9727.234683686394,
+        "aggregate_rtf": 0.30947401835321886,
+        "hallucinated_silence": 0
+      },
+      "fleurs-es_419": {
+        "cases": 10,
+        "errors": 0,
+        "wer": 0.02127659574468085,
+        "cer": 0.005998286203941731,
+        "substitutions": 4,
+        "deletions": 1,
+        "insertions": 0,
+        "p50_ms": 3498.3019791543484,
+        "p95_ms": 5544.477858068419,
+        "aggregate_rtf": 0.32870054995227194,
+        "hallucinated_silence": 0
+      },
+      "fleurs-hi_in": {
+        "cases": 10,
+        "errors": 0,
+        "wer": 0.2397003745318352,
+        "cer": 0.08455882352941177,
+        "substitutions": 56,
+        "deletions": 2,
+        "insertions": 6,
+        "p50_ms": 3654.660416417755,
+        "p95_ms": 4962.537548248655,
+        "aggregate_rtf": 0.31264191672870734,
+        "hallucinated_silence": 0
+      },
+      "fleurs-ja_jp": {
+        "cases": 10,
+        "errors": 0,
+        "wer": 1.0,
+        "cer": 0.1038374717832957,
+        "substitutions": 9,
+        "deletions": 15,
+        "insertions": 0,
+        "p50_ms": 3445.676729083061,
+        "p95_ms": 4100.997170910705,
+        "aggregate_rtf": 0.30554653117570296,
+        "hallucinated_silence": 0
+      },
+      "librispeech-test-clean": {
+        "cases": 20,
+        "errors": 0,
+        "wer": 0.028639618138424822,
+        "cer": 0.003045685279187817,
+        "substitutions": 8,
+        "deletions": 4,
+        "insertions": 0,
+        "p50_ms": 2555.5443541379645,
+        "p95_ms": 4919.9027793016285,
+        "aggregate_rtf": 0.3156522267093977,
+        "hallucinated_silence": 0
+      },
+      "synthetic-negative": {
+        "cases": 5,
+        "errors": 0,
+        "wer": null,
+        "cer": null,
+        "substitutions": null,
+        "deletions": null,
+        "insertions": null,
+        "p50_ms": 2227.056083967909,
+        "p95_ms": 2283.868416491896,
+        "aggregate_rtf": 0.4484671916719526,
+        "hallucinated_silence": 0
+      }
+    }
+  },
+  "stream_timings": {
+    "fleurs-cmn_hans_cn": {
+      "cases": 10,
+      "early_completions": 0,
+      "p50_first_partial_audio_ms": 3040.0,
+      "p50_final_flush_ms": 426.93383304867893,
+      "max_step_ms": 351.0185410268605
+    },
+    "fleurs-de_de": {
+      "cases": 10,
+      "early_completions": 0,
+      "p50_first_partial_audio_ms": 2880.0,
+      "p50_final_flush_ms": 414.97772897128016,
+      "max_step_ms": 340.84104211069643
+    },
+    "fleurs-es_419": {
+      "cases": 10,
+      "early_completions": 0,
+      "p50_first_partial_audio_ms": 2880.0,
+      "p50_final_flush_ms": 411.6919171065092,
+      "max_step_ms": 311.53249996714294
+    },
+    "fleurs-hi_in": {
+      "cases": 10,
+      "early_completions": 0,
+      "p50_first_partial_audio_ms": 2240.0,
+      "p50_final_flush_ms": 384.7261455375701,
+      "max_step_ms": 593.4194589499384
+    },
+    "fleurs-ja_jp": {
+      "cases": 10,
+      "early_completions": 0,
+      "p50_first_partial_audio_ms": 3200.0,
+      "p50_final_flush_ms": 378.4969795960933,
+      "max_step_ms": 207.21120783127844
+    },
+    "librispeech-test-clean": {
+      "cases": 20,
+      "early_completions": 0,
+      "p50_first_partial_audio_ms": 1600.0,
+      "p50_final_flush_ms": 370.63352111727,
+      "max_step_ms": 205.13374987058342
+    },
+    "synthetic-negative": {
+      "cases": 5,
+      "early_completions": 0,
+      "p50_first_partial_audio_ms": null,
+      "p50_final_flush_ms": 453.0586658511311,
+      "max_step_ms": 345.12454201467335
+    }
+  },
+  "p50_first_partial_audio_ms": 2560.0,
+  "p50_final_flush_ms": 391.4587500039488,
+  "traces_file": "voxtral-study.traces.json.gz",
+  "traces_sha256": "84dbc5dfc3dab6b46b671cdffc943de989ecdf4168cfe1c0d5ab50f4d6515bb8",
+  "boundary": "Fixed known-input research replay: first twenty previously used test-clean clips, all fifty existing FLEURS clips in five supported languages, five prior synthetic nonspeech controls. No model selection or held-out quality claim. No speech filtering or language hints. Streaming packets are unpaced; first partial audio position is separate from compute time and is not microphone or word-relative latency. No shipping model/default change."
+}

@@ -1,0 +1,38 @@
+{
+  "status": "passed-source-samples-and-recomputed-metrics-not-quality-promotion",
+  "verifier_sha256": "aed094055817359669752acf83ea6a8e1df17b9e93fe85d885c8ae9d17378e6e",
+  "source_result_sha256": "df7861ad9873f82154dcbc541fecc1f96115f75e2ce266b79a6e852190a6f028",
+  "protocol_sha256": "6812cda1d94c0e62da6ccb7dc9f287c21fe7570be6fa3c61f110b88f5cd72f98",
+  "source_route_checks": 2,
+  "identical_text_pairs": 1,
+  "pairs": 1,
+  "metrics": {
+    "offline": {
+      "human-clean": {
+        "cases": 1,
+        "wer": 0.058823529411764705,
+        "cer": 0.0547945205479452,
+        "word_errors": 1,
+        "word_units": 17,
+        "character_errors": 4,
+        "character_units": 73,
+        "nonempty_negatives": 0
+      }
+    },
+    "stream": {
+      "human-clean": {
+        "cases": 1,
+        "wer": 0.058823529411764705,
+        "cer": 0.0547945205479452,
+        "word_errors": 1,
+        "word_units": 17,
+        "character_errors": 4,
+        "character_units": 73,
+        "nonempty_negatives": 0
+      }
+    }
+  },
+  "errors": 0,
+  "spoken_empty_outputs": 0,
+  "boundary": "Independent two-row Levenshtein distance verifies aggregate WER/CER, using the same frozen normalization convention. Source files and normalized sample/PCM hashes match on every route. Append-only partials, first-partial positions, accepted counts and raw-buffer retention are checked. A passing evidence check does not promote quality, latency or app integration."
+}
