@@ -1,0 +1,35 @@
+{
+  "status": "passed-source-and-separate-development-package-native-pending",
+  "application_commit": "7e85e12541206c577752ec03a85044f786f7a363",
+  "application_source_sha256": "02133f7bc2cdbac6283368f887c44b84cccca043edc57a773e059eeb8240669b",
+  "local": {
+    "swift_tests": 356,
+    "python_tests": 248,
+    "ruff": true,
+    "new_transport_tests": 9,
+    "transport_scope": "Controlled native outcomes; no real editor, paste event or microphone"
+  },
+  "ci": {
+    "run_id": 40092596085,
+    "job_id": 120868170956,
+    "conclusion": "success",
+    "url": "https://github.com/vibhusapra/OSpr/actions/runs/40092596085",
+    "swift_tests": 356,
+    "python_tests": 248,
+    "bundled_help_links": 227
+  },
+  "native": {
+    "status": "awaiting-manual-macos-unlock",
+    "observation": "Native control reports locked and cannot unlock automatically despite earlier focus-ready reply; existing unlock request pending.",
+    "qa_candidate_launched": false,
+    "owned_public_target_prepared": true,
+    "manual_unlock_question_pending": true,
+    "no_recording_or_playback": true,
+    "no_sound_setting_changed": true,
+    "normal_persisted_data_unchanged": true,
+    "normal_app_process_still_exact_standalone": true
+  },
+  "package_manifest_sha256": "2b21b00ee0d9667473e58b59e732488071b7072dbf40522e348b9fb11d287942",
+  "portable_receipt_sha256": "20d5c514781b01864df22de7092890733d97fe6433451ccd1b8525cbbc812b6f",
+  "boundary": "Source orchestrator, archive and portable runtime validation only. No live TextEdit/browser/slow-app insertion, added IPC latency, physical Fn/PTT/device, microphone-to-insertion, consumer ranking or release acceptance. Normal app/data and older candidates preserved. Existing temporary sound-confirmation question is separate; no playback/unmute needed for this component test."
+}

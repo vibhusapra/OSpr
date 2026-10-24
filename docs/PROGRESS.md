@@ -19,6 +19,18 @@ routes, errors/unknown codes, focus changes during requests and cancellation.
 The full local suites pass **356 Swift / 248 Python tests** and Ruff. Native editor
 behavior and added IPC latency remain unmeasured while the Mac is locked.
 The older signed `0aff573` self-test candidate is preserved and lacks this guard.
+Source `7e85e12` CI 40092596085 passes the matching 356/248 tests, app/report,
+227 bundled help links and clean-runner runtime. Its separate Apple Development
+signed candidate is `dist/insertion-delivery-guard-v0/OSpr.app`; the ZIP is
+394,427,049 bytes, SHA-256
+`faf3be0a904e56af9ffd03102e9ad8266d563e665bfc733c3382d5e753c2f7ae`.
+Relocated offline six-engine/neural/extras, archive CRC/extraction/signatures,
+identical executables, extracted offline CLI and license checks pass. The bundled
+report is the source snapshot before final receipts. Only the explicit profile
+Info key differs in the re-signed QA copy, which has not been launched. Normal
+data hashes and the running exact standalone app are unchanged. No recording,
+playback, sound change or target mutation occurred. See the three
+`insertion-delivery-guard-{source-validation,package,portable}.json` receipts.
 See [the policy and limits](architecture/insertion-delivery-guard.md).
 
 ## Insertion setup self-test: implemented; native acceptance awaits unlock

@@ -52,8 +52,35 @@ TextEdit/browser/read-only/secure-field and slow-app checks await manual Mac
 unlock. The capability query and repeated validation add IPC work. Their live
 latency and compatibility cost have not been measured; no speedup is claimed.
 The older source `0aff573` signed self-test candidate remains unchanged and does
-not contain this guard. Use only the separately identified newer candidate once
-its source/package receipts are available.
+not contain this guard.
+
+## Separate signed candidate
+
+`dist/insertion-delivery-guard-v0/OSpr.app` is source
+`7e85e12541206c577752ec03a85044f786f7a363`, application fingerprint
+`02133f7bc2cdbac6283368f887c44b84cccca043edc57a773e059eeb8240669b`.
+The 394,427,049-byte ZIP is SHA-256
+`faf3be0a904e56af9ffd03102e9ad8266d563e665bfc733c3382d5e753c2f7ae`.
+It passes CRC, extraction, deep signatures, identical executables, extracted
+offline CLI inventory and license-byte checks. Relocated/offline/hostile-PYTHONPATH
+replay passes six ASR engines, six neural-edge routes, detector abstention,
+notes/speakers/mix/review/upload preparation/model inventories and MCP. All 227
+bundled relative help links resolve. The bundled report is the source snapshot
+before these final receipts.
+
+A same-identity re-signed QA copy changes only the explicit Info data-directory
+key. Its isolated local-only profile has no history and has not been launched.
+Normal persisted settings/history match the earlier baseline byte for byte.
+No recording, playback, sound change or target-field mutation occurred. This is
+Apple Development signed, macOS 26.6.2 arm64, with separate weights; no Developer
+ID/notarized, clean-Mac/older-OS/updater, live insertion or consumer ranking
+acceptance is claimed.
+
+[Archive checks](../../benchmarks/results/insertion-delivery-guard-package.json),
+[portable runtime checks](../../benchmarks/results/insertion-delivery-guard-portable.json),
+[source and native state](../../benchmarks/results/insertion-delivery-guard-source-validation.json).
+Source CI 40092596085 passes the matching 356 Swift / 248 Python tests, app/report
+build, 227 help links and clean-runner runtime checks.
 
 Apple's [setter documentation](https://developer.apple.com/documentation/applicationservices/1460434-axuielementsetattributevalue)
 distinguishes unsupported attributes from failed messaging. The installed
