@@ -20,13 +20,17 @@ matches, and all twelve corrected final texts match controls. All policies have
 twelve PCM/count cases. Fifteen synthetic cases and two 120-second stress streams
 also match exact whole-file bytes; retained raw state peaks at 507 / 73 samples.
 The independent checker reconstructs source/legacy PCM, sample positions and edit
-distances without importing the candidate normalizer.
+distances without importing the candidate normalizer. Mac CI at `aec096f` passes
+310 Swift / 230 Python tests, lint, app/report build, clean-runner bundled imports
+and signature checks. Draft PR: #14.
 
 Native latency, energy, physical capture/rate changes, preview failure and stop
 cancellation remain gates. The latest checked ZIP at 9a51603 predates this change;
-no new standalone package is promoted. The approved public WAV is prepared in
-QuickTime and the isolated old checked profile is warm for a fresh TextEdit focus
-handoff; no new recording or playback has started at this checkpoint.
+no new standalone package is promoted. The approved public WAV was prepared in
+QuickTime and the isolated old checked profile was warmed for a fresh TextEdit
+focus handoff. No new recording or playback started. macOS then locked before
+cleanup: QA is idle, normal app is stopped and restoration needs an unlocked
+desktop. Normal settings/history hashes remain identical; zero QA recovery files.
 See `stream-normalization-real.json`, its raw traces/checker and
 `docs/architecture/stream-normalization.md`.
 

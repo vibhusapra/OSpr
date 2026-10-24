@@ -46,6 +46,10 @@ a newer session.
   PCM, not the candidate normalizer, and checks source hashes, final hashes,
   every live sample position and edit distances against raw traces.
 
+Mac CI at `aec096f` also passes 310 Swift / 230 Python tests, 17 profile CLI
+cases, lint, app/report build, clean-runner bundled imports and signature checks.
+See [`stream-normalization-ci.json`](../../benchmarks/results/stream-normalization-ci.json).
+
 The protocol was frozen at `9a0d1bf` before outputs; that commit contains the
 production change and producer. Raw transcripts/partials and source fingerprints
 are public in `benchmarks/results/stream-normalization-*`.
