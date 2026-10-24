@@ -11,6 +11,14 @@ import OSprCore
         do {
             let result: [String: Any]
             switch command {
+            case "_benchmark-speech-probes":
+                guard args.count == 3 else { usage(); exit(2) }
+                result = try SpeechDetection.probes(audioURL: URL(fileURLWithPath: args[1]), modelURL: URL(fileURLWithPath: args[2]))
+            case "_benchmark-speech-capture":
+                guard (3...5).contains(args.count) else { usage(); exit(2) }
+                let packets = args.count >= 4 ? args[3].split(separator: ",").map { Int($0) ?? 0 } : [1024]
+                result = try SpeechDetection.capture(audioURL: URL(fileURLWithPath: args[1]), modelURL: URL(fileURLWithPath: args[2]),
+                    packets: packets, silenceSeconds: args.count == 5 ? Double(args[4]) ?? .nan : 1.2)
             case "_benchmark-speech-endpoints":
                 guard (2...4).contains(args.count) else { usage(); exit(2) }
                 result = ["records": try SpeechDetection.endpoints(manifestURL: URL(fileURLWithPath: args[1]),

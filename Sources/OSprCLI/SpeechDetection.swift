@@ -1,8 +1,101 @@
 import Foundation
 import CoreML
+import AVFoundation
 import OSprCore
 
 enum SpeechDetection {
+    static func probes(audioURL: URL, modelURL: URL) throws -> [String: Any] {
+        let samples = try SpeechAudioInput.read(audioURL)
+        let detector = try CoreMLSpeechDetector(modelURL: modelURL, computeUnits: .cpuOnly)
+        guard detector.chunkSamples == 512 else { throw OSprError.message("Probe control requires the 32 ms model.") }
+        var expected = [Double]()
+        for start in stride(from: 0, to: samples.count, by: 512) {
+            expected.append(try detector.predict(samples[start..<min(start + 512, samples.count)]))
+        }
+        detector.reset()
+        var probes = 0
+        for (index, start) in stride(from: 0, to: samples.count, by: 512).enumerated() {
+            let end = min(start + 512, samples.count)
+            for count in Set([1, min(17, end - start), min(511, end - start)]).sorted() {
+                let first = try detector.probe(samples[start..<start + count])
+                let second = try detector.probe(samples[start..<start + count])
+                guard first == second else { throw OSprError.message("A partial probe committed recurrent state.") }
+                probes += 2
+            }
+            guard try detector.predict(samples[start..<end]) == expected[index] else {
+                throw OSprError.message("Partial probes changed the continuing model stream.")
+            }
+        }
+        var rejected = false
+        do { _ = try detector.probe([Float.nan][...]) } catch { rejected = true }
+        guard rejected else { throw OSprError.message("Invalid probe unexpectedly succeeded.") }
+        var poisoned = false
+        do { _ = try detector.predict(samples.prefix(512)) } catch { poisoned = true }
+        guard poisoned else { throw OSprError.message("A failed probe did not poison prediction.") }
+        detector.reset()
+        guard try detector.predict(samples.prefix(512)) == expected[0] else { throw OSprError.message("Probe reset failed.") }
+        return ["status": "passed", "audio_samples": samples.count, "complete_or_final_model_frames": expected.count,
+                "successful_partial_probes": probes, "exact_continuing_stream": true,
+                "repeat_probe_identity": true, "invalid_probe_poisoned": true, "reset_recovered": true,
+                "boundary": "Real pinned Core ML CPU inference on a local public file. Partial-tail probes restore context and recurrent state; failed probes remain poisoned. No microphone, capture scheduling or ASR."]
+    }
+    static func capture(audioURL: URL, modelURL: URL, packets: [Int], silenceSeconds: Double) throws -> [String: Any] {
+        guard !packets.isEmpty, packets.count <= 20, packets.allSatisfy({ (128...8192).contains($0) }) else {
+            throw OSprError.message("Capture replay needs 1–20 packet sizes between 128 and 8192 samples.")
+        }
+        let file = try AVAudioFile(forReading: audioURL)
+        let format = file.processingFormat
+        guard format.commonFormat == .pcmFormatFloat32, (1...8).contains(format.channelCount),
+              format.sampleRate.isFinite, (8_000...192_000).contains(format.sampleRate),
+              file.length > 0, Double(file.length) <= format.sampleRate * 300,
+              let input = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: 8192) else {
+            throw OSprError.message("Capture replay requires at most five minutes of finite supported audio.")
+        }
+        let prepared = ContinuousClock.now
+        let monitor = try NeuralCaptureMonitor(sampleRate: format.sampleRate, modelURL: modelURL, silenceSeconds: silenceSeconds)
+        let preparationMS = milliseconds(prepared.duration(to: .now))
+        defer { monitor.close() }
+        var scratch = [Float](repeating: 0, count: 8192)
+        var consumed: AVAudioFramePosition = 0
+        var rows = [[String: Any]]()
+        var firstFinish: [String: Any]?
+        while consumed < file.length {
+            let requested = min(packets[rows.count % packets.count], Int(file.length - consumed))
+            try file.read(into: input, frameCount: AVAudioFrameCount(requested))
+            guard input.frameLength > 0, let channels = input.floatChannelData else {
+                throw OSprError.message("Capture replay encountered an early EOF.")
+            }
+            let count = Int(input.frameLength)
+            let begin = ContinuousClock.now
+            let rms = scratch.withUnsafeMutableBufferPointer { mono in
+                let rms = AudioMath.downmix(channels: channels, channelCount: Int(format.channelCount), frames: count,
+                    interleaved: format.isInterleaved, destination: mono)
+                if rms.isFinite { monitor.enqueue(UnsafeBufferPointer(start: mono.baseAddress, count: count)) }
+                return rms
+            }
+            guard rms.isFinite else { throw OSprError.message("Capture replay encountered non-finite input.") }
+            monitor.synchronize()
+            consumed += AVAudioFramePosition(count)
+            let snapshot = monitor.snapshot()
+            if let warning = snapshot.warning { throw OSprError.message(warning) }
+            guard snapshot.receivedInputSamples == consumed, snapshot.processedInputSamples == consumed,
+                  snapshot.queuedInputSamples == 0, let observation = snapshot.observation else {
+                throw OSprError.message("Capture replay did not examine every received block.")
+            }
+            var row: [String: Any] = ["input_samples": consumed, "normalized_samples": observation.normalizedSamples,
+                "incomplete_frame_samples": observation.incompleteFrameSamples, "has_speech": observation.hasSpeech,
+                "enqueue_through_drain_ms": milliseconds(begin.duration(to: .now))]
+            if let candidate = observation.candidate {
+                row["candidate"] = try JSONSerialization.jsonObject(with: JSONEncoder().encode(candidate))
+                if firstFinish == nil { firstFinish = row }
+            }
+            rows.append(row)
+        }
+        return ["input_sample_rate": format.sampleRate, "input_channels": format.channelCount,
+                "input_samples": consumed, "packet_sizes": packets, "preparation_ms": preparationMS,
+                "first_finish": firstFinish ?? NSNull(), "records": rows,
+                "boundary": "Accelerated packet replay through the actual preallocated monitor, continuous AVAudioConverter, native Core ML, causal score, retractable endpoint and partial-tail probes. Each packet drains before the next; this does not simulate real-time contention. Dry-run candidates do not stop the source; complete input remains intact. Converter filter latency and packet polling are included in sample-frontier differences, not measured hardware/UI latency."]
+    }
     static func endpoints(manifestURL: URL, silenceSeconds: Double, windowFrames: Int = 1) throws -> [[String: Any]] {
         struct Trace: Decodable { let id: String; let probabilities: [Double]; let audio_samples: Int; let chunk_samples: Int }
         let file = try FileHandle(forReadingFrom: manifestURL); defer { try? file.close() }

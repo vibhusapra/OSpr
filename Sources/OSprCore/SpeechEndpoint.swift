@@ -1,7 +1,8 @@
 import Foundation
 
 /// One-shot endpointing driven by contiguous audio time, never wall-clock delay.
-/// A slow detector therefore cannot turn queued, unexamined speech into silence.
+/// Counts only examined audio. A live owner must separately fence its received
+/// frontier before stopping: newer queued speech is outside this value's scope.
 public struct SpeechEndpoint {
     public struct Configuration: Encodable, Equatable {
         public let sampleRate: Int

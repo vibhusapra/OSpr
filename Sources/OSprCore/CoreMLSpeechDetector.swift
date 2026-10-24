@@ -51,6 +51,26 @@ public final class CoreMLSpeechDetector {
             array.dataPointer.assumingMemoryBound(to: Float.self).update(repeating: 0, count: array.count)
         }
     }
+    /// Evaluate an incomplete live tail without committing recurrent/context
+    /// state. The next complete frame still starts at the original frontier.
+    /// Like predict, this must run on the detector's single owning queue.
+    public func probe(_ samples: ArraySlice<Float>) throws -> Double {
+        guard !failed else { throw OSprError.message("Reset the failed speech detector before probing.") }
+        let oldContext = context
+        let oldHidden = Array(UnsafeBufferPointer(start: hidden.dataPointer.assumingMemoryBound(to: Float.self), count: 128))
+        let oldCell = Array(UnsafeBufferPointer(start: cell.dataPointer.assumingMemoryBound(to: Float.self), count: 128))
+        do {
+            let value = try predict(samples)
+            context = oldContext
+            oldHidden.withUnsafeBufferPointer { hidden.dataPointer.assumingMemoryBound(to: Float.self).update(from: $0.baseAddress!, count: 128) }
+            oldCell.withUnsafeBufferPointer { cell.dataPointer.assumingMemoryBound(to: Float.self).update(from: $0.baseAddress!, count: 128) }
+            return value
+        } catch {
+            // Prediction failures stay poisoned, even though successful probes
+            // restore state. The live owner must disable automatic finishing.
+            throw error
+        }
+    }
     /// Last partial chunk is zero-padded; callers retain its real sample count.
     public func predict(_ samples: ArraySlice<Float>) throws -> Double {
         guard !failed, !samples.isEmpty, samples.count <= chunkSamples, samples.allSatisfy(\.isFinite) else {

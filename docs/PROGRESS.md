@@ -573,3 +573,30 @@ distribution or a claim of full union parity/top-three product placement.
 - [ ] Experimental bounded capture integration and physical-device acceptance.
   The candidate is eligible for an explicit experiment, not default promotion.
   Delivered preview and GUI remain unchanged. See `architecture/neural-endpointing.md`.
+
+## Bounded neural capture integration (work in progress)
+
+- [x] Optional capture sidecar with sixteen preallocated mono buffers and a
+  separate 0.5 s queued-audio ceiling, including in-flight work. Inference and
+  continuous normalization run on one owning queue, outside the hardware tap.
+- [x] Retractable finish candidates and an atomic capture-ingress claim: a
+  candidate cannot close recording while newer accepted audio remains queued.
+  Resumed activity revokes completion. Model/queue failures disable only the
+  optional monitor; the complete original/recovery writer remains independent.
+- [x] Partial tails probe copies of recurrent, causal-score and endpoint state.
+  Successful probes do not insert padding into the continuing model stream;
+  failed probes remain poisoned. Real cached-model pilot: 1,320 successful probes
+  preserve every probability in a 220-frame stream exactly, including reset.
+- [x] Eighteen new tests bring the local Swift suite to 281 passing tests.
+  Continuous AVAudioConverter output is sample-identical across irregular packet
+  boundaries at 8/16/44.1/48/96 kHz. Race, overflow, close, inference failure,
+  audio-copy ownership, partial-tail resumption and original-file preservation
+  controls pass. A detector failure leaves every stereo sample in the original.
+- [ ] Frozen functional replay: all 104 prior VAD validation cases at 16 kHz
+  mono / 44.1 and 48 kHz unequal-gain stereo, each with steady and irregular
+  packet sizes (624 routes). This reuses known fixtures; no new quality holdout,
+  model tuning, ASR or physical device acceptance is claimed.
+- [ ] Explicit model preparation/settings and live UI routing. The sidecar is
+  connected to CapturePipeline as an optional dependency but no GUI constructs it
+  yet; defaults and delivered preview remain unchanged. Final ASR edge selection
+  is a separate exact-normalized-timeline contract.

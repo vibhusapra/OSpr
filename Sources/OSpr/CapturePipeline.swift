@@ -16,6 +16,7 @@ final class CapturePipeline: @unchecked Sendable {
     private let sink: AudioSink
     private let format: AVAudioFormat
     private let threshold: Float
+    private let speechMonitor: NeuralCaptureMonitor?
     private var ring: AudioRing
     private var scratch = [Float](repeating: 0, count: 8192)
     private var active = true
@@ -23,8 +24,10 @@ final class CapturePipeline: @unchecked Sendable {
     private var previewFrames = 0
     private var latest: CaptureTelemetry
     private var failure: Error?
-    init(sink: AudioSink, format: AVAudioFormat, threshold: Float, now: Double = ProcessInfo.processInfo.systemUptime) {
+    init(sink: AudioSink, format: AVAudioFormat, threshold: Float, now: Double = ProcessInfo.processInfo.systemUptime,
+         speechMonitor: NeuralCaptureMonitor? = nil) {
         self.sink = sink; self.format = format; self.threshold = threshold
+        self.speechMonitor = speechMonitor
         ring = AudioRing(capacity: Int(format.sampleRate * 12))
         latest = CaptureTelemetry(rms: 0, receivedAt: now, voiceAt: now, hasVoice: false)
     }
@@ -48,6 +51,7 @@ final class CapturePipeline: @unchecked Sendable {
             failure = OSprError.message("The microphone returned non-finite samples. Partial audio was kept.")
             return
         }
+        scratch.withUnsafeBufferPointer { speechMonitor?.enqueue(UnsafeBufferPointer(start: $0.baseAddress, count: count)) }
         frames += count; latest.rms = rms; latest.receivedAt = now
         if rms > threshold { latest.hasVoice = true; latest.voiceAt = now }
     }
@@ -63,8 +67,19 @@ final class CapturePipeline: @unchecked Sendable {
         return samples
     }
     var error: Error? { lock.lock(); defer { lock.unlock() }; return failure ?? sink.error }
+    var speechSnapshot: NeuralCaptureSnapshot? { speechMonitor?.snapshot() }
+    /// Claim and close capture admission under its ingress lock. A callback
+    /// arriving after this point belongs after the intentional recording end.
+    func claimNeuralFinish() -> Bool {
+        lock.lock(); defer { lock.unlock() }
+        guard active, failure == nil, sink.error == nil,
+              speechMonitor?.claimFinish(expectedInputSamples: frames) == true else { return false }
+        active = false
+        return true
+    }
     func finish() throws {
         lock.lock(); active = false; lock.unlock()
+        speechMonitor?.close()
         try sink.finish()
         if let error { throw error }
     }

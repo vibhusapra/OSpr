@@ -266,6 +266,65 @@ HF_HUB_OFFLINE=1 PYTHONPATH=backend uv run --frozen --all-extras python \
 The verifier requires the source receipt's exact CLI hash. Rebuilding on another
 host requires a new replay receipt, rather than changing the archived hash.
 
+## Native capture sidecar under implementation
+
+`NeuralCaptureMonitor` owns sixteen preallocated 8192-float mono buffers and a
+separate half-second audio backlog ceiling, counting the in-flight packet. The
+capture callback copies an already downmixed block; one serial queue owns model,
+continuous AVAudioConverter, frame assembly, causal score and live endpoint.
+No inference, resampling, disk reads or SwiftUI closure runs on the audio tap.
+This still uses short locks and a bounded dispatch closure per admitted packet;
+it is not a claim of lock-free or allocation-free real-time execution.
+
+`LiveSpeechEndpoint` preserves the first one-shot policy decision while allowing
+later >=0.35 activity to revoke a candidate. Its candidate refers to the latest
+examined normalized frontier, not an old completed silence interval. At each
+packet boundary, an incomplete 512-sample frame probes copies of model context,
+recurrent state, causal score and endpoint state. Successful probes restore model
+state; bad probes poison it. The next complete frame commits its actual samples
+exactly once. There is no inserted padding at intermediate packet seams.
+
+`CapturePipeline.claimNeuralFinish` holds the same ingress lock as capture,
+requires the monitor's processed and received input positions to equal the
+writer's accepted frontier, and atomically closes both admissions on success.
+There can be no received-but-unexamined queue or a read-then-stop race. Activity
+within a partial normalized tail can revoke completion. Converter filter latency
+is still real, as is imperfect model classification; frontier consistency does
+not guarantee that every phoneme is detected or that semantic intent is complete.
+
+An overflow, input inconsistency or inference error disables the optional monitor
+and exposes a manual-finish warning. It never switches silently to RMS. The
+independent original recording writer continues unchanged. Close prevents stale
+in-flight work from publishing, and every new monitor owns fresh per-take state.
+The UI must actually display that warning and use the atomic claim before it can
+enable this experiment. **No current GUI constructs the optional sidecar yet.**
+
+Eighteen new controls bring the local suite to 281 passing Swift tests. These
+include sample-identical continuous resampling across partitions at five device
+rates, backlog/slot overflow, newer audio arriving after an old candidate,
+in-flight close/failure, one-sample speech resumption in a partial frame, and
+every original stereo sample surviving detector failure. A real Core ML pilot
+preserves a 220-frame probability stream exactly across 1,320 partial probes.
+
+The private `_benchmark-speech-capture` CLI replays file samples through this
+actual sidecar. It drains every packet before admitting the next, which tests
+function and frontiers without claiming real-time contention or microphone
+acceptance. The pending batch uses all 104 existing validation cases at three
+formats and two packet patterns (624 routes). Stereo gains 0.5/1.5 exercise
+downmix; SciPy creates rate variants, while the live sidecar uses AVAudioConverter.
+Those paths need not produce identical waveform values. Final ASR edge selection
+must use its own exact normalized timeline, rather than reusing live bounds.
+
+```sh
+PYTHONPATH=backend uv run --frozen --all-extras python benchmarks/native_speech_capture.py \
+  --cli .build/release/ospr-cli --output benchmarks/results/native-speech-capture.json
+```
+
+The harness uses only already cached pinned model data and public fixtures. It
+retains every failed route and all packet/candidate traces. Preparation, packet
+enqueue-through-drain cost and sample-position finish delay are separate; none
+is a measured hardware callback, UI or ASR latency distribution.
+
 ## Primary sources and provenance
 
 - [Silero upstream and MIT license](https://github.com/snakers4/silero-vad)
