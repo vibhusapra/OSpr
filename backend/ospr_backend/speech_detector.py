@@ -114,7 +114,7 @@ def prepare(download=False, progress=None):
     if progress:
         progress(dict(phase="checking", model=IDENTIFIER))
     if not state["complete"] and not download:
-        raise ValueError("Prepare the local speech detector in Models before enabling neural auto finish. Cached files are missing or failed verification.")
+        raise ValueError("Prepare the local speech detector in Models before using neural edges or auto finish. Cached files are missing or failed verification.")
     if not state["complete"]:
         install_verified(state, progress)
         state = inventory()

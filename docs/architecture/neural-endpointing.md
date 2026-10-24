@@ -3,8 +3,89 @@
 The delivered context-profiles preview still uses its existing RMS trim and
 optional RMS auto-finish. Current source adds an explicit experimental neural
 microphone option, with pinned model preparation and visible manual-finish
-failure handling. Defaults are unchanged. Final ASR edge trimming still uses its
-separate existing policy; physical microphone and destination acceptance remain.
+failure handling. Current source also adds separate opt-in neural final-ASR edge
+trimming. Defaults are unchanged; physical microphone and destination acceptance
+remain open.
+
+## Final-ASR neural edges
+
+`NeuralEdgeTranscription` is shared by the app and CLI. It checks the detector
+cache without downloading, normalizes the full source once using the worker's
+existing downmix/SciPy path, and writes a private mono float32 WAV. Native
+analysis reads this exact 16 kHz file in bounded blocks. It supports the same
+four-hour limit as imports and never reuses the live AVAudioConverter timeline.
+
+The pinned 32 ms Core ML detector runs serially on CPU with fresh state. The
+causal eight-frame activity score and frozen outer-edge policy are unchanged:
+first score ≥0.5, last score ≥0.35, 160 ms outer padding clamped to real samples.
+Interior pauses stay intact. Every actual float sample contributes to a
+little-endian float32 SHA-256, including signed zero. The native hash/sample count
+must match normalization, then the worker independently checks the full waveform
+and manifest before slicing. A mismatch fails before ASR. RMS trimming must be
+disabled for this request. Original duration and all segment/word offsets remain
+on the complete normalized timeline. Speaker diarization still sees the full
+audio; its ASR word timing uses the checked outer range.
+
+The option is off by default and local only. Nonstreaming previews decode their
+rolling window without RMS when selected; streaming previews stay provisional.
+Finalization always performs the separate neural-edge decode of the complete
+take instead of accepting a cached streaming result. This costs an additional
+final decode. No semantic end-of-thought inference or universal quality claim.
+
+An empty/too-short detector range returns `detector_abstained`, so the app keeps
+completed recovery instead of treating it as successful silence. The recovery
+panel offers **Retry without edge trimming** using current local model/language,
+raw mode and no insertion; only that attempt disables both filters. Saved
+preferences do not change. Source imports remain untouched. Detector/model,
+normalization, hash and ASR errors propagate with private temporary audio cleaned
+up; they do not trigger an alternate filter or cloud route. Task cancellation is
+forwarded to off-main native analysis and checked at each detector frame.
+
+New preferences preserve the previous RMS choice in `rmsSilenceTrim` but encode
+legacy `silenceTrim=false` while neural edges are selected. Older builds cannot
+silently apply volume filtering in its place. The normal app and delivered ZIP
+have not been replaced. New native controls, actual recovery retry and live
+preview-to-final behavior still require interactive acceptance.
+
+### Frozen six-engine final-edge check
+
+Source `efe99b4` exercises the actual shared app/CLI orchestration: 110 inputs ×
+six engines × full/neural edges = 1,320 routes, 1,278 actual ASR calls and 42
+detector abstentions. All 660 full-PCM manifests and ranges match their
+references. There are zero new empty transcripts across 618 speech/model pairs.
+The inputs reuse all 104 prior validation fixtures (33 English speakers, three
+transforms and five synthetic negatives), plus six 44.1/48 kHz stereo transports
+derived from one speaker's original/quiet input and a tone. These are known
+fixtures, not 110 independent or newly held-out utterances. Independent checks
+rehash every waveform and recompute ranges and score totals. The six transport
+controls also have separately preserved raw probabilities from the earlier
+frozen CLI.
+
+WER percentages below compare **full audio → neural edges** on the 33-case
+original/quiet/noisy groups; transport repetitions are excluded from this table.
+
+| Engine | Original | −40 dB | Noise 10 dB |
+|---|---:|---:|---:|
+| Parakeet v3 | 3.85 → 4.31 | 6.16 → 6.32 | 6.32 → 5.86 |
+| Whisper Turbo | 4.62 → 4.01 | 6.01 → 5.55 | 6.16 → 6.32 |
+| Whisper Small | 8.32 → 7.40 | 7.70 → 7.55 | 12.17 → 12.94 |
+| Qwen3 ASR | 4.16 → 4.01 | 4.47 → 4.78 | 4.93 → 5.86 |
+| Cohere native8 | 3.54 → 3.24 | 4.78 → 4.47 | 5.08 → 4.47 |
+| Nemotron | 6.32 → 5.39 | 13.10 → 9.09 | 10.94 → 10.94 |
+
+No universal accuracy gain: every model has per-utterance regressions, and they
+remain in the raw hypotheses. Of the five base synthetic negatives, unfiltered
+Whisper Turbo returns text on five, Whisper Small on one and Qwen on three;
+neural edges abstain on all five for every engine. This does not establish
+production false-positive rates, spontaneous whisper accuracy, multilingual
+quality or physical microphone acceptance. Fixed full-then-edge order is
+unsuitable for a latency comparison; diagnostic ASR timers exclude native
+analysis. Defaults remain unchanged.
+
+- [Frozen final-edge results and regressions](../../benchmarks/results/neural-final-edges.json)
+- [Every full/edge hypothesis and manifest](../../benchmarks/results/neural-final-edges.traces.json.gz)
+- [Stored-evidence checks](../../benchmarks/results/neural-final-edges-checks.json)
+- [Earlier-CLI transport probabilities](../../benchmarks/results/neural-final-edges-transport-control.json.gz)
 
 ## Contracts
 

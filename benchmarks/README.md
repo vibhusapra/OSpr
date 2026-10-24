@@ -1,5 +1,42 @@
 # OSpr measurement protocol
 
+## Final-ASR neural edge pipeline
+
+`neural-final-edges.json` freezes source `efe99b4`: six engines, 110 known public
+inputs, 1,320 full/edge routes, 1,278 actual recognitions and 42 detector
+abstentions. The original 104 cases and their causal bounds come from the prior
+33-speaker VAD study. Six unequal-gain stereo transports reuse one speaker's
+original/quiet audio and a tone at 44.1/48 kHz. They do not add independent speech
+samples. The production app/CLI path normalizes, scans exact float samples,
+checks their complete hash, slices only outer edges, and restores original
+timestamps. Raw hypotheses, including regressions, are retained.
+
+Run from the frozen source with its release CLI, cached weights and a fresh work
+directory/output name:
+
+```sh
+HF_HUB_OFFLINE=1 PYTHONPATH=backend uv run --frozen --all-extras python benchmarks/neural_edge_validation.py \
+  --cli .build/release/ospr-cli --work .local/new-neural-edge-run \
+  --output /tmp/new-neural-edge-result.json
+HF_HUB_OFFLINE=1 PYTHONPATH=backend uv run --frozen --all-extras python benchmarks/verify_neural_final_edges.py \
+  --work .local/neural-edges-frozen-efe99b4 --cli .local/vad-candidates/source-efe99b4-cli \
+  --output /tmp/neural-edge-checks.json
+```
+
+The verifier rehashes all 110 local waveforms and the frozen CLI, checks every
+manifest, derives bounds from stored reference scores and recomputes WER/counts.
+Six transport controls retain raw probabilities from the preserved earlier
+`a09b6bd` CLI. Its hash/source is bound to the existing VAD study. The checks do
+not rerun ASR or manually establish speech truth. The producer requires a clean
+tracked checkout. See the source hashes and checker receipt before reproducing;
+the preserved local binaries are not distributed model/runtime artifacts.
+
+Every engine has per-utterance accuracy regressions; the option stays off by
+default. Fixed full-then-edge ordering and diagnostic decoder timers cannot
+establish native-analysis, end-to-end or comparative latency. Physical microphone,
+native edge controls/recovery retry, device contention and insertion remain
+separate acceptance work.
+
 These are exploratory **engine** and native-IPC measurements on one Apple M5 Max,
 40 GPU cores, 128 GB, macOS 26.6.2. They are not commercial-app rankings, full
 LibriSpeech scores or proof of top-three product quality. Background desktop work

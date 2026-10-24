@@ -83,24 +83,25 @@ models used by the preceding portable smoke suite; weights are never embedded.
 Builds use ad-hoc signing by default; the current local preview uses an Apple Development signature. Developer ID distribution signing, notarization and an updater are not complete. Do not overwrite an existing installation
 until its transcripts/settings are backed up.
 
-The latest checked local delivery is `dist/context-profiles-v0/OSpr.app` and
-`dist/context-profiles-v0/OSpr-v0.1.0-macOS26.6.2-arm64.zip`, frozen at source `db0987a`.
-It includes app/site profiles with per-take model, language and instructions,
-indexed history, Soniox BYOK, the mouse-start countdown and explicit local
-refinement tasks. Its [SHA-256 manifest](benchmarks/results/context-profiles-release-package.json)
-pins 244 Swift/105 Python tests, relocated offline smoke, both synthetic hour-file
-regressions and all three 80-minute transports. The exact bundled CLI passes
-[17 profile cases](benchmarks/results/context-profiles-bundled-cli.json). Three [bundled rewrite smokes](benchmarks/results/context-profiles-bundled-rewrite-smoke.json) pass too.
-[CI at the packaged head](benchmarks/results/context-profiles-ci.json) also passes.
+The latest checked local delivery is `dist/neural-edges-v0/OSpr.app` and
+`dist/neural-edges-v0/OSpr-v0.1.0-macOS26.6.2-arm64.zip`, frozen at source `2f7f2a8`.
+It includes app/site profiles, indexed history, Soniox BYOK, mouse-start countdown,
+local refinement, and separate opt-in neural auto-finish/final-edge controls.
+Its [SHA-256 manifest](benchmarks/results/neural-edges-release-package.json) pins
+304 Swift/141 Python tests. [Portable gates](benchmarks/results/neural-edges-package-gates.json)
+include all six engines and native neural edges offline after relocation, nine
+model inventories, audio review/MCP, both synthetic hour-file regressions with
+and without neural edges, and all three 80-minute transports. The exact bundled
+CLI passes [17 profile cases](benchmarks/results/neural-edges-bundled-cli.json).
+[CI at the packaged head](benchmarks/results/neural-edges-packaged-ci.json) passes.
 Quit other OSpr copies before opening a new bundle. Back up
 existing settings/history before an archive upgrade; the normal older preview
 remains unchanged. This is an Apple Development signed macOS 26.6.2 arm64 preview,
 with separate weight downloads and native interaction gates still open. Its bundled
-report is a snapshot preceding the final artifact receipts. The earlier
-`refinement-v0` delivery and [manifest](benchmarks/results/refinement-release-package.json)
-remain available. A new isolated microphone start was discarded before recognition
-when the captured foreground app differed from the intended TextEdit target;
-[insertion remains unverified](benchmarks/results/context-profiles-insertion-preflight.json).
+report is a snapshot preceding the final artifact receipts. Earlier
+`context-profiles-v0` and `refinement-v0` deliveries remain available. The latest
+insertion handoff stopped at the macOS lock before a recording could start;
+actual microphone-to-insertion acceptance remains open.
 
 ## Included
 
@@ -109,7 +110,7 @@ when the captured foreground app differed from the intended TextEdit target;
 - A three-second mouse-start countdown gives you time to focus the destination
   field before recording. Allow microphone access first; cancel from the HUD,
   Studio or the global shortcut. Native countdown/insertion acceptance is pending;
-  the latest `context-profiles-v0` preview includes this feature.
+  the latest preview includes this feature.
 - Local MLX/Metal ASR: Parakeet v3, Whisper Turbo/Small, Qwen3 ASR 1.7B 8-bit,
   Nemotron 3.5 ASR 8-bit, and native-layout Cohere Transcribe 8-bit. Cohere
   supports 14 languages with an explicit hint; blank uses English. Exact revisions are in
@@ -204,11 +205,31 @@ native model still reading them; model data is not automatically deleted.
 
 The detector is off by default. A pause can finish a take; a detector/queue error
 keeps recording and displays **stop manually**, without switching to RMS.
-Final edge trimming is separate and still volume based; disable it for quiet-speech
-experiments. New settings encode legacy auto-stop as off while neural mode is
-enabled, so an older build does not silently substitute RMS. Native controls and
-physical microphone acceptance remain separate gates. The context-profiles-v0 ZIP
-predates this option; see [capture evidence and remaining gates](docs/architecture/neural-endpointing.md).
+Final edge trimming is separate. **Neural edge trimming · experimental** optionally
+uses the same pinned CPU detector on the exact normalized final-ASR samples. It
+keeps interior pauses and original timestamps, checks the complete PCM hash again
+in the worker, and never combines its bounds with RMS filtering. This applies to
+local dictation, imports and the ASR portion of speaker-labeled imports. Cloud
+uploads are unchanged. With neural edges, previews remain provisional and the
+complete take gets a separate final decode. An empty detector range keeps
+completed recording recovery available; **Retry without edge trimming** uses the
+full recording for that attempt, without changing saved preferences.
+
+Both neural options are off by default. New settings encode legacy edge trimming
+and auto-stop as off while their neural counterparts are enabled, so an older
+build cannot silently substitute RMS. Native controls and physical microphone
+acceptance remain separate gates. The context-profiles-v0 ZIP predates both
+options; see [capture evidence and remaining gates](docs/architecture/neural-endpointing.md).
+
+**Known neural-edge quality failures:** the multilingual follow-up finds 32 new
+empty outputs across 520 model/input pairs, plus partial quiet-speech deletions.
+For example, quiet German Parakeet WER rises 4.10% → 22.13% with the current
+detector policy. Leave neural edges off for quiet/multilingual use while model
+selection is improved. Empty results retain recovery, but a nonempty partial
+transcript can still lose content. The same study exposes out-of-range Whisper
+timestamps; a source fix is in progress. The existing local preview predates it.
+See [multilingual results](benchmarks/results/neural-edges-multilingual-v1.json)
+and [independent checks](benchmarks/results/neural-edges-multilingual-v1-checks.json).
 
 Cloud transcription sends audio; cloud refinement sends transcript text (and the
 selected passage for voice editing). These are separate visible choices. API keys
@@ -269,6 +290,7 @@ separate limitation. No secure-erasure guarantee is made.
 .build/debug/ospr-cli download whisper-small
 .build/debug/ospr-cli download speech-detector
 .build/debug/ospr-cli verify-speech-detector
+.build/debug/ospr-cli transcribe-neural-edges /absolute/path/audio.wav parakeet-v3
 .build/debug/ospr-cli rewrite 'Um, keep every sentence and number.'
 .build/debug/ospr-cli resolve-profile settings.json com.example.browser https://example.org/team
 .build/debug/ospr-cli analyze-speech public-16k-mono.wav /path/to/model.mlmodelc cpu 1.2

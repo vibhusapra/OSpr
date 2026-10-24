@@ -2,6 +2,82 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## Current work: exact final-ASR neural edges
+
+### Multilingual follow-up: quality failure, not promotion
+
+Frozen harness `ff80e98` uses the delivered source `2f7f2a8` CLI on all fifty
+existing FLEURS clips, original and fixed −40 dB gain. Documented language
+coverage excludes Parakeet Hindi/Japanese/Mandarin and Cohere Hindi before model
+output is observed. Japanese/Mandarin use CER; the others use WER. All 1,040
+routes finish (520 pairs, 1,010 actual ASR calls, 30 detector abstentions), but
+there are **32 new empty transcripts**, including two nonempty detector ranges
+whose ASR output becomes empty. Counts by model: Parakeet 1, Turbo 6, Small 7,
+Qwen 6, Cohere 5, Nemotron 7. Partial deletions remain too: quiet German Parakeet
+WER changes 4.10% → 22.13%, and quiet Mandarin Qwen CER 5.99% → 30.52%.
+
+All 100 normalized waveform hashes and 520 ranges match independently recomputed
+old-CLI controls. The new empty outputs are therefore a quality limitation of
+the policy, not a range-transfer mismatch. The English slice's zero new empty
+result does not generalize. These are small known read-speech slices, with no
+new negative, spontaneous or real-whisper coverage. Defaults remain off. Keep
+neural edges off for quiet/multilingual use while selection is improved.
+
+The checker also exposes **12 Whisper intervals extending past the analyzed
+range**, six beyond the complete source. One selected 0.8-second German range
+receives a 29.98-second segment. A timestamp-boundary fix is next; the current
+ZIP has not been changed. Original source/hypotheses and arithmetic failures are
+preserved in `neural-edges-multilingual-v1{.json,.traces.json.gz,-checks.json}`.
+
+Branch `codex/neural-edges` follows the neural capture/UI PRs. A separate opt-in
+edge setting now uses pinned native CPU analysis on the worker's exact normalized
+float32 audio, with full-waveform hash checks before recognition. It preserves
+interior silence and original timestamp offsets and disables a second RMS trim.
+It applies to local dictation/imports and timed ASR for speaker-labeled imports.
+The CLI uses the same orchestration. Empty detector ranges retain completed
+recovery; a new retry uses the full audio for one attempt. Defaults, normal app
+data and the delivered preview remain unchanged.
+
+Focused and full checks pass: **304 Swift / 141 Python tests**. Frozen source
+`efe99b4` completes **1,320 routes** through six actual local engines on 110 known
+inputs, with 1,278 inferences and 42 detector abstentions. All 660 ranges/PCM hashes
+match their references, with zero new empty result across 618 speech/model pairs.
+The checker rehashes every waveform and recomputes bounds and WER totals. The 104
+frozen inputs reuse 33 English speakers/three transforms/five negatives; six
+additional stereo transport inputs repeat one speaker and a tone. These are not
+new held-out samples. Quality can regress: Qwen noisy WER rises 4.93% → 5.86%, while
+Nemotron quiet WER falls 13.10% → 9.09%. Every hypothesis/regression is retained.
+Native edge controls, recovery retry, physical shortcut,
+microphone and insertion acceptance remain open. The latest insertion handoff
+again encountered the macOS lock, before any recording was started. PR #8's final
+head `12361fd` has green macOS CI including clean-runner packaging.
+
+### New local preview
+
+`dist/neural-edges-v0/OSpr.app` and its ZIP are frozen at source `2f7f2a8`, with
+the same application fingerprint as the six-engine study. Apple Development
+signing is preserved; this is not Developer ID/notarized distribution. Source CI
+passes 304 Swift / 141 Python / 17 CLI cases. The 390,800,816-byte ZIP has SHA-256
+`5bc611c311973507bdd0a10e5a3b22efb31f9f195db2d16c07f439b2e697b2d9`.
+
+Actual copied-bundle offline checks pass all six ASR engines, all six native
+neural-edge paths, detector abstention, nine inventories, source-excerpt notes,
+speaker word attribution, mixing/upload preparation, history/audio review and
+MCP. A path with spaces, foreign cwd and poisoned PYTHONPATH are exercised; 113
+bundled help links resolve and signatures remain valid. Bundled MLX reports GPU
+as default and Metal available. Both hour-file models pass with and without
+neural edges, with identical WER in this repeated fixture (Parakeet 2.72%, Qwen
+2.37%). Neural scans verify all 57,704,488 normalized samples before selection.
+The three local fake-provider checks each pass nine exact-sample parts over 80
+minutes, including owned Soniox cleanup. ZIP CRC, extraction, signatures and the
+extracted offline CLI pass. These tests do not establish paid recognition,
+natural-meeting quality or comparative latency/energy.
+
+The normal app and previous previews remain in place. New neural options stay
+off by default. Native controls/recovery/preview-to-final, microphone/shortcuts,
+insertion, devices, clean-Mac distribution and updater acceptance remain open.
+See `benchmarks/results/neural-edges-package-gates.json` for bound receipts.
+
 ## Working implementation
 
 - [x] Native SwiftUI Studio, History, Models, Dictionary, Modes, Settings,

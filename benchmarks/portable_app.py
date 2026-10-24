@@ -13,6 +13,7 @@ from pathlib import Path
 import shutil
 import subprocess
 import tempfile
+import wave
 from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parent
@@ -86,7 +87,8 @@ def main():
         assert (directory/'mixed.wav').stat().st_size > audio.stat().st_size
         assert replies[10]['result']['source_unchanged'] and (directory/'upload.wav').is_file()
         before, after = replies[11]['result'], replies[13]['result']
-        assert len(before['models']) == 8 and all(row['complete'] for row in before['models'])
+        assert len(before['models']) == 9 and all(row['complete'] for row in before['models'])
+        assert {row['id'] for row in before['models']} == {*models, 'rewrite-quality', 'diarization', 'speech-detector'}
         assert before['resident'] == after['resident'] and before['rewrite_resident'] == after['rewrite_resident']
         assert replies[12]['result']['complete'] and replies[14]['ok']
         assert all(event['id'] in {'download-cached', 'warm-progress', *('prime-' + model for model in models)} for event in events)
@@ -107,6 +109,29 @@ def main():
         assert review.returncode == 0, review.stderr
         review_result = json.loads(review.stdout)
         assert review_result['status'] == 'passed' and review_result['history_and_archive_restart']
+        neural = []
+        for model in models:
+            checked = subprocess.run([str(cli), 'transcribe-neural-edges', str(audio), model],
+                                     capture_output=True, text=True, cwd=directory, env=environment, timeout=120)
+            assert checked.returncode == 0, checked.stderr
+            value = json.loads(checked.stdout)
+            assert 'quilter' in value['text'].lower() and value['model'] == model
+            assert value['speech_edges']['pcm_sha256'] == replies[15]['result']['pcm_sha256']
+            assert value['speech_edges']['audio_samples'] == replies[15]['result']['normalized_samples']
+            assert value['audio_seconds'] == replies[15]['result']['audio_seconds']
+            neural.append(value)
+        silence = directory/'public synthetic silence.wav'
+        with wave.open(str(silence), 'wb') as wav:
+            wav.setnchannels(1)
+            wav.setsampwidth(2)
+            wav.setframerate(16000)
+            wav.writeframes(bytes(32000))
+        checked = subprocess.run([str(cli), 'transcribe-neural-edges', str(silence), 'parakeet-v3'],
+                                 capture_output=True, text=True, cwd=directory, env=environment, timeout=60)
+        assert checked.returncode == 0, checked.stderr
+        abstention = json.loads(checked.stdout)
+        assert abstention['detector_abstained'] and abstention['text'] == ''
+        assert abstention['speech_edges']['start_sample'] == abstention['speech_edges']['end_sample'] == 0
 
         async def check_mcp():
             from mcp import Client, StdioServerParameters
@@ -122,12 +147,14 @@ def main():
         assert signature.returncode == 0, signature.stderr
         receipt = dict(timestamp=datetime.datetime.now(datetime.UTC).isoformat(), status='passed',
                        bundled_help_relative_links=help_links,
-                       boundary='Copied app path with spaces, hostile PYTHONPATH, foreign cwd, offline bundled interpreter/worker, all six ASR engines, source-excerpt notes, speaker word attribution, clocked track mix, local upload preparation, pinned model inventory/download-only/warm progress and MCP tool listing. Native microphone, permissions and UI not exercised.',
+                       boundary='Copied app path with spaces, hostile PYTHONPATH, foreign cwd, offline bundled interpreter/worker, all six ASR engines, exact-PCM native neural edges through all six engines, detector abstention, source-excerpt notes, speaker word attribution, clocked track mix, local upload preparation, nine pinned model inventories/download-only/warm progress and MCP tool listing. Native microphone, permissions and UI not exercised.',
                        fixture_id=item['id'], fixture_sha256=item['sha256'],
                        executable_sha256=hashlib.sha256((app/'Contents/MacOS/OSpr').read_bytes()).hexdigest(),
                        build=json.loads((app/'Contents/Resources/build-info.json').read_text()),
                        interpreter_and_mlx_inside_bundle=True, bundled_cli_foreign_cwd=True, signature_valid_after_inference=True,
                        poisoned_pythonpath_and_cwd_ignored=True, mcp_tools=mcp_tools, model_progress_events=events, native_audio_review=review_result, results=replies[1:-1])
+        receipt['native_neural_edges'] = neural
+        receipt['native_neural_abstention'] = abstention
         args.output.write_text(json.dumps(receipt,indent=2,ensure_ascii=False)+'\n')
         print(json.dumps(dict(status='passed', models=models, extras=['notes','speakers','mix','prepare-upload','mcp'], output=str(args.output)),indent=2))
 

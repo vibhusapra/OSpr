@@ -23,6 +23,8 @@ def test_review_preserves_every_normalized_float_sample_and_full_timeline(tmp_pa
     actual = read_audio(str(output))
     assert np.array_equal(expected.view(np.uint32), actual.view(np.uint32))
     assert result["audio_seconds"] == 2 and result["source_unchanged"]
+    assert result["normalized_samples"] == len(expected)
+    assert result["pcm_sha256"] == hashlib.sha256(expected.astype("<f4").tobytes()).hexdigest()
     assert sf.info(output).subtype == "FLOAT" and sf.info(output).samplerate == 16000
     assert output.stat().st_mode & 0o777 == 0o600
     assert hashlib.sha256(source.read_bytes()).hexdigest() == before
