@@ -522,7 +522,7 @@ struct PreferencesView: View {
                 Toggle("Spoken punctuation (English phrases)", isOn: $model.settings.spokenPunctuation)
                 Toggle("Neural edge trimming · experimental", isOn: $model.settings.neuralEdgeTrim)
                 if model.settings.neuralEdgeTrim {
-                    Text("Local recognition analyzes the exact normalized audio with the speech detector. Removes only outer silence and keeps pauses and original timestamps. Missed speech keeps completed audio available for retry. Requires the detector in Models; cloud uploads are unchanged.").font(.caption).foregroundStyle(.secondary)
+                    Text("Can shorten or miss quiet speech, including parts of a take. Keep this off for quiet or multilingual dictation while quality work continues. An empty result keeps completed audio for retry. Requires the detector in Models; cloud uploads are unchanged.").font(.caption).foregroundStyle(.orange)
                     Button("Open edge detector model") { model.tab = "Models" }
                 } else {
                     Toggle("Volume-based silence edge trimming", isOn: $model.settings.silenceTrim)

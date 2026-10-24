@@ -2,7 +2,24 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
-## Current work: exact final-ASR neural edges
+## Current work: keep recognition timings inside analyzed audio
+
+Branch `codex/asr-timing-bounds` follows the multilingual failure study. A common
+local return-path guard now bounds segment/word estimates to the actual selected
+source range and preserves transcript text. Unusable or wholly outside alignment
+falls back to a visible approximate utterance range with word timing unavailable;
+speaker attribution rejects missing word timing. History receives the warning.
+The neural-edge description now warns about partial quiet/multilingual deletions.
+
+Local checks pass **163 Python / 304 Swift tests**. The first full Swift run had
+a 0.5-second fake-worker timeout failure during concurrent work; the focused
+forced-termination test and a complete sequential rerun both pass. Worker code
+and its timeouts were unchanged. Real corrected inference, frozen-response replay,
+CI and native warning/export interaction are the next gates. The existing signed
+ZIP remains at source `2f7f2a8` and does not include this fix. See
+`docs/architecture/timing-bounds.md`.
+
+## Exact final-ASR neural edges
 
 ### Multilingual follow-up: quality failure, not promotion
 

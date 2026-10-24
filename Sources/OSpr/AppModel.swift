@@ -950,6 +950,9 @@ import OSprCore
             record.warning = [record.warning, warning].compactMap { $0 }.joined(separator: " ")
         }
         if let audioWarning { record.warning = [record.warning, audioWarning].compactMap { $0 }.joined(separator: " ") }
+        if let timingWarning = result["timing_warning"] as? String {
+            record.warning = [record.warning, timingWarning].compactMap { $0 }.joined(separator: " ")
+        }
         historyState.submit(record, select: !backgroundImportActive)
         status = "Ready · \(Int(record.latencyMS)) ms"; preview = ""
     }
