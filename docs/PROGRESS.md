@@ -2,6 +2,27 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## Native TextEdit delivery observed; audible reference test still open
+
+Finder's normal Open Finder item action activates TextEdit during countdown, and
+OSpr's HUD captures the correct destination. On existing isolated QA source
+`9a51603`, a completed local Parakeet take inserts its actual recognizer output
+into the owned TextEdit field. The output is not the public reference: read-only
+CoreAudio inspection finds MacBook speakers muted at the existing 12.5% scalar.
+The approved WAV is verified as exact public Quilter PCM with six-second lead
+and four-second tail, and playback reaches the end. This proves one delivery
+path, not reference-speech accuracy or the current checked build's native gates.
+Unexpected output stays only in private QA history/local evidence.
+
+The test file is restored and saved exactly; QA stops and normal OSpr is visibly
+restored at eight sessions/265 words with identical settings/history hashes.
+No QA retained/recovery audio remains. The owned player waits paused at 00:00.
+One bounded unmute-at-25%-then-restore confirmation is pending under the
+computer-use policy; no sound setting has changed and it must not be asked again.
+See `native-textedit-finder-insertion.json` and
+`docs/architecture/native-textedit-insertion.md`. Clipboard restoration, selection,
+secure fields, browser/editor, physical shortcuts/devices and release gates remain.
+
 ## Apple native-runtime baseline: portfolio unchanged
 
 The source-only `codex/apple-speech-eval` branch adds a macOS 26 Swift file helper

@@ -26,8 +26,8 @@
     {
       "feature": "Mouse-start dictation countdown",
       "status": "partial",
-      "evidence": "Explicit three-second Studio start with a nonactivating HUD. The focused destination is captured at completion, not at button click. Cancellable timer generation prevents a late start after replacement, owner teardown or cancellation; four dedicated tests and the full 219-test Swift suite pass. Source 643b631 passes macOS 15 CI 39915171803 with 219 Swift/94 Python tests, app/report build and clean-runner standalone runtime. A same-identity native candidate retained both permissions, expired into real local microphone capture and discarded three starts through its Cancel button; no history or retained audio was admitted. Normal local-only settings/history were restored unchanged.",
-      "gap": "Native early ticks/HUD and cancellation before expiry, public acoustic auto-stop, owned external destination and successful insertion remain unverified. App-bound automation operates TextEdit but macOS reported ChatGPT in the first two starts and Google Chrome after a human focus handoff. All takes were discarded before recognition. The verified refinement-v0 ZIP includes this feature. A later owned Chrome-field attempt stopped before launch when native control reported the Mac locked; no new take started. A later context-profiles portable candidate again captured a different foreground app from the intended TextEdit field; the take was discarded before recognition or fixture playback. No history/audio/recovery remained and the normal app/data were restored unchanged.",
+      "evidence": "Explicit three-second Studio start with a nonactivating HUD. The focused destination is captured at completion, not at button click. Cancellable timer generation prevents a late start after replacement, owner teardown or cancellation; four dedicated tests and the full 219-test Swift suite pass. Source 643b631 passes macOS 15 CI 39915171803 with 219 Swift/94 Python tests, app/report build and clean-runner standalone runtime. A same-identity native candidate retained both permissions, expired into real local microphone capture and discarded three starts through its Cancel button; no history or retained audio was admitted. Normal local-only settings/history were restored unchanged. Later, Finder Open Finder item activates TextEdit during countdown and the HUD captures the correct target. One focus-only take is discarded; a second local Parakeet take inserts its actual recognizer output into the owned TextEdit field on isolated source 9a51603. The public reference is not recognized because speaker output is muted; this is delivery evidence only. Target file and normal app/data are restored exactly.",
+      "gap": "Audible public-reference recognition, early ticks/HUD cancellation before expiry, auto-stop, current checked-build native acceptance and broader destinations remain open. A single bounded speaker-unmute confirmation is pending; no sound setting has changed.",
       "priority": "P1"
     },
     {
@@ -117,8 +117,8 @@
     {
       "feature": "Clipboard restoration and secure-field handling",
       "status": "partial",
-      "evidence": "Private-pasteboard tests preserve multiple rich items, overlapping paste leases and user-copy changes. Secure-field rejection; strict app/field/cursor/selected-text checks.",
-      "gap": "Real native/browser secure-field and paste-fallback verification still pending. Explicit unverified-field compatibility option reduces field checks.",
+      "evidence": "Private-pasteboard tests preserve multiple rich items, overlapping paste leases and user-copy changes. Secure-field rejection; strict app/field/cursor/selected-text checks. On isolated source 9a51603, a Finder-activated TextEdit target receives the actual raw local recognizer output. The insertion method is not separately identified, and the expected acoustic reference was not heard because speaker output was muted.",
+      "gap": "Native clipboard/paste-fallback restoration, browser/editor and secure-field verification remain. The one observed TextEdit delivery is not a general microphone accuracy or current-build acceptance result. Explicit unverified-field compatibility option reduces field checks.",
       "priority": "P0"
     },
     {

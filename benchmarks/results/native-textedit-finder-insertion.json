@@ -1,0 +1,56 @@
+{
+  "status": "observed-native-textedit-insertion-acoustic-reference-not-accepted",
+  "recorded_at": "2026-10-24T08:59:03.526020+00:00",
+  "qa_build": {
+    "version": "0.1.0",
+    "built_at": "2026-10-24T03:01:30.117052+00:00",
+    "git_commit": "9a51603880d86d823a1d9469d2dcc3561511afca",
+    "tracked_changes": false,
+    "application_source_sha256": "643e90424a906917a546709c7d62e09cd728d7062cf0fc36b1d701a55b4ce1a6",
+    "source_manifest_version": 2,
+    "signing_mode": "configured-identity",
+    "boundary": "Development build; configured signing identity; not notarized; weights downloaded separately."
+  },
+  "workflow": "All UI actions via native CUA: Finder Applications > TextEdit Open Finder item during the OSpr three-second countdown; HUD captures TextEdit. Public fixture played once in QuickTime; TextEdit reopened through Finder; recording finished through OSpr.",
+  "focus_only_take_discarded": true,
+  "dictation_target": "TextEdit",
+  "provider": "local",
+  "model": "parakeet-v3",
+  "mode": "Verbatim",
+  "auto_paste": true,
+  "actual_recognizer_text_observed_in_owned_target": true,
+  "delivery_method": "Not independently identified; AX versus clipboard fallback remains separate.",
+  "reference_recognition_accepted": false,
+  "unexpected_text": "Retained only in isolated local QA history and owner-only local AX/screenshot evidence; not published.",
+  "audio_route": {
+    "default_input": "MacBook Pro Microphone",
+    "default_output": "MacBook Pro Speakers",
+    "output_muted": true,
+    "volume_scalar": 0.1250000149011612,
+    "settings_changed": false
+  },
+  "public_fixture": {
+    "source_id": "1272-128104-0000",
+    "source_sha256": "799f78ed4beb4de7ceae3a809262d4ce242394342ccd1d58cef7d49dbc2def46",
+    "fixture_sha256": "5f73c59b8e10c064f293ca58b6403029fb0bf7037224cd5a8123636c64a01b96",
+    "sample_rate": 16000,
+    "lead_samples": 96000,
+    "source_samples": 93680,
+    "trailing_samples": 64000,
+    "inner_pcm_exact": true,
+    "playback_reached_end": true
+  },
+  "cleanup": {
+    "owned_target_restored_exactly": true,
+    "qa_stopped": true,
+    "normal_app_visibly_restored": true,
+    "normal_sessions": 8,
+    "normal_words": 265,
+    "normal_settings_history_hashes_unchanged": true,
+    "qa_retained_audio_files": 0,
+    "qa_recovery_files": 0,
+    "owned_public_player": "Paused at 00:00 for pending confirmation; no further playback."
+  },
+  "pending": "Requested explicit confirmation for one temporary unmute at 25 percent, followed by restoring the current muted/12.5 percent setting. Do not replay or change sound until that confirmation arrives.",
+  "boundary": "One native insertion of the actual recognizer output into the owned TextEdit field on existing 9a51603 QA. Speakers were muted, so the public fixture was not audible to the microphone and its expected text was not recognized. This proves a delivery path, not reference-speech accuracy, current streaming-v0 native acceptance, clipboard restoration, selection editing, secure fields, browser/editor compatibility, physical Fn/PTT or product ranking."
+}

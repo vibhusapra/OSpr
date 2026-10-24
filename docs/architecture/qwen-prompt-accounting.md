@@ -83,7 +83,7 @@ A lower operation count alone does not justify promotion. A future optimization
 needs its own predeclared quality/timing protocol, broader duration controls and
 stable-system measurements before changing defaults or a checked package.
 
-The latest TextEdit focus handoff in the existing isolated 9a51603 QA build
+The earlier TextEdit focus handoff in the existing isolated 9a51603 QA build
 also remains unaccepted: its AX field reported
 focus while OSpr captured Google Chrome as the target. The take was discarded
 before ASR or insertion; normal OSpr was visibly restored at eight sessions and
