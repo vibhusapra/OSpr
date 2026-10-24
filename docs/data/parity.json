@@ -115,6 +115,13 @@
       "priority": "P0"
     },
     {
+      "feature": "Insertion setup self-test",
+      "status": "contract-tested",
+      "priority": "P0",
+      "evidence": "Studio test needs no microphone/model: countdown captures app/field at expiry, non-key panel shows destination and fixed phrase, separate confirmation sends through actual InsertionTarget, then explicit visual acknowledgement. Optional clipboard observer reports captured-data restoration/newer-copy/supersession/opt-out/failure without revealing content. Eight controller/AppModel and four new named-pasteboard tests pass; local total347Swift/248Python. Light/dark/long-caption layouts inspected.",
+      "gap": "Native TextEdit/browser/secure-field/cursor-change checks await manual Mac unlock; the isolated signed source0aff573 candidate and public targets are prepared. Mocks/renders are not native delivery proof, and this is separate from microphone/ASR-to-insertion, physical shortcuts and broad compatibility."
+    },
+    {
       "feature": "Clipboard restoration and secure-field handling",
       "status": "partial",
       "evidence": "Private-pasteboard tests preserve multiple rich items, overlapping paste leases and user-copy changes. Secure-field rejection; strict app/field/cursor/selected-text checks. On isolated source 9a51603, a Finder-activated TextEdit target receives the actual raw local recognizer output. The insertion method is not separately identified, and the expected acoustic reference was not heard because speaker output was muted.",

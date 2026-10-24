@@ -2,6 +2,55 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## Insertion setup self-test: implemented; native acceptance awaits unlock
+
+The `codex/insertion-self-test` branch adds a Studio setup check without recording
+audio or loading a speech model. A countdown captures the destination at expiry;
+a non-key/non-main floating panel shows the app, fixed phrase and any selection
+or unverified-field warning. A separate click sends through the same insertion
+path used by dictation. Sending is not treated as delivery: a subsequent explicit
+**It appeared** acknowledgement is required for confirmation. No test transcript,
+audio, provider request or preference change is created.
+
+An optional observer reports actual captured clipboard-data restoration, a newer
+copy, supersession, disabled restoration or failed verification. It exposes no
+clipboard contents. Ordinary dictation does not wait for the existing 700 ms
+timer or perform the extra verification. Known secure fields are refused before
+selected text is read. Permission is rechecked before sending; cancelled/stale
+countdowns, sends and clipboard callbacks cannot update a replacement test.
+
+Local validation passes **347 Swift / 248 Python tests** and Ruff, including eight
+new controller/AppModel and four clipboard tests. Actual SwiftUI countdown,
+ready, sent, confirmed, light/dark and long-caption fixtures were rendered and
+inspected. They are explicitly simulated, not native field evidence.
+
+A separate Apple Development signed source `0aff573` candidate is prepared in
+`dist/insertion-self-test-v0/OSpr.app`, fingerprint
+`1d56dd731290621245a7f5ca604b07f002bf7e0d5a2e1a0669c4fe8f2bf1c329`.
+A re-signed isolated-profile copy and public TextEdit/browser target plan are
+ready. Relocated/offline six-engine/neural/extras checks pass. Source CI is green
+(run 40090603705); it builds the app/report and verifies standalone runtime.
+The candidate ZIP is **394,308,062 bytes**, SHA-256
+`18128ced5d74068ef57c01a8c4c4170e84b8103f54b77f7047112f890916342e`.
+CRC, extraction, deep signatures, license bytes and extracted offline CLI inventory
+pass. Only the explicit Info data-directory key differs in the re-signed QA copy.
+The current candidate's bundled help remains the 221-link source snapshot before
+these final receipts. Physical component checks are pending. See
+`insertion-self-test-package.json`, `insertion-self-test-portable.json` and
+`insertion-self-test-source-validation.json`.
+
+The native tool reports that macOS is locked and cannot unlock automatically.
+One manual-unlock request is pending; no QA app was launched or native field was
+changed. The normal app's persisted data remains byte-identical to baseline.
+The earlier single speaker-unmute question remains independent: this insertion
+workflow needs no microphone or audio playback, and no sound setting changed.
+
+See `docs/architecture/insertion-self-test.md`. Remaining acceptance includes
+owned TextEdit cursor/selection, browser clipboard fallback/restoration, secure
+field refusal, target/cursor changes and cancellation. This is component setup
+work, not microphone-to-insertion, physical Fn/PTT/device, broad compatibility,
+clean-Mac/notarization/updater or full-v0/top-three acceptance.
+
 ## Conversion quality study: alternatives rejected, defaults retained
 
 The `codex/resampling-quality` branch tests actual Core conversion at 44.1 and

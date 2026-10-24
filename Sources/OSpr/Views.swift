@@ -47,7 +47,7 @@ struct WorkspaceView: View {
                     Text(model.tab).font(.system(size: 14, weight: .semibold))
                     Spacer()
                     HStack(spacing: 6) { Circle().fill(model.phase == "recording" ? .red : Color.osprPurple).frame(width: 6, height: 6); Text(model.status).lineLimit(1) }.font(.caption).foregroundStyle(.secondary)
-                    if model.busy { ProgressView().controlSize(.small) }
+                    if model.busy && !model.insertionTest.isPresented { ProgressView().controlSize(.small) }
                     if model.busy { Button("Cancel") { model.cancel() }.font(.caption) }
                 }.padding(.horizontal, 32).frame(height: 60)
                 Divider()
@@ -164,6 +164,10 @@ struct StudioView: View {
                             Spacer()
                             Button { model.importFiles() } label: { Label("Import files", systemImage: "arrow.down.doc") }.disabled(model.busy)
                         }
+                          HStack(spacing: 10) {
+                              Button("Test insertion…") { model.startInsertionTest() }.disabled(model.busy)
+                              Text("Check a text field without recording audio.").font(.caption).foregroundStyle(.secondary)
+                          }
                         }
                     }
                 }
@@ -297,6 +301,70 @@ struct RecordingOverlay: View {
             if model.countdownSeconds != nil { Text("Focus your destination field").font(.caption2).foregroundStyle(.secondary) }
             else { Waveform(level: model.displayLevel) }
         }.padding(14).background(.regularMaterial, in: RoundedRectangle(cornerRadius: 17)).overlay(RoundedRectangle(cornerRadius: 17).stroke(.quaternary))
+    }
+}
+
+struct InsertionTestPanel: View {
+    @ObservedObject var test: InsertionSelfTest
+    let close: () -> Void
+    let enableAccess: () -> Void
+    static func height(for phase: InsertionSelfTest.Phase) -> CGFloat {
+        phase == .ready ? 320 : phase == .sent || phase == .confirmed ? 280 : 240
+    }
+    var body: some View {
+        VStack(alignment: .leading, spacing: 13) {
+            HStack {
+                Label("Test text insertion", systemImage: "text.cursor").font(.headline)
+                Spacer()
+                Button(action: close) { Image(systemName: "xmark.circle.fill").foregroundStyle(.secondary) }
+                    .buttonStyle(.plain).accessibilityLabel("Close insertion test")
+            }
+            Text("No audio, model or transcript history is used.").font(.caption).foregroundStyle(.secondary)
+            if test.phase == .countdown {
+                HStack(spacing: 16) {
+                    Text("\(test.remaining ?? 3)").font(.system(size: 44, weight: .medium, design: .rounded)).foregroundStyle(Color.osprInk)
+                    Text("Switch to another app and focus the field you want to test.").font(.callout)
+                }.padding(.vertical, 8)
+            } else {
+                if !test.destinationName.isEmpty {
+                    Text("Destination · \(test.destinationName)").font(.callout.weight(.semibold)).lineLimit(2)
+                }
+                if [.ready, .sending, .sent, .confirmed].contains(test.phase) {
+                    Text(InsertionSelfTest.phrase).font(.system(size: 16, weight: .medium))
+                        .padding(12).frame(maxWidth: .infinity, alignment: .leading)
+                        .background(Color.osprPurple.opacity(0.08), in: RoundedRectangle(cornerRadius: 9))
+                }
+                Text(test.message).font(.callout).foregroundStyle(test.phase == .failed ? Color.orange : Color.primary)
+                if test.phase == .ready {
+                    Text(test.replacesSelection ? "This will replace the current selection." : "This will insert at the captured cursor.")
+                        .font(.caption).foregroundStyle(.secondary)
+                    if !test.verified {
+                        Text("The field is unverified. Your compatibility setting allows a clipboard paste.")
+                            .font(.caption).foregroundStyle(.orange)
+                    }
+                }
+                if let clipboard = test.clipboardMessage { Text(clipboard).font(.caption).foregroundStyle(.secondary) }
+            }
+            Spacer(minLength: 0)
+            HStack {
+                switch test.phase {
+                case .ready:
+                    Button("Send test phrase") { test.confirm() }.buttonStyle(.borderedProminent)
+                    Button("Choose another field") { test.retry() }
+                case .sending: ProgressView("Sending…").controlSize(.small)
+                case .sent:
+                    Button("It appeared") { test.acknowledge(appeared: true) }.buttonStyle(.borderedProminent)
+                    Button("It didn't appear") { test.acknowledge(appeared: false) }
+                case .confirmed: Button("Done", action: close).buttonStyle(.borderedProminent)
+                case .failed:
+                    if test.requiresAccessibility { Button("Enable insertion", action: enableAccess).buttonStyle(.borderedProminent) }
+                    Button("Try again") { test.retry() }
+                default: Button("Cancel", action: close)
+                }
+            }
+        }.padding(20).frame(width: 420, height: Self.height(for: test.phase), alignment: .topLeading)
+            .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 18))
+            .overlay(RoundedRectangle(cornerRadius: 18).stroke(.quaternary))
     }
 }
 
