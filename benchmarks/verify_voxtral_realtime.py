@@ -7,7 +7,6 @@ from pathlib import Path
 import subprocess
 
 import jiwer
-import numpy as np
 
 from ospr_backend.audio import read_audio
 
@@ -107,6 +106,7 @@ def main():
             metrics[route][suite] = dict(cases=len(selected), wer=wer, cer=cer, word_errors=word_errors,
                 word_units=word_units, character_errors=char_errors, character_units=char_units, nonempty_negatives=negatives)
     output = dict(status='passed-source-samples-and-recomputed-metrics-not-quality-promotion',
+        verifier_sha256=sha(Path(__file__)),
         source_result_sha256=sha(args.result), protocol_sha256=sha(protocol_path), source_route_checks=source_checks,
         identical_text_pairs=sum(lookup[item['id'], 'offline']['text'] == lookup[item['id'], 'stream']['text'] for item in expected),
         pairs=len(expected), metrics=metrics,
