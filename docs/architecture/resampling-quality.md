@@ -54,7 +54,7 @@ The installed SDK headers provide the precise property types and quality values.
 
 ## Outcome at frozen source becbcc7
 
-The completed study makes 870 native conversions, 1,500 full-file ASR requests
+The completed study makes 870 native replay requests, 1,500 full-file ASR requests
 and fifty real streaming sessions, with no API errors. All 750 corpus conversions preserve
 whole-track PCM/length; ten additional real uneven-partition controls pass. The independent checker rereads
 all samples and independently recomputes hashes/order, complex tone projection,

@@ -7,7 +7,7 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 The `codex/resampling-quality` branch tests actual Core conversion at 44.1 and
 48 kHz with native default, normal/high, normal/maximum, mastering/maximum and
 minimum-phase/maximum. The frozen study at `becbcc7` completes **870 native
-conversions, 1,500 cached file-ASR requests and 50 real streaming sessions**, with
+replay requests, 1,500 cached file-ASR requests and 50 real streaming sessions**, with
 zero API errors. Seventy-five known public cases include forty English speakers,
 five FLEURS languages at original and minus forty dB, and five nonspeech controls.
 
