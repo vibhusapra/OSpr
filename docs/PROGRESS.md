@@ -8,9 +8,11 @@ A new 18-case public synthetic development study retains all ten model/algorithm
 runs and failures (180 case executions). Reconciliation now sees exact cited original
 evidence, and one repair receives a bounded rejected draft and item-specific checks.
 This improves source access and diagnostic feedback, without proving meaning or coverage.
-355 Python tests and eight actual Swift CLI summary contracts pass locally; Swift
-source is unchanged from the parent’s 418-test suite. Final source CI is recorded
-separately below when available.
+355 Python tests, Ruff and eleven actual Swift CLI summary cases (eight contracts
+plus three local inferences) pass. Actual stdio MCP summary and oversized-input
+rejection pass. Swift source is unchanged from the parent’s 418-test suite.
+[Local source validation](../benchmarks/results/summary-fidelity-source-validation.json);
+[final source CI checks on draft PR30](https://github.com/vibhusapra/OSpr/pull/30).
 
 9B structural admission changes from 16/18 baseline to 17/18 current and 18/18 with
 research grammar; accepted notes still have heading/ownership/coverage errors. Lossless

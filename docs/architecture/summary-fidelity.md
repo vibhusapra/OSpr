@@ -2,7 +2,7 @@
 
 Experimental developer preview. This change improves what the local summary model sees when reconciling or repairing notes; it does not establish semantic acceptance or full meeting parity.
 
-The production candidate now gives reconciliation the original exact source excerpts cited by the chunk drafts. Earlier reconciliation saw only paraphrases and could amplify their mistakes. It includes every cited source ID once, in source order; material omitted by all drafts is still unavailable to this pass. New instructions distinguish pending from rejected, prohibition from postponement, and stated status from invented questions.
+The production candidate now gives reconciliation the original exact source excerpts cited by the chunk drafts. Earlier reconciliation saw only paraphrases and could amplify their mistakes. It includes each cited source ID from retained candidates once, in source order. Existing exact-paraphrase deduplication keeps one representative citation set, so dropped duplicate candidates can also lose source references; material omitted by all retained candidates is unavailable to this pass. New instructions distinguish pending from rejected, prohibition from postponement, and stated status from invented questions.
 
 One format/source repair remains the limit. Its local prompt now includes the rejected draft (at most 12,000 characters), content-free validation reason and at most 4,000 serialized characters of item-specific checks. The original transcript/evidence stays present. Checks identify invalid sections, uncited numeric spellings and changed English date qualifiers. Public worker errors keep the existing content-free strings. Model/runtime/context/EOS failures remain outside this format-repair loop. No transcript is uploaded, no task executes and failed requests preserve previous notes/transcript.
 
@@ -47,6 +47,8 @@ Source-quote membership and schema acceptance cannot establish correctness. Reta
 - In the long project correction, current 4B and compact 4B omit Maple's actual Thursday approval. Smaller or faster output is not proof of a better summary.
 - The larger model also has omissions; its baseline French response drops explicit not-rejected status and its quoted-instruction control omits the plans' unapproved status. Larger weights do not remove the need for review.
 
+The current unconstrained 35B and its compact/grammar variant also reject the revocation control: the model writes inline `(0, 1)` / `(2)` citation numbers in prose and repeats them on repair. The numeric guard refuses these extra spellings. Its baseline passes that control. This is an availability regression, retained rather than silently deleting generated numbers. Model selection must weigh this alongside the better long-input coverage and ~20 GiB allocation.
+
 ## Reproduction and evidence
 
 Install the regular frozen application environment first. Optional grammar wheels must be installed into an isolated research path from `benchmarks/summary-research-requirements.txt`, then included in PYTHONPATH; they are deliberately absent from the application lock. Example:
@@ -63,4 +65,14 @@ The output path must be new. Use `--algorithm pre-fidelity --decoding unconstrai
 
 [Study and raw-run bindings](../../benchmarks/results/summary-fidelity-study.json) · [New protocol](../../benchmarks/fixtures/summary-fidelity-protocol.json) · [Model download integrity](../../benchmarks/results/summary-fidelity-model-candidate.json). Official sources: [Qwen model](https://huggingface.co/Qwen/Qwen3.6-35B-A3B), [pinned MLX conversion](https://huggingface.co/mlx-community/Qwen3.6-35B-A3B-4bit/tree/38740b847e4cb78f352aba30aa41c76e08e6eb46), [XGrammar](https://github.com/mlc-ai/xgrammar), [MLX LM](https://github.com/ml-explore/mlx-lm).
 
-The current unconstrained 35B and its compact/grammar variant also reject the revocation control: the model writes inline `(0, 1)` / `(2)` citation numbers in prose and repeats them on repair. The numeric guard refuses these extra spellings. Its baseline passes that control. This is an availability regression, retained rather than silently deleting generated numbers. Model selection must weigh this alongside the better long-input coverage and ~20 GiB allocation.
+
+## Source verification
+
+355 Python tests and Ruff pass. The actual Swift CLI passes eight admission/
+rejection contracts and three offline 9B inferences; the actual stdio MCP server
+passes local summary inference and 100,001-character rejection without echo.
+Swift sources match the parent’s 418-test source; the final draft PR checks rerun
+that suite on a clean macOS runner. Desktop and 390px report layouts are inspected;
+all 315 local report links resolve.
+[Local validation](../../benchmarks/results/summary-fidelity-source-validation.json) ·
+[Draft PR30 and final checks](https://github.com/vibhusapra/OSpr/pull/30).
