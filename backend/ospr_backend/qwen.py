@@ -17,12 +17,16 @@ def language_tag(value, fallback=None):
 
 
 def transcribe_long(model, audio, language=None, offset=0):
+    from .qwen_features import generate
+
     texts, segments, languages = [], [], []
-    count = 0
+    count = evaluations = hits = 0
     for chunk, position in chunks(audio):
         count += 1
-        result = model.generate(chunk, max_tokens=TOKENS_PER_CHUNK, batch_size=1,
+        result, work = generate(model, chunk, max_tokens=TOKENS_PER_CHUNK, batch_size=1,
                                 **({"language": language} if language else {}))
+        evaluations += work.evaluations
+        hits += work.hits
         if getattr(result, "generation_tokens", 0) >= TOKENS_PER_CHUNK:
             raise RuntimeError("Qwen reached a chunk token limit; no partial transcript was saved. Try another speech model.")
         if not isinstance(result.text, str):
@@ -37,4 +41,5 @@ def transcribe_long(model, audio, language=None, offset=0):
             languages.append(tag)
     return dict(text=" ".join(text for text in texts if text), segments=segments,
                 language=language_tag(languages, language), decoder_chunks=count,
-                max_tokens_per_chunk=TOKENS_PER_CHUNK)
+                max_tokens_per_chunk=TOKENS_PER_CHUNK, frontend_evaluations=evaluations,
+                frontend_cache_hits=hits)

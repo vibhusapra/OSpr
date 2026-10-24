@@ -1,0 +1,55 @@
+{
+  "status": "validated-default-off-development-source-not-a-new-checked-distribution",
+  "timestamp": "2026-10-24T08:02:51.037124+00:00",
+  "git_commit": "c1e567f24df4e26c5bdb63eb583674e11bb25ccb",
+  "source_sha256": {
+    "backend/ospr_backend/qwen_features.py": "825a3904a07abd2eed7f7beecc36897de1f779e3845c4e9897529ec471ba07ad",
+    "backend/ospr_backend/qwen.py": "fa988f81f9a3a9da747f87144d4b649da1421bc43d573d72e29782b3be52850c",
+    "backend/ospr_backend/engine.py": "adc2a0874e995593f75dd823e2f251fc8f0febc2b9c019a5c316ef83bb28a1b0",
+    "scripts/bundle-app.sh": "eb89d8f6f3983c92d14a0d538e486b177658db28288790c137900c9fd82645c9"
+  },
+  "tests": {
+    "swift": 310,
+    "python": 248,
+    "failures": 0
+  },
+  "local_log_sha256": {
+    "qwen-prompt-accounting-swift.log": "361d954123e7e274969bfba35099a83d129d2304a7f68cefd3b210d6d3348b82",
+    "qwen-prompt-accounting-python-final.log": "298bc912ea772dd422daffa1214eca7aca92133435f75391eb75c1b35cb8f538",
+    "qwen-prompt-accounting-build.log": "0499a021518bea6746f3f05885e5b93d8783fe504c2da0f6234419576ee03edb"
+  },
+  "development_build": {
+    "version": "0.1.0",
+    "built_at": "2026-10-24T07:59:16.626275+00:00",
+    "git_commit": "c1e567f24df4e26c5bdb63eb583674e11bb25ccb",
+    "tracked_changes": false,
+    "application_source_sha256": "b3628abcdc9dee774eb2bc0a31d91b3e71e0f77abcdc127a5070f456ec3671c6",
+    "source_manifest_version": 2,
+    "signing_mode": "ad-hoc",
+    "boundary": "Development build; ad-hoc signature; not notarized; weights downloaded separately."
+  },
+  "report_links": {
+    "all": 327,
+    "relative_files": 190,
+    "unique_ids": 51
+  },
+  "native_probe": {
+    "default": "qwen-default-off-probe.json",
+    "opt_in": "qwen-optin-probe.json",
+    "payloads": 4,
+    "exact_matches": true,
+    "default_counters_each": [
+      0,
+      0
+    ],
+    "opt_in_counters_each": [
+      1,
+      1
+    ],
+    "boundary": "Default counters zero because no diagnostic hooks are installed; this does not mean recognition was bypassed. Two calls per separate native CLI worker; timing not a new performance study."
+  },
+  "checked_distribution_unchanged": "streaming-v0 source 3feaf65bf771b3a67beceea7a3d74651bd8f2d1d",
+  "normal_app_restored": true,
+  "normal_settings_history_unchanged": true,
+  "boundary": "Local core tests, release development build/signature and exact four-payload native probe. Opt-in benchmark source pinned at 99d439f separately from this final default-off wrapper. Clean-runner CI pending; no new standalone package, native insertion acceptance, physical shortcut/device test or performance promotion."
+}

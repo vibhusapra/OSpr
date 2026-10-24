@@ -331,7 +331,8 @@ class Engine:
 
                 result = transcribe_long(model, audio, language, offset)
                 text, segments, detected_language = result["text"], result["segments"], result["language"]
-                base.update(decoder_chunks=result["decoder_chunks"], max_tokens_per_chunk=result["max_tokens_per_chunk"])
+                base.update(decoder_chunks=result["decoder_chunks"], max_tokens_per_chunk=result["max_tokens_per_chunk"],
+                            frontend_evaluations=result["frontend_evaluations"], frontend_cache_hits=result["frontend_cache_hits"])
             else:
                 hint = language
                 if model_id == "nemotron-streaming" and hint and hint not in model.prompt_dictionary:
@@ -346,6 +347,11 @@ class Engine:
                     # Bound long-file peak residency and allow complete 35s chunks.
                     hint = (hint or "en").lower().replace("_", "-").split("-")[0]
                     result = model.generate(audio, language=hint, max_tokens=512, batch_size=1)
+                elif model_id == "qwen3-asr":
+                    from .qwen_features import generate
+
+                    result, work = generate(model, audio, **({"language": hint} if hint else {}))
+                    base.update(frontend_evaluations=work.evaluations, frontend_cache_hits=work.hits)
                 else:
                     result = model.generate(audio, **({"language": hint} if hint else {}))
                 text = result.text

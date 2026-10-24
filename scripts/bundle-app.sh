@@ -46,6 +46,7 @@ include-system-site-packages = false
 version = 3.12.11
 CONFIG
 cp LICENSE NOTICE "$resources/"
+cp -R licenses "$resources/"
 mkdir -p "$resources/Engine/docs/data" "$resources/Engine/benchmarks/results"
 mkdir -p "$resources/Engine/docs/architecture"
 mkdir -p "$resources/Engine/docs/assets"
