@@ -14,10 +14,14 @@ without changing SQLite bytes. One actual offline 9B worker→Swift→SQLite run
 438 Swift tests pass, including twelve new Core tests and two lifecycle tests for
 the source and removal races. Full source validation is bound in the [receipt](../benchmarks/results/edited-summary-source-validation.json).
 Release build, Ruff, 355 Python and eight existing CLI summary controls pass.
-Five light/dark/narrow source layouts are inspected. Native inspection of the
-isolated QA app timed out; it was stopped and the normal app is unchanged. This
-source feature is absent from the earlier signed standalone ZIP. Native interaction,
-semantic quality, current TextEdit insertion and full parity/ranking remain open.
+Five light/dark/narrow source layouts are inspected. After moving the isolated
+profile out of Documents and preserving the full relocated Engine/Python layout,
+native source choice, actual edited/original generation, stale/disclosure/scroll,
+removal, cancellation and quit/reopen pass. The QA app is stopped and the normal
+app is restored with unchanged data. Clean source63d5eac CI40134427845 passes all
+438 Swift / 355 Python plus contracts/app/report/standalone gates. This source
+feature is absent from the earlier signed ZIP. Native clipboard/VoiceOver, semantic
+quality, current TextEdit insertion and full parity/ranking remain open.
 [Behavior, retention and reproduction](architecture/edited-summary-source.md).
 
 ## Profile editor page and isolated preference saves

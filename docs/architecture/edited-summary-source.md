@@ -91,11 +91,52 @@ Five actual source renders were inspected: [original](../assets/edited-summary-o
 [current edited](../assets/edited-summary-edited-current.png),
 [stale light](../assets/edited-summary-stale-light.png),
 [stale dark](../assets/edited-summary-stale-dark.png) and
-[stale narrow](../assets/edited-summary-stale-narrow.png). They are simulated
-SwiftUI body renders, not native interactions. An isolated debug app launched with
-a unique identity, disposable synthetic profile and background services disabled;
-native inspection timed out twice. The QA process was stopped and the normal app
-was verified idle, local-only, with unchanged settings/history. No microphone,
-audio playback or insertion was used. Native menu selection, source disclosure,
-copy, removal and reopen acceptance remain open. Earlier signed standalone ZIPs
-predate this source; no new distribution claim.
+[stale narrow](../assets/edited-summary-stale-narrow.png). These are simulated
+SwiftUI body renders.
+
+## Scoped native acceptance
+
+[Native receipt](../../benchmarks/results/edited-summary-native.json) binds the
+current debug executable and application source fingerprint. A separate identity
+and disposable synthetic Application Support profile kept the normal app intact.
+The relocated parent Engine/Python runtime has all 29 backend source/data files
+identical to this checkout; it is a thin QA arrangement, not a new distribution.
+
+Native checks passed for source menu/retention wording, stale warnings, source
+and quote disclosures, summary scrolling, snapshot removal, editor persistence,
+actual 9B generation from both source choices, cancel and quit/reopen. Original
+source generation cites Friday shipping and $15.50; edited source generation
+cites the negative instruction and $12.50. A subsequent edit shows staleness.
+The final generated edited snapshot, fingerprint and two items persist in v4 and
+remain visible with the complete saved source after reopening. Removal leaves
+original text and edited text intact across restart.
+
+A short edited refresh completed with a valid empty summary before a Cancel
+interaction could be attempted. For a longer 160-line public control, generation
+was observed at part 1 of 2; Cancel returned to idle, with the prior original-
+source summary and $15.50 still visible. Late completion/source-change races are
+also covered by application and repository tests.
+
+Initial isolated startup under Documents timed out before a window appeared.
+An owned-process sample showed LocalStore waiting in chmod; moving its synthetic
+profile to Application Support resolved it without changing macOS permissions.
+The first runtime relocation omitted Engine's sibling Python directory and
+failed visibly without altering the transcript. Preserving the full Engine/Python
+layout resolved this setup error. These failed attempts remain in the receipt.
+
+The QA app is quit; the normal app is visibly restored idle/local-only with
+byte-identical settings/history. No microphone, playback, insertion, credentials
+or sound/permission settings were used. Native copy/clipboard, VoiceOver,
+lower-memory-device, general semantic quality and current TextEdit insertion
+acceptance remain open. Earlier signed ZIPs predate this feature.
+
+[Native stale source](../assets/edited-summary-native-stale.png) ·
+[Retention menu](../assets/edited-summary-native-menu.png) ·
+[Generated edited notes](../assets/edited-summary-native-generated.png) ·
+[Original-source control](../assets/edited-summary-native-original.png) ·
+[Cancellation](../assets/edited-summary-native-cancel.png) ·
+[Reopened saved snapshot](../assets/edited-summary-native-restart.png).
+
+Clean source `63d5eac` [CI40134427845](https://github.com/vibhusapra/OSpr/actions/runs/40134427845)
+passes 438 Swift / 355 Python, contract/typecheck/app/report/standalone runtime and
+signature gates. Native observations above are local and separately scoped.
