@@ -24,10 +24,18 @@ the final default-off wrapper. See `qwen-prompt-accounting.json`,
 `qwen-prompt-accounting-checks.json`, `qwen-feature-cache.json`,
 `qwen-reuse-attempts.json` and `docs/architecture/qwen-prompt-accounting.md`.
 
-A fresh TextEdit handoff starts capture, but OSpr sees Google Chrome as target.
+A fresh TextEdit handoff in the existing 9a51603 isolated QA build starts capture,
+but OSpr sees Google Chrome as target.
 It is discarded before ASR/insertion. Normal OSpr is visibly restored with eight
 sessions/265 words and unchanged settings/history hashes. Native insertion,
 physical shortcuts/device capture and clean-Mac distribution remain open.
+
+The separate ad-hoc test bundle at source `7cf7ce2` also passes relocation with
+a foreign cwd and hostile PYTHONPATH: all six offline/neural engines, audio
+review, model inventories/progress, notes/speaker/mix/upload controls, abstention
+and MCP listing. Its signature and all 190 help links pass; the bundled MIT
+license matches source bytes. Receipt: `qwen-prompt-portable.json`. No new ZIP
+or checked-distribution promotion; its bundled help predates the final receipt.
 
 ## Runtime footprint research: Torch retained after a name regression
 

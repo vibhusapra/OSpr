@@ -83,8 +83,18 @@ A lower operation count alone does not justify promotion. A future optimization
 needs its own predeclared quality/timing protocol, broader duration controls and
 stable-system measurements before changing defaults or a checked package.
 
-The latest TextEdit focus handoff also remains unaccepted: its AX field reported
+The latest TextEdit focus handoff in the existing isolated 9a51603 QA build
+also remains unaccepted: its AX field reported
 focus while OSpr captured Google Chrome as the target. The take was discarded
 before ASR or insertion; normal OSpr was visibly restored at eight sessions and
 265 words with identical settings/history hashes. This is separate from these
 headless frontend results and requires no renewed permission grants.
+
+A separate local test bundle at source `7cf7ce2` passes the copied-path/foreign-cwd/
+hostile-PYTHONPATH replay: six offline engines, six native neural-edge routes,
+exact-zero abstention, audio review, notes/speaker attribution/mix/upload routes,
+model inventories/progress and MCP tools. All 190 bundled help links resolve,
+the MIT license matches its source bytes, and the signature remains valid. This
+is an ad-hoc development test bundle, not a new checked distribution or native
+GUI acceptance. See `qwen-prompt-portable.json`. Its bundled help predates this
+final artifact receipt; the latest source report includes it.
