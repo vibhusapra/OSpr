@@ -1,0 +1,105 @@
+{
+  "status": "passed-stored-evidence-checks",
+  "receipt_sha256": "98ad713a8f42fd5dcc5cd4f2c3a533bee7b717846c75f7343ebc0d9dd06c8f28",
+  "raw_archive_sha256": "fb2783b2c0bb91f02a05c85b0525d9dd1700082bc53a03f61d9a6dff66ee0c7a",
+  "source_commit": "ace21b8a0ad9998b42e4986c9133721edbbd3f40",
+  "cli_sha256": "cb14dc79a8a416260561980dfbb11e105f271fed21c4e04e471df10949de46a9",
+  "verifier_sha256": "9bc98bcb28a8f0781e39519a66a78d4eedfc87335b178018274e5f57110a0b9b",
+  "input_audio_files_checked": 312,
+  "model_files_checked": 5,
+  "routes_checked": 624,
+  "packets_checked": 255236,
+  "candidate_frontiers_checked": 35652,
+  "performance": {
+    "16k-mono": {
+      "steady1024": {
+        "enqueue_through_drain_ms": {
+          "count": 17990,
+          "p50": 0.144042,
+          "p95": 0.22510609999999998,
+          "maximum": 3.345208
+        },
+        "final_filter_lag_normalized_samples": {
+          "minimum": 0.0,
+          "maximum": 0.0
+        }
+      },
+      "irregular": {
+        "enqueue_through_drain_ms": {
+          "count": 19898,
+          "p50": 0.190792,
+          "p95": 0.3900125999999998,
+          "maximum": 9.042959
+        },
+        "final_filter_lag_normalized_samples": {
+          "minimum": 0.0,
+          "maximum": 0.0
+        }
+      }
+    },
+    "44k1-stereo": {
+      "steady1024": {
+        "enqueue_through_drain_ms": {
+          "count": 49488,
+          "p50": 0.137042,
+          "p95": 0.20931864999999975,
+          "maximum": 1.880042
+        },
+        "final_filter_lag_normalized_samples": {
+          "minimum": 6.0,
+          "maximum": 6.181405895695207
+        }
+      },
+      "irregular": {
+        "enqueue_through_drain_ms": {
+          "count": 54592,
+          "p50": 0.130166,
+          "p95": 0.227333,
+          "maximum": 4.6305
+        },
+        "final_filter_lag_normalized_samples": {
+          "minimum": 6.0,
+          "maximum": 6.181405895695207
+        }
+      }
+    },
+    "48k-stereo": {
+      "steady1024": {
+        "enqueue_through_drain_ms": {
+          "count": 53861,
+          "p50": 0.135541,
+          "p95": 0.216875,
+          "maximum": 6.576792
+        },
+        "final_filter_lag_normalized_samples": {
+          "minimum": 6.0,
+          "maximum": 6.0
+        }
+      },
+      "irregular": {
+        "enqueue_through_drain_ms": {
+          "count": 59407,
+          "p50": 0.127667,
+          "p95": 0.217959,
+          "maximum": 1.814583
+        },
+        "final_filter_lag_normalized_samples": {
+          "minimum": 6.0,
+          "maximum": 6.0
+        }
+      }
+    }
+  },
+  "hardware_at_verification": {
+    "model": "Mac17,6",
+    "chip": "Apple M5 Max",
+    "memory_bytes": 137438953472,
+    "macos": "26.6.2"
+  },
+  "versions": {
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "soundfile": "0.14.0"
+  },
+  "boundary": "Rehashes source/derived audio, pinned model data and raw traces; checks all packet sizes, received/normalized frontiers, candidate bounds, recorded first finish, delays and summary/cost arithmetic. Does not rerun inference or independently validate model scores, ASR, phonemes, real-time contention, physical microphone or UI. Hardware is read at verification on the replay host."
+}

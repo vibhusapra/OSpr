@@ -128,7 +128,7 @@ public struct Transcript: Codable, Identifiable, Sendable {
     }
 }
 
-public struct OSprSettings: Codable, Sendable {
+public struct OSprSettings: Codable, Sendable, Equatable {
     public var model = "parakeet-v3"
     public var language = ""
     public var mode: WritingMode = .clean
@@ -154,6 +154,8 @@ public struct OSprSettings: Codable, Sendable {
     public var silenceTrim = true
     public var silenceThreshold = 0.003
     public var autoStopSeconds = 0.0
+    public var neuralAutoFinish = false
+    public var neuralSilenceSeconds = 1.2
     public var pushToTalk = false
     public var hotkeyFnOnly = false
     public var hotkeyCode: UInt32 = 49 // Space
@@ -163,7 +165,7 @@ public struct OSprSettings: Codable, Sendable {
     public var speakerLabels = false
     public var launchAtLogin = false
     public var rootPath = ""
-    private enum CodingKeys: String, CodingKey { case model, language, mode, rewriteProvider, rewriteURL, rewriteModel, transcriptionProvider, transcriptionURL, transcriptionModel, customPrompt, translationLanguage, vocabulary, replacements, profiles, saveHistory, keepAudio, audioBudgetMB, retentionDays, autoPaste, restoreClipboard, allowUnverifiedPaste, spokenPunctuation, silenceTrim, silenceThreshold, autoStopSeconds, pushToTalk, hotkeyFnOnly, hotkeyCode, hotkeyModifiers, microphoneID, preview, speakerLabels, launchAtLogin, rootPath }
+    private enum CodingKeys: String, CodingKey { case model, language, mode, rewriteProvider, rewriteURL, rewriteModel, transcriptionProvider, transcriptionURL, transcriptionModel, customPrompt, translationLanguage, vocabulary, replacements, profiles, saveHistory, keepAudio, audioBudgetMB, retentionDays, autoPaste, restoreClipboard, allowUnverifiedPaste, spokenPunctuation, silenceTrim, silenceThreshold, autoStopSeconds, rmsAutoStopSeconds, neuralAutoFinish, neuralSilenceSeconds, pushToTalk, hotkeyFnOnly, hotkeyCode, hotkeyModifiers, microphoneID, preview, speakerLabels, launchAtLogin, rootPath }
     public init() {}
     public init(from decoder: Decoder) throws {
         self.init()
@@ -192,7 +194,10 @@ public struct OSprSettings: Codable, Sendable {
         spokenPunctuation = try c.decodeIfPresent(type(of: spokenPunctuation), forKey: .spokenPunctuation) ?? spokenPunctuation
         silenceTrim = try c.decodeIfPresent(type(of: silenceTrim), forKey: .silenceTrim) ?? silenceTrim
         silenceThreshold = try c.decodeIfPresent(type(of: silenceThreshold), forKey: .silenceThreshold) ?? silenceThreshold
-        autoStopSeconds = try c.decodeIfPresent(type(of: autoStopSeconds), forKey: .autoStopSeconds) ?? autoStopSeconds
+        autoStopSeconds = try c.decodeIfPresent(Double.self, forKey: .rmsAutoStopSeconds)
+            ?? c.decodeIfPresent(Double.self, forKey: .autoStopSeconds) ?? autoStopSeconds
+        neuralAutoFinish = try c.decodeIfPresent(Bool.self, forKey: .neuralAutoFinish) ?? false
+        neuralSilenceSeconds = try c.decodeIfPresent(Double.self, forKey: .neuralSilenceSeconds) ?? 1.2
         pushToTalk = try c.decodeIfPresent(type(of: pushToTalk), forKey: .pushToTalk) ?? pushToTalk
         hotkeyFnOnly = try c.decodeIfPresent(Bool.self, forKey: .hotkeyFnOnly) ?? false
         hotkeyCode = try c.decodeIfPresent(type(of: hotkeyCode), forKey: .hotkeyCode) ?? hotkeyCode
@@ -203,6 +208,33 @@ public struct OSprSettings: Codable, Sendable {
         launchAtLogin = try c.decodeIfPresent(type(of: launchAtLogin), forKey: .launchAtLogin) ?? launchAtLogin
         rootPath = try c.decodeIfPresent(type(of: rootPath), forKey: .rootPath) ?? rootPath
     }
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.container(keyedBy: CodingKeys.self)
+        try c.encode(model, forKey: .model); try c.encode(language, forKey: .language)
+        try c.encode(mode, forKey: .mode); try c.encode(rewriteProvider, forKey: .rewriteProvider)
+        try c.encode(rewriteURL, forKey: .rewriteURL); try c.encode(rewriteModel, forKey: .rewriteModel)
+        try c.encode(transcriptionProvider, forKey: .transcriptionProvider)
+        try c.encode(transcriptionURL, forKey: .transcriptionURL); try c.encode(transcriptionModel, forKey: .transcriptionModel)
+        try c.encode(customPrompt, forKey: .customPrompt); try c.encode(translationLanguage, forKey: .translationLanguage)
+        try c.encode(vocabulary, forKey: .vocabulary); try c.encode(replacements, forKey: .replacements)
+        try c.encode(profiles, forKey: .profiles); try c.encode(saveHistory, forKey: .saveHistory)
+        try c.encode(keepAudio, forKey: .keepAudio); try c.encode(audioBudgetMB, forKey: .audioBudgetMB)
+        try c.encode(retentionDays, forKey: .retentionDays); try c.encode(autoPaste, forKey: .autoPaste)
+        try c.encode(restoreClipboard, forKey: .restoreClipboard); try c.encode(allowUnverifiedPaste, forKey: .allowUnverifiedPaste)
+        try c.encode(spokenPunctuation, forKey: .spokenPunctuation); try c.encode(silenceTrim, forKey: .silenceTrim)
+        try c.encode(silenceThreshold, forKey: .silenceThreshold)
+        // Old builds know only RMS auto-stop. Do not silently turn a neural
+        // preference into a different detector when the user opens an old app.
+        try c.encode(neuralAutoFinish ? 0 : autoStopSeconds, forKey: .autoStopSeconds)
+        try c.encode(autoStopSeconds, forKey: .rmsAutoStopSeconds)
+        try c.encode(neuralAutoFinish, forKey: .neuralAutoFinish)
+        try c.encode(neuralSilenceSeconds, forKey: .neuralSilenceSeconds)
+        try c.encode(pushToTalk, forKey: .pushToTalk); try c.encode(hotkeyFnOnly, forKey: .hotkeyFnOnly)
+        try c.encode(hotkeyCode, forKey: .hotkeyCode); try c.encode(hotkeyModifiers, forKey: .hotkeyModifiers)
+        try c.encode(microphoneID, forKey: .microphoneID); try c.encode(preview, forKey: .preview)
+        try c.encode(speakerLabels, forKey: .speakerLabels); try c.encode(launchAtLogin, forKey: .launchAtLogin)
+        try c.encode(rootPath, forKey: .rootPath)
+    }
     public func mode(for bundleID: String) -> WritingMode {
         matchingProfile(for: bundleID)?.mode ?? mode
     }
@@ -212,6 +244,7 @@ public struct OSprSettings: Codable, Sendable {
         result.audioBudgetMB = max(64, min(8192, audioBudgetMB))
         result.silenceThreshold = silenceThreshold.isFinite ? max(0, min(0.1, silenceThreshold)) : 0.003
         result.autoStopSeconds = autoStopSeconds.isFinite ? max(0, min(30, autoStopSeconds)) : 0
+        result.neuralSilenceSeconds = neuralSilenceSeconds.isFinite && (1.2...30).contains(neuralSilenceSeconds) ? neuralSilenceSeconds : 1.2
         return result
     }
 }

@@ -573,3 +573,79 @@ distribution or a claim of full union parity/top-three product placement.
 - [ ] Experimental bounded capture integration and physical-device acceptance.
   The candidate is eligible for an explicit experiment, not default promotion.
   Delivered preview and GUI remain unchanged. See `architecture/neural-endpointing.md`.
+
+## Bounded neural capture integration (work in progress)
+
+- [x] Optional capture sidecar with sixteen preallocated mono buffers and a
+  separate 0.5 s queued-audio ceiling, including in-flight work. Inference and
+  continuous normalization run on one owning queue, outside the hardware tap.
+- [x] Retractable finish candidates and an atomic capture-ingress claim: a
+  candidate cannot close recording while newer accepted audio remains queued.
+  Resumed activity revokes completion. Model/queue failures disable only the
+  optional monitor; the complete original/recovery writer remains independent.
+- [x] Partial tails probe copies of recurrent, causal-score and endpoint state.
+  Successful probes do not insert padding into the continuing model stream;
+  failed probes remain poisoned. Real cached-model pilot: 1,320 successful probes
+  preserve every probability in a 220-frame stream exactly, including reset.
+- [x] Eighteen new tests bring the local Swift suite to 281 passing tests.
+  Continuous AVAudioConverter output is sample-identical across irregular packet
+  boundaries at 8/16/44.1/48/96 kHz. Race, overflow, close, inference failure,
+  audio-copy ownership, partial-tail resumption and original-file preservation
+  controls pass. A detector failure leaves every stereo sample in the original.
+- [x] Frozen `ace21b8` functional replay: all 104 prior VAD validation cases at 16 kHz
+  mono / 44.1 and 48 kHz unequal-gain stereo, each with steady and irregular
+  packet sizes (624 routes). This reuses known fixtures; no new quality holdout,
+  model tuning, ASR or physical device acceptance is claimed. All 624 routes
+  complete: 594 speech variants arm/finish after source clip end and 30 repeated
+  synthetic-negative variants never arm. Maximum finish delay is 2.340 s.
+- [x] Stored-evidence checker rehashes 312 source/derived WAVs and five model
+  files, checks all 255,236 packet frontiers and 35,652 candidate frontiers, and
+  recomputes all summaries. Raw packet traces are retained in a 4.07 MB archive.
+  Serial enqueue-through-drain p95 is 0.209–0.390 ms depending on format/pattern;
+  this excludes hardware callbacks, UI polling, input file reads and ASR.
+- [x] Source-bound macOS CI 40043053254 passes all 281 Swift / 105 Python tests,
+  17 profile CLI cases, lint, report/app build and clean-runner bundled imports.
+  The cached-model replay is separate from CI and remains a functional control.
+- [x] Current source constructs the optional sidecar from a Settings opt-in.
+  Models adds explicit pinned 0.91 MB detector preparation; recording startup is
+  cache-only. Worker/native integrity gates reject same-size corrupt data.
+  Runtime/init failures display manual-finish warnings and keep original capture.
+- [x] Capture preparation runs off the main actor, rechecks the destination
+  before opening the microphone, and uses per-session leases for cancellation,
+  timers and late cleanup. A stale operation cannot stop a newer recording.
+- [x] Neural preferences encode legacy auto-stop as off and preserve the user's
+  RMS choice in a separate key. Every nondefault setting round-trips through the
+  custom compatibility encoder; older settings keep neural mode off.
+- [x] Local contracts at initial integration: 292 Swift / 112 Python tests and
+  17 profile CLI cases pass; cache repair expands Python coverage below.
+  Pin parity, explicit/corrupt download contracts, visible warning callbacks,
+  destination changes, manual fallback and full settings persistence are tested.
+- [ ] Package and exercise native Settings/Models controls in an isolated profile.
+  Physical microphone/destination acceptance remains separate. Defaults and the
+  delivered preview remain unchanged. Final ASR edges need their exact final
+  normalized timeline and are not changed by the auto-finish option.
+
+## Model cache repair and native controls (work in progress)
+
+- [x] Real isolated-cache testing exposed a Hub SDK repair gap: force-download
+  still returned a corrupt snapshot. Repair now stages/hashes known files into
+  unique OSpr-owned versions and atomically publishes a locator. Shared snapshots,
+  immutable blobs and prior native readers remain untouched.
+- [x] Python suite passes 117 tests, including absolute IPC paths for relative cache configuration. Regressions cover same-size shared/owned
+  corruption, new-version publication, locator traversal and symlinked managed
+  directories. No SDK/network access occurs during cache-only preparation.
+- [x] The real repaired asset passes independent native size/SHA verification.
+- [x] Frozen `ef50c9a` passes a fresh disposable-cache preparation/corruption/
+  versioned-repair reproduction and 1,320 actual Core ML CPU probes from the
+  relocated model. SDK transfer caches may be reused; network bytes are not measured.
+- [x] The exact source passes macOS CI 40047540458: 292 Swift / 117 Python tests,
+  17 profile CLI cases, lint, report/app build and clean-runner bundled imports.
+- [x] Isolated native Settings exposes the toggle and pause selection. Choosing
+  three seconds and Save preferences persisted neural=true / silence=3, legacy
+  auto-stop=0 and prior RMS interval=3. A screenshot captures Preferences saved.
+- [x] Normal OSpr remained running with identical settings/history hashes. QA had
+  a distinct identity, disabled services, auto-paste/history off, and zero audio,
+  history or recovery records. Only the disposable QA process was stopped.
+- [ ] macOS locked after Settings Save. Models-screen download and native restart
+  are unverified; process cleanup is not a graceful-quit acceptance claim.
+  Microphone, physical hotkeys, cross-app insertion and device acceptance remain.

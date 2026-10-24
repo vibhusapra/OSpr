@@ -173,6 +173,10 @@ import OSprCore
         }
         hotkey.failed = { [weak self] message in self?.error = message }
         capture.silenceReached = { [weak self] in self?.stop() }
+        capture.autoFinishUnavailable = { [weak self] message in
+            guard let self, self.phase == "recording" else { return }
+            self.error = message; self.status = "Listening · stop manually"
+        }
         do { if enableServices { try hotkey.register(code: settings.hotkeyCode, modifiers: settings.hotkeyModifiers, functionOnly: settings.hotkeyFnOnly) } }
         catch {
             self.error = error.localizedDescription
@@ -435,7 +439,7 @@ import OSprCore
         target = captured.app?.bundleIdentifier == Bundle.main.bundleIdentifier ? nil : captured
         let bundleID = target?.app?.bundleIdentifier ?? ""
         let document = settings.profileDocument(for: bundleID) { target?.profileDocument() }
-        recordingSettings = settings.resolvedProfile(for: bundleID, document: document)
+        recordingSettings = settings.resolvedProfile(for: bundleID, document: document).validated()
         recordingMode = recordingSettings.mode
         recordingProfileTitle = settings.matchingProfile(for: bundleID, document: document)?.title
         if recordingMode == .assistant && target?.selectedText.isEmpty != false { error = "Select text in the destination app before starting dictation."; return }
@@ -448,9 +452,28 @@ import OSprCore
                 microphoneReady = allowed
                 guard generation == token else { return }
                 guard allowed else { throw OSprError.message("Allow OSpr microphone access in System Settings → Privacy & Security → Microphone.") }
-                let file = try capture.start(deviceID: recordingSettings.microphoneID,
-                    autoStop: recordingSettings.autoStopSeconds, threshold: recordingSettings.silenceThreshold)
+                var speechModel: URL?
+                if recordingSettings.neuralAutoFinish {
+                    status = "Checking local speech detector…"
+                    let result = try await worker.request(["action": "prepare_speech_detector"])
+                    guard generation == token else { return }
+                    guard let path = result["model_path"] as? String, result["complete"] as? Bool == true else {
+                        throw OSprError.message("Prepare the local speech detector in Models before enabling neural auto finish.")
+                    }
+                    speechModel = URL(fileURLWithPath: path)
+                }
+                let recording = try await capture.start(deviceID: recordingSettings.microphoneID,
+                    autoStop: recordingSettings.autoStopSeconds, threshold: recordingSettings.silenceThreshold,
+                    neuralModelURL: speechModel, neuralSilenceSeconds: recordingSettings.neuralSilenceSeconds,
+                    validateStart: { [weak self] in
+                        guard let self, self.generation == token else { throw CancellationError() }
+                        try captured.validateRecordingStart()
+                    })
+                let file = recording.audio
+                guard generation == token else { _ = try? capture.stop(ifSession: recording.session); try? FileManager.default.removeItem(at: file); return }
                 recordingURL = file; phase = "recording"; status = "Listening · \(recordingMode.title)"; showOverlay()
+                if recordingSettings.neuralAutoFinish { status += " · neural finish" }
+                if let warning = capture.endpointWarning { error = warning; status = "Listening · stop manually" }
                 if recordingSettings.preview && recordingSettings.transcriptionProvider == "local" { startPreview(token: token) }
             } catch { if generation == token { self.error = error.localizedDescription; phase = "idle" } }
         }

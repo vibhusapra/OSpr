@@ -48,9 +48,11 @@ CONFIG
 cp LICENSE NOTICE "$resources/"
 mkdir -p "$resources/Engine/docs/data" "$resources/Engine/benchmarks/results"
 mkdir -p "$resources/Engine/docs/architecture"
+mkdir -p "$resources/Engine/docs/assets"
 mkdir -p "$resources/Engine/benchmarks/fixtures"
 cp docs/research.html docs/PROGRESS.md "$resources/Engine/docs/"
 cp docs/architecture/*.md "$resources/Engine/docs/architecture/"
+cp docs/assets/* "$resources/Engine/docs/assets/"
 cp docs/data/*.json "$resources/Engine/docs/data/"
 cp benchmarks/results/*.json "$resources/Engine/benchmarks/results/"
 for trace in benchmarks/results/*.json.gz; do

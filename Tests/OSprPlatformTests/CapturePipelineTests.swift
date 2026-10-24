@@ -1,8 +1,74 @@
 import XCTest
 import AVFoundation
+@testable import OSprCore
 @testable import OSpr
 
 final class CapturePipelineTests: XCTestCase {
+    func testSpeechMonitorFailureDoesNotStopOrTrimTheOriginalRecording() throws {
+        let url = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".wav")
+        defer { try? FileManager.default.removeItem(at: url) }
+        let format = AVAudioFormat(standardFormatWithSampleRate: 16000, channels: 2)!
+        let monitor = try NeuralCaptureMonitor(sampleRate: 16000) { _ in throw OSprError.message("Injected detector failure") }
+        let pipe = CapturePipeline(sink: try AudioSink(url: url, format: format), format: format, threshold: 0.01, speechMonitor: monitor)
+        let input = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: 512)!
+        input.frameLength = 512
+        for i in 0..<512 { input.floatChannelData![0][i] = 0.3; input.floatChannelData![1][i] = 0.1 }
+        pipe.ingest(input); monitor.synchronize()
+        XCTAssertNotNil(pipe.speechSnapshot?.warning)
+        XCTAssertNil(pipe.error, "An optional detector failure must not masquerade as capture/disk failure")
+        XCTAssertFalse(pipe.claimNeuralFinish())
+        if case .manualRequired = pipe.autoFinishDecision(neuralRequested: true, levelSilenceSeconds: 0.1, now: 10_000) {} else {
+            XCTFail("Detector failure must require manual finish, even when the RMS deadline would have passed")
+        }
+        pipe.ingest(input); pipe.ingest(input)
+        try pipe.finish()
+        let file = try AVAudioFile(forReading: url)
+        XCTAssertEqual(file.length, 1536)
+        let read = AVAudioPCMBuffer(pcmFormat: file.processingFormat, frameCapacity: 1536)!
+        try file.read(into: read)
+        XCTAssertEqual(read.frameLength, 1536)
+        for i in 0..<1536 {
+            XCTAssertEqual(read.floatChannelData![0][i], 0.3, accuracy: 0.000001)
+            XCTAssertEqual(read.floatChannelData![1][i], 0.1, accuracy: 0.000001)
+        }
+    }
+    func testCaughtUpFinishClosesTapAdmissionBeforeNewAudioCanEnter() throws {
+        let url = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".wav")
+        defer { try? FileManager.default.removeItem(at: url) }
+        let format = AVAudioFormat(standardFormatWithSampleRate: 16000, channels: 1)!
+        let monitor = try NeuralCaptureMonitor(sampleRate: 16000) { _ in
+            .init(normalizedSamples: 512, incompleteFrameSamples: 0, hasSpeech: true,
+                  candidate: .init(kind: .finished, boundarySample: 0, observedThroughSample: 512))
+        }
+        let pipe = CapturePipeline(sink: try AudioSink(url: url, format: format), format: format, threshold: 0.01, speechMonitor: monitor)
+        let input = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: 512)!
+        input.frameLength = 512
+        input.floatChannelData![0].update(repeating: 0, count: 512)
+        pipe.ingest(input); monitor.synchronize()
+        XCTAssertEqual(pipe.autoFinishDecision(neuralRequested: true, levelSilenceSeconds: 0, now: 10_000), .finish)
+        pipe.ingest(input)
+        XCTAssertFalse(pipe.claimNeuralFinish())
+        try pipe.finish()
+        XCTAssertEqual(try AVAudioFile(forReading: url).length, 512)
+        XCTAssertEqual(try pipe.snapshot(incremental: false).count, 512)
+    }
+    func testUnavailableNeuralModeNeverUsesTheLevelBasedDeadline() throws {
+        let url = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".wav")
+        defer { try? FileManager.default.removeItem(at: url) }
+        let format = AVAudioFormat(standardFormatWithSampleRate: 16000, channels: 1)!
+        let pipe = CapturePipeline(sink: try AudioSink(url: url, format: format), format: format, threshold: 0.01, now: 100)
+        let input = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: 512)!
+        input.frameLength = 512; input.floatChannelData![0].update(repeating: 0.2, count: 512)
+        pipe.ingest(input, now: 100.1)
+        XCTAssertEqual(pipe.autoFinishDecision(neuralRequested: false, levelSilenceSeconds: 1.5, now: 110), .finish)
+        XCTAssertEqual(pipe.autoFinishDecision(neuralRequested: false, levelSilenceSeconds: 0, now: 110), .keepRecording)
+        if case .manualRequired = pipe.autoFinishDecision(neuralRequested: true, levelSilenceSeconds: 1.5, now: 110) {} else {
+            XCTFail("A failed neural preparation cannot silently switch to RMS")
+        }
+        pipe.ingest(input, now: 110.1)
+        try pipe.finish()
+        XCTAssertEqual(try AVAudioFile(forReading: url).length, 1024)
+    }
     func testTapStateKeepsSpeechTimingAndIncrementalMonoWithoutMainActorWork() throws {
         let url = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".wav")
         defer { try? FileManager.default.removeItem(at: url) }

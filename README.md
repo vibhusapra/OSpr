@@ -180,7 +180,7 @@ quality gate and is included as a quality option.
 ## Models and privacy
 
 The Models screen shows pinned download sizes and cache completeness for all six
-ASR engines plus the optional refiner and diarizer. Download weights separately
+ASR engines plus the optional refiner, diarizer and native speech detector. Download weights separately
 from loading them onto Metal, watch prepared-byte progress, reveal the shared
 cache in Finder, or release engine memory. Inventory is offline and weights remain
 on disk when memory is released. OSpr never deletes the shared Hugging Face cache.
@@ -189,6 +189,26 @@ on disk when memory is released. OSpr never deletes the shared Hugging Face cach
 The default path sends no audio or text to a provider. Complete model downloads
 first, then set `HF_HUB_OFFLINE=1` for an offline engine run. Weight downloads come
 from Hugging Face. OSpr never silently switches to cloud inference.
+
+Current source also exposes **Neural auto finish · experimental** in Settings.
+Prepare the small Silero detector in Models, enable the setting, choose a pause
+duration and save preferences. Starting dictation only checks cached data; it
+does not download weights. The worker and native loader both verify the pinned
+files. This detector runs locally on CPU while ASR remains on Metal; it also works
+before an explicitly selected BYOK transcription route.
+
+The detector can reuse a verified shared Hub snapshot. Downloads/repairs publish
+new verified versions inside an OSpr-owned cache subdirectory, without editing
+shared snapshots or immutable blobs. Superseded versions stay available to any
+native model still reading them; model data is not automatically deleted.
+
+The detector is off by default. A pause can finish a take; a detector/queue error
+keeps recording and displays **stop manually**, without switching to RMS.
+Final edge trimming is separate and still volume based; disable it for quiet-speech
+experiments. New settings encode legacy auto-stop as off while neural mode is
+enabled, so an older build does not silently substitute RMS. Native controls and
+physical microphone acceptance remain separate gates. The context-profiles-v0 ZIP
+predates this option; see [capture evidence and remaining gates](docs/architecture/neural-endpointing.md).
 
 Cloud transcription sends audio; cloud refinement sends transcript text (and the
 selected passage for voice editing). These are separate visible choices. API keys
@@ -247,6 +267,8 @@ separate limitation. No secure-erasure guarantee is made.
 .build/debug/ospr-cli meeting /absolute/meeting.wav parakeet-v3
 .build/debug/ospr-cli models
 .build/debug/ospr-cli download whisper-small
+.build/debug/ospr-cli download speech-detector
+.build/debug/ospr-cli verify-speech-detector
 .build/debug/ospr-cli rewrite 'Um, keep every sentence and number.'
 .build/debug/ospr-cli resolve-profile settings.json com.example.browser https://example.org/team
 .build/debug/ospr-cli analyze-speech public-16k-mono.wav /path/to/model.mlmodelc cpu 1.2
@@ -255,8 +277,9 @@ separate limitation. No secure-erasure guarantee is made.
 `analyze-speech` is in current source; the context-profiles-v0 ZIP predates it.
 It is a research command for a supplied local Silero-compatible
 Core ML model. It reports probabilities and audio-time endpoint events without
-microphone capture, ASR or network access. The GUI and delivered preview retain
-their existing detector behavior; see [evaluation and integration gates](docs/architecture/neural-endpointing.md).
+microphone capture, ASR or network access. Current source adds the opt-in native
+microphone option above; defaults and the delivered preview keep their existing
+behavior. See [evaluation and integration gates](docs/architecture/neural-endpointing.md).
 
 The standalone app also includes `Contents/MacOS/ospr-cli`, which discovers its
 bundled engine automatically, including through a symlink. For example:

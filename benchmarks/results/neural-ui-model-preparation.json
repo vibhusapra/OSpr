@@ -1,0 +1,44 @@
+{
+  "status": "passed-real-model-preparation-and-repair",
+  "timestamp": "2026-10-24T00:57:46.516295+00:00",
+  "git_commit": "ef50c9af7c30f16031dc2ac31ee61438a99954f0",
+  "tracked_changes": false,
+  "cli_sha256": "e580b70203356e62bfb897487526898e6269b2a4ad3fe095f96bbc8393271add",
+  "harness_sha256": "fcea99997144e54ca7cb34c940c62f7752eb9fc0a0c887338d9642bf7b069224",
+  "model_lock_sha256": "56e9e4aebe03cebd656761834a5c813a05a2cdb05d2de978f2026c9592c8d3e4",
+  "audio_sha256": "0e963c6a046db0b2ba1ec56d2cacebd08e4c8dbbf58a4356ecd852770456cb70",
+  "repo": "FluidInference/silero-vad-coreml",
+  "revision": "b419383c55c110e2c9271fa6ee0ea83d03c70d96",
+  "artifact_bytes": 911498,
+  "checks": {
+    "new_empty_isolated_cache": true,
+    "explicit_public_preparation": true,
+    "cache_only_native_verification": true,
+    "same_size_owned_corruption_rejected": true,
+    "repair_publishes_new_version": true,
+    "prior_corrupt_version_retained": true,
+    "native_verification_after_repair": true,
+    "original_weight_hash_restored": true,
+    "relocated_native_cpu_model_runs": true
+  },
+  "probes": {
+    "audio_samples": 112480,
+    "boundary": "Real pinned Core ML CPU inference on a local public file. Partial-tail probes restore context and recurrent state; failed probes remain poisoned. No microphone, capture scheduling or ASR.",
+    "complete_or_final_model_frames": 220,
+    "exact_continuing_stream": true,
+    "invalid_probe_poisoned": true,
+    "repeat_probe_identity": true,
+    "reset_recovered": true,
+    "status": "passed",
+    "successful_partial_probes": 1320
+  },
+  "versions": {
+    "huggingface-hub": "2.2.0"
+  },
+  "prior_observation": {
+    "source": "f293b28f33314713e74fd7381505d6a9f5ace395",
+    "status": "failed-real-shared-snapshot-repair",
+    "detail": "On this host, force-download through the hub snapshot returned the same corrupt snapshot. The revised path uses fresh SDK local_dir staging and a separate verified installation."
+  },
+  "boundary": "Real public asset preparation in a newly-created empty disposable cache, worker/native SHA gates, one-byte same-size installed-version corruption, explicit repair and actual Core ML CPU probes on one public speech fixture. Authentication disabled. SDK may reuse global transfer caches; network bytes are not measured. No shared/immutable blob mutation, ASR recognition, microphone, private audio, paid provider, UI or device acceptance. The script removes only its own disposable test cache."
+}

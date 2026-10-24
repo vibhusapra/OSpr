@@ -1,0 +1,42 @@
+{
+  "status": "partial-native-settings-save-passed",
+  "verified_at": "2026-10-24T00:59:49.669417+00:00",
+  "tested_application_commit": "f293b28f33314713e74fd7381505d6a9f5ace395",
+  "tested_application_source_sha256": "009b8cd2d91d4100f994f02be7f9076635bf2fb623f030be5187257193dca26f",
+  "qa_bundle_id": "app.ospr.neural-ui-qa",
+  "background_services_enabled": false,
+  "checks": {
+    "native_toggle_enabled": true,
+    "native_pause_selection_seconds": 3,
+    "native_preferences_saved_banner_observed": true,
+    "settings_json_neural_enabled": true,
+    "settings_json_neural_seconds": 3,
+    "legacy_auto_stop_seconds": 0,
+    "preserved_rms_seconds": 3,
+    "auto_paste_disabled": true,
+    "history_saving_disabled": true,
+    "normal_settings_history_unchanged": true,
+    "normal_app_left_running": true,
+    "qa_audio_records": 0,
+    "qa_history_records": 0,
+    "qa_recovery_records": 0
+  },
+  "proof": {
+    "path": ".local/neural-settings-native.jpg",
+    "sha256": "c46ad22f51342386d011b7be447d9e179f9a26cb2a4ff71ce6de700d2d29186b",
+    "width": 1120,
+    "height": 800,
+    "mime_type": "image/jpeg",
+    "published_path": "docs/assets/native-neural-settings.jpg"
+  },
+  "incomplete": [
+    "Native Models download/refresh",
+    "Native restart persistence",
+    "Physical microphone",
+    "Hotkeys/Fn/PTT",
+    "Cross-app insertion",
+    "Actual runtime warning/device/contention matrix"
+  ],
+  "blocker": "macOS locked after Settings Save. Only the owned QA process was stopped for cleanup; no UI quit/restart or microphone test was completed.",
+  "boundary": "Observed isolated native Settings actions and persisted JSON only. QA uses a distinct identity, disabled services and an empty private profile. Model-cache repair is verified separately at a newer source; this receipt does not promote unit/CLI checks to native dictation acceptance."
+}

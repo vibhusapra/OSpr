@@ -1,9 +1,10 @@
-# Native speech detection and endpointing research
+# Native speech detection, capture and endpointing
 
 The delivered context-profiles preview still uses its existing RMS trim and
-optional RMS auto-finish. This work adds an offline Core ML detector and a shared
-audio-time endpoint policy for evaluation. It does not yet replace microphone
-endpointing, trim ASR input in the app, or bundle another model.
+optional RMS auto-finish. Current source adds an explicit experimental neural
+microphone option, with pinned model preparation and visible manual-finish
+failure handling. Defaults are unchanged. Final ASR edge trimming still uses its
+separate existing policy; physical microphone and destination acceptance remain.
 
 ## Contracts
 
@@ -266,6 +267,186 @@ HF_HUB_OFFLINE=1 PYTHONPATH=backend uv run --frozen --all-extras python \
 The verifier requires the source receipt's exact CLI hash. Rebuilding on another
 host requires a new replay receipt, rather than changing the archived hash.
 
+## Native capture sidecar under implementation
+
+`NeuralCaptureMonitor` owns sixteen preallocated 8192-float mono buffers and a
+separate half-second audio backlog ceiling, counting the in-flight packet. The
+capture callback copies an already downmixed block; one serial queue owns model,
+continuous AVAudioConverter, frame assembly, causal score and live endpoint.
+No inference, resampling, disk reads or SwiftUI closure runs on the audio tap.
+This still uses short locks and a bounded dispatch closure per admitted packet;
+it is not a claim of lock-free or allocation-free real-time execution.
+
+`LiveSpeechEndpoint` preserves the first one-shot policy decision while allowing
+later >=0.35 activity to revoke a candidate. Its candidate refers to the latest
+examined normalized frontier, not an old completed silence interval. At each
+packet boundary, an incomplete 512-sample frame probes copies of model context,
+recurrent state, causal score and endpoint state. Successful probes restore model
+state; bad probes poison it. The next complete frame commits its actual samples
+exactly once. There is no inserted padding at intermediate packet seams.
+
+`CapturePipeline.claimNeuralFinish` holds the same ingress lock as capture,
+requires the monitor's processed and received input positions to equal the
+writer's accepted frontier, and atomically closes both admissions on success.
+No newer callback packet can still be queued or in flight at that claim, and
+there is no read-then-stop race. This means processing every received input block
+and inspecting all available normalized output; the converter's filter delay is
+separate, not a promise that its newest retained samples have already reached
+the classifier. Activity
+within a partial normalized tail can revoke completion. Converter filter latency
+is still real, as is imperfect model classification; frontier consistency does
+not guarantee that every phoneme is detected or that semantic intent is complete.
+
+An overflow, input inconsistency or inference error disables the optional monitor
+and exposes a manual-finish warning. It never switches silently to RMS. The
+independent original recording writer continues unchanged. Close prevents stale
+in-flight work from publishing, and every new monitor owns fresh per-take state.
+The UI must display that warning and use the atomic claim before it can
+enable this experiment. Frozen replay source `ace21b8` had no GUI entry point;
+the newer opt-in integration below now constructs the optional sidecar.
+
+Eighteen new controls bring the local suite to 281 passing Swift tests. These
+include sample-identical continuous resampling across partitions at five device
+rates, backlog/slot overflow, newer audio arriving after an old candidate,
+in-flight close/failure, one-sample speech resumption in a partial frame, and
+every original stereo sample surviving detector failure. A real Core ML pilot
+preserves a 220-frame probability stream exactly across 1,320 partial probes.
+
+The private `_benchmark-speech-capture` CLI replays file samples through this
+actual sidecar. It drains every packet before admitting the next, which tests
+function and frontiers without claiming real-time contention or microphone
+acceptance. The frozen batch uses all 104 existing validation cases at three
+formats and two packet patterns (624 routes). Stereo gains 0.5/1.5 exercise
+downmix; SciPy creates rate variants, while the live sidecar uses AVAudioConverter.
+Those paths need not produce identical waveform values. Final ASR edge selection
+must use its own exact normalized timeline, rather than reusing live bounds.
+
+```sh
+PYTHONPATH=backend uv run --frozen --all-extras python benchmarks/native_speech_capture.py \
+  --cli .build/release/ospr-cli --output benchmarks/results/native-speech-capture.json
+```
+
+The harness uses only already cached pinned model data and public fixtures. It
+retains every failed route and all packet/candidate traces. Preparation, packet
+enqueue-through-drain cost and sample-position finish delay are separate; none
+is a measured hardware callback, UI or ASR latency distribution.
+
+### Frozen capture replay result
+
+Source `ace21b8a0ad9998b42e4986c9133721edbbd3f40` completes all 624
+routes with no failed route. Every one of the 594 transformed speech routes arms
+and finishes after source clip end; none of the thirty repeated synthetic-negative
+routes arms. These reuse the same 99 speech / five negative inputs, not 624
+independent utterances. The maximum finish delay is 2.339625 s. The 33 quiet
+inputs remain synthetic electrical attenuation, not real whispered speech.
+
+| Format / packet pattern | Original finish p95 | Quiet finish p95 | Noisy finish p95 | Packet work p95 |
+|---|---:|---:|---:|---:|
+| 16 kHz mono / 1024 | 1.506 s | 2.094 s | 1.800 s | 0.225 ms |
+| 16 kHz mono / irregular | 1.525 s | 2.087 s | 1.841 s | 0.390 ms |
+| 44.1 kHz stereo / 1024 | 1.488 s | 2.076 s | 1.771 s | 0.209 ms |
+| 44.1 kHz stereo / irregular | 1.492 s | 2.066 s | 1.761 s | 0.227 ms |
+| 48 kHz stereo / 1024 | 1.486 s | 2.065 s | 1.766 s | 0.217 ms |
+| 48 kHz stereo / irregular | 1.487 s | 2.068 s | 1.770 s | 0.218 ms |
+
+Irregular packet sizes cycle through 137/509/1024/2048 native-rate frames.
+Finish timing is the first candidate's **input sample position**, minus the
+source clip-end proxy. It includes packet boundaries and conversion behavior;
+there is no wall-clock UI poll. Packet work spans mono-copy admission through
+serial inference/drain (255,236 total packets), excluding file reads, the original
+writer, hardware scheduling, UI and ASR. Preparation separately loads and primes
+a model for each command. Shared M5 Max activity and warm OS caches are not
+controlled, so these costs are diagnostic, not a p95 service guarantee.
+
+The unflushed continuous converter retains six normalized samples at 48 kHz and
+6–6.18 samples at 44.1 kHz in this replay. It is not an identical zero-delay
+replacement for final SciPy normalization. Do not apply its live bounds to a
+different normalized ASR array. End-of-stream resampling tests separately drain
+the complete signal and verify its count/partition invariance.
+
+The stored-evidence checker verifies 312 source/derived audio hashes, all five
+model files, 255,236 packet-frontier records, 35,652 candidate bounds and every
+summary/delay/cost calculation. It does not independently reclassify speech or
+rerun inference. The trace archive preserves every packet and candidate.
+
+- [Functional replay receipt](../../benchmarks/results/native-speech-capture.json)
+- [Every packet and candidate](../../benchmarks/results/native-speech-capture.traces.json.gz)
+- [Stored-evidence checks, diagnostic costs and hardware](../../benchmarks/results/native-speech-capture-checks.json)
+- [Source-bound CI: 281 Swift / 105 Python / 17 CLI cases](../../benchmarks/results/native-speech-capture-ci.json)
+
+```sh
+HF_HUB_OFFLINE=1 uv run --frozen --all-extras python benchmarks/verify_native_speech_capture.py \
+  --receipt benchmarks/results/native-speech-capture.json \
+  --cli .local/vad-candidates/source-ace21b8-cli --output /tmp/native-capture-checks.json
+```
+
+The preserved CLI must match the frozen receipt's hash. A rebuild/reproduction
+needs its own run and fingerprints; do not change the archived receipt hashes.
+
+## Opt-in app integration under acceptance
+
+Settings exposes neural auto finish and a silence interval (1.2/1.5/3/5 s).
+Only 1.2 s is used in the frozen detector/capture studies. Models adds the
+911,498-byte MIT Core ML asset. Explicit download uses the pinned public
+repository/revision/files with authentication disabled. Every size and SHA-256
+must match; recording startup is cache-only. The native loader independently
+checks the same five assets before Core ML load. The ASR lock is unchanged;
+the detector has its own mirrored pin, with a cross-layer research/native test.
+
+Real corrupt-cache testing exposed an SDK gap: even force-download could return
+the existing bad Hub snapshot. Repair therefore uses a fresh SDK `local_dir`,
+verifies and copies only the five known files into an OSpr-owned version under
+`HF_HUB_CACHE/.ospr-native-speech/<revision>/<unique-version>`, then atomically
+publishes a small `current` locator. Shared snapshots and immutable blobs are
+never edited. Prior versions are retained so a model already reading one is not
+disrupted. A malformed locator or symlinked managed directory fails closed.
+Verified shared snapshots remain reusable without another download or copy. Worker/native IPC paths are absolute, including relative cache overrides.
+
+Real disposable-cache reproduction (explicit public model preparation; no private audio):
+
+```sh
+uv run --frozen --all-extras python benchmarks/neural_model_preparation.py \
+  --cli .build/release/ospr-cli --output /tmp/neural-model-preparation.json
+```
+
+Preparation and priming run off the main actor before installing the tap. Missing
+or unverified cache fails before recording with an actionable Models message.
+Native initialization/runtime failure continues capture with a visible manual
+finish warning; it never substitutes RMS. The timer uses the atomic claim.
+The detector is local CPU work even when the user explicitly chooses BYOK ASR.
+
+Per-session leases fence preparation, timers and late cleanup after cancellation.
+The original destination is checked again after preparation, including field
+identity, selected passage, owner consistency and secure/unknown foreground
+state. An old result cannot stop a newer session. Complete original audio and
+recovery stay independent. Paused speech can still end a take; this detector
+does not infer semantic intent.
+
+New settings preserve the user's RMS interval separately but encode legacy
+`autoStopSeconds` as zero while neural mode is enabled. Old decoders therefore
+do not silently substitute RMS; new decoders restore both choices. Opening an
+older app can still discard unknown preferences. Full nondefault settings
+round-trip tests guard the custom encoder.
+
+Local contracts pass 292 Swift / 117 Python tests and 17 real profile CLI cases.
+They cover pins, corruption, explicit download versus cache-only preparation,
+settings compatibility, pre-start destination changes, stale-session leases,
+manual fallback and visible recording-warning callbacks. They do not exercise
+real microphone capture or insertion. Isolated native Settings toggle/three-second
+selection/Save passed, including legacy zero and preserved RMS interval on disk.
+macOS locked before Models-screen and restart checks; only QA was stopped, with
+normal settings/history unchanged and zero QA audio/history/recovery. Models,
+restart, hardware, pause/noise/quiet/device behavior and contention remain
+acceptance work. Final ASR edges must use the exact final normalized array. The UI identifies
+volume trimming as separate and advises disabling it for quiet experiments.
+
+- [Source-bound integration checks](../../benchmarks/results/neural-ui-source-validation.json)
+- [Real empty-cache repair and relocated CPU inference](../../benchmarks/results/neural-ui-model-preparation.json)
+- [Observed native Settings Save and remaining gates](../../benchmarks/results/neural-ui-native-settings.json)
+- [CI: 292 Swift / 117 Python / 17 CLI cases](../../benchmarks/results/neural-ui-ci.json)
+
+![Isolated native Settings after Save; three-second neural finish selected](../assets/native-neural-settings.jpg)
+
 ## Primary sources and provenance
 
 - [Silero upstream and MIT license](https://github.com/snakers4/silero-vad)
@@ -274,6 +455,8 @@ host requires a new replay receipt, rather than changing the archived hash.
 - [MLX v6 conversion](https://huggingface.co/mlx-community/silero-vad-v6)
 - [Pinned model files](../../benchmarks/fixtures/vad-models.json)
 - [Preselected public protocol](../../benchmarks/fixtures/vad-protocol.json)
+- [Apple AVAudioConverter sample-rate conversion guidance](https://developer.apple.com/documentation/technotes/tn3136-avaudioconverter-performing-sample-rate-conversions)
+- [Apple streaming converter contract](https://developer.apple.com/documentation/avfaudio/avaudioconverter/convert(to:error:withinputfrom:))
 
 Vendor/model-card speed and parity statements are not OSpr measurements. The
 four AMI annotations are coarse speech-timing proxies, not a standard VAD frame
