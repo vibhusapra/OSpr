@@ -38,28 +38,8 @@ enum AzureRewrite {
         return request
     }
 
-    private static func hasFilteredContent(_ value: Any?) -> Bool {
-        if let object = value as? [String: Any] {
-            return object["filtered"] as? Bool == true || object.values.contains(where: { hasFilteredContent($0) })
-        }
-        if let array = value as? [Any] { return array.contains(where: { hasFilteredContent($0) }) }
-        return false
-    }
-    private static func absent(_ value: Any?) -> Bool { value == nil || value is NSNull }
-
     static func text(from response: [String: Any]) throws -> String {
-        guard !hasFilteredContent(response["prompt_filter_results"]),
-              let choices = response["choices"] as? [[String: Any]], choices.count == 1,
-              let choice = choices.first, choice["index"] as? Int == 0, choice["finish_reason"] as? String == "stop",
-              !hasFilteredContent(choice["content_filter_results"]),
-              let message = choice["message"] as? [String: Any], message["role"] as? String == "assistant",
-              absent(message["refusal"]), absent(message["function_call"]), absent(message["audio"]),
-              absent(message["tool_calls"]) || (message["tool_calls"] as? [Any])?.isEmpty == true,
-              let text = message["content"] as? String,
-              !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-            throw OSprError.message("Azure did not return a complete text rewrite. Original text is retained; check the deployment and provider settings.")
-        }
-        return text
+        try RewriteResponse.chat(response, providerName: "Azure")
     }
 
     static func rewrite(text: String, instruction: String, base: String, deployment: String, key: String) async throws -> String {

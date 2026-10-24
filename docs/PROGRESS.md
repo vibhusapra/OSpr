@@ -2,6 +2,39 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## Combined v0 review and an existing-archive-copy upgrade check
+
+The `codex/v0-integration` branch collects the current combined source into one
+review against `main`, preserving all 23 component PR branches/heads. Git ancestry
+checks confirm every component head is contained. Review found six reproduced unsafe draft returns in compatible/Anthropic rewrite
+parsing. A new shared completion gate rejects incomplete/refused/tool turns before
+fidelity checks; Azure shares that chat gate, Gemini retains its strict native
+parser, and the CLI now exposes compatible/Anthropic file routes too. A new signed
+integration candidate is being built; the prior `3fb3c1d` candidate predates this
+runtime fix. Dependency locks remain unchanged. This is not a full-completion or
+release claim. Local 384 Swift / 248 Python tests, Ruff, 21 new-route CLI cases and
+12 Azure / 8 Gemini regressions pass.
+The ledger remains 49 items: 14 verified components, 12 implemented, 5 contract-
+tested, 8 partial, 6 experimental, 1 research-only, 2 deferred and 1 unproven.
+
+An isolated copy of the existing eight-record/two-audio legacy archive passes
+current AppModel startup/migration, canonical field/order/config preservation,
+a saved-record search, edit/quit barrier and AppModel restart. Retained audio bytes
+and original settings/history/audio bytes remain identical. Native services are
+disabled. This is one separate acceptance probe, not an addition to the permanent
+suite or an interactive/original-profile/separate-process upgrade pass.
+Only sanitized booleans/counts are published; private contents/IDs/queries/hashes
+are not. The private test profile/hash snapshot was removed after verification,
+without a secure-erasure claim. No normal app quit, QA app launch, recording,
+playback, provider call or sound change occurred.
+
+[Review](architecture/v0-review.md), [structured evidence](data/v0-review.json),
+[sanitized migration receipt](../benchmarks/results/v0-existing-archive-upgrade.json).
+Current-candidate native/physical/device/Keychain/system-capture, broader rewrite/
+translation, provider streaming, fuller meeting summaries, consumer correction-
+cost/energy/ranking and distribution acceptance remain open. The original goal
+is not complete.
+
 ## Azure v1 BYOK refinement: native adapter and CLI contracts pass
 
 The `codex/azure-refinement` branch closes the remaining Azure resource-key text

@@ -101,14 +101,47 @@ class Handler(BaseHTTPRequestHandler):
             body = json.loads(data)
             assert body["messages"][0]["role"] == "system"
             assert body["messages"][1]["content"] == "test passage"
-            assert self.headers["Authorization"] == "Bearer test-key"
-            result = {"choices": [{"message": {"content": "Edited passage."}}]}
+            if route.path.startswith("/anonymous-rewrite/"):
+                assert self.headers.get("Authorization") is None
+            else:
+                assert self.headers["Authorization"] == "Bearer test-key"
+            message = {"role": "assistant", "content": "Edited passage.", "refusal": None}
+            choice = {"index": 0, "finish_reason": "stop", "message": message}
+            if route.path.startswith("/rewrite-truncated/"):
+                choice["finish_reason"] = "length"
+            if route.path.startswith("/rewrite-refused/"):
+                message["refusal"] = "PRIVATE REFUSAL"
+            if route.path.startswith("/rewrite-tool/"):
+                choice["finish_reason"] = "tool_calls"
+                message["tool_calls"] = [{"id": "fake", "type": "function", "function": {"name": "fake", "arguments": "{}"}}]
+            if route.path.startswith("/rewrite-missing/"):
+                choice.pop("finish_reason")
+            if route.path.startswith("/rewrite-empty/"):
+                message["content"] = " \n"
+            if route.path.startswith("/rewrite-negation/"):
+                message["content"] = "Do not ship."
+            result = {"choices": [choice]}
         elif self.path.endswith("/messages"):
             body = json.loads(data)
             assert body["system"] and body["max_tokens"] == 4096
             assert self.headers["x-api-key"] == "test-key"
             assert self.headers["anthropic-version"] == "2023-06-01"
-            result = {"content": [{"type": "text", "text": "Edited passage."}]}
+            result = {"type": "message", "role": "assistant", "stop_reason": "end_turn", "stop_sequence": None,
+                      "content": [{"type": "text", "text": "Edited passage."}]}
+            if route.path.startswith("/rewrite-truncated/"):
+                result["stop_reason"] = "max_tokens"
+            if route.path.startswith("/rewrite-refused/"):
+                result["stop_reason"] = "refusal"
+                result["stop_details"] = {"explanation": "PRIVATE REFUSAL"}
+            if route.path.startswith("/rewrite-tool/"):
+                result["stop_reason"] = "tool_use"
+                result["content"].append({"type": "tool_use", "id": "fake", "name": "fake", "input": {}})
+            if route.path.startswith("/rewrite-missing/"):
+                result.pop("stop_reason")
+            if route.path.startswith("/rewrite-empty/"):
+                result["content"] = [{"type": "text", "text": " \n"}]
+            if route.path.startswith("/rewrite-negation/"):
+                result["content"] = [{"type": "text", "text": "Do not ship."}]
         elif self.path.endswith("/audio/transcriptions"):
             if self.path.startswith("/anonymous/"):
                 assert self.headers.get("Authorization") is None

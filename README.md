@@ -9,6 +9,13 @@ or a top-three product ranking. See [progress](docs/PROGRESS.md), the
 [acceptance ledger](docs/data/parity.json), and the self-contained
 [research and benchmark report](docs/research.html).
 
+[Combined v0 review](docs/architecture/v0-review.md) maps the original request to
+current evidence, the 23 component PRs and remaining acceptance work. It includes
+a sanitized existing-archive-copy migration/restart check and a fix for remote
+rewrite completion status. The older Azure candidate predates that fix; a new
+integration candidate is being prepared. Full parity and a top-three result
+remain unproven.
+
 ## Run on your Mac
 
 Requirements: Apple Silicon, macOS 14+, Xcode 16+ / Swift 6, [uv](https://docs.astral.sh/uv/),
@@ -364,6 +371,11 @@ The input file is unchanged; JSON reports whether the Clean fidelity guard
 accepted the rewrite or returned the original. Incomplete/blocked/provider
 failures exit without partial output. This command uploads text, uses no audio
 or local model, and does not imply semantic fidelity or provider-account acceptance.
+
+`rewrite-compatible` and `rewrite-anthropic` use the same file/base/model/key
+contract. Standard completion metadata is required: incomplete, refused or tool
+turns retain the original instead of delivering draft text. Compatible local
+services can omit the key. See [completion handling](docs/architecture/rewrite-completion.md).
 
 `ospr-cli rewrite-azure /path/to/transcript.txt https://YOUR-RESOURCE.openai.azure.com YOUR_DEPLOYMENT`
 uses an Azure resource key from `OSPR_REWRITE_KEY` with the same input-preservation

@@ -23,6 +23,36 @@ final class ProviderTests: XCTestCase {
         let text = try await ProviderClient.rewrite(text: "test passage", instruction: "Clean up.", provider: "compatible", base: base, model: "test-model", key: "test-key")
         XCTAssertEqual(text, "Edited passage.")
     }
+    func testExplicitIncompleteOrNonTextProviderTurnsCannotDeliverDraft() async {
+        for provider in ["compatible", "anthropic"] {
+            for route in ["rewrite-truncated", "rewrite-refused", "rewrite-tool"] {
+                do {
+                    _ = try await ProviderClient.rewrite(text: "test passage", instruction: "Clean up.", provider: provider, base: base.replacingOccurrences(of: "/v1", with: "/\(route)/v1"), model: "test-model", key: "test-key")
+                    XCTFail("Draft was delivered for \(provider) \(route)")
+                } catch {
+                    XCTAssertFalse(error.localizedDescription.contains("PRIVATE"))
+                }
+            }
+        }
+    }
+    func testAnonymousLocalRewriteStillUsesCompleteCompatibleResponse() async throws {
+        let text = try await ProviderClient.rewrite(text: "test passage", instruction: "Clean up.", provider: "ollama", base: base.replacingOccurrences(of: "/v1", with: "/anonymous-rewrite/v1"), model: "test-model", key: "")
+        XCTAssertEqual(text, "Edited passage.")
+    }
+    func testRewriteSetupRejectsControlsAndMissingModelBeforeTransport() async {
+        for provider in ["compatible", "anthropic"] {
+            for key in ["key\r\nInjected: header", "key value", "ékey"] + (provider == "anthropic" ? [""] : []) {
+                do {
+                    _ = try await ProviderClient.rewrite(text: "test passage", instruction: "Clean up.", provider: provider, base: base, model: "test-model", key: key)
+                    XCTFail("Expected header validation failure")
+                } catch { XCTAssertTrue(error.localizedDescription.contains("API key")) }
+            }
+            do {
+                _ = try await ProviderClient.rewrite(text: "test passage", instruction: "Clean up.", provider: provider, base: base, model: " \n", key: "test-key")
+                XCTFail("Expected model validation failure")
+            } catch { XCTAssertTrue(error.localizedDescription.contains("model ID")) }
+        }
+    }
     func testGeminiNativeRewriteUsesHeaderKeyAndExcludesThoughtParts() async throws {
         let text = try await ProviderClient.rewrite(text: "test passage", instruction: "Clean up.", provider: "gemini", base: base, model: "models/test-model", key: "test-key")
         XCTAssertEqual(text, "Edited passage.")

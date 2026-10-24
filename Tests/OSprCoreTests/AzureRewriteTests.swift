@@ -41,7 +41,9 @@ final class AzureRewriteTests: XCTestCase {
         }
     }
     func testCompleteAssistantTextPreservesUnicodeAndWhitespace() throws {
-        XCTAssertEqual(try AzureRewrite.text(from: response(text: "  café\n不要发布。\n", messageFields: ["refusal": NSNull(), "tool_calls": [], "reasoning_content": "PRIVATE THOUGHT"])), "  café\n不要发布。\n")
+        for refusal: Any in [NSNull(), "", " \n"] {
+            XCTAssertEqual(try AzureRewrite.text(from: response(text: "  café\n不要发布。\n", messageFields: ["refusal": refusal, "tool_calls": [], "reasoning_content": "PRIVATE THOUGHT"])), "  café\n不要发布。\n")
+        }
     }
     func testIncompleteAmbiguousWrongRoleAndMissingTextAreNotDelivered() {
         for reason in ["length", "content_filter", "tool_calls", "function_call", "", "unknown"] {
