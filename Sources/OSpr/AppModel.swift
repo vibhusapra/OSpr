@@ -1126,16 +1126,17 @@ import OSprCore
         }
     }
 
-    func generateSummary(_ record: Transcript) {
+    func generateSummary(_ record: Transcript, sourceKind: SummarySource = .original) {
         guard !busy else { return }
+        let source = sourceKind.text(in: record)
         generation = UUID(); let token = generation
-        phase = "transcribing"; error = ""; status = "Summarizing locally · first use downloads a 9B model (6 GB)"
+        phase = "transcribing"; error = ""; status = "Summarizing \(sourceKind.title.lowercased()) locally · first use downloads a 9B model (6 GB)"
         operationTask = Task {
             do {
                 let result: [String: Any]
-                if let summaryRequest { result = try await summaryRequest(record.rawText) }
+                if let summaryRequest { result = try await summaryRequest(source) }
                 else {
-                    result = try await worker.request(["action": "summary", "text": record.rawText], progress: { [weak self] event in
+                    result = try await worker.request(["action": "summary", "text": source], progress: { [weak self] event in
                         Task { @MainActor [weak self] in
                             guard let self, self.generation == token, self.phase == "transcribing" else { return }
                             switch event["phase"] as? String {
@@ -1150,11 +1151,23 @@ import OSprCore
                     }, timeout: 3600)
                 }
                 guard token == generation else { return }
-                let summary = try MeetingSummary.fromWorker(result, source: record.rawText)
-                try await historyState.updateSummary(id: record.id, summary: summary, expectedRawText: record.rawText)
+                let summary = try MeetingSummary.fromWorker(result, source: source, sourceKind: sourceKind)
+                try await historyState.updateSummary(id: record.id, summary: summary, expectedRawText: record.rawText,
+                    expectedEditedText: sourceKind == .edited ? source : nil)
                 if token == generation { status = summary.items.isEmpty ? "No summary items returned · original retained" : "Local summary ready · review the source quotes" }
             } catch { if token == generation { self.error = error.localizedDescription; status = "Summary not saved · previous notes retained" } }
             if token == generation { phase = "idle" }
+        }
+    }
+
+    func clearSummary(_ record: Transcript) {
+        guard !quitting, !busy, let expected = record.summary else { return }
+        Task {
+            guard !quitting else { return }
+            do {
+                try await historyState.clearSummary(id: record.id, expected: expected)
+                if !busy { status = "Summary and its saved source removed" }
+            } catch { self.error = error.localizedDescription }
         }
     }
 

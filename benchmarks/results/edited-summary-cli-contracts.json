@@ -1,0 +1,55 @@
+{
+  "status": "passed-summary-file-cli-contracts",
+  "cli_sha256": "31a55e2f24cf9dd53caa1dbc355298590d1f8aa7476534ec60daf2a8c1833147",
+  "build": null,
+  "cases": [
+    {
+      "case": "valid",
+      "exit_code": 0,
+      "input_unchanged": true,
+      "private_fixture_not_exposed": true
+    },
+    {
+      "case": "bad-quote",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "private_fixture_not_exposed": true
+    },
+    {
+      "case": "bad-quantity",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "private_fixture_not_exposed": true
+    },
+    {
+      "case": "bad-reference",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "private_fixture_not_exposed": true
+    },
+    {
+      "case": "bad-section",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "private_fixture_not_exposed": true
+    },
+    {
+      "case": "missing-chunks",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "private_fixture_not_exposed": true
+    },
+    {
+      "case": "stale-progress",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "private_fixture_not_exposed": true
+    },
+    {
+      "case": "non-UTF8-input",
+      "exit_code": 1,
+      "input_unchanged": true
+    }
+  ],
+  "boundary": "Actual Swift CLI with owned synthetic worker and public UTF8 files: complete typed notes, bad quote/quantity/reference/category/metadata and stale progress rejection, no partial stdout or private-fixture echo, invalid UTF8 rejection and unchanged input. Optional three actual offline 9B file-to-worker-to-native-validation replays. Citation validation is not entailment or summary quality proof. No app UI, microphone/history/provider account, isolated timing, consumer ranking or distribution acceptance."
+}

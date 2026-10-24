@@ -2,6 +2,24 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## Edited-text summaries and retained source snapshots
+
+History now offers explicit original or edited summary sources. Edited summaries
+retain the captured source and quotes, warn after subsequent edits, and can be
+removed with their saved source. A changed in-flight edit refuses publication;
+selection changes and cancellation preserve the intended record and previous
+summary. Snapshots follow session-only/history retention. First edited save uses
+a transactional v4 writer fence; a separately compiled prior v3 reader refuses it
+without changing SQLite bytes. One actual offline 9B worker→Swift→SQLite run passes.
+438 Swift tests pass, including twelve new Core tests and two lifecycle tests for
+the source and removal races. Full source validation is bound in the [receipt](../benchmarks/results/edited-summary-source-validation.json).
+Release build, Ruff, 355 Python and eight existing CLI summary controls pass.
+Five light/dark/narrow source layouts are inspected. Native inspection of the
+isolated QA app timed out; it was stopped and the normal app is unchanged. This
+source feature is absent from the earlier signed standalone ZIP. Native interaction,
+semantic quality, current TextEdit insertion and full parity/ranking remain open.
+[Behavior, retention and reproduction](architecture/edited-summary-source.md).
+
 ## Profile editor page and isolated preference saves
 
 Modes now opens profile Add/Edit inside the workspace, with a scrolling form and
