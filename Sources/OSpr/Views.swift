@@ -134,7 +134,7 @@ struct StudioView: View {
                         if model.phase == "recording" {
                             if let destination = model.dictationDestination { Text(destination).font(.caption).foregroundStyle(.secondary) }
                             Waveform(level: model.displayLevel)
-                            if !model.preview.isEmpty { Text(model.preview).font(.subheadline).foregroundStyle(.secondary).lineLimit(3) }
+                            if !model.recordingDesktop && !model.preview.isEmpty { Text(model.preview).font(.subheadline).foregroundStyle(.secondary).lineLimit(3) }
                             Button("Discard recording", role: .destructive) { model.cancel() }.buttonStyle(.plain).font(.caption)
                         }
                         Divider()
@@ -166,12 +166,21 @@ struct StudioView: View {
                     VStack(alignment: .leading, spacing: 12) {
                         Label("Desktop audio · experimental", systemImage: "person.2.wave.2").font(.headline)
                         Text("Record desktop sound, with an optional microphone track. Up to one hour per take. Audio stays local; no video is stored. macOS 15+, system audio permission and FFmpeg are required. Use headphones to reduce speaker bleed; echo cancellation is not included.").font(.caption).foregroundStyle(.secondary)
+                        if model.recordingDesktop && !model.preview.isEmpty {
+                            Text(model.meetingPreviewTitle).font(.caption.weight(.semibold)).foregroundStyle(.secondary)
+                            ScrollView { Text(model.preview).frame(maxWidth: .infinity, alignment: .leading).textSelection(.enabled) }
+                                .frame(height: 180)
+                        }
                         HStack {
                             Toggle("Include microphone", isOn: $model.meetingMicrophone).disabled(model.busy)
+                            Toggle("Live preview", isOn: $model.settings.preview).disabled(model.busy)
                             Spacer()
                             Button(model.recordingDesktop ? "Finish meeting" : "Record desktop audio") {
                                 if model.recordingDesktop { model.stop() } else { model.startMeeting() }
                             }.disabled(model.busy && !model.recordingDesktop || model.hasRecovery && !model.recordingDesktop)
+                        }
+                        if model.settings.preview && !model.recordingDesktop {
+                            Text("Nemotron shows a continuous live draft; other models show recent speech. The complete meeting is transcribed at finish. Live drafts do not include speaker labels.").font(.caption).foregroundStyle(.secondary)
                         }
                     }
                 }
@@ -539,7 +548,7 @@ struct PreferencesView: View {
                     Picker("Level-based auto finish", selection: $model.settings.autoStopSeconds) { Text("Off").tag(0.0); Text("1.5 seconds").tag(1.5); Text("3 seconds").tag(3.0); Text("5 seconds").tag(5.0) }
                 }
                 Toggle("Experimental live local preview", isOn: $model.settings.preview)
-                Text("Nemotron streams incremental audio and flushes its cache at finish. Other models decode a rolling 12-second window every 3 seconds, adding GPU work. Neural edges use a separate final decode of the complete take; previews stay provisional. Partial text is displayed in OSpr, then final text is inserted.").font(.caption).foregroundStyle(.secondary)
+                Text("Show a provisional draft during dictation and desktop recordings. Nemotron builds a continuous transcript; other models show the most recent 12 seconds. Meetings always transcribe the complete recording again at finish. Drafts use extra processing and do not include live speaker labels. Neural speech edges apply to final transcription.").font(.caption).foregroundStyle(.secondary)
             }
             Section("Speech recognition") {
                 Picker("Transcription", selection: Binding(get: { model.settings.transcriptionProvider }, set: { provider in

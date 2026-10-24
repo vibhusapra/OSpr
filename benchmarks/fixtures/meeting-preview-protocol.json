@@ -1,0 +1,100 @@
+{
+  "schema": 1,
+  "seconds": 60,
+  "microphone_offset": 0.125,
+  "sources": [
+    {
+      "name": "system",
+      "rate": 44100
+    },
+    {
+      "name": "microphone",
+      "rate": 48000
+    }
+  ],
+  "clips": [
+    {
+      "id": "1272-128104-0000",
+      "path": "fixtures/audio/1272-128104-0000.wav",
+      "reference": "MISTER QUILTER IS THE APOSTLE OF THE MIDDLE CLASSES AND WE ARE GLAD TO WELCOME HIS GOSPEL",
+      "suite": "human-clean",
+      "source_id": "1272-128104-0000",
+      "sha256": "799f78ed4beb4de7ceae3a809262d4ce242394342ccd1d58cef7d49dbc2def46",
+      "seconds": 5.855
+    },
+    {
+      "id": "1272-128104-0001",
+      "path": "fixtures/audio/1272-128104-0001.wav",
+      "reference": "NOR IS MISTER QUILTER'S MANNER LESS INTERESTING THAN HIS MATTER",
+      "suite": "human-clean",
+      "source_id": "1272-128104-0001",
+      "sha256": "473b1bb573e8f7cdcd639c6e318036236190107b66bfe6892286121a92d464c1",
+      "seconds": 4.815
+    }
+  ],
+  "placements": [
+    {
+      "source": "system",
+      "id": "1272-128104-0000",
+      "at": 1
+    },
+    {
+      "source": "microphone",
+      "id": "1272-128104-0001",
+      "at": 8
+    },
+    {
+      "source": "system",
+      "id": "1272-128104-0001",
+      "at": 40
+    },
+    {
+      "source": "microphone",
+      "id": "1272-128104-0000",
+      "at": 48
+    }
+  ],
+  "variants": [
+    {
+      "id": "regular-320ms",
+      "packets": [
+        1024
+      ],
+      "interval": 0.32,
+      "jitter": 0
+    },
+    {
+      "id": "varied-320ms",
+      "packets": [
+        128,
+        317,
+        8192,
+        4096
+      ],
+      "interval": 0.32,
+      "jitter": 0.05
+    },
+    {
+      "id": "varied-3s",
+      "packets": [
+        8192,
+        317,
+        1024
+      ],
+      "interval": 3,
+      "jitter": 0.1
+    }
+  ],
+  "max_sample_error": 0.05,
+  "max_relative_rms_error": 0.1,
+  "final_models": [
+    "nemotron-streaming",
+    "parakeet-v3"
+  ],
+  "locks": {
+    "backend/ospr_backend/models.lock.json": "9d523253c866ef3a021e51c0a542e65878a658b8539140a3043518c4c759dffa",
+    "uv.lock": "8e306569ebe63c886e9938d06c2e0a6e39d661de20e116a1998321dbfd14a6d2",
+    "benchmarks/fixtures/manifest.json": "ea0df37dc8f5a7b519b115d44fcd71f16413e04f1bac48b15eec9399f4e43c2b"
+  },
+  "boundary": "Unpaced native production mix from two public read-English clips by one speaker, placed without speech overlap on simulated 44.1/48 kHz sources. Three partition/cadence/delivery schedules, half gain per source and 125 ms source offset. Cached Nemotron receives every draft packet; its final stream flush is diagnostic only. The app cancels provisional draft and independently recognizes the complete durable mix. No microphone, ScreenCaptureKit, UI, physical stop, latency, peak-memory, energy, diarization, echo or broad natural-meeting quality claim. Roundtrip tolerance checks conversion/timeline only; ASR WER is descriptive, not an accuracy acceptance threshold. No candidate/default/distribution promotion from this replay."
+}
