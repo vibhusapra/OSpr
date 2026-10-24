@@ -3,7 +3,7 @@
 import argparse
 import datetime
 import hashlib
-import importlib.metadata
+from importlib.metadata import version
 import json
 import subprocess
 from pathlib import Path
@@ -73,9 +73,9 @@ def main():
         vocabulary = configuration.get("text_config", configuration)["vocab_size"]
         grammar = GrammarResearch(tokenizer, vocabulary)
     grammar_init_ms = (time.perf_counter()-grammar_start)*1000
-    versions = {name:importlib.metadata.version(name) for name in ["mlx", "mlx-lm", "transformers"]}
+    versions = {name:version(name) for name in ["mlx", "mlx-lm", "transformers"]}
     if grammar:
-        versions.update({name:importlib.metadata.version(name) for name in ["xgrammar", "apache-tvm-ffi"]})
+        versions.update({name:version(name) for name in ["xgrammar", "apache-tvm-ffi"]})
     records, calls = [], []
 
     def complete(prompt, instruction):
