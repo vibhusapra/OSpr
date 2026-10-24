@@ -2,6 +2,23 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## Native profile translation, enable state and duplicate controls
+
+The current packaged GUI payload passes private-profile native translation,
+Qwen3-ASR and explicit automatic-language controls; canonical site save;
+disable/restart/re-enable; visible duplicate rejection with retained draft and
+unchanged file bytes; and restoring inherited language/translation settings.
+Pending global instruction/German target edits are not committed by profile Save
+and revert to persisted defaults after restart. Eleven actual bundled resolver
+calls agree for raw native checkpoints and public root-sanitized replays; the
+original seventeen controls also pass. No production code or archive changed.
+Normal OSpr is restored at eight sessions/265 words with unchanged hashes; the
+owned TextEdit target is unchanged. Native Delete, dark/compact/VoiceOver, live URL
+metadata, actual capture-time routing and insertion remain open.
+[Scope/reproduction](architecture/profile-controls.md) ·
+[Native receipt](../benchmarks/results/profile-controls-native.json) ·
+[Resolver receipt](../benchmarks/results/profile-controls-resolver.json).
+
 ## Current standalone review package and reproducible gates
 
 Clean source `7a6e9ff` now has a separate Apple Development signed macOS26.6.2
