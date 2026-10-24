@@ -110,8 +110,8 @@
     {
       "feature": "Insertion into original field",
       "status": "implemented",
-      "evidence": "AX selected-text insertion plus guarded clipboard fallback with app/field/cursor checks. One native take on isolated 9a51603 QA visibly inserts its recognizer output into the owned TextEdit field after Finder activation. File and normal app/data are restored.",
-      "gap": "The fixture was muted, so public-reference recognition is not accepted. Current-candidate end-to-end, browser/editor, selection, clipboard restoration/fallback and secure fields remain open; the one older-build delivery is not broad compatibility evidence.",
+      "evidence": "AX selected-text insertion plus guarded clipboard fallback with app/field/cursor checks. One native take on isolated 9a51603 QA visibly inserts its recognizer output into the owned TextEdit field after Finder activation. File and normal app/data are restored. Source 7e85e12 adds explicit capability checks and permits clipboard fallback only after read-only/unsupported results. Unacknowledged writes stop without a second paste; native request completion revalidates destination/access/selection/cancellation. Nine new transport tests include an applied write with a lost acknowledgement. 356 Swift/248 Python, Ruff, source CI 40092596085 and a separate signed six-engine portable/archive candidate pass.",
+      "gap": "The fixture was muted, so public-reference recognition is not accepted. Current-candidate end-to-end, browser/editor, selection, clipboard restoration/fallback and secure fields remain open; the one older-build delivery is not broad compatibility evidence. Current guard native TextEdit/browser/slow-app compatibility and added IPC latency remain unmeasured while macOS is locked. Checks are not atomic external transactions.",
       "priority": "P0"
     },
     {

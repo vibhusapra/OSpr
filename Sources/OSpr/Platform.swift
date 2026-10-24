@@ -304,7 +304,29 @@ enum InsertionDelivery: Equatable { case accessibility, clipboard }
     }
     @discardableResult func paste(_ text: String, restoreClipboard: Bool, allowUnverified: Bool = false,
                                   clipboardCompletion: ((ClipboardRestorer.Outcome) -> Void)? = nil) async throws -> InsertionDelivery {
-        try Task.checkCancellation()
+        let accessibility = element.map { element in
+            InsertionTransport.Accessibility(isSettable: {
+                var settable: DarwinBoolean = false
+                let result = AXUIElementIsAttributeSettable(element, kAXSelectedTextAttribute as CFString, &settable)
+                return (result, settable.boolValue)
+            }, write: {
+                AXUIElementSetAttributeValue(element, kAXSelectedTextAttribute as CFString, text as CFTypeRef)
+            })
+        }
+        return try InsertionTransport.send(accessibility: accessibility, validate: {
+            try validateForInsertion(allowUnverified: allowUnverified)
+        }, paste: {
+            guard let source = CGEventSource(stateID: .combinedSessionState),
+                  let down = CGEvent(keyboardEventSource: source, virtualKey: 9, keyDown: true),
+                  let up = CGEvent(keyboardEventSource: source, virtualKey: 9, keyDown: false) else {
+                throw OSprError.message("The paste shortcut could not be created.")
+            }
+            ClipboardRestorer.shared.replace(with: text, restore: restoreClipboard, completion: clipboardCompletion)
+            down.flags = .maskCommand; up.flags = .maskCommand
+            down.post(tap: .cghidEventTap); up.post(tap: .cghidEventTap)
+        })
+    }
+    private func validateForInsertion(allowUnverified: Bool) throws {
         guard focusConsistent else { throw OSprError.message("Focus changed while choosing the destination. Select the intended field and try again.") }
         guard !secure else { throw OSprError.message("Automatic insertion into password fields is disabled.") }
         guard AXIsProcessTrusted() else { throw OSprError.message("Enable OSpr Accessibility access to insert text into other apps.") }
@@ -325,6 +347,11 @@ enum InsertionDelivery: Equatable { case accessibility, clipboard }
             var current: CFTypeRef?
             AXUIElementCopyAttributeValue(AXUIElementCreateSystemWide(), kAXFocusedUIElementAttribute as CFString, &current)
             guard let current, CFEqual(current, element) else { throw OSprError.message("The focused field changed. Select the intended field again.") }
+            var subrole: CFTypeRef?
+            AXUIElementCopyAttributeValue(element, kAXSubroleAttribute as CFString, &subrole)
+            guard subrole as? String != "AXSecureTextField" else {
+                throw OSprError.message("Automatic insertion into password fields is disabled.")
+            }
             if let selectedRange {
                 var currentRange: CFTypeRef?
                 AXUIElementCopyAttributeValue(element, kAXSelectedTextRangeAttribute as CFString, &currentRange)
@@ -335,16 +362,19 @@ enum InsertionDelivery: Equatable { case accessibility, clipboard }
                 AXUIElementCopyAttributeValue(element, kAXSelectedTextAttribute as CFString, &currentText)
                 guard currentText as? String == selectedText else { throw OSprError.message("The selected passage changed. Select it again before retrying.") }
             }
-            if AXUIElementSetAttributeValue(element, kAXSelectedTextAttribute as CFString, text as CFTypeRef) == .success { return .accessibility }
+        } else {
+            // Compatibility permits an unknown cursor, never a known password
+            // field or inconsistent ownership discovered just before sending.
+            let current = Self.capture()
+            guard current.focusConsistent, !current.secure,
+                  current.app?.processIdentifier == app.processIdentifier else {
+                throw OSprError.message("The destination changed. Focus the intended field and try again.")
+            }
         }
-        guard let source = CGEventSource(stateID: .combinedSessionState),
-              let down = CGEvent(keyboardEventSource: source, virtualKey: 9, keyDown: true),
-              let up = CGEvent(keyboardEventSource: source, virtualKey: 9, keyDown: false) else {
-            throw OSprError.message("The paste shortcut could not be created.")
+        // Field queries are IPC too. Do not use an app check from before them.
+        guard NSWorkspace.shared.frontmostApplication?.processIdentifier == app.processIdentifier,
+              AXIsProcessTrusted() else {
+            throw OSprError.message("The active app or insertion access changed. Check the destination before trying again.")
         }
-        ClipboardRestorer.shared.replace(with: text, restore: restoreClipboard, completion: clipboardCompletion)
-        down.flags = .maskCommand; up.flags = .maskCommand
-        down.post(tap: .cghidEventTap); up.post(tap: .cghidEventTap)
-        return .clipboard
     }
 }
