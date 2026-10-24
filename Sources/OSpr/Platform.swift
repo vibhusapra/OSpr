@@ -257,6 +257,8 @@ enum KeyVault {
     }
 }
 
+enum InsertionDelivery: Equatable { case accessibility, clipboard }
+
 @MainActor struct InsertionTarget {
     let app: NSRunningApplication?
     let element: AXUIElement?
@@ -292,52 +294,57 @@ enum KeyVault {
         }
         var selected: CFTypeRef?; var subrole: CFTypeRef?; var range: CFTypeRef?
         if let element {
-            AXUIElementCopyAttributeValue(element, kAXSelectedTextAttribute as CFString, &selected)
             AXUIElementCopyAttributeValue(element, kAXSubroleAttribute as CFString, &subrole)
-            AXUIElementCopyAttributeValue(element, kAXSelectedTextRangeAttribute as CFString, &range)
+            if subrole as? String != "AXSecureTextField" {
+                AXUIElementCopyAttributeValue(element, kAXSelectedTextAttribute as CFString, &selected)
+                AXUIElementCopyAttributeValue(element, kAXSelectedTextRangeAttribute as CFString, &range)
+            }
         }
         return .init(app: app, element: element, selectedText: selected as? String ?? "", secure: subrole as? String == "AXSecureTextField", selectedRange: range)
     }
-    func paste(_ text: String, restoreClipboard: Bool, allowUnverified: Bool = false) async throws {
-        guard focusConsistent else { throw OSprError.message("Focus changed while choosing the destination. Copy the transcript from OSpr.") }
-        guard !secure else { throw OSprError.message("Dictation into password fields is disabled. The transcript is available in OSpr.") }
-        guard AXIsProcessTrusted() else { throw OSprError.message("Allow OSpr Accessibility access to paste into other apps. The transcript is ready to copy.") }
+    @discardableResult func paste(_ text: String, restoreClipboard: Bool, allowUnverified: Bool = false,
+                                  clipboardCompletion: ((ClipboardRestorer.Outcome) -> Void)? = nil) async throws -> InsertionDelivery {
+        try Task.checkCancellation()
+        guard focusConsistent else { throw OSprError.message("Focus changed while choosing the destination. Select the intended field and try again.") }
+        guard !secure else { throw OSprError.message("Automatic insertion into password fields is disabled.") }
+        guard AXIsProcessTrusted() else { throw OSprError.message("Enable OSpr Accessibility access to insert text into other apps.") }
         guard let app, !app.isTerminated, app.bundleIdentifier != Bundle.main.bundleIdentifier else {
-            throw OSprError.message("No external target is available. Copy the transcript from OSpr.")
+            throw OSprError.message("No destination is available. Focus a field in another app and try again.")
         }
         // Do not steal focus or paste into a different field if the user switched.
         guard NSWorkspace.shared.frontmostApplication?.processIdentifier == app.processIdentifier else {
-            throw OSprError.message("You switched apps while transcribing. Copy the result from OSpr when ready.")
+            throw OSprError.message("The active app changed. Focus the intended field and try again.")
         }
         guard allowUnverified || (element != nil && selectedRange != nil) else {
-            throw OSprError.message("The destination field or cursor could not be verified. Copy the transcript, or enable unverified-field fallback in Settings for this app.")
+            throw OSprError.message("The destination field or cursor could not be verified. Select the field again, or enable unverified-field fallback in Settings for this app.")
         }
         if let element {
             guard AccessibilityOwner.matches(element, pid: app.processIdentifier) else {
-                throw OSprError.message("The destination belongs to a different app. Copy the transcript from OSpr.")
+                throw OSprError.message("The destination belongs to a different app. Select the field again.")
             }
             var current: CFTypeRef?
             AXUIElementCopyAttributeValue(AXUIElementCreateSystemWide(), kAXFocusedUIElementAttribute as CFString, &current)
-            guard let current, CFEqual(current, element) else { throw OSprError.message("The focused field changed. Copy the result from OSpr.") }
+            guard let current, CFEqual(current, element) else { throw OSprError.message("The focused field changed. Select the intended field again.") }
             if let selectedRange {
                 var currentRange: CFTypeRef?
                 AXUIElementCopyAttributeValue(element, kAXSelectedTextRangeAttribute as CFString, &currentRange)
-                guard let currentRange, CFEqual(currentRange, selectedRange) else { throw OSprError.message("The text cursor moved. Copy the result from OSpr.") }
+                guard let currentRange, CFEqual(currentRange, selectedRange) else { throw OSprError.message("The text cursor moved. Select the field again before retrying.") }
             }
             if !selectedText.isEmpty {
                 var currentText: CFTypeRef?
                 AXUIElementCopyAttributeValue(element, kAXSelectedTextAttribute as CFString, &currentText)
-                guard currentText as? String == selectedText else { throw OSprError.message("The selected passage changed. Copy the result from OSpr.") }
+                guard currentText as? String == selectedText else { throw OSprError.message("The selected passage changed. Select it again before retrying.") }
             }
-            if AXUIElementSetAttributeValue(element, kAXSelectedTextAttribute as CFString, text as CFTypeRef) == .success { return }
+            if AXUIElementSetAttributeValue(element, kAXSelectedTextAttribute as CFString, text as CFTypeRef) == .success { return .accessibility }
         }
         guard let source = CGEventSource(stateID: .combinedSessionState),
               let down = CGEvent(keyboardEventSource: source, virtualKey: 9, keyDown: true),
               let up = CGEvent(keyboardEventSource: source, virtualKey: 9, keyDown: false) else {
-            throw OSprError.message("The paste shortcut could not be created. Copy the transcript from OSpr.")
+            throw OSprError.message("The paste shortcut could not be created.")
         }
-        ClipboardRestorer.shared.replace(with: text, restore: restoreClipboard)
+        ClipboardRestorer.shared.replace(with: text, restore: restoreClipboard, completion: clipboardCompletion)
         down.flags = .maskCommand; up.flags = .maskCommand
         down.post(tap: .cghidEventTap); up.post(tap: .cghidEventTap)
+        return .clipboard
     }
 }

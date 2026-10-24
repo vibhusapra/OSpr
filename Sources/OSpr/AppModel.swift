@@ -91,6 +91,9 @@ import OSprCore
     private var previewTask: Task<Void, Never>?
     private var operationTask: Task<Void, Never>?
     private let dictationCountdown = DictationCountdown()
+    let insertionTest: InsertionSelfTest
+    private var insertionObservation: AnyCancellable?
+    private var insertionPanel: NSPanel?
     private var streamSession: (generation: UUID, id: String)?
     private var generation = UUID()
     private var uploadingGeneration: UUID?
@@ -99,7 +102,7 @@ import OSprCore
     var backgroundImportActive: Bool { backgroundGeneration == generation }
     private var overlay: NSPanel?
     @Published private(set) var quitting = false
-    var busy: Bool { phase != "idle" || audioMaintenance || quitting }
+    var busy: Bool { phase != "idle" || audioMaintenance || quitting || insertionTest.isPresented }
     var audioBudgetBytes: Int64 { Int64(settings.audioBudgetMB) * 1024 * 1024 }
     var effectiveShortcutSettings: OSprSettings {
         var value = settings
@@ -119,7 +122,8 @@ import OSprCore
     }
 
     init(instanceLock: AppInstanceLock, directory: URL = LocalStore.applicationDirectory, enableServices: Bool = true,
-         meetingFactory: ((URL, Bool) throws -> MeetingCaptureSession)? = nil) {
+         meetingFactory: ((URL, Bool) throws -> MeetingCaptureSession)? = nil, insertionTest: InsertionSelfTest? = nil) {
+        self.insertionTest = insertionTest ?? InsertionSelfTest()
         self.meetingFactory = meetingFactory ?? { directory, preview in
             guard #available(macOS 15.0, *) else { throw OSprError.message("Desktop capture requires macOS 15 or later.") }
             return try MeetingCapture(directory: directory, preview: preview)
@@ -157,6 +161,10 @@ import OSprCore
         credentialsReady = enableServices
         if enableServices { refreshCredentials() }
         historyObservation = historyState.objectWillChange.sink { [weak self] _ in self?.objectWillChange.send() }
+        insertionObservation = self.insertionTest.$phase.sink { [weak self] phase in
+            self?.objectWillChange.send()
+            self?.updateInsertionPanel(phase: phase)
+        }
         historyState.onOrphanedAudio = { [weak self] names in self?.deleteAudioFiles(names) }
         hotkey.pressed = { [weak self] in
             guard let self else { return }
@@ -592,6 +600,7 @@ import OSprCore
         // Stop admissions before the final asynchronous durability barrier.
         // A canceled quit leaves any unfinished take available for recovery.
         quitting = true
+        insertionTest.cancel(); insertionPanel?.orderOut(nil)
         dictationCountdown.cancel(); countdownSeconds = nil
         if phase == "countdown" { phase = "idle"; status = "Scheduled dictation cancelled"; overlay?.orderOut(nil) }
         do {
@@ -754,6 +763,7 @@ import OSprCore
     }
 
     func cancel() {
+        if insertionTest.isPresented { dismissInsertionTest(); return }
         dictationCountdown.cancel(); countdownSeconds = nil
         let wasCapture = phase == "recording" || phase == "starting"
         generation = UUID(); operationTask?.cancel(); operationTask = nil; previewTask?.cancel()
@@ -1189,6 +1199,33 @@ import OSprCore
     }
     func requestAccessibility() {
         accessibilityReady = AXIsProcessTrustedWithOptions([kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true] as CFDictionary)
+    }
+    func startInsertionTest() {
+        guard !busy else { return }
+        audioReview.pause(); refreshPermissions()
+        insertionTest.start(restoreClipboard: settings.restoreClipboard, allowUnverified: settings.allowUnverifiedPaste)
+        guard servicesEnabled else { return }
+        if insertionPanel == nil {
+            let panel = InsertionTestWindow(contentRect: NSRect(x: 0, y: 0, width: 420, height: InsertionTestPanel.height(for: insertionTest.phase)),
+                                styleMask: [.borderless, .nonactivatingPanel], backing: .buffered, defer: false)
+            panel.isFloatingPanel = true; panel.level = .floating; panel.backgroundColor = .clear; panel.isOpaque = false
+            panel.hasShadow = true; panel.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
+            panel.contentView = NSHostingView(rootView: InsertionTestPanel(test: insertionTest,
+                close: { [weak self] in self?.dismissInsertionTest() },
+                enableAccess: { [weak self] in self?.requestAccessibility() }))
+            insertionPanel = panel
+        }
+        updateInsertionPanel(phase: insertionTest.phase)
+    }
+    func dismissInsertionTest() {
+        insertionTest.cancel(); insertionPanel?.orderOut(nil)
+    }
+    private func updateInsertionPanel(phase: InsertionSelfTest.Phase) {
+        guard servicesEnabled, let panel = insertionPanel else { return }
+        guard phase != .idle else { panel.orderOut(nil); return }
+        panel.setContentSize(NSSize(width: 420, height: InsertionTestPanel.height(for: phase)))
+        if let screen = NSScreen.main { panel.setFrameOrigin(NSPoint(x: screen.visibleFrame.midX - 210, y: screen.visibleFrame.minY + 30)) }
+        panel.orderFrontRegardless()
     }
     private func showOverlay() {
         guard servicesEnabled else { return }
