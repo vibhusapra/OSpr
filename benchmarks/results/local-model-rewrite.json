@@ -1,0 +1,197 @@
+{
+  "status": "passed-loopback-rewrite-completion-cli-contracts",
+  "cli_sha256": "d049f6b6115c9ce6509547215f91c331c1a21912003cc537aa16aa65c9b03129",
+  "build": null,
+  "cases": [
+    {
+      "provider": "compatible",
+      "case": "v1",
+      "anonymous": false,
+      "expected": "accepted",
+      "exit_code": 0,
+      "input_unchanged": true,
+      "partial_text_or_private_fixture_or_key_not_exposed": true
+    },
+    {
+      "provider": "compatible",
+      "case": "rewrite-negation/v1",
+      "anonymous": false,
+      "expected": "original-retained",
+      "exit_code": 0,
+      "input_unchanged": true,
+      "partial_text_or_private_fixture_or_key_not_exposed": true
+    },
+    {
+      "provider": "compatible",
+      "case": "rewrite-truncated/v1",
+      "anonymous": false,
+      "expected": "rejected",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "partial_text_or_private_fixture_or_key_not_exposed": true
+    },
+    {
+      "provider": "compatible",
+      "case": "rewrite-refused/v1",
+      "anonymous": false,
+      "expected": "rejected",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "partial_text_or_private_fixture_or_key_not_exposed": true
+    },
+    {
+      "provider": "compatible",
+      "case": "rewrite-tool/v1",
+      "anonymous": false,
+      "expected": "rejected",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "partial_text_or_private_fixture_or_key_not_exposed": true
+    },
+    {
+      "provider": "compatible",
+      "case": "rewrite-missing/v1",
+      "anonymous": false,
+      "expected": "rejected",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "partial_text_or_private_fixture_or_key_not_exposed": true
+    },
+    {
+      "provider": "compatible",
+      "case": "rewrite-empty/v1",
+      "anonymous": false,
+      "expected": "rejected",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "partial_text_or_private_fixture_or_key_not_exposed": true
+    },
+    {
+      "provider": "compatible",
+      "case": "error/v1",
+      "anonymous": false,
+      "expected": "HTTP 401",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "partial_text_or_private_fixture_or_key_not_exposed": true
+    },
+    {
+      "provider": "compatible",
+      "case": "redirect/v1",
+      "anonymous": false,
+      "expected": "HTTP 307",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "partial_text_or_private_fixture_or_key_not_exposed": true
+    },
+    {
+      "provider": "anthropic",
+      "case": "v1",
+      "anonymous": false,
+      "expected": "accepted",
+      "exit_code": 0,
+      "input_unchanged": true,
+      "partial_text_or_private_fixture_or_key_not_exposed": true
+    },
+    {
+      "provider": "anthropic",
+      "case": "rewrite-negation/v1",
+      "anonymous": false,
+      "expected": "original-retained",
+      "exit_code": 0,
+      "input_unchanged": true,
+      "partial_text_or_private_fixture_or_key_not_exposed": true
+    },
+    {
+      "provider": "anthropic",
+      "case": "rewrite-truncated/v1",
+      "anonymous": false,
+      "expected": "rejected",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "partial_text_or_private_fixture_or_key_not_exposed": true
+    },
+    {
+      "provider": "anthropic",
+      "case": "rewrite-refused/v1",
+      "anonymous": false,
+      "expected": "rejected",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "partial_text_or_private_fixture_or_key_not_exposed": true
+    },
+    {
+      "provider": "anthropic",
+      "case": "rewrite-tool/v1",
+      "anonymous": false,
+      "expected": "rejected",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "partial_text_or_private_fixture_or_key_not_exposed": true
+    },
+    {
+      "provider": "anthropic",
+      "case": "rewrite-missing/v1",
+      "anonymous": false,
+      "expected": "rejected",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "partial_text_or_private_fixture_or_key_not_exposed": true
+    },
+    {
+      "provider": "anthropic",
+      "case": "rewrite-empty/v1",
+      "anonymous": false,
+      "expected": "rejected",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "partial_text_or_private_fixture_or_key_not_exposed": true
+    },
+    {
+      "provider": "anthropic",
+      "case": "error/v1",
+      "anonymous": false,
+      "expected": "HTTP 401",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "partial_text_or_private_fixture_or_key_not_exposed": true
+    },
+    {
+      "provider": "anthropic",
+      "case": "redirect/v1",
+      "anonymous": false,
+      "expected": "HTTP 307",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "partial_text_or_private_fixture_or_key_not_exposed": true
+    },
+    {
+      "provider": "compatible",
+      "case": "missing-model/v1",
+      "anonymous": false,
+      "expected": "model ID",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "partial_text_or_private_fixture_or_key_not_exposed": true
+    },
+    {
+      "provider": "anthropic",
+      "case": "missing-model/v1",
+      "anonymous": false,
+      "expected": "model ID",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "partial_text_or_private_fixture_or_key_not_exposed": true
+    },
+    {
+      "provider": "compatible",
+      "case": "anonymous-rewrite/v1",
+      "anonymous": true,
+      "expected": "accepted",
+      "exit_code": 0,
+      "input_unchanged": true,
+      "partial_text_or_private_fixture_or_key_not_exposed": true
+    }
+  ],
+  "boundary": "Twenty-one actual Swift CLI cases using owned loopback/public text/synthetic key. Complete and anonymous-local controls, lexical-tripwire original retention, truncation/refusal/tool/missing/empty rejection, sanitized HTTP errors, no redirect following and unchanged input. No real account call, model semantics, native app/insertion/Keychain, live latency, provider-side quota/cancellation or consumer ranking acceptance."
+}

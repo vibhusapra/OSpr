@@ -16,6 +16,7 @@ import threading
 from . import __version__
 from .engine import Engine, PUBLIC_MODELS, MODEL_LOCK, resolve_model
 from .local_completion import LocalCompletionError
+from .refinement import LocalModelNotPrepared
 
 MAX_REQUEST = 2 * 1024 * 1024
 
@@ -104,10 +105,12 @@ def dispatch(engine, request):
             speech_edges=request.get("speech_edges"),
         )
     if action == "rewrite":
+        from .refinement import prepared_local_model
+
         text, instruction = request.get("text", ""), request.get("instruction", "")
         if len(text) > 100000 or len(instruction) > 16000:
             raise ValueError("Rewrite input too long.")
-        return engine.rewrite(text, instruction, task=request.get("task", "transcript"))
+        return engine.rewrite(text, instruction, model_id=prepared_local_model(request.get("model", "rewrite-quality"), engine), task=request.get("task", "transcript"))
     if action == "summary":
         return engine.summary(request.get("text", ""))
     if action == "notes":
@@ -158,6 +161,8 @@ def main():
             # recoverable. Runtime, framing and missing-EOS failures are not.
             if isinstance(error, LocalCompletionError) and error.output_limit:
                 response["error_kind"] = "text-output-limit"
+            elif isinstance(error, LocalModelNotPrepared):
+                response["error_kind"] = "text-model-not-prepared"
         finally:
             engine.progress = None
         emit(response)

@@ -2,6 +2,30 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## Optional 9B refinement and a reproduced spelling loss
+
+`codex/local-model-choice` adds an explicit experimental 9B refinement choice in
+Settings, CLI and MCP. Off and existing 4B preferences retain their behavior.
+The shared 6 GB asset must be prepared before ordinary 9B refinement; missing
+weights return a typed error without download, model substitution or ASR eviction.
+Native/CLI receivers require the selected model and completion acknowledgement.
+Legacy provider parsing refuses the new tag before transport. Cloud fields are
+preserved; settings/privacy-label restart tests pass in an isolated profile.
+
+The same 36 synthetic development cases yield 31/36 raw lexical checks for 4B
+and 34/36 for 9B. The 9B model drops an accent in “Zoë,” previously accepted by
+the native guard. A new non-ASCII Latin spelling tripwire rejects this loss while
+allowing canonical Unicode, case and smart punctuation. Current native fallback
+retains all 36 lexical sentinels for both models, with six 4B and three 9B
+fallbacks. These are not representative semantic scores or a default promotion.
+Observed text-only MLX allocation is 2.64/5.29 GiB, excluding ASR, RSS and longer
+contexts. Full source suites pass 408 Swift / 330 Python tests and Ruff. Actual
+CLI passes ten rejection/control cases plus two local inferences; actual MCP
+checks schema/model selection, and a private-cache Swift replay verifies no 9B
+download and unchanged warm ASR. Light/dark/narrow Settings section renders were
+inspected; these are not native interaction. Packaging/CI remain pending.
+[Contracts, raw outputs, limitations and remaining acceptance](architecture/local-model-choice.md).
+
 ## Local text completion and warm-speech recovery
 
 `codex/local-completion` requires actual local EOS acknowledgement for cleanup,

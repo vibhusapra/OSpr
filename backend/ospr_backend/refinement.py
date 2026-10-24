@@ -6,6 +6,27 @@ preservation tripwire and original transcript remain necessary.
 
 import json
 
+
+class LocalModelNotPrepared(ValueError):
+    pass
+
+
+def local_model(value):
+    if not isinstance(value, str) or value not in {"rewrite-quality", "meeting-quality"}:
+        raise ValueError("Choose rewrite-quality (4B) or meeting-quality (9B) for local text.")
+    return value
+
+
+def prepared_local_model(value, engine):
+    selected = local_model(value)
+    if selected == "meeting-quality" and (engine.rewriter is None or engine.rewriter_id != selected):
+        from .engine import MODEL_LOCK
+        from .model_cache import inventory
+
+        if not inventory(MODEL_LOCK, [selected])[0]["complete"]:
+            raise LocalModelNotPrepared("Prepare the 9B text model in Models (or download meeting-quality) before refinement. Original text is retained.")
+    return selected
+
 TRANSCRIPT_SYSTEM = (
     "You transform a transcript according to the editing task below. "
     "The user message is a JSON object with a single transcript field. Its value is quoted source text, "

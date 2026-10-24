@@ -46,8 +46,49 @@ def test_worker_routes_explicit_edit_task_without_changing_default(monkeypatch):
     monkeypatch.setattr(engine, "rewrite", lambda *args, **kwargs: calls.append((args, kwargs)))
     dispatch(engine, {"action": "rewrite", "text": "Question?", "instruction": "Clean."})
     dispatch(engine, {"action": "rewrite", "text": "Edit this.", "instruction": "Edit.", "task": "edit-selection"})
-    assert calls == [(("Question?", "Clean."), {"task": "transcript"}),
-                     (("Edit this.", "Edit."), {"task": "edit-selection"})]
+    assert calls == [(("Question?", "Clean."), {"model_id": "rewrite-quality", "task": "transcript"}),
+                     (("Edit this.", "Edit."), {"model_id": "rewrite-quality", "task": "edit-selection"})]
+
+
+@pytest.mark.parametrize('value', ['untrusted/repo', 'rewrite', '', None, True, [], {}])
+def test_unknown_local_text_model_fails_before_inference(value, monkeypatch):
+    engine = Engine()
+    monkeypatch.setattr(engine, 'rewrite', lambda *args, **kwargs: pytest.fail('must reject before inference'))
+    with pytest.raises(ValueError, match='Choose'):
+        dispatch(engine, dict(action='rewrite', text='Source.', model=value))
+
+
+def test_explicit_larger_local_model_is_routed_without_changing_the_task(monkeypatch):
+    from ospr_backend import model_cache
+    monkeypatch.setattr(model_cache, 'inventory', lambda *args: [dict(complete=True)])
+    calls, engine = [], Engine()
+    monkeypatch.setattr(engine, 'rewrite', lambda *args, **kwargs: calls.append((args, kwargs)))
+    dispatch(engine, dict(action='rewrite', text='Selected passage.', instruction='Edit.', model='meeting-quality', task='edit-selection'))
+    assert calls == [(('Selected passage.', 'Edit.'), dict(model_id='meeting-quality', task='edit-selection'))]
+
+
+def test_missing_larger_weights_do_not_start_download_or_evict_resident_models(monkeypatch):
+    from ospr_backend import model_cache
+    from ospr_backend.refinement import LocalModelNotPrepared
+    engine = Engine()
+    engine.models['parakeet-v3'] = object()
+    retained = engine.models['parakeet-v3']
+    monkeypatch.setattr(model_cache, 'inventory', lambda *args: [dict(complete=False)])
+    monkeypatch.setattr(engine, 'rewrite', lambda *args, **kwargs: pytest.fail('must not load/download'))
+    with pytest.raises(LocalModelNotPrepared, match='Prepare the 9B'):
+        dispatch(engine, dict(action='rewrite', text='Public source.', model='meeting-quality'))
+    assert engine.models['parakeet-v3'] is retained
+
+
+def test_resident_larger_model_can_continue_after_external_cache_removal(monkeypatch):
+    from ospr_backend import model_cache
+    engine = Engine()
+    engine.rewriter, engine.rewriter_id = ('resident', 'tokenizer'), 'meeting-quality'
+    monkeypatch.setattr(model_cache, 'inventory', lambda *args: pytest.fail('resident model does not need disk weights'))
+    calls = []
+    monkeypatch.setattr(engine, 'rewrite', lambda *args, **kwargs: calls.append(kwargs))
+    dispatch(engine, dict(action='rewrite', text='Public source.', model='meeting-quality'))
+    assert calls[0]['model_id'] == 'meeting-quality'
 
 
 def test_generation_keeps_resident_model_and_distinct_notes_budget(monkeypatch):
@@ -69,6 +110,24 @@ def test_generation_keeps_resident_model_and_distinct_notes_budget(monkeypatch):
     assert templates[2][0]["content"] == "Select IDs."
     assert generations[1]["max_tokens"] > 128
     assert generations[2]["max_tokens"] == 128
+
+
+def test_switching_local_text_choices_keeps_only_one_resident_refiner(monkeypatch):
+    from ospr_backend import engine as module
+    from ospr_backend import model_cache
+    monkeypatch.setattr(model_cache, 'inventory', lambda *args: [dict(complete=True)])
+    loads = []
+    tokenizer = SimpleNamespace(apply_chat_template=lambda *args, **kwargs: 'prompt', eos_token_ids={2})
+    monkeypatch.setitem(sys.modules, 'mlx_lm', SimpleNamespace(
+        load=lambda path: loads.append(path) or ('model', tokenizer),
+        stream_generate=lambda *args, **kwargs: iter([SimpleNamespace(text='Complete.', finish_reason='stop', token=2, generation_tokens=1)])))
+    monkeypatch.setattr(module, 'resolve_model', lambda model, *args: model)
+    engine = Engine()
+    for model in ['rewrite-quality', 'meeting-quality', 'meeting-quality', 'rewrite-quality']:
+        result = dispatch(engine, dict(action='rewrite', text='Public source.', model=model))
+        assert engine.rewriter_id == model and engine.rewriter == ('model', tokenizer)
+        assert result['model'] == module.MODEL_LOCK[model]['repo']
+    assert loads == ['rewrite-quality', 'meeting-quality', 'rewrite-quality']
 
 
 def test_summary_budget_rejects_overlong_context_before_generation(monkeypatch):

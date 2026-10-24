@@ -33,6 +33,7 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--baseline-engine", type=Path)
     parser.add_argument("--baseline-commit")
+    parser.add_argument("--model", choices=["rewrite-quality", "meeting-quality"], default="rewrite-quality")
     args = parser.parse_args()
     if args.output.exists():
         parser.error("Output already exists; choose a new receipt path.")
@@ -40,6 +41,8 @@ def main():
     cases = json.loads(case_file.read_text())["cases"]
     variants = []
     if args.baseline_engine:
+        if args.model != "rewrite-quality":
+            parser.error("Historical prompt comparison requires the original rewrite-quality model.")
         if not args.baseline_commit:
             parser.error("A saved baseline needs --baseline-commit for source/lock verification.")
         baseline_commit = subprocess.check_output(["git", "rev-parse", args.baseline_commit], cwd=ROOT, text=True).strip()
@@ -60,11 +63,14 @@ def main():
         engine = engine_class()
         try:
             for case in cases:
-                result = engine.rewrite(case["input"], INSTRUCTION)
+                import mlx.core as mx
+                mx.reset_peak_memory()
+                result = engine.rewrite(case["input"], INSTRUCTION, **({"model_id": args.model} if variant == "candidate" else {}))
                 output = result["text"]
                 missing = [fact for fact in case["facts"] if fact.casefold() not in output.casefold()]
                 invented = [fact for fact in case["forbidden"] if fact.casefold() in output.casefold()]
                 row = dict(case, variant=variant, engine_sha256=engine_sha, **result,
+                           peak_mlx_bytes=mx.get_peak_memory(),
                            missing_facts=missing, forbidden_present=invented,
                            lexical_pass=not missing and not invented)
                 records.append(row)
@@ -80,7 +86,8 @@ def main():
         tracked_changes=bool(subprocess.check_output(["git", "diff", "--name-only", "HEAD"], cwd=ROOT)),
         cases_sha256=sha(case_file), harness_sha256=sha(Path(__file__)),
         refinement_sha256=sha(ROOT / "backend/ospr_backend/refinement.py"),
-        dependency_lock_sha256=sha(ROOT / "uv.lock"), model=MODEL_LOCK["rewrite-quality"],
+        dependency_lock_sha256=sha(ROOT / "uv.lock"), model=MODEL_LOCK[args.model],
+        model_id=args.model,
         instruction=INSTRUCTION, records=records,
         limitations=[
             "Twelve existing development cases plus 24 fresh synthetic challenge cases; not a representative held-out benchmark.",

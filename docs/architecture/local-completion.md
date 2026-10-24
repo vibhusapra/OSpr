@@ -20,6 +20,9 @@ unchanged. Empty input continues to bypass generation.
 
 ## Warm speech after an expected output limit
 
+The later [local model choice](local-model-choice.md) also preserves warm speech
+after its typed, pre-inference 9B preparation rejection on `rewrite` only.
+
 A fully consumed, well-formed `length` response at exactly the configured budget
 has one narrow IPC classification: `error_kind: text-output-limit`. The shared
 Swift client preserves its owned worker only for this code on `rewrite`, `notes`

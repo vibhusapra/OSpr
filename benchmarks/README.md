@@ -1,5 +1,22 @@
 # OSpr measurement protocol
 
+## Local text model choice
+
+`refinement_eval.py --model rewrite-quality|meeting-quality` replays the same 36
+public synthetic cases on pinned 4B/9B models. `refinement_guard.swift` replays
+saved output through the actual Swift guard. Raw model and delivered lexical
+checks remain distinct from semantics. The observed 9B name-accent loss is now
+rejected; canonical Unicode remains allowed. Source guards retain 36/36 lexical
+sentinels with six 4B and three 9B fallbacks. No general model promotion follows.
+
+`local_model_cli.py` checks ten fake-child/admission/fallback contracts and two
+optional actual inferences; `--contracts-only` runs without weights.
+`local_model_mcp.py` checks actual local tool schema and both model selections.
+`local_model_preparation.py` supplies a disposable cache namespace containing only
+Parakeet and verifies real Swift IPC missing-9B rejection without download or ASR
+eviction. All use cached public models/text/audio, no UI/history/providers.
+See [the contract and limits](../docs/architecture/local-model-choice.md).
+
 ## Local text completion controls
 
 `local_completion.py` compares identical prompt/budget old-string/new-EOS output
