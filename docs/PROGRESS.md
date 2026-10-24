@@ -2,7 +2,58 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
-## Current work: preserve quiet audio by default
+## Latest native check: warning, exports and normal-app restoration
+
+During an unlocked interval, normal OSpr is visibly restored with its eight
+sessions/265 words and identical settings/history hashes. The generated TextEdit
+space is removed and saved through native UI. The separate checked `9a51603` QA
+build starts with existing permissions and warms locally. A real countdown take
+again captures ChatGPT instead of TextEdit; it is immediately discarded before
+ASR or public fixture playback. Positive insertion remains unverified.
+
+The same isolated build imports the quiet public Japanese `ja_jp/005.wav` through
+the native picker with Whisper Small/ja and both edge filters off. Studio and
+History visibly show the timing-bound warning. Native SRT and JSON exports both
+end at **6.960 s**, with JSON retaining the warning and 6.96-second duration.
+Both exports are mode 0600. One public QA history record remains, zero recovery
+files; QA/worker are stopped and the normal older app is visibly restored again.
+Seeking, VTT interaction and physical microphone/shortcut/insertion/device gates
+remain. See `full-audio-native-timing.json` and `docs/assets/timing-warning-history.png`.
+
+## Current work: evaluate a local Voxtral streaming candidate
+
+Branch `codex/voxtral-streaming-eval`, draft PR #12, adds a separate research
+candidate for the remaining first-partial latency gap. Exact MLX 4-bit model
+revision and all file hashes, runtime, options and 75 known inputs are frozen
+before recognizer outputs: twenty English, fifty FLEURS in five languages and
+five synthetic nonspeech controls, full-file plus 320 ms packet routes. No
+shipping model/default changes; full-audio-v0 remains the checked preview.
+
+The pinned weight download and all file hashes verify. Compatibility smoke passes
+both routes with identical text. The complete study performs **150 recognizer
+calls**, no API errors or early completions; all 150 normalized sample/hash checks
+and independent WER/CER calculations pass. Seventy of 75 text pairs are identical.
+One quiet Japanese source (`fleurs-ja_jp-005`, original RMS 0.00107) returns empty
+in both modes. All five raw nonspeech controls stay empty in both modes.
+
+English WER is 2.86% for both paths on twenty known clips; median first-partial
+input position is 1.60 s and final flush is about 371 ms. This is not microphone
+latency or an established win over the earlier Nemotron replay (1.28 s / 14.7 ms,
+with a different driver and explicit English hint). Group WER/CER and every
+partial remain published. Peak MLX allocation is 6,024,226,688 bytes, not total
+process RAM. Raw/adapter retention still needs bounded integration work.
+
+The standalone mel diagnostic completes twenty partition cases: all shapes
+match, eighteen exceed fixed tolerance 2e-5, maximum difference 2.0528e-4. The
+threshold is retained; this numerical failure alone does not establish ASR harm.
+The unchanged speaker-bootstrap producer is renamed to avoid shadowing Python's
+standard-library statistics during model imports. Lint passes; app-source CI at
+`df0e19c` is green. No shipping model/default or new ZIP promotion. Native
+interaction remains partly open; the later native check above verifies restoration and timed export.
+See `voxtral-study.json`, its traces/checker, `voxtral-source-validation.json` and
+`docs/architecture/voxtral-realtime-evaluation.md`.
+
+## Previous work: preserve quiet audio by default
 
 Branch `codex/full-audio-defaults` follows the timing fix. New or missing native
 settings, CLI/worker requests and direct Python/MCP calls now use full normalized
@@ -59,8 +110,8 @@ model responses and corrects all 12 overruns. A real paired old-bundle/new-sourc
 check reproduces and corrects all twelve again across eleven inputs and 22 route
 pairs (42 inferences, two detector abstentions), with every text string unchanged.
 Source CI at `529359b` is green at 304 Swift / 163 Python / 17 CLI cases,
-including app/report build and clean-runner bundled imports. Native warning/export
-interaction remains open. The existing signed
+including app/report build and clean-runner bundled imports. The later native check above verifies warning and JSON/SRT export on one
+public fixture; seeking and broader interaction remain open. The existing signed
 neural-edges-v0 ZIP remains at source `2f7f2a8` and does not include this fix;
 the later full-audio-v0 ZIP above does. See
 `docs/architecture/timing-bounds.md`.

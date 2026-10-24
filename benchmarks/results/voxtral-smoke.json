@@ -1,0 +1,112 @@
+{
+  "status": "completed-research-not-shipping-promotion",
+  "timestamp": "2026-10-24T03:31:17.749548+00:00",
+  "git_commit": "df0e19c6c0aaa050ce548a65be58bd0de8204e1d",
+  "tracked_changes": false,
+  "phase": "smoke",
+  "model": {
+    "repo": "mlx-community/Voxtral-Mini-4B-Realtime-2602-4bit",
+    "revision": "fdebf7b2af834a1db4b8a3c99ab7480b333adf9e",
+    "required_files": {
+      "config.json": {
+        "bytes": 1513,
+        "sha256": "02060864a4f33df5e4944684fc17f3026af4011830cac4def6e9e025315b10c5"
+      },
+      "model.safetensors.index.json": {
+        "bytes": 118632,
+        "sha256": "80f68b80cf4b1638d864d1504061a266f59e37a8d90d7b20f2e1f30c2d034c2e"
+      },
+      "tekken.json": {
+        "bytes": 14910348,
+        "sha256": "8434af1d39eba99f0ef46cf1450bf1a63fa941a26933a1ef5dbbf4adf0d00e44"
+      },
+      "README.md": {
+        "bytes": 3135,
+        "sha256": "022af0f470bbb2036d1d8fea62118d1d14f64b9cbb38415004544990e653f99e"
+      },
+      "model.safetensors": {
+        "bytes": 3133798126,
+        "sha256": "6f59b425d8a1ceb2de795454558be63937cf75b59f9c9bc77accd85aaf32af05"
+      }
+    },
+    "license": "Apache-2.0",
+    "research_only": true
+  },
+  "protocol_sha256": "6812cda1d94c0e62da6ccb7dc9f287c21fe7570be6fa3c61f110b88f5cd72f98",
+  "harness_sha256": "387edae6cc336de4a699d10667367b3993158bd96c8db7a86fd55e9356c33ba5",
+  "dependency_lock_sha256": "8e306569ebe63c886e9938d06c2e0a6e39d661de20e116a1998321dbfd14a6d2",
+  "installed_adapter_sha256": {
+    "__init__.py": "1b25422856ce5457bfc048948e34c497990c7c7b8dee466adf19cb023eef5ca4",
+    "audio.py": "2e4cafbc0f60be91d43915fee3a2c2fd2dcca808b582d72084ccb32228d4fe84",
+    "config.py": "6a0e0c6d6a5f216770acce641016e546d6dab5bfcd1c47c0751aae060c7830bc",
+    "decoder.py": "b6c79dd0a58d30a4e9c29add6b15ee826126c02477c26dc77f73cae7b7857f51",
+    "encoder.py": "e1508c37d4c6ee5972fdcc82cdc0f95ae159b764ba2ad69fb1327f4049df1048",
+    "streaming.py": "77ce2b0e17777a0b15ecdfdc3c91dd8fbf3d5d1f68d03768fcf270f07854d971",
+    "tokenizer.py": "d61590f97440ba191f7a1ac6f6078c10c195687da6c47995d393a412d904b6a7",
+    "voxtral_realtime.py": "42f9a41c391da85629e8a6b3aa12c8a0b9af0372692d941601719541366879ff"
+  },
+  "host": {
+    "machine": "arm64",
+    "macos": "26.6.2",
+    "device": "Device(gpu, 0)"
+  },
+  "load_ms": 268.5667078476399,
+  "options": {
+    "transcription_delay_ms": 480,
+    "temperature": 0.0,
+    "max_tokens": 4096,
+    "packet_samples": 5120,
+    "step_max_decode_tokens": 256,
+    "final_timeout_seconds": 60
+  },
+  "cases": 1,
+  "actual_routes": 2,
+  "errors": 0,
+  "early_stream_completions": 0,
+  "summary": {
+    "offline": {
+      "human-clean": {
+        "cases": 1,
+        "errors": 0,
+        "wer": 0.058823529411764705,
+        "cer": 0.0547945205479452,
+        "substitutions": 1,
+        "deletions": 0,
+        "insertions": 0,
+        "p50_ms": 1653.3040420617908,
+        "p95_ms": 1653.3040420617908,
+        "aggregate_rtf": 0.282374729643346,
+        "hallucinated_silence": 0
+      }
+    },
+    "stream": {
+      "human-clean": {
+        "cases": 1,
+        "errors": 0,
+        "wer": 0.058823529411764705,
+        "cer": 0.0547945205479452,
+        "substitutions": 1,
+        "deletions": 0,
+        "insertions": 0,
+        "p50_ms": 2029.0177918504924,
+        "p95_ms": 2029.0177918504924,
+        "aggregate_rtf": 0.3465444563365486,
+        "hallucinated_silence": 0
+      }
+    }
+  },
+  "stream_timings": {
+    "human-clean": {
+      "cases": 1,
+      "early_completions": 0,
+      "p50_first_partial_audio_ms": 1920.0,
+      "p50_final_flush_ms": 367.83458292484283,
+      "max_step_ms": 241.47391598671675
+    }
+  },
+  "p50_first_partial_audio_ms": 1920.0,
+  "p50_final_flush_ms": 367.83458292484283,
+  "traces_file": "voxtral-smoke.traces.json.gz",
+  "traces_sha256": "e8b945a99e2e317e1b12cac32912abcd93ef15c51d1eaaf2860f6abcb9723fef",
+  "boundary": "Fixed known-input research replay: first twenty previously used test-clean clips, all fifty existing FLEURS clips in five supported languages, five prior synthetic nonspeech controls. No model selection or held-out quality claim. No speech filtering or language hints. Streaming packets are unpaced; first partial audio position is separate from compute time and is not microphone or word-relative latency. No shipping model/default change."
+}

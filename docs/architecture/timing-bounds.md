@@ -43,3 +43,16 @@ partial deletion risk explicit; only an empty result is guaranteed to keep a
 completed take available for retry. The shipped `neural-edges-v0` preview is the
 earlier source and does not contain this timing fix. Both neural options remain
 off by default while candidate selection and validation continue.
+
+## Later native acceptance on checked source 9a51603
+
+The isolated signed preview imports public FLEURS Japanese 005 via the native
+file picker using Whisper Small/ja, with both edge filters disabled. Studio and
+History show the timing-bound warning. Native save panels produce mode-0600 SRT
+ending at 00:00:06,960 and JSON with duration/segment end 6.96 and the warning.
+This closes the observed warning and these two timed-export interactions for
+that fixture. It does not establish seeking, native VTT, broad alignment quality
+or microphone-to-insertion acceptance. The attempted microphone take captures
+ChatGPT rather than TextEdit and is discarded before ASR/playback. QA stops with
+zero recovery files; normal app/data are visibly restored and the owned TextEdit
+fixture is cleaned. See `full-audio-native-timing.json` for exact boundaries.

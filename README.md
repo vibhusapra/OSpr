@@ -253,7 +253,9 @@ transcript can still lose content. The same study exposes out-of-range Whisper
 timestamps. The source now bounds those estimates and preserves the transcript,
 with explicit approximate timing when alignment is unusable. All 12 observed
 overruns are corrected in real old/new reproduction, with text unchanged. The
-older neural-edges-v0 preview predates this fix; native warning/export acceptance is open.
+older neural-edges-v0 preview predates this fix. The current preview passes a
+[native warning and JSON/SRT check](benchmarks/results/full-audio-native-timing.json)
+on one public Japanese fixture; seeking and broader native acceptance remain open.
 See [multilingual results](benchmarks/results/neural-edges-multilingual-v1.json)
 and [independent checks](benchmarks/results/neural-edges-multilingual-v1-checks.json).
 

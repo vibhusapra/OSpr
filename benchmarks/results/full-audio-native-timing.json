@@ -1,0 +1,55 @@
+{
+  "status": "passed-native-timing-warning-and-json-srt-export-insertion-open",
+  "timestamp": "2026-10-24T03:59:12.391396+00:00",
+  "build": {
+    "version": "0.1.0",
+    "built_at": "2026-10-24T03:01:30.117052+00:00",
+    "git_commit": "9a51603880d86d823a1d9469d2dcc3561511afca",
+    "tracked_changes": false,
+    "application_source_sha256": "643e90424a906917a546709c7d62e09cd728d7062cf0fc36b1d701a55b4ce1a6",
+    "source_manifest_version": 2,
+    "signing_mode": "configured-identity",
+    "boundary": "Development build; configured signing identity; not notarized; weights downloaded separately."
+  },
+  "isolated_data_profile": true,
+  "existing_microphone_and_accessibility_permissions": true,
+  "fixture": "fleurs-ja_jp-005",
+  "fixture_sha256": "00b5efdbd751c1f133a964db6086bd8294fc64a4d729165bdc6f267cb9b2c618",
+  "model": "whisper-small",
+  "language": "ja",
+  "edge_filters": false,
+  "auto_paste": false,
+  "studio_warning_visible": true,
+  "history_warning_visible": true,
+  "native_picker_import": true,
+  "srt_end_seconds": 6.96,
+  "json_duration_seconds": 6.96,
+  "json_segment_end_seconds": 6.96,
+  "json_warning_preserved": true,
+  "exports_owner_only": true,
+  "source_audio_unchanged": true,
+  "export_sha256": {
+    "native-timing-ja005.json": "77ba346534bca6bbad72b0357e7105bb3a6d11d1a086b3ac025941e485e062d5",
+    "native-timing-ja005.srt": "1468ac1ee7ca23a7fdf5236215fd2307d7ed381e30e9a05a355e5fc907ec5103"
+  },
+  "screenshot_sha256": "ebe28d253ddafceb4890fa2873d39fd2500aec2d8a6dd8fb0db8fc0d7ebb5d56",
+  "countdown_capture": {
+    "started": true,
+    "observed_target": "ChatGPT",
+    "intended_target": "TextEdit",
+    "discarded_before_recognition": true,
+    "public_fixture_played": false,
+    "insertion_accepted": false
+  },
+  "cleanup": {
+    "qa_process_worker_stopped": true,
+    "qa_recovery_files": 0,
+    "qa_public_history_records": 1,
+    "normal_window_restored": true,
+    "normal_sessions": 8,
+    "normal_words": 265,
+    "normal_settings_history_hashes_unchanged": true,
+    "textedit_test_space_removed_and_saved_via_ui": true
+  },
+  "boundary": "Real native UI on checked source 9a51603: public file picker, local Metal ASR, Studio/History warning and JSON/SRT save panels. Exact exports inspected on disk. No audio retention/seeking, native VTT export, physical Fn/PTT, microphone-to-ASR/insertion or broad device acceptance. The short real microphone take had the wrong captured target and was discarded without ASR or playback. Normal older app/data are restored; the checked delivery ZIP is unchanged."
+}

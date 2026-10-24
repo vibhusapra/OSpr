@@ -5,7 +5,7 @@
     {
       "feature": "Native Mac app, sidebar, studio and menu bar",
       "status": "implemented",
-      "evidence": "Packaged public-file/review/export flows exercised. Latest setup card, microphone permission state, restart/edit persistence and owner-only TXT/SRT exports retested. Brief microphone start/cancel and empty-result recovery/retry exercised. Public-speech microphone recognition, recording target label, app-switch insertion rejection and native Keychain/BYOK restart/import now exercised.",
+      "evidence": "Packaged public-file/review/export flows exercised. Latest setup card, microphone permission state, restart/edit persistence and owner-only TXT/SRT exports retested. Brief microphone start/cancel and empty-result recovery/retry exercised. Public-speech microphone recognition, recording target label, app-switch insertion rejection and native Keychain/BYOK restart/import now exercised. Later 9a51603 native warning/JSON/SRT checks pass on isolated public speech. The wrong-destination countdown take is discarded before ASR/playback. Normal app is visibly restored with original eight sessions/265 words and unchanged settings/history; owned TextEdit test space is removed and saved.",
       "gap": "Physical Fn/PTT, speech/route/interruption, insertion and system-capture acceptance remain open.",
       "priority": "P0"
     },
@@ -229,7 +229,7 @@
     {
       "feature": "TXT, JSON, SRT and VTT exports",
       "status": "verified",
-      "evidence": "Original-timing subtitle tests; edited text exported separately. Native TXT/SRT retest confirmed mode 0600, preserved edited TXT and original SRT timing.",
+      "evidence": "Original-timing subtitle tests; edited text exported separately. Native TXT/SRT retest confirmed mode 0600, preserved edited TXT and original SRT timing. On checked source 9a51603, native Japanese-file import shows the timing warning in Studio and History; native SRT ends at 6.960 s and JSON retains segment/duration 6.96 plus warning. Both mode-0600 exports are inspected.",
       "gap": "Speaker and word timestamps depend on engine; no invented alignment.",
       "priority": "P0"
     },

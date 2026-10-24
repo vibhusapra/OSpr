@@ -1,0 +1,40 @@
+{
+  "status": "completed-research-with-known-empty-speech-not-promotion",
+  "timestamp": "2026-10-24T03:45:41.818252+00:00",
+  "source_git_commit": "df0e19c6c0aaa050ce548a65be58bd0de8204e1d",
+  "host": {
+    "model": "Mac17,6",
+    "chip": "Apple M5 Max",
+    "memory_bytes": 137438953472,
+    "macos": "26.6.2"
+  },
+  "study": {
+    "cases": 75,
+    "actual_asr": 150,
+    "errors": 0,
+    "early_stream_completions": 0,
+    "spoken_empty_outputs": 2,
+    "identical_text_pairs": 70,
+    "raw_nonspeech_nonempty_each_route": 0
+  },
+  "english": {
+    "cases": 20,
+    "offline_wer": 0.028639618138424822,
+    "stream_wer": 0.028639618138424822,
+    "first_partial_audio_ms": 1600,
+    "final_flush_ms": 370.63352111727
+  },
+  "max_mlx_peak_bytes": 6024226688,
+  "empty_speech_case": "fleurs-ja_jp-005",
+  "empty_speech_source_sha256": "00b5efdbd751c1f133a964db6086bd8294fc64a4d729165bdc6f267cb9b2c618",
+  "source_fp_preserved": true,
+  "receipts_sha256": {
+    "voxtral-frontend.json": "21dc652cb54d7c041f2f051842ba80bb15405ee00f30e518bf099f53400bfae0",
+    "voxtral-smoke.json": "df7861ad9873f82154dcbc541fecc1f96115f75e2ce266b79a6e852190a6f028",
+    "voxtral-smoke-checks.json": "cf88a11dade3e6c33de46b930a711c5940a942dd125a330074417dd4aa398e4b",
+    "voxtral-study.json": "7af21e89f26fac4680842fb6748d39b6c9f853703d277c54941fdb63e033ab20",
+    "voxtral-study-checks.json": "8c4c5be67e22138c696f47027c1d76b4716778ff93246fe11e1b6eccd7ebd569"
+  },
+  "boundary": "Independent hashes/distance checks pass; one Japanese source is empty in both model modes. No shipping engine, model picker, normalization, default or dependency-lock changes. The checked full-audio-v0 bundle is unchanged. MLX peak allocation is not whole-process or whole-app memory. No microphone, paced live latency, native UI, long-session or product ranking acceptance.",
+  "application_source_sha256": "643e90424a906917a546709c7d62e09cd728d7062cf0fc36b1d701a55b4ce1a6"
+}
