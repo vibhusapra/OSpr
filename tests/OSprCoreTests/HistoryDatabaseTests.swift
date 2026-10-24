@@ -454,4 +454,73 @@ final class HistoryDatabaseTests: XCTestCase {
         XCTAssertLessThanOrEqual(row.preview.utf8.count, 480 * 4)
         XCTAssertEqual(try database.record(id: original.id)?.text, original.text)
     }
+    func testSummaryPersistenceFencesOldWritersAndPreservesExtractiveNotes() throws {
+        let path = try directory()
+        func version() throws -> Int32 {
+            var db: OpaquePointer?; var query: OpaquePointer?
+            XCTAssertEqual(sqlite3_open_v2(path.appendingPathComponent(HistoryDatabase.fileName).path, &db, SQLITE_OPEN_READONLY, nil), SQLITE_OK)
+            defer { sqlite3_finalize(query); sqlite3_close(db) }
+            XCTAssertEqual(sqlite3_prepare_v2(db, "PRAGMA user_version", -1, &query, nil), SQLITE_OK)
+            XCTAssertEqual(sqlite3_step(query), SQLITE_ROW)
+            return sqlite3_column_int(query, 0)
+        }
+        var item = record("Do not ship Friday.")
+        item.notes = try MeetingNotes(source: item.rawText, excerpts: [.init(id: 0, text: item.rawText)], model: "extractive")
+        let summary = try MeetingSummary(source: item.rawText,
+            items: [.init(section: .decisions, text: "Hold the Friday release.", sourceIDs: [0])],
+            excerpts: [.init(id: 0, text: item.rawText)], model: "fixture", chunks: 1)
+        do {
+            let db = try HistoryDatabase(directory: path)
+            try db.upsert([item]); XCTAssertEqual(try version(), 2)
+            item.summary = summary; try db.upsert([item]); XCTAssertEqual(try version(), 3)
+            try db.verifyIntegrity()
+        }
+        let reopened = try HistoryDatabase(directory: path)
+        let loaded = try XCTUnwrap(reopened.record(id: item.id))
+        XCTAssertEqual(loaded.summary?.items, summary.items)
+        XCTAssertEqual(loaded.notes?.model, "extractive"); XCTAssertEqual(loaded.text, item.text)
+        XCTAssertEqual(try reopened.statistics().records, 1)
+        try reopened.remove(ids: [item.id]); XCTAssertEqual(try version(), 3)
+    }
+    func testFailedSummaryBatchRollsBackDataAndForwardWriterFence() throws {
+        let path = try directory(), db = try HistoryDatabase(directory: path)
+        var good = record("Keep the source."), bad = record("Other source.")
+        good.summary = try MeetingSummary(source: good.rawText,
+            items: [.init(section: .overview, text: "Keep the source.", sourceIDs: [0])],
+            excerpts: [.init(id: 0, text: good.rawText)], model: "fixture", chunks: 1)
+        bad.summary = good.summary
+        XCTAssertThrowsError(try db.upsert([good, bad]))
+        XCTAssertEqual(try db.statistics().records, 0)
+        var connection: OpaquePointer?; var query: OpaquePointer?
+        XCTAssertEqual(sqlite3_open_v2(path.appendingPathComponent(HistoryDatabase.fileName).path, &connection, SQLITE_OPEN_READONLY, nil), SQLITE_OK)
+        defer { sqlite3_finalize(query); sqlite3_close(connection) }
+        XCTAssertEqual(sqlite3_prepare_v2(connection, "PRAGMA user_version", -1, &query, nil), SQLITE_OK)
+        XCTAssertEqual(sqlite3_step(query), SQLITE_ROW); XCTAssertEqual(sqlite3_column_int(query, 0), 2)
+    }
+    func testLegacySummaryMigrationKeepsAllFieldsAndRejectsFutureNestedData() throws {
+        var item = record("Do not ship Friday.")
+        item.summary = try MeetingSummary(source: item.rawText,
+            items: [.init(section: .decisions, text: "Hold the Friday release.", sourceIDs: [0])],
+            excerpts: [.init(id: 0, text: item.rawText)], model: "fixture", chunks: 1)
+        let path = try directory(); try writeLegacy([item], to: path)
+        let db = try HistoryDatabase(directory: path)
+        XCTAssertEqual(try canonical(XCTUnwrap(db.record(id: item.id))), try canonical(item))
+        for key in ["futureSummaryField", "futurePointField", "futureQuoteField"] {
+            let other = try directory()
+            var value = try XCTUnwrap(JSONSerialization.jsonObject(with: JSONEncoder().encode(item)) as? [String: Any])
+            var summary = try XCTUnwrap(value["summary"] as? [String: Any])
+            if key == "futureSummaryField" { summary[key] = 42 }
+            else {
+                let field = key == "futurePointField" ? "items" : "excerpts"
+                var rows = try XCTUnwrap(summary[field] as? [[String: Any]])
+                rows[0][key] = "Preserve this"; summary[field] = rows
+            }
+            value["summary"] = summary
+            let bytes = try JSONSerialization.data(withJSONObject: [value])
+            let legacy = other.appendingPathComponent("history.json"); try bytes.write(to: legacy)
+            XCTAssertThrowsError(try HistoryDatabase(directory: other))
+            XCTAssertEqual(try Data(contentsOf: legacy), bytes)
+        }
+    }
+
 }

@@ -22,7 +22,7 @@ TRANSCRIPT_SYSTEM = (
 
 
 def messages(text, instruction, task="transcript"):
-    if not isinstance(task, str) or task not in {"transcript", "edit-selection", "source-selection"}:
+    if not isinstance(task, str) or task not in {"transcript", "edit-selection", "source-selection", "meeting-summary"}:
         raise ValueError("Unsupported refinement task.")
     if not isinstance(text, str) or not isinstance(instruction, str):
         raise ValueError("Refinement text and instruction must be strings.")

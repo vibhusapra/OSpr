@@ -43,6 +43,7 @@ jobs:
           uv run --frozen --all-extras python benchmarks/gemini_contracts.py --cli .build/debug/ospr-cli --output /tmp/ospr-gemini-contracts.json
           uv run --frozen --all-extras python benchmarks/azure_contracts.py --cli .build/debug/ospr-cli --output /tmp/ospr-azure-contracts.json
           uv run --frozen --all-extras python benchmarks/rewrite_completion_contracts.py --cli .build/debug/ospr-cli --output /tmp/ospr-rewrite-completion-contracts.json
+          uv run --frozen --all-extras python benchmarks/meeting_summary_cli.py --cli .build/debug/ospr-cli --output /tmp/ospr-summary-contracts.json --contracts-only
       - name: Build app and self-contained research report
         run: |
           scripts/build-app.sh

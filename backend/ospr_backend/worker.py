@@ -33,7 +33,7 @@ def dispatch(engine, request):
         from .model_cache import inventory
         from .speech_detector import inventory as speech_inventory
 
-        return {"models": inventory(MODEL_LOCK, [*PUBLIC_MODELS, "rewrite-quality", "diarization"]) + [speech_inventory()],
+        return {"models": inventory(MODEL_LOCK, [*PUBLIC_MODELS, "rewrite-quality", "meeting-quality", "diarization"]) + [speech_inventory()],
                 "resident": list(engine.models), "rewrite_resident": engine.rewriter_id,
                 "diarizer_resident": engine.diarizer is not None}
     if action == "download_model":
@@ -42,7 +42,7 @@ def dispatch(engine, request):
             from .speech_detector import prepare
 
             return prepare(download=True, progress=engine.progress)
-        if model not in {*PUBLIC_MODELS, "rewrite-quality", "diarization"}:
+        if model not in {*PUBLIC_MODELS, "rewrite-quality", "meeting-quality", "diarization"}:
             raise ValueError("Unknown shipping model.")
         resolve_model(model, engine.progress)
         return {"model": model, "complete": True}
@@ -107,6 +107,8 @@ def dispatch(engine, request):
         if len(text) > 100000 or len(instruction) > 16000:
             raise ValueError("Rewrite input too long.")
         return engine.rewrite(text, instruction, task=request.get("task", "transcript"))
+    if action == "summary":
+        return engine.summary(request.get("text", ""))
     if action == "notes":
         return engine.notes(request.get("text", ""))
     raise ValueError("Unknown action.")
@@ -140,7 +142,7 @@ def main():
             if not isinstance(request, dict):
                 raise ValueError("Expected a JSON object.")
             request_id = request.get("id")
-            if request.get("action") in {"warm", "download_model"}:
+            if request.get("action") in {"warm", "download_model", "summary"}:
                 engine.progress = lambda event, request_id=request_id: emit({"id": request_id, "event": "progress", "progress": event})
             response = {"id": request.get("id"), "ok": True, "result": dispatch(engine, request)}
         except Exception as error:

@@ -22,6 +22,12 @@ The local candidate is `dist/v0-integration/OSpr.app`; its 396,062,164-byte ZIP 
 Apple Development signed, macOS 26.6.2 arm64, model weights separate; native and
 release acceptance remain pending. Older candidates and the normal app are preserved.
 
+Newer experimental [local meeting summaries](docs/architecture/meeting-summaries.md)
+are on `codex/meeting-summaries`: a separate pinned 9B model, structured notes,
+source quotes, CLI and MCP. Structural/source validation passes 13/14 development
+cases; accepted paraphrases still have known semantic errors. The preserved
+integration ZIP above predates this feature; a newer package is being validated.
+
 ## Run on your Mac
 
 The combined preview is on `codex/v0-integration` ([draft review #24](https://github.com/vibhusapra/OSpr/pull/24)); `main` still contains the initial bootstrap.

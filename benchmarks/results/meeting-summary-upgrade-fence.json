@@ -1,0 +1,20 @@
+{
+  "status": "passed-separate-old-core-reader-upgrade-fence",
+  "old_core_release_source": "728ef7624a58db3fd7b95de90842f3668a5e8249",
+  "old_reader_sha256": "3b7c92d3cef9cef390597d7ab7876f17b4bbb107442b79903becc166b52aadf2",
+  "records": [
+    {
+      "schema": "v2",
+      "old_reader_exit": 0,
+      "data_bytes_unchanged": true,
+      "expected_result": "opens original record"
+    },
+    {
+      "schema": "v3",
+      "old_reader_exit": 1,
+      "data_bytes_unchanged": true,
+      "expected_result": "refuses new summary archive"
+    }
+  ],
+  "boundary": "Public synthetic private-directory fixtures, current source writer and a separate executable linked to the retained pre-summary release Core objects (built with source728ef76; no MeetingSummary object). Confirms v2 opens and v3 is refused without changing SQLite bytes. Not an original-profile/native installer or older macOS acceptance test. Existing normal user data not used."
+}

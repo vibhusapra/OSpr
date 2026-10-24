@@ -189,6 +189,37 @@ final class WorkerTests: XCTestCase {
         let result = try await worker.request(["action": "ping"])
         XCTAssertEqual(result["value"] as? String, "ready")
     }
+    func testLongRequestOverrideDoesNotDisableTheNextDefaultDeadline() async throws {
+        let source = directory.appendingPathComponent("backend/ospr_backend/worker.py")
+        var code = try String(contentsOf: source, encoding: .utf8)
+        code = code.replacingOccurrences(of: "if request.get('action') == 'sleep': time.sleep(5)", with: "if request.get('action') == 'short-sleep': time.sleep(1)\n    if request.get('action') == 'sleep': time.sleep(5)")
+        try code.write(to: source, atomically: true, encoding: .utf8)
+        let worker = WorkerClient(root: directory.path, timeout: 0.5)
+        defer { worker.shutdown() }
+        _ = try await worker.request(["action": "ping"], timeout: 3)
+        let result = try await worker.request(["action": "short-sleep"], timeout: 3)
+        XCTAssertEqual(result["value"] as? String, "ready")
+        do { _ = try await worker.request(["action": "sleep"]); XCTFail("Default deadline should still apply") }
+        catch { XCTAssertTrue(error.localizedDescription.contains("timed out")) }
+        let next = try await worker.request(["action": "ping"], timeout: 3)
+        XCTAssertNotEqual(next["pid"] as? Int, result["pid"] as? Int)
+    }
+    func testInvalidRequestDeadlinesFailBeforeStartingAWorker() async throws {
+        let source = directory.appendingPathComponent("backend/ospr_backend/worker.py")
+        let marker = directory.appendingPathComponent("started")
+        let code = "import pathlib\npathlib.Path(" + String(reflecting: marker.path) + ").touch()\n" + (try String(contentsOf: source, encoding: .utf8))
+        try code.write(to: source, atomically: true, encoding: .utf8)
+        let worker = WorkerClient(root: directory.path)
+        defer { worker.shutdown() }
+        for invalid in [0.0, -1, Double.nan, Double.infinity, 3601] {
+            do { _ = try await worker.request(["action": "ping"], timeout: invalid); XCTFail("Invalid deadline accepted") }
+            catch { XCTAssertEqual(error.localizedDescription, "Invalid worker request deadline.") }
+        }
+        XCTAssertFalse(FileManager.default.fileExists(atPath: marker.path))
+        _ = try await worker.request(["action": "ping"], timeout: 3)
+        XCTAssertTrue(FileManager.default.fileExists(atPath: marker.path))
+    }
+
 }
 
 private final class ProgressCollector: @unchecked Sendable {

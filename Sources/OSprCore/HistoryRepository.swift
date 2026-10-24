@@ -83,6 +83,15 @@ public final class HistoryRepository: @unchecked Sendable {
         update(id: id, delay: delay, completion: completion) { $0.text = text }
     }
 
+    public func updateSummary(id: UUID, summary: MeetingSummary, expectedRawText: String, completion: Completion? = nil) {
+        update(id: id, delay: 0, completion: completion) { record in
+            guard record.rawText == expectedRawText, summary.matches(record.rawText) else {
+                throw OSprError.message("The original transcript changed. Summary was not applied.")
+            }
+            record.summary = summary
+        }
+    }
+
     public func updateNotes(id: UUID, notes: MeetingNotes, expectedRawText: String, completion: Completion? = nil) {
         update(id: id, delay: 0, completion: completion) { record in
             guard record.rawText == expectedRawText, notes.matches(record.rawText) else {

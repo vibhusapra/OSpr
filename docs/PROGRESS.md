@@ -2,6 +2,37 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## Local meeting summaries: source implemented; semantic and native acceptance open
+
+The `codex/meeting-summaries` branch adds explicit local Qwen3.5 9B summaries,
+structured sections, exact source quotes and Markdown copy. Existing Qwen3 4B
+refinement/excerpts remain separate. This is a 6 GB optional download, with cache
+inventory and bounded one-hour download/summary requests; ordinary inference
+keeps its existing deadline. All source batches are read and candidate notes are
+reconciled. Limited numeric/date-time tripwires and one bounded repair reject
+known unsupported changes; failures/cancelled late responses do not publish
+partial notes. Summaries use the original raw transcript, not editor changes.
+
+The 50-item ledger now includes this additional experimental feature. Current
+14-case development replay yields 11/14 4B and 13/14 9B accepted-for-review outputs.
+Those are structural/source checks, not semantic success. A repeated on-June-5 to
+by-June-5 change is rejected; accepted samples still strengthen approval status,
+reformulate Japanese uncertainty and repeat generic/no-decision overview material.
+All raw outputs and the exact original v1 implementation/failures are preserved.
+
+Eight actual Swift CLI contracts and three offline 9B end-to-end file replays,
+actual stdio MCP inference/oversize rejection, and a separate pre-summary Core
+reader upgrade-fence probe pass. SwiftUI body renders in light/dark/narrow layouts
+were inspected; wrapping preserves long qualifiers. These are not native
+scroll/disclosure/copy tests. Source tests cover save/restart, editor and audio
+mutations, stale/deleted sources, selection change, cancelled late results,
+session-memory transfer and transactional v3 old-writer fencing. Package and
+source CI validation are in progress. No normal app/data, recording/playback,
+sound setting, real provider key/account or native QA launch is involved.
+
+[Implementation, exact contracts, models and remaining gates](architecture/meeting-summaries.md).
+The original full-parity/top-three/distribution goal remains open.
+
 ## Combined v0 review and an existing-archive-copy upgrade check
 
 The `codex/v0-integration` branch collects the current combined source into one

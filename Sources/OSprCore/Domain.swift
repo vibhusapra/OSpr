@@ -119,6 +119,7 @@ public struct Transcript: Codable, Identifiable, Sendable {
     public var words: [Segment]?
     public var warning: String?
     public var notes: MeetingNotes?
+    public var summary: MeetingSummary?
     public var audioFile: String?
     public var source: String
     public init(rawText: String, text: String, model: String, mode: WritingMode, app: String = "",

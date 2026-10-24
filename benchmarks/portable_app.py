@@ -1,6 +1,6 @@
 """Verify a copied app runtime offline from a foreign working directory.
 
-Requires all six ASR, rewrite-quality and diarization weights already cached.
+Requires all six ASR, rewrite-quality, meeting-quality and diarization weights cached.
 This exercises the bundled worker and optional MCP, not native permissions/UI.
 """
 import argparse
@@ -87,8 +87,8 @@ def main():
         assert (directory/'mixed.wav').stat().st_size > audio.stat().st_size
         assert replies[10]['result']['source_unchanged'] and (directory/'upload.wav').is_file()
         before, after = replies[11]['result'], replies[13]['result']
-        assert len(before['models']) == 9 and all(row['complete'] for row in before['models'])
-        assert {row['id'] for row in before['models']} == {*models, 'rewrite-quality', 'diarization', 'speech-detector'}
+        assert len(before['models']) == 10 and all(row['complete'] for row in before['models'])
+        assert {row['id'] for row in before['models']} == {*models, 'rewrite-quality', 'meeting-quality', 'diarization', 'speech-detector'}
         assert before['resident'] == after['resident'] and before['rewrite_resident'] == after['rewrite_resident']
         assert replies[12]['result']['complete'] and replies[14]['ok']
         assert all(event['id'] in {'download-cached', 'warm-progress', *('prime-' + model for model in models)} for event in events)
@@ -138,7 +138,7 @@ def main():
             parameters = StdioServerParameters(command=str(python), args=['-m','ospr_backend.mcp_server'], env=environment, cwd=str(directory))
             async with Client(parameters) as client:
                 names = sorted(tool.name for tool in (await client.list_tools()).tools)
-                assert names == ['list_models','rewrite_text','transcribe_file']
+                assert names == ['list_models','rewrite_text','summarize_text','transcribe_file']
                 result = await client.call_tool('list_models', {})
                 assert 'parakeet-v3' in json.loads(result.content[0].text)
                 return names
@@ -147,7 +147,7 @@ def main():
         assert signature.returncode == 0, signature.stderr
         receipt = dict(timestamp=datetime.datetime.now(datetime.UTC).isoformat(), status='passed',
                        bundled_help_relative_links=help_links,
-                       boundary='Copied app path with spaces, hostile PYTHONPATH, foreign cwd, offline bundled interpreter/worker, all six ASR engines, exact-PCM native neural edges through all six engines, detector abstention, source-excerpt notes, speaker word attribution, clocked track mix, local upload preparation, nine pinned model inventories/download-only/warm progress and MCP tool listing. Native microphone, permissions and UI not exercised.',
+                       boundary='Copied app path with spaces, hostile PYTHONPATH, foreign cwd, offline bundled interpreter/worker, all six ASR engines, exact-PCM native neural edges through all six engines, detector abstention, source-excerpt notes, speaker word attribution, clocked track mix, local upload preparation, ten pinned model inventories/download-only/warm progress and MCP tool listing. Native microphone, permissions and UI not exercised.',
                        fixture_id=item['id'], fixture_sha256=item['sha256'],
                        executable_sha256=hashlib.sha256((app/'Contents/MacOS/OSpr').read_bytes()).hexdigest(),
                        build=json.loads((app/'Contents/Resources/build-info.json').read_text()),

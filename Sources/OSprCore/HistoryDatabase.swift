@@ -155,7 +155,7 @@ public final class HistoryDatabase {
         }
         sqlite3_busy_timeout(database, 2_000)
         let version = try integer("PRAGMA user_version")
-        guard version == 0 || version == 1 || version == 2 else {
+        guard version == 0 || version == 1 || version == 2 || version == 3 else {
             throw OSprError.message("This history database needs a newer OSpr version. Existing files were preserved.")
         }
         try execute("PRAGMA journal_mode=DELETE; PRAGMA synchronous=FULL; PRAGMA secure_delete=ON; PRAGMA temp_store=MEMORY; PRAGMA cache_size=-4096;")
@@ -383,7 +383,7 @@ public final class HistoryDatabase {
             }
             return dictionary
         }
-        let record = try object(value, keys: ["id", "date", "rawText", "text", "model", "mode", "app", "duration", "latencyMS", "segments", "words", "warning", "notes", "audioFile", "source"])
+        let record = try object(value, keys: ["id", "date", "rawText", "text", "model", "mode", "app", "duration", "latencyMS", "segments", "words", "warning", "notes", "summary", "audioFile", "source"])
         for field in ["segments", "words"] {
             if let values = record[field] as? [Any] {
                 for value in values { _ = try object(value, keys: ["start", "end", "text", "speaker", "overlapSpeakers"]) }
@@ -393,6 +393,15 @@ public final class HistoryDatabase {
             let notes = try object(value, keys: ["excerpts", "sourceSHA256", "model", "created"])
             if let excerpts = notes["excerpts"] as? [Any] {
                 for excerpt in excerpts { _ = try object(excerpt, keys: ["id", "text"]) }
+            }
+        }
+        if let value = record["summary"], !(value is NSNull) {
+            let summary = try object(value, keys: ["items", "excerpts", "sourceSHA256", "model", "chunks", "created"])
+            if let values = summary["items"] as? [Any] {
+                for item in values { _ = try object(item, keys: ["section", "text", "source_ids"]) }
+            }
+            if let values = summary["excerpts"] as? [Any] {
+                for item in values { _ = try object(item, keys: ["id", "text"]) }
             }
         }
         // JSONDecoder below validates missing fields, scalar/array types and nulls.
@@ -570,6 +579,11 @@ public final class HistoryDatabase {
     }
 
     private func put(_ record: Transcript, position: Int64? = nil, allowUpdate: Bool = true) throws {
+        if let summary = record.summary {
+            guard summary.matches(record.rawText) else { throw OSprError.message("Summary does not match the original transcript. History was preserved.") }
+            // Transactional forward-writer fence: pre-summary v2 apps reject v3.
+            if try integer("PRAGMA user_version") < 3 { try execute("PRAGMA user_version=3") }
+        }
         let payload = try encoder.encode(record)
         let sql = """
             INSERT INTO history(position,id,created,text,raw,preview,mode,model,app,duration,latency,audio,word_count,payload)

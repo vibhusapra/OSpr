@@ -63,6 +63,7 @@ import OSprCore
     let audioArchive: AudioArchive
     let audioReview = AudioReviewPlayer()
     private var worker: WorkerClient
+    private let summaryRequest: ((String) async throws -> [String: Any])?
     private var savedTranscriptionKey = ""
     private var savedRewriteKey = ""
     private var transcriptionKeyScope: ProviderCredentialScope?
@@ -122,7 +123,9 @@ import OSprCore
     }
 
     init(instanceLock: AppInstanceLock, directory: URL = LocalStore.applicationDirectory, enableServices: Bool = true,
-         meetingFactory: ((URL, Bool) throws -> MeetingCaptureSession)? = nil, insertionTest: InsertionSelfTest? = nil) {
+         meetingFactory: ((URL, Bool) throws -> MeetingCaptureSession)? = nil, insertionTest: InsertionSelfTest? = nil,
+         summaryRequest: ((String) async throws -> [String: Any])? = nil) {
+        self.summaryRequest = summaryRequest
         self.insertionTest = insertionTest ?? InsertionSelfTest()
         self.meetingFactory = meetingFactory ?? { directory, preview in
             guard #available(macOS 15.0, *) else { throw OSprError.message("Desktop capture requires macOS 15 or later.") }
@@ -403,7 +406,7 @@ import OSprCore
                         default: self.modelProgress = "Checking pinned weights"
                         }
                     }
-                })
+                }, timeout: id == nil ? nil : 3600)
                 guard token == generation else { return }
                 if id == nil { ready = true }
                 status = id == nil ? "Model ready on your Mac" : "Weights downloaded · ready for offline loading"
@@ -1081,6 +1084,38 @@ import OSprCore
                                      source: "Reprocessed · " + record.date.formatted(date: .abbreviated, time: .shortened), token: token)
             } catch { if generation == token { self.error = error.localizedDescription } }
             if generation == token { phase = "idle" }
+        }
+    }
+
+    func generateSummary(_ record: Transcript) {
+        guard !busy else { return }
+        generation = UUID(); let token = generation
+        phase = "transcribing"; error = ""; status = "Summarizing locally · first use downloads a 9B model (6 GB)"
+        operationTask = Task {
+            do {
+                let result: [String: Any]
+                if let summaryRequest { result = try await summaryRequest(record.rawText) }
+                else {
+                    result = try await worker.request(["action": "summary", "text": record.rawText], progress: { [weak self] event in
+                        Task { @MainActor [weak self] in
+                            guard let self, self.generation == token, self.phase == "transcribing" else { return }
+                            switch event["phase"] as? String {
+                            case "download": self.status = "Downloading pinned summary weights · Cancel keeps previous notes"
+                            case "loading": self.status = "Loading the local summary model onto Metal"
+                            case "summarizing": self.status = "Summarizing part \(event["part"] as? Int ?? 1) of \(event["parts"] as? Int ?? 1) locally"
+                            case "reconciling": self.status = "Reconciling the full meeting · checking source references"
+                            case "retrying": self.status = "Rechecking generated source references locally"
+                            default: break
+                            }
+                        }
+                    }, timeout: 3600)
+                }
+                guard token == generation else { return }
+                let summary = try MeetingSummary.fromWorker(result, source: record.rawText)
+                try await historyState.updateSummary(id: record.id, summary: summary, expectedRawText: record.rawText)
+                if token == generation { status = summary.items.isEmpty ? "No summary items returned · original retained" : "Local summary ready · review the source quotes" }
+            } catch { if token == generation { self.error = error.localizedDescription; status = "Summary not saved · previous notes retained" } }
+            if token == generation { phase = "idle" }
         }
     }
 
