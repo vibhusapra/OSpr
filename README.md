@@ -51,13 +51,17 @@ are preserved and predate this guard.
 
 ## Run on your Mac
 
-The next [local model choice](docs/architecture/local-model-choice.md) source on
+The [local model choice](docs/architecture/local-model-choice.md) source on
 `codex/local-model-choice` adds experimental 9B refinement, explicit preparation,
 selected-model acknowledgement and accented-spelling preservation. The 36-case
 development comparison favors 9B on raw lexical checks but still finds mistakes;
-4B and Off remain unchanged. Existing packages below/above predate this choice.
+4B and Off remain unchanged. The separate signed `dist/local-model-choice-v0/OSpr.app`
+passes [package gates](benchmarks/results/local-model-package.json) and
+[source/CI gates](benchmarks/results/local-model-source-validation.json). Apple
+Development signed macOS 26.6.2 arm64; weights separate; not notarized. Older
+packages above predate this choice.
 
-The current experimental preview is on `codex/local-completion` ([draft PR #26](https://github.com/vibhusapra/OSpr/pull/26)), stacked on the summary and combined-v0 reviews. `main` still contains the initial bootstrap.
+The current experimental preview is on `codex/local-model-choice` ([draft PR #27](https://github.com/vibhusapra/OSpr/pull/27)), stacked on the summary and combined-v0 reviews. `main` still contains the initial bootstrap.
 
 Requirements: Apple Silicon, macOS 14+, Xcode 16+ / Swift 6, [uv](https://docs.astral.sh/uv/),
 and roughly 3–8 GB of available memory for the selected inference configuration.
@@ -66,7 +70,7 @@ standalone app bundles Python and locked inference libraries. Model
 weights download on first load; disk use depends on the selected models.
 
 ```sh
-git clone --branch codex/local-completion https://github.com/vibhusapra/OSpr.git
+git clone --branch codex/local-model-choice https://github.com/vibhusapra/OSpr.git
 cd OSpr
 scripts/setup.sh
 scripts/build-app.sh

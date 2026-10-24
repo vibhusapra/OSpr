@@ -91,3 +91,27 @@ not comparative latency, energy, lower-memory-Mac or consumer-app acceptance.
 Model selection, settings restart and generated request/acknowledgement boundaries
 have source tests. Native dictation/selection/Settings interaction, broader
 multilingual fidelity, lower-memory devices and full product ranking remain open.
+
+## Frozen package and CI
+
+Signed runtime `e27b374` passes [package gates](../../benchmarks/results/local-model-package.json):
+relocated offline six-engine/neural/extras, actual bundled CLI/MCP model selection,
+missing-9B and output-limit warm-ASR retention, summaries/provider regressions,
+ZIP CRC/extraction/signatures/executable/source/license checks and 286 frozen help
+links. The 396,791,467-byte ZIP has SHA-256
+`665d2c17c14d2abf76c5aae3d0be7d50321b9ed15d73373d6a8f03c8191ddd89`.
+Apple Development signed macOS 26.6.2 arm64; weights separate; not notarized.
+The bundled report predates final receipts.
+
+[Clean-runner CI 40116390475](https://github.com/vibhusapra/OSpr/actions/runs/40116390475)
+passes 408 Swift / 330 Python tests, ten local-model/eight summary/41 provider
+contracts, app/report/runtime imports and 286 links. Initial CI exposed a race in
+the new restart test: history teardown had not released the GUI instance lock.
+Test-only `e564819` waits for actual lock reacquisition and model release; runtime
+locking is unchanged. Five focused repetitions and the full suite pass. Its product
+sources match the package fingerprint. [Bound validation](../../benchmarks/results/local-model-source-validation.json).
+
+Separate fixed-text native checks on the older preserved insertion component
+proved TextEdit delivery but reproduced browser AX success without visible changes.
+[Native receipt and precise scope](../../benchmarks/results/native-insertion-component.json).
+That is not native acceptance of this model-choice candidate.

@@ -1,0 +1,50 @@
+{
+  "status": "passed-local-model-choice-source-and-ci-gates",
+  "timestamp": "2026-10-24T17:48:39.318406+00:00",
+  "build": {
+    "version": "0.1.0",
+    "built_at": "2026-10-24T17:25:29.795153+00:00",
+    "git_commit": "e27b374978b74c4d06dca511594944e9ed1fbdfb",
+    "tracked_changes": false,
+    "application_source_sha256": "7730f21e4f1d201f679a899451a8b0f2051e5980caf1e5201b3bcb3c25dc73d6",
+    "source_manifest_version": 2,
+    "signing_mode": "configured-identity",
+    "boundary": "Development build; configured signing identity; not notarized; weights downloaded separately."
+  },
+  "review_head": "e5648190a02d79508ddcedb3de8a4965b9e503d9",
+  "runtime_sources_identical_to_build": true,
+  "checks": {
+    "swift_tests": 408,
+    "python_tests": 330,
+    "ruff": "passed",
+    "local_model_cli_contracts": 10,
+    "actual_model_cli_inferences": 2,
+    "summary_cli_contracts": 8,
+    "provider_cli_contracts": 41,
+    "guarded_lexical_sentinels_each": "36/36",
+    "not_semantic_grading": true
+  },
+  "ci": {
+    "run_id": 40116390475,
+    "url": "https://github.com/vibhusapra/OSpr/actions/runs/40116390475",
+    "source": "e5648190a02d79508ddcedb3de8a4965b9e503d9",
+    "conclusion": "success",
+    "swift_tests": 408,
+    "python_tests": 330,
+    "bundled_help_relative_links": 286,
+    "log_sha256": "d7a7006fdd9427bcc33ae845e1aa90947fb9414c5ba6622ae827c8948a8cee12"
+  },
+  "initial_ci": {
+    "run_id": 40116042781,
+    "conclusion": "failure",
+    "cause": "New restart test released AppModel before queued history teardown relinquished the GUI instance lock. Runtime lock correctly refused the second owner.",
+    "fix": "Test awaits actual lease reacquisition, allows main-actor teardown, asserts old model release and hands the lease to the restarted model; no runtime lock change.",
+    "focused_repetitions_after_fix": 5
+  },
+  "local_log_sha256": {
+    "local-model-swift-fixed.log": "c0a2fbd0d0289a8298a06dc52682915388a213c3fd7c9a9d2adcdec8c07fbd06",
+    "local-model-python.log": "d1527b217010cf2fe318d052006045fdc7260cfc161f496ed1e0505233989c67"
+  },
+  "package_receipt_sha256": "670ccf265fea1c10fbba83742384c24c73ee68756c1fbcd97d0fe3ef86102e34",
+  "boundary": "Runtime frozen at e27b374; CI head e564819 changes only the restart test. Product sources and bundled-source fingerprint match. No native launch of this model-choice candidate. Separate older insertion component QA found working TextEdit but browser AX acknowledgements without visible delivery; native acceptance remains open. No semantic quality, lower-memory Mac, isolated comparative latency/energy, consumer ranking or notarized distribution claim. Normal app/data restored unchanged."
+}

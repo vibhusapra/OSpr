@@ -2,6 +2,19 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## Native insertion component: TextEdit passes; browser failure reproduced
+
+After the manual unlock, the preserved isolated source `7e85e12` candidate
+inserted at a TextEdit cursor and replaced an owned selection exactly once.
+A moved cursor was refused; password capture was refused; countdown cancellation
+returned to idle. The same Chrome textarea/contenteditable AX setters reported
+success but changed no visible text and emitted no input events. Both were
+explicitly marked as failed delivery. This is a reproduced browser compatibility
+issue, not an acceptance pass. The normal app/settings/history and public target
+file were restored. No microphone, audio playback or sound change was used.
+Actual clipboard restoration, app-switch/slow-app faults, physical shortcuts and
+microphone-to-insertion remain open. [Native receipt](../benchmarks/results/native-insertion-component.json).
+
 ## Optional 9B refinement and a reproduced spelling loss
 
 `codex/local-model-choice` adds an explicit experimental 9B refinement choice in
@@ -23,7 +36,18 @@ contexts. Full source suites pass 408 Swift / 330 Python tests and Ruff. Actual
 CLI passes ten rejection/control cases plus two local inferences; actual MCP
 checks schema/model selection, and a private-cache Swift replay verifies no 9B
 download and unchanged warm ASR. Light/dark/narrow Settings section renders were
-inspected; these are not native interaction. Packaging/CI remain pending.
+inspected; these are not native interaction. Signed runtime `e27b374` passes
+exact bundled CLI/MCP, relocated offline six-engine/neural/extras, missing-9B and
+output-limit warm-ASR, summary/provider, archive/signature/source/license gates.
+The 396,791,467-byte ZIP has SHA-256
+`665d2c17c14d2abf76c5aae3d0be7d50321b9ed15d73373d6a8f03c8191ddd89`.
+Clean-runner [CI 40116390475](https://github.com/vibhusapra/OSpr/actions/runs/40116390475)
+passes matching 408/330 tests and all contracts. Its `e564819` test-only fix waits
+for queued history teardown to release the instance lock before restart; product
+sources match the frozen package. The initial new restart test raced in CI; the
+runtime lock was not weakened. Apple Development signed macOS 26.6.2 arm64,
+weights separate, not notarized. [Package](../benchmarks/results/local-model-package.json),
+[bound source validation](../benchmarks/results/local-model-source-validation.json).
 [Contracts, raw outputs, limitations and remaining acceptance](architecture/local-model-choice.md).
 
 ## Local text completion and warm-speech recovery
