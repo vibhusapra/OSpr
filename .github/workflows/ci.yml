@@ -38,6 +38,7 @@ jobs:
       - name: Verify standalone runtime on a clean runner
         run: |
           scripts/bundle-app.sh
+          uv run --frozen --all-extras python -c 'from pathlib import Path; from benchmarks.portable_app import verify_help_links; print("Bundled help links verified:", verify_help_links(Path("dist/standalone/OSpr.app")))'
           bundle="$GITHUB_WORKSPACE/dist/standalone/OSpr.app"
           task_directory="$(mktemp -d)"
           cd "$task_directory"

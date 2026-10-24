@@ -55,7 +55,7 @@ cp docs/architecture/*.md "$resources/Engine/docs/architecture/"
 cp docs/assets/* "$resources/Engine/docs/assets/"
 cp docs/data/*.json "$resources/Engine/docs/data/"
 cp benchmarks/results/*.json "$resources/Engine/benchmarks/results/"
-for trace in benchmarks/results/*.json.gz; do
+for trace in benchmarks/results/*.json.gz benchmarks/results/*.srt benchmarks/results/*.vtt; do
   if [[ -f "$trace" ]]; then cp "$trace" "$resources/Engine/benchmarks/results/"; fi
 done
 cp benchmarks/README.md "$resources/Engine/benchmarks/"
