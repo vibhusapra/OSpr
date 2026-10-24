@@ -1,0 +1,37 @@
+{
+  "status": "passed-insertion-self-test-development-package-gates",
+  "build": {
+    "version": "0.1.0",
+    "built_at": "2026-10-24T11:34:47.917196+00:00",
+    "git_commit": "0aff573b706a2ec6ce4f5ee7a1a4ebdeafbd3645",
+    "tracked_changes": false,
+    "application_source_sha256": "1d56dd731290621245a7f5ca604b07f002bf7e0d5a2e1a0669c4fe8f2bf1c329",
+    "source_manifest_version": 2,
+    "signing_mode": "configured-identity",
+    "boundary": "Development build; configured signing identity; not notarized; weights downloaded separately."
+  },
+  "archive": "OSpr-v0.1.0-insertion-self-test-macOS26.6.2-arm64.zip",
+  "archive_bytes": 394308062,
+  "archive_sha256": "18128ced5d74068ef57c01a8c4c4170e84b8103f54b77f7047112f890916342e",
+  "zip_crc": true,
+  "zip_entries": 67287,
+  "extracted_signature": true,
+  "extracted_executables_identical": true,
+  "extracted_offline_cli_inventory": [
+    "cohere-native8",
+    "nemotron-streaming",
+    "parakeet-v3",
+    "qwen3-asr",
+    "whisper-small",
+    "whisper-turbo"
+  ],
+  "portable_receipt_sha256": "e4bd2df9beeddffc06952a4099b2f3048da6a5b0891db2404c97d5dd0274eea3",
+  "qa_variant_only_profile_metadata_changed": true,
+  "source_local_tests": {
+    "swift": 347,
+    "python": 248
+  },
+  "license_matches": true,
+  "native_component_acceptance": "pending-manual-macos-unlock",
+  "boundary": "Separate Apple Development signed macOS26.6.2 arm64 test candidate, weights separate. Not Developer ID/notarized or clean-Mac/older-OS/updater accepted. Portable six-engine/neural/extras and archive gates pass. Insertion self-test native TextEdit/browser/secure-field acceptance is pending; no microphone-to-insertion, physical shortcut/device, broad compatibility or top-three claim. QA profile copy has only the explicit data-directory Info key changed and is re-signed. Normal app/settings/history untouched; no recording/playback or sound setting changes. Bundled help is the 0aff573 source snapshot with221relative links before final receipts."
+}
