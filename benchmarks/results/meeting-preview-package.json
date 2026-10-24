@@ -1,0 +1,36 @@
+{
+  "status": "passed-separate-development-test-preview-package-gates",
+  "build": {
+    "version": "0.1.0",
+    "built_at": "2026-10-24T10:06:59.344329+00:00",
+    "git_commit": "2ceb234598492c471e34ccdfc675b2b2a5be5727",
+    "tracked_changes": false,
+    "application_source_sha256": "e6b9856a3641e4071bf42fde462c79faa60fb669ffa9dcb4dc371be6eabf9837",
+    "source_manifest_version": 2,
+    "signing_mode": "configured-identity",
+    "boundary": "Development build; configured signing identity; not notarized; weights downloaded separately."
+  },
+  "archive": "OSpr-v0.1.0-meeting-preview-macOS26.6.2-arm64.zip",
+  "archive_bytes": 393425164,
+  "archive_sha256": "8ca84dfbbdcd69f3ecaaa1a3840d5ee91ff904dd1204591977dc9214e82d7ada",
+  "zip_crc": true,
+  "zip_entries": 67259,
+  "extracted_signature": true,
+  "extracted_executables_identical": true,
+  "extracted_offline_cli_inventory": [
+    "cohere-native8",
+    "nemotron-streaming",
+    "parakeet-v3",
+    "qwen3-asr",
+    "whisper-small",
+    "whisper-turbo"
+  ],
+  "portable_receipt_sha256": "7ca72342eddd1f678058fa5f0a9ab11ec0a5423667b50930a38894ffa112f670",
+  "bundled_mix_receipt_sha256": "f343885fa55153ff5cc223968e51a877f372618983b0df488023857d108e1053",
+  "source_local_tests": {
+    "swift": 331,
+    "python": 248
+  },
+  "license_matches": true,
+  "boundary": "Separate Apple Development signed local test preview for macOS 26.6.2 arm64. Model weights download separately. Not Developer ID/notarized or clean-Mac/older-OS/updater accepted. Portable six-engine/neural and mixed-file/real worker gates pass; physical ScreenCaptureKit, microphone, preview stop/device/echo and broad insertion remain open. No full parity or top-three ranking; earlier checked streaming-v0 app/ZIP and running normal app are unchanged. Bundled report is source snapshot 2ceb234 before these final receipts."
+}

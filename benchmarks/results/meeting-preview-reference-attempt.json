@@ -1,0 +1,22 @@
+{
+  "status": "failed-reference-filter-comparison-before-asr",
+  "git_commit": "8e53879",
+  "protocol_sha256": "3699882390571a6c8f6511f0aafdf5afd88690c0f9956a88d95d8f543bce2b88",
+  "traces_sha256": "46064dc699e6ffd1fd788872380cb3f9c608bd073a6d56cd01a8a1497a5c6b4e",
+  "maximum_roundtrip_error": 0.11609746515750885,
+  "relative_rms_roundtrip_error": 0.1286424696445465,
+  "old_limits": {
+    "max_sample_error": 0.05,
+    "max_relative_rms_error": 0.1
+  },
+  "asr_requests": 0,
+  "explanation": "SciPy source upsampling and Apple production downsampling use different filters. The comparison against unfiltered original PCM failed; no quality improvement or equivalence is claimed. Revised protocol uses an independent whole-track Apple converter for packet preservation and continues to report original PCM differences without an accuracy threshold.",
+  "whole_track_reference_initial_attempt": {
+    "git_commit": "82bc609",
+    "status": "incomplete-reference-helper-before-asr",
+    "asr_requests": 0,
+    "reason": "AVAudioConverter returned haveData before endOfStream. Helper now explicitly drains to endOfStream in a bounded loop.",
+    "control_samples": 962000,
+    "control_maximum_whole_track_error": 0.0
+  }
+}

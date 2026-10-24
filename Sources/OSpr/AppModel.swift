@@ -47,6 +47,7 @@ import OSprCore
         guard recordingSettings.autoPaste, let app = target?.app else { return "Transcript in OSpr · automatic insertion off for this take" }
         return "Target · " + (app.localizedName ?? app.bundleIdentifier ?? "original app")
     }
+    private let meetingFactory: (URL, Bool) throws -> MeetingCaptureSession
     private var meetingSession: MeetingCaptureSession?
     private var meetingTimer: Timer?
     private var meetingDirectory: URL?
@@ -117,7 +118,12 @@ import OSprCore
         return settings.transcriptionProvider == "local" && localRewrite
     }
 
-    init(instanceLock: AppInstanceLock, directory: URL = LocalStore.applicationDirectory, enableServices: Bool = true) {
+    init(instanceLock: AppInstanceLock, directory: URL = LocalStore.applicationDirectory, enableServices: Bool = true,
+         meetingFactory: ((URL, Bool) throws -> MeetingCaptureSession)? = nil) {
+        self.meetingFactory = meetingFactory ?? { directory, preview in
+            guard #available(macOS 15.0, *) else { throw OSprError.message("Desktop capture requires macOS 15 or later.") }
+            return try MeetingCapture(directory: directory, preview: preview)
+        }
         self.instanceLock = instanceLock
         servicesEnabled = enableServices
         // Application Support is required for state; an unwritable directory must
@@ -479,8 +485,9 @@ import OSprCore
         }
     }
 
-    private func startPreview(token: UUID) {
+    private func startPreview(token: UUID, meeting: MeetingCaptureSession? = nil) {
         previewTask = Task {
+            guard generation == token, phase == "recording", !Task.isCancelled else { return }
             let incremental = recordingSettings.model == "nemotron-streaming"
             var sessionID: String?
             if incremental {
@@ -506,8 +513,12 @@ import OSprCore
                 do {
                     try await clock.sleep(until: cadence.nextDeadline(at: clock.now))
                     guard phase == "recording", generation == token, !Task.isCancelled else { break }
-                    guard let file = try capture.snapshot(incremental: incremental) else { continue }
+                    let snapshot: URL?
+                    if let meeting { snapshot = try await meeting.snapshotPreview(incremental: incremental) }
+                    else { snapshot = try capture.snapshot(incremental: incremental) }
+                    guard let file = snapshot else { continue }
                     defer { try? FileManager.default.removeItem(at: file) }
+                    guard generation == token, phase == "recording", !Task.isCancelled else { break }
                     let request: [String: Any] = sessionID.map { ["action": "stream_feed", "session_id": $0, "path": file.path] } ??
                         ["action": "transcribe", "path": file.path, "model": recordingSettings.model,
                          "language": recordingSettings.language, "trim": recordingSettings.silenceTrim && !recordingSettings.usesNeuralEdges]
@@ -632,6 +643,7 @@ import OSprCore
         generation = UUID(); let token = generation
         let includeMic = meetingMicrophone
         recordingSettings = settings; recordingSettings.mode = .verbatim; recordingSettings.rewriteProvider = "none"
+        recordingMode = .verbatim
         target = nil; phase = "starting"; error = ""; preview = ""
         let directory = FileManager.default.temporaryDirectory.appendingPathComponent("OSpr/meeting-" + UUID().uuidString)
         operationTask = Task {
@@ -642,7 +654,7 @@ import OSprCore
                     guard token == generation else { return }
                     guard allowed else { throw OSprError.message("Allow OSpr microphone access, or turn off Include microphone.") }
                 }
-                let session = try MeetingCapture(directory: directory)
+                let session = try meetingFactory(directory, recordingSettings.preview)
                 owned = session; meetingSession = session; meetingDirectory = directory
                 session.level = { [weak self] value in
                     if self?.generation == token && self?.phase == "recording" { self?.meetingLevel = value }
@@ -665,6 +677,7 @@ import OSprCore
                     }
                 }
                 showOverlay()
+                if recordingSettings.preview { startPreview(token: token, meeting: session) }
             } catch {
                 if let owned { await owned.discard() }
                 if token == generation {
@@ -678,9 +691,11 @@ import OSprCore
         guard phase == "recording", let session = meetingSession else { return }
         let token = generation, config = recordingSettings, duration = meetingSeconds
         phase = "transcribing"; status = "Preparing local meeting audio…"
+        previewTask?.cancel(); let outstandingPreview = previewTask
         meetingTimer?.invalidate(); meetingTimer = nil
         operationTask = Task {
             let started = Date()
+            var previewStopped = false
             do {
                 var warning: String?
                 let tracks: [MeetingTrack]
@@ -691,6 +706,8 @@ import OSprCore
                 pending = try recovery.preserveTracks(tracks.map { RecoveryTrackSource(url: $0.url, start: $0.start) },
                     duration: duration, settings: config, warning: warning)
                 hasRecovery = true
+                await stopMeetingPreview(outstandingPreview, token: token); previewStopped = true
+                guard token == generation else { await session.discard(); return }
                 await session.discard()
                 if token == generation { meetingSession = nil }
                 if let warning { throw OSprError.message("Partial meeting audio was preserved for review. " + warning) }
@@ -700,6 +717,7 @@ import OSprCore
                     mode: .verbatim, target: nil, source: "desktop meeting", token: token, preserveRecoveryOnSaveFailure: true, startedAt: started)
                 if recognized, token == generation { discardRecovery() }
             } catch {
+                if !previewStopped { await stopMeetingPreview(outstandingPreview, token: token) }
                 if token == generation {
                     self.error = error.localizedDescription
                     hasRecovery = recovery.exists
@@ -711,6 +729,17 @@ import OSprCore
                 phase = "idle"; overlay?.orderOut(nil)
             }
         }
+    }
+    /// Draft sessions never replace the complete meeting ASR result. Wait for
+    /// an admitted packet, then release only this generation's owned stream.
+    private func stopMeetingPreview(_ task: Task<Void, Never>?, token: UUID) async {
+        await task?.value
+        guard let owned = streamSession, owned.generation == token else { return }
+        _ = try? await worker.request(["action": "stream_cancel", "session_id": owned.id])
+        if streamSession?.generation == token, streamSession?.id == owned.id { streamSession = nil }
+    }
+    var meetingPreviewTitle: String {
+        recordingSettings.model == "nemotron-streaming" ? "Live transcript · provisional" : "Recent speech · last 12 seconds"
     }
     private func prepareRecoveryMix(token: UUID) async throws {
         guard recovery.needsMix else { return }
@@ -1162,6 +1191,7 @@ import OSprCore
         accessibilityReady = AXIsProcessTrustedWithOptions([kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true] as CFDictionary)
     }
     private func showOverlay() {
+        guard servicesEnabled else { return }
         if overlay == nil {
             let panel = NSPanel(contentRect: NSRect(x: 0, y: 0, width: 360, height: 120), styleMask: [.borderless, .nonactivatingPanel], backing: .buffered, defer: false)
             panel.isFloatingPanel = true; panel.level = .floating; panel.backgroundColor = .clear; panel.isOpaque = false

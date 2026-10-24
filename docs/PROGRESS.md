@@ -2,6 +2,71 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## Live meeting drafts: source implementation and replay pass
+
+The `codex/meeting-live-preview` branch closes the prior post-stop-only source
+feature gap. Desktop recordings can opt into Live preview: Nemotron provides a
+continuous provisional draft, and other local models refresh the last twelve
+seconds. The meeting card labels that difference, reserves a bounded scrollable
+transcript, and retains Finish meeting outside it. The active take explicitly
+shows Verbatim and complete final recognition. Offscreen idle/long-draft renders
+were inspected; these are simulated layout fixtures, not physical capture tests.
+
+Original source buffers go to durable tracks before the optional draft mixer.
+Native-rate FIFOs, persistent source resamplers, sparse clock gaps and a 500 ms
+reordering budget keep audio bounded. Preview backlog or conversion failure
+warns without interrupting raw capture. Stop waits for admitted worker packets,
+cancels only its own draft stream, and independently recognizes the complete
+mixed recovery. Final ASR failure keeps that audio for retry.
+
+All **331 Swift / 248 Python tests** pass, including 21 new targeted mixer,
+pipeline and lifecycle contracts. A frozen public-file replay at source
+`b90d92c` uses simulated 44.1/48 kHz sources and a 125 ms offset. Three varied
+partition/cadence/delivery schedules preserve **962,000 samples exactly** against
+an independent whole-track Apple conversion and one another. Cached local
+Nemotron consumes every draft packet; independent full-file final recognition
+is text-invariant for both Nemotron and Parakeet. Descriptive conservative WER
+is 3/54 (5.56%) and 4/54 (7.41%) respectively. Three deliberately corrupted
+receipts are independently rejected. One repeated English speaker is not a
+natural-meeting quality or latency benchmark.
+
+The initial reference test failed before ASR: SciPy and Apple conversion filters
+produce different waveforms (maximum difference 0.1161, relative RMS 12.86%).
+That failure is retained, not erased or passed by relaxing its threshold. The
+revised protocol measures packet preservation against whole-track Apple
+conversion; differences from original PCM remain visible without a quality claim.
+An initial reference-helper end-of-stream drain failure is also retained.
+
+See `meeting-preview-real-v3.json`, every raw response, independent checks,
+`meeting-preview-reference-attempt.json` and
+`docs/architecture/meeting-live-preview.md`. No running app/settings/history,
+volume, microphone capture or approved player state changed in these tests.
+
+A separate Apple Development signed test preview at source `2ceb234` is now
+available in `dist/meeting-preview-v0/`. The 393,425,164-byte ZIP has SHA-256
+`8ca84dfbbdcd69f3ecaaa1a3840d5ee91ff904dd1204591977dc9214e82d7ada`.
+Relocated/offline/hostile-PYTHONPATH checks pass all six engines and native
+neural-edge routes, notes/speakers/mix/review/MCP and nine model inventories.
+The packaged CLI preserves exact mixed PCM across all three schedules and its
+real WorkerClient reproduces both final transcripts. Its 208 help links,
+license bytes, ZIP CRC, extraction, signatures and extracted CLI inventory pass.
+Exact application-source macOS CI is green (run 40084618083), with 331 Swift /
+248 Python tests, lint, app/report and clean-runner runtime imports. The Apple
+research helper is explicitly skipped on the runner's older SDK.
+
+This is a separate macOS 26.6.2 arm64 test candidate, with weights downloaded
+separately, not Developer ID/notarized or clean-Mac accepted. Bundled help is
+the pre-receipt source snapshot. The previous checked streaming preview and
+normal running app remain intact; settings/history hashes are unchanged.
+See `meeting-preview-package.json`, `meeting-preview-portable.json`,
+`meeting-preview-bundled-checks.json` and `meeting-preview-source-validation.json`.
+
+Remaining work: physical live desktop/microphone capture, route changes, stop
+interaction and echo checks; clean-Mac/older-OS/updater and distribution gates.
+No promotion over the earlier checked preview, full feature-union or top-three claim. Native
+insertion/shortcut acceptance and the single pending audible-test confirmation
+remain separate. The broader goal stays active.
+
 ## Native TextEdit delivery observed; audible reference test still open
 
 Finder's normal Open Finder item action activates TextEdit during countdown, and

@@ -19,6 +19,7 @@ protocol MeetingCaptureSession: AnyObject {
     var level: (Float) -> Void { get set }
     var stopped: (Error) -> Void { get set }
     func start(includeMicrophone: Bool, microphoneID: String) async throws
+    func snapshotPreview(incremental: Bool) async throws -> URL?
     func stop() async throws -> [MeetingTrack]
     func discard() async
     func snapshotForQuit() throws -> [MeetingTrack]
@@ -30,17 +31,17 @@ protocol MeetingCaptureSession: AnyObject {
 final class MeetingCapture: NSObject, SCStreamOutput, SCStreamDelegate, MeetingCaptureSession, @unchecked Sendable {
     private let queue = DispatchQueue(label: "app.ospr.meeting-capture", qos: .userInitiated)
     private var stream: SCStream?
-    private var tracks: [String: (sink: AudioSink, track: MeetingTrack, rate: Double)] = [:]
+    private var pipeline: MeetingAudioPipeline?
+    private let previewEnabled: Bool
     private var directory: URL
     private var accepting = false
     private var failure: Error?
     private var cancelled = false
-    private var monoScratch = [Float](repeating: 0, count: 8192)
     private var lastLevelUpdate: TimeInterval = 0
     var level: (Float) -> Void = { _ in }
     var stopped: (Error) -> Void = { _ in }
-    init(directory: URL) throws {
-        self.directory = directory
+    init(directory: URL, preview: Bool = false) throws {
+        self.directory = directory; self.previewEnabled = preview
         try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true, attributes: [.posixPermissions: 0o700])
     }
     func start(includeMicrophone: Bool, microphoneID: String) async throws {
@@ -58,13 +59,20 @@ final class MeetingCapture: NSObject, SCStreamOutput, SCStreamDelegate, MeetingC
         let stream = SCStream(filter: filter, configuration: configuration, delegate: self)
         try stream.addStreamOutput(self, type: .audio, sampleHandlerQueue: queue)
         if includeMicrophone { try stream.addStreamOutput(self, type: .microphone, sampleHandlerQueue: queue) }
-        self.stream = stream
-        queue.sync { accepting = true }
+        try queue.sync {
+            guard !cancelled else { throw CancellationError() }
+            pipeline = try MeetingAudioPipeline(directory: directory, includeMicrophone: includeMicrophone, preview: previewEnabled)
+            self.stream = stream; accepting = true
+        }
         do {
             try await stream.startCapture()
             if let failure = queue.sync(execute: { self.failure }) { throw failure }
         }
-        catch { queue.sync { accepting = false }; self.stream = nil; throw error }
+        catch {
+            queue.sync { accepting = false; self.stream = nil }
+            try? await stream.stopCapture()
+            throw error
+        }
     }
     static func pcm(_ sample: CMSampleBuffer) throws -> AVAudioPCMBuffer {
         guard CMSampleBufferDataIsReady(sample), let description = CMSampleBufferGetFormatDescription(sample),
@@ -79,41 +87,21 @@ final class MeetingCapture: NSObject, SCStreamOutput, SCStreamDelegate, MeetingC
         return pcm
     }
     static func gapFrames(timestamp: Double, previousEnd: Double, rate: Double) throws -> Int {
-        let gap = timestamp - previousEnd
-        guard timestamp.isFinite, previousEnd.isFinite, timestamp >= 0,
-              rate.isFinite, (1000...384000).contains(rate), gap.isFinite, abs(gap) <= 3600 else {
-            throw OSprError.message("Meeting audio has an invalid or excessive clock jump. Partial audio was kept.")
-        }
-        guard gap >= -0.1 else { throw OSprError.message("Meeting audio clock moved backwards. Stop and retry.") }
-        return gap > 0.02 ? Int((gap * rate).rounded()) : 0
+        try MeetingAudioClock.gapFrames(timestamp: timestamp, previousEnd: previousEnd, rate: rate)
     }
+
     func stream(_ stream: SCStream, didOutputSampleBuffer sampleBuffer: CMSampleBuffer, of type: SCStreamOutputType) {
         guard accepting, type == .audio || type == .microphone else { return }
         do {
             let pcm = try Self.pcm(sampleBuffer)
             let timestamp = CMSampleBufferGetPresentationTimeStamp(sampleBuffer).seconds
             guard timestamp.isFinite else { throw OSprError.message("Desktop audio has no presentation clock.") }
-            let key = type == .audio ? "system" : "microphone"
-            if tracks[key] == nil {
-                let url = directory.appendingPathComponent(key + ".wav")
-                tracks[key] = (try AudioSink(url: url, format: pcm.format), MeetingTrack(url: url, start: timestamp, end: timestamp), pcm.format.sampleRate)
-            }
-            guard var track = tracks[key] else { return }
-            let missing = try Self.gapFrames(timestamp: timestamp, previousEnd: track.track.end, rate: track.rate)
-            if missing > 0 { track.sink.silence(frames: missing) }
-            track.sink.enqueue(pcm)
-            track.track.end = timestamp + Double(pcm.frameLength) / track.rate; tracks[key] = track
-            if let error = track.sink.error { throw error }
-            if let data = pcm.floatChannelData {
-                let rms = monoScratch.withUnsafeMutableBufferPointer { AudioMath.downmix(channels: data,
-                    channelCount: Int(pcm.format.channelCount), frames: Int(pcm.frameLength),
-                    interleaved: pcm.format.isInterleaved, destination: $0) }
-                guard rms.isFinite else { throw OSprError.message("Desktop capture returned non-finite samples.") }
-                let now = ProcessInfo.processInfo.systemUptime
-                if now - lastLevelUpdate >= 0.1 {
-                    lastLevelUpdate = now
-                    DispatchQueue.main.async { self.level(min(1, rms * 12)) }
-                }
+            let source: MeetingPreviewSource = type == .audio ? .system : .microphone
+            let rms = try pipeline?.ingest(pcm, source: source, timestamp: timestamp) ?? 0
+            let now = ProcessInfo.processInfo.systemUptime
+            if now - lastLevelUpdate >= 0.1 {
+                lastLevelUpdate = now
+                DispatchQueue.main.async { self.level(min(1, rms * 12)) }
             }
         } catch {
             accepting = false; failure = error
@@ -124,28 +112,37 @@ final class MeetingCapture: NSObject, SCStreamOutput, SCStreamDelegate, MeetingC
         queue.async { self.failure = error; self.accepting = false }
         DispatchQueue.main.async { self.stopped(error) }
     }
-    func stop() async throws -> [MeetingTrack] {
-        if let stream { try? await stream.stopCapture() }; stream = nil
-        return try queue.sync {
-            accepting = false
-            for value in tracks.values {
-                do { try value.sink.finish() } catch { failure = error }
+    func snapshotPreview(incremental: Bool) async throws -> URL? {
+        let samples: [Float] = try await withCheckedThrowingContinuation { continuation in
+            queue.async {
+                do { continuation.resume(returning: try self.pipeline?.preview(incremental: incremental) ?? []) }
+                catch { continuation.resume(throwing: error) }
             }
-            let result = tracks.values.map(\.track)
+        }
+        try Task.checkCancellation()
+        // Export outside the delivery queue; never read an active WAV header.
+        return try MeetingAudioPipeline.exportPreview(samples, directory: directory)
+    }
+    func stop() async throws -> [MeetingTrack] {
+        let owned = queue.sync { () -> SCStream? in
+            accepting = false
+            let owned = stream; stream = nil
+            return owned
+        }
+        if let owned { try? await owned.stopCapture() }
+        return try queue.sync {
+            let result = try pipeline?.finish() ?? []
             if let failure { throw MeetingCaptureIssue(cause: failure, tracks: result) }
             return result
         }
     }
     func snapshotForQuit() throws -> [MeetingTrack] {
-        try queue.sync {
-            accepting = false
-            for value in tracks.values { try value.sink.finish() }
-            return tracks.values.map(\.track)
-        }
+        try queue.sync { accepting = false; return try pipeline?.finish() ?? [] }
     }
     func discard() async {
         queue.sync { cancelled = true; accepting = false }
         _ = try? await stop()
+        queue.sync { pipeline = nil }
         try? FileManager.default.removeItem(at: directory)
     }
 }

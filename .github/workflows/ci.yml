@@ -17,6 +17,8 @@ jobs:
       - uses: astral-sh/setup-uv@v6
         with:
           enable-cache: true
+      - name: Install media decoder for real codec and track-mixing tests
+        run: brew install ffmpeg
       - name: Verify native app and core contracts
         run: |
           /usr/bin/sqlite3 --version
@@ -32,8 +34,6 @@ jobs:
           fi
       - name: Install locked Python environment
         run: uv sync --frozen --all-extras --python 3.12
-      - name: Install media decoder for real codec and track-mixing tests
-        run: brew install ffmpeg
       - name: Lint and backend protocol tests
         run: |
           uv run --frozen --all-extras ruff check backend benchmarks scripts
