@@ -58,3 +58,21 @@ normalizer continuity, long-session residency tests and the existing capture,
 recovery and actual destination-insertion gates. The upstream session's unbounded
 feed queue must not run directly from an audio callback. Changing an advertised
 delay or selecting the fastest row on these reused clips is not acceptance.
+
+## Frontend diagnostic, before recognizer inference
+
+The exact same model-padded synthetic waveform passes through full-file mel and
+`StreamingMel` at twenty fixed source-length/packet-size combinations. Every
+feature shape matches. Eighteen exceed the preregistered absolute tolerance
+2×10⁻⁵; the maximum normalized log-mel difference is 2.0528×10⁻⁴. The threshold
+was not relaxed after seeing results. This is a tight numerical parity failure,
+not evidence of missing frames or an established transcription-quality failure.
+Full recognizer comparison is needed to assess text effects. All twenty cases
+and installed-module hashes are retained in `voxtral-frontend.json`. The raw
+frontend buffer retains the entire padded input in these runs; no trim is called.
+
+The initial diagnostic also exposed `benchmarks/statistics.py` shadowing Python's
+standard-library `statistics` while Transformers imported Torch internals. The
+unchanged speaker-bootstrap producer is now named `speaker_bootstrap.py`, with
+its documented command updated. This fixes research imports without changing
+the shipping worker or dependency lock.

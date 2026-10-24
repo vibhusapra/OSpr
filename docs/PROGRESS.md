@@ -2,7 +2,24 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
-## Current work: preserve quiet audio by default
+## Current work: evaluate a local Voxtral streaming candidate
+
+Branch `codex/voxtral-streaming-eval`, draft PR #12, adds a separate research
+candidate for the remaining first-partial latency gap. Exact MLX 4-bit model
+revision and all file hashes, runtime, options and 75 known inputs are frozen
+before recognizer outputs: twenty English, fifty FLEURS in five languages and
+five synthetic nonspeech controls, full-file plus 320 ms packet routes. No
+shipping model/default changes; full-audio-v0 remains the checked preview.
+
+The weight download is live. The weight-free mel diagnostic completes twenty
+partition cases: all shapes match, eighteen exceed the fixed 2e-5 tolerance,
+maximum difference 2.0528e-4. This numerical failure does not establish ASR harm;
+the threshold is retained and complete text evaluation is pending. Buffer
+retention is recorded. A benchmark filename that shadowed standard-library
+`statistics` is renamed, repairing the model-import path. Lint passes. Native
+restoration/interaction still requires an unlocked Mac.
+
+## Previous work: preserve quiet audio by default
 
 Branch `codex/full-audio-defaults` follows the timing fix. New or missing native
 settings, CLI/worker requests and direct Python/MCP calls now use full normalized
