@@ -27,6 +27,31 @@ final class ProviderTests: XCTestCase {
         let text = try await ProviderClient.rewrite(text: "test passage", instruction: "Clean up.", provider: "gemini", base: base, model: "models/test-model", key: "test-key")
         XCTAssertEqual(text, "Edited passage.")
     }
+    func testAzureNativeV1RewriteUsesResourceKeyAndDeployment() async throws {
+        let endpoint = base.replacingOccurrences(of: "/v1", with: "/openai/v1")
+        let text = try await ProviderClient.rewrite(text: "test passage", instruction: "Clean up.", provider: "azure", base: endpoint, model: "test-deployment", key: "test-key")
+        XCTAssertEqual(text, "Edited passage.")
+    }
+    func testAzureIncompleteFilteredRefusedErrorAndRedirectNeverReturnText() async {
+        for route in ["azure-truncated", "azure-filtered", "azure-refused", "error", "redirect"] {
+            do {
+                let endpoint = base.replacingOccurrences(of: "/v1", with: "/\(route)/openai/v1")
+                _ = try await ProviderClient.rewrite(text: "test passage", instruction: "Clean up.", provider: "azure", base: endpoint, model: "test-deployment", key: "test-key")
+                XCTFail("Expected rejection for \(route)")
+            } catch {
+                XCTAssertFalse(error.localizedDescription.contains("PRIVATE"))
+                if route == "redirect" { XCTAssertTrue(error.localizedDescription.contains("HTTP 307")) }
+            }
+        }
+    }
+    func testAzureCancellationStopsWaitingForResponse() async throws {
+        let endpoint = base.replacingOccurrences(of: "/v1", with: "/slow/openai/v1")
+        let task = Task { try await ProviderClient.rewrite(text: "test passage", instruction: "Clean up.", provider: "azure", base: endpoint, model: "test-deployment", key: "test-key") }
+        try await Task.sleep(for: .milliseconds(100)); let started = ContinuousClock.now; task.cancel()
+        do { _ = try await task.value; XCTFail("Expected cancellation") }
+        catch { XCTAssertTrue(error is CancellationError || (error as? URLError)?.code == .cancelled) }
+        XCTAssertLessThan(started.duration(to: .now), .seconds(2))
+    }
     func testUnknownRewriteProviderCannotFallThroughToCompatibleTransport() async {
         do {
             _ = try await ProviderClient.rewrite(text: "test passage", instruction: "Clean up.", provider: "future-unknown", base: base, model: "test-model", key: "test-key")

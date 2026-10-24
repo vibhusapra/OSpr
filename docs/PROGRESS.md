@@ -2,6 +2,31 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## Azure v1 BYOK refinement: native adapter and CLI contracts pass
+
+The `codex/azure-refinement` branch closes the remaining Azure resource-key text
+adapter gap. Settings has an Azure selector and deliberately unconfigured preset,
+resource URL/v1 base and deployment-name fields with the existing scoped Keychain.
+The native API normalizes root URLs, uses `api-key` header authentication and
+one bounded text-only Chat Completions request. Deployment is JSON data; no dated
+API query, tool invocation, OAuth flow, continuation or automatic retry is added.
+
+Only a complete single index-zero assistant response reaches the existing
+fidelity guard. Filtered prompt/candidate output, refusal/tool/function/audio,
+incomplete/malformed/ambiguous replies fail and original text remains available.
+The file CLI preserves its input and returns original text on a lexical tripwire;
+provider failure returns no partial stdout. Defaults stay local/off.
+
+Local **377 Swift / 248 Python tests** and Ruff pass, including eleven new Swift
+cases. Twelve actual Azure CLI loopback cases and eight Gemini regression cases
+pass. Light/dark actual Settings source renders were inspected in an isolated
+services-disabled profile. These are simulated layout/protocol tests, not native
+Settings/Keychain or provider-account evidence. No Azure account, real key, new
+recording/playback, normal data or sound setting is involved. Native Mac unlock,
+resource/model/parameter compatibility, semantics and live latency remain open.
+Dated Azure/Entra/Azure Speech Services are outside this adapter.
+See [the protocol, CLI and primary references](architecture/azure-refinement.md).
+
 ## Native Gemini BYOK refinement: source and loopback CLI contracts pass
 
 The `codex/gemini-refinement` branch adds a native Gemini Developer API adapter,
