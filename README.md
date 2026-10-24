@@ -12,11 +12,19 @@ or a top-three product ranking. See [progress](docs/PROGRESS.md), the
 [Combined v0 review](docs/architecture/v0-review.md) maps the original request to
 current evidence, the 23 component PRs and remaining acceptance work. It includes
 a sanitized existing-archive-copy migration/restart check and a fix for remote
-rewrite completion status. The older Azure candidate predates that fix; a new
-integration candidate is being prepared. Full parity and a top-three result
-remain unproven.
+rewrite completion status. The signed source `728ef76` integration candidate passes offline relocated
+six-engine, all 41 bundled provider CLI and archive checks. Full parity and a
+top-three result remain unproven. [Package evidence](benchmarks/results/v0-integration-package.json).
+
+The local candidate is `dist/v0-integration/OSpr.app`; its 396,062,164-byte ZIP is
+`dist/v0-integration/OSpr-v0.1.0-integration-macOS26.6.2-arm64.zip`
+(SHA-256 `9cbf06f32b858355f491234332b348018053a2694246dcbaf93ab12e791b9cd3`).
+Apple Development signed, macOS 26.6.2 arm64, model weights separate; native and
+release acceptance remain pending. Older candidates and the normal app are preserved.
 
 ## Run on your Mac
+
+The combined preview is on `codex/v0-integration` ([draft review #24](https://github.com/vibhusapra/OSpr/pull/24)); `main` still contains the initial bootstrap.
 
 Requirements: Apple Silicon, macOS 14+, Xcode 16+ / Swift 6, [uv](https://docs.astral.sh/uv/),
 and roughly 3–8 GB of available memory for the selected inference configuration.
@@ -25,7 +33,7 @@ standalone app bundles Python and locked inference libraries. Model
 weights download on first load; disk use depends on the selected models.
 
 ```sh
-git clone https://github.com/vibhusapra/OSpr.git
+git clone --branch codex/v0-integration https://github.com/vibhusapra/OSpr.git
 cd OSpr
 scripts/setup.sh
 scripts/build-app.sh

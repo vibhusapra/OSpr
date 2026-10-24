@@ -7,10 +7,10 @@ compatible/Anthropic clients could deliver draft text after truncation, refusal
 or a tool turn. The shared completion gate now rejects those responses, and the
 file CLI exposes both routes. [Protocol fix](rewrite-completion.md).
 
-A new signed integration candidate is being built. The prior source `3fb3c1d`
-Azure candidate predates this runtime fix and remains preserved with its own
-manifest. It must not be used as proof of this newer behavior. Runtime dependency
-locks are unchanged. Full native/account/distribution acceptance remains open.
+The new signed source `728ef76` integration candidate passes the development
+package checks below. The prior `3fb3c1d` Azure candidate predates this fix and
+remains preserved with its own manifest. Runtime dependency locks are unchanged.
+Full native/account/distribution acceptance remains open.
 
 [Machine-readable review and component PRs](../data/v0-review.json) ·
 [Full research/benchmark report](../research.html) ·
@@ -25,7 +25,7 @@ locks are unchanged. Full native/account/distribution acceptance remains open.
 | Sensible union parity including BYOK | 49-item ledger: 14 verified components, 12 implemented, 5 contract-tested, 8 partial, 6 experimental, 1 research-only, 2 deferred, 1 unproven | Full union parity is not achieved; statuses must not be added together as accepted features |
 | Ten Mac-local performance changes | Ten implementation/evaluation tracks below, pinned sources and retained rejected experiments | Native end-to-end latency, physical endpointing, isolated energy and all-axis leadership are not proven |
 | Best off-the-shelf model choices and future custom models | Six-engine MLX/Metal portfolio, language/quality/latency slices and training roadmap | No universally best model or custom trained/distilled model is claimed; custom training was requested for later |
-| Build v0 and make PRs | Combined source contains all 23 component heads; signed standalone test candidate and exact-build receipts | A combined review with a completion-status fix; new artifact pending, no release/merge-ready assertion |
+| Build v0 and make PRs | Combined source contains all 23 component heads; signed standalone test candidate and exact-build receipts | A combined review with a completion-status fix; current artifact gates pass, no release/merge-ready assertion |
 | Test, track features/TODOs/WIP | 384 Swift / 248 Python tests, 21 compatible/Anthropic plus 12 Azure / 8 Gemini CLI cases, portable/archive gates, progress and acceptance ledger | Current-candidate native/physical/device tests and representative fidelity acceptance remain |
 | Compare with others and reach top three | Actual Vibe CLI comparison and Apple/native speech research, normalized scoring and frozen protocols | Consumer GUI/dictation equivalence, correction cost, isolated energy and top-three ranking are unproven |
 | Great native design/setup | SwiftUI app/setup, model/cache tooling, insertion self-test, simulated light/dark layouts and earlier isolated UI checks | Current integrated first-run, live field/shortcut/device, Keychain and upgrade UI acceptance remain |
@@ -52,8 +52,8 @@ in for a successful observed cross-app dictation flow.
   and exact-span extractive notes. Notes are not a full abstractive summary;
   duplex mixing has no echo cancellation and speaker errors remain substantial.
 
-[Native/Core/CLI source](https://github.com/vibhusapra/OSpr/tree/3e5b48935cfcb872850506a9227756c23706ad56/Sources) ·
-[Local engine source](https://github.com/vibhusapra/OSpr/tree/3e5b48935cfcb872850506a9227756c23706ad56/backend/ospr_backend).
+[Native/Core/CLI source](https://github.com/vibhusapra/OSpr/tree/728ef7624a58db3fd7b95de90842f3668a5e8249/Sources) ·
+[Local engine source](https://github.com/vibhusapra/OSpr/tree/728ef7624a58db3fd7b95de90842f3668a5e8249/backend/ospr_backend).
 
 ## Ten optimization tracks
 
@@ -78,9 +78,28 @@ rewrite and insertion, so its latency/word-error gaps do not establish a winner.
 
 ## Validation and an actual archive-copy upgrade
 
+Source `728ef76` [CI 40100957889](https://github.com/vibhusapra/OSpr/actions/runs/40100957889)
+passes matching 384/248 tests, all three CLI suites, app/runtime and 248 help links.
+[Source validation](../../benchmarks/results/v0-integration-source-validation.json).
+
 Current local validation passes **384 Swift / 248 Python tests** and Ruff, plus
 21 compatible/Anthropic, 12 Azure and 8 Gemini actual CLI cases. The known six
-draft-return cases are now rejected. A new integration package is pending.
+draft-return cases are now rejected. The exact source `728ef76` bundle passes
+all 41 CLI cases and six-engine/neural/extras replay offline after relocation,
+including poisoned Python-path/working-directory isolation, audio review and
+optional MCP. All 248 bundled help links resolve. ZIP CRC, extraction, deep
+signature, executable-byte identity, extracted offline CLI and license checks pass.
+
+The candidate is `dist/v0-integration/OSpr.app`; its 396,062,164-byte ZIP is
+`OSpr-v0.1.0-integration-macOS26.6.2-arm64.zip`, SHA-256
+`9cbf06f32b858355f491234332b348018053a2694246dcbaf93ab12e791b9cd3`.
+It is Apple Development signed for macOS 26.6.2 arm64, with weights separate.
+The bundled report is the frozen source snapshot before final receipts.
+[Package manifest](../../benchmarks/results/v0-integration-package.json) ·
+[Portable replay](../../benchmarks/results/v0-integration-portable.json) ·
+[Compatible/Anthropic CLI](../../benchmarks/results/v0-integration-bundled-rewrite.json) ·
+[Azure CLI](../../benchmarks/results/v0-integration-bundled-azure.json) ·
+[Gemini CLI](../../benchmarks/results/v0-integration-bundled-gemini.json).
 [Completion regression](../../benchmarks/results/v0-rewrite-completion-regression.json).
 
 [Prior source and package evidence](../../benchmarks/results/azure-refinement-source-validation.json)

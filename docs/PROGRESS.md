@@ -9,11 +9,20 @@ review against `main`, preserving all 23 component PR branches/heads. Git ancest
 checks confirm every component head is contained. Review found six reproduced unsafe draft returns in compatible/Anthropic rewrite
 parsing. A new shared completion gate rejects incomplete/refused/tool turns before
 fidelity checks; Azure shares that chat gate, Gemini retains its strict native
-parser, and the CLI now exposes compatible/Anthropic file routes too. A new signed
-integration candidate is being built; the prior `3fb3c1d` candidate predates this
-runtime fix. Dependency locks remain unchanged. This is not a full-completion or
+parser, and the CLI now exposes compatible/Anthropic file routes too. The new signed source `728ef76`
+integration candidate passes offline relocated six-engine/neural/extras replay,
+all 41 exact bundled provider CLI cases, 248 bundled help links and ZIP
+CRC/extraction/signature/executable/CLI/license checks. The 396,062,164-byte ZIP
+has SHA-256 `9cbf06f32b858355f491234332b348018053a2694246dcbaf93ab12e791b9cd3`.
+[Package](../benchmarks/results/v0-integration-package.json),
+[portable replay](../benchmarks/results/v0-integration-portable.json).
+Apple Development signed macOS 26.6.2 arm64, weights separate. Prior candidates
+and normal data remain preserved. Dependency locks remain unchanged. This is not a full-completion or
 release claim. Local 384 Swift / 248 Python tests, Ruff, 21 new-route CLI cases and
-12 Azure / 8 Gemini regressions pass.
+12 Azure / 8 Gemini regressions pass. Source `728ef76` clean-runner
+[CI 40100957889](https://github.com/vibhusapra/OSpr/actions/runs/40100957889)
+passes matching 384/248 tests, all three CLI suites, app/runtime and 248 help links.
+[Source validation](../benchmarks/results/v0-integration-source-validation.json).
 The ledger remains 49 items: 14 verified components, 12 implemented, 5 contract-
 tested, 8 partial, 6 experimental, 1 research-only, 2 deferred and 1 unproven.
 

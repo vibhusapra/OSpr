@@ -1,7 +1,7 @@
 {
-  "audited_at": "2026-10-24T13:04:08.077140+00:00",
+  "audited_at": "2026-10-24T14:08:07.748399+00:00",
   "status": "not-complete-development-preview",
-  "review_source_commit": null,
+  "review_source_commit": "728ef7624a58db3fd7b95de90842f3668a5e8249",
   "base": "main",
   "component_prs": [
     {
@@ -214,11 +214,11 @@
   ],
   "component_head_ancestry_verified": true,
   "component_count": 23,
-  "app_backend_dependency_sources_unchanged_since_candidate": false,
-  "application_commit": null,
+  "app_backend_dependency_sources_unchanged_since_candidate": true,
+  "application_commit": "728ef7624a58db3fd7b95de90842f3668a5e8249",
   "application_source_sha256": "f01b7510aa4af61fc2ce86f8a7a5cd9a67bf4d325105c81d064aa54450d1a671",
-  "candidate_package_receipt": null,
-  "candidate_archive_sha256": null,
+  "candidate_package_receipt": "benchmarks/results/v0-integration-package.json",
+  "candidate_archive_sha256": "9cbf06f32b858355f491234332b348018053a2694246dcbaf93ab12e791b9cd3",
   "research": {
     "as_of": "2026-10-22",
     "offerings": 29,
@@ -413,17 +413,24 @@
     "developer_id_notarized_distribution": false,
     "existing_archive_copy_component_upgrade": true
   },
-  "boundary": "Review manifest, not a release/completion certificate. All 23 component heads are contained; integration now adds a runtime fix for remote completion status plus file CLI coverage and review evidence. Prior signed Azure candidate predates this fix. New integration package is pending. The isolated real archive probe is source-bound to 3e5b489; its storage/AppModel sources are unchanged. Native/user-task/full-union/ranking/distribution gates remain open.",
+  "boundary": "Review manifest, not a release/completion certificate. All 23 component heads are contained; integration now adds a runtime fix for remote completion status plus file CLI coverage and review evidence. Prior signed Azure candidate predates this fix. New source728ef76 integration package passes offline relocated six-engine/neural/extras, all 41 bundled provider CLI cases and archive gates. Native/account/release acceptance remains pending. The isolated real archive probe is source-bound to 3e5b489; its storage/AppModel sources are unchanged. Native/user-task/full-union/ranking/distribution gates remain open.",
   "baseline_combined_commit": "3e5b48935cfcb872850506a9227756c23706ad56",
   "previous_application_commit": "3fb3c1da330b2e4f34ce8e95a101cc64ae84f9a2",
   "previous_candidate_package_receipt": "benchmarks/results/azure-refinement-package.json",
   "previous_candidate_archive_sha256": "0b38a8aa1ca76305771fc3f71e20a379b15888d756605addd74aaed2d38ca6bc",
-  "candidate_status": "new-integration-build-pending-after-runtime-completion-fix",
+  "candidate_status": "passed-development-package-gates-native-release-pending",
   "integration_runtime_changes": [
     "strict compatible/Ollama/Anthropic completion acknowledgements; shared Azure chat parser",
     "explicit rewrite-compatible/rewrite-anthropic file CLI and setup/header validation",
     "empty chat refusal fields accepted; explicit nonempty refusal rejected"
   ],
   "runtime_dependency_locks_unchanged": true,
-  "history_probe_related_sources_unchanged": true
+  "history_probe_related_sources_unchanged": true,
+  "integration_pr": "https://github.com/vibhusapra/OSpr/pull/24",
+  "source_validation_receipt": "benchmarks/results/v0-integration-source-validation.json",
+  "ci": {
+    "run_id": 40100957889,
+    "conclusion": "success",
+    "source_commit": "728ef7624a58db3fd7b95de90842f3668a5e8249"
+  }
 }
