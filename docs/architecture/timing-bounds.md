@@ -25,8 +25,18 @@ Tests include the actual 29.98-second estimate for the 0.8-second selection,
 preserved payloads/gaps, clipping at both outer sides, invalid/wholly outside
 word intervals, unordered estimates, absent timing and floating-point roundoff.
 The frozen-response replay checks every real response from the multilingual
-study without rerunning ASR or altering the original evidence. New real
-inference, native warning presentation and export acceptance are separate gates.
+study without rerunning ASR or altering the original evidence. It checks 1,010
+responses and corrects all twelve cases. A second harness runs both the old
+signed bundle and new development CLI on the same eleven affected model/inputs:
+22 paired route results, 42 actual recognitions and two detector abstentions.
+All text stays identical and all twelve overruns reproduce and are corrected,
+including 34.588 → 5.408 seconds in the German case. Native warning presentation
+and export acceptance remain separate gates.
+
+- [Real old/new inference](../../benchmarks/results/asr-timing-live.json)
+- [Frozen-response replay](../../benchmarks/results/asr-timing-replay.json)
+- [Source checks and explicit acceptance limits](../../benchmarks/results/asr-timing-source-validation.json)
+- [Source CI: 304 Swift / 163 Python / 17 CLI cases](../../benchmarks/results/asr-timing-ci.json)
 
 Neural quiet/multilingual quality remains unresolved. The UI warning now makes
 partial deletion risk explicit; only an empty result is guaranteed to keep a

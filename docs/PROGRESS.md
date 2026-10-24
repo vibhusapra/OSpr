@@ -14,10 +14,34 @@ The neural-edge description now warns about partial quiet/multilingual deletions
 Local checks pass **163 Python / 304 Swift tests**. The first full Swift run had
 a 0.5-second fake-worker timeout failure during concurrent work; the focused
 forced-termination test and a complete sequential rerun both pass. Worker code
-and its timeouts were unchanged. Real corrected inference, frozen-response replay,
-CI and native warning/export interaction are the next gates. The existing signed
+and its timeouts were unchanged. Frozen-response replay passes all 1,010 actual
+model responses and corrects all 12 overruns. A real paired old-bundle/new-source
+check reproduces and corrects all twelve again across eleven inputs and 22 route
+pairs (42 inferences, two detector abstentions), with every text string unchanged.
+Source CI at `529359b` is green at 304 Swift / 163 Python / 17 CLI cases,
+including app/report build and clean-runner bundled imports. Native warning/export
+interaction remains open. The existing signed
 ZIP remains at source `2f7f2a8` and does not include this fix. See
 `docs/architecture/timing-bounds.md`.
+
+### Native preflight and pending restoration
+
+During an unlocked interval, the idle normal app was quit through native UI and
+the separate QA app was updated to source `873411d`, retaining the authorized
+Apple Development identity and isolated data directory. Startup, prior
+microphone/insertion permissions and native local model loading pass. The actual
+TextEdit test field is visible. A modified-space simulation does not start
+recording and adds one space. Two countdown attempts reject inconsistent
+destination focus before microphone startup, including after AX Raise/direct
+field click. No fixture plays, recording starts or transcript is inserted. Guards
+were kept intact.
+
+macOS locks again before the public-file warning/export check. Only owned QA
+process/worker are stopped; QA has zero sessions/recovery files and normal
+settings/history hashes are unchanged. **The normal app is currently stopped;
+reopening it and removing the test space await manual unlock.** An asynchronous
+unlock request is pending. The native preflight is partial, not acceptance.
+See `benchmarks/results/asr-timing-native-preflight.json`.
 
 ## Exact final-ASR neural edges
 

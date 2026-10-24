@@ -1,0 +1,1653 @@
+{
+  "status": "passed-real-whisper-timing-reproduction",
+  "timestamp": "2026-10-24T02:18:10.582742+00:00",
+  "git_commit": "529359bde6df9c8e58436df65db4badf8861b99a",
+  "tracked_changes": false,
+  "builds": {
+    "old": {
+      "version": "0.1.0",
+      "built_at": "2026-10-24T01:42:43.227919+00:00",
+      "git_commit": "2f7f2a8d39f4dd9eb848eb8a6ef0d99c957025e8",
+      "tracked_changes": false,
+      "application_source_sha256": "82655b0d02006584434f06b829a23c3afdbaf9ebad0730bf3b5e24cc3d4b5560",
+      "source_manifest_version": 2,
+      "signing_mode": "configured-identity",
+      "boundary": "Development build; configured signing identity; not notarized; weights downloaded separately."
+    },
+    "new": {
+      "version": "0.1.0",
+      "built_at": "2026-10-24T02:15:20.180426+00:00",
+      "git_commit": "873411d36e04811cae0242d8ab20a7178318271a",
+      "tracked_changes": false,
+      "application_source_sha256": "7ec0f80c1bd9bd9d987b3cd89845dcacd706bd512bd2a7031f3807adc44cccf7",
+      "source_manifest_version": 2,
+      "signing_mode": "ad-hoc",
+      "boundary": "Development build; ad-hoc signature; not notarized; weights downloaded separately."
+    }
+  },
+  "cli_sha256": {
+    "old": "52bda80a4f48223c73858f81052dd662806bb1b329a78bbc7ec29be82cf63dce",
+    "new": "8737c2a2a7b97efc8ec8d633d69d7b5f6f4eba96ba5900c3ea0568378e2d81b4"
+  },
+  "harness_sha256": "08029eb3023499e85a187e4b743e91d59d1dd4ac50ab04cbdc6fea3114493bd1",
+  "source_result_sha256": "d3a467ecdca892e22aa8b5768ab702350a00fa7a7378d032ef0748fefe516779",
+  "source_checks_sha256": "1c9ed81d87a66a8815b2005428588e39be4c625f68e90c473831298658799954",
+  "timing_source_sha256": "aa4c9cdae37d4f4b40b453097a04017b12bf2da4a740a4c300f6d91b10a42a13",
+  "model_input_pairs": 11,
+  "paired_route_results": 22,
+  "actual_asr": 42,
+  "reproduced_bad_intervals": 12,
+  "corrected_results": 12,
+  "text_identity_results": 22,
+  "records": [
+    {
+      "model": "whisper-small",
+      "id": "fleurs-de_de-005-quiet40db",
+      "route": "full",
+      "bad_before": false,
+      "old": {
+        "active_gpu_bytes": 483971822,
+        "audio_seconds": 8.4,
+        "decode_ms": 575.8167500607669,
+        "language": "de",
+        "load_ms": 1746.3307918515056,
+        "model": "whisper-small",
+        "peak_gpu_bytes": 1449390914,
+        "preprocess_ms": 0.41983299888670444,
+        "segments": [
+          {
+            "end": 8,
+            "start": 0,
+            "text": "Dieses Sediment war nötig, um Sandbänke und Schränke zu bilden, die als Lebensräume für Wildtiere dienten."
+          }
+        ],
+        "silence": false,
+        "speech_seconds": 8.4,
+        "text": "Dieses Sediment war nötig, um Sandbänke und Schränke zu bilden, die als Lebensräume für Wildtiere dienten.",
+        "timestamp_granularity": "segment",
+        "total_ms": 2322.5827920250595,
+        "vocabulary_applied": false,
+        "warm": false,
+        "words": []
+      },
+      "new": {
+        "active_gpu_bytes": 483971822,
+        "audio_seconds": 8.4,
+        "decode_ms": 233.901625033468,
+        "language": "de",
+        "load_ms": 795.3835830558091,
+        "model": "whisper-small",
+        "peak_gpu_bytes": 1449390914,
+        "preprocess_ms": 0.49383402802050114,
+        "segments": [
+          {
+            "end": 8,
+            "start": 0,
+            "text": "Dieses Sediment war nötig, um Sandbänke und Schränke zu bilden, die als Lebensräume für Wildtiere dienten."
+          }
+        ],
+        "silence": false,
+        "speech_seconds": 8.4,
+        "text": "Dieses Sediment war nötig, um Sandbänke und Schränke zu bilden, die als Lebensräume für Wildtiere dienten.",
+        "timestamp_granularity": "segment",
+        "total_ms": 1030.0149591639638,
+        "vocabulary_applied": false,
+        "warm": false,
+        "words": []
+      }
+    },
+    {
+      "model": "whisper-small",
+      "id": "fleurs-de_de-005-quiet40db",
+      "route": "neural_edges",
+      "bad_before": true,
+      "old": {
+        "active_gpu_bytes": 483971822,
+        "audio_seconds": 8.4,
+        "decode_ms": 96.49249981157482,
+        "language": "de",
+        "load_ms": 0.0028328504413366318,
+        "model": "whisper-small",
+        "peak_gpu_bytes": 1437341130,
+        "preprocess_ms": 0.5978750996291637,
+        "segments": [
+          {
+            "end": 8.344,
+            "start": 1.344,
+            "text": "Dieses Sediment war nötig, um Sandbänke und Schränke zu bilden, die als Lebensräume für Wildtiere dienten."
+          }
+        ],
+        "silence": false,
+        "speech_edges": {
+          "audio_samples": 134400,
+          "end_sample": 133120,
+          "method": "silero-causal8-v1",
+          "pcm_sha256": "2ee9b0381bfd383012ab940ba99ff540a223f43ef26009a8e1d73ed14578d81f",
+          "sample_rate": 16000,
+          "start_sample": 21504
+        },
+        "speech_seconds": 6.976,
+        "text": "Dieses Sediment war nötig, um Sandbänke und Schränke zu bilden, die als Lebensräume für Wildtiere dienten.",
+        "timestamp_granularity": "segment",
+        "total_ms": 97.099042031914,
+        "vocabulary_applied": false,
+        "warm": true,
+        "words": []
+      },
+      "new": {
+        "active_gpu_bytes": 483971822,
+        "audio_seconds": 8.4,
+        "decode_ms": 101.38408420607448,
+        "language": "de",
+        "load_ms": 0.002291053533554077,
+        "model": "whisper-small",
+        "peak_gpu_bytes": 1437341130,
+        "preprocess_ms": 0.7104170508682728,
+        "segments": [
+          {
+            "end": 8.32,
+            "start": 1.344,
+            "text": "Dieses Sediment war nötig, um Sandbänke und Schränke zu bilden, die als Lebensräume für Wildtiere dienten."
+          }
+        ],
+        "silence": false,
+        "speech_edges": {
+          "audio_samples": 134400,
+          "end_sample": 133120,
+          "method": "silero-causal8-v1",
+          "pcm_sha256": "2ee9b0381bfd383012ab940ba99ff540a223f43ef26009a8e1d73ed14578d81f",
+          "sample_rate": 16000,
+          "start_sample": 21504
+        },
+        "speech_seconds": 6.976,
+        "text": "Dieses Sediment war nötig, um Sandbänke und Schränke zu bilden, die als Lebensräume für Wildtiere dienten.",
+        "timestamp_granularity": "segment",
+        "timing_corrections": {
+          "clipped_intervals": 1,
+          "fallback_to_utterance": false
+        },
+        "timing_warning": "Some recognizer timings extended outside the analyzed audio and were bounded. Check alignment before using timed exports.",
+        "total_ms": 102.12133405730128,
+        "vocabulary_applied": false,
+        "warm": true,
+        "words": []
+      }
+    },
+    {
+      "model": "whisper-small",
+      "id": "fleurs-de_de-006-original",
+      "route": "full",
+      "bad_before": true,
+      "old": {
+        "active_gpu_bytes": 483971822,
+        "audio_seconds": 12.96,
+        "decode_ms": 174.70320803113282,
+        "language": "de",
+        "load_ms": 0.0019997823983430862,
+        "model": "whisper-small",
+        "peak_gpu_bytes": 1441224138,
+        "preprocess_ms": 0.7016670424491167,
+        "segments": [
+          {
+            "end": 5,
+            "start": 0,
+            "text": "Blocks können auch dazu beitragen, die Schreibfertigkeiten von Schülern zu verbessern."
+          },
+          {
+            "end": 10,
+            "start": 5,
+            "text": "Zwar haben Schüler am Anfang ihre Blog-Erfahrung oft eine schlamppige Grammatik und Rechtschreibung,"
+          },
+          {
+            "end": 13,
+            "start": 10,
+            "text": "aber das ändert sich normalerweise, wenn es ein Publikum gibt."
+          }
+        ],
+        "silence": false,
+        "speech_seconds": 12.96,
+        "text": "Blocks können auch dazu beitragen, die Schreibfertigkeiten von Schülern zu verbessern. Zwar haben Schüler am Anfang ihre Blog-Erfahrung oft eine schlamppige Grammatik und Rechtschreibung, aber das ändert sich normalerweise, wenn es ein Publikum gibt.",
+        "timestamp_granularity": "segment",
+        "total_ms": 175.41037499904633,
+        "vocabulary_applied": false,
+        "warm": true,
+        "words": []
+      },
+      "new": {
+        "active_gpu_bytes": 483971822,
+        "audio_seconds": 12.96,
+        "decode_ms": 166.9781249947846,
+        "language": "de",
+        "load_ms": 0.002250075340270996,
+        "model": "whisper-small",
+        "peak_gpu_bytes": 1441224138,
+        "preprocess_ms": 0.6729168817400932,
+        "segments": [
+          {
+            "end": 5,
+            "start": 0,
+            "text": "Blocks können auch dazu beitragen, die Schreibfertigkeiten von Schülern zu verbessern."
+          },
+          {
+            "end": 10,
+            "start": 5,
+            "text": "Zwar haben Schüler am Anfang ihre Blog-Erfahrung oft eine schlamppige Grammatik und Rechtschreibung,"
+          },
+          {
+            "end": 12.96,
+            "start": 10,
+            "text": "aber das ändert sich normalerweise, wenn es ein Publikum gibt."
+          }
+        ],
+        "silence": false,
+        "speech_seconds": 12.96,
+        "text": "Blocks können auch dazu beitragen, die Schreibfertigkeiten von Schülern zu verbessern. Zwar haben Schüler am Anfang ihre Blog-Erfahrung oft eine schlamppige Grammatik und Rechtschreibung, aber das ändert sich normalerweise, wenn es ein Publikum gibt.",
+        "timestamp_granularity": "segment",
+        "timing_corrections": {
+          "clipped_intervals": 1,
+          "fallback_to_utterance": false
+        },
+        "timing_warning": "Some recognizer timings extended outside the analyzed audio and were bounded. Check alignment before using timed exports.",
+        "total_ms": 167.67283389344811,
+        "vocabulary_applied": false,
+        "warm": true,
+        "words": []
+      }
+    },
+    {
+      "model": "whisper-small",
+      "id": "fleurs-de_de-006-original",
+      "route": "neural_edges",
+      "bad_before": false,
+      "old": {
+        "active_gpu_bytes": 483971822,
+        "audio_seconds": 12.96,
+        "decode_ms": 174.90987502969801,
+        "language": "de",
+        "load_ms": 0.001458916813135147,
+        "model": "whisper-small",
+        "peak_gpu_bytes": 1443599818,
+        "preprocess_ms": 0.7981250528246164,
+        "segments": [
+          {
+            "end": 4.84,
+            "start": 0.64,
+            "text": "Blocks können auch dazu beitragen, die Schreibfertigkeiten von Schülern zu verbessern."
+          },
+          {
+            "end": 9.8,
+            "start": 4.84,
+            "text": "Zwar haben Schüler am Anfang ihre Blog-Erfahrung oft eine schlampige Grammatik und Rechtschreibung,"
+          },
+          {
+            "end": 12.360000000000001,
+            "start": 9.8,
+            "text": "aber das ändert sich normalerweise, wenn es ein Publikum gibt."
+          }
+        ],
+        "silence": false,
+        "speech_edges": {
+          "audio_samples": 207360,
+          "end_sample": 207360,
+          "method": "silero-causal8-v1",
+          "pcm_sha256": "93a0c9ec4e7820515d4144d5e6cbe2e10ed7adca12b0a468a73234ec71ff4b16",
+          "sample_rate": 16000,
+          "start_sample": 10240
+        },
+        "speech_seconds": 12.32,
+        "text": "Blocks können auch dazu beitragen, die Schreibfertigkeiten von Schülern zu verbessern. Zwar haben Schüler am Anfang ihre Blog-Erfahrung oft eine schlampige Grammatik und Rechtschreibung, aber das ändert sich normalerweise, wenn es ein Publikum gibt.",
+        "timestamp_granularity": "segment",
+        "total_ms": 175.71541690267622,
+        "vocabulary_applied": false,
+        "warm": true,
+        "words": []
+      },
+      "new": {
+        "active_gpu_bytes": 483971822,
+        "audio_seconds": 12.96,
+        "decode_ms": 177.5188751053065,
+        "language": "de",
+        "load_ms": 0.00100000761449337,
+        "model": "whisper-small",
+        "peak_gpu_bytes": 1443599818,
+        "preprocess_ms": 0.6875002291053534,
+        "segments": [
+          {
+            "end": 4.84,
+            "start": 0.64,
+            "text": "Blocks können auch dazu beitragen, die Schreibfertigkeiten von Schülern zu verbessern."
+          },
+          {
+            "end": 9.8,
+            "start": 4.84,
+            "text": "Zwar haben Schüler am Anfang ihre Blog-Erfahrung oft eine schlampige Grammatik und Rechtschreibung,"
+          },
+          {
+            "end": 12.360000000000001,
+            "start": 9.8,
+            "text": "aber das ändert sich normalerweise, wenn es ein Publikum gibt."
+          }
+        ],
+        "silence": false,
+        "speech_edges": {
+          "audio_samples": 207360,
+          "end_sample": 207360,
+          "method": "silero-causal8-v1",
+          "pcm_sha256": "93a0c9ec4e7820515d4144d5e6cbe2e10ed7adca12b0a468a73234ec71ff4b16",
+          "sample_rate": 16000,
+          "start_sample": 10240
+        },
+        "speech_seconds": 12.32,
+        "text": "Blocks können auch dazu beitragen, die Schreibfertigkeiten von Schülern zu verbessern. Zwar haben Schüler am Anfang ihre Blog-Erfahrung oft eine schlampige Grammatik und Rechtschreibung, aber das ändert sich normalerweise, wenn es ein Publikum gibt.",
+        "timestamp_granularity": "segment",
+        "total_ms": 178.22966701351106,
+        "vocabulary_applied": false,
+        "warm": true,
+        "words": []
+      }
+    },
+    {
+      "model": "whisper-small",
+      "id": "fleurs-de_de-006-quiet40db",
+      "route": "full",
+      "bad_before": true,
+      "old": {
+        "active_gpu_bytes": 483971822,
+        "audio_seconds": 12.96,
+        "decode_ms": 166.19462496601045,
+        "language": "de",
+        "load_ms": 0.001166015863418579,
+        "model": "whisper-small",
+        "peak_gpu_bytes": 1441224138,
+        "preprocess_ms": 0.45095779933035374,
+        "segments": [
+          {
+            "end": 5,
+            "start": 0,
+            "text": "Blocks können auch dazu beitragen, die Schreibfertigkeiten von Schülern zu verbessern."
+          },
+          {
+            "end": 10,
+            "start": 5,
+            "text": "So haben Schüler am Anfang ihre Blockerfahrung auf eine schlampige Grammatik und Rechtschreibung,"
+          },
+          {
+            "end": 13,
+            "start": 10,
+            "text": "aber das ändert sich normalerweise, wenn es ein Publikum gibt."
+          }
+        ],
+        "silence": false,
+        "speech_seconds": 12.96,
+        "text": "Blocks können auch dazu beitragen, die Schreibfertigkeiten von Schülern zu verbessern. So haben Schüler am Anfang ihre Blockerfahrung auf eine schlampige Grammatik und Rechtschreibung, aber das ändert sich normalerweise, wenn es ein Publikum gibt.",
+        "timestamp_granularity": "segment",
+        "total_ms": 166.65058280341327,
+        "vocabulary_applied": false,
+        "warm": true,
+        "words": []
+      },
+      "new": {
+        "active_gpu_bytes": 483971822,
+        "audio_seconds": 12.96,
+        "decode_ms": 163.54225017130375,
+        "language": "de",
+        "load_ms": 0.0014579854905605316,
+        "model": "whisper-small",
+        "peak_gpu_bytes": 1441224138,
+        "preprocess_ms": 0.5963330622762442,
+        "segments": [
+          {
+            "end": 5,
+            "start": 0,
+            "text": "Blocks können auch dazu beitragen, die Schreibfertigkeiten von Schülern zu verbessern."
+          },
+          {
+            "end": 10,
+            "start": 5,
+            "text": "So haben Schüler am Anfang ihre Blockerfahrung auf eine schlampige Grammatik und Rechtschreibung,"
+          },
+          {
+            "end": 12.96,
+            "start": 10,
+            "text": "aber das ändert sich normalerweise, wenn es ein Publikum gibt."
+          }
+        ],
+        "silence": false,
+        "speech_seconds": 12.96,
+        "text": "Blocks können auch dazu beitragen, die Schreibfertigkeiten von Schülern zu verbessern. So haben Schüler am Anfang ihre Blockerfahrung auf eine schlampige Grammatik und Rechtschreibung, aber das ändert sich normalerweise, wenn es ein Publikum gibt.",
+        "timestamp_granularity": "segment",
+        "timing_corrections": {
+          "clipped_intervals": 1,
+          "fallback_to_utterance": false
+        },
+        "timing_warning": "Some recognizer timings extended outside the analyzed audio and were bounded. Check alignment before using timed exports.",
+        "total_ms": 164.16387492790818,
+        "vocabulary_applied": false,
+        "warm": true,
+        "words": []
+      }
+    },
+    {
+      "model": "whisper-small",
+      "id": "fleurs-de_de-006-quiet40db",
+      "route": "neural_edges",
+      "bad_before": false,
+      "old": {
+        "active_gpu_bytes": 483971822,
+        "audio_seconds": 12.96,
+        "decode_ms": 180.4782918188721,
+        "language": "de",
+        "load_ms": 0.0017080456018447876,
+        "model": "whisper-small",
+        "peak_gpu_bytes": 1447646666,
+        "preprocess_ms": 0.7870409172028303,
+        "segments": [
+          {
+            "end": 4.872,
+            "start": 0.672,
+            "text": "Blocks können auch dazu beitragen, die Schreibfertigkeiten von Schülern zu verbessern."
+          },
+          {
+            "end": 9.872000000000002,
+            "start": 4.872,
+            "text": "So haben Schüler am Anfang ihre Blog-Erfahrung auf eine schlampige Grammatik und Rechtschreibung,"
+          },
+          {
+            "end": 12.872000000000002,
+            "start": 9.872000000000002,
+            "text": "aber das ändert sich normalerweise, wenn es ein Publikum gibt."
+          }
+        ],
+        "silence": false,
+        "speech_edges": {
+          "audio_samples": 207360,
+          "end_sample": 207360,
+          "method": "silero-causal8-v1",
+          "pcm_sha256": "49846bc1eb584652474a280179c9a7fd2b60639cf7166c0dee3f10289872e5d2",
+          "sample_rate": 16000,
+          "start_sample": 10752
+        },
+        "speech_seconds": 12.288,
+        "text": "Blocks können auch dazu beitragen, die Schreibfertigkeiten von Schülern zu verbessern. So haben Schüler am Anfang ihre Blog-Erfahrung auf eine schlampige Grammatik und Rechtschreibung, aber das ändert sich normalerweise, wenn es ein Publikum gibt.",
+        "timestamp_granularity": "segment",
+        "total_ms": 181.27237493172288,
+        "vocabulary_applied": false,
+        "warm": true,
+        "words": []
+      },
+      "new": {
+        "active_gpu_bytes": 483971822,
+        "audio_seconds": 12.96,
+        "decode_ms": 169.03733392246068,
+        "language": "de",
+        "load_ms": 0.0013329554349184036,
+        "model": "whisper-small",
+        "peak_gpu_bytes": 1447646666,
+        "preprocess_ms": 0.6756249349564314,
+        "segments": [
+          {
+            "end": 4.872,
+            "start": 0.672,
+            "text": "Blocks können auch dazu beitragen, die Schreibfertigkeiten von Schülern zu verbessern."
+          },
+          {
+            "end": 9.872000000000002,
+            "start": 4.872,
+            "text": "So haben Schüler am Anfang ihre Blog-Erfahrung auf eine schlampige Grammatik und Rechtschreibung,"
+          },
+          {
+            "end": 12.872000000000002,
+            "start": 9.872000000000002,
+            "text": "aber das ändert sich normalerweise, wenn es ein Publikum gibt."
+          }
+        ],
+        "silence": false,
+        "speech_edges": {
+          "audio_samples": 207360,
+          "end_sample": 207360,
+          "method": "silero-causal8-v1",
+          "pcm_sha256": "49846bc1eb584652474a280179c9a7fd2b60639cf7166c0dee3f10289872e5d2",
+          "sample_rate": 16000,
+          "start_sample": 10752
+        },
+        "speech_seconds": 12.288,
+        "text": "Blocks können auch dazu beitragen, die Schreibfertigkeiten von Schülern zu verbessern. So haben Schüler am Anfang ihre Blog-Erfahrung auf eine schlampige Grammatik und Rechtschreibung, aber das ändert sich normalerweise, wenn es ein Publikum gibt.",
+        "timestamp_granularity": "segment",
+        "total_ms": 169.73441583104432,
+        "vocabulary_applied": false,
+        "warm": true,
+        "words": []
+      }
+    },
+    {
+      "model": "whisper-small",
+      "id": "fleurs-es_419-001-quiet40db",
+      "route": "full",
+      "bad_before": false,
+      "old": {
+        "active_gpu_bytes": 483971822,
+        "audio_seconds": 21.36,
+        "decode_ms": 229.76949997246265,
+        "language": "es",
+        "load_ms": 0.001250067725777626,
+        "model": "whisper-small",
+        "peak_gpu_bytes": 1446794698,
+        "preprocess_ms": 0.6012090016156435,
+        "segments": [
+          {
+            "end": 6.36,
+            "start": 0,
+            "text": "El uso adecuado de los blogs pueden poderar a los alumnos para que sean más analíticos"
+          },
+          {
+            "end": 10.96,
+            "start": 6.36,
+            "text": "y críticos a través de la respuesta activa a los contenidos de internet."
+          },
+          {
+            "end": 15.68,
+            "start": 10.96,
+            "text": "Pueden definir sus posturas en el contexto de los escritos de otros, además de establecer"
+          },
+          {
+            "end": 18.88,
+            "start": 15.68,
+            "text": "sus perspectivas sobre temas específicos."
+          },
+          {
+            "end": 20.88,
+            "start": 18.88,
+            "text": "Horavec 2002."
+          }
+        ],
+        "silence": false,
+        "speech_seconds": 21.36,
+        "text": "El uso adecuado de los blogs pueden poderar a los alumnos para que sean más analíticos y críticos a través de la respuesta activa a los contenidos de internet. Pueden definir sus posturas en el contexto de los escritos de otros, además de establecer sus perspectivas sobre temas específicos. Horavec 2002.",
+        "timestamp_granularity": "segment",
+        "total_ms": 230.37554207257926,
+        "vocabulary_applied": false,
+        "warm": true,
+        "words": []
+      },
+      "new": {
+        "active_gpu_bytes": 483971822,
+        "audio_seconds": 21.36,
+        "decode_ms": 221.87300003133714,
+        "language": "es",
+        "load_ms": 0.0014998950064182281,
+        "model": "whisper-small",
+        "peak_gpu_bytes": 1446794698,
+        "preprocess_ms": 0.5757499020546675,
+        "segments": [
+          {
+            "end": 6.36,
+            "start": 0,
+            "text": "El uso adecuado de los blogs pueden poderar a los alumnos para que sean más analíticos"
+          },
+          {
+            "end": 10.96,
+            "start": 6.36,
+            "text": "y críticos a través de la respuesta activa a los contenidos de internet."
+          },
+          {
+            "end": 15.68,
+            "start": 10.96,
+            "text": "Pueden definir sus posturas en el contexto de los escritos de otros, además de establecer"
+          },
+          {
+            "end": 18.88,
+            "start": 15.68,
+            "text": "sus perspectivas sobre temas específicos."
+          },
+          {
+            "end": 20.88,
+            "start": 18.88,
+            "text": "Horavec 2002."
+          }
+        ],
+        "silence": false,
+        "speech_seconds": 21.36,
+        "text": "El uso adecuado de los blogs pueden poderar a los alumnos para que sean más analíticos y críticos a través de la respuesta activa a los contenidos de internet. Pueden definir sus posturas en el contexto de los escritos de otros, además de establecer sus perspectivas sobre temas específicos. Horavec 2002.",
+        "timestamp_granularity": "segment",
+        "total_ms": 222.4712499883026,
+        "vocabulary_applied": false,
+        "warm": true,
+        "words": []
+      }
+    },
+    {
+      "model": "whisper-small",
+      "id": "fleurs-es_419-001-quiet40db",
+      "route": "neural_edges",
+      "bad_before": true,
+      "old": {
+        "active_gpu_bytes": 483971822,
+        "audio_seconds": 21.36,
+        "decode_ms": 224.26070785149932,
+        "language": "es",
+        "load_ms": 0.0014158431440591812,
+        "model": "whisper-small",
+        "peak_gpu_bytes": 1445418442,
+        "preprocess_ms": 1.0001249611377716,
+        "segments": [
+          {
+            "end": 6.336,
+            "start": 1.536,
+            "text": "El uso adecuado de los blogs pueden poderar a los alumnos para que sean más analíticos"
+          },
+          {
+            "end": 10.975999999999999,
+            "start": 6.336,
+            "text": "y críticos a través de la respuesta activa a los contenidos de internet."
+          },
+          {
+            "end": 15.656,
+            "start": 10.975999999999999,
+            "text": "Pueden definir sus posturas en el contexto de los escritos de otros, además de establecer"
+          },
+          {
+            "end": 18.836000000000002,
+            "start": 15.656,
+            "text": "sus perspectivas sobre temas específicos."
+          },
+          {
+            "end": 20.836000000000002,
+            "start": 18.836000000000002,
+            "text": "Horavec 2002."
+          }
+        ],
+        "silence": false,
+        "speech_edges": {
+          "audio_samples": 341760,
+          "end_sample": 332800,
+          "method": "silero-causal8-v1",
+          "pcm_sha256": "7fe89dd72588dbeb68cd3c488f16aa54abd9d2996628553c6781c38525debf9e",
+          "sample_rate": 16000,
+          "start_sample": 24576
+        },
+        "speech_seconds": 19.264,
+        "text": "El uso adecuado de los blogs pueden poderar a los alumnos para que sean más analíticos y críticos a través de la respuesta activa a los contenidos de internet. Pueden definir sus posturas en el contexto de los escritos de otros, además de establecer sus perspectivas sobre temas específicos. Horavec 2002.",
+        "timestamp_granularity": "segment",
+        "total_ms": 225.26762494817376,
+        "vocabulary_applied": false,
+        "warm": true,
+        "words": []
+      },
+      "new": {
+        "active_gpu_bytes": 483971822,
+        "audio_seconds": 21.36,
+        "decode_ms": 223.9075000397861,
+        "language": "es",
+        "load_ms": 0.0017909333109855652,
+        "model": "whisper-small",
+        "peak_gpu_bytes": 1445418442,
+        "preprocess_ms": 1.0197500232607126,
+        "segments": [
+          {
+            "end": 6.336,
+            "start": 1.536,
+            "text": "El uso adecuado de los blogs pueden poderar a los alumnos para que sean más analíticos"
+          },
+          {
+            "end": 10.975999999999999,
+            "start": 6.336,
+            "text": "y críticos a través de la respuesta activa a los contenidos de internet."
+          },
+          {
+            "end": 15.656,
+            "start": 10.975999999999999,
+            "text": "Pueden definir sus posturas en el contexto de los escritos de otros, además de establecer"
+          },
+          {
+            "end": 18.836000000000002,
+            "start": 15.656,
+            "text": "sus perspectivas sobre temas específicos."
+          },
+          {
+            "end": 20.8,
+            "start": 18.836000000000002,
+            "text": "Horavec 2002."
+          }
+        ],
+        "silence": false,
+        "speech_edges": {
+          "audio_samples": 341760,
+          "end_sample": 332800,
+          "method": "silero-causal8-v1",
+          "pcm_sha256": "7fe89dd72588dbeb68cd3c488f16aa54abd9d2996628553c6781c38525debf9e",
+          "sample_rate": 16000,
+          "start_sample": 24576
+        },
+        "speech_seconds": 19.264,
+        "text": "El uso adecuado de los blogs pueden poderar a los alumnos para que sean más analíticos y críticos a través de la respuesta activa a los contenidos de internet. Pueden definir sus posturas en el contexto de los escritos de otros, además de establecer sus perspectivas sobre temas específicos. Horavec 2002.",
+        "timestamp_granularity": "segment",
+        "timing_corrections": {
+          "clipped_intervals": 1,
+          "fallback_to_utterance": false
+        },
+        "timing_warning": "Some recognizer timings extended outside the analyzed audio and were bounded. Check alignment before using timed exports.",
+        "total_ms": 224.9522500205785,
+        "vocabulary_applied": false,
+        "warm": true,
+        "words": []
+      }
+    },
+    {
+      "model": "whisper-small",
+      "id": "fleurs-ja_jp-001-quiet40db",
+      "route": "full",
+      "bad_before": false,
+      "old": {
+        "active_gpu_bytes": 483971822,
+        "audio_seconds": 14.22,
+        "decode_ms": 128.6233749706298,
+        "language": "ja",
+        "load_ms": 0.0015408731997013092,
+        "model": "whisper-small",
+        "peak_gpu_bytes": 1449186762,
+        "preprocess_ms": 0.5568750202655792,
+        "segments": [
+          {
+            "end": 13,
+            "start": 0,
+            "text": "また北側に行くなら世界的に有名なマリアゾーの聖地であるファティマの聖母の聖域神社を訪れましょう"
+          }
+        ],
+        "silence": false,
+        "speech_seconds": 14.22,
+        "text": "また北側に行くなら世界的に有名なマリアゾーの聖地であるファティマの聖母の聖域神社を訪れましょう",
+        "timestamp_granularity": "segment",
+        "total_ms": 129.1871250141412,
+        "vocabulary_applied": false,
+        "warm": true,
+        "words": []
+      },
+      "new": {
+        "active_gpu_bytes": 483971822,
+        "audio_seconds": 14.22,
+        "decode_ms": 127.04208283685148,
+        "language": "ja",
+        "load_ms": 0.0014170072972774506,
+        "model": "whisper-small",
+        "peak_gpu_bytes": 1449186762,
+        "preprocess_ms": 0.43462496250867844,
+        "segments": [
+          {
+            "end": 13,
+            "start": 0,
+            "text": "また北側に行くなら世界的に有名なマリアゾーの聖地であるファティマの聖母の聖域神社を訪れましょう"
+          }
+        ],
+        "silence": false,
+        "speech_seconds": 14.22,
+        "text": "また北側に行くなら世界的に有名なマリアゾーの聖地であるファティマの聖母の聖域神社を訪れましょう",
+        "timestamp_granularity": "segment",
+        "total_ms": 127.49783298932016,
+        "vocabulary_applied": false,
+        "warm": true,
+        "words": []
+      }
+    },
+    {
+      "model": "whisper-small",
+      "id": "fleurs-ja_jp-001-quiet40db",
+      "route": "neural_edges",
+      "bad_before": true,
+      "old": {
+        "active_gpu_bytes": 483971822,
+        "audio_seconds": 14.22,
+        "decode_ms": 129.55795787274837,
+        "language": "ja",
+        "load_ms": 0.001291045919060707,
+        "model": "whisper-small",
+        "peak_gpu_bytes": 1438455242,
+        "preprocess_ms": 0.763291958719492,
+        "segments": [
+          {
+            "end": 13.08,
+            "start": 3.36,
+            "text": "また北側に行くなら世界的に有名なマリアゾーの聖地である ファティマの聖母の聖域神社を訪れましょう"
+          }
+        ],
+        "silence": false,
+        "speech_edges": {
+          "audio_samples": 227520,
+          "end_sample": 193024,
+          "method": "silero-causal8-v1",
+          "pcm_sha256": "2fa680da67edb84a6a2e0ab53d85682898fec1d588456a3bb79f4af3faaf579a",
+          "sample_rate": 16000,
+          "start_sample": 53760
+        },
+        "speech_seconds": 8.704,
+        "text": "また北側に行くなら世界的に有名なマリアゾーの聖地である ファティマの聖母の聖域神社を訪れましょう",
+        "timestamp_granularity": "segment",
+        "total_ms": 130.32783288508654,
+        "vocabulary_applied": false,
+        "warm": true,
+        "words": []
+      },
+      "new": {
+        "active_gpu_bytes": 483971822,
+        "audio_seconds": 14.22,
+        "decode_ms": 126.29483384080231,
+        "language": "ja",
+        "load_ms": 0.0014170072972774506,
+        "model": "whisper-small",
+        "peak_gpu_bytes": 1438455242,
+        "preprocess_ms": 0.7575000636279583,
+        "segments": [
+          {
+            "end": 12.064,
+            "start": 3.36,
+            "text": "また北側に行くなら世界的に有名なマリアゾーの聖地である ファティマの聖母の聖域神社を訪れましょう"
+          }
+        ],
+        "silence": false,
+        "speech_edges": {
+          "audio_samples": 227520,
+          "end_sample": 193024,
+          "method": "silero-causal8-v1",
+          "pcm_sha256": "2fa680da67edb84a6a2e0ab53d85682898fec1d588456a3bb79f4af3faaf579a",
+          "sample_rate": 16000,
+          "start_sample": 53760
+        },
+        "speech_seconds": 8.704,
+        "text": "また北側に行くなら世界的に有名なマリアゾーの聖地である ファティマの聖母の聖域神社を訪れましょう",
+        "timestamp_granularity": "segment",
+        "timing_corrections": {
+          "clipped_intervals": 1,
+          "fallback_to_utterance": false
+        },
+        "timing_warning": "Some recognizer timings extended outside the analyzed audio and were bounded. Check alignment before using timed exports.",
+        "total_ms": 127.07462487742305,
+        "vocabulary_applied": false,
+        "warm": true,
+        "words": []
+      }
+    },
+    {
+      "model": "whisper-small",
+      "id": "fleurs-ja_jp-005-original",
+      "route": "full",
+      "bad_before": true,
+      "old": {
+        "active_gpu_bytes": 483971822,
+        "audio_seconds": 6.96,
+        "decode_ms": 61.23474985361099,
+        "language": "ja",
+        "load_ms": 0.0013329554349184036,
+        "model": "whisper-small",
+        "peak_gpu_bytes": 1437341130,
+        "preprocess_ms": 0.5075829103589058,
+        "segments": [
+          {
+            "end": 7,
+            "start": 0,
+            "text": "軍頭や湖では必ずしもよっては必要ありません"
+          }
+        ],
+        "silence": false,
+        "speech_seconds": 6.96,
+        "text": "軍頭や湖では必ずしもよっては必要ありません",
+        "timestamp_granularity": "segment",
+        "total_ms": 61.74679100513458,
+        "vocabulary_applied": false,
+        "warm": true,
+        "words": []
+      },
+      "new": {
+        "active_gpu_bytes": 483971822,
+        "audio_seconds": 6.96,
+        "decode_ms": 59.56800002604723,
+        "language": "ja",
+        "load_ms": 0.001375097781419754,
+        "model": "whisper-small",
+        "peak_gpu_bytes": 1437341130,
+        "preprocess_ms": 0.5138330161571503,
+        "segments": [
+          {
+            "end": 6.96,
+            "start": 0,
+            "text": "軍頭や湖では必ずしもよっては必要ありません"
+          }
+        ],
+        "silence": false,
+        "speech_seconds": 6.96,
+        "text": "軍頭や湖では必ずしもよっては必要ありません",
+        "timestamp_granularity": "segment",
+        "timing_corrections": {
+          "clipped_intervals": 1,
+          "fallback_to_utterance": false
+        },
+        "timing_warning": "Some recognizer timings extended outside the analyzed audio and were bounded. Check alignment before using timed exports.",
+        "total_ms": 60.10066601447761,
+        "vocabulary_applied": false,
+        "warm": true,
+        "words": []
+      }
+    },
+    {
+      "model": "whisper-small",
+      "id": "fleurs-ja_jp-005-original",
+      "route": "neural_edges",
+      "bad_before": true,
+      "old": {
+        "active_gpu_bytes": 483971822,
+        "audio_seconds": 6.96,
+        "decode_ms": 59.74812502972782,
+        "language": "ja",
+        "load_ms": 0.0011669471859931946,
+        "model": "whisper-small",
+        "peak_gpu_bytes": 1442108874,
+        "preprocess_ms": 0.5724169313907623,
+        "segments": [
+          {
+            "end": 8.248,
+            "start": 1.408,
+            "text": "軍頭や水海では必ずしもよっとは必要ありません"
+          }
+        ],
+        "silence": false,
+        "speech_edges": {
+          "audio_samples": 111360,
+          "end_sample": 111360,
+          "method": "silero-causal8-v1",
+          "pcm_sha256": "0133f626f40517ad21e97ee781297ef22260b82b94000ec24d5fdc1082864a2d",
+          "sample_rate": 16000,
+          "start_sample": 22528
+        },
+        "speech_seconds": 5.552,
+        "text": "軍頭や水海では必ずしもよっとは必要ありません",
+        "timestamp_granularity": "segment",
+        "total_ms": 60.3264169767499,
+        "vocabulary_applied": false,
+        "warm": true,
+        "words": []
+      },
+      "new": {
+        "active_gpu_bytes": 483971822,
+        "audio_seconds": 6.96,
+        "decode_ms": 60.90729194693267,
+        "language": "ja",
+        "load_ms": 0.0014170072972774506,
+        "model": "whisper-small",
+        "peak_gpu_bytes": 1442108874,
+        "preprocess_ms": 0.5458749365061522,
+        "segments": [
+          {
+            "end": 6.96,
+            "start": 1.408,
+            "text": "軍頭や水海では必ずしもよっとは必要ありません"
+          }
+        ],
+        "silence": false,
+        "speech_edges": {
+          "audio_samples": 111360,
+          "end_sample": 111360,
+          "method": "silero-causal8-v1",
+          "pcm_sha256": "0133f626f40517ad21e97ee781297ef22260b82b94000ec24d5fdc1082864a2d",
+          "sample_rate": 16000,
+          "start_sample": 22528
+        },
+        "speech_seconds": 5.552,
+        "text": "軍頭や水海では必ずしもよっとは必要ありません",
+        "timestamp_granularity": "segment",
+        "timing_corrections": {
+          "clipped_intervals": 1,
+          "fallback_to_utterance": false
+        },
+        "timing_warning": "Some recognizer timings extended outside the analyzed audio and were bounded. Check alignment before using timed exports.",
+        "total_ms": 61.47299986332655,
+        "vocabulary_applied": false,
+        "warm": true,
+        "words": []
+      }
+    },
+    {
+      "model": "whisper-small",
+      "id": "fleurs-ja_jp-006-original",
+      "route": "full",
+      "bad_before": false,
+      "old": {
+        "active_gpu_bytes": 483971822,
+        "audio_seconds": 8.88,
+        "decode_ms": 78.08562507852912,
+        "language": "ja",
+        "load_ms": 0.0013748649507761002,
+        "model": "whisper-small",
+        "peak_gpu_bytes": 1438537162,
+        "preprocess_ms": 0.6609160918742418,
+        "segments": [
+          {
+            "end": 7,
+            "start": 0,
+            "text": "パリジャンは自己中心的な大平で失礼の人が多いと言われています"
+          }
+        ],
+        "silence": false,
+        "speech_seconds": 8.88,
+        "text": "パリジャンは自己中心的な大平で失礼の人が多いと言われています",
+        "timestamp_granularity": "segment",
+        "total_ms": 78.75137496739626,
+        "vocabulary_applied": false,
+        "warm": true,
+        "words": []
+      },
+      "new": {
+        "active_gpu_bytes": 483971822,
+        "audio_seconds": 8.88,
+        "decode_ms": 80.35862492397428,
+        "language": "ja",
+        "load_ms": 0.0014998950064182281,
+        "model": "whisper-small",
+        "peak_gpu_bytes": 1438537162,
+        "preprocess_ms": 0.5539581179618835,
+        "segments": [
+          {
+            "end": 7,
+            "start": 0,
+            "text": "パリジャンは自己中心的な大平で失礼の人が多いと言われています"
+          }
+        ],
+        "silence": false,
+        "speech_seconds": 8.88,
+        "text": "パリジャンは自己中心的な大平で失礼の人が多いと言われています",
+        "timestamp_granularity": "segment",
+        "total_ms": 80.9330411721021,
+        "vocabulary_applied": false,
+        "warm": true,
+        "words": []
+      }
+    },
+    {
+      "model": "whisper-small",
+      "id": "fleurs-ja_jp-006-original",
+      "route": "neural_edges",
+      "bad_before": true,
+      "old": {
+        "active_gpu_bytes": 483971822,
+        "audio_seconds": 8.88,
+        "decode_ms": 78.49691691808403,
+        "language": "ja",
+        "load_ms": 0.0012919772416353226,
+        "model": "whisper-small",
+        "peak_gpu_bytes": 1436521930,
+        "preprocess_ms": 0.5626250058412552,
+        "segments": [
+          {
+            "end": 8.468,
+            "start": 1.728,
+            "text": "パリジャンは自己中心的な大平で失礼の人が多いと言われています"
+          }
+        ],
+        "silence": false,
+        "speech_edges": {
+          "audio_samples": 142080,
+          "end_sample": 118784,
+          "method": "silero-causal8-v1",
+          "pcm_sha256": "53ab239fa2cf6a204eb89d5a65ef15c3961ca947629e66a8e92d7d54a722dcc8",
+          "sample_rate": 16000,
+          "start_sample": 27648
+        },
+        "speech_seconds": 5.696,
+        "text": "パリジャンは自己中心的な大平で失礼の人が多いと言われています",
+        "timestamp_granularity": "segment",
+        "total_ms": 79.06566699966788,
+        "vocabulary_applied": false,
+        "warm": true,
+        "words": []
+      },
+      "new": {
+        "active_gpu_bytes": 483971822,
+        "audio_seconds": 8.88,
+        "decode_ms": 80.74366697110236,
+        "language": "ja",
+        "load_ms": 0.0017078127712011337,
+        "model": "whisper-small",
+        "peak_gpu_bytes": 1436521930,
+        "preprocess_ms": 0.608749920502305,
+        "segments": [
+          {
+            "end": 7.424,
+            "start": 1.728,
+            "text": "パリジャンは自己中心的な大平で失礼の人が多いと言われています"
+          }
+        ],
+        "silence": false,
+        "speech_edges": {
+          "audio_samples": 142080,
+          "end_sample": 118784,
+          "method": "silero-causal8-v1",
+          "pcm_sha256": "53ab239fa2cf6a204eb89d5a65ef15c3961ca947629e66a8e92d7d54a722dcc8",
+          "sample_rate": 16000,
+          "start_sample": 27648
+        },
+        "speech_seconds": 5.696,
+        "text": "パリジャンは自己中心的な大平で失礼の人が多いと言われています",
+        "timestamp_granularity": "segment",
+        "timing_corrections": {
+          "clipped_intervals": 1,
+          "fallback_to_utterance": false
+        },
+        "timing_warning": "Some recognizer timings extended outside the analyzed audio and were bounded. Check alignment before using timed exports.",
+        "total_ms": 81.37312484905124,
+        "vocabulary_applied": false,
+        "warm": true,
+        "words": []
+      }
+    },
+    {
+      "model": "whisper-small",
+      "id": "fleurs-ja_jp-006-quiet40db",
+      "route": "full",
+      "bad_before": false,
+      "old": {
+        "active_gpu_bytes": 483971822,
+        "audio_seconds": 8.88,
+        "decode_ms": 77.58587505668402,
+        "language": "ja",
+        "load_ms": 0.0012919772416353226,
+        "model": "whisper-small",
+        "peak_gpu_bytes": 1438537162,
+        "preprocess_ms": 0.3766249865293503,
+        "segments": [
+          {
+            "end": 8.52,
+            "start": 0,
+            "text": "パリジャンは自己中心的な大平で失礼の人が多いと言われています"
+          }
+        ],
+        "silence": false,
+        "speech_seconds": 8.88,
+        "text": "パリジャンは自己中心的な大平で失礼の人が多いと言われています",
+        "timestamp_granularity": "segment",
+        "total_ms": 77.96675013378263,
+        "vocabulary_applied": false,
+        "warm": true,
+        "words": []
+      },
+      "new": {
+        "active_gpu_bytes": 483971822,
+        "audio_seconds": 8.88,
+        "decode_ms": 78.72083294205368,
+        "language": "ja",
+        "load_ms": 0.001333886757493019,
+        "model": "whisper-small",
+        "peak_gpu_bytes": 1438537162,
+        "preprocess_ms": 0.47087506391108036,
+        "segments": [
+          {
+            "end": 8.52,
+            "start": 0,
+            "text": "パリジャンは自己中心的な大平で失礼の人が多いと言われています"
+          }
+        ],
+        "silence": false,
+        "speech_seconds": 8.88,
+        "text": "パリジャンは自己中心的な大平で失礼の人が多いと言われています",
+        "timestamp_granularity": "segment",
+        "total_ms": 79.21383390203118,
+        "vocabulary_applied": false,
+        "warm": true,
+        "words": []
+      }
+    },
+    {
+      "model": "whisper-small",
+      "id": "fleurs-ja_jp-006-quiet40db",
+      "route": "neural_edges",
+      "bad_before": true,
+      "old": {
+        "active_gpu_bytes": 483971822,
+        "audio_seconds": 8.88,
+        "decode_ms": 78.46604101359844,
+        "language": "ja",
+        "load_ms": 0.0011669471859931946,
+        "model": "whisper-small",
+        "peak_gpu_bytes": 1436423626,
+        "preprocess_ms": 0.5963749717921019,
+        "segments": [
+          {
+            "end": 8.468,
+            "start": 1.728,
+            "text": "パリジャンは自己中心的な大平で失礼の人が多いと言われています"
+          }
+        ],
+        "silence": false,
+        "speech_edges": {
+          "audio_samples": 142080,
+          "end_sample": 116736,
+          "method": "silero-causal8-v1",
+          "pcm_sha256": "e712e2c29f345288c5883abad476a283163b610c6f6ccebaea01f5a74c3fc22d",
+          "sample_rate": 16000,
+          "start_sample": 27648
+        },
+        "speech_seconds": 5.568,
+        "text": "パリジャンは自己中心的な大平で失礼の人が多いと言われています",
+        "timestamp_granularity": "segment",
+        "total_ms": 79.06854199245572,
+        "vocabulary_applied": false,
+        "warm": true,
+        "words": []
+      },
+      "new": {
+        "active_gpu_bytes": 483971822,
+        "audio_seconds": 8.88,
+        "decode_ms": 77.67308386974037,
+        "language": "ja",
+        "load_ms": 0.0015420373529195786,
+        "model": "whisper-small",
+        "peak_gpu_bytes": 1436423626,
+        "preprocess_ms": 0.5952920764684677,
+        "segments": [
+          {
+            "end": 7.296,
+            "start": 1.728,
+            "text": "パリジャンは自己中心的な大平で失礼の人が多いと言われています"
+          }
+        ],
+        "silence": false,
+        "speech_edges": {
+          "audio_samples": 142080,
+          "end_sample": 116736,
+          "method": "silero-causal8-v1",
+          "pcm_sha256": "e712e2c29f345288c5883abad476a283163b610c6f6ccebaea01f5a74c3fc22d",
+          "sample_rate": 16000,
+          "start_sample": 27648
+        },
+        "speech_seconds": 5.568,
+        "text": "パリジャンは自己中心的な大平で失礼の人が多いと言われています",
+        "timestamp_granularity": "segment",
+        "timing_corrections": {
+          "clipped_intervals": 1,
+          "fallback_to_utterance": false
+        },
+        "timing_warning": "Some recognizer timings extended outside the analyzed audio and were bounded. Check alignment before using timed exports.",
+        "total_ms": 78.28741706907749,
+        "vocabulary_applied": false,
+        "warm": true,
+        "words": []
+      }
+    },
+    {
+      "model": "whisper-small",
+      "id": "fleurs-ja_jp-009-quiet40db",
+      "route": "full",
+      "bad_before": false,
+      "old": {
+        "active_gpu_bytes": 483971822,
+        "audio_seconds": 9.66,
+        "decode_ms": 97.97320794314146,
+        "language": "ja",
+        "load_ms": 0.0015408731997013092,
+        "model": "whisper-small",
+        "peak_gpu_bytes": 1439094218,
+        "preprocess_ms": 0.4019590560346842,
+        "segments": [
+          {
+            "end": 9,
+            "start": 0,
+            "text": "香港の最高の景色を見るには島から出て、クーロンのウォーターフロントに向かいましょう。"
+          }
+        ],
+        "silence": false,
+        "speech_seconds": 9.66,
+        "text": "香港の最高の景色を見るには島から出て、クーロンのウォーターフロントに向かいましょう。",
+        "timestamp_granularity": "segment",
+        "total_ms": 98.38079195469618,
+        "vocabulary_applied": false,
+        "warm": true,
+        "words": []
+      },
+      "new": {
+        "active_gpu_bytes": 483971822,
+        "audio_seconds": 9.66,
+        "decode_ms": 103.49633288569748,
+        "language": "ja",
+        "load_ms": 0.0010831281542778015,
+        "model": "whisper-small",
+        "peak_gpu_bytes": 1439094218,
+        "preprocess_ms": 0.39491686038672924,
+        "segments": [
+          {
+            "end": 9,
+            "start": 0,
+            "text": "香港の最高の景色を見るには島から出て、クーロンのウォーターフロントに向かいましょう。"
+          }
+        ],
+        "silence": false,
+        "speech_seconds": 9.66,
+        "text": "香港の最高の景色を見るには島から出て、クーロンのウォーターフロントに向かいましょう。",
+        "timestamp_granularity": "segment",
+        "total_ms": 103.90916699543595,
+        "vocabulary_applied": false,
+        "warm": true,
+        "words": []
+      }
+    },
+    {
+      "model": "whisper-small",
+      "id": "fleurs-ja_jp-009-quiet40db",
+      "route": "neural_edges",
+      "bad_before": true,
+      "old": {
+        "active_gpu_bytes": 483971822,
+        "audio_seconds": 9.66,
+        "decode_ms": 102.49833390116692,
+        "language": "ja",
+        "load_ms": 0.0012919772416353226,
+        "model": "whisper-small",
+        "peak_gpu_bytes": 1437341130,
+        "preprocess_ms": 0.6157080642879009,
+        "segments": [
+          {
+            "end": 9.408,
+            "start": 1.408,
+            "text": "香港の最高の景色を見るには島から出て クーロンのウォーターフロントに向かいましょう"
+          }
+        ],
+        "silence": false,
+        "speech_edges": {
+          "audio_samples": 154560,
+          "end_sample": 133120,
+          "method": "silero-causal8-v1",
+          "pcm_sha256": "d0b6c0f5101e7291de45a5b38b1ce29748e137323501bfe16475b6346fe2b752",
+          "sample_rate": 16000,
+          "start_sample": 22528
+        },
+        "speech_seconds": 6.912,
+        "text": "香港の最高の景色を見るには島から出て クーロンのウォーターフロントに向かいましょう",
+        "timestamp_granularity": "segment",
+        "total_ms": 103.11987507157028,
+        "vocabulary_applied": false,
+        "warm": true,
+        "words": []
+      },
+      "new": {
+        "active_gpu_bytes": 483971822,
+        "audio_seconds": 9.66,
+        "decode_ms": 96.78395907394588,
+        "language": "ja",
+        "load_ms": 0.0015830155462026596,
+        "model": "whisper-small",
+        "peak_gpu_bytes": 1437341130,
+        "preprocess_ms": 0.6849169731140137,
+        "segments": [
+          {
+            "end": 8.32,
+            "start": 1.408,
+            "text": "香港の最高の景色を見るには島から出て クーロンのウォーターフロントに向かいましょう"
+          }
+        ],
+        "silence": false,
+        "speech_edges": {
+          "audio_samples": 154560,
+          "end_sample": 133120,
+          "method": "silero-causal8-v1",
+          "pcm_sha256": "d0b6c0f5101e7291de45a5b38b1ce29748e137323501bfe16475b6346fe2b752",
+          "sample_rate": 16000,
+          "start_sample": 22528
+        },
+        "speech_seconds": 6.912,
+        "text": "香港の最高の景色を見るには島から出て クーロンのウォーターフロントに向かいましょう",
+        "timestamp_granularity": "segment",
+        "timing_corrections": {
+          "clipped_intervals": 1,
+          "fallback_to_utterance": false
+        },
+        "timing_warning": "Some recognizer timings extended outside the analyzed audio and were bounded. Check alignment before using timed exports.",
+        "total_ms": 97.49287483282387,
+        "vocabulary_applied": false,
+        "warm": true,
+        "words": []
+      }
+    },
+    {
+      "model": "whisper-turbo",
+      "id": "fleurs-de_de-000-quiet40db",
+      "route": "full",
+      "bad_before": false,
+      "old": {
+        "active_gpu_bytes": 1618307758,
+        "audio_seconds": 17.94,
+        "decode_ms": 298.70499996468425,
+        "language": "de",
+        "load_ms": 1719.988999888301,
+        "model": "whisper-turbo",
+        "peak_gpu_bytes": 2565558162,
+        "preprocess_ms": 0.5378751084208488,
+        "segments": [
+          {
+            "end": 13.64,
+            "start": 0,
+            "text": "Für die besten Aussichten auf Hongkong sollten Sie die Insel verlassen und zum gegenüberliegenden Ufer von Koh Lung fahren."
+          }
+        ],
+        "silence": false,
+        "speech_seconds": 17.94,
+        "text": "Für die besten Aussichten auf Hongkong sollten Sie die Insel verlassen und zum gegenüberliegenden Ufer von Koh Lung fahren.",
+        "timestamp_granularity": "segment",
+        "total_ms": 2019.2400000523776,
+        "vocabulary_applied": false,
+        "warm": false,
+        "words": []
+      },
+      "new": {
+        "active_gpu_bytes": 1618307758,
+        "audio_seconds": 17.94,
+        "decode_ms": 256.2410419341177,
+        "language": "de",
+        "load_ms": 659.0562090277672,
+        "model": "whisper-turbo",
+        "peak_gpu_bytes": 2565558162,
+        "preprocess_ms": 0.6710418965667486,
+        "segments": [
+          {
+            "end": 13.64,
+            "start": 0,
+            "text": "Für die besten Aussichten auf Hongkong sollten Sie die Insel verlassen und zum gegenüberliegenden Ufer von Koh Lung fahren."
+          }
+        ],
+        "silence": false,
+        "speech_seconds": 17.94,
+        "text": "Für die besten Aussichten auf Hongkong sollten Sie die Insel verlassen und zum gegenüberliegenden Ufer von Koh Lung fahren.",
+        "timestamp_granularity": "segment",
+        "total_ms": 916.2166249006987,
+        "vocabulary_applied": false,
+        "warm": false,
+        "words": []
+      }
+    },
+    {
+      "model": "whisper-turbo",
+      "id": "fleurs-de_de-000-quiet40db",
+      "route": "neural_edges",
+      "bad_before": true,
+      "old": {
+        "active_gpu_bytes": 1618307758,
+        "audio_seconds": 17.94,
+        "decode_ms": 100.54683405905962,
+        "language": "de",
+        "load_ms": 0.0030419323593378067,
+        "model": "whisper-turbo",
+        "peak_gpu_bytes": 2549869430,
+        "preprocess_ms": 0.8827499113976955,
+        "segments": [
+          {
+            "end": 34.588,
+            "start": 4.608,
+            "text": "Das ist die beste Ausdruck."
+          }
+        ],
+        "silence": false,
+        "speech_edges": {
+          "audio_samples": 287040,
+          "end_sample": 86528,
+          "method": "silero-causal8-v1",
+          "pcm_sha256": "02d1804a1a3f3609e7b14bc6a830bf4c883911f7b76abebd6ddda52873327e44",
+          "sample_rate": 16000,
+          "start_sample": 73728
+        },
+        "speech_seconds": 0.8,
+        "text": "Das ist die beste Ausdruck.",
+        "timestamp_granularity": "segment",
+        "total_ms": 101.43987508490682,
+        "vocabulary_applied": false,
+        "warm": true,
+        "words": []
+      },
+      "new": {
+        "active_gpu_bytes": 1618307758,
+        "audio_seconds": 17.94,
+        "decode_ms": 101.3010828755796,
+        "language": "de",
+        "load_ms": 0.004041939973831177,
+        "model": "whisper-turbo",
+        "peak_gpu_bytes": 2549869430,
+        "preprocess_ms": 0.8995409589260817,
+        "segments": [
+          {
+            "end": 5.408,
+            "start": 4.608,
+            "text": "Das ist die beste Ausdruck."
+          }
+        ],
+        "silence": false,
+        "speech_edges": {
+          "audio_samples": 287040,
+          "end_sample": 86528,
+          "method": "silero-causal8-v1",
+          "pcm_sha256": "02d1804a1a3f3609e7b14bc6a830bf4c883911f7b76abebd6ddda52873327e44",
+          "sample_rate": 16000,
+          "start_sample": 73728
+        },
+        "speech_seconds": 0.8,
+        "text": "Das ist die beste Ausdruck.",
+        "timestamp_granularity": "segment",
+        "timing_corrections": {
+          "clipped_intervals": 1,
+          "fallback_to_utterance": false
+        },
+        "timing_warning": "Some recognizer timings extended outside the analyzed audio and were bounded. Check alignment before using timed exports.",
+        "total_ms": 102.24012495018542,
+        "vocabulary_applied": false,
+        "warm": true,
+        "words": []
+      }
+    },
+    {
+      "model": "whisper-turbo",
+      "id": "fleurs-ja_jp-005-quiet40db",
+      "route": "full",
+      "bad_before": true,
+      "old": {
+        "active_gpu_bytes": 1618307758,
+        "audio_seconds": 6.96,
+        "decode_ms": 114.61191717535257,
+        "language": "ja",
+        "load_ms": 0.0017920974642038345,
+        "model": "whisper-turbo",
+        "peak_gpu_bytes": 2550180726,
+        "preprocess_ms": 0.39558298885822296,
+        "segments": [
+          {
+            "end": 7,
+            "start": 0,
+            "text": "このように、水道や湖では必ずしも良くは必要ありません。"
+          }
+        ],
+        "silence": false,
+        "speech_seconds": 6.96,
+        "text": "このように、水道や湖では必ずしも良くは必要ありません。",
+        "timestamp_granularity": "segment",
+        "total_ms": 115.0127500295639,
+        "vocabulary_applied": false,
+        "warm": true,
+        "words": []
+      },
+      "new": {
+        "active_gpu_bytes": 1618307758,
+        "audio_seconds": 6.96,
+        "decode_ms": 114.28341595456004,
+        "language": "ja",
+        "load_ms": 0.0021669548004865646,
+        "model": "whisper-turbo",
+        "peak_gpu_bytes": 2550180726,
+        "preprocess_ms": 0.3794578369706869,
+        "segments": [
+          {
+            "end": 6.96,
+            "start": 0,
+            "text": "このように、水道や湖では必ずしも良くは必要ありません。"
+          }
+        ],
+        "silence": false,
+        "speech_seconds": 6.96,
+        "text": "このように、水道や湖では必ずしも良くは必要ありません。",
+        "timestamp_granularity": "segment",
+        "timing_corrections": {
+          "clipped_intervals": 1,
+          "fallback_to_utterance": false
+        },
+        "timing_warning": "Some recognizer timings extended outside the analyzed audio and were bounded. Check alignment before using timed exports.",
+        "total_ms": 114.68487489037216,
+        "vocabulary_applied": false,
+        "warm": true,
+        "words": []
+      }
+    },
+    {
+      "model": "whisper-turbo",
+      "id": "fleurs-ja_jp-005-quiet40db",
+      "route": "neural_edges",
+      "bad_before": false,
+      "old": {
+        "audio_seconds": 6.96,
+        "decode_ms": 0,
+        "detector_abstained": true,
+        "language": "ja",
+        "load_ms": 0,
+        "model": "whisper-turbo",
+        "preprocess_ms": 0.5456670187413692,
+        "segments": [],
+        "silence": true,
+        "speech_edges": {
+          "audio_samples": 111360,
+          "end_sample": 0,
+          "method": "silero-causal8-v1",
+          "pcm_sha256": "accb35113aa1ed8c38c2cbcb9eb6a4a756756df4b07df685ab958ed6f54cb13b",
+          "sample_rate": 16000,
+          "start_sample": 0
+        },
+        "speech_seconds": 0,
+        "text": "",
+        "total_ms": 0.5456670187413692,
+        "warm": true
+      },
+      "new": {
+        "audio_seconds": 6.96,
+        "decode_ms": 0,
+        "detector_abstained": true,
+        "language": "ja",
+        "load_ms": 0,
+        "model": "whisper-turbo",
+        "preprocess_ms": 0.5961251445114613,
+        "segments": [],
+        "silence": true,
+        "speech_edges": {
+          "audio_samples": 111360,
+          "end_sample": 0,
+          "method": "silero-causal8-v1",
+          "pcm_sha256": "accb35113aa1ed8c38c2cbcb9eb6a4a756756df4b07df685ab958ed6f54cb13b",
+          "sample_rate": 16000,
+          "start_sample": 0
+        },
+        "speech_seconds": 0,
+        "text": "",
+        "total_ms": 0.5961251445114613,
+        "warm": true
+      }
+    }
+  ],
+  "boundary": "Reproduce actual Whisper overruns against the previous bundle and new source.\n\nBoth CLIs run the same full/neural-edge requests. This checks text identity and\nsource-bound timing, not recognition accuracy or comparative latency. The old CLI uses the delivered bundle; the new development CLI explicitly uses the frozen current checkout worker. All inputs are public known clips, language hints are explicit, requests are offline, source sample ranges/hashes are unchanged, and both app signatures remain valid. No microphone, native warning/export acceptance, new ZIP or detector-quality improvement."
+}

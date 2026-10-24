@@ -1,0 +1,40 @@
+{
+  "status": "passed-source-and-real-reproduction-native-acceptance-open",
+  "build": {
+    "version": "0.1.0",
+    "built_at": "2026-10-24T02:15:20.180426+00:00",
+    "git_commit": "873411d36e04811cae0242d8ab20a7178318271a",
+    "tracked_changes": false,
+    "application_source_sha256": "7ec0f80c1bd9bd9d987b3cd89845dcacd706bd512bd2a7031f3807adc44cccf7",
+    "source_manifest_version": 2,
+    "signing_mode": "ad-hoc",
+    "boundary": "Development build; ad-hoc signature; not notarized; weights downloaded separately."
+  },
+  "executable_sha256": "4d66bdfd4738ea79d912e33d53222ade2c55760ecdf0d038af02e1475a696c8e",
+  "cli_sha256": "8737c2a2a7b97efc8ec8d633d69d7b5f6f4eba96ba5900c3ea0568378e2d81b4",
+  "checks": {
+    "swift_tests": 304,
+    "python_tests": 163,
+    "release_build": true,
+    "ad_hoc_signature_verified": true,
+    "stored_model_responses_checked": 1010,
+    "stored_overruns_corrected": 12,
+    "actual_old_new_route_pairs": 22,
+    "actual_asr_calls": 42,
+    "text_identity_pairs": 22,
+    "actual_overruns_corrected": 12
+  },
+  "receipts_sha256": {
+    "asr-timing-replay.json": "e6fbee885bc237b54ad52e790942741ad76e8758363bbba04793948da7d6786c",
+    "asr-timing-live.json": "00f91a8cd3c413783192b7663a86509f43fc8dfe217b5dfac36512dc0f36d09a",
+    "neural-edges-multilingual-v1.json": "d3a467ecdca892e22aa8b5768ab702350a00fa7a7378d032ef0748fefe516779",
+    "neural-edges-multilingual-v1-checks.json": "1c9ed81d87a66a8815b2005428588e39be4c625f68e90c473831298658799954"
+  },
+  "native_test_history": {
+    "first_full_run": "One 0.5-second fake-worker startup/termination test timed out during concurrent work.",
+    "focused_recheck": "passed",
+    "full_sequential_recheck": "304 passed",
+    "worker_implementation_and_timeouts_changed": false
+  },
+  "boundary": "Source timestamp repair, real paired old/new Whisper reproduction and frozen model-response replay. Recognition text/ranges/hashes remain unchanged. No detector-quality gain, new ZIP, physical microphone, native warning/retry/export or insertion acceptance. The earlier signed preview still lacks this fix; current source adds the explicit quality warning."
+}
