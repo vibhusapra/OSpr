@@ -67,4 +67,56 @@ final class MeetingSummaryLifecycleTests: XCTestCase {
         XCTAssertEqual(loaded?.summary?.model, "previous"); XCTAssertEqual(loaded?.text, first.text)
         try await app.prepareForTermination()
     }
+
+    @MainActor func testEditedSourceIsCapturedAndSelectionMoveDoesNotRedirectResult() async throws {
+        let path = try directory(), gate = SummaryResponseGate(), source = "Do not ship Friday."
+        var first = record("Ship Friday."); first.text = source
+        first.notes = try MeetingNotes(source: first.rawText, excerpts: [.init(id: 0, text: first.rawText)], model: "extractive")
+        let second = record("Other transcript.")
+        let app = AppModel(instanceLock: try AppInstanceLock(directory: path), directory: path, enableServices: false,
+                           summaryRequest: { text in XCTAssertEqual(text, source); return await gate.wait() })
+        try await settle { !app.audioMaintenance }
+        app.historyState.submit(first, select: true); app.historyState.submit(second, select: false)
+        try await app.historyState.flush()
+        app.generateSummary(first, sourceKind: .edited); try await settle { gate.continuation != nil }
+        app.selection = second.id; try await settle { app.selected?.id == second.id }
+        gate.finish(payload(source)); try await settle { app.phase == "idle" }
+        XCTAssertTrue(app.error.isEmpty, app.error)
+        let loaded = try await app.historyState.record(id: first.id)
+        XCTAssertEqual(loaded?.rawText, first.rawText); XCTAssertEqual(loaded?.text, source)
+        XCTAssertEqual(loaded?.notes?.model, "extractive")
+        XCTAssertEqual(loaded?.summary?.sourceKind, .edited); XCTAssertEqual(loaded?.summary?.sourceSnapshot, source)
+        XCTAssertEqual(app.selected?.id, second.id)
+        let saved = try XCTUnwrap(loaded)
+        app.clearSummary(saved)
+        try await settle { app.status == "Summary and its saved source removed" }
+        let cleared = try await app.historyState.record(id: first.id)
+        XCTAssertNil(cleared?.summary); XCTAssertEqual(cleared?.text, source)
+        XCTAssertEqual(cleared?.notes?.model, "extractive"); XCTAssertEqual(app.selected?.id, second.id)
+        try await app.prepareForTermination()
+    }
+
+    @MainActor func testEditedSourceChangedInFlightAndCancelledResponsePreservePreviousSummary() async throws {
+        let path = try directory(), gate = SummaryResponseGate(), source = "Do not ship Friday."
+        var first = record("Ship Friday."); first.text = source
+        first.summary = try MeetingSummary(source: source, items: [.init(section: .decisions, text: "Hold the Friday release.", sourceIDs: [0])], excerpts: [.init(id: 0, text: source)], model: "previous", chunks: 1, sourceKind: .edited)
+        let app = AppModel(instanceLock: try AppInstanceLock(directory: path), directory: path, enableServices: false,
+                           summaryRequest: { _ in await gate.wait() })
+        try await settle { !app.audioMaintenance }
+        app.historyState.submit(first, select: true); try await app.historyState.flush()
+        app.generateSummary(first, sourceKind: .edited); try await settle { gate.continuation != nil }
+        app.historyState.updateText(id: first.id, text: "Wait for review.")
+        gate.finish(payload(source)); try await settle { app.phase == "idle" }
+        XCTAssertFalse(app.error.isEmpty)
+        let loaded = try await app.historyState.record(id: first.id)
+        let changed = try XCTUnwrap(loaded)
+        XCTAssertEqual(changed.text, "Wait for review."); XCTAssertEqual(changed.summary, first.summary)
+        XCTAssertFalse(try XCTUnwrap(changed.summary).sourceIsCurrent(in: changed))
+        app.generateSummary(changed, sourceKind: .edited); try await settle { gate.continuation != nil }
+        app.cancel(); gate.finish(payload(changed.text))
+        try await Task.sleep(for: .milliseconds(30)); try await app.historyState.flush()
+        let afterCancel = try await app.historyState.record(id: first.id)
+        XCTAssertEqual(afterCancel?.summary, first.summary); XCTAssertEqual(afterCancel?.text, changed.text)
+        try await app.prepareForTermination()
+    }
 }

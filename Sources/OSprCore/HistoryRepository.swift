@@ -83,12 +83,26 @@ public final class HistoryRepository: @unchecked Sendable {
         update(id: id, delay: delay, completion: completion) { $0.text = text }
     }
 
-    public func updateSummary(id: UUID, summary: MeetingSummary, expectedRawText: String, completion: Completion? = nil) {
+    public func updateSummary(id: UUID, summary: MeetingSummary, expectedRawText: String,
+                              expectedEditedText: String? = nil, completion: Completion? = nil) {
         update(id: id, delay: 0, completion: completion) { record in
-            guard record.rawText == expectedRawText, summary.matches(record.rawText) else {
-                throw OSprError.message("The original transcript changed. Summary was not applied.")
+            guard record.rawText.utf8.elementsEqual(expectedRawText.utf8), summary.validatesStoredSource(for: record),
+                  summary.sourceIsCurrent(in: record),
+                  summary.sourceKind == .original || expectedEditedText.map({ record.text.utf8.elementsEqual($0.utf8) }) == true else {
+                throw OSprError.message("The summary source changed. Summary was not applied.")
             }
             record.summary = summary
+        }
+    }
+
+    /// Clear only the summary the user saw, preserving newer replacements and
+    /// all transcript fields. The storage writer fence remains in place.
+    public func clearSummary(id: UUID, expected: MeetingSummary, completion: Completion? = nil) {
+        update(id: id, delay: 0, completion: completion) { record in
+            guard record.summary == expected else {
+                throw OSprError.message("The summary changed. Review it before removing it.")
+            }
+            record.summary = nil
         }
     }
 

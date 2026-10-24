@@ -137,15 +137,29 @@ import OSprCore
         repository.updateText(id: id, text: text, completion: observer(token))
     }
 
-    func updateSummary(id: UUID, summary: MeetingSummary, expectedRawText: String) async throws {
+    func updateSummary(id: UUID, summary: MeetingSummary, expectedRawText: String, expectedEditedText: String? = nil) async throws {
         let token = beginWrite()
-        repository.updateSummary(id: id, summary: summary, expectedRawText: expectedRawText, completion: observer(token))
+        repository.updateSummary(id: id, summary: summary, expectedRawText: expectedRawText, expectedEditedText: expectedEditedText, completion: observer(token))
         try await flush()
         guard let record = try await repository.record(id: id), record.rawText == expectedRawText,
-              let saved = record.summary, saved.matches(record.rawText), saved.items == summary.items,
+              let saved = record.summary, saved.validatesStoredSource(for: record), saved.sourceIsCurrent(in: record), saved.items == summary.items,
               saved.excerpts == summary.excerpts, saved.model == summary.model, saved.chunks == summary.chunks,
-              saved.created == summary.created else {
+              saved.created == summary.created, saved.sourceKind == summary.sourceKind,
+              saved.sourceSHA256 == summary.sourceSHA256, saved.sourceSnapshot == summary.sourceSnapshot else {
             throw OSprError.message("Summary could not be applied. The transcript may have been removed or changed.")
+        }
+        guard writeEpoch == token else { return }
+        if selected?.id == id { selected = record }
+        if latest?.id == id { latest = record }
+        if pendingRecords[id] != nil { pendingRecords[id] = record }
+    }
+
+    func clearSummary(id: UUID, expected: MeetingSummary) async throws {
+        let token = beginWrite()
+        repository.clearSummary(id: id, expected: expected, completion: observer(token))
+        try await flush()
+        guard let record = try await repository.record(id: id), record.summary == nil else {
+            throw OSprError.message("Summary was not removed. It may have changed; review it before trying again.")
         }
         guard writeEpoch == token else { return }
         if selected?.id == id { selected = record }

@@ -1,0 +1,75 @@
+{
+  "status": "native-edited-summary-persistence-verified",
+  "source_commit": "63d5eac20c8cdb37e6aa0bce4ed188e2a7dc6ec1",
+  "application_source_sha256": "788fea4e210961a3f2cde40c429c4649ba869827eab527a9b45fb94fff19258f",
+  "executable_sha256": "de141186397ad91357221c21b7385a8d9ae87f1d7db7e1c0dbc0225bc80a4c24",
+  "fixture_original": "Ship Friday. The price is $15.50.",
+  "fixture_current": "Do not ship Friday. The price is $12.50.",
+  "saved_summary": {
+    "chunks": 1,
+    "created": 814570753.257819,
+    "excerpts": [
+      {
+        "id": 0,
+        "text": "Do not ship Friday."
+      },
+      {
+        "id": 1,
+        "text": "The price is $12.50."
+      }
+    ],
+    "items": [
+      {
+        "section": "decisions",
+        "source_ids": [
+          0
+        ],
+        "text": "Shipping is prohibited on Friday."
+      },
+      {
+        "section": "decisions",
+        "source_ids": [
+          1
+        ],
+        "text": "The price is set at $12.50."
+      }
+    ],
+    "model": "mlx-community/Qwen3.5-9B-4bit",
+    "sourceKind": "edited",
+    "sourceSHA256": "980fe7e571fab5690bc0a695f825252535853850b7cbedf4431f8a03190bcab2",
+    "sourceSnapshot": "Do not ship Friday. The price is $12.50."
+  },
+  "writer_version": 4,
+  "checks": {
+    "native_stale_warning": true,
+    "native_source_and_quote_disclosures": true,
+    "native_retention_menu": true,
+    "native_snapshot_removal": true,
+    "native_removal_and_text_edit_survive_quit_restart": true,
+    "native_edited_generation": true,
+    "native_original_generation": true,
+    "native_editor_change_marks_edited_summary_stale": true,
+    "native_long_request_cancelled_during_part_1_of_2": true,
+    "final_edited_summary_persists_after_quit": true,
+    "generated_edited_summary_and_snapshot_survive_native_reopen": true,
+    "native_summary_scroll": true,
+    "prior_original_source_and_price_visible_after_cancel": true
+  },
+  "setup_observations": [
+    "Initial isolated Documents profile waited in chmod before drawing a window; sampled owned process and stopped it. Application Support profile then launched normally. No OS permission settings changed.",
+    "Initial runtime relocation copied Engine without its sibling Python; visible content-free failure preserved the transcript. Full Engine/Python layout then imported and generated correctly. All 29 backend source/data files match this checkout.",
+    "A short refresh completed with a valid empty summary before cancellation could be exercised. The subsequent 160-line public control was observed summarizing part 1 of 2 and cancelled; previous original-source notes stayed visible."
+  ],
+  "boundary": "Thin ad-hoc debug QA app with unique identity and synthetic Application Support profile. Relocated previously tested parent Engine/Python runtime; current executable/source. No microphone, playback, insertion, API keys, native clipboard/copy or distribution validation. VoiceOver, lower-memory devices and broader semantic quality remain open.",
+  "evidence_images": {
+    "docs/assets/edited-summary-native-cancel.png": "5d4c031dd16d011667f90dbcc46aba4e59d19c51957523bf825811e3d5dbf3d5",
+    "docs/assets/edited-summary-native-generated.png": "be5f3487514ce6cfa324c7bfa4416d93f4bc79f57bf716b49c771fdf4a3a2013",
+    "docs/assets/edited-summary-native-menu.png": "fbff45edb5b66f730c90e7b3d68df3065971ed68c47cd78422a7cd19b051f91c",
+    "docs/assets/edited-summary-native-original.png": "55a74dc8d3b410a3557c6b10a7c7e5007a6c639bd9c4925130505315130f382c",
+    "docs/assets/edited-summary-native-restart.png": "6ff0bbfa52eda2499a57665cfdf2aca6e784173bee5b5a858a0209556911d80e",
+    "docs/assets/edited-summary-native-stale.png": "d194797ee607106d8dd909600d850357dd836dbc34f9622c32e524400e7eab94"
+  },
+  "normal_app_restored": true,
+  "normal_settings_history_unchanged": true,
+  "qa_running": false
+}

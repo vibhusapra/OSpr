@@ -155,7 +155,7 @@ public final class HistoryDatabase {
         }
         sqlite3_busy_timeout(database, 2_000)
         let version = try integer("PRAGMA user_version")
-        guard version == 0 || version == 1 || version == 2 || version == 3 else {
+        guard (0...4).contains(version) else {
             throw OSprError.message("This history database needs a newer OSpr version. Existing files were preserved.")
         }
         try execute("PRAGMA journal_mode=DELETE; PRAGMA synchronous=FULL; PRAGMA secure_delete=ON; PRAGMA temp_store=MEMORY; PRAGMA cache_size=-4096;")
@@ -396,7 +396,7 @@ public final class HistoryDatabase {
             }
         }
         if let value = record["summary"], !(value is NSNull) {
-            let summary = try object(value, keys: ["items", "excerpts", "sourceSHA256", "model", "chunks", "created"])
+            let summary = try object(value, keys: ["items", "excerpts", "sourceSHA256", "model", "chunks", "created", "sourceKind", "sourceSnapshot"])
             if let values = summary["items"] as? [Any] {
                 for item in values { _ = try object(item, keys: ["section", "text", "source_ids"]) }
             }
@@ -580,9 +580,10 @@ public final class HistoryDatabase {
 
     private func put(_ record: Transcript, position: Int64? = nil, allowUpdate: Bool = true) throws {
         if let summary = record.summary {
-            guard summary.matches(record.rawText) else { throw OSprError.message("Summary does not match the original transcript. History was preserved.") }
-            // Transactional forward-writer fence: pre-summary v2 apps reject v3.
-            if try integer("PRAGMA user_version") < 3 { try execute("PRAGMA user_version=3") }
+            guard summary.validatesStoredSource(for: record) else { throw OSprError.message("Summary does not match its source transcript. History was preserved.") }
+            // Earlier readers must refuse snapshots instead of dropping them.
+            let requiredVersion = summary.sourceKind == .edited ? 4 : 3
+            if try integer("PRAGMA user_version") < requiredVersion { try execute("PRAGMA user_version=\(requiredVersion)") }
         }
         let payload = try encoder.encode(record)
         let sql = """

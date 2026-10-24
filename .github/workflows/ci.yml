@@ -23,6 +23,8 @@ jobs:
         run: |
           /usr/bin/sqlite3 --version
           swift test
+          swiftc -typecheck -parse-as-library -I .build/debug/Modules benchmarks/edited_summary_storage.swift
+          swiftc -typecheck -parse-as-library -I .build/debug/Modules benchmarks/history_archive_reader.swift
           swiftc -typecheck -parse-as-library -I .build/debug/Modules benchmarks/refinement_guard.swift
           swiftc -typecheck -swift-version 5 -parse-as-library Sources/OSprCore/WorkerClient.swift benchmarks/native_stream_stop.swift
           swiftc -typecheck -swift-version 5 -parse-as-library Sources/OSprCore/WorkerClient.swift Sources/OSprCore/StreamingSpeechResampler.swift benchmarks/resampling_quality.swift
