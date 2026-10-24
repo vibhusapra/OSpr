@@ -55,7 +55,9 @@ def stream(model, audio, options):
         accepted += len(chunk)
         text += "".join(session.step(max_decode_tokens=options["step_max_decode_tokens"]))
         events.append(dict(audio_samples=accepted, audio_position_ms=accepted / SAMPLE_RATE * 1000,
-                           step_ms=(time.perf_counter() - began) * 1000, text=text))
+                           step_ms=(time.perf_counter() - began) * 1000, text=text,
+                           retained_raw_samples=len(session._smel._buf),
+                           retained_adapter_frames=session._n_adapter()))
     ended_early = accepted != len(audio)
     session.close()
     flush = time.perf_counter()
