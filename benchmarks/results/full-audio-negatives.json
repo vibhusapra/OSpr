@@ -1,0 +1,1743 @@
+{
+  "status": "completed-nonspeech-control-not-quality-promotion",
+  "timestamp": "2026-10-24T03:05:44.665669+00:00",
+  "build": {
+    "version": "0.1.0",
+    "built_at": "2026-10-24T03:01:30.117052+00:00",
+    "git_commit": "9a51603880d86d823a1d9469d2dcc3561511afca",
+    "tracked_changes": false,
+    "application_source_sha256": "643e90424a906917a546709c7d62e09cd728d7062cf0fc36b1d701a55b4ce1a6",
+    "source_manifest_version": 2,
+    "signing_mode": "configured-identity",
+    "boundary": "Development build; configured signing identity; not notarized; weights downloaded separately."
+  },
+  "harness_sha256": "d23c5b2e977197729e0264985644a295aebb61d2bbe518ae089748ba5fa2369d",
+  "source_result_sha256": "8ba3535bb7cb0d4edfb43d6b6616e45075ac50522c60434b6fd3b5b5bd431779",
+  "requests": 60,
+  "actual_asr": 48,
+  "fixtures": [
+    {
+      "id": "synthetic-silence",
+      "sha256": "754600f871902b78686a437542199c86f9ce21d65e7bdfed3e330311c5c0e24c",
+      "pcm_sha256": "ac2878215ad33205d1732578c89f25ededaad1b676911c540825bcf4baa42d9b",
+      "samples": 80000
+    },
+    {
+      "id": "synthetic-gaussian",
+      "sha256": "6b34811b5d3990bf0f259ee818bb4f9b8058e91191a0d777ecc7cde1444d3f93",
+      "pcm_sha256": "d29daf3126f125ddb6bcfb688c44988be7e4994137d6fae11fdce6d808751648",
+      "samples": 80000
+    },
+    {
+      "id": "synthetic-hum60hz",
+      "sha256": "73a714dcd4913f4bf482554421c5ad4138fbf8cfda2feedd6243d9292cf69ac7",
+      "pcm_sha256": "a8e0d71b5b03b0801297dbfaf9f6f8ee90fee0bca2afe457024346d8d9eb7748",
+      "samples": 80000
+    },
+    {
+      "id": "synthetic-tone440hz",
+      "sha256": "97bcfd1c79e067d58a4fbafad752263d2dfa05068b081cfc71facb263e0b7e7f",
+      "pcm_sha256": "fcedbbbbb16a09842f25de9973e91f6ce4739e9cb9059d3efc418086f5829d28",
+      "samples": 80000
+    },
+    {
+      "id": "synthetic-clicks",
+      "sha256": "66f52ecdb7cbb0558748fb50370538ee886d13914005875f312d9f0d62464bd2",
+      "pcm_sha256": "06e6695f012a76cdc8ea3ed5d985121cd0bf6f153b934fc7bfa8ce5245e208bf",
+      "samples": 80000
+    }
+  ],
+  "summary": {
+    "parakeet-v3": {
+      "default": {
+        "cases": 5,
+        "nonempty": 0
+      },
+      "rms": {
+        "cases": 5,
+        "nonempty": 0
+      }
+    },
+    "whisper-turbo": {
+      "default": {
+        "cases": 5,
+        "nonempty": 4
+      },
+      "rms": {
+        "cases": 5,
+        "nonempty": 4
+      }
+    },
+    "whisper-small": {
+      "default": {
+        "cases": 5,
+        "nonempty": 1
+      },
+      "rms": {
+        "cases": 5,
+        "nonempty": 1
+      }
+    },
+    "qwen3-asr": {
+      "default": {
+        "cases": 5,
+        "nonempty": 2
+      },
+      "rms": {
+        "cases": 5,
+        "nonempty": 2
+      }
+    },
+    "cohere-native8": {
+      "default": {
+        "cases": 5,
+        "nonempty": 0
+      },
+      "rms": {
+        "cases": 5,
+        "nonempty": 0
+      }
+    },
+    "nemotron-streaming": {
+      "default": {
+        "cases": 5,
+        "nonempty": 0
+      },
+      "rms": {
+        "cases": 5,
+        "nonempty": 0
+      }
+    }
+  },
+  "records": [
+    {
+      "model": "parakeet-v3",
+      "id": "synthetic-silence",
+      "route": "default",
+      "result": {
+        "model": "parakeet-v3",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "text": "",
+        "segments": [],
+        "language": "en",
+        "silence": true,
+        "detector_abstained": false,
+        "empty_reason": "normalized_zero",
+        "warm": true,
+        "load_ms": 0,
+        "decode_ms": 0,
+        "preprocess_ms": 0.421375036239624,
+        "total_ms": 0.421375036239624
+      }
+    },
+    {
+      "model": "parakeet-v3",
+      "id": "synthetic-silence",
+      "route": "rms",
+      "result": {
+        "model": "parakeet-v3",
+        "audio_seconds": 5.0,
+        "speech_seconds": 0.0,
+        "text": "",
+        "segments": [],
+        "language": "en",
+        "silence": true,
+        "detector_abstained": false,
+        "empty_reason": "volume_filter_abstained",
+        "warm": true,
+        "load_ms": 0,
+        "decode_ms": 0,
+        "preprocess_ms": 0.33179204910993576,
+        "total_ms": 0.33179204910993576
+      }
+    },
+    {
+      "model": "parakeet-v3",
+      "id": "synthetic-gaussian",
+      "route": "default",
+      "result": {
+        "model": "parakeet-v3",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": "",
+        "language": "en",
+        "silence": false,
+        "warm": false,
+        "load_ms": 423.5362079925835,
+        "preprocess_ms": 0.18454203382134438,
+        "decode_ms": 120.72566710412502,
+        "total_ms": 545.0205830857158,
+        "peak_gpu_bytes": 2491953648,
+        "active_gpu_bytes": 1279076556,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "parakeet-v3",
+      "id": "synthetic-gaussian",
+      "route": "rms",
+      "result": {
+        "model": "parakeet-v3",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": "",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0021669548004865646,
+        "preprocess_ms": 0.4812080878764391,
+        "decode_ms": 50.801416859030724,
+        "total_ms": 51.32829211652279,
+        "peak_gpu_bytes": 2154938864,
+        "active_gpu_bytes": 1279076556,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "parakeet-v3",
+      "id": "synthetic-hum60hz",
+      "route": "default",
+      "result": {
+        "model": "parakeet-v3",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": "",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0021669548004865646,
+        "preprocess_ms": 0.42145908810198307,
+        "decode_ms": 64.01824997738004,
+        "total_ms": 64.48870897293091,
+        "peak_gpu_bytes": 2154938864,
+        "active_gpu_bytes": 1279076556,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "parakeet-v3",
+      "id": "synthetic-hum60hz",
+      "route": "rms",
+      "result": {
+        "model": "parakeet-v3",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": "",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.001334119588136673,
+        "preprocess_ms": 0.487874960526824,
+        "decode_ms": 65.49745798110962,
+        "total_ms": 66.03016704320908,
+        "peak_gpu_bytes": 2154938864,
+        "active_gpu_bytes": 1279076556,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "parakeet-v3",
+      "id": "synthetic-tone440hz",
+      "route": "default",
+      "result": {
+        "model": "parakeet-v3",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": "",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0012919772416353226,
+        "preprocess_ms": 0.39408309385180473,
+        "decode_ms": 48.33525000140071,
+        "total_ms": 48.780790995806456,
+        "peak_gpu_bytes": 2154938864,
+        "active_gpu_bytes": 1279076556,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "parakeet-v3",
+      "id": "synthetic-tone440hz",
+      "route": "rms",
+      "result": {
+        "model": "parakeet-v3",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": "",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.00300002284348011,
+        "preprocess_ms": 0.5021670367568731,
+        "decode_ms": 37.819042103365064,
+        "total_ms": 38.36854198016226,
+        "peak_gpu_bytes": 2154938864,
+        "active_gpu_bytes": 1279076556,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "parakeet-v3",
+      "id": "synthetic-clicks",
+      "route": "default",
+      "result": {
+        "model": "parakeet-v3",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": "",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0014170072972774506,
+        "preprocess_ms": 0.3892499953508377,
+        "decode_ms": 35.40895809419453,
+        "total_ms": 35.846166079863906,
+        "peak_gpu_bytes": 2154938864,
+        "active_gpu_bytes": 1279076556,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "parakeet-v3",
+      "id": "synthetic-clicks",
+      "route": "rms",
+      "result": {
+        "model": "parakeet-v3",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": "",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0018749851733446121,
+        "preprocess_ms": 0.5160409491509199,
+        "decode_ms": 34.90191698074341,
+        "total_ms": 35.46229097992182,
+        "peak_gpu_bytes": 2154938864,
+        "active_gpu_bytes": 1279076556,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "whisper-turbo",
+      "id": "synthetic-silence",
+      "route": "default",
+      "result": {
+        "model": "whisper-turbo",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "text": "",
+        "segments": [],
+        "language": "en",
+        "silence": true,
+        "detector_abstained": false,
+        "empty_reason": "normalized_zero",
+        "warm": true,
+        "load_ms": 0,
+        "decode_ms": 0,
+        "preprocess_ms": 0.3761660773307085,
+        "total_ms": 0.3761660773307085
+      }
+    },
+    {
+      "model": "whisper-turbo",
+      "id": "synthetic-silence",
+      "route": "rms",
+      "result": {
+        "model": "whisper-turbo",
+        "audio_seconds": 5.0,
+        "speech_seconds": 0.0,
+        "text": "",
+        "segments": [],
+        "language": "en",
+        "silence": true,
+        "detector_abstained": false,
+        "empty_reason": "volume_filter_abstained",
+        "warm": true,
+        "load_ms": 0,
+        "decode_ms": 0,
+        "preprocess_ms": 0.27070892974734306,
+        "total_ms": 0.27070892974734306
+      }
+    },
+    {
+      "model": "whisper-turbo",
+      "id": "synthetic-gaussian",
+      "route": "default",
+      "result": {
+        "model": "whisper-turbo",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [
+          {
+            "start": 0,
+            "end": 2.0,
+            "text": "so"
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": "so",
+        "language": "en",
+        "silence": false,
+        "warm": false,
+        "load_ms": 2126.679874956608,
+        "preprocess_ms": 0.1915828324854374,
+        "decode_ms": 496.4157089125365,
+        "total_ms": 2623.3625418972224,
+        "peak_gpu_bytes": 2556532630,
+        "active_gpu_bytes": 1618309810,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "whisper-turbo",
+      "id": "synthetic-gaussian",
+      "route": "rms",
+      "result": {
+        "model": "whisper-turbo",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [
+          {
+            "start": 0.0,
+            "end": 2.0,
+            "text": "so"
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": "so",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.002624932676553726,
+        "preprocess_ms": 0.8149999193847179,
+        "decode_ms": 100.36724992096424,
+        "total_ms": 101.24020790681243,
+        "peak_gpu_bytes": 2550084474,
+        "active_gpu_bytes": 1618309810,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "whisper-turbo",
+      "id": "synthetic-hum60hz",
+      "route": "default",
+      "result": {
+        "model": "whisper-turbo",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [
+          {
+            "start": 0,
+            "end": 5.0,
+            "text": "Thank you."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "timing_corrections": {
+          "clipped_intervals": 1,
+          "fallback_to_utterance": false
+        },
+        "timing_warning": "Some recognizer timings extended outside the analyzed audio and were bounded. Check alignment before using timed exports.",
+        "text": "Thank you.",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.001375097781419754,
+        "preprocess_ms": 0.3659580834209919,
+        "decode_ms": 92.84137515351176,
+        "total_ms": 93.2685830630362,
+        "peak_gpu_bytes": 2550084474,
+        "active_gpu_bytes": 1618309810,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "whisper-turbo",
+      "id": "synthetic-hum60hz",
+      "route": "rms",
+      "result": {
+        "model": "whisper-turbo",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [
+          {
+            "start": 0.0,
+            "end": 5.0,
+            "text": "Thank you."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "timing_corrections": {
+          "clipped_intervals": 1,
+          "fallback_to_utterance": false
+        },
+        "timing_warning": "Some recognizer timings extended outside the analyzed audio and were bounded. Check alignment before using timed exports.",
+        "text": "Thank you.",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.000959029421210289,
+        "preprocess_ms": 0.46391692012548447,
+        "decode_ms": 108.31812489777803,
+        "total_ms": 108.82870899513364,
+        "peak_gpu_bytes": 2550084474,
+        "active_gpu_bytes": 1618309810,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "whisper-turbo",
+      "id": "synthetic-tone440hz",
+      "route": "default",
+      "result": {
+        "model": "whisper-turbo",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [
+          {
+            "start": 0,
+            "end": 5.0,
+            "text": "."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": ".",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0012919772416353226,
+        "preprocess_ms": 0.39537507109344006,
+        "decode_ms": 103.91654213890433,
+        "total_ms": 104.3643329758197,
+        "peak_gpu_bytes": 2550084474,
+        "active_gpu_bytes": 1618309810,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "whisper-turbo",
+      "id": "synthetic-tone440hz",
+      "route": "rms",
+      "result": {
+        "model": "whisper-turbo",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [
+          {
+            "start": 0.0,
+            "end": 5.0,
+            "text": "."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": ".",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0022919848561286926,
+        "preprocess_ms": 0.46066707000136375,
+        "decode_ms": 102.57529211230576,
+        "total_ms": 103.0885421205312,
+        "peak_gpu_bytes": 2550084474,
+        "active_gpu_bytes": 1618309810,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "whisper-turbo",
+      "id": "synthetic-clicks",
+      "route": "default",
+      "result": {
+        "model": "whisper-turbo",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [
+          {
+            "start": 0,
+            "end": 5.0,
+            "text": "Thank you."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "timing_corrections": {
+          "clipped_intervals": 1,
+          "fallback_to_utterance": false
+        },
+        "timing_warning": "Some recognizer timings extended outside the analyzed audio and were bounded. Check alignment before using timed exports.",
+        "text": "Thank you.",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.001459149643778801,
+        "preprocess_ms": 0.40962500497698784,
+        "decode_ms": 122.89387499913573,
+        "total_ms": 123.36499989032745,
+        "peak_gpu_bytes": 2550084474,
+        "active_gpu_bytes": 1618309810,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "whisper-turbo",
+      "id": "synthetic-clicks",
+      "route": "rms",
+      "result": {
+        "model": "whisper-turbo",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [
+          {
+            "start": 0.0,
+            "end": 5.0,
+            "text": "Thank you."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "timing_corrections": {
+          "clipped_intervals": 1,
+          "fallback_to_utterance": false
+        },
+        "timing_warning": "Some recognizer timings extended outside the analyzed audio and were bounded. Check alignment before using timed exports.",
+        "text": "Thank you.",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0012919772416353226,
+        "preprocess_ms": 0.4757500719279051,
+        "decode_ms": 110.97208387218416,
+        "total_ms": 111.49658309295774,
+        "peak_gpu_bytes": 2550084474,
+        "active_gpu_bytes": 1618309810,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "whisper-small",
+      "id": "synthetic-silence",
+      "route": "default",
+      "result": {
+        "model": "whisper-small",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "text": "",
+        "segments": [],
+        "language": "en",
+        "silence": true,
+        "detector_abstained": false,
+        "empty_reason": "normalized_zero",
+        "warm": true,
+        "load_ms": 0,
+        "decode_ms": 0,
+        "preprocess_ms": 0.4308749921619892,
+        "total_ms": 0.4308749921619892
+      }
+    },
+    {
+      "model": "whisper-small",
+      "id": "synthetic-silence",
+      "route": "rms",
+      "result": {
+        "model": "whisper-small",
+        "audio_seconds": 5.0,
+        "speech_seconds": 0.0,
+        "text": "",
+        "segments": [],
+        "language": "en",
+        "silence": true,
+        "detector_abstained": false,
+        "empty_reason": "volume_filter_abstained",
+        "warm": true,
+        "load_ms": 0,
+        "decode_ms": 0,
+        "preprocess_ms": 0.42158388532698154,
+        "total_ms": 0.42158388532698154
+      }
+    },
+    {
+      "model": "whisper-small",
+      "id": "synthetic-gaussian",
+      "route": "default",
+      "result": {
+        "model": "whisper-small",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": "",
+        "language": "en",
+        "silence": false,
+        "warm": false,
+        "load_ms": 131.85079209506512,
+        "preprocess_ms": 0.24724984541535378,
+        "decode_ms": 106.98537505231798,
+        "total_ms": 239.12741686217487,
+        "peak_gpu_bytes": 1447279430,
+        "active_gpu_bytes": 484088562,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "whisper-small",
+      "id": "synthetic-gaussian",
+      "route": "rms",
+      "result": {
+        "model": "whisper-small",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": "",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0014579854905605316,
+        "preprocess_ms": 0.5378748755902052,
+        "decode_ms": 37.675916915759444,
+        "total_ms": 38.256957894191146,
+        "peak_gpu_bytes": 1436130766,
+        "active_gpu_bytes": 484088562,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "whisper-small",
+      "id": "synthetic-hum60hz",
+      "route": "default",
+      "result": {
+        "model": "whisper-small",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [
+          {
+            "start": 0,
+            "end": 2.06,
+            "text": "you"
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": "you",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.001125037670135498,
+        "preprocess_ms": 0.4140839446336031,
+        "decode_ms": 32.20633394084871,
+        "total_ms": 32.69529202952981,
+        "peak_gpu_bytes": 1436130766,
+        "active_gpu_bytes": 484088562,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "whisper-small",
+      "id": "synthetic-hum60hz",
+      "route": "rms",
+      "result": {
+        "model": "whisper-small",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [
+          {
+            "start": 0.0,
+            "end": 2.06,
+            "text": "you"
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": "you",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.002749962732195854,
+        "preprocess_ms": 0.5844170227646828,
+        "decode_ms": 50.26137502864003,
+        "total_ms": 50.92029203660786,
+        "peak_gpu_bytes": 1436130766,
+        "active_gpu_bytes": 484088562,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "whisper-small",
+      "id": "synthetic-tone440hz",
+      "route": "default",
+      "result": {
+        "model": "whisper-small",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": "",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0015830155462026596,
+        "preprocess_ms": 0.4227091558277607,
+        "decode_ms": 35.61716713011265,
+        "total_ms": 36.09666717238724,
+        "peak_gpu_bytes": 1436130766,
+        "active_gpu_bytes": 484088562,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "whisper-small",
+      "id": "synthetic-tone440hz",
+      "route": "rms",
+      "result": {
+        "model": "whisper-small",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": "",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0016249250620603561,
+        "preprocess_ms": 0.504292082041502,
+        "decode_ms": 35.997666884213686,
+        "total_ms": 36.549834068864584,
+        "peak_gpu_bytes": 1436130766,
+        "active_gpu_bytes": 484088562,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "whisper-small",
+      "id": "synthetic-clicks",
+      "route": "default",
+      "result": {
+        "model": "whisper-small",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": "",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0012079253792762756,
+        "preprocess_ms": 0.41924999095499516,
+        "decode_ms": 51.47008295170963,
+        "total_ms": 51.94425000809133,
+        "peak_gpu_bytes": 1436130766,
+        "active_gpu_bytes": 484088562,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "whisper-small",
+      "id": "synthetic-clicks",
+      "route": "rms",
+      "result": {
+        "model": "whisper-small",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": "",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0014579854905605316,
+        "preprocess_ms": 0.6891251541674137,
+        "decode_ms": 48.41224988922477,
+        "total_ms": 49.14449993520975,
+        "peak_gpu_bytes": 1436130766,
+        "active_gpu_bytes": 484088562,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "qwen3-asr",
+      "id": "synthetic-silence",
+      "route": "default",
+      "result": {
+        "model": "qwen3-asr",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "text": "",
+        "segments": [],
+        "language": "en",
+        "silence": true,
+        "detector_abstained": false,
+        "empty_reason": "normalized_zero",
+        "warm": true,
+        "load_ms": 0,
+        "decode_ms": 0,
+        "preprocess_ms": 0.39695785380899906,
+        "total_ms": 0.39695785380899906
+      }
+    },
+    {
+      "model": "qwen3-asr",
+      "id": "synthetic-silence",
+      "route": "rms",
+      "result": {
+        "model": "qwen3-asr",
+        "audio_seconds": 5.0,
+        "speech_seconds": 0.0,
+        "text": "",
+        "segments": [],
+        "language": "en",
+        "silence": true,
+        "detector_abstained": false,
+        "empty_reason": "volume_filter_abstained",
+        "warm": true,
+        "load_ms": 0,
+        "decode_ms": 0,
+        "preprocess_ms": 0.29170792549848557,
+        "total_ms": 0.29170792549848557
+      }
+    },
+    {
+      "model": "qwen3-asr",
+      "id": "synthetic-gaussian",
+      "route": "default",
+      "result": {
+        "model": "qwen3-asr",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [
+          {
+            "start": 0,
+            "end": 5.0,
+            "text": "The."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "The.",
+        "language": "en",
+        "silence": false,
+        "warm": false,
+        "load_ms": 4797.495125094429,
+        "preprocess_ms": 0.18650013953447342,
+        "decode_ms": 111.61358398385346,
+        "total_ms": 4909.354000119492,
+        "peak_gpu_bytes": 3489227538,
+        "active_gpu_bytes": 2486946236,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "qwen3-asr",
+      "id": "synthetic-gaussian",
+      "route": "rms",
+      "result": {
+        "model": "qwen3-asr",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [
+          {
+            "start": 0.0,
+            "end": 5.0,
+            "text": "The."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "The.",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.001959037035703659,
+        "preprocess_ms": 0.5869579035788774,
+        "decode_ms": 93.9068750012666,
+        "total_ms": 94.55962502397597,
+        "peak_gpu_bytes": 3489227842,
+        "active_gpu_bytes": 2492459492,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "qwen3-asr",
+      "id": "synthetic-hum60hz",
+      "route": "default",
+      "result": {
+        "model": "qwen3-asr",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [
+          {
+            "start": 0,
+            "end": 5.0,
+            "text": ""
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0016249250620603561,
+        "preprocess_ms": 0.4674158990383148,
+        "decode_ms": 73.21445900015533,
+        "total_ms": 73.74066603370011,
+        "peak_gpu_bytes": 3489227842,
+        "active_gpu_bytes": 2492459492,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "qwen3-asr",
+      "id": "synthetic-hum60hz",
+      "route": "rms",
+      "result": {
+        "model": "qwen3-asr",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [
+          {
+            "start": 0.0,
+            "end": 5.0,
+            "text": ""
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0029169023036956787,
+        "preprocess_ms": 0.6830419879406691,
+        "decode_ms": 75.00095898285508,
+        "total_ms": 75.73854201473296,
+        "peak_gpu_bytes": 3489227842,
+        "active_gpu_bytes": 2492459492,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "qwen3-asr",
+      "id": "synthetic-tone440hz",
+      "route": "default",
+      "result": {
+        "model": "qwen3-asr",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [
+          {
+            "start": 0,
+            "end": 5.0,
+            "text": "Oh."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "Oh.",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0014998950064182281,
+        "preprocess_ms": 0.49479096196591854,
+        "decode_ms": 80.15474979765713,
+        "total_ms": 80.71229117922485,
+        "peak_gpu_bytes": 3489227842,
+        "active_gpu_bytes": 2492459492,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "qwen3-asr",
+      "id": "synthetic-tone440hz",
+      "route": "rms",
+      "result": {
+        "model": "qwen3-asr",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [
+          {
+            "start": 0.0,
+            "end": 5.0,
+            "text": "Oh."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "Oh.",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0024170149117708206,
+        "preprocess_ms": 0.5954580847173929,
+        "decode_ms": 84.95479100383818,
+        "total_ms": 85.62575001269579,
+        "peak_gpu_bytes": 3489227842,
+        "active_gpu_bytes": 2492459492,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "qwen3-asr",
+      "id": "synthetic-clicks",
+      "route": "default",
+      "result": {
+        "model": "qwen3-asr",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [
+          {
+            "start": 0,
+            "end": 5.0,
+            "text": ""
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0027921050786972046,
+        "preprocess_ms": 0.5135419778525829,
+        "decode_ms": 69.81512508355081,
+        "total_ms": 70.39033388718963,
+        "peak_gpu_bytes": 3489227842,
+        "active_gpu_bytes": 2492459492,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "qwen3-asr",
+      "id": "synthetic-clicks",
+      "route": "rms",
+      "result": {
+        "model": "qwen3-asr",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [
+          {
+            "start": 0.0,
+            "end": 5.0,
+            "text": ""
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0017499551177024841,
+        "preprocess_ms": 0.612333882600069,
+        "decode_ms": 73.4946250449866,
+        "total_ms": 74.16833401657641,
+        "peak_gpu_bytes": 3489227842,
+        "active_gpu_bytes": 2492459492,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "cohere-native8",
+      "id": "synthetic-silence",
+      "route": "default",
+      "result": {
+        "model": "cohere-native8",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "text": "",
+        "segments": [],
+        "language": "en",
+        "silence": true,
+        "detector_abstained": false,
+        "empty_reason": "normalized_zero",
+        "warm": true,
+        "load_ms": 0,
+        "decode_ms": 0,
+        "preprocess_ms": 0.5331661086529493,
+        "total_ms": 0.5331661086529493
+      }
+    },
+    {
+      "model": "cohere-native8",
+      "id": "synthetic-silence",
+      "route": "rms",
+      "result": {
+        "model": "cohere-native8",
+        "audio_seconds": 5.0,
+        "speech_seconds": 0.0,
+        "text": "",
+        "segments": [],
+        "language": "en",
+        "silence": true,
+        "detector_abstained": false,
+        "empty_reason": "volume_filter_abstained",
+        "warm": true,
+        "load_ms": 0,
+        "decode_ms": 0,
+        "preprocess_ms": 0.3279589582234621,
+        "total_ms": 0.3279589582234621
+      }
+    },
+    {
+      "model": "cohere-native8",
+      "id": "synthetic-gaussian",
+      "route": "default",
+      "result": {
+        "model": "cohere-native8",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [
+          {
+            "start": 0,
+            "end": 5.0,
+            "text": ""
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "",
+        "language": "en",
+        "silence": false,
+        "warm": false,
+        "load_ms": 256.44266582094133,
+        "preprocess_ms": 0.2928751055151224,
+        "decode_ms": 219.50358315370977,
+        "total_ms": 476.3036670628935,
+        "peak_gpu_bytes": 2625427046,
+        "active_gpu_bytes": 2482134822,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "cohere-native8",
+      "id": "synthetic-gaussian",
+      "route": "rms",
+      "result": {
+        "model": "cohere-native8",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [
+          {
+            "start": 0.0,
+            "end": 5.0,
+            "text": ""
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.001209089532494545,
+        "preprocess_ms": 0.7142920512706041,
+        "decode_ms": 62.749417033046484,
+        "total_ms": 63.518499955534935,
+        "peak_gpu_bytes": 2625426712,
+        "active_gpu_bytes": 2482134822,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "cohere-native8",
+      "id": "synthetic-hum60hz",
+      "route": "default",
+      "result": {
+        "model": "cohere-native8",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [
+          {
+            "start": 0,
+            "end": 5.0,
+            "text": ""
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0017920974642038345,
+        "preprocess_ms": 0.4064580425620079,
+        "decode_ms": 72.1467921976,
+        "total_ms": 72.61725002899766,
+        "peak_gpu_bytes": 2625427048,
+        "active_gpu_bytes": 2482134822,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "cohere-native8",
+      "id": "synthetic-hum60hz",
+      "route": "rms",
+      "result": {
+        "model": "cohere-native8",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [
+          {
+            "start": 0.0,
+            "end": 5.0,
+            "text": ""
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0015420373529195786,
+        "preprocess_ms": 0.5577090196311474,
+        "decode_ms": 63.795207999646664,
+        "total_ms": 64.40837495028973,
+        "peak_gpu_bytes": 2625426712,
+        "active_gpu_bytes": 2482134822,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "cohere-native8",
+      "id": "synthetic-tone440hz",
+      "route": "default",
+      "result": {
+        "model": "cohere-native8",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [
+          {
+            "start": 0,
+            "end": 5.0,
+            "text": ""
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0016249250620603561,
+        "preprocess_ms": 0.46183401718735695,
+        "decode_ms": 76.63720799610019,
+        "total_ms": 77.16237520799041,
+        "peak_gpu_bytes": 2625426712,
+        "active_gpu_bytes": 2482134822,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "cohere-native8",
+      "id": "synthetic-tone440hz",
+      "route": "rms",
+      "result": {
+        "model": "cohere-native8",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [
+          {
+            "start": 0.0,
+            "end": 5.0,
+            "text": ""
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0014579854905605316,
+        "preprocess_ms": 0.5052920896559954,
+        "decode_ms": 64.10004198551178,
+        "total_ms": 64.65866696089506,
+        "peak_gpu_bytes": 2625426712,
+        "active_gpu_bytes": 2482134822,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "cohere-native8",
+      "id": "synthetic-clicks",
+      "route": "default",
+      "result": {
+        "model": "cohere-native8",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [
+          {
+            "start": 0,
+            "end": 5.0,
+            "text": ""
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0017080456018447876,
+        "preprocess_ms": 0.4106659907847643,
+        "decode_ms": 76.71666704118252,
+        "total_ms": 77.18666619621217,
+        "peak_gpu_bytes": 2625427048,
+        "active_gpu_bytes": 2482134822,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "cohere-native8",
+      "id": "synthetic-clicks",
+      "route": "rms",
+      "result": {
+        "model": "cohere-native8",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [
+          {
+            "start": 0.0,
+            "end": 5.0,
+            "text": ""
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0012081582099199295,
+        "preprocess_ms": 0.654290895909071,
+        "decode_ms": 64.29437501356006,
+        "total_ms": 65.00095804221928,
+        "peak_gpu_bytes": 2625427048,
+        "active_gpu_bytes": 2482134822,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "nemotron-streaming",
+      "id": "synthetic-silence",
+      "route": "default",
+      "result": {
+        "model": "nemotron-streaming",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "text": "",
+        "segments": [],
+        "language": "en",
+        "silence": true,
+        "detector_abstained": false,
+        "empty_reason": "normalized_zero",
+        "warm": true,
+        "load_ms": 0,
+        "decode_ms": 0,
+        "preprocess_ms": 0.37450017407536507,
+        "total_ms": 0.37450017407536507
+      }
+    },
+    {
+      "model": "nemotron-streaming",
+      "id": "synthetic-silence",
+      "route": "rms",
+      "result": {
+        "model": "nemotron-streaming",
+        "audio_seconds": 5.0,
+        "speech_seconds": 0.0,
+        "text": "",
+        "segments": [],
+        "language": "en",
+        "silence": true,
+        "detector_abstained": false,
+        "empty_reason": "volume_filter_abstained",
+        "warm": true,
+        "load_ms": 0,
+        "decode_ms": 0,
+        "preprocess_ms": 0.2878340892493725,
+        "total_ms": 0.2878340892493725
+      }
+    },
+    {
+      "model": "nemotron-streaming",
+      "id": "synthetic-gaussian",
+      "route": "default",
+      "result": {
+        "model": "nemotron-streaming",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [
+          {
+            "start": 0,
+            "end": 5.0,
+            "text": ""
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "",
+        "language": "en",
+        "silence": false,
+        "warm": false,
+        "load_ms": 177.01975000090897,
+        "preprocess_ms": 0.23674988187849522,
+        "decode_ms": 100.61604203656316,
+        "total_ms": 277.9311668127775,
+        "peak_gpu_bytes": 986205286,
+        "active_gpu_bytes": 797420110,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "nemotron-streaming",
+      "id": "synthetic-gaussian",
+      "route": "rms",
+      "result": {
+        "model": "nemotron-streaming",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [
+          {
+            "start": 0.0,
+            "end": 5.0,
+            "text": ""
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.001125037670135498,
+        "preprocess_ms": 0.5070420447736979,
+        "decode_ms": 95.32520803622901,
+        "total_ms": 95.8885420113802,
+        "peak_gpu_bytes": 986251366,
+        "active_gpu_bytes": 797420110,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "nemotron-streaming",
+      "id": "synthetic-hum60hz",
+      "route": "default",
+      "result": {
+        "model": "nemotron-streaming",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [
+          {
+            "start": 0,
+            "end": 5.0,
+            "text": ""
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.00100000761449337,
+        "preprocess_ms": 0.4087910056114197,
+        "decode_ms": 85.40070801973343,
+        "total_ms": 85.87320800870657,
+        "peak_gpu_bytes": 986269286,
+        "active_gpu_bytes": 797420110,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "nemotron-streaming",
+      "id": "synthetic-hum60hz",
+      "route": "rms",
+      "result": {
+        "model": "nemotron-streaming",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [
+          {
+            "start": 0.0,
+            "end": 5.0,
+            "text": ""
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0015830155462026596,
+        "preprocess_ms": 0.4921660292893648,
+        "decode_ms": 96.92095802165568,
+        "total_ms": 97.46962506324053,
+        "peak_gpu_bytes": 986188902,
+        "active_gpu_bytes": 797420110,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "nemotron-streaming",
+      "id": "synthetic-tone440hz",
+      "route": "default",
+      "result": {
+        "model": "nemotron-streaming",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [
+          {
+            "start": 0,
+            "end": 5.0,
+            "text": ""
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.001500127837061882,
+        "preprocess_ms": 0.40612509474158287,
+        "decode_ms": 98.6382921691984,
+        "total_ms": 99.10262492485344,
+        "peak_gpu_bytes": 986203750,
+        "active_gpu_bytes": 797420110,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "nemotron-streaming",
+      "id": "synthetic-tone440hz",
+      "route": "rms",
+      "result": {
+        "model": "nemotron-streaming",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [
+          {
+            "start": 0.0,
+            "end": 5.0,
+            "text": ""
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0015830155462026596,
+        "preprocess_ms": 0.49775000661611557,
+        "decode_ms": 90.07850009948015,
+        "total_ms": 90.63320909626782,
+        "peak_gpu_bytes": 986238054,
+        "active_gpu_bytes": 797420110,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "nemotron-streaming",
+      "id": "synthetic-clicks",
+      "route": "default",
+      "result": {
+        "model": "nemotron-streaming",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [
+          {
+            "start": 0,
+            "end": 5.0,
+            "text": ""
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.001125037670135498,
+        "preprocess_ms": 0.37875003181397915,
+        "decode_ms": 99.65387498959899,
+        "total_ms": 100.09458404965699,
+        "peak_gpu_bytes": 986221670,
+        "active_gpu_bytes": 797420110,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "model": "nemotron-streaming",
+      "id": "synthetic-clicks",
+      "route": "rms",
+      "result": {
+        "model": "nemotron-streaming",
+        "audio_seconds": 5.0,
+        "speech_seconds": 5.0,
+        "segments": [
+          {
+            "start": 0.0,
+            "end": 5.0,
+            "text": ""
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0018749851733446121,
+        "preprocess_ms": 0.5599579308182001,
+        "decode_ms": 100.02812510356307,
+        "total_ms": 100.69141606800258,
+        "peak_gpu_bytes": 986188902,
+        "active_gpu_bytes": 797420110,
+        "vocabulary_applied": false
+      }
+    }
+  ],
+  "boundary": "Known synthetic nonspeech checks for the full-audio versus opt-in RMS routes.\n\nFive previously used fixtures, six models, both routes. These narrow controls do\nnot establish a real-world false-positive rate or justify new filter thresholds. Offline bundled worker; no microphone, history, insertion or native UI. Any nonempty output here is a false positive; raw hypotheses are preserved."
+}

@@ -31,4 +31,24 @@ check uses source 000 in each supported language from the prior multilingual
 study, original and 40 dB attenuation, on all six models (52 requests). This is a
 known-input regression check against frozen full-audio text, not new held-out
 quality evidence. Native recovery interaction and cross-app insertion remain
-separate acceptance gates. Existing ZIPs predate this change.
+separate acceptance gates. The older neural-edges-v0 and context-profiles-v0 ZIPs
+predate this change; later packages identify their source in build-info.json.
+
+## Noise tradeoff
+
+The paired bundled check runs the same five previously used synthetic nonspeech
+fixtures through the default route and explicit RMS filtering for all six models
+(60 requests, 48 actual recognitions; exact-zero input bypasses both routes).
+False-positive counts are identical between these routes: Parakeet 0/5, Cohere
+0/5, Nemotron 0/5, Whisper Turbo 4/5, Whisper Small 1/5 and Qwen 2/5. These raw
+hypotheses are preserved in `full-audio-negatives.json`. RMS is not an effective
+nonspeech guard on this narrow set. Full audio is a quiet-content preservation
+choice, not a general hallucination fix; five synthetic inputs cannot establish
+a real-world false-positive rate. The earlier neural gate rejects these controls
+but loses quiet multilingual speech, so it remains optional.
+
+All 52 fixed multilingual default requests match prior full-audio text. Two real
+bundled MCP requests also preserve full audio and match the original and quiet
+German controls. Source CI passes 305 Swift / 178 Python tests and 17 profile CLI
+cases, including clean-runner bundled imports. See the separate source, MCP,
+nonspeech and package receipts for their exact build boundaries.
