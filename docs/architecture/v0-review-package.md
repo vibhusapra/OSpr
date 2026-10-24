@@ -110,9 +110,28 @@ hashes, build metadata and receipt hashes must agree, or verification fails.
 
 ## Remaining work
 
-The newest packaged app has not passed native final-footer or target-app
-insertion acceptance. Earlier native summary/profile checks remain pinned to
-their source phases. Physical Fn/PTT, route loss/interruption, reference-acoustic
+The current release GUI also passes scoped native light-mode footer checks in
+an isolated session-only profile: query-bearing site and empty Custom instruction
+validation stay visible above disabled Save; valid input enables Save with
+inactive-provider guidance. Saving persists the exact valid site/name/Custom
+instruction and leaves private global values unchanged.
+[Native receipt](../../benchmarks/results/v0-review-native-feedback.json) ·
+[Saved synthetic profile](../../benchmarks/fixtures/v0-review-native-profiles.json) ·
+[Invalid site](../assets/v0-review-native-invalid-site.png) ·
+[Empty instruction](../assets/v0-review-native-invalid-custom.png) ·
+[Provider off](../assets/v0-review-native-provider-off.png).
+
+The QA overlay is re-signed for its private Info.plist profile. Signed executable
+hashes differ, while signature-stripped copies compare byte-identical to the
+packaged GUI. This is scoped native evidence of that GUI payload, not a launch of
+the delivery archive against normal data. One checkbox action reported transient
+AX failure; refreshed state showed it completed. Dark/compact native controls,
+VoiceOver, enable/delete/duplicate/site-canonicalization and live routing remain
+open. A new insertion diagnostic still captured Chrome, so it was cancelled
+without sending. The owned TextEdit field is unchanged; the candidate is stopped
+and normal OSpr is restored at eight sessions/265 words with unchanged hashes.
+Current target-app insertion remains unverified. Earlier native summary/profile
+checks remain pinned to their source phases. Physical Fn/PTT, route loss/interruption, reference-acoustic
 microphone tests, live browser metadata/routing, VoiceOver, clean-Mac/older-OS
 and updater acceptance remain open. Representative independent semantic quality,
 isolated latency/energy and consumer-app comparisons are also pending. No

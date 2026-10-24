@@ -29,7 +29,10 @@ hashes are unchanged. A private-copy current AppModel upgrade preserves the eigh
 existing records and referenced audio across migration/edit/quit/restart.
 [Exact manifest and all gate hashes](benchmarks/results/v0-review-package.json).
 
-Current native footer/insertion, physical shortcut/device/acoustic, VoiceOver,
+Scoped native light-mode profile validation/provider guidance/Save also pass
+in an isolated re-signed copy with identical unsigned GUI bytes.
+[Native evidence](benchmarks/results/v0-review-native-feedback.json).
+Current insertion, broader profile controls, physical shortcut/device/acoustic, VoiceOver,
 representative semantic quality, clean-Mac/older-OS/updater/Developer-ID and
 isolated energy/latency/consumer-ranking acceptance remain open. Synthetic and
 loopback gates do not establish full parity or top-three performance. Earlier

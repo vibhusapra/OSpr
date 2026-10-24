@@ -1,0 +1,52 @@
+{
+  "status": "passed-scoped-current-payload-native-profile-feedback",
+  "timestamp": "2026-10-24T23:06:54.825054+00:00",
+  "build": {
+    "version": "0.1.0",
+    "built_at": "2026-10-24T22:37:48.754331+00:00",
+    "git_commit": "7a6e9ff2fdf1aa9c38a638fd1c88f927507060a5",
+    "tracked_changes": false,
+    "application_source_sha256": "17bf45f556aff0010b02676babbef87556e2a59b98dd06bd3cbf94450773a33a",
+    "source_manifest_version": 2,
+    "signing_mode": "configured-identity",
+    "boundary": "Development build; configured signing identity; not notarized; weights downloaded separately."
+  },
+  "packaged_executable_sha256": "13ffee7cef9355d1845517b9e0c2bb55cec5afff5c858d65a54ba7d44ea4221a",
+  "qa_resigned_executable_sha256": "dc008f18cc0358d03a395c756fd599f0fe8230b1d1d94a56b9f7064e3d77d430",
+  "application_source_sha256": "17bf45f556aff0010b02676babbef87556e2a59b98dd06bd3cbf94450773a33a",
+  "unsigned_gui_bytes_identical": true,
+  "unsigned_gui_sha256": "2148db2c57b5b4a08c91d0c9038222b01160fce0859f4c08c7b17a2a1781d68b",
+  "isolated_session_only_profile": true,
+  "same_trusted_signing_identity": true,
+  "checks": [
+    "query-bearing site rule: Save disabled and reason visible above Save/Cancel",
+    "valid site rule: Save enabled",
+    "Custom mode with empty enabled instruction: Save disabled and visible validation takes priority",
+    "valid Custom instruction: Save enabled with visible inactive-provider guidance",
+    "Save closes editor, shows saved acknowledgement and persists exact site/name/mode/instruction",
+    "preexisting private-profile global settings unchanged",
+    "normal app restored idle with original eight records/265 words; normal data and executable hashes unchanged",
+    "owned TextEdit target remains byte-identical"
+  ],
+  "saved_profile_fixture_sha256": "c8b9584dcc596d0c788750593e949caa001a5c032fb1f62b30e9d8a29f85ff99",
+  "screenshots_sha256": {
+    "v0-review-native-invalid-site.png": "14b6b015063971e3cc710c68ae3de961c406ab6f0c36cb7ad8c1d11f320fc5b6",
+    "v0-review-native-invalid-custom.png": "fedae4bc9f67714886955c2418c9901cfbc66408f6c793b255f862df33cdacfc",
+    "v0-review-native-provider-off.png": "4a472cabe8c5aa368a54fac09b34c20b5e770c2262b2a802664ac61b0fb2a54b"
+  },
+  "normal_app_restored": true,
+  "normal_data_and_app_unchanged": true,
+  "target_unchanged": true,
+  "insertion_attempt": {
+    "captured_destination": "Google Chrome",
+    "sent": false,
+    "cancelled": true,
+    "foreground_guard_bypassed": false,
+    "no_audio_or_model": true
+  },
+  "limitations": [
+    "Thin isolated QA overlay uses the packaged release GUI re-signed for private Info.plist/profile settings; unsigned executable bytes compare identical. This is not a launch of the archived normal-data app.",
+    "Light-mode visible controls only; dark/compact/VoiceOver, enable/delete/duplicates, live URL metadata, dictation and current TextEdit insertion remain open.",
+    "One checkbox action reported a transient AX failure; a fresh state showed it had completed. No universal inspection-service fix claimed."
+  ]
+}

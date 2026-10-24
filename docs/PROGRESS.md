@@ -20,12 +20,20 @@ source content. The ZIP passes CRC/extraction/signatures/offline CLI and exact
 executable hashes; source/backend/locks/licenses match. Normal app/data hashes
 are unchanged. Frozen bundled help contains 358 links.
 
+The current GUI payload also passes scoped native light-mode site/Custom/footer
+validation, provider-off guidance and private profile Save. Re-signed QA and
+packaged GUI compare byte-identical after removing signatures from temporary
+copies. [Native receipt](../benchmarks/results/v0-review-native-feedback.json).
+A retry still captured Chrome; it was cancelled without send. The owned TextEdit
+field is unchanged and normal OSpr is visibly restored. Current insertion,
+broader native profile controls and VoiceOver remain open.
+
 [Exact package manifest](../benchmarks/results/v0-review-package.json) records
 all gate/receipt hashes and archive SHA256.
 [Scope and reproduction](architecture/v0-review-package.md) ·
 [Private-copy upgrade result](../benchmarks/results/v0-review-existing-archive-upgrade.json) ·
 [PR34](https://github.com/vibhusapra/OSpr/pull/34).
-Weights remain separate and the preview is not notarized. Final-footer/current
+Weights remain separate and the preview is not notarized. Broader profile/current
 insertion, physical shortcut/device/acoustic, VoiceOver, clean-Mac/older-OS/updater,
 representative semantic quality and isolated energy/latency/consumer ranking
 remain open. This is not full union parity or top-three acceptance.
