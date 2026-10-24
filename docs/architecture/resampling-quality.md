@@ -51,3 +51,49 @@ Primary API references:
 [quality](https://developer.apple.com/documentation/avfaudio/avaudioconverter/samplerateconverterquality),
 [algorithm](https://developer.apple.com/documentation/avfaudio/avaudioconverter/samplerateconverteralgorithm).
 The installed SDK headers provide the precise property types and quality values.
+
+## Outcome at frozen source becbcc7
+
+The completed study makes 870 native conversions, 1,500 full-file ASR requests
+and fifty real streaming sessions, with no API errors. All 750 corpus conversions preserve
+whole-track PCM/length; ten additional real uneven-partition controls pass. The independent checker rereads
+all samples and independently recomputes hashes/order, complex tone projection,
+Unicode edit distances, quantiles and all promotion gates. Four deliberately
+corrupted receipts are rejected. Seven real helper failure-isolation controls
+pass. Four new Core tests and the complete local 335 Swift / 248 Python suites pass.
+
+No alternative passes every gate. Mastering/maximum reduces forty-clip median
+relative RMS to 1.328% at both rates, from 2.955%/3.046%, and passes the sampled
+passband/alias gates. Its first output needs two 1,024-frame buffers instead of
+one: 42.67/46.44 ms input positions versus 21.33/23.22 ms. Those are input-time
+proxies at this packet granularity, not actual microphone latency. Its packet
+p95 is 100.7/103.9 microseconds versus 1.88/2.00. It adds English word errors in
+both recognizers at both rates, and fails the first-output and language gates.
+
+Normal/maximum costs 3.25/3.50 microseconds at p95 and reduces combined word
+errors, but adds two Nemotron Japanese character errors per rate; its passband
+and original-PCM fidelity gates also fail. Minimum phase improves some Whisper
+counts but worsens Nemotron English/Japanese. Its direct RMS error is dominated
+by phase differences, which is not a human intelligibility judgment. No policy
+adds a new empty speech result or new nonempty nonspeech control.
+
+All production callers retain the native default. No neural VAD input or checked
+package is promoted. A future candidate needs a newly declared held-out study;
+these known results must not become a repeat-until-passing selection process.
+
+The first incomplete run (0fffd61) preserves 100 signal/ten cost results and zero
+ASR calls. Its assumed ceil length did not match Apple's fractional rounding.
+The revised native helper compares exact PCM/length with a separate whole-track
+AVAudioConverter; output duration must be within one sample of the mathematical
+ratio. The original 16 kHz reference can receive one zero tail frame, with no
+cropping or alignment search. All original quality/cost/ASR gates remain fixed.
+
+Files: [study](../../benchmarks/results/resampling-quality-real-v2.json),
+[native timings and ASR replies](../../benchmarks/results/resampling-quality-real-v2.traces.json.gz),
+[independent checks](../../benchmarks/results/resampling-quality-checks.json),
+[helper controls](../../benchmarks/results/resampling-quality-contracts.json),
+[corrupt receipt controls](../../benchmarks/results/resampling-quality-verifier-controls.json),
+[retained attempt](../../benchmarks/results/resampling-quality-attempts.json),
+[frozen protocol](../../benchmarks/fixtures/resampling-quality-protocol.json).
+
+[Source and CI validation](../../benchmarks/results/resampling-quality-source-validation.json).

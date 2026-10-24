@@ -2,6 +2,54 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## Conversion quality study: alternatives rejected, defaults retained
+
+The `codex/resampling-quality` branch tests actual Core conversion at 44.1 and
+48 kHz with native default, normal/high, normal/maximum, mastering/maximum and
+minimum-phase/maximum. The frozen study at `becbcc7` completes **870 native
+conversions, 1,500 cached file-ASR requests and 50 real streaming sessions**, with
+zero API errors. Seventy-five known public cases include forty English speakers,
+five FLEURS languages at original and minus forty dB, and five nonspeech controls.
+
+**No alternative passes every frozen gate.** Mastering reduces median English
+roundtrip relative RMS from 2.95/3.05% to 1.33/1.33% and improves the sampled
+signal response, but first output needs two input buffers instead of one, and
+English word errors increase in both recognizers/rates. At 1,024-frame packets,
+that is 21.33–23.22 ms more input before first output in this unpaced replay,
+not measured microphone latency. Its packet p95 cost is 100.7–103.9 microseconds,
+versus 1.88–2.00 for the native default, still within the study's compute budget.
+Normal maximum reduces combined word errors but adds two Japanese character
+errors at each rate. Minimum phase has a different phase response and worsens
+Nemotron English/Japanese counts. Direct RMS penalizes phase differences; it is
+not a perceptual intelligibility score.
+
+All policies preserve complete PCM against separate whole-track conversion and
+uneven partitions; 16 kHz remains exact passthrough. No new empty speech or new
+nonspeech output appears relative to baseline. The independent checker rereads
+every waveform, checks source/lock/binary hashes and counterbalanced order,
+recomputes signal response, word/character edit distances, quantiles and every
+gate. Corrupted scores, p95, missing stream tail and a false promotion are all
+rejected. Seven real helper controls pass, including exact success after six
+failed requests and preserving an existing output.
+
+The initial run stopped before ASR because a SciPy-style ceil-length assumption
+was wrong for fractional CoreAudio durations. That incomplete attempt is retained;
+the corrected reference requires exact whole-track Apple PCM/length, within one
+sample of the mathematical duration. Quality/cost/ASR thresholds are unchanged.
+
+Local validation passes **335 Swift / 248 Python tests** and lint; four new Core
+tests cover policy settings, identity, partitions and fractional tails. Source
+CI is green at the frozen study source. No production resampling caller, neural
+VAD default, checked package, live settings/history or sound setting changes.
+The ordinary microphone backend still uses its separate continuous SciPy path.
+
+See `resampling-quality-real-v2.json`, native timing/ASR traces, independent
+checks, helper/rejection controls, retained attempt and
+`docs/architecture/resampling-quality.md`. This is shared-machine file replay,
+not physical capture, UI latency, energy, perceptual listening or a product
+ranking. The earlier one-clip 12.86% RMS result and the forty-clip median here
+are different populations. Further tuning needs new predeclared held-out gates.
+
 ## Live meeting drafts: source implementation and replay pass
 
 The `codex/meeting-live-preview` branch closes the prior post-stop-only source

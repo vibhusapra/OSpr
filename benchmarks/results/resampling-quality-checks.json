@@ -1,0 +1,110 @@
+{
+  "status": "verified-samples-signal-scores-costs-order-and-every-gate",
+  "study_commit": "becbcc7039ea55aa0e421471f38e1a167ac557f1",
+  "receipt_sha256": "f6295bf7bba971eb44343ae512453716d846e33960edcea38be2a45740908c07",
+  "traces_sha256": "594e2b8d5da8c30d2b2473b996fcf1d7f6b271c426e52a4f60cd248cf0898be8",
+  "verifier_sha256": "692288931e5ba5056e409067a446670da5c82af381a82c7500e5f88be9346bd1",
+  "audio_cases": 75,
+  "file_asr_requests": 1500,
+  "streaming_sessions": 50,
+  "native_calls": 870,
+  "passing_candidate": null,
+  "policies": [
+    {
+      "policy": "system-default",
+      "checks": {
+        "continuity": true,
+        "passband": false,
+        "alias": false,
+        "fidelity": false,
+        "packet_cost": true,
+        "first_output": true,
+        "language_errors": true,
+        "aggregate_errors": true,
+        "new_empty": true,
+        "new_nonspeech": true,
+        "worst_case": true,
+        "case_balance": true,
+        "streaming": true
+      },
+      "passes": false
+    },
+    {
+      "policy": "normal-high",
+      "checks": {
+        "continuity": true,
+        "passband": false,
+        "alias": false,
+        "fidelity": false,
+        "packet_cost": true,
+        "first_output": true,
+        "language_errors": false,
+        "aggregate_errors": true,
+        "new_empty": true,
+        "new_nonspeech": true,
+        "worst_case": true,
+        "case_balance": true,
+        "streaming": true
+      },
+      "passes": false
+    },
+    {
+      "policy": "normal-max",
+      "checks": {
+        "continuity": true,
+        "passband": false,
+        "alias": true,
+        "fidelity": false,
+        "packet_cost": true,
+        "first_output": true,
+        "language_errors": false,
+        "aggregate_errors": true,
+        "new_empty": true,
+        "new_nonspeech": true,
+        "worst_case": true,
+        "case_balance": true,
+        "streaming": true
+      },
+      "passes": false
+    },
+    {
+      "policy": "mastering-max",
+      "checks": {
+        "continuity": true,
+        "passband": true,
+        "alias": true,
+        "fidelity": true,
+        "packet_cost": true,
+        "first_output": false,
+        "language_errors": false,
+        "aggregate_errors": true,
+        "new_empty": true,
+        "new_nonspeech": true,
+        "worst_case": true,
+        "case_balance": true,
+        "streaming": true
+      },
+      "passes": false
+    },
+    {
+      "policy": "minimum-phase-max",
+      "checks": {
+        "continuity": true,
+        "passband": true,
+        "alias": true,
+        "fidelity": false,
+        "packet_cost": true,
+        "first_output": true,
+        "language_errors": false,
+        "aggregate_errors": true,
+        "new_empty": true,
+        "new_nonspeech": true,
+        "worst_case": true,
+        "case_balance": true,
+        "streaming": true
+      },
+      "passes": false
+    }
+  ],
+  "boundary": "Independent file/hash/projection/edit-distance/quantile/order/gate checks; does not rerun Apple converter or ASR. Native whole-track equivalence comes from the frozen native helper plus separate Core unit reference tests. No physical capture, UI latency, energy or consumer ranking claim."
+}

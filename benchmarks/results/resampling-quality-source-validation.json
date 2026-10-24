@@ -1,0 +1,42 @@
+{
+  "status": "passed-source-and-independent-study-validation",
+  "study_commit": "becbcc7039ea55aa0e421471f38e1a167ac557f1",
+  "local": {
+    "swift_tests": 335,
+    "python_tests": 248,
+    "ruff": true,
+    "core_policy_tests": 4,
+    "native_helper_controls": 7,
+    "corrupt_receipt_rejections": 4
+  },
+  "ci": {
+    "run_id": 40086825635,
+    "job_id": 120851370976,
+    "conclusion": "success",
+    "url": "https://github.com/vibhusapra/OSpr/actions/runs/40086825635",
+    "source_commit": "becbcc7039ea55aa0e421471f38e1a167ac557f1"
+  },
+  "host": {
+    "macOS": "26.6.2",
+    "chip": "Apple M5 Max",
+    "sdk": "26.5",
+    "python": "3.12.11",
+    "separate_process_mlx_default": "Device(gpu, 0)",
+    "separate_process_metal_available": true
+  },
+  "production": {
+    "default_policy": "system-default",
+    "all_callers_unchanged": true,
+    "no_neural_or_checked_package_promotion": true,
+    "normal_data_hashes_unchanged": true,
+    "no_recording_playback_or_sound_setting_change": true
+  },
+  "receipts": {
+    "resampling-quality-real-v2.json": "f6295bf7bba971eb44343ae512453716d846e33960edcea38be2a45740908c07",
+    "resampling-quality-checks.json": "85098d2da8c47372800817a9afbe4ad9bdbf63735033d4d418ef29e0a8079ae0",
+    "resampling-quality-contracts.json": "65bda9bb69775ffd8087463647629d0a96b6d7b056aca46d12b662c0de1f7181",
+    "resampling-quality-verifier-controls.json": "db3e9a2bfad95a480c333d327451b0055b16f98c2c2787defc90d7f61b990aab",
+    "resampling-quality-attempts.json": "5bc04d891d98acf8d9794b17680da3b3a58f976f7ea8a593fe0e85ca997e12e2"
+  },
+  "boundary": "Source CI/local suites and independent file-study checks. Runtime inventory is a separate read-only process, not per-request GPU/CPU or energy profiling. Physical microphone/system-audio/route/stop/insertion and distribution acceptance remain separate."
+}
