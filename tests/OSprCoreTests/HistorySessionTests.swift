@@ -302,6 +302,21 @@ final class HistorySessionTests: XCTestCase {
         XCTAssertTrue(probe.openedFiles.contains { $0.hasSuffix("/positive-control.sqlite3") })
         withExtendedLifetime(probe) {}
     }
+    func testSummaryAndExtractiveNotesSurviveMemorySnapshotAndDurableTransfer() throws {
+        let memory = try HistoryDatabase.inMemory()
+        var item = record("Do not ship Friday.")
+        item.summary = try MeetingSummary(source: item.rawText,
+            items: [.init(section: .decisions, text: "Hold the Friday release.", sourceIDs: [0])],
+            excerpts: [.init(id: 0, text: item.rawText)], model: "fixture", chunks: 1)
+        try memory.upsert([item]); let snapshot = try memory.memoryCopy()
+        try memory.clear()
+        XCTAssertEqual(try canonical(XCTUnwrap(snapshot.record(id: item.id))), try canonical(item))
+        let path = try directory()
+        do { let disk = try HistoryDatabase(directory: path); try snapshot.copyContents(to: disk); try disk.verifyIntegrity() }
+        let restarted = try HistoryDatabase(directory: path)
+        XCTAssertEqual(try canonical(XCTUnwrap(restarted.record(id: item.id))), try canonical(item))
+    }
+
 }
 
 /// A nondefault VFS forwards real opens to SQLite's original VFS, while recording

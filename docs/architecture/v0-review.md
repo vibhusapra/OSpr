@@ -1,5 +1,9 @@
 # OSpr v0 combined review
 
+Snapshot: source `728ef76` and its 49-item ledger. Newer
+[local meeting-summary work](meeting-summaries.md) adds an experimental entry to
+the current ledger; the preserved integration package below predates that work.
+
 **Developer preview; the original goal is not complete.** This branch brings all
 23 component PR heads into one review against `main`, preserving the existing
 component branches. Review also found and fixed a remote rewrite completion bug:

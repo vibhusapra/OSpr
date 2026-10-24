@@ -31,7 +31,11 @@ public final class WorkerClient: @unchecked Sendable {
     }
     deinit { process?.terminate(); try? log?.close() }
 
-    public func request(_ body: [String: Any], progress: (@Sendable ([String: Any]) -> Void)? = nil) async throws -> [String: Any] {
+    public func request(_ body: [String: Any], progress: (@Sendable ([String: Any]) -> Void)? = nil, timeout requestTimeout: TimeInterval? = nil) async throws -> [String: Any] {
+        let deadline = requestTimeout ?? timeout
+        guard deadline.isFinite, deadline > 0, (requestTimeout == nil || deadline <= 3600) else {
+            throw OSprError.message("Invalid worker request deadline.")
+        }
         // Capture has already advanced its packet cursor before stream_feed.
         // Finish that admitted packet even when the preview Task is cancelled
         // for final flushing. Session cleanup must also survive Task cancellation.
@@ -43,7 +47,7 @@ public final class WorkerClient: @unchecked Sendable {
             queue.async { [self] in
                 let operation = UUID()
                 let watchdog = DispatchSource.makeTimerSource(queue: .global(qos: .utility))
-                watchdog.schedule(deadline: .now() + timeout)
+                watchdog.schedule(deadline: .now() + deadline)
                 watchdog.setEventHandler { [weak self] in
                     guard let self else { return }
                     self.lifecycle.lock()

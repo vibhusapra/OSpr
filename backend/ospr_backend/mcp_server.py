@@ -67,5 +67,15 @@ def rewrite_text(text: str, instruction: str) -> str:
         return json.dumps(dict(original=text, **engine.rewrite(text, instruction)))
 
 
+@server.tool()
+def summarize_text(text: str) -> str:
+    """Draft local meeting notes with exact source quotes for review. First use
+    downloads a 6 GB 9B model. Maximum input: 100,000 characters. AI paraphrases can be wrong or incomplete;
+    citations are not entailment proof. No microphone, history, upload or task execution.
+    """
+    with gpu_lock, redirect_stdout(sys.stderr):
+        return json.dumps(engine.summary(text), ensure_ascii=False)
+
+
 if __name__ == "__main__":
     server.run(transport="stdio")

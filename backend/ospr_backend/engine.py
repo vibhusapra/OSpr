@@ -518,6 +518,13 @@ class Engine:
         self.stream_normalizer = None
         return {"cancelled": True}
 
+    def summary(self, text):
+        from .summary import summarize
+
+        started = time.perf_counter()
+        result = summarize(text, lambda prompt, instruction: self.rewrite(prompt, instruction, model_id="meeting-quality", task="meeting-summary")["text"], progress=self.progress)
+        return dict(result, model=MODEL_LOCK["meeting-quality"]["repo"], total_ms=(time.perf_counter() - started) * 1000)
+
     def notes(self, text):
         from .notes import select
 
@@ -535,21 +542,26 @@ class Engine:
         from mlx_lm import load, generate
 
         with redirect_stdout(sys.stderr):
-            if model_id not in {"rewrite", "rewrite-quality"}:
+            if model_id not in {"rewrite", "rewrite-quality", "meeting-quality"}:
                 raise ValueError("Unsupported local rewrite model.")
             if self.rewriter is None or self.rewriter_id != model_id:
                 # Keep one ASR and one small refiner resident. Repeated dictations
                 # must not reload both models at every ASR/refinement boundary.
                 self.rewriter = None
                 gc.collect()
-                self.rewriter = load(resolve_model(model_id))
+                path = resolve_model(model_id, self.progress)
+                if self.progress:
+                    self.progress(dict(phase="loading", model=model_id))
+                self.rewriter = load(path)
                 self.rewriter_id = model_id
             model, tokenizer = self.rewriter
             prompt = tokenizer.apply_chat_template(
                 conversation, tokenize=False, add_generation_prompt=True, enable_thinking=False
             )
+            if task == "meeting-summary" and len(tokenizer.encode(prompt)) + 4096 > 32768:
+                raise ValueError("Summary context exceeds the local model budget; split the transcript. Previous notes are unchanged.")
             result = generate(
-                model, tokenizer, prompt=prompt, max_tokens=128 if task == "source-selection" else min(4096, len(text) * 2 + 128), verbose=False
+                model, tokenizer, prompt=prompt, max_tokens=128 if task == "source-selection" else 4096 if task == "meeting-summary" else min(4096, len(text) * 2 + 128), verbose=False
             )
         return {
             "text": result.strip(),

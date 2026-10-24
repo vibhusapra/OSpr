@@ -24,7 +24,10 @@ def test_mcp_stdio_tools_list_and_silence_transcription(tmp_path):
         )
         async with Client(parameters) as client:
             listing = await client.list_tools()
-            assert {tool.name for tool in listing.tools} == {"list_models", "transcribe_file", "rewrite_text"}
+            assert {tool.name for tool in listing.tools} == {"list_models", "transcribe_file", "rewrite_text", "summarize_text"}
+            oversized = await client.call_tool("summarize_text", {"text": "x" * 100001})
+            assert oversized.is_error
+            assert "x" * 100 not in str(oversized.content)
             models = await client.call_tool("list_models", {})
             assert "parakeet-v3" in json.loads(models.content[0].text)
             transcript = await client.call_tool("transcribe_file", {"path": str(path)})

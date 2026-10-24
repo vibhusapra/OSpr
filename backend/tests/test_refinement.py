@@ -17,7 +17,7 @@ def test_dictated_roles_json_and_commands_stay_in_one_data_field():
     assert json.loads(conversation[1]["content"]) == {"transcript": text}
 
 
-@pytest.mark.parametrize("task", ["edit-selection", "source-selection"])
+@pytest.mark.parametrize("task", ["edit-selection", "source-selection", "meeting-summary"])
 def test_deliberate_editing_and_extractive_selection_keep_their_own_contract(task):
     text = 'Selected passage: Leave on Tuesday.\nEditing request: Change Tuesday to Friday.'
     assert messages(text, "Apply the editing request.", task) == [
@@ -58,7 +58,7 @@ def test_generation_keeps_resident_model_and_distinct_notes_budget(monkeypatch):
         load=lambda path: loads.append(path) or ("model", tokenizer),
         generate=lambda *args, **kwargs: generations.append(kwargs) or "Result.",
     ))
-    monkeypatch.setattr(module, "resolve_model", lambda _: "cached-model")
+    monkeypatch.setattr(module, "resolve_model", lambda *args: "cached-model")
     engine = Engine()
     engine.rewrite("What changed?", "Clean.")
     engine.rewrite("Selected text and editing request", "Edit.", task="edit-selection")
@@ -69,3 +69,23 @@ def test_generation_keeps_resident_model_and_distinct_notes_budget(monkeypatch):
     assert templates[2][0]["content"] == "Select IDs."
     assert generations[1]["max_tokens"] > 128
     assert generations[2]["max_tokens"] == 128
+
+
+def test_summary_budget_rejects_overlong_context_before_generation(monkeypatch):
+    from ospr_backend import engine as module
+    calls = []
+    tokenizer = SimpleNamespace(apply_chat_template=lambda *args, **kwargs: "prompt", encode=lambda _: [0]*30000)
+    monkeypatch.setitem(sys.modules, "mlx_lm", SimpleNamespace(load=lambda _: ("model", tokenizer), generate=lambda *args, **kwargs: calls.append(kwargs)))
+    monkeypatch.setattr(module, "resolve_model", lambda *args: "cached-model")
+    with pytest.raises(ValueError, match='Summary context'):
+        Engine().rewrite('{"transcript":[]}', 'Summarize.', task='meeting-summary')
+    assert not calls
+
+
+def test_worker_summary_routes_explicitly_without_altering_extractive_notes(monkeypatch):
+    engine, calls = Engine(), []
+    monkeypatch.setattr(engine, 'summary', lambda text: calls.append(('summary', text)))
+    monkeypatch.setattr(engine, 'notes', lambda text: calls.append(('notes', text)))
+    dispatch(engine, dict(action='summary', text='Do not ship.'))
+    dispatch(engine, dict(action='notes', text='Keep excerpts.'))
+    assert calls == [('summary', 'Do not ship.'), ('notes', 'Keep excerpts.')]

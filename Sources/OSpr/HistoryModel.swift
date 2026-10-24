@@ -137,6 +137,22 @@ import OSprCore
         repository.updateText(id: id, text: text, completion: observer(token))
     }
 
+    func updateSummary(id: UUID, summary: MeetingSummary, expectedRawText: String) async throws {
+        let token = beginWrite()
+        repository.updateSummary(id: id, summary: summary, expectedRawText: expectedRawText, completion: observer(token))
+        try await flush()
+        guard let record = try await repository.record(id: id), record.rawText == expectedRawText,
+              let saved = record.summary, saved.matches(record.rawText), saved.items == summary.items,
+              saved.excerpts == summary.excerpts, saved.model == summary.model, saved.chunks == summary.chunks,
+              saved.created == summary.created else {
+            throw OSprError.message("Summary could not be applied. The transcript may have been removed or changed.")
+        }
+        guard writeEpoch == token else { return }
+        if selected?.id == id { selected = record }
+        if latest?.id == id { latest = record }
+        if pendingRecords[id] != nil { pendingRecords[id] = record }
+    }
+
     func updateNotes(id: UUID, notes: MeetingNotes, expectedRawText: String) async throws {
         let token = beginWrite()
         repository.updateNotes(id: id, notes: notes, expectedRawText: expectedRawText, completion: observer(token))

@@ -354,6 +354,39 @@ final class HistoryRepositoryTests: XCTestCase {
         XCTAssertNotNil(acquired)
         withExtendedLifetime(acquired) {}
     }
+    func testSummaryMutationKeepsConcurrentTextAudioNotesAndRejectsStaleSource() async throws {
+        let path = try directory(), value = HistoryRepository(directory: path)
+        var original = record("Do not ship Friday.")
+        original.audioFile = original.id.uuidString + ".wav"
+        original.notes = try MeetingNotes(source: original.rawText, excerpts: [.init(id: 0, text: original.rawText)], model: "extractive")
+        let summary = try MeetingSummary(source: original.rawText,
+            items: [.init(section: .decisions, text: "Hold the Friday release.", sourceIDs: [0])],
+            excerpts: [.init(id: 0, text: original.rawText)], model: "fixture", chunks: 1)
+        value.submit(original, delay: 60); try await value.flushAsync()
+        value.updateText(id: original.id, text: "Edited while summarizing", delay: 60)
+        value.updateSummary(id: original.id, summary: summary, expectedRawText: original.rawText)
+        value.stripAudio(); try await value.flushAsync()
+        let loaded = try await value.record(id: original.id)
+        let detail = try XCTUnwrap(loaded)
+        XCTAssertEqual(detail.text, "Edited while summarizing"); XCTAssertEqual(detail.rawText, original.rawText)
+        XCTAssertEqual(detail.summary?.items, summary.items); XCTAssertEqual(detail.notes?.model, "extractive")
+        XCTAssertNil(detail.audioFile)
+        let rejected = expectation(description: "stale summary")
+        value.updateSummary(id: original.id, summary: summary, expectedRawText: "Wrong") { result in
+            XCTAssertNotNil(result.failure); rejected.fulfill()
+        }
+        await fulfillment(of: [rejected], timeout: 2)
+        let after = try await value.record(id: original.id)
+        XCTAssertEqual(after?.summary?.items, summary.items)
+        value.remove(ids: [original.id]); try await value.flushAsync()
+        let removed = expectation(description: "removed summary")
+        value.updateSummary(id: original.id, summary: summary, expectedRawText: original.rawText) { result in
+            XCTAssertNotNil(result.failure); removed.fulfill()
+        }
+        await fulfillment(of: [removed], timeout: 2)
+        let final = try await value.record(id: original.id); XCTAssertNil(final)
+    }
+
 }
 
 private final class RepositoryBoundary: @unchecked Sendable {
@@ -373,4 +406,5 @@ private final class RepositoryBoundary: @unchecked Sendable {
         lock.lock(); defer { lock.unlock() }; attempted += 1; main = main || Thread.isMainThread
         if failure { throw OSprError.message("Simulated repository write failure") }
     }
+
 }
