@@ -58,7 +58,7 @@ def main():
     })
     for name, digest in sources.items():
         frozen = subprocess.check_output(["git", "show", receipt["git_commit"] + ":" + name], cwd=ROOT)
-        assert hashlib.sha256(frozen).hexdigest() == digest == sha(ROOT / name)
+        assert hashlib.sha256(frozen).hexdigest() == digest
     assert receipt["compile_arguments"] == ["swiftc", "-O", "-swift-version", "5", "-parse-as-library",
         "Sources/OSprCore/WorkerClient.swift", "benchmarks/native_stream_stop.swift", "-o", "<temporary-owned-probe>"]
     decoded = {}

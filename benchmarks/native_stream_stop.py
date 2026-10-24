@@ -40,10 +40,18 @@ def checked_wave(path, audio, rate):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", required=True, type=Path)
+    parser.add_argument("--app", type=Path, help="Use this app's bundled Python engine with the unchanged native client source.")
     args = parser.parse_args()
     assert not args.output.exists()
     assert not subprocess.check_output(["git", "diff", "--name-only", "HEAD"], cwd=ROOT)
     protocol = json.loads(PROTOCOL.read_text())
+    app = args.app.resolve(strict=True) if args.app else None
+    engine_root = app / "Contents/Resources/Engine" if app else ROOT
+    build_info = json.loads((app / "Contents/Resources/build-info.json").read_text()) if app else None
+    if app:
+        subprocess.run(["codesign", "--verify", "--deep", "--strict", str(app)], check=True)
+        for name in ["streaming_audio.py", "engine.py", "worker.py", "models.lock.json"]:
+            assert sha(engine_root / "backend/ospr_backend" / name) == sha(ROOT / "backend/ospr_backend" / name)
     assert sha(ROOT / "benchmarks/fixtures/manifest.json") == protocol["source_manifest_sha256"]
     assert sha(ROOT / "uv.lock") == protocol["dependency_lock_sha256"]
     assert sha(ROOT / "backend/ospr_backend/models.lock.json") == protocol["model_lock_sha256"]
@@ -89,13 +97,15 @@ def main():
                 replacement_packet_samples=[min(4096, len(replacement) - i) for i in range(0, len(replacement), 4096)],
                 replacement_packet_sha256=[sha(Path(path)) for path in packets]))
         manifest = staging / "manifest.json"
-        manifest.write_text(json.dumps(dict(root=str(ROOT), cases=cases, cancelAfterMS=protocol["cancel_after_ms"])))
+        manifest.write_text(json.dumps(dict(root=str(engine_root), cases=cases, cancelAfterMS=protocol["cancel_after_ms"])))
         environment = dict(os.environ, HF_HUB_OFFLINE="1", OSPR_DEBUG_LOG="0")
         result = subprocess.run([str(probe), str(manifest)], cwd=ROOT, env=environment,
                                 capture_output=True, text=True, timeout=240)
         assert result.returncode == 0, result.stderr
         traces = json.loads(result.stdout)
         assert sha(probe) == probe_sha
+    if app:
+        subprocess.run(["codesign", "--verify", "--deep", "--strict", str(app)], check=True)
     assert len(traces["records"]) == len(protocol["native_rates"]) * len(protocol["policies"])
     for row in traces["records"]:
         reference = protocol["replacement_source" if row["policy"] == "replacement-and-stale-cancel" else "source"]["reference"]
@@ -117,7 +127,8 @@ def main():
         compile_arguments=compile_args[:-1] + ["<temporary-owned-probe>"],
         source_sha256={name: sha(ROOT / name) for name in ["backend/ospr_backend/streaming_audio.py",
             "backend/ospr_backend/engine.py", "backend/ospr_backend/worker.py", "uv.lock"]},
-        model=protocol["model"], source_packets=source_rows, records=len(rows),
+        model=protocol["model"], engine_binding="bundled" if app else "checkout", build=build_info,
+        signature_valid_after_inference=bool(app), source_packets=source_rows, records=len(rows),
         already_cancelled_requests_preserved=sum(r["cancellation"]["cancelled_before_request"] for r in already),
         timed_cancellations_between_request_and_return=sum(r["cancellation"]["cancel_between_request_and_return"] for r in awaiting),
         all_text_controls_match=all(r["text_matches_control"] for r in rows),
