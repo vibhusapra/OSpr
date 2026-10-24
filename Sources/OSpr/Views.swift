@@ -520,6 +520,16 @@ struct ModesView: View {
     @ObservedObject var model: AppModel
     @State private var profileDraft: AppProfile?
     var body: some View {
+        if let profile = profileDraft {
+            ContextProfileEditor(profile: profile, localSpeech: model.settings.transcriptionProvider == "local",
+                rewriteEnabled: model.settings.rewriteProvider != "none", globalTranslation: model.settings.translationLanguage,
+                close: { profileDraft = nil }, save: model.saveProfile)
+                .id(profile.id)
+        } else {
+            modes
+        }
+    }
+    private var modes: some View {
         ScrollView { VStack(alignment: .leading, spacing: 22) {
             PageTitle(eyebrow: "Set the tone", title: "One voice. Many ways to write.", description: "Verbatim preserves the model output. Clean removes basic fillers locally. Other styles use the rewrite provider you choose.")
             LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
@@ -550,19 +560,15 @@ struct ModesView: View {
                         }
                         Spacer()
                         Button("Edit") { profileDraft = profile }
-                        Button { model.settings.profiles.removeAll { $0.id == profile.id }; model.saveOSprSettings() } label: { Image(systemName: "trash") }
+                        Button {
+                            do { try model.removeProfile(profile.id) } catch { model.error = error.localizedDescription }
+                        } label: { Image(systemName: "trash") }
                             .buttonStyle(.plain).accessibilityLabel("Delete profile \(profile.title)")
                     }
                     Divider()
                 }
             } }
         }.padding(32) }
-        .sheet(item: $profileDraft) { profile in
-            ContextProfileEditor(profile: profile, localSpeech: model.settings.transcriptionProvider == "local", rewriteEnabled: model.settings.rewriteProvider != "none", globalTranslation: model.settings.translationLanguage) { edited in
-                try model.settings.upsertProfile(edited)
-                model.saveOSprSettings()
-            }
-        }
     }
     private func profileSummary(_ profile: AppProfile) -> String {
         var parts = [profile.mode.title]

@@ -256,6 +256,25 @@ import OSprCore
         } }
     }
 
+    // Profile edits are a separate preference operation: they must neither save
+    // pending global edits nor run retention, credentials or shortcut changes.
+    // Publish the new list only after the owned settings write acknowledges it.
+    private func persistProfiles(_ change: (inout OSprSettings) throws -> Void) throws {
+        guard !quitting else { throw OSprError.message("OSpr is closing. The profile was not saved.") }
+        var persisted = try store.read(OSprSettings.self, name: "settings.json") ?? OSprSettings()
+        try change(&persisted)
+        try store.write(persisted, name: "settings.json")
+        settings.profiles = persisted.profiles
+    }
+    func saveProfile(_ profile: AppProfile) throws {
+        try persistProfiles { try $0.upsertProfile(profile) }
+        status = "Profile saved · applies to the next dictation"
+    }
+    func removeProfile(_ id: UUID) throws {
+        try persistProfiles { $0.profiles.removeAll { $0.id == id } }
+        status = "Profile removed · applies to the next dictation"
+    }
+
     func saveOSprSettings() {
         guard !quitting else { return }
         if servicesEnabled { refreshPermissions() }

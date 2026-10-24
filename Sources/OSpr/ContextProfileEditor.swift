@@ -4,11 +4,11 @@ import UniformTypeIdentifiers
 import OSprCore
 
 struct ContextProfileEditor: View {
-    @Environment(\.dismiss) private var dismiss
     private let id: UUID
     let localSpeech: Bool
     let rewriteEnabled: Bool
     let save: (AppProfile) throws -> Void
+    let close: () -> Void
     @State private var name: String
     @State private var bundleID: String
     @State private var mode: WritingMode
@@ -24,8 +24,9 @@ struct ContextProfileEditor: View {
     @State private var translation: String
     @State private var error = ""
 
-    init(profile: AppProfile, localSpeech: Bool, rewriteEnabled: Bool, globalTranslation: String, save: @escaping (AppProfile) throws -> Void) {
-        id = profile.id; self.localSpeech = localSpeech; self.rewriteEnabled = rewriteEnabled; self.save = save
+    init(profile: AppProfile, localSpeech: Bool, rewriteEnabled: Bool, globalTranslation: String,
+         close: @escaping () -> Void, save: @escaping (AppProfile) throws -> Void) {
+        id = profile.id; self.localSpeech = localSpeech; self.rewriteEnabled = rewriteEnabled; self.save = save; self.close = close
         _name = State(initialValue: profile.name ?? ""); _bundleID = State(initialValue: profile.bundleID)
         _mode = State(initialValue: profile.mode); _enabled = State(initialValue: profile.enabled)
         _useSite = State(initialValue: profile.site != nil); _site = State(initialValue: profile.site ?? "")
@@ -87,12 +88,12 @@ struct ContextProfileEditor: View {
                     }
                 }.padding(8) } label: { Label("Dictation", systemImage: "waveform") }
                 if let validation = profile.validationError, !bundleID.isEmpty { Text(validation).font(.caption).foregroundStyle(.orange) }
-                if !error.isEmpty { Text(error).font(.caption).foregroundStyle(.red) }
             }.textFieldStyle(.roundedBorder) }
-            HStack { Button("Cancel") { dismiss() }.keyboardShortcut(.cancelAction); Spacer(); Button("Save profile") {
-                do { try save(profile); dismiss() } catch { self.error = error.localizedDescription }
+            if !error.isEmpty { Text(error).font(.caption).foregroundStyle(.red).accessibilityIdentifier("profile-save-error") }
+            HStack { Button("Cancel", action: close).keyboardShortcut(.cancelAction); Spacer(); Button("Save profile") {
+                do { try save(profile); close() } catch { self.error = error.localizedDescription }
             }.keyboardShortcut(.defaultAction).disabled(profile.validationError != nil) }
-        }.padding(24).frame(width: 620, height: 700)
+        }.padding(32).frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
 
     private func chooseApp() {
