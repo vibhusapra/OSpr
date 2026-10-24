@@ -103,15 +103,15 @@
     {
       "feature": "Floating recording HUD",
       "status": "implemented",
-      "evidence": "Nonactivating panel; live duration and level.",
-      "gap": "Visual recording-state check pending microphone access.",
+      "evidence": "Nonactivating duration/level panel. On isolated 9a51603 QA, the HUD visibly captures TextEdit as destination after Finder activation; the subsequent take delivers actual recognizer output to the owned field.",
+      "gap": "Current-candidate live levels, timing, preview failure and physical device/shortcut acceptance remain. The earlier observation is not an audible public-reference or broad cross-app test.",
       "priority": "P1"
     },
     {
       "feature": "Insertion into original field",
       "status": "implemented",
-      "evidence": "AX selected-text insertion and clipboard fallback; app, field, cursor checks.",
-      "gap": "TextEdit, browser and editor matrix still pending. An owned Chrome textarea was prepared, but native control reported the Mac locked before the isolated candidate was launched. No new native take or insertion is claimed.",
+      "evidence": "AX selected-text insertion plus guarded clipboard fallback with app/field/cursor checks. One native take on isolated 9a51603 QA visibly inserts its recognizer output into the owned TextEdit field after Finder activation. File and normal app/data are restored.",
+      "gap": "The fixture was muted, so public-reference recognition is not accepted. Current-candidate end-to-end, browser/editor, selection, clipboard restoration/fallback and secure fields remain open; the one older-build delivery is not broad compatibility evidence.",
       "priority": "P0"
     },
     {

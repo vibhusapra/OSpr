@@ -1,0 +1,979 @@
+{
+  "status": "completed-frozen-resampling-quality-study",
+  "timestamp": "2026-10-24T10:52:07.376156+00:00",
+  "git_commit": "becbcc7039ea55aa0e421471f38e1a167ac557f1",
+  "protocol_sha256": "76413848a03d62472c5bbe744162fbfe2c198a988030d6a643264f61aaaf3fbc",
+  "producer_sha256": "c4f47f4a613901433d849f0a6cdd80c235472e3fad2cb313966d8a23385a6760",
+  "helper_sha256": "c95b478df06d0936bb3dd854687efabacd9e2f7086b34378f92337f3d0d1e261",
+  "core_sha256": "8c2ad6e3e881dcb4b38be1a3a8c6e0db31b7ad4bc5d9823f4167ff74eb7ead33",
+  "native_calls": 870,
+  "file_asr_requests": 1500,
+  "streaming_sessions": 50,
+  "summary": [
+    {
+      "policy": "system-default",
+      "fidelity": {
+        "44100": 0.029547978665744896,
+        "48000": 0.03045699053946988
+      },
+      "costs": {
+        "44100": {
+          "p50_ms": 0.001792,
+          "p95_ms": 0.002
+        },
+        "48000": {
+          "p50_ms": 0.00175,
+          "p95_ms": 0.001875
+        }
+      },
+      "first_output_ms": {
+        "44100": 23.219954648526077,
+        "48000": 21.333333333333332
+      },
+      "max_abs_passband_db": 5.170101064242697,
+      "max_alias_db": -18.59523024346462,
+      "continuity": true,
+      "scores": {
+        "nemotron-streaming:en:44100": {
+          "word_errors": 34,
+          "words": 943,
+          "character_errors": 43,
+          "characters": 4360
+        },
+        "whisper-turbo:en:44100": {
+          "word_errors": 30,
+          "words": 943,
+          "character_errors": 65,
+          "characters": 4360
+        },
+        "nemotron-streaming:en:48000": {
+          "word_errors": 34,
+          "words": 943,
+          "character_errors": 43,
+          "characters": 4360
+        },
+        "whisper-turbo:en:48000": {
+          "word_errors": 30,
+          "words": 943,
+          "character_errors": 65,
+          "characters": 4360
+        },
+        "nemotron-streaming:es:44100": {
+          "word_errors": 13,
+          "words": 204,
+          "character_errors": 23,
+          "characters": 968
+        },
+        "whisper-turbo:es:44100": {
+          "word_errors": 3,
+          "words": 204,
+          "character_errors": 3,
+          "characters": 968
+        },
+        "nemotron-streaming:es:48000": {
+          "word_errors": 13,
+          "words": 204,
+          "character_errors": 23,
+          "characters": 968
+        },
+        "whisper-turbo:es:48000": {
+          "word_errors": 3,
+          "words": 204,
+          "character_errors": 3,
+          "characters": 968
+        },
+        "nemotron-streaming:de:44100": {
+          "word_errors": 23,
+          "words": 124,
+          "character_errors": 99,
+          "characters": 686
+        },
+        "whisper-turbo:de:44100": {
+          "word_errors": 9,
+          "words": 124,
+          "character_errors": 9,
+          "characters": 686
+        },
+        "nemotron-streaming:de:48000": {
+          "word_errors": 23,
+          "words": 124,
+          "character_errors": 99,
+          "characters": 686
+        },
+        "whisper-turbo:de:48000": {
+          "word_errors": 9,
+          "words": 124,
+          "character_errors": 9,
+          "characters": 686
+        },
+        "nemotron-streaming:hi:44100": {
+          "word_errors": 15,
+          "words": 186,
+          "character_errors": 23,
+          "characters": 744
+        },
+        "whisper-turbo:hi:44100": {
+          "word_errors": 64,
+          "words": 186,
+          "character_errors": 76,
+          "characters": 744
+        },
+        "nemotron-streaming:hi:48000": {
+          "word_errors": 15,
+          "words": 186,
+          "character_errors": 23,
+          "characters": 744
+        },
+        "whisper-turbo:hi:48000": {
+          "word_errors": 64,
+          "words": 186,
+          "character_errors": 76,
+          "characters": 744
+        },
+        "nemotron-streaming:ja:44100": {
+          "word_errors": 20,
+          "words": 20,
+          "character_errors": 32,
+          "characters": 324
+        },
+        "whisper-turbo:ja:44100": {
+          "word_errors": 20,
+          "words": 20,
+          "character_errors": 14,
+          "characters": 324
+        },
+        "nemotron-streaming:ja:48000": {
+          "word_errors": 20,
+          "words": 20,
+          "character_errors": 32,
+          "characters": 324
+        },
+        "whisper-turbo:ja:48000": {
+          "word_errors": 20,
+          "words": 20,
+          "character_errors": 14,
+          "characters": 324
+        },
+        "nemotron-streaming:zh:44100": {
+          "word_errors": 136,
+          "words": 148,
+          "character_errors": 37,
+          "characters": 162
+        },
+        "whisper-turbo:zh:44100": {
+          "word_errors": 148,
+          "words": 148,
+          "character_errors": 5,
+          "characters": 162
+        },
+        "nemotron-streaming:zh:48000": {
+          "word_errors": 136,
+          "words": 148,
+          "character_errors": 37,
+          "characters": 162
+        },
+        "whisper-turbo:zh:48000": {
+          "word_errors": 148,
+          "words": 148,
+          "character_errors": 5,
+          "characters": 162
+        }
+      },
+      "new_empty": 0,
+      "new_nonspeech": 0,
+      "worst_case_added_word_errors": 0,
+      "regressed_cases": 0,
+      "improved_cases": 0,
+      "streaming_word_error_delta": 0,
+      "checks": {
+        "continuity": true,
+        "passband": false,
+        "alias": false,
+        "fidelity": false,
+        "packet_cost": true,
+        "first_output": true,
+        "language_errors": true,
+        "aggregate_errors": true,
+        "new_empty": true,
+        "new_nonspeech": true,
+        "worst_case": true,
+        "case_balance": true,
+        "streaming": true
+      },
+      "passes": false
+    },
+    {
+      "policy": "normal-high",
+      "fidelity": {
+        "44100": 0.02884107829813124,
+        "48000": 0.028721853545382633
+      },
+      "costs": {
+        "44100": {
+          "p50_ms": 0.002625,
+          "p95_ms": 0.002834
+        },
+        "48000": {
+          "p50_ms": 0.0025,
+          "p95_ms": 0.002625
+        }
+      },
+      "first_output_ms": {
+        "44100": 23.219954648526077,
+        "48000": 21.333333333333332
+      },
+      "max_abs_passband_db": 4.440424005705676,
+      "max_alias_db": -43.43222498661828,
+      "continuity": true,
+      "scores": {
+        "nemotron-streaming:en:44100": {
+          "word_errors": 36,
+          "words": 943,
+          "character_errors": 43,
+          "characters": 4360
+        },
+        "whisper-turbo:en:44100": {
+          "word_errors": 29,
+          "words": 943,
+          "character_errors": 64,
+          "characters": 4360
+        },
+        "nemotron-streaming:en:48000": {
+          "word_errors": 35,
+          "words": 943,
+          "character_errors": 42,
+          "characters": 4360
+        },
+        "whisper-turbo:en:48000": {
+          "word_errors": 29,
+          "words": 943,
+          "character_errors": 64,
+          "characters": 4360
+        },
+        "nemotron-streaming:es:44100": {
+          "word_errors": 13,
+          "words": 204,
+          "character_errors": 23,
+          "characters": 968
+        },
+        "whisper-turbo:es:44100": {
+          "word_errors": 3,
+          "words": 204,
+          "character_errors": 3,
+          "characters": 968
+        },
+        "nemotron-streaming:es:48000": {
+          "word_errors": 13,
+          "words": 204,
+          "character_errors": 23,
+          "characters": 968
+        },
+        "whisper-turbo:es:48000": {
+          "word_errors": 3,
+          "words": 204,
+          "character_errors": 3,
+          "characters": 968
+        },
+        "nemotron-streaming:de:44100": {
+          "word_errors": 21,
+          "words": 124,
+          "character_errors": 89,
+          "characters": 686
+        },
+        "whisper-turbo:de:44100": {
+          "word_errors": 9,
+          "words": 124,
+          "character_errors": 9,
+          "characters": 686
+        },
+        "nemotron-streaming:de:48000": {
+          "word_errors": 21,
+          "words": 124,
+          "character_errors": 90,
+          "characters": 686
+        },
+        "whisper-turbo:de:48000": {
+          "word_errors": 9,
+          "words": 124,
+          "character_errors": 9,
+          "characters": 686
+        },
+        "nemotron-streaming:hi:44100": {
+          "word_errors": 15,
+          "words": 186,
+          "character_errors": 23,
+          "characters": 744
+        },
+        "whisper-turbo:hi:44100": {
+          "word_errors": 63,
+          "words": 186,
+          "character_errors": 74,
+          "characters": 744
+        },
+        "nemotron-streaming:hi:48000": {
+          "word_errors": 15,
+          "words": 186,
+          "character_errors": 23,
+          "characters": 744
+        },
+        "whisper-turbo:hi:48000": {
+          "word_errors": 63,
+          "words": 186,
+          "character_errors": 74,
+          "characters": 744
+        },
+        "nemotron-streaming:ja:44100": {
+          "word_errors": 20,
+          "words": 20,
+          "character_errors": 33,
+          "characters": 324
+        },
+        "whisper-turbo:ja:44100": {
+          "word_errors": 20,
+          "words": 20,
+          "character_errors": 14,
+          "characters": 324
+        },
+        "nemotron-streaming:ja:48000": {
+          "word_errors": 20,
+          "words": 20,
+          "character_errors": 32,
+          "characters": 324
+        },
+        "whisper-turbo:ja:48000": {
+          "word_errors": 20,
+          "words": 20,
+          "character_errors": 14,
+          "characters": 324
+        },
+        "nemotron-streaming:zh:44100": {
+          "word_errors": 136,
+          "words": 148,
+          "character_errors": 37,
+          "characters": 162
+        },
+        "whisper-turbo:zh:44100": {
+          "word_errors": 148,
+          "words": 148,
+          "character_errors": 5,
+          "characters": 162
+        },
+        "nemotron-streaming:zh:48000": {
+          "word_errors": 136,
+          "words": 148,
+          "character_errors": 37,
+          "characters": 162
+        },
+        "whisper-turbo:zh:48000": {
+          "word_errors": 148,
+          "words": 148,
+          "character_errors": 5,
+          "characters": 162
+        }
+      },
+      "new_empty": 0,
+      "new_nonspeech": 0,
+      "worst_case_added_word_errors": 2,
+      "regressed_cases": 2,
+      "improved_cases": 7,
+      "streaming_word_error_delta": 0,
+      "checks": {
+        "continuity": true,
+        "passband": false,
+        "alias": false,
+        "fidelity": false,
+        "packet_cost": true,
+        "first_output": true,
+        "language_errors": false,
+        "aggregate_errors": true,
+        "new_empty": true,
+        "new_nonspeech": true,
+        "worst_case": true,
+        "case_balance": true,
+        "streaming": true
+      },
+      "passes": false
+    },
+    {
+      "policy": "normal-max",
+      "fidelity": {
+        "44100": 0.02961626562634615,
+        "48000": 0.02931290668734634
+      },
+      "costs": {
+        "44100": {
+          "p50_ms": 0.003333,
+          "p95_ms": 0.0035
+        },
+        "48000": {
+          "p50_ms": 0.003083,
+          "p95_ms": 0.00325
+        }
+      },
+      "first_output_ms": {
+        "44100": 23.219954648526077,
+        "48000": 21.333333333333332
+      },
+      "max_abs_passband_db": 3.845714750581721,
+      "max_alias_db": -102.52902111682091,
+      "continuity": true,
+      "scores": {
+        "nemotron-streaming:en:44100": {
+          "word_errors": 34,
+          "words": 943,
+          "character_errors": 41,
+          "characters": 4360
+        },
+        "whisper-turbo:en:44100": {
+          "word_errors": 27,
+          "words": 943,
+          "character_errors": 63,
+          "characters": 4360
+        },
+        "nemotron-streaming:en:48000": {
+          "word_errors": 34,
+          "words": 943,
+          "character_errors": 41,
+          "characters": 4360
+        },
+        "whisper-turbo:en:48000": {
+          "word_errors": 27,
+          "words": 943,
+          "character_errors": 63,
+          "characters": 4360
+        },
+        "nemotron-streaming:es:44100": {
+          "word_errors": 13,
+          "words": 204,
+          "character_errors": 23,
+          "characters": 968
+        },
+        "whisper-turbo:es:44100": {
+          "word_errors": 3,
+          "words": 204,
+          "character_errors": 3,
+          "characters": 968
+        },
+        "nemotron-streaming:es:48000": {
+          "word_errors": 13,
+          "words": 204,
+          "character_errors": 23,
+          "characters": 968
+        },
+        "whisper-turbo:es:48000": {
+          "word_errors": 3,
+          "words": 204,
+          "character_errors": 3,
+          "characters": 968
+        },
+        "nemotron-streaming:de:44100": {
+          "word_errors": 20,
+          "words": 124,
+          "character_errors": 84,
+          "characters": 686
+        },
+        "whisper-turbo:de:44100": {
+          "word_errors": 9,
+          "words": 124,
+          "character_errors": 9,
+          "characters": 686
+        },
+        "nemotron-streaming:de:48000": {
+          "word_errors": 20,
+          "words": 124,
+          "character_errors": 86,
+          "characters": 686
+        },
+        "whisper-turbo:de:48000": {
+          "word_errors": 9,
+          "words": 124,
+          "character_errors": 9,
+          "characters": 686
+        },
+        "nemotron-streaming:hi:44100": {
+          "word_errors": 15,
+          "words": 186,
+          "character_errors": 23,
+          "characters": 744
+        },
+        "whisper-turbo:hi:44100": {
+          "word_errors": 63,
+          "words": 186,
+          "character_errors": 74,
+          "characters": 744
+        },
+        "nemotron-streaming:hi:48000": {
+          "word_errors": 15,
+          "words": 186,
+          "character_errors": 23,
+          "characters": 744
+        },
+        "whisper-turbo:hi:48000": {
+          "word_errors": 63,
+          "words": 186,
+          "character_errors": 74,
+          "characters": 744
+        },
+        "nemotron-streaming:ja:44100": {
+          "word_errors": 20,
+          "words": 20,
+          "character_errors": 34,
+          "characters": 324
+        },
+        "whisper-turbo:ja:44100": {
+          "word_errors": 20,
+          "words": 20,
+          "character_errors": 14,
+          "characters": 324
+        },
+        "nemotron-streaming:ja:48000": {
+          "word_errors": 20,
+          "words": 20,
+          "character_errors": 34,
+          "characters": 324
+        },
+        "whisper-turbo:ja:48000": {
+          "word_errors": 20,
+          "words": 20,
+          "character_errors": 14,
+          "characters": 324
+        },
+        "nemotron-streaming:zh:44100": {
+          "word_errors": 136,
+          "words": 148,
+          "character_errors": 37,
+          "characters": 162
+        },
+        "whisper-turbo:zh:44100": {
+          "word_errors": 148,
+          "words": 148,
+          "character_errors": 5,
+          "characters": 162
+        },
+        "nemotron-streaming:zh:48000": {
+          "word_errors": 136,
+          "words": 148,
+          "character_errors": 37,
+          "characters": 162
+        },
+        "whisper-turbo:zh:48000": {
+          "word_errors": 148,
+          "words": 148,
+          "character_errors": 5,
+          "characters": 162
+        }
+      },
+      "new_empty": 0,
+      "new_nonspeech": 0,
+      "worst_case_added_word_errors": 2,
+      "regressed_cases": 2,
+      "improved_cases": 12,
+      "streaming_word_error_delta": -2,
+      "checks": {
+        "continuity": true,
+        "passband": false,
+        "alias": true,
+        "fidelity": false,
+        "packet_cost": true,
+        "first_output": true,
+        "language_errors": false,
+        "aggregate_errors": true,
+        "new_empty": true,
+        "new_nonspeech": true,
+        "worst_case": true,
+        "case_balance": true,
+        "streaming": true
+      },
+      "passes": false
+    },
+    {
+      "policy": "mastering-max",
+      "fidelity": {
+        "44100": 0.013284121700036644,
+        "48000": 0.013280613148289364
+      },
+      "costs": {
+        "44100": {
+          "p50_ms": 0.099292,
+          "p95_ms": 0.103875
+        },
+        "48000": {
+          "p50_ms": 0.097584,
+          "p95_ms": 0.100666
+        }
+      },
+      "first_output_ms": {
+        "44100": 46.439909297052154,
+        "48000": 42.666666666666664
+      },
+      "max_abs_passband_db": 1.5384228186917478e-07,
+      "max_alias_db": -149.40719132502363,
+      "continuity": true,
+      "scores": {
+        "nemotron-streaming:en:44100": {
+          "word_errors": 35,
+          "words": 943,
+          "character_errors": 42,
+          "characters": 4360
+        },
+        "whisper-turbo:en:44100": {
+          "word_errors": 32,
+          "words": 943,
+          "character_errors": 65,
+          "characters": 4360
+        },
+        "nemotron-streaming:en:48000": {
+          "word_errors": 35,
+          "words": 943,
+          "character_errors": 42,
+          "characters": 4360
+        },
+        "whisper-turbo:en:48000": {
+          "word_errors": 32,
+          "words": 943,
+          "character_errors": 65,
+          "characters": 4360
+        },
+        "nemotron-streaming:es:44100": {
+          "word_errors": 13,
+          "words": 204,
+          "character_errors": 23,
+          "characters": 968
+        },
+        "whisper-turbo:es:44100": {
+          "word_errors": 3,
+          "words": 204,
+          "character_errors": 3,
+          "characters": 968
+        },
+        "nemotron-streaming:es:48000": {
+          "word_errors": 13,
+          "words": 204,
+          "character_errors": 23,
+          "characters": 968
+        },
+        "whisper-turbo:es:48000": {
+          "word_errors": 3,
+          "words": 204,
+          "character_errors": 3,
+          "characters": 968
+        },
+        "nemotron-streaming:de:44100": {
+          "word_errors": 22,
+          "words": 124,
+          "character_errors": 90,
+          "characters": 686
+        },
+        "whisper-turbo:de:44100": {
+          "word_errors": 9,
+          "words": 124,
+          "character_errors": 9,
+          "characters": 686
+        },
+        "nemotron-streaming:de:48000": {
+          "word_errors": 22,
+          "words": 124,
+          "character_errors": 90,
+          "characters": 686
+        },
+        "whisper-turbo:de:48000": {
+          "word_errors": 9,
+          "words": 124,
+          "character_errors": 9,
+          "characters": 686
+        },
+        "nemotron-streaming:hi:44100": {
+          "word_errors": 13,
+          "words": 186,
+          "character_errors": 21,
+          "characters": 744
+        },
+        "whisper-turbo:hi:44100": {
+          "word_errors": 63,
+          "words": 186,
+          "character_errors": 74,
+          "characters": 744
+        },
+        "nemotron-streaming:hi:48000": {
+          "word_errors": 13,
+          "words": 186,
+          "character_errors": 21,
+          "characters": 744
+        },
+        "whisper-turbo:hi:48000": {
+          "word_errors": 63,
+          "words": 186,
+          "character_errors": 74,
+          "characters": 744
+        },
+        "nemotron-streaming:ja:44100": {
+          "word_errors": 20,
+          "words": 20,
+          "character_errors": 32,
+          "characters": 324
+        },
+        "whisper-turbo:ja:44100": {
+          "word_errors": 20,
+          "words": 20,
+          "character_errors": 14,
+          "characters": 324
+        },
+        "nemotron-streaming:ja:48000": {
+          "word_errors": 20,
+          "words": 20,
+          "character_errors": 32,
+          "characters": 324
+        },
+        "whisper-turbo:ja:48000": {
+          "word_errors": 20,
+          "words": 20,
+          "character_errors": 14,
+          "characters": 324
+        },
+        "nemotron-streaming:zh:44100": {
+          "word_errors": 136,
+          "words": 148,
+          "character_errors": 37,
+          "characters": 162
+        },
+        "whisper-turbo:zh:44100": {
+          "word_errors": 148,
+          "words": 148,
+          "character_errors": 5,
+          "characters": 162
+        },
+        "nemotron-streaming:zh:48000": {
+          "word_errors": 136,
+          "words": 148,
+          "character_errors": 37,
+          "characters": 162
+        },
+        "whisper-turbo:zh:48000": {
+          "word_errors": 148,
+          "words": 148,
+          "character_errors": 5,
+          "characters": 162
+        }
+      },
+      "new_empty": 0,
+      "new_nonspeech": 0,
+      "worst_case_added_word_errors": 2,
+      "regressed_cases": 6,
+      "improved_cases": 10,
+      "streaming_word_error_delta": 0,
+      "checks": {
+        "continuity": true,
+        "passband": true,
+        "alias": true,
+        "fidelity": true,
+        "packet_cost": true,
+        "first_output": false,
+        "language_errors": false,
+        "aggregate_errors": true,
+        "new_empty": true,
+        "new_nonspeech": true,
+        "worst_case": true,
+        "case_balance": true,
+        "streaming": true
+      },
+      "passes": false
+    },
+    {
+      "policy": "minimum-phase-max",
+      "fidelity": {
+        "44100": 0.900438862521793,
+        "48000": 0.9003946552648513
+      },
+      "costs": {
+        "44100": {
+          "p50_ms": 0.007458,
+          "p95_ms": 0.007667
+        },
+        "48000": {
+          "p50_ms": 0.007333,
+          "p95_ms": 0.007541
+        }
+      },
+      "first_output_ms": {
+        "44100": 23.219954648526077,
+        "48000": 21.333333333333332
+      },
+      "max_abs_passband_db": 0.0874683391552167,
+      "max_alias_db": -161.8366466757168,
+      "continuity": true,
+      "scores": {
+        "nemotron-streaming:en:44100": {
+          "word_errors": 36,
+          "words": 943,
+          "character_errors": 46,
+          "characters": 4360
+        },
+        "whisper-turbo:en:44100": {
+          "word_errors": 24,
+          "words": 943,
+          "character_errors": 41,
+          "characters": 4360
+        },
+        "nemotron-streaming:en:48000": {
+          "word_errors": 36,
+          "words": 943,
+          "character_errors": 46,
+          "characters": 4360
+        },
+        "whisper-turbo:en:48000": {
+          "word_errors": 24,
+          "words": 943,
+          "character_errors": 41,
+          "characters": 4360
+        },
+        "nemotron-streaming:es:44100": {
+          "word_errors": 12,
+          "words": 204,
+          "character_errors": 23,
+          "characters": 968
+        },
+        "whisper-turbo:es:44100": {
+          "word_errors": 3,
+          "words": 204,
+          "character_errors": 3,
+          "characters": 968
+        },
+        "nemotron-streaming:es:48000": {
+          "word_errors": 12,
+          "words": 204,
+          "character_errors": 23,
+          "characters": 968
+        },
+        "whisper-turbo:es:48000": {
+          "word_errors": 3,
+          "words": 204,
+          "character_errors": 3,
+          "characters": 968
+        },
+        "nemotron-streaming:de:44100": {
+          "word_errors": 20,
+          "words": 124,
+          "character_errors": 92,
+          "characters": 686
+        },
+        "whisper-turbo:de:44100": {
+          "word_errors": 9,
+          "words": 124,
+          "character_errors": 9,
+          "characters": 686
+        },
+        "nemotron-streaming:de:48000": {
+          "word_errors": 20,
+          "words": 124,
+          "character_errors": 92,
+          "characters": 686
+        },
+        "whisper-turbo:de:48000": {
+          "word_errors": 9,
+          "words": 124,
+          "character_errors": 9,
+          "characters": 686
+        },
+        "nemotron-streaming:hi:44100": {
+          "word_errors": 15,
+          "words": 186,
+          "character_errors": 23,
+          "characters": 744
+        },
+        "whisper-turbo:hi:44100": {
+          "word_errors": 64,
+          "words": 186,
+          "character_errors": 76,
+          "characters": 744
+        },
+        "nemotron-streaming:hi:48000": {
+          "word_errors": 15,
+          "words": 186,
+          "character_errors": 23,
+          "characters": 744
+        },
+        "whisper-turbo:hi:48000": {
+          "word_errors": 64,
+          "words": 186,
+          "character_errors": 76,
+          "characters": 744
+        },
+        "nemotron-streaming:ja:44100": {
+          "word_errors": 20,
+          "words": 20,
+          "character_errors": 36,
+          "characters": 324
+        },
+        "whisper-turbo:ja:44100": {
+          "word_errors": 20,
+          "words": 20,
+          "character_errors": 14,
+          "characters": 324
+        },
+        "nemotron-streaming:ja:48000": {
+          "word_errors": 20,
+          "words": 20,
+          "character_errors": 36,
+          "characters": 324
+        },
+        "whisper-turbo:ja:48000": {
+          "word_errors": 20,
+          "words": 20,
+          "character_errors": 14,
+          "characters": 324
+        },
+        "nemotron-streaming:zh:44100": {
+          "word_errors": 136,
+          "words": 148,
+          "character_errors": 37,
+          "characters": 162
+        },
+        "whisper-turbo:zh:44100": {
+          "word_errors": 148,
+          "words": 148,
+          "character_errors": 5,
+          "characters": 162
+        },
+        "nemotron-streaming:zh:48000": {
+          "word_errors": 136,
+          "words": 148,
+          "character_errors": 37,
+          "characters": 162
+        },
+        "whisper-turbo:zh:48000": {
+          "word_errors": 148,
+          "words": 148,
+          "character_errors": 5,
+          "characters": 162
+        }
+      },
+      "new_empty": 0,
+      "new_nonspeech": 0,
+      "worst_case_added_word_errors": 2,
+      "regressed_cases": 6,
+      "improved_cases": 18,
+      "streaming_word_error_delta": -2,
+      "checks": {
+        "continuity": true,
+        "passband": true,
+        "alias": true,
+        "fidelity": false,
+        "packet_cost": true,
+        "first_output": true,
+        "language_errors": false,
+        "aggregate_errors": true,
+        "new_empty": true,
+        "new_nonspeech": true,
+        "worst_case": true,
+        "case_balance": true,
+        "streaming": true
+      },
+      "passes": false
+    }
+  ],
+  "passing_candidate": null,
+  "traces_file": "resampling-quality-real-v2.traces.json.gz",
+  "traces_sha256": "594e2b8d5da8c30d2b2473b996fcf1d7f6b271c426e52a4f60cd248cf0898be8",
+  "scope": "Only Core continuous conversion used by desktop live draft and neural capture. Default dictation backend already uses a separate continuous SciPy normalizer; durable full-file final normalization remains unchanged. No default promotion of neural processing from this study.",
+  "boundary": "M5 Max shared-machine unpaced file replay of the actual Core resampler. Five settings, two rates, cached local ASR plus subset streaming packets. Signal analysis measures amplitude/alias rejection and SciPy-upsample/Apple-downsample roundtrip, not perceptual listening. Per-process packet wall times include input copy and output collection, excluding I/O; they are diagnostics, not microphone/UI latency, isolated CPU, energy or a consumer ranking. Default policy stays native until every frozen gate passes. A passing desktop draft setting does not authorize changing neural VAD input without a separate detector gate. Real streaming uses 320 ms slices of completed normalized PCM; it does not reproduce native arrival/availability timing."
+}

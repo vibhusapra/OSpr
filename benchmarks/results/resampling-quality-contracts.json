@@ -1,0 +1,108 @@
+{
+  "status": "passed-seven-real-native-controls",
+  "helper_sha256": "c95b478df06d0936bb3dd854687efabacd9e2f7086b34378f92337f3d0d1e261",
+  "script_sha256": "2c2d87ce513b906b8e44a645c686df8798ab6ebb047427f42031737c4f10f5b2",
+  "controls": [
+    {
+      "case": "malformed-json",
+      "response": {
+        "error": "The data couldn\u2019t be read because it isn\u2019t in the correct format.",
+        "ok": false
+      }
+    },
+    {
+      "case": "unknown-policy",
+      "response": {
+        "error": "Invalid resampling study request.",
+        "ok": false
+      }
+    },
+    {
+      "case": "existing-output",
+      "response": {
+        "error": "Invalid resampling study request.",
+        "ok": false
+      }
+    },
+    {
+      "case": "stereo-input",
+      "response": {
+        "error": "Study accepts mono audio of at most three minutes.",
+        "ok": false
+      }
+    },
+    {
+      "case": "excess-packet",
+      "response": {
+        "error": "Invalid resampling study request.",
+        "ok": false
+      }
+    },
+    {
+      "case": "excess-repeats",
+      "response": {
+        "error": "Invalid resampling study request.",
+        "ok": false
+      }
+    },
+    {
+      "case": "valid-after-six-failures",
+      "response": {
+        "id": "test",
+        "ok": true,
+        "result": {
+          "exact_whole_reference": true,
+          "input_frames": 16000,
+          "input_rate": 16000,
+          "output_frames": 16000,
+          "policy": "normal-max",
+          "trials": [
+            {
+              "converter": {
+                "passthrough": true
+              },
+              "first_output_input_frames": 128,
+              "flush_ms": 4.2e-05,
+              "initialization_ms": 0.007167,
+              "live_output_frames": 16000,
+              "output_frames": 16000,
+              "process_ms": [
+                0.00075,
+                0.000708,
+                0.000125,
+                0.000458,
+                8.4e-05,
+                0.000459,
+                8.3e-05,
+                0.000958,
+                8.3e-05,
+                0.000417,
+                8.3e-05,
+                0.000417,
+                0.000125,
+                0.000416,
+                0.000584,
+                0.000458,
+                8.3e-05,
+                0.000417,
+                8.3e-05,
+                0.000375,
+                8.3e-05,
+                0.000917,
+                8.4e-05,
+                0.000416,
+                8.3e-05,
+                0.000417,
+                8.3e-05,
+                0.000375
+              ]
+            }
+          ],
+          "whole_reference_frames": 16000
+        }
+      }
+    }
+  ],
+  "existing_output_unchanged": true,
+  "boundary": "Separate native helper process: six failed requests followed by exact 16 kHz success, no ASR, microphone, UI or default change."
+}

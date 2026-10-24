@@ -1,0 +1,20 @@
+{
+  "attempts": [
+    {
+      "status": "failed-ceil-frame-count-assumption-before-asr",
+      "git_commit": "0fffd61",
+      "protocol_sha256": "dd13929f5c426c69072d223fd96aae614ba9074a6a387ec3184df5825b7056c3",
+      "traces_sha256": "91e4726320e92a8758fde131d8ea0e3d9230b2da4f4b2a34d3cfbf8a8ff8ecff",
+      "completed": {
+        "audio": 0,
+        "signals": 100,
+        "cost": 10,
+        "continuity": 0,
+        "streaming": 0,
+        "initial": 0
+      },
+      "file_asr_requests": 0,
+      "explanation": "CoreAudio fractional output-frame rounding differed from the SciPy-style ceil assumption. Revised helper compares complete PCM/length with separate whole-track Apple conversion. Signal, cost, ASR, fidelity and candidate selection gates stay unchanged."
+    }
+  ]
+}
