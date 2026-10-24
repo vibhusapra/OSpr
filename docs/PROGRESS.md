@@ -616,10 +616,31 @@ distribution or a claim of full union parity/top-three product placement.
 - [x] Neural preferences encode legacy auto-stop as off and preserve the user's
   RMS choice in a separate key. Every nondefault setting round-trips through the
   custom compatibility encoder; older settings keep neural mode off.
-- [x] Local contracts: 292 Swift / 112 Python tests and 17 profile CLI cases pass.
+- [x] Local contracts at initial integration: 292 Swift / 112 Python tests and
+  17 profile CLI cases pass; cache repair expands Python coverage below.
   Pin parity, explicit/corrupt download contracts, visible warning callbacks,
   destination changes, manual fallback and full settings persistence are tested.
 - [ ] Package and exercise native Settings/Models controls in an isolated profile.
   Physical microphone/destination acceptance remains separate. Defaults and the
   delivered preview remain unchanged. Final ASR edges need their exact final
   normalized timeline and are not changed by the auto-finish option.
+
+## Model cache repair and native controls (work in progress)
+
+- [x] Real isolated-cache testing exposed a Hub SDK repair gap: force-download
+  still returned a corrupt snapshot. Repair now stages/hashes known files into
+  unique OSpr-owned versions and atomically publishes a locator. Shared snapshots,
+  immutable blobs and prior native readers remain untouched.
+- [x] Python suite passes 116 tests. Regressions cover same-size shared/owned
+  corruption, new-version publication, locator traversal and symlinked managed
+  directories. No SDK/network access occurs during cache-only preparation.
+- [x] The real repaired asset passes independent native size/SHA verification.
+- [x] Isolated native Settings exposes the toggle and pause selection. Choosing
+  three seconds and Save preferences persisted neural=true / silence=3, legacy
+  auto-stop=0 and prior RMS interval=3. A screenshot captures Preferences saved.
+- [x] Normal OSpr remained running with identical settings/history hashes. QA had
+  a distinct identity, disabled services, auto-paste/history off, and zero audio,
+  history or recovery records. Only the disposable QA process was stopped.
+- [ ] macOS locked after Settings Save. Models-screen download and native restart
+  are unverified; process cleanup is not a graceful-quit acceptance claim.
+  Microphone, physical hotkeys, cross-app insertion and device acceptance remain.

@@ -197,6 +197,11 @@ does not download weights. The worker and native loader both verify the pinned
 files. This detector runs locally on CPU while ASR remains on Metal; it also works
 before an explicitly selected BYOK transcription route.
 
+The detector can reuse a verified shared Hub snapshot. Downloads/repairs publish
+new verified versions inside an OSpr-owned cache subdirectory, without editing
+shared snapshots or immutable blobs. Superseded versions stay available to any
+native model still reading them; model data is not automatically deleted.
+
 The detector is off by default. A pause can finish a take; a detector/queue error
 keeps recording and displays **stop manually**, without switching to RMS.
 Final edge trimming is separate and still volume based; disable it for quiet-speech

@@ -393,6 +393,15 @@ must match; recording startup is cache-only. The native loader independently
 checks the same five assets before Core ML load. The ASR lock is unchanged;
 the detector has its own mirrored pin, with a cross-layer research/native test.
 
+Real corrupt-cache testing exposed an SDK gap: even force-download could return
+the existing bad Hub snapshot. Repair therefore uses a fresh SDK `local_dir`,
+verifies and copies only the five known files into an OSpr-owned version under
+`HF_HUB_CACHE/.ospr-native-speech/<revision>/<unique-version>`, then atomically
+publishes a small `current` locator. Shared snapshots and immutable blobs are
+never edited. Prior versions are retained so a model already reading one is not
+disrupted. A malformed locator or symlinked managed directory fails closed.
+Verified shared snapshots remain reusable without another download or copy.
+
 Preparation and priming run off the main actor before installing the tap. Missing
 or unverified cache fails before recording with an actionable Models message.
 Native initialization/runtime failure continues capture with a visible manual
@@ -412,13 +421,16 @@ do not silently substitute RMS; new decoders restore both choices. Opening an
 older app can still discard unknown preferences. Full nondefault settings
 round-trip tests guard the custom encoder.
 
-Local contracts pass 292 Swift / 112 Python tests and 17 real profile CLI cases.
+Local contracts pass 292 Swift / 116 Python tests and 17 real profile CLI cases.
 They cover pins, corruption, explicit download versus cache-only preparation,
 settings compatibility, pre-start destination changes, stale-session leases,
 manual fallback and visible recording-warning callbacks. They do not exercise
-real microphone capture or insertion. Native Settings/Models persistence,
-hardware, pause/noise/quiet/device behavior and contention remain acceptance
-work. Final ASR edges must use the exact final normalized array. The UI identifies
+real microphone capture or insertion. Isolated native Settings toggle/three-second
+selection/Save passed, including legacy zero and preserved RMS interval on disk.
+macOS locked before Models-screen and restart checks; only QA was stopped, with
+normal settings/history unchanged and zero QA audio/history/recovery. Models,
+restart, hardware, pause/noise/quiet/device behavior and contention remain
+acceptance work. Final ASR edges must use the exact final normalized array. The UI identifies
 volume trimming as separate and advises disabling it for quiet experiments.
 
 ## Primary sources and provenance
