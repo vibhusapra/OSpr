@@ -2,6 +2,23 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## Profile editor page and isolated preference saves
+
+Modes now opens profile Add/Edit inside the workspace, with a scrolling form and
+Save/Cancel kept visible. All app/site/model/language/instruction/translation
+controls remain. A dedicated profile save persists before closing, leaves the
+draft visible on failure and avoids committing unrelated pending global fields
+or reapplying history/credentials/shortcuts. Removal is similarly acknowledged.
+Six new storage/restart/failure tests pass; total 424 Swift, release build, Ruff and
+all 17 profile CLI cases pass on source 4b46bb9. Source light/dark/compact layouts
+are inspected. [Implementation and remaining checks](architecture/profile-editor-page.md).
+
+The first page still crashes native inspection (OSpr stays alive); the standard-
+card candidate has not been tested natively because macOS locked before launch.
+No profile/audio/history fixture was admitted. The normal app is restored with
+unchanged settings/history. No new standalone distribution or native editor pass.
+[Bound source/native receipt](../benchmarks/results/profile-editor-page-validation.json).
+
 ## Source-grounded summary reconciliation and bounded repair
 
 A new 18-case public synthetic development study retains all ten model/algorithm/encoding
@@ -12,7 +29,9 @@ This improves source access and diagnostic feedback, without proving meaning or 
 plus three local inferences) pass. Actual stdio MCP summary and oversized-input
 rejection pass. Swift source is unchanged from the parent’s 418-test suite.
 [Local source validation](../benchmarks/results/summary-fidelity-source-validation.json);
-[final source CI checks on draft PR30](https://github.com/vibhusapra/OSpr/pull/30).
+[final source CI on PR30](https://github.com/vibhusapra/OSpr/actions/runs/40129373166)
+passes 418 Swift / 355 Python, app/report/standalone runtime and 316 bundled links
+on its exact head 9ca6a48.
 
 9B structural admission changes from 16/18 baseline to 17/18 current and 18/18 with
 research grammar; accepted notes still have heading/ownership/coverage errors. Lossless
