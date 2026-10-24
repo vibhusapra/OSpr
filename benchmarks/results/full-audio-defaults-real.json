@@ -1,0 +1,1763 @@
+{
+  "status": "passed",
+  "timestamp": "2026-10-24T02:59:53.247387+00:00",
+  "git_commit": "a147930990e5e6d895ed38013c93381e194fffd5",
+  "tracked_changes": false,
+  "harness_sha256": "a3b817620bd2a8abf1f468dc4600dd9cd6ac953ee442ad566edef6c2bf38e52d",
+  "engine_sha256": "e21e8fafad045ff026007c3c920e9f76be19e341c9d5ea6ade19bf5055abfed2",
+  "source_result_sha256": "d3a467ecdca892e22aa8b5768ab702350a00fa7a7378d032ef0748fefe516779",
+  "asr_lock_sha256": "9d523253c866ef3a021e51c0a542e65878a658b8539140a3043518c4c759dffa",
+  "dependency_lock_sha256": "8e306569ebe63c886e9938d06c2e0a6e39d661de20e116a1998321dbfd14a6d2",
+  "requests": 52,
+  "actual_asr": 52,
+  "identical_texts": 52,
+  "records": [
+    {
+      "id": "fleurs-es_419-000-original",
+      "model": "parakeet-v3",
+      "file_sha256": "518e4998d7fc4cb32bf9cb6c479b4cfe632bc68c6a2db376eeff98b68fea2bd1",
+      "pcm_sha256": "4e08e350cb7eae260082784031643646eaa79fb46a236e7a876497f9ad429100",
+      "expected_text": "Se recomienda enfáticamente a los viajeros que se informen sobre cualquier riesgo del clima extremo en el área que visitan, dado que ello pueda afectar sus planes de viaje.",
+      "text_identical": true,
+      "result": {
+        "model": "parakeet-v3",
+        "audio_seconds": 12.84,
+        "speech_seconds": 12.84,
+        "segments": [
+          {
+            "start": 1.6,
+            "end": 12.64,
+            "text": " Se recomienda enfáticamente a los viajeros que se informen sobre cualquier riesgo del clima extremo en el área que visitan, dado que ello pueda afectar sus planes de viaje."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": "Se recomienda enfáticamente a los viajeros que se informen sobre cualquier riesgo del clima extremo en el área que visitan, dado que ello pueda afectar sus planes de viaje.",
+        "language": "es",
+        "silence": false,
+        "warm": false,
+        "load_ms": 258.630583062768,
+        "preprocess_ms": 0.8283751085400581,
+        "decode_ms": 343.9036251511425,
+        "total_ms": 603.6874169949442,
+        "peak_gpu_bytes": 2174716290,
+        "active_gpu_bytes": 1296591052,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-es_419-000-quiet40db",
+      "model": "parakeet-v3",
+      "file_sha256": "eafc19f0362b917a270802969d0ab964911eb831f80e812563d644c695bd3e70",
+      "pcm_sha256": "71be4b2ee2a6ce7bc522895227675cbb1b3e8a9ce3f7f51bbbbbe08321dd775a",
+      "expected_text": "Se recomienda enfáticamente a los viajeros que se informen sobre cualquier riesgo del clima extremo en el área que visitan, dado que ello pueda afectar sus planes de viaje.",
+      "text_identical": true,
+      "result": {
+        "model": "parakeet-v3",
+        "audio_seconds": 12.84,
+        "speech_seconds": 12.84,
+        "segments": [
+          {
+            "start": 1.6,
+            "end": 12.56,
+            "text": " Se recomienda enfáticamente a los viajeros que se informen sobre cualquier riesgo del clima extremo en el área que visitan, dado que ello pueda afectar sus planes de viaje."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": "Se recomienda enfáticamente a los viajeros que se informen sobre cualquier riesgo del clima extremo en el área que visitan, dado que ello pueda afectar sus planes de viaje.",
+        "language": "es",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0024170149117708206,
+        "preprocess_ms": 0.716750044375658,
+        "decode_ms": 96.51758312247694,
+        "total_ms": 97.33320795930922,
+        "peak_gpu_bytes": 2304098800,
+        "active_gpu_bytes": 1296591052,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-de_de-000-original",
+      "model": "parakeet-v3",
+      "file_sha256": "7131c007c5c5c7b72c2fae333c9bccf5e2c02a4abb32b740f314e58b1488f149",
+      "pcm_sha256": "2bc82d9c2d75aa89b91c374d7b4edb05b3b1f15c852baf7ed1ce0b9ee7e25554",
+      "expected_text": "Für die besten Aussichten auf Hongkong sollten sie die Insel verlassen und zum gegenüberliegenden Ufer von Kowloon fahren.",
+      "text_identical": true,
+      "result": {
+        "model": "parakeet-v3",
+        "audio_seconds": 17.94,
+        "speech_seconds": 17.94,
+        "segments": [
+          {
+            "start": 3.84,
+            "end": 14.72,
+            "text": " Für die besten Aussichten auf Hongkong sollten sie die Insel verlassen und zum gegenüberliegenden Ufer von Kowloon fahren."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": "Für die besten Aussichten auf Hongkong sollten sie die Insel verlassen und zum gegenüberliegenden Ufer von Kowloon fahren.",
+        "language": "de",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0024579931050539017,
+        "preprocess_ms": 1.0524170938879251,
+        "decode_ms": 101.09687503427267,
+        "total_ms": 102.26345900446177,
+        "peak_gpu_bytes": 2404524528,
+        "active_gpu_bytes": 1296853196,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-de_de-000-quiet40db",
+      "model": "parakeet-v3",
+      "file_sha256": "2ec24fe1eed4bd3c93d9bd2fc8ae16aa58ff9837a3ad814ce6a8a224c1b1aa4e",
+      "pcm_sha256": "02d1804a1a3f3609e7b14bc6a830bf4c883911f7b76abebd6ddda52873327e44",
+      "expected_text": "Für die besten Aussichten auf Hongkong sollten Sie die Insel verlassen und zum gegenüberliegenden Ufer von Kowlum fahren.",
+      "text_identical": true,
+      "result": {
+        "model": "parakeet-v3",
+        "audio_seconds": 17.94,
+        "speech_seconds": 17.94,
+        "segments": [
+          {
+            "start": 3.84,
+            "end": 14.4,
+            "text": " Für die besten Aussichten auf Hongkong sollten Sie die Insel verlassen und zum gegenüberliegenden Ufer von Kowlum fahren."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": "Für die besten Aussichten auf Hongkong sollten Sie die Insel verlassen und zum gegenüberliegenden Ufer von Kowlum fahren.",
+        "language": "de",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0015830155462026596,
+        "preprocess_ms": 0.4782499745488167,
+        "decode_ms": 101.82437510229647,
+        "total_ms": 102.41000005044043,
+        "peak_gpu_bytes": 2404524528,
+        "active_gpu_bytes": 1296853196,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-es_419-000-original",
+      "model": "whisper-turbo",
+      "file_sha256": "518e4998d7fc4cb32bf9cb6c479b4cfe632bc68c6a2db376eeff98b68fea2bd1",
+      "pcm_sha256": "4e08e350cb7eae260082784031643646eaa79fb46a236e7a876497f9ad429100",
+      "expected_text": "Se recomienda enfáticamente a los viajeros que se informen sobre cualquier riesgo del clima extremo en el área que visitan, dado que ello puede afectar sus planes de viaje.",
+      "text_identical": true,
+      "result": {
+        "model": "whisper-turbo",
+        "audio_seconds": 12.84,
+        "speech_seconds": 12.84,
+        "segments": [
+          {
+            "start": 0,
+            "end": 6.66,
+            "text": "Se recomienda enfáticamente a los viajeros que se informen sobre cualquier riesgo del"
+          },
+          {
+            "start": 6.66,
+            "end": 11.82,
+            "text": "clima extremo en el área que visitan, dado que ello puede afectar sus planes de viaje."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": "Se recomienda enfáticamente a los viajeros que se informen sobre cualquier riesgo del clima extremo en el área que visitan, dado que ello puede afectar sus planes de viaje.",
+        "language": "es",
+        "silence": false,
+        "warm": false,
+        "load_ms": 982.2501249145716,
+        "preprocess_ms": 0.7012081332504749,
+        "decode_ms": 281.97112516500056,
+        "total_ms": 1265.0260829832405,
+        "peak_gpu_bytes": 2562004886,
+        "active_gpu_bytes": 1618309810,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-es_419-000-quiet40db",
+      "model": "whisper-turbo",
+      "file_sha256": "eafc19f0362b917a270802969d0ab964911eb831f80e812563d644c695bd3e70",
+      "pcm_sha256": "71be4b2ee2a6ce7bc522895227675cbb1b3e8a9ce3f7f51bbbbbe08321dd775a",
+      "expected_text": "Se recomienda enfáticamente a los viajeros que se informen sobre cualquier riesgo del clima extremo en el área que visitan, dado que ello puede afectar sus planes de viaje.",
+      "text_identical": true,
+      "result": {
+        "model": "whisper-turbo",
+        "audio_seconds": 12.84,
+        "speech_seconds": 12.84,
+        "segments": [
+          {
+            "start": 0,
+            "end": 11.8,
+            "text": "Se recomienda enfáticamente a los viajeros que se informen sobre cualquier riesgo del clima extremo en el área que visitan, dado que ello puede afectar sus planes de viaje."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": "Se recomienda enfáticamente a los viajeros que se informen sobre cualquier riesgo del clima extremo en el área que visitan, dado que ello puede afectar sus planes de viaje.",
+        "language": "es",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.004083150997757912,
+        "preprocess_ms": 0.5949998740106821,
+        "decode_ms": 154.0310839191079,
+        "total_ms": 154.71654199063778,
+        "peak_gpu_bytes": 2550477690,
+        "active_gpu_bytes": 1618309810,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-de_de-000-original",
+      "model": "whisper-turbo",
+      "file_sha256": "7131c007c5c5c7b72c2fae333c9bccf5e2c02a4abb32b740f314e58b1488f149",
+      "pcm_sha256": "2bc82d9c2d75aa89b91c374d7b4edb05b3b1f15c852baf7ed1ce0b9ee7e25554",
+      "expected_text": "Für die besten Aussichten auf Hongkong sollten Sie die Insel verlassen und zum gegenüberliegenden Ufer von Kowloon fahren.",
+      "text_identical": true,
+      "result": {
+        "model": "whisper-turbo",
+        "audio_seconds": 17.94,
+        "speech_seconds": 17.94,
+        "segments": [
+          {
+            "start": 0,
+            "end": 13.64,
+            "text": "Für die besten Aussichten auf Hongkong sollten Sie die Insel verlassen und zum gegenüberliegenden Ufer von Kowloon fahren."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": "Für die besten Aussichten auf Hongkong sollten Sie die Insel verlassen und zum gegenüberliegenden Ufer von Kowloon fahren.",
+        "language": "de",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0021671876311302185,
+        "preprocess_ms": 1.0759590659290552,
+        "decode_ms": 138.31820897758007,
+        "total_ms": 139.49683401733637,
+        "peak_gpu_bytes": 2550739834,
+        "active_gpu_bytes": 1618309810,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-de_de-000-quiet40db",
+      "model": "whisper-turbo",
+      "file_sha256": "2ec24fe1eed4bd3c93d9bd2fc8ae16aa58ff9837a3ad814ce6a8a224c1b1aa4e",
+      "pcm_sha256": "02d1804a1a3f3609e7b14bc6a830bf4c883911f7b76abebd6ddda52873327e44",
+      "expected_text": "Für die besten Aussichten auf Hongkong sollten Sie die Insel verlassen und zum gegenüberliegenden Ufer von Koh Lung fahren.",
+      "text_identical": true,
+      "result": {
+        "model": "whisper-turbo",
+        "audio_seconds": 17.94,
+        "speech_seconds": 17.94,
+        "segments": [
+          {
+            "start": 0,
+            "end": 13.64,
+            "text": "Für die besten Aussichten auf Hongkong sollten Sie die Insel verlassen und zum gegenüberliegenden Ufer von Koh Lung fahren."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": "Für die besten Aussichten auf Hongkong sollten Sie die Insel verlassen und zum gegenüberliegenden Ufer von Koh Lung fahren.",
+        "language": "de",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0019581057131290436,
+        "preprocess_ms": 0.461166026070714,
+        "decode_ms": 135.34987508319318,
+        "total_ms": 135.91474993154407,
+        "peak_gpu_bytes": 2550739834,
+        "active_gpu_bytes": 1618309810,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-hi_in-000-original",
+      "model": "whisper-turbo",
+      "file_sha256": "38cf0e883d64ae257288bce89cf41a9c4a693b218c3381d5bd462d90bf7b7ed6",
+      "pcm_sha256": "bd57586f5375324ad3bc07c06f6cb2ac0becde0f3a417a1bb23e4d780c27e268",
+      "expected_text": "कुछ अणों में आस्तर केंद्रक होता है जिसका मतलब यहां कि उन में थोड़े या बिना किसी जटके से तूटने की प्रवत्ती होती है",
+      "text_identical": true,
+      "result": {
+        "model": "whisper-turbo",
+        "audio_seconds": 9.12,
+        "speech_seconds": 9.12,
+        "segments": [
+          {
+            "start": 0,
+            "end": 8.26,
+            "text": "कुछ अणों में आस्तर केंद्रक होता है जिसका मतलब यहां कि उन में थोड़े या बिना किसी जटके से तूटने की प्रवत्ती होती है"
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": "कुछ अणों में आस्तर केंद्रक होता है जिसका मतलब यहां कि उन में थोड़े या बिना किसी जटके से तूटने की प्रवत्ती होती है",
+        "language": "hi",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0016249250620603561,
+        "preprocess_ms": 0.5779589992016554,
+        "decode_ms": 278.9997919462621,
+        "total_ms": 279.64775008149445,
+        "peak_gpu_bytes": 2550297466,
+        "active_gpu_bytes": 1618309810,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-hi_in-000-quiet40db",
+      "model": "whisper-turbo",
+      "file_sha256": "14957b46a2e12937b39d30f6de7bc2de3cdc14fdb00301b5bbbc03683debfe84",
+      "pcm_sha256": "f70a3be1da81ddda8d0235af04f4bb3394304f1dd24ca39c44f87e404248c64d",
+      "expected_text": "कुछ अणों में अर्ष्ट केंद्रक होता है जिसका मतलब यहां कि उन में थोड़े या बिना किसी जटके से तूटने की प्रवत्ती होती है",
+      "text_identical": true,
+      "result": {
+        "model": "whisper-turbo",
+        "audio_seconds": 9.12,
+        "speech_seconds": 9.12,
+        "segments": [
+          {
+            "start": 0,
+            "end": 8.24,
+            "text": "कुछ अणों में अर्ष्ट केंद्रक होता है जिसका मतलब यहां कि उन में थोड़े या बिना किसी जटके से तूटने की प्रवत्ती होती है"
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": "कुछ अणों में अर्ष्ट केंद्रक होता है जिसका मतलब यहां कि उन में थोड़े या बिना किसी जटके से तूटने की प्रवत्ती होती है",
+        "language": "hi",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0013331882655620575,
+        "preprocess_ms": 0.4065409302711487,
+        "decode_ms": 279.2313329409808,
+        "total_ms": 279.7111659310758,
+        "peak_gpu_bytes": 2550297466,
+        "active_gpu_bytes": 1618309810,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-ja_jp-000-original",
+      "model": "whisper-turbo",
+      "file_sha256": "26b6cd491b5d52cf05d89207cb88499cdaba89749aebc29c8f216e834e3d9071",
+      "pcm_sha256": "f73d4fe07096f59d1f5ce13fec7f9c2d2164685904d73540e0f784bfcaf26208",
+      "expected_text": "インターネットで敵対的環境コースについて検索すると、おそらく現地企業の住所が出てくるでしょう",
+      "text_identical": true,
+      "result": {
+        "model": "whisper-turbo",
+        "audio_seconds": 10.44,
+        "speech_seconds": 10.44,
+        "segments": [
+          {
+            "start": 0,
+            "end": 8.2,
+            "text": "インターネットで敵対的環境コースについて検索すると、おそらく現地企業の住所が出てくるでしょう"
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": "インターネットで敵対的環境コースについて検索すると、おそらく現地企業の住所が出てくるでしょう",
+        "language": "ja",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0010419171303510666,
+        "preprocess_ms": 0.6045419722795486,
+        "decode_ms": 163.7068330310285,
+        "total_ms": 164.38725008629262,
+        "peak_gpu_bytes": 2550363002,
+        "active_gpu_bytes": 1618309810,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-ja_jp-000-quiet40db",
+      "model": "whisper-turbo",
+      "file_sha256": "8b83c1e830af1aaf926d9b96842030daca3b394d2c6c2dd6cdfd314c5d38a4e5",
+      "pcm_sha256": "ae11c1d022fdebc3dd2bb72fbd39edef39e0e12ec3968423602ba6ddbca647d1",
+      "expected_text": "インターネットで敵対的環境コースについて検索すると、おそらく現地企業の住所が出てくるでしょう。",
+      "text_identical": true,
+      "result": {
+        "model": "whisper-turbo",
+        "audio_seconds": 10.44,
+        "speech_seconds": 10.44,
+        "segments": [
+          {
+            "start": 0,
+            "end": 8.18,
+            "text": "インターネットで敵対的環境コースについて検索すると、おそらく現地企業の住所が出てくるでしょう。"
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": "インターネットで敵対的環境コースについて検索すると、おそらく現地企業の住所が出てくるでしょう。",
+        "language": "ja",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.001541106030344963,
+        "preprocess_ms": 0.3921249881386757,
+        "decode_ms": 163.73170795850456,
+        "total_ms": 164.19879207387567,
+        "peak_gpu_bytes": 2550363002,
+        "active_gpu_bytes": 1618309810,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-000-original",
+      "model": "whisper-turbo",
+      "file_sha256": "5214e16584b6498ddbd22f321738c0f62b19117ab1880b21e405fba983986b6a",
+      "pcm_sha256": "3c784155f4f21a00372503208c33d8590817a07cf196c38aa549ff315b0be867",
+      "expected_text": "这并不是告别,这是一个篇章的结束,也是新篇章的开始",
+      "text_identical": true,
+      "result": {
+        "model": "whisper-turbo",
+        "audio_seconds": 10.38,
+        "speech_seconds": 10.38,
+        "segments": [
+          {
+            "start": 0,
+            "end": 7.26,
+            "text": "这并不是告别,这是一个篇章的结束,也是新篇章的开始"
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": "这并不是告别,这是一个篇章的结束,也是新篇章的开始",
+        "language": "zh",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0016670674085617065,
+        "preprocess_ms": 0.6189588457345963,
+        "decode_ms": 131.87841698527336,
+        "total_ms": 132.57216685451567,
+        "peak_gpu_bytes": 2550363002,
+        "active_gpu_bytes": 1618309810,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-000-quiet40db",
+      "model": "whisper-turbo",
+      "file_sha256": "cfa75c1469666cdca3de62ac1e634a4783bc203e364d54d26fdc24d8c293108a",
+      "pcm_sha256": "502bbdc98927f312f5231c5b5323f561d9975b0fcbb11ef30e41a87c62bc10a1",
+      "expected_text": "这并不是告别,这是一个篇章的结束,也是新篇章的开始",
+      "text_identical": true,
+      "result": {
+        "model": "whisper-turbo",
+        "audio_seconds": 10.38,
+        "speech_seconds": 10.38,
+        "segments": [
+          {
+            "start": 0,
+            "end": 7.26,
+            "text": "这并不是告别,这是一个篇章的结束,也是新篇章的开始"
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": "这并不是告别,这是一个篇章的结束,也是新篇章的开始",
+        "language": "zh",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0017080456018447876,
+        "preprocess_ms": 0.5622501485049725,
+        "decode_ms": 128.59112513251603,
+        "total_ms": 129.23449999652803,
+        "peak_gpu_bytes": 2550363002,
+        "active_gpu_bytes": 1618309810,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-es_419-000-original",
+      "model": "whisper-small",
+      "file_sha256": "518e4998d7fc4cb32bf9cb6c479b4cfe632bc68c6a2db376eeff98b68fea2bd1",
+      "pcm_sha256": "4e08e350cb7eae260082784031643646eaa79fb46a236e7a876497f9ad429100",
+      "expected_text": "Se recomienda enfáticamente a los viajeros que se informen sobre cualquier riesgo del clima extremo en el área que visitan, dado que ello puede afectar sus planes de viaje.",
+      "text_identical": true,
+      "result": {
+        "model": "whisper-small",
+        "audio_seconds": 12.84,
+        "speech_seconds": 12.84,
+        "segments": [
+          {
+            "start": 0,
+            "end": 6.66,
+            "text": "Se recomienda enfáticamente a los viajeros que se informen sobre cualquier riesgo del"
+          },
+          {
+            "start": 6.66,
+            "end": 11.9,
+            "text": "clima extremo en el área que visitan, dado que ello puede afectar sus planes de viaje."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": "Se recomienda enfáticamente a los viajeros que se informen sobre cualquier riesgo del clima extremo en el área que visitan, dado que ello puede afectar sus planes de viaje.",
+        "language": "es",
+        "silence": false,
+        "warm": false,
+        "load_ms": 389.4161661155522,
+        "preprocess_ms": 0.7084999233484268,
+        "decode_ms": 206.06449991464615,
+        "total_ms": 596.281582955271,
+        "peak_gpu_bytes": 1452456774,
+        "active_gpu_bytes": 484088562,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-es_419-000-quiet40db",
+      "model": "whisper-small",
+      "file_sha256": "eafc19f0362b917a270802969d0ab964911eb831f80e812563d644c695bd3e70",
+      "pcm_sha256": "71be4b2ee2a6ce7bc522895227675cbb1b3e8a9ce3f7f51bbbbbe08321dd775a",
+      "expected_text": "Se recomienda enfáticamente a los viajeros que se informen sobre cualquier riesgo del clima extremo en el área que visitan, dado que ello puede afectar sus planes de viaje.",
+      "text_identical": true,
+      "result": {
+        "model": "whisper-small",
+        "audio_seconds": 12.84,
+        "speech_seconds": 12.84,
+        "segments": [
+          {
+            "start": 0,
+            "end": 6.66,
+            "text": "Se recomienda enfáticamente a los viajeros que se informen sobre cualquier riesgo del"
+          },
+          {
+            "start": 6.66,
+            "end": 11.84,
+            "text": "clima extremo en el área que visitan, dado que ello puede afectar sus planes de viaje."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": "Se recomienda enfáticamente a los viajeros que se informen sobre cualquier riesgo del clima extremo en el área que visitan, dado que ello puede afectar sus planes de viaje.",
+        "language": "es",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0017080456018447876,
+        "preprocess_ms": 0.4943329840898514,
+        "decode_ms": 147.45683316141367,
+        "total_ms": 148.0477498844266,
+        "peak_gpu_bytes": 1441308110,
+        "active_gpu_bytes": 484088562,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-de_de-000-original",
+      "model": "whisper-small",
+      "file_sha256": "7131c007c5c5c7b72c2fae333c9bccf5e2c02a4abb32b740f314e58b1488f149",
+      "pcm_sha256": "2bc82d9c2d75aa89b91c374d7b4edb05b3b1f15c852baf7ed1ce0b9ee7e25554",
+      "expected_text": "Für die besten Aussichten auf Hongkong sollten sie die Insel verlassen und zum gegenüberliegenden Ufer von Kowloon fahren.",
+      "text_identical": true,
+      "result": {
+        "model": "whisper-small",
+        "audio_seconds": 17.94,
+        "speech_seconds": 17.94,
+        "segments": [
+          {
+            "start": 0,
+            "end": 11.0,
+            "text": "Für die besten Aussichten auf Hongkong sollten sie die Insel verlassen und zum gegenüberliegenden"
+          },
+          {
+            "start": 11.0,
+            "end": 13.76,
+            "text": "Ufer von Kowloon fahren."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": "Für die besten Aussichten auf Hongkong sollten sie die Insel verlassen und zum gegenüberliegenden Ufer von Kowloon fahren.",
+        "language": "de",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0027909409254789352,
+        "preprocess_ms": 1.068625133484602,
+        "decode_ms": 110.38099997676909,
+        "total_ms": 111.56725022010505,
+        "peak_gpu_bytes": 1444666830,
+        "active_gpu_bytes": 484088562,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-de_de-000-quiet40db",
+      "model": "whisper-small",
+      "file_sha256": "2ec24fe1eed4bd3c93d9bd2fc8ae16aa58ff9837a3ad814ce6a8a224c1b1aa4e",
+      "pcm_sha256": "02d1804a1a3f3609e7b14bc6a830bf4c883911f7b76abebd6ddda52873327e44",
+      "expected_text": "Für die besten Aussichten auf Hongkong sollten sie die Insel verlassen und um die genübelnde Ufer von Korum fahren.",
+      "text_identical": true,
+      "result": {
+        "model": "whisper-small",
+        "audio_seconds": 17.94,
+        "speech_seconds": 17.94,
+        "segments": [
+          {
+            "start": 0,
+            "end": 14.0,
+            "text": "Für die besten Aussichten auf Hongkong sollten sie die Insel verlassen und um die genübelnde Ufer von Korum fahren."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": "Für die besten Aussichten auf Hongkong sollten sie die Insel verlassen und um die genübelnde Ufer von Korum fahren.",
+        "language": "de",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0014998950064182281,
+        "preprocess_ms": 0.5477089434862137,
+        "decode_ms": 97.83391701057553,
+        "total_ms": 98.49545895121992,
+        "peak_gpu_bytes": 1444666830,
+        "active_gpu_bytes": 484088562,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-hi_in-000-original",
+      "model": "whisper-small",
+      "file_sha256": "38cf0e883d64ae257288bce89cf41a9c4a693b218c3381d5bd462d90bf7b7ed6",
+      "pcm_sha256": "bd57586f5375324ad3bc07c06f6cb2ac0becde0f3a417a1bb23e4d780c27e268",
+      "expected_text": "अग्वो में आज्द्टर केंद्रख होता है, जिसका मतला भी आजा की उन्में थोडे या बिना किसी जटके से तुटनें की प्रवत्ती होती है.",
+      "text_identical": true,
+      "result": {
+        "model": "whisper-small",
+        "audio_seconds": 9.12,
+        "speech_seconds": 9.12,
+        "segments": [
+          {
+            "start": 0,
+            "end": 9.0,
+            "text": "अग्वो में आज्द्टर केंद्रख होता है, जिसका मतला भी आजा की उन्में थोडे या बिना किसी जटके से तुटनें की प्रवत्ती होती है."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": "अग्वो में आज्द्टर केंद्रख होता है, जिसका मतला भी आजा की उन्में थोडे या बिना किसी जटके से तुटनें की प्रवत्ती होती है.",
+        "language": "hi",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0014998950064182281,
+        "preprocess_ms": 0.626708148047328,
+        "decode_ms": 321.24341698363423,
+        "total_ms": 321.9582079909742,
+        "peak_gpu_bytes": 1445141966,
+        "active_gpu_bytes": 484088562,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-hi_in-000-quiet40db",
+      "model": "whisper-small",
+      "file_sha256": "14957b46a2e12937b39d30f6de7bc2de3cdc14fdb00301b5bbbc03683debfe84",
+      "pcm_sha256": "f70a3be1da81ddda8d0235af04f4bb3394304f1dd24ca39c44f87e404248c64d",
+      "expected_text": "अग्वो में आज्द केंदरक होता है, जिसका मतला भी आज्गा की उन्में थोड़े या बिना किसी जधके से तुटनें की प्रवत्ती होती है.",
+      "text_identical": true,
+      "result": {
+        "model": "whisper-small",
+        "audio_seconds": 9.12,
+        "speech_seconds": 9.12,
+        "segments": [
+          {
+            "start": 0,
+            "end": 8.0,
+            "text": "अग्वो में आज्द केंदरक होता है, जिसका मतला भी आज्गा की उन्में थोड़े या बिना किसी जधके से तुटनें की प्रवत्ती होती है."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": "अग्वो में आज्द केंदरक होता है, जिसका मतला भी आज्गा की उन्में थोड़े या बिना किसी जधके से तुटनें की प्रवत्ती होती है.",
+        "language": "hi",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0015827827155590057,
+        "preprocess_ms": 0.4301669541746378,
+        "decode_ms": 309.3097920063883,
+        "total_ms": 309.8172501195222,
+        "peak_gpu_bytes": 1445141966,
+        "active_gpu_bytes": 484088562,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-ja_jp-000-original",
+      "model": "whisper-small",
+      "file_sha256": "26b6cd491b5d52cf05d89207cb88499cdaba89749aebc29c8f216e834e3d9071",
+      "pcm_sha256": "f73d4fe07096f59d1f5ce13fec7f9c2d2164685904d73540e0f784bfcaf26208",
+      "expected_text": "インターネットで適対的環境コースについて検索すると、おそらく現地企業の重所が出てくるでしょう。",
+      "text_identical": true,
+      "result": {
+        "model": "whisper-small",
+        "audio_seconds": 10.44,
+        "speech_seconds": 10.44,
+        "segments": [
+          {
+            "start": 0,
+            "end": 10.0,
+            "text": "インターネットで適対的環境コースについて検索すると、おそらく現地企業の重所が出てくるでしょう。"
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": "インターネットで適対的環境コースについて検索すると、おそらく現地企業の重所が出てくるでしょう。",
+        "language": "ja",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0016670674085617065,
+        "preprocess_ms": 0.6641671061515808,
+        "decode_ms": 141.71941694803536,
+        "total_ms": 142.46420818381011,
+        "peak_gpu_bytes": 1439702478,
+        "active_gpu_bytes": 484088562,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-ja_jp-000-quiet40db",
+      "model": "whisper-small",
+      "file_sha256": "8b83c1e830af1aaf926d9b96842030daca3b394d2c6c2dd6cdfd314c5d38a4e5",
+      "pcm_sha256": "ae11c1d022fdebc3dd2bb72fbd39edef39e0e12ec3968423602ba6ddbca647d1",
+      "expected_text": "インターネットで適対的環境コースについて検索すると、おそらく現地企業の重症が出てくるでしょう。",
+      "text_identical": true,
+      "result": {
+        "model": "whisper-small",
+        "audio_seconds": 10.44,
+        "speech_seconds": 10.44,
+        "segments": [
+          {
+            "start": 0,
+            "end": 10.0,
+            "text": "インターネットで適対的環境コースについて検索すると、おそらく現地企業の重症が出てくるでしょう。"
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": "インターネットで適対的環境コースについて検索すると、おそらく現地企業の重症が出てくるでしょう。",
+        "language": "ja",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.001541106030344963,
+        "preprocess_ms": 0.38954196497797966,
+        "decode_ms": 137.88054091855884,
+        "total_ms": 138.34929186850786,
+        "peak_gpu_bytes": 1439702478,
+        "active_gpu_bytes": 484088562,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-000-original",
+      "model": "whisper-small",
+      "file_sha256": "5214e16584b6498ddbd22f321738c0f62b19117ab1880b21e405fba983986b6a",
+      "pcm_sha256": "3c784155f4f21a00372503208c33d8590817a07cf196c38aa549ff315b0be867",
+      "expected_text": "这并不是告别,这是一个偏僵的结束,也是新偏僵的开始。",
+      "text_identical": true,
+      "result": {
+        "model": "whisper-small",
+        "audio_seconds": 10.38,
+        "speech_seconds": 10.38,
+        "segments": [
+          {
+            "start": 0,
+            "end": 8.0,
+            "text": "这并不是告别,这是一个偏僵的结束,也是新偏僵的开始。"
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": "这并不是告别,这是一个偏僵的结束,也是新偏僵的开始。",
+        "language": "zh",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0015830155462026596,
+        "preprocess_ms": 0.6666250992566347,
+        "decode_ms": 91.594333993271,
+        "total_ms": 92.34341606497765,
+        "peak_gpu_bytes": 1439702478,
+        "active_gpu_bytes": 484088562,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-000-quiet40db",
+      "model": "whisper-small",
+      "file_sha256": "cfa75c1469666cdca3de62ac1e634a4783bc203e364d54d26fdc24d8c293108a",
+      "pcm_sha256": "502bbdc98927f312f5231c5b5323f561d9975b0fcbb11ef30e41a87c62bc10a1",
+      "expected_text": "这并不是告别这是一个偏僵的结束也是新偏僵的开始",
+      "text_identical": true,
+      "result": {
+        "model": "whisper-small",
+        "audio_seconds": 10.38,
+        "speech_seconds": 10.38,
+        "segments": [
+          {
+            "start": 0,
+            "end": 3.0,
+            "text": "这并不是告别"
+          },
+          {
+            "start": 3.0,
+            "end": 5.0,
+            "text": "这是一个偏僵的结束"
+          },
+          {
+            "start": 5.0,
+            "end": 7.0,
+            "text": "也是新偏僵的开始"
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": "这并不是告别这是一个偏僵的结束也是新偏僵的开始",
+        "language": "zh",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0015420373529195786,
+        "preprocess_ms": 0.4956249613314867,
+        "decode_ms": 90.60075017623603,
+        "total_ms": 91.17566584609449,
+        "peak_gpu_bytes": 1439702478,
+        "active_gpu_bytes": 484088562,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-es_419-000-original",
+      "model": "qwen3-asr",
+      "file_sha256": "518e4998d7fc4cb32bf9cb6c479b4cfe632bc68c6a2db376eeff98b68fea2bd1",
+      "pcm_sha256": "4e08e350cb7eae260082784031643646eaa79fb46a236e7a876497f9ad429100",
+      "expected_text": "Se recomienda enfáticamente a los viajeros que se informen sobre cualquier riesgo del clima extremo en el área que visitan, dado que ello puede afectar sus planes de viaje.",
+      "text_identical": true,
+      "result": {
+        "model": "qwen3-asr",
+        "audio_seconds": 12.84,
+        "speech_seconds": 12.84,
+        "segments": [
+          {
+            "start": 0,
+            "end": 12.84,
+            "text": "Se recomienda enfáticamente a los viajeros que se informen sobre cualquier riesgo del clima extremo en el área que visitan, dado que ello puede afectar sus planes de viaje."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "Se recomienda enfáticamente a los viajeros que se informen sobre cualquier riesgo del clima extremo en el área que visitan, dado que ello puede afectar sus planes de viaje.",
+        "language": "es",
+        "silence": false,
+        "warm": false,
+        "load_ms": 4439.633958041668,
+        "preprocess_ms": 0.841749832034111,
+        "decode_ms": 403.10916607268155,
+        "total_ms": 4843.687708023936,
+        "peak_gpu_bytes": 3653958166,
+        "active_gpu_bytes": 2484705716,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-es_419-000-quiet40db",
+      "model": "qwen3-asr",
+      "file_sha256": "eafc19f0362b917a270802969d0ab964911eb831f80e812563d644c695bd3e70",
+      "pcm_sha256": "71be4b2ee2a6ce7bc522895227675cbb1b3e8a9ce3f7f51bbbbbe08321dd775a",
+      "expected_text": "Se recomienda enfáticamente a los viajeros que se informen sobre cualquier riesgo del clima extremo en el área que visitan, dado que ello puede afectar sus planes de viaje.",
+      "text_identical": true,
+      "result": {
+        "model": "qwen3-asr",
+        "audio_seconds": 12.84,
+        "speech_seconds": 12.84,
+        "segments": [
+          {
+            "start": 0,
+            "end": 12.84,
+            "text": "Se recomienda enfáticamente a los viajeros que se informen sobre cualquier riesgo del clima extremo en el área que visitan, dado que ello puede afectar sus planes de viaje."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "Se recomienda enfáticamente a los viajeros que se informen sobre cualquier riesgo del clima extremo en el área que visitan, dado que ello puede afectar sus planes de viaje.",
+        "language": "es",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0018749851733446121,
+        "preprocess_ms": 0.6293749902397394,
+        "decode_ms": 325.9148341603577,
+        "total_ms": 326.6690841410309,
+        "peak_gpu_bytes": 3653959118,
+        "active_gpu_bytes": 2492459500,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-de_de-000-original",
+      "model": "qwen3-asr",
+      "file_sha256": "7131c007c5c5c7b72c2fae333c9bccf5e2c02a4abb32b740f314e58b1488f149",
+      "pcm_sha256": "2bc82d9c2d75aa89b91c374d7b4edb05b3b1f15c852baf7ed1ce0b9ee7e25554",
+      "expected_text": "Für die besten Aussichten auf Hongkong sollten Sie die Insel verlassen und zum gegenüberliegenden Ufer von Kowloon fahren.",
+      "text_identical": true,
+      "result": {
+        "model": "qwen3-asr",
+        "audio_seconds": 17.94,
+        "speech_seconds": 17.94,
+        "segments": [
+          {
+            "start": 0,
+            "end": 17.94,
+            "text": "Für die besten Aussichten auf Hongkong sollten Sie die Insel verlassen und zum gegenüberliegenden Ufer von Kowloon fahren."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "Für die besten Aussichten auf Hongkong sollten Sie die Insel verlassen und zum gegenüberliegenden Ufer von Kowloon fahren.",
+        "language": "de",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.001250067725777626,
+        "preprocess_ms": 1.1922090779989958,
+        "decode_ms": 275.16516693867743,
+        "total_ms": 276.4963749796152,
+        "peak_gpu_bytes": 3697371586,
+        "active_gpu_bytes": 2509093340,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-de_de-000-quiet40db",
+      "model": "qwen3-asr",
+      "file_sha256": "2ec24fe1eed4bd3c93d9bd2fc8ae16aa58ff9837a3ad814ce6a8a224c1b1aa4e",
+      "pcm_sha256": "02d1804a1a3f3609e7b14bc6a830bf4c883911f7b76abebd6ddda52873327e44",
+      "expected_text": "Für die besten Aussichten auf Hongkong sollten Sie die Insel verlassen und zum gegenüberliegenden Ufer von Kowloon fahren.",
+      "text_identical": true,
+      "result": {
+        "model": "qwen3-asr",
+        "audio_seconds": 17.94,
+        "speech_seconds": 17.94,
+        "segments": [
+          {
+            "start": 0,
+            "end": 17.94,
+            "text": "Für die besten Aussichten auf Hongkong sollten Sie die Insel verlassen und zum gegenüberliegenden Ufer von Kowloon fahren."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "Für die besten Aussichten auf Hongkong sollten Sie die Insel verlassen und zum gegenüberliegenden Ufer von Kowloon fahren.",
+        "language": "de",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0027080532163381577,
+        "preprocess_ms": 0.7959168870002031,
+        "decode_ms": 270.2668330166489,
+        "total_ms": 271.19699981994927,
+        "peak_gpu_bytes": 3697371586,
+        "active_gpu_bytes": 2502674884,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-hi_in-000-original",
+      "model": "qwen3-asr",
+      "file_sha256": "38cf0e883d64ae257288bce89cf41a9c4a693b218c3381d5bd462d90bf7b7ed6",
+      "pcm_sha256": "bd57586f5375324ad3bc07c06f6cb2ac0becde0f3a417a1bb23e4d780c27e268",
+      "expected_text": "कुछ अणुओं में आंशिक केंद्रक होता है, जिसका मतलब यह है कि उनमें थोड़े या बिना किसी झटके से टूटने की प्रवृत्ति होती है।",
+      "text_identical": true,
+      "result": {
+        "model": "qwen3-asr",
+        "audio_seconds": 9.12,
+        "speech_seconds": 9.12,
+        "segments": [
+          {
+            "start": 0,
+            "end": 9.12,
+            "text": "कुछ अणुओं में आंशिक केंद्रक होता है, जिसका मतलब यह है कि उनमें थोड़े या बिना किसी झटके से टूटने की प्रवृत्ति होती है।"
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "कुछ अणुओं में आंशिक केंद्रक होता है, जिसका मतलब यह है कि उनमें थोड़े या बिना किसी झटके से टूटने की प्रवृत्ति होती है।",
+        "language": "hi",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.001250067725777626,
+        "preprocess_ms": 0.7645408622920513,
+        "decode_ms": 656.6107079852372,
+        "total_ms": 657.45904087089,
+        "peak_gpu_bytes": 3580721598,
+        "active_gpu_bytes": 2492459500,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-hi_in-000-quiet40db",
+      "model": "qwen3-asr",
+      "file_sha256": "14957b46a2e12937b39d30f6de7bc2de3cdc14fdb00301b5bbbc03683debfe84",
+      "pcm_sha256": "f70a3be1da81ddda8d0235af04f4bb3394304f1dd24ca39c44f87e404248c64d",
+      "expected_text": "कुछ अणुओं में आंशिक केंद्रक होता है, जिसका मतलब यह है कि उनमें थोड़े या बिना किसी झटके से टूटने की प्रवृत्ति होती है।",
+      "text_identical": true,
+      "result": {
+        "model": "qwen3-asr",
+        "audio_seconds": 9.12,
+        "speech_seconds": 9.12,
+        "segments": [
+          {
+            "start": 0,
+            "end": 9.12,
+            "text": "कुछ अणुओं में आंशिक केंद्रक होता है, जिसका मतलब यह है कि उनमें थोड़े या बिना किसी झटके से टूटने की प्रवृत्ति होती है।"
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "कुछ अणुओं में आंशिक केंद्रक होता है, जिसका मतलब यह है कि उनमें थोड़े या बिना किसी झटके से टूटने की प्रवृत्ति होती है।",
+        "language": "hi",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.011625001206994057,
+        "preprocess_ms": 0.6212079897522926,
+        "decode_ms": 658.3294998854399,
+        "total_ms": 659.080124925822,
+        "peak_gpu_bytes": 3580721598,
+        "active_gpu_bytes": 2492459500,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-ja_jp-000-original",
+      "model": "qwen3-asr",
+      "file_sha256": "26b6cd491b5d52cf05d89207cb88499cdaba89749aebc29c8f216e834e3d9071",
+      "pcm_sha256": "f73d4fe07096f59d1f5ce13fec7f9c2d2164685904d73540e0f784bfcaf26208",
+      "expected_text": "インターネットで適体適環境コースについて検索すると、おそらく現地企業の住所が出てくるでしょう。",
+      "text_identical": true,
+      "result": {
+        "model": "qwen3-asr",
+        "audio_seconds": 10.44,
+        "speech_seconds": 10.44,
+        "segments": [
+          {
+            "start": 0,
+            "end": 10.44,
+            "text": "インターネットで適体適環境コースについて検索すると、おそらく現地企業の住所が出てくるでしょう。"
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "インターネットで適体適環境コースについて検索すると、おそらく現地企業の住所が出てくるでしょう。",
+        "language": "ja",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0025420449674129486,
+        "preprocess_ms": 0.8852090686559677,
+        "decode_ms": 211.40991593711078,
+        "total_ms": 212.39804197102785,
+        "peak_gpu_bytes": 3605113358,
+        "active_gpu_bytes": 2492475884,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-ja_jp-000-quiet40db",
+      "model": "qwen3-asr",
+      "file_sha256": "8b83c1e830af1aaf926d9b96842030daca3b394d2c6c2dd6cdfd314c5d38a4e5",
+      "pcm_sha256": "ae11c1d022fdebc3dd2bb72fbd39edef39e0e12ec3968423602ba6ddbca647d1",
+      "expected_text": "インターネットで適体適環境コースについて検索すると、おそらく現地企業の住所が出てくるでしょう。",
+      "text_identical": true,
+      "result": {
+        "model": "qwen3-asr",
+        "audio_seconds": 10.44,
+        "speech_seconds": 10.44,
+        "segments": [
+          {
+            "start": 0,
+            "end": 10.44,
+            "text": "インターネットで適体適環境コースについて検索すると、おそらく現地企業の住所が出てくるでしょう。"
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "インターネットで適体適環境コースについて検索すると、おそらく現地企業の住所が出てくるでしょう。",
+        "language": "ja",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.002040993422269821,
+        "preprocess_ms": 0.7325420156121254,
+        "decode_ms": 210.58133314363658,
+        "total_ms": 211.39795915223658,
+        "peak_gpu_bytes": 3605113358,
+        "active_gpu_bytes": 2492475884,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-000-original",
+      "model": "qwen3-asr",
+      "file_sha256": "5214e16584b6498ddbd22f321738c0f62b19117ab1880b21e405fba983986b6a",
+      "pcm_sha256": "3c784155f4f21a00372503208c33d8590817a07cf196c38aa549ff315b0be867",
+      "expected_text": "这并不是告别，这是一个篇章的结束，也是新篇章的开始。",
+      "text_identical": true,
+      "result": {
+        "model": "qwen3-asr",
+        "audio_seconds": 10.38,
+        "speech_seconds": 10.38,
+        "segments": [
+          {
+            "start": 0,
+            "end": 10.38,
+            "text": "这并不是告别，这是一个篇章的结束，也是新篇章的开始。"
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "这并不是告别，这是一个篇章的结束，也是新篇章的开始。",
+        "language": "zh",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0019171275198459625,
+        "preprocess_ms": 0.7944169919937849,
+        "decode_ms": 169.07341685146093,
+        "total_ms": 169.9643328320235,
+        "peak_gpu_bytes": 3604834806,
+        "active_gpu_bytes": 2492459500,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-000-quiet40db",
+      "model": "qwen3-asr",
+      "file_sha256": "cfa75c1469666cdca3de62ac1e634a4783bc203e364d54d26fdc24d8c293108a",
+      "pcm_sha256": "502bbdc98927f312f5231c5b5323f561d9975b0fcbb11ef30e41a87c62bc10a1",
+      "expected_text": "这并不是告别，这是一个篇章的结束，也是新篇章的开始。",
+      "text_identical": true,
+      "result": {
+        "model": "qwen3-asr",
+        "audio_seconds": 10.38,
+        "speech_seconds": 10.38,
+        "segments": [
+          {
+            "start": 0,
+            "end": 10.38,
+            "text": "这并不是告别，这是一个篇章的结束，也是新篇章的开始。"
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "这并不是告别，这是一个篇章的结束，也是新篇章的开始。",
+        "language": "zh",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0015830155462026596,
+        "preprocess_ms": 0.6588329561054707,
+        "decode_ms": 169.53395796008408,
+        "total_ms": 170.28029216453433,
+        "peak_gpu_bytes": 3604834806,
+        "active_gpu_bytes": 2492459500,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-es_419-000-original",
+      "model": "cohere-native8",
+      "file_sha256": "518e4998d7fc4cb32bf9cb6c479b4cfe632bc68c6a2db376eeff98b68fea2bd1",
+      "pcm_sha256": "4e08e350cb7eae260082784031643646eaa79fb46a236e7a876497f9ad429100",
+      "expected_text": "Se recomienda enfáticamente a los viajeros que se informen sobre cualquier riesgo del clima extremo en el área que visitan, dado que ello pueda afectar sus planes de viaje.",
+      "text_identical": true,
+      "result": {
+        "model": "cohere-native8",
+        "audio_seconds": 12.84,
+        "speech_seconds": 12.84,
+        "segments": [
+          {
+            "start": 0,
+            "end": 12.84,
+            "text": "Se recomienda enfáticamente a los viajeros que se informen sobre cualquier riesgo del clima extremo en el área que visitan, dado que ello pueda afectar sus planes de viaje."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "Se recomienda enfáticamente a los viajeros que se informen sobre cualquier riesgo del clima extremo en el área que visitan, dado que ello pueda afectar sus planes de viaje.",
+        "language": "es",
+        "silence": false,
+        "warm": false,
+        "load_ms": 466.5592089295387,
+        "preprocess_ms": 1.1722501367330551,
+        "decode_ms": 173.15033404156566,
+        "total_ms": 640.9942910540849,
+        "peak_gpu_bytes": 2703766107,
+        "active_gpu_bytes": 2482134822,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-es_419-000-quiet40db",
+      "model": "cohere-native8",
+      "file_sha256": "eafc19f0362b917a270802969d0ab964911eb831f80e812563d644c695bd3e70",
+      "pcm_sha256": "71be4b2ee2a6ce7bc522895227675cbb1b3e8a9ce3f7f51bbbbbe08321dd775a",
+      "expected_text": "Se recomienda enfáticamente a los viajeros que se informen sobre cualquier riesgo del clima extremo en el área que visitan, dado que ello pueda afectar sus planes de viaje.",
+      "text_identical": true,
+      "result": {
+        "model": "cohere-native8",
+        "audio_seconds": 12.84,
+        "speech_seconds": 12.84,
+        "segments": [
+          {
+            "start": 0,
+            "end": 12.84,
+            "text": "Se recomienda enfáticamente a los viajeros que se informen sobre cualquier riesgo del clima extremo en el área que visitan, dado que ello pueda afectar sus planes de viaje."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "Se recomienda enfáticamente a los viajeros que se informen sobre cualquier riesgo del clima extremo en el área que visitan, dado que ello pueda afectar sus planes de viaje.",
+        "language": "es",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0012919772416353226,
+        "preprocess_ms": 0.5336250178515911,
+        "decode_ms": 141.84283302165568,
+        "total_ms": 142.4777500797063,
+        "peak_gpu_bytes": 2703766121,
+        "active_gpu_bytes": 2482134822,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-de_de-000-original",
+      "model": "cohere-native8",
+      "file_sha256": "7131c007c5c5c7b72c2fae333c9bccf5e2c02a4abb32b740f314e58b1488f149",
+      "pcm_sha256": "2bc82d9c2d75aa89b91c374d7b4edb05b3b1f15c852baf7ed1ce0b9ee7e25554",
+      "expected_text": "Für die besten Aussichten auf Hongkong sollten Sie die Insel verlassen und zum gegenüberliegenden Ufer von Kowloon fahren.",
+      "text_identical": true,
+      "result": {
+        "model": "cohere-native8",
+        "audio_seconds": 17.94,
+        "speech_seconds": 17.94,
+        "segments": [
+          {
+            "start": 0,
+            "end": 17.94,
+            "text": "Für die besten Aussichten auf Hongkong sollten Sie die Insel verlassen und zum gegenüberliegenden Ufer von Kowloon fahren."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "Für die besten Aussichten auf Hongkong sollten Sie die Insel verlassen und zum gegenüberliegenden Ufer von Kowloon fahren.",
+        "language": "de",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.003250082954764366,
+        "preprocess_ms": 0.9892499074339867,
+        "decode_ms": 142.25820801220834,
+        "total_ms": 143.39404180645943,
+        "peak_gpu_bytes": 2708089537,
+        "active_gpu_bytes": 2482134822,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-de_de-000-quiet40db",
+      "model": "cohere-native8",
+      "file_sha256": "2ec24fe1eed4bd3c93d9bd2fc8ae16aa58ff9837a3ad814ce6a8a224c1b1aa4e",
+      "pcm_sha256": "02d1804a1a3f3609e7b14bc6a830bf4c883911f7b76abebd6ddda52873327e44",
+      "expected_text": "Für die besten Aussichten auf Hongkong sollten Sie die Insel verlassen und zum gegenüberliegenden Ufer von Kongyong fahren.",
+      "text_identical": true,
+      "result": {
+        "model": "cohere-native8",
+        "audio_seconds": 17.94,
+        "speech_seconds": 17.94,
+        "segments": [
+          {
+            "start": 0,
+            "end": 17.94,
+            "text": "Für die besten Aussichten auf Hongkong sollten Sie die Insel verlassen und zum gegenüberliegenden Ufer von Kongyong fahren."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "Für die besten Aussichten auf Hongkong sollten Sie die Insel verlassen und zum gegenüberliegenden Ufer von Kongyong fahren.",
+        "language": "de",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0016249250620603561,
+        "preprocess_ms": 0.650875037536025,
+        "decode_ms": 147.74366607889533,
+        "total_ms": 148.51791597902775,
+        "peak_gpu_bytes": 2707846345,
+        "active_gpu_bytes": 2482134822,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-ja_jp-000-original",
+      "model": "cohere-native8",
+      "file_sha256": "26b6cd491b5d52cf05d89207cb88499cdaba89749aebc29c8f216e834e3d9071",
+      "pcm_sha256": "f73d4fe07096f59d1f5ce13fec7f9c2d2164685904d73540e0f784bfcaf26208",
+      "expected_text": "インターネットで敵対的環境構成について検索すると、おそらく現地企業の住所が出てくるでしょう。",
+      "text_identical": true,
+      "result": {
+        "model": "cohere-native8",
+        "audio_seconds": 10.44,
+        "speech_seconds": 10.44,
+        "segments": [
+          {
+            "start": 0,
+            "end": 10.44,
+            "text": "インターネットで敵対的環境構成について検索すると、おそらく現地企業の住所が出てくるでしょう。"
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "インターネットで敵対的環境構成について検索すると、おそらく現地企業の住所が出てくるでしょう。",
+        "language": "ja",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0014998950064182281,
+        "preprocess_ms": 0.6218329071998596,
+        "decode_ms": 147.45545899495482,
+        "total_ms": 148.16295797936618,
+        "peak_gpu_bytes": 2658287159,
+        "active_gpu_bytes": 2482134822,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-ja_jp-000-quiet40db",
+      "model": "cohere-native8",
+      "file_sha256": "8b83c1e830af1aaf926d9b96842030daca3b394d2c6c2dd6cdfd314c5d38a4e5",
+      "pcm_sha256": "ae11c1d022fdebc3dd2bb72fbd39edef39e0e12ec3968423602ba6ddbca647d1",
+      "expected_text": "インターネットで敵対的環境構成について検索すると、おそらく現地企業の住所が出てくるでしょう。",
+      "text_identical": true,
+      "result": {
+        "model": "cohere-native8",
+        "audio_seconds": 10.44,
+        "speech_seconds": 10.44,
+        "segments": [
+          {
+            "start": 0,
+            "end": 10.44,
+            "text": "インターネットで敵対的環境構成について検索すると、おそらく現地企業の住所が出てくるでしょう。"
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "インターネットで敵対的環境構成について検索すると、おそらく現地企業の住所が出てくるでしょう。",
+        "language": "ja",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.001583946868777275,
+        "preprocess_ms": 0.5002918187528849,
+        "decode_ms": 138.77654215320945,
+        "total_ms": 139.37962497584522,
+        "peak_gpu_bytes": 2658287406,
+        "active_gpu_bytes": 2482134822,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-000-original",
+      "model": "cohere-native8",
+      "file_sha256": "5214e16584b6498ddbd22f321738c0f62b19117ab1880b21e405fba983986b6a",
+      "pcm_sha256": "3c784155f4f21a00372503208c33d8590817a07cf196c38aa549ff315b0be867",
+      "expected_text": "这并不是告别:这是一个篇章的结束,也是新篇章的开始。",
+      "text_identical": true,
+      "result": {
+        "model": "cohere-native8",
+        "audio_seconds": 10.38,
+        "speech_seconds": 10.38,
+        "segments": [
+          {
+            "start": 0,
+            "end": 10.38,
+            "text": "这并不是告别:这是一个篇章的结束,也是新篇章的开始。"
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "这并不是告别:这是一个篇章的结束,也是新篇章的开始。",
+        "language": "zh",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0016668345779180527,
+        "preprocess_ms": 0.6466249469667673,
+        "decode_ms": 156.5479999408126,
+        "total_ms": 157.28374989703298,
+        "peak_gpu_bytes": 2658156038,
+        "active_gpu_bytes": 2482134822,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-000-quiet40db",
+      "model": "cohere-native8",
+      "file_sha256": "cfa75c1469666cdca3de62ac1e634a4783bc203e364d54d26fdc24d8c293108a",
+      "pcm_sha256": "502bbdc98927f312f5231c5b5323f561d9975b0fcbb11ef30e41a87c62bc10a1",
+      "expected_text": "这并不是告别:这是一个篇章的结束,也是新篇章的开始。",
+      "text_identical": true,
+      "result": {
+        "model": "cohere-native8",
+        "audio_seconds": 10.38,
+        "speech_seconds": 10.38,
+        "segments": [
+          {
+            "start": 0,
+            "end": 10.38,
+            "text": "这并不是告别:这是一个篇章的结束,也是新篇章的开始。"
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "这并不是告别:这是一个篇章的结束,也是新篇章的开始。",
+        "language": "zh",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0016670674085617065,
+        "preprocess_ms": 0.6422079168260098,
+        "decode_ms": 142.0144170988351,
+        "total_ms": 142.74704200215638,
+        "peak_gpu_bytes": 2658156038,
+        "active_gpu_bytes": 2482134822,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-es_419-000-original",
+      "model": "nemotron-streaming",
+      "file_sha256": "518e4998d7fc4cb32bf9cb6c479b4cfe632bc68c6a2db376eeff98b68fea2bd1",
+      "pcm_sha256": "4e08e350cb7eae260082784031643646eaa79fb46a236e7a876497f9ad429100",
+      "expected_text": "Se recomienda enfáticamente a los viajeros que se informen sobre cualquier riesgo del clima extremo en el área que visitan, dado que ello puede afectar sus planes de viaje.",
+      "text_identical": true,
+      "result": {
+        "model": "nemotron-streaming",
+        "audio_seconds": 12.84,
+        "speech_seconds": 12.84,
+        "segments": [
+          {
+            "start": 0,
+            "end": 12.84,
+            "text": "Se recomienda enfáticamente a los viajeros que se informen sobre cualquier riesgo del clima extremo en el área que visitan, dado que ello puede afectar sus planes de viaje."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "Se recomienda enfáticamente a los viajeros que se informen sobre cualquier riesgo del clima extremo en el área que visitan, dado que ello puede afectar sus planes de viaje.",
+        "language": "es",
+        "silence": false,
+        "warm": false,
+        "load_ms": 232.3680000845343,
+        "preprocess_ms": 0.7750841323286295,
+        "decode_ms": 312.99195904284716,
+        "total_ms": 546.2375001516193,
+        "peak_gpu_bytes": 982777658,
+        "active_gpu_bytes": 797420110,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-es_419-000-quiet40db",
+      "model": "nemotron-streaming",
+      "file_sha256": "eafc19f0362b917a270802969d0ab964911eb831f80e812563d644c695bd3e70",
+      "pcm_sha256": "71be4b2ee2a6ce7bc522895227675cbb1b3e8a9ce3f7f51bbbbbe08321dd775a",
+      "expected_text": "Se recomienda enfáticamente a los viajeros que se informen sobre cualquier riesgo del clima extremo en el área que visitan, dado que ello puede afectar sus planes de viaje.",
+      "text_identical": true,
+      "result": {
+        "model": "nemotron-streaming",
+        "audio_seconds": 12.84,
+        "speech_seconds": 12.84,
+        "segments": [
+          {
+            "start": 0,
+            "end": 12.84,
+            "text": "Se recomienda enfáticamente a los viajeros que se informen sobre cualquier riesgo del clima extremo en el área que visitan, dado que ello puede afectar sus planes de viaje."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "Se recomienda enfáticamente a los viajeros que se informen sobre cualquier riesgo del clima extremo en el área que visitan, dado que ello puede afectar sus planes de viaje.",
+        "language": "es",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0011669471859931946,
+        "preprocess_ms": 0.6160419434309006,
+        "decode_ms": 303.14866709522903,
+        "total_ms": 303.86550002731383,
+        "peak_gpu_bytes": 986898266,
+        "active_gpu_bytes": 797420110,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-de_de-000-original",
+      "model": "nemotron-streaming",
+      "file_sha256": "7131c007c5c5c7b72c2fae333c9bccf5e2c02a4abb32b740f314e58b1488f149",
+      "pcm_sha256": "2bc82d9c2d75aa89b91c374d7b4edb05b3b1f15c852baf7ed1ce0b9ee7e25554",
+      "expected_text": "Für die besten Aussichten auf Hongkong sollten Sie die Insel verlassen und zum gegenüberliegenden Ufer von Kovloon fahren.",
+      "text_identical": true,
+      "result": {
+        "model": "nemotron-streaming",
+        "audio_seconds": 17.94,
+        "speech_seconds": 17.94,
+        "segments": [
+          {
+            "start": 0,
+            "end": 17.94,
+            "text": "Für die besten Aussichten auf Hongkong sollten Sie die Insel verlassen und zum gegenüberliegenden Ufer von Kovloon fahren."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "Für die besten Aussichten auf Hongkong sollten Sie die Insel verlassen und zum gegenüberliegenden Ufer von Kovloon fahren.",
+        "language": "de",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0021248124539852142,
+        "preprocess_ms": 1.1289999820291996,
+        "decode_ms": 385.84333402104676,
+        "total_ms": 387.1281249448657,
+        "peak_gpu_bytes": 987748598,
+        "active_gpu_bytes": 797420110,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-de_de-000-quiet40db",
+      "model": "nemotron-streaming",
+      "file_sha256": "2ec24fe1eed4bd3c93d9bd2fc8ae16aa58ff9837a3ad814ce6a8a224c1b1aa4e",
+      "pcm_sha256": "02d1804a1a3f3609e7b14bc6a830bf4c883911f7b76abebd6ddda52873327e44",
+      "expected_text": "Die besten Aus Hongkong dort neu an.",
+      "text_identical": true,
+      "result": {
+        "model": "nemotron-streaming",
+        "audio_seconds": 17.94,
+        "speech_seconds": 17.94,
+        "segments": [
+          {
+            "start": 0,
+            "end": 17.94,
+            "text": "Die besten Aus Hongkong dort neu an."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "Die besten Aus Hongkong dort neu an.",
+        "language": "de",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.00100000761449337,
+        "preprocess_ms": 0.5158751737326384,
+        "decode_ms": 359.75879104807973,
+        "total_ms": 360.39095814339817,
+        "peak_gpu_bytes": 987699446,
+        "active_gpu_bytes": 797420110,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-hi_in-000-original",
+      "model": "nemotron-streaming",
+      "file_sha256": "38cf0e883d64ae257288bce89cf41a9c4a693b218c3381d5bd462d90bf7b7ed6",
+      "pcm_sha256": "bd57586f5375324ad3bc07c06f6cb2ac0becde0f3a417a1bb23e4d780c27e268",
+      "expected_text": "कुछ अणुओं में अस्थिर केंद्रक होता है जिसका मतलब यह कि उनमें थोड़े या बिना किसी झटके से टूटने की प्रवृत्ति होती है।",
+      "text_identical": true,
+      "result": {
+        "model": "nemotron-streaming",
+        "audio_seconds": 9.12,
+        "speech_seconds": 9.12,
+        "segments": [
+          {
+            "start": 0,
+            "end": 9.12,
+            "text": "कुछ अणुओं में अस्थिर केंद्रक होता है जिसका मतलब यह कि उनमें थोड़े या बिना किसी झटके से टूटने की प्रवृत्ति होती है।"
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "कुछ अणुओं में अस्थिर केंद्रक होता है जिसका मतलब यह कि उनमें थोड़े या बिना किसी झटके से टूटने की प्रवृत्ति होती है।",
+        "language": "hi",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0012079253792762756,
+        "preprocess_ms": 0.6179169286042452,
+        "decode_ms": 221.4729581028223,
+        "total_ms": 222.1877919510007,
+        "peak_gpu_bytes": 976655462,
+        "active_gpu_bytes": 797420110,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-hi_in-000-quiet40db",
+      "model": "nemotron-streaming",
+      "file_sha256": "14957b46a2e12937b39d30f6de7bc2de3cdc14fdb00301b5bbbc03683debfe84",
+      "pcm_sha256": "f70a3be1da81ddda8d0235af04f4bb3394304f1dd24ca39c44f87e404248c64d",
+      "expected_text": "कुछ अणुओं में अर्थ केंद्रक होता है जिसका मतलब यहां कि उनमें थोड़े या बिना किसी झटके से टूटने की प्रवृत्ति होती है।",
+      "text_identical": true,
+      "result": {
+        "model": "nemotron-streaming",
+        "audio_seconds": 9.12,
+        "speech_seconds": 9.12,
+        "segments": [
+          {
+            "start": 0,
+            "end": 9.12,
+            "text": "कुछ अणुओं में अर्थ केंद्रक होता है जिसका मतलब यहां कि उनमें थोड़े या बिना किसी झटके से टूटने की प्रवृत्ति होती है।"
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "कुछ अणुओं में अर्थ केंद्रक होता है जिसका मतलब यहां कि उनमें थोड़े या बिना किसी झटके से टूटने की प्रवृत्ति होती है।",
+        "language": "hi",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.001834006980061531,
+        "preprocess_ms": 0.46620797365903854,
+        "decode_ms": 222.51383308321238,
+        "total_ms": 223.06979214772582,
+        "peak_gpu_bytes": 982301334,
+        "active_gpu_bytes": 797420110,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-ja_jp-000-original",
+      "model": "nemotron-streaming",
+      "file_sha256": "26b6cd491b5d52cf05d89207cb88499cdaba89749aebc29c8f216e834e3d9071",
+      "pcm_sha256": "f73d4fe07096f59d1f5ce13fec7f9c2d2164685904d73540e0f784bfcaf26208",
+      "expected_text": "インターネットで敵体的環境コースについて検索すると、おそらく現地企業の住所が出てくるでしょう。",
+      "text_identical": true,
+      "result": {
+        "model": "nemotron-streaming",
+        "audio_seconds": 10.44,
+        "speech_seconds": 10.44,
+        "segments": [
+          {
+            "start": 0,
+            "end": 10.44,
+            "text": "インターネットで敵体的環境コースについて検索すると、おそらく現地企業の住所が出てくるでしょう。"
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "インターネットで敵体的環境コースについて検索すると、おそらく現地企業の住所が出てくるでしょう。",
+        "language": "ja",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0018330756574869156,
+        "preprocess_ms": 0.6826668977737427,
+        "decode_ms": 262.05604220740497,
+        "total_ms": 262.82933400943875,
+        "peak_gpu_bytes": 986815522,
+        "active_gpu_bytes": 797420110,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-ja_jp-000-quiet40db",
+      "model": "nemotron-streaming",
+      "file_sha256": "8b83c1e830af1aaf926d9b96842030daca3b394d2c6c2dd6cdfd314c5d38a4e5",
+      "pcm_sha256": "ae11c1d022fdebc3dd2bb72fbd39edef39e0e12ec3968423602ba6ddbca647d1",
+      "expected_text": "インターネットで敵体的環境コースについて検索すると、おそらく現地企業の住所が出てくるでしょう。",
+      "text_identical": true,
+      "result": {
+        "model": "nemotron-streaming",
+        "audio_seconds": 10.44,
+        "speech_seconds": 10.44,
+        "segments": [
+          {
+            "start": 0,
+            "end": 10.44,
+            "text": "インターネットで敵体的環境コースについて検索すると、おそらく現地企業の住所が出てくるでしょう。"
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "インターネットで敵体的環境コースについて検索すると、おそらく現地企業の住所が出てくるでしょう。",
+        "language": "ja",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0016670674085617065,
+        "preprocess_ms": 0.40304195135831833,
+        "decode_ms": 236.42441700212657,
+        "total_ms": 236.91524984315038,
+        "peak_gpu_bytes": 986831906,
+        "active_gpu_bytes": 797420110,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-000-original",
+      "model": "nemotron-streaming",
+      "file_sha256": "5214e16584b6498ddbd22f321738c0f62b19117ab1880b21e405fba983986b6a",
+      "pcm_sha256": "3c784155f4f21a00372503208c33d8590817a07cf196c38aa549ff315b0be867",
+      "expected_text": "这并不是告别, 这是一个偏章的结束, 也是新偏章的开始。",
+      "text_identical": true,
+      "result": {
+        "model": "nemotron-streaming",
+        "audio_seconds": 10.38,
+        "speech_seconds": 10.38,
+        "segments": [
+          {
+            "start": 0,
+            "end": 10.38,
+            "text": "这并不是告别, 这是一个偏章的结束, 也是新偏章的开始。"
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "这并不是告别, 这是一个偏章的结束, 也是新偏章的开始。",
+        "language": "zh",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0014170072972774506,
+        "preprocess_ms": 0.7137500215321779,
+        "decode_ms": 218.643540982157,
+        "total_ms": 219.46095814928412,
+        "peak_gpu_bytes": 986782754,
+        "active_gpu_bytes": 797420110,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-000-quiet40db",
+      "model": "nemotron-streaming",
+      "file_sha256": "cfa75c1469666cdca3de62ac1e634a4783bc203e364d54d26fdc24d8c293108a",
+      "pcm_sha256": "502bbdc98927f312f5231c5b5323f561d9975b0fcbb11ef30e41a87c62bc10a1",
+      "expected_text": "设定不是告这是一个偏章的结局, 也是新偏章的开始。",
+      "text_identical": true,
+      "result": {
+        "model": "nemotron-streaming",
+        "audio_seconds": 10.38,
+        "speech_seconds": 10.38,
+        "segments": [
+          {
+            "start": 0,
+            "end": 10.38,
+            "text": "设定不是告这是一个偏章的结局, 也是新偏章的开始。"
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "设定不是告这是一个偏章的结局, 也是新偏章的开始。",
+        "language": "zh",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0014579854905605316,
+        "preprocess_ms": 0.3902080934494734,
+        "decode_ms": 218.97429204545915,
+        "total_ms": 219.4479580502957,
+        "peak_gpu_bytes": 982563874,
+        "active_gpu_bytes": 797420110,
+        "vocabulary_applied": false
+      }
+    }
+  ],
+  "boundary": "Check omitted-trim requests against frozen full-audio multilingual controls.\n\nKnown clips, not a held-out quality study or a latency/product ranking. The\nselection is fixed before execution: source 000 in each supported language,\noriginal and 40 dB attenuation, for every model in the previous study."
+}

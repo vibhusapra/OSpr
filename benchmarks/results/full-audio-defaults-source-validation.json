@@ -1,0 +1,34 @@
+{
+  "status": "passed-source-tests-and-real-default-regression-native-acceptance-open",
+  "timestamp": "2026-10-24T03:01:05.595134+00:00",
+  "build": {
+    "version": "0.1.0",
+    "built_at": "2026-10-24T02:59:56.273317+00:00",
+    "git_commit": "a147930990e5e6d895ed38013c93381e194fffd5",
+    "tracked_changes": false,
+    "application_source_sha256": "643e90424a906917a546709c7d62e09cd728d7062cf0fc36b1d701a55b4ce1a6",
+    "source_manifest_version": 2,
+    "signing_mode": "ad-hoc",
+    "boundary": "Development build; ad-hoc signature; not notarized; weights downloaded separately."
+  },
+  "checks": {
+    "swift_tests": 305,
+    "python_tests": 178,
+    "profile_cli_cases": 17,
+    "lint": true,
+    "release_build": true,
+    "signature": true
+  },
+  "real_asr_requests": 52,
+  "identical_full_audio_texts": 52,
+  "executable_sha256": "603124bc2b4891b4fbf7091f498ed768cbcee0ee0f21ee9cf926a95214a5b3b5",
+  "cli_sha256": "65003f8773845b9d2dc8d6a3c27e21b4099c9c775ce7099bbab40138808b4ad1",
+  "real_receipt_sha256": "cd8e9e6c0af19dafe8a144af7d7998354ea370e4cc70f63acd0ff2e556eb59b3",
+  "log_sha256": {
+    "full-audio-python.log": "3e5522a6654594a7dec34ec5da4cbe24cbf8381803e805081dc44cc6bc6bdc26",
+    "full-audio-swift.log": "864bf5237feffae53014baf2a7af1bc2b35cac69a51d4ad44fa564f9a15d0be1",
+    "full-audio-cli.log": "4931f44fa8cf7a4f18710bccd3366bc6aa1e17623149934b958766999a2dd09f",
+    "full-audio-build.log": "3689c2c87f11c812c94c11b45a37fb0ab0abd3ca382e04d62ab54a5a7c5df37a"
+  },
+  "boundary": "Known-input regression, not a held-out accuracy or latency claim. Native empty-result recovery and cross-app insertion acceptance are open. Existing ZIPs predate this source. Exact normalized zeros are not proof that the original source contained no speech."
+}

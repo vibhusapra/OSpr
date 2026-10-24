@@ -12,10 +12,13 @@ remain eligible. Every empty result leaves completed recording recovery availabl
 including a silence flag. This does not fix partial ASR deletions or establish
 native recovery/insertion acceptance. Existing ZIPs predate these changes.
 
-Source checks pass **178 Python / 305 Swift tests** and lint. The additional fixed
-real-ASR regression will compare default requests against prior full-audio text
-on source 000 in each supported language, original and −40 dB, for all six
-models (52 requests). This selection is fixed before running. Results pending.
+Source checks pass **178 Python / 305 Swift tests**, lint, 17 profile CLI cases,
+release build and signature checks. The fixed real-ASR regression passes all
+**52 actual default requests** against prior full-audio text on source 000 in each
+supported language, original and −40 dB, across all six models. Every request
+recognizes the complete normalized range and returns identical text. The
+selection was fixed before running. Results: `full-audio-defaults-real.json` and
+`full-audio-defaults-source-validation.json`. Draft PR: #11.
 See `docs/architecture/full-audio-defaults.md`.
 
 ## Previous work: keep recognition timings inside analyzed audio
