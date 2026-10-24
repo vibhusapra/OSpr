@@ -132,7 +132,7 @@ public struct OSprSettings: Codable, Sendable, Equatable {
     public var model = "parakeet-v3"
     public var language = ""
     public var mode: WritingMode = .clean
-    public var rewriteProvider = "none" // none, local, ollama, compatible, anthropic
+    public var rewriteProvider = "none" // none, local, ollama, compatible, anthropic, gemini
     public var rewriteURL = "http://127.0.0.1:11434/v1"
     public var rewriteModel = "qwen3:1.7b"
     public var transcriptionProvider = "local" // local, compatible, deepgram or soniox

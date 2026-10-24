@@ -23,6 +23,38 @@ final class ProviderTests: XCTestCase {
         let text = try await ProviderClient.rewrite(text: "test passage", instruction: "Clean up.", provider: "compatible", base: base, model: "test-model", key: "test-key")
         XCTAssertEqual(text, "Edited passage.")
     }
+    func testGeminiNativeRewriteUsesHeaderKeyAndExcludesThoughtParts() async throws {
+        let text = try await ProviderClient.rewrite(text: "test passage", instruction: "Clean up.", provider: "gemini", base: base, model: "models/test-model", key: "test-key")
+        XCTAssertEqual(text, "Edited passage.")
+    }
+    func testUnknownRewriteProviderCannotFallThroughToCompatibleTransport() async {
+        do {
+            _ = try await ProviderClient.rewrite(text: "test passage", instruction: "Clean up.", provider: "future-unknown", base: base, model: "test-model", key: "test-key")
+            XCTFail("Unsupported providers must not use the compatible fallback")
+        } catch {
+            XCTAssertTrue(error.localizedDescription.contains("supported rewrite provider"))
+        }
+    }
+    func testGeminiIncompleteBlockedAndErrorResponsesNeverReturnPartialText() async {
+        for route in ["gemini-truncated", "gemini-blocked", "error", "redirect"] {
+            do {
+                _ = try await ProviderClient.rewrite(text: "test passage", instruction: "Clean up.", provider: "gemini", base: base.replacingOccurrences(of: "/v1", with: "/\(route)"), model: "test-model", key: "test-key")
+                XCTFail("Expected rejection for \(route)")
+            } catch {
+                XCTAssertFalse(error.localizedDescription.contains("PRIVATE"))
+                if route == "redirect" { XCTAssertTrue(error.localizedDescription.contains("HTTP 307")) }
+            }
+        }
+    }
+    func testGeminiCancellationStopsWaitingForResponse() async throws {
+        let endpoint = base.replacingOccurrences(of: "/v1", with: "/slow")
+        let task = Task { try await ProviderClient.rewrite(text: "test passage", instruction: "Clean up.", provider: "gemini", base: endpoint, model: "test-model", key: "test-key") }
+        try await Task.sleep(for: .milliseconds(100)); let started = ContinuousClock.now
+        task.cancel()
+        do { _ = try await task.value; XCTFail("Expected cancellation") }
+        catch { XCTAssertTrue(error is CancellationError || (error as? URLError)?.code == .cancelled) }
+        XCTAssertLessThan(started.duration(to: .now), .seconds(2))
+    }
     func testCancellingProviderTaskStopsWaitingForSlowResponse() async throws {
         let endpoint = base.replacingOccurrences(of: "/v1", with: "/slow")
         let task = Task { try await ProviderClient.rewrite(text: "test passage", instruction: "Clean up.", provider: "compatible", base: endpoint, model: "test-model", key: "test-key") }
