@@ -53,6 +53,26 @@ class Handler(BaseHTTPRequestHandler):
                 status, result = 503, {"error": "PRIVATE INPUT MUST NEVER LEAK"}
         elif self.path.startswith("/error/"):
             status, result = 401, {"error": "PRIVATE INPUT MUST NEVER LEAK"}
+        elif route.path.endswith("/models/test-model:generateContent"):
+            body = json.loads(data)
+            assert self.headers["x-goog-api-key"] == "test-key"
+            assert self.headers.get("Authorization") is None
+            assert not route.query
+            assert body["contents"] == [{"role": "user", "parts": [{"text": "test passage"}]}]
+            assert "Preserve meaning" in body["systemInstruction"]["parts"][0]["text"]
+            assert body["systemInstruction"]["parts"][0]["text"].endswith("Clean up.")
+            assert body["generationConfig"] == {"candidateCount": 1, "maxOutputTokens": 4096}
+            assert "tools" not in body and "safetySettings" not in body
+            candidate = {"finishReason": "STOP", "content": {"role": "model", "parts": [
+                {"text": "PRIVATE THOUGHT", "thought": True},
+                {"text": "Edited "}, {"text": "passage.", "thoughtSignature": "test-signature"}]}}
+            if route.path.startswith("/gemini-truncated/"):
+                candidate["finishReason"] = "MAX_TOKENS"
+            if route.path.startswith("/gemini-blocked/"):
+                candidate["finishReason"] = "SAFETY"
+            if route.path.startswith("/gemini-negation/"):
+                candidate["content"]["parts"] = [{"text": "Do not ship."}]
+            result = {"candidates": [candidate]}
         elif self.path.endswith("/chat/completions"):
             body = json.loads(data)
             assert body["messages"][0]["role"] == "system"

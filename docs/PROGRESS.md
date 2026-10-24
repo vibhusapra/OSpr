@@ -2,6 +2,33 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## Native Gemini BYOK refinement: source and loopback CLI contracts pass
+
+The `codex/gemini-refinement` branch adds a native Gemini Developer API adapter,
+Settings selector/preset/base/model/Keychain fields, and `rewrite-gemini` CLI.
+It sends text only through the configured endpoint, with header-only keys and
+the existing origin/purpose scope and no-redirect ephemeral transport. Local
+speech/refinement and all default settings remain unchanged. No Gemini model ID
+is hard-coded or automatically selected.
+
+Only one complete STOP candidate can reach the existing rewrite fidelity guard.
+Thoughts are excluded; blocked/truncated/missing/non-text/ambiguous responses
+fail explicitly. Unknown rewrite providers cannot silently use the compatible
+transport. The app preserves original text; CLI fidelity rejection returns the
+original, provider failure emits no partial text, and its source file is unchanged.
+Full local validation passes **366 Swift / 248 Python tests** and Ruff. Ten new
+Swift cases and eight actual CLI loopback cases pass. Actual light/dark Settings
+renders were inspected with an isolated services-disabled profile, explicitly
+simulated rather than native acceptance. A CRLF credential-validation issue
+found by the tests was fixed using scalar-level printable-ASCII validation.
+
+No Gemini account request, real key, paid call, audio/model download or normal
+app/settings/history/sound change is part of this verification. Native Settings,
+Keychain save/restart and provider account/model/quality/latency acceptance remain
+open. Google documents this single-turn protocol as Generate Content API (Legacy);
+this is not Vertex or Interactions support. Azure remains a native-adapter gap.
+See [implementation, protocol sources and limits](architecture/gemini-refinement.md).
+
 ## Insertion delivery guard: uncertain writes no longer trigger another paste
 
 The `codex/insertion-delivery-guard` branch fixes unconditional clipboard

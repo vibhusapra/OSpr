@@ -667,13 +667,17 @@ struct PreferencesView: View {
                     Text("Local Ollama / compatible service").tag("ollama")
                     Text("BYOK · OpenAI-compatible API").tag("compatible")
                     Text("BYOK · Anthropic Messages API").tag("anthropic")
+                    Text("BYOK · Google Gemini API").tag("gemini")
                 }
-                if ["ollama", "compatible", "anthropic"].contains(model.settings.rewriteProvider) {
+                if ["ollama", "compatible", "anthropic", "gemini"].contains(model.settings.rewriteProvider) {
                     ProviderPresetPicker(kind: "rewrite", model: model)
-                    TextField("Base URL, including /v1", text: $model.settings.rewriteURL)
+                    TextField(model.settings.rewriteProvider == "gemini" ? "Base URL, including /v1beta" : "Base URL, including /v1", text: $model.settings.rewriteURL)
                     TextField("Model ID", text: $model.settings.rewriteModel)
                     SecureField("API key · saved in Keychain", text: $model.rewriteKey)
                     Text("Only transcript text and selected-text editing context go to this endpoint. Screen content and clipboard are never read for context.").font(.caption).foregroundStyle(.secondary)
+                    if model.settings.rewriteProvider == "gemini" {
+                        Text("Use the Gemini Developer API base URL and a model ID from your account. Incomplete or blocked responses keep the original text. This option sends text to your configured provider; it does not send audio.").font(.caption).foregroundStyle(.secondary)
+                    }
                 }
                 if model.settings.rewriteProvider == "local" { Text("First use downloads a quantized language model. Refinement adds latency and can change meaning; original transcripts stay available in History.").font(.caption).foregroundStyle(.secondary) }
             }
@@ -729,6 +733,7 @@ struct ProviderPresetPicker: View {
                 Button("Ollama · Qwen3 1.7B") { model.settings.rewriteProvider = "ollama"; model.settings.rewriteURL = "http://127.0.0.1:11434/v1"; model.settings.rewriteModel = "qwen3:1.7b" }
                 Button("OpenAI-compatible · enter model ID") { model.settings.rewriteProvider = "compatible"; model.settings.rewriteURL = "https://api.openai.com/v1"; model.settings.rewriteModel = "" }
                 Button("Anthropic · enter model ID") { model.settings.rewriteProvider = "anthropic"; model.settings.rewriteURL = "https://api.anthropic.com/v1"; model.settings.rewriteModel = "" }
+                Button("Google Gemini · enter model ID") { model.settings.rewriteProvider = "gemini"; model.settings.rewriteURL = "https://generativelanguage.googleapis.com/v1beta"; model.settings.rewriteModel = "" }
             }
         }.font(.caption)
     }

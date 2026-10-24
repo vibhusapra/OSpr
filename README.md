@@ -155,7 +155,7 @@ actual microphone-to-insertion acceptance remains open.
   [native acceptance and compatibility limits](docs/architecture/context-profiles.md)
   are tracked separately.
 - Optional local Qwen3 4B Instruct refinement, Ollama/compatible services, or BYOK
-  compatible/Anthropic rewriting. Refinement can change meaning; raw text is kept
+  compatible/Anthropic/native Gemini rewriting. Refinement can change meaning; raw text is kept
   and a conservative preservation check rejects several obvious regressions.
   Local cleanup now passes the transcript as JSON-quoted data, with separate
   tasks for deliberate selection editing and extractive notes. A 36-case probe
