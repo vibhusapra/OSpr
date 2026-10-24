@@ -45,7 +45,7 @@ Actual SwiftUI light, dark and compact source layouts are inspected. Form conten
 scrolls while Save/Cancel remain visible. These are headless source renders,
 not interaction or VoiceOver acceptance.
 
-## Native attempt and honest boundary
+## Earlier native attempt and honest boundary
 
 The initial page at `5e2790a` reached Modes/Add profile, then native inspection
 crashed SkyComputerUseService in Array.remove(at:). OSpr stayed alive. No profile
@@ -61,6 +61,14 @@ OSpr process. **The card change is not established as a fix for the inspection
 crash.** Native editor controls, Save/Cancel/restart, application picker, actual
 browser URL selection and live model/language routing still need acceptance.
 No new standalone/notarized package or full-parity claim.
+
+A later isolated Application Support run on `2814c3d` verified the card editor,
+TextEdit picker, scoped override save, Cancel, real write-failure/retry and
+existing-profile edit controls. The first footer build reopened those settings
+after restart. This later work also found validation explanations could sit
+below the scroll area; the current source places them beside Save. Final-footer,
+site/translation/enable/delete and live routing acceptance remain open after the
+Mac locked. [Later scoped evidence and feedback change](profile-feedback.md).
 
 [Source/native boundary](../../benchmarks/results/profile-editor-page-validation.json) ·
 [Resolver CLI](../../benchmarks/results/profile-editor-page-cli.json) ·
