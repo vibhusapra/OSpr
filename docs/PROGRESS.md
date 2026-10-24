@@ -2,6 +2,25 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## Insertion delivery guard: uncertain writes no longer trigger another paste
+
+The `codex/insertion-delivery-guard` branch fixes unconditional clipboard
+fallback after an unsuccessful AX write. A messaging failure can hide a completed
+write, so the second transport could duplicate text. Fallback now requires an
+explicit unsupported result or a successful capability check reporting read-only.
+Other errors stop and ask the user to inspect the destination before inserting
+again. Transcripts are saved before ordinary insertion and remain available.
+
+The app revalidates access, app, owner, field, cursor and selected passage after
+native capability requests and before either transport. It rechecks known secure
+fields and cancellation. Clipboard restoration stays asynchronous. Nine new
+orchestration tests cover applied writes with lost replies, unsupported/read-only
+routes, errors/unknown codes, focus changes during requests and cancellation.
+The full local suites pass **356 Swift / 248 Python tests** and Ruff. Native editor
+behavior and added IPC latency remain unmeasured while the Mac is locked.
+The older signed `0aff573` self-test candidate is preserved and lacks this guard.
+See [the policy and limits](architecture/insertion-delivery-guard.md).
+
 ## Insertion setup self-test: implemented; native acceptance awaits unlock
 
 The `codex/insertion-self-test` branch adds a Studio setup check without recording
