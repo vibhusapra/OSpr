@@ -6,6 +6,7 @@ references are not retained. This route uses no model or network connection.
 from pathlib import Path
 import soundfile as sf
 from .audio import SAMPLE_RATE, read_audio
+from .speech_edges import pcm_sha256
 
 
 def prepare_review(path, output, limit_bytes):
@@ -26,7 +27,8 @@ def prepare_review(path, output, limit_bytes):
         size = destination.stat().st_size
         if size > limit_bytes:
             raise ValueError("Retained audio exceeds the storage budget.")
-        return dict(audio_seconds=len(audio) / SAMPLE_RATE, bytes=size, format="16 kHz mono float32 WAV", source_unchanged=True)
+        return dict(audio_seconds=len(audio) / SAMPLE_RATE, bytes=size, format="16 kHz mono float32 WAV",
+                    normalized_samples=len(audio), pcm_sha256=pcm_sha256(audio), source_unchanged=True)
     except BaseException:
         destination.unlink(missing_ok=True)
         raise

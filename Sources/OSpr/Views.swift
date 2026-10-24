@@ -183,6 +183,9 @@ struct StudioView: View {
                             if let warning = model.pending?.captureWarning { Text(warning).font(.caption).foregroundStyle(.orange) }
                             HStack {
                                 Button(model.settings.transcriptionProvider == "local" ? "Retry locally" : "Retry with cloud provider") { model.retryRecovery() }.disabled(model.busy || model.pending == nil)
+                                if model.settings.transcriptionProvider == "local" {
+                                    Button("Retry without edge trimming") { model.retryRecovery(withoutEdgeTrimming: true) }.disabled(model.busy || model.pending == nil)
+                                }
                                 Button("Export audio") { model.exportRecovery() }.disabled(model.busy)
                                 Button("Discard…", role: .destructive) { confirmingRecoveryDiscard = true }.disabled(model.busy)
                             }
@@ -390,13 +393,13 @@ struct ModelsView: View {
             }
             HStack { Button("Load selected model") { model.warm() }.buttonStyle(.borderedProminent).disabled(model.busy || !model.engineInstalled); Text("Download alone uses no GPU. Loading also prepares first-use kernels.").font(.caption).foregroundStyle(.secondary) }
             Text("Optional local models").font(.headline)
-            ForEach([("rewrite-quality", "Qwen3 4B · local refinement & key excerpts"), ("diarization", "Nemotron · experimental speaker labels"), ("speech-detector", "Silero · experimental neural auto finish (native CPU)")], id: \.0) { id, name in
+            ForEach([("rewrite-quality", "Qwen3 4B · local refinement & key excerpts"), ("diarization", "Nemotron · experimental speaker labels"), ("speech-detector", "Silero · experimental neural edges & auto finish (native CPU)")], id: \.0) { id, name in
                 if let cache = model.modelCache[id] {
                     Card { HStack {
                         VStack(alignment: .leading, spacing: 5) {
                             Text(name).font(.callout)
                             Text(cache.cacheLabel + (model.residentModels.contains(id) ? " · resident" : "")).font(.caption).foregroundStyle(.secondary)
-                            if id == "speech-detector" { Text("MIT model data · auto finish only; speech recognition uses your selected engine.").font(.caption).foregroundStyle(.secondary) }
+                            if id == "speech-detector" { Text("MIT model data · optional edge filtering and auto finish; speech recognition uses your selected engine.").font(.caption).foregroundStyle(.secondary) }
                         }
                         Spacer()
                         if !cache.complete { Button("Download") { model.warm(downloadOnly: id) }.disabled(model.busy) }
@@ -517,19 +520,26 @@ struct PreferencesView: View {
                 Toggle("Allow paste when a field or cursor cannot be verified", isOn: $model.settings.allowUnverifiedPaste)
                 if model.settings.allowUnverifiedPaste { Text("Only the original app can be checked in some destinations. A changed field may receive the paste. Leave this off for stricter destination checks.").font(.caption).foregroundStyle(.orange) }
                 Toggle("Spoken punctuation (English phrases)", isOn: $model.settings.spokenPunctuation)
-                Toggle("Conservative silence edge trimming", isOn: $model.settings.silenceTrim)
-                HStack { Text("Silence threshold"); Slider(value: $model.settings.silenceThreshold, in: 0.0001...0.02); Text(String(format: "%.4f", model.settings.silenceThreshold)).monospacedDigit() }
+                Toggle("Neural edge trimming · experimental", isOn: $model.settings.neuralEdgeTrim)
+                if model.settings.neuralEdgeTrim {
+                    Text("Local recognition analyzes the exact normalized audio with the speech detector. Removes only outer silence and keeps pauses and original timestamps. Missed speech keeps completed audio available for retry. Requires the detector in Models; cloud uploads are unchanged.").font(.caption).foregroundStyle(.secondary)
+                    Button("Open edge detector model") { model.tab = "Models" }
+                } else {
+                    Toggle("Volume-based silence edge trimming", isOn: $model.settings.silenceTrim)
+                    Text("Volume filtering can remove quiet speech. Turn it off to recognize the complete audio.").font(.caption).foregroundStyle(.secondary)
+                    HStack { Text("Silence threshold"); Slider(value: $model.settings.silenceThreshold, in: 0.0001...0.02); Text(String(format: "%.4f", model.settings.silenceThreshold)).monospacedDigit() }
+                }
                 Toggle("Neural auto finish · experimental", isOn: $model.settings.neuralAutoFinish)
                 if model.settings.neuralAutoFinish {
                     Picker("Detector silence before finish", selection: $model.settings.neuralSilenceSeconds) { Text("1.2 seconds").tag(1.2); Text("1.5 seconds").tag(1.5); Text("3 seconds").tag(3.0); Text("5 seconds").tag(5.0) }
                     Text("Uses a local speech detector instead of volume alone. Pauses can end a take. Detection failure leaves recording active so you can stop manually. Prepare its small model in Models before use.").font(.caption).foregroundStyle(.secondary)
-                    if model.settings.silenceTrim { Text("Final edge trimming still uses volume. Disable edge trimming above when testing quiet speech.").font(.caption).foregroundStyle(.orange) }
+                    if model.settings.silenceTrim && !model.settings.neuralEdgeTrim { Text("Final edge trimming still uses volume. Disable it above or try neural edges when testing quiet speech.").font(.caption).foregroundStyle(.orange) }
                     Button("Open detector model") { model.tab = "Models" }
                 } else {
                     Picker("Level-based auto finish", selection: $model.settings.autoStopSeconds) { Text("Off").tag(0.0); Text("1.5 seconds").tag(1.5); Text("3 seconds").tag(3.0); Text("5 seconds").tag(5.0) }
                 }
                 Toggle("Experimental live local preview", isOn: $model.settings.preview)
-                Text("Nemotron streams incremental audio and flushes its cache at finish. Other models decode a rolling 12-second window every 3 seconds, adding GPU work. Partial text is displayed in OSpr, then final text is inserted.").font(.caption).foregroundStyle(.secondary)
+                Text("Nemotron streams incremental audio and flushes its cache at finish. Other models decode a rolling 12-second window every 3 seconds, adding GPU work. Neural edges use a separate final decode of the complete take; previews stay provisional. Partial text is displayed in OSpr, then final text is inserted.").font(.caption).foregroundStyle(.secondary)
             }
             Section("Speech recognition") {
                 Picker("Transcription", selection: Binding(get: { model.settings.transcriptionProvider }, set: { provider in

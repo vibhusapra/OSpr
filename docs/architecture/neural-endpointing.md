@@ -3,8 +3,49 @@
 The delivered context-profiles preview still uses its existing RMS trim and
 optional RMS auto-finish. Current source adds an explicit experimental neural
 microphone option, with pinned model preparation and visible manual-finish
-failure handling. Defaults are unchanged. Final ASR edge trimming still uses its
-separate existing policy; physical microphone and destination acceptance remain.
+failure handling. Current source also adds separate opt-in neural final-ASR edge
+trimming. Defaults are unchanged; physical microphone and destination acceptance
+remain open.
+
+## Final-ASR neural edges
+
+`NeuralEdgeTranscription` is shared by the app and CLI. It checks the detector
+cache without downloading, normalizes the full source once using the worker's
+existing downmix/SciPy path, and writes a private mono float32 WAV. Native
+analysis reads this exact 16 kHz file in bounded blocks. It supports the same
+four-hour limit as imports and never reuses the live AVAudioConverter timeline.
+
+The pinned 32 ms Core ML detector runs serially on CPU with fresh state. The
+causal eight-frame activity score and frozen outer-edge policy are unchanged:
+first score ≥0.5, last score ≥0.35, 160 ms outer padding clamped to real samples.
+Interior pauses stay intact. Every actual float sample contributes to a
+little-endian float32 SHA-256, including signed zero. The native hash/sample count
+must match normalization, then the worker independently checks the full waveform
+and manifest before slicing. A mismatch fails before ASR. RMS trimming must be
+disabled for this request. Original duration and all segment/word offsets remain
+on the complete normalized timeline. Speaker diarization still sees the full
+audio; its ASR word timing uses the checked outer range.
+
+The option is off by default and local only. Nonstreaming previews decode their
+rolling window without RMS when selected; streaming previews stay provisional.
+Finalization always performs the separate neural-edge decode of the complete
+take instead of accepting a cached streaming result. This costs an additional
+final decode. No semantic end-of-thought inference or universal quality claim.
+
+An empty/too-short detector range returns `detector_abstained`, so the app keeps
+completed recovery instead of treating it as successful silence. The recovery
+panel offers **Retry without edge trimming** using current local model/language,
+raw mode and no insertion; only that attempt disables both filters. Saved
+preferences do not change. Source imports remain untouched. Detector/model,
+normalization, hash and ASR errors propagate with private temporary audio cleaned
+up; they do not trigger an alternate filter or cloud route. Task cancellation is
+forwarded to off-main native analysis and checked at each detector frame.
+
+New preferences preserve the previous RMS choice in `rmsSilenceTrim` but encode
+legacy `silenceTrim=false` while neural edges are selected. Older builds cannot
+silently apply volume filtering in its place. The normal app and delivered ZIP
+have not been replaced. New native controls, actual recovery retry and live
+preview-to-final behavior still require interactive acceptance.
 
 ## Contracts
 

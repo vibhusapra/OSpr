@@ -2,6 +2,24 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## Current work: exact final-ASR neural edges
+
+Branch `codex/neural-edges` follows the neural capture/UI PRs. A separate opt-in
+edge setting now uses pinned native CPU analysis on the worker's exact normalized
+float32 audio, with full-waveform hash checks before recognition. It preserves
+interior silence and original timestamp offsets and disables a second RMS trim.
+It applies to local dictation/imports and timed ASR for speaker-labeled imports.
+The CLI uses the same orchestration. Empty detector ranges retain completed
+recovery; a new retry uses the full audio for one attempt. Defaults, normal app
+data and the delivered preview remain unchanged.
+
+Focused and full checks pass: **304 Swift / 141 Python tests**; the real CLI has
+completed its first pinned CPU + Metal ASR take. The all-six-engine/frozen-input
+validation is pending. Native edge controls, recovery retry, physical shortcut,
+microphone and insertion acceptance remain open. The latest insertion handoff
+again encountered the macOS lock, before any recording was started. PR #8's final
+head `12361fd` has green macOS CI including clean-runner packaging.
+
 ## Working implementation
 
 - [x] Native SwiftUI Studio, History, Models, Dictionary, Modes, Settings,

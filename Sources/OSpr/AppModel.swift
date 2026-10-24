@@ -453,18 +453,18 @@ import OSprCore
                 guard generation == token else { return }
                 guard allowed else { throw OSprError.message("Allow OSpr microphone access in System Settings → Privacy & Security → Microphone.") }
                 var speechModel: URL?
-                if recordingSettings.neuralAutoFinish {
+                if recordingSettings.neuralAutoFinish || recordingSettings.usesNeuralEdges {
                     status = "Checking local speech detector…"
                     let result = try await worker.request(["action": "prepare_speech_detector"])
                     guard generation == token else { return }
                     guard let path = result["model_path"] as? String, result["complete"] as? Bool == true else {
-                        throw OSprError.message("Prepare the local speech detector in Models before enabling neural auto finish.")
+                        throw OSprError.message("Prepare the local speech detector in Models before using neural edges or auto finish.")
                     }
                     speechModel = URL(fileURLWithPath: path)
                 }
                 let recording = try await capture.start(deviceID: recordingSettings.microphoneID,
                     autoStop: recordingSettings.autoStopSeconds, threshold: recordingSettings.silenceThreshold,
-                    neuralModelURL: speechModel, neuralSilenceSeconds: recordingSettings.neuralSilenceSeconds,
+                    neuralModelURL: recordingSettings.neuralAutoFinish ? speechModel : nil, neuralSilenceSeconds: recordingSettings.neuralSilenceSeconds,
                     validateStart: { [weak self] in
                         guard let self, self.generation == token else { throw CancellationError() }
                         try captured.validateRecordingStart()
@@ -502,7 +502,7 @@ import OSprCore
                     defer { try? FileManager.default.removeItem(at: file) }
                     let request: [String: Any] = sessionID.map { ["action": "stream_feed", "session_id": $0, "path": file.path] } ??
                         ["action": "transcribe", "path": file.path, "model": recordingSettings.model,
-                         "language": recordingSettings.language, "trim": recordingSettings.silenceTrim]
+                         "language": recordingSettings.language, "trim": recordingSettings.silenceTrim && !recordingSettings.usesNeuralEdges]
                     let result = try await worker.request(request)
                     if generation == token && phase == "recording" { preview = result["text"] as? String ?? "" }
                 } catch is CancellationError { break } catch {
@@ -765,11 +765,12 @@ import OSprCore
           } catch { self.error = "Recovery export failed: \(error.localizedDescription). Original recovery is kept." }
         }
     }
-    func retryRecovery() {
+    func retryRecovery(withoutEdgeTrimming: Bool = false) {
         guard !busy, let pending else { return }
         generation = UUID(); let token = generation
         phase = "transcribing"; error = ""; status = "Recovering unfinished recording…"
-        let config = settings
+        var config = settings
+        if withoutEdgeTrimming { config.silenceTrim = false; config.neuralEdgeTrim = false }
         operationTask = Task {
             // The retry button explicitly names the current speech route. Keep
             // rewriting off and never insert into a target from a previous run.
@@ -827,11 +828,15 @@ import OSprCore
             }
             guard generation == token else { return false }
             let result: [String: Any]
-            if let resultOverride { result = resultOverride }
+            if let resultOverride, !config.usesNeuralEdges { result = resultOverride }
             else if config.transcriptionProvider == "local" {
                 let speakers = source != "dictation" && source != "recovered recording" && config.speakerLabels
-                result = try await worker.request(["action": speakers ? "meeting" : "transcribe", "path": file.path, "model": config.model,
-                    "language": config.language, "vocabulary": config.vocabulary, "trim": config.silenceTrim, "threshold": config.silenceThreshold])
+                let request: [String: Any] = ["action": speakers ? "meeting" : "transcribe", "path": file.path, "model": config.model,
+                    "language": config.language, "vocabulary": config.vocabulary, "trim": config.silenceTrim, "threshold": config.silenceThreshold]
+                if config.usesNeuralEdges {
+                    status = "Analyzing local speech edges…"
+                    result = try await NeuralEdgeTranscription.run(source: file, request: request, worker: worker)
+                } else { result = try await worker.request(request) }
             } else {
                 let key = try ProviderCredentialScope.checkedKey(transcriptionKey, boundTo: transcriptionKeyScope, kind: .transcription, base: config.transcriptionURL)
                 _ = try ProviderClient.speechEndpoint(base: config.transcriptionURL, provider: config.transcriptionProvider)
@@ -864,6 +869,11 @@ import OSprCore
             guard token == generation else { return false }
             let raw = result["raw_text"] as? String ?? result["text"] as? String ?? ""
             guard !raw.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+                if result["detector_abstained"] as? Bool == true {
+                    status = "Speech detector returned no usable range"
+                    self.error = "Quiet speech can be missed. Completed recording audio is kept for retry; imported files are unchanged. Retry without edge trimming."
+                    return false
+                }
                 if result["silence"] as? Bool == true { status = "No speech detected"; return true }
                 status = "The recognizer returned no words"
                 self.error = "No transcript was returned. Completed recording audio is kept for retry; imported source files are unchanged. Try another model or language hint."

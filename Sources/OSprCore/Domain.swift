@@ -152,6 +152,8 @@ public struct OSprSettings: Codable, Sendable, Equatable {
     public var allowUnverifiedPaste = false
     public var spokenPunctuation = false
     public var silenceTrim = true
+    public var neuralEdgeTrim = false
+    public var usesNeuralEdges: Bool { transcriptionProvider == "local" && neuralEdgeTrim }
     public var silenceThreshold = 0.003
     public var autoStopSeconds = 0.0
     public var neuralAutoFinish = false
@@ -165,7 +167,7 @@ public struct OSprSettings: Codable, Sendable, Equatable {
     public var speakerLabels = false
     public var launchAtLogin = false
     public var rootPath = ""
-    private enum CodingKeys: String, CodingKey { case model, language, mode, rewriteProvider, rewriteURL, rewriteModel, transcriptionProvider, transcriptionURL, transcriptionModel, customPrompt, translationLanguage, vocabulary, replacements, profiles, saveHistory, keepAudio, audioBudgetMB, retentionDays, autoPaste, restoreClipboard, allowUnverifiedPaste, spokenPunctuation, silenceTrim, silenceThreshold, autoStopSeconds, rmsAutoStopSeconds, neuralAutoFinish, neuralSilenceSeconds, pushToTalk, hotkeyFnOnly, hotkeyCode, hotkeyModifiers, microphoneID, preview, speakerLabels, launchAtLogin, rootPath }
+    private enum CodingKeys: String, CodingKey { case model, language, mode, rewriteProvider, rewriteURL, rewriteModel, transcriptionProvider, transcriptionURL, transcriptionModel, customPrompt, translationLanguage, vocabulary, replacements, profiles, saveHistory, keepAudio, audioBudgetMB, retentionDays, autoPaste, restoreClipboard, allowUnverifiedPaste, spokenPunctuation, silenceTrim, rmsSilenceTrim, neuralEdgeTrim, silenceThreshold, autoStopSeconds, rmsAutoStopSeconds, neuralAutoFinish, neuralSilenceSeconds, pushToTalk, hotkeyFnOnly, hotkeyCode, hotkeyModifiers, microphoneID, preview, speakerLabels, launchAtLogin, rootPath }
     public init() {}
     public init(from decoder: Decoder) throws {
         self.init()
@@ -192,7 +194,9 @@ public struct OSprSettings: Codable, Sendable, Equatable {
         restoreClipboard = try c.decodeIfPresent(type(of: restoreClipboard), forKey: .restoreClipboard) ?? restoreClipboard
         allowUnverifiedPaste = try c.decodeIfPresent(Bool.self, forKey: .allowUnverifiedPaste) ?? false
         spokenPunctuation = try c.decodeIfPresent(type(of: spokenPunctuation), forKey: .spokenPunctuation) ?? spokenPunctuation
-        silenceTrim = try c.decodeIfPresent(type(of: silenceTrim), forKey: .silenceTrim) ?? silenceTrim
+        silenceTrim = try c.decodeIfPresent(Bool.self, forKey: .rmsSilenceTrim)
+            ?? c.decodeIfPresent(Bool.self, forKey: .silenceTrim) ?? silenceTrim
+        neuralEdgeTrim = try c.decodeIfPresent(Bool.self, forKey: .neuralEdgeTrim) ?? false
         silenceThreshold = try c.decodeIfPresent(type(of: silenceThreshold), forKey: .silenceThreshold) ?? silenceThreshold
         autoStopSeconds = try c.decodeIfPresent(Double.self, forKey: .rmsAutoStopSeconds)
             ?? c.decodeIfPresent(Double.self, forKey: .autoStopSeconds) ?? autoStopSeconds
@@ -221,7 +225,10 @@ public struct OSprSettings: Codable, Sendable, Equatable {
         try c.encode(keepAudio, forKey: .keepAudio); try c.encode(audioBudgetMB, forKey: .audioBudgetMB)
         try c.encode(retentionDays, forKey: .retentionDays); try c.encode(autoPaste, forKey: .autoPaste)
         try c.encode(restoreClipboard, forKey: .restoreClipboard); try c.encode(allowUnverifiedPaste, forKey: .allowUnverifiedPaste)
-        try c.encode(spokenPunctuation, forKey: .spokenPunctuation); try c.encode(silenceTrim, forKey: .silenceTrim)
+        try c.encode(spokenPunctuation, forKey: .spokenPunctuation)
+        // A previous build must not reinterpret neural edges as volume edges.
+        try c.encode(neuralEdgeTrim ? false : silenceTrim, forKey: .silenceTrim)
+        try c.encode(silenceTrim, forKey: .rmsSilenceTrim); try c.encode(neuralEdgeTrim, forKey: .neuralEdgeTrim)
         try c.encode(silenceThreshold, forKey: .silenceThreshold)
         // Old builds know only RMS auto-stop. Do not silently turn a neural
         // preference into a different detector when the user opens an old app.

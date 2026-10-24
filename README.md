@@ -204,11 +204,21 @@ native model still reading them; model data is not automatically deleted.
 
 The detector is off by default. A pause can finish a take; a detector/queue error
 keeps recording and displays **stop manually**, without switching to RMS.
-Final edge trimming is separate and still volume based; disable it for quiet-speech
-experiments. New settings encode legacy auto-stop as off while neural mode is
-enabled, so an older build does not silently substitute RMS. Native controls and
-physical microphone acceptance remain separate gates. The context-profiles-v0 ZIP
-predates this option; see [capture evidence and remaining gates](docs/architecture/neural-endpointing.md).
+Final edge trimming is separate. **Neural edge trimming · experimental** optionally
+uses the same pinned CPU detector on the exact normalized final-ASR samples. It
+keeps interior pauses and original timestamps, checks the complete PCM hash again
+in the worker, and never combines its bounds with RMS filtering. This applies to
+local dictation, imports and the ASR portion of speaker-labeled imports. Cloud
+uploads are unchanged. With neural edges, previews remain provisional and the
+complete take gets a separate final decode. An empty detector range keeps
+completed recording recovery available; **Retry without edge trimming** uses the
+full recording for that attempt, without changing saved preferences.
+
+Both neural options are off by default. New settings encode legacy edge trimming
+and auto-stop as off while their neural counterparts are enabled, so an older
+build cannot silently substitute RMS. Native controls and physical microphone
+acceptance remain separate gates. The context-profiles-v0 ZIP predates both
+options; see [capture evidence and remaining gates](docs/architecture/neural-endpointing.md).
 
 Cloud transcription sends audio; cloud refinement sends transcript text (and the
 selected passage for voice editing). These are separate visible choices. API keys
@@ -269,6 +279,7 @@ separate limitation. No secure-erasure guarantee is made.
 .build/debug/ospr-cli download whisper-small
 .build/debug/ospr-cli download speech-detector
 .build/debug/ospr-cli verify-speech-detector
+.build/debug/ospr-cli transcribe-neural-edges /absolute/path/audio.wav parakeet-v3
 .build/debug/ospr-cli rewrite 'Um, keep every sentence and number.'
 .build/debug/ospr-cli resolve-profile settings.json com.example.browser https://example.org/team
 .build/debug/ospr-cli analyze-speech public-16k-mono.wav /path/to/model.mlmodelc cpu 1.2

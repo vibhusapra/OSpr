@@ -210,12 +210,19 @@ class Engine:
         trim=True,
         threshold=0.003,
         word_timestamps=False,
+        speech_edges=None,
     ):
         started = time.perf_counter()
         audio = read_audio(path)
         original_duration = len(audio) / SAMPLE_RATE
         offset = 0
-        if trim:
+        if speech_edges is not None:
+            from .speech_edges import checked_bounds
+
+            start, end = checked_bounds(audio, speech_edges, trim)
+            offset = start / SAMPLE_RATE
+            audio = audio[start:end]
+        elif trim:
             start, end = speech_bounds(audio, threshold=float(threshold))
             offset = start / SAMPLE_RATE
             audio = audio[start:end]
@@ -225,6 +232,8 @@ class Engine:
             "audio_seconds": original_duration,
             "speech_seconds": len(audio) / SAMPLE_RATE,
         }
+        if speech_edges is not None:
+            base["speech_edges"] = speech_edges
         if len(audio) < 320:
             return dict(
                 base,
@@ -232,6 +241,7 @@ class Engine:
                 segments=[],
                 language=language,
                 silence=True,
+                detector_abstained=speech_edges is not None,
                 warm=True,
                 load_ms=0,
                 decode_ms=0,
@@ -357,13 +367,21 @@ class Engine:
             timestamp_granularity=("chunk" if "decoder_chunks" in base else "utterance") if spec["engine"] == "mlx-audio" else "segment",
         )
 
-    def meeting(self, path, model_id="parakeet-v3", language=None, vocabulary="", trim=True, threshold=0.003):
+    def meeting(self, path, model_id="parakeet-v3", language=None, vocabulary="", trim=True, threshold=0.003, speech_edges=None):
         if model_id not in {"parakeet-v3", "whisper-turbo", "whisper-small"}:
             raise ValueError("Speaker-labeled imports currently require Parakeet or Whisper word timing.")
         started = time.perf_counter()
         audio = read_audio(path)
         if not 0 <= float(threshold) <= 0.1:
             raise ValueError("Threshold must be between 0 and 0.1.")
+        if speech_edges is not None:
+            from .speech_edges import checked_bounds
+
+            start, end = checked_bounds(audio, speech_edges, trim)
+            if end - start < 320:
+                return dict(text="", raw_text="", words=[], segments=[], speaker_turns=[], model=model_id,
+                            audio_seconds=len(audio) / SAMPLE_RATE, speech_seconds=(end - start) / SAMPLE_RATE,
+                            silence=True, detector_abstained=True, speech_edges=speech_edges, total_ms=0)
         if not len(audio) or (trim and speech_bounds(audio, threshold=float(threshold)) == (0, 0)):
             return dict(
                 text="",
@@ -393,7 +411,7 @@ class Engine:
             for s in diarized.segments
         ]
         diar_ms = (time.perf_counter() - diar_started) * 1000
-        result = self.transcribe(path, model_id, language, vocabulary, trim=False, word_timestamps=True)
+        result = self.transcribe(path, model_id, language, vocabulary, trim=False, word_timestamps=True, speech_edges=speech_edges)
         if result["text"] and not result.get("words"):
             raise RuntimeError("Recognizer returned no word timing; speaker attribution would be unreliable.")
         words, segments = attribute(result.get("words", []), turns)

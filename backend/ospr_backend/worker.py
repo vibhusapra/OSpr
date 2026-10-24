@@ -82,6 +82,7 @@ def dispatch(engine, request):
             request.get("vocabulary", "")[:16000],
             bool(request.get("trim", True)),
             float(request.get("threshold", 0.003)),
+            speech_edges=request.get("speech_edges"),
         )
     if action == "transcribe":
         model = request.get("model", "parakeet-v3")
@@ -97,6 +98,7 @@ def dispatch(engine, request):
             request.get("vocabulary", "")[:16000],
             bool(request.get("trim", True)),
             threshold,
+            speech_edges=request.get("speech_edges"),
         )
     if action == "rewrite":
         text, instruction = request.get("text", ""), request.get("instruction", "")
