@@ -33,8 +33,21 @@ final class ResamplingQualityTests: XCTestCase {
                 let expected = try whole(source, rate: rate, policy: policy)
                 for packets in [[1024], [128, 8192, 317, 256]] {
                     let (actual, _) = try convert(source, rate: rate, policy: policy, packets: packets)
-                    XCTAssertEqual(actual.count, Int(ceil(Double(source.count) * 16000 / rate)))
+                    XCTAssertLessThanOrEqual(abs(Double(actual.count) - Double(source.count) * 16000 / rate), 1)
                     XCTAssertEqual(actual, expected, "\(rate) / \(policy) / \(packets)")
+                }
+            }
+        }
+    }
+    func testFractionalNativeFrameCountsMatchWholeConversionWithoutCeilAssumption() throws {
+        for rate in [44100.0, 48000.0] {
+            for count in [1, 17, 128, 44099, 44101, 460184, 500867] {
+                let source: [Float] = (0..<count).map { Float(sin(Double($0) * 0.013)) * 0.3 }
+                for policy in SpeechResamplingPolicy.allCases {
+                    let expected = try whole(source, rate: rate, policy: policy)
+                    let (actual, _) = try convert(source, rate: rate, policy: policy, packets: [1024])
+                    XCTAssertEqual(actual, expected, "\(rate) / \(count) / \(policy)")
+                    XCTAssertLessThanOrEqual(abs(Double(actual.count) - Double(count) * 16000 / rate), 1)
                 }
             }
         }

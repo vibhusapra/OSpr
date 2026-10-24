@@ -77,6 +77,12 @@ import AVFoundation
                            "first_output_input_frames": firstOutputInputFrames ?? input.count,
                            "converter": converter.diagnostics])
         }
+        // Independent whole-track conversion defines the native frame-count
+        // and waveform contract. CoreAudio's fractional-frame rounding must
+        // not be inferred from SciPy's ceil-length convention.
+        let reference = try whole(input, rate: rate, policy: policy)
+        guard last == reference else { throw OSprError.message("Packet conversion differs from whole-track reference.") }
+        guard !last.isEmpty else { throw OSprError.message("No complete normalized frame was produced.") }
         let format = AVAudioFormat(standardFormatWithSampleRate: 16000, channels: 1)!
         let output = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: AVAudioFrameCount(last.count))!
         output.frameLength = AVAudioFrameCount(last.count)
@@ -87,6 +93,32 @@ import AVFoundation
             try writer.write(from: output)
         }
         return ["policy": policy.rawValue, "input_rate": rate, "input_frames": input.count,
-                "output_frames": last.count, "trials": trials]
+                "output_frames": last.count, "whole_reference_frames": reference.count,
+                "exact_whole_reference": true, "trials": trials]
+    }
+    private static func whole(_ input: [Float], rate: Double, policy: SpeechResamplingPolicy) throws -> [Float] {
+        if rate == 16000 { return input }
+        let source = AVAudioFormat(standardFormatWithSampleRate: rate, channels: 1)!
+        let destination = AVAudioFormat(standardFormatWithSampleRate: 16000, channels: 1)!
+        let converter = AVAudioConverter(from: source, to: destination)!
+        policy.configure(converter)
+        let buffer = AVAudioPCMBuffer(pcmFormat: source, frameCapacity: AVAudioFrameCount(input.count))!
+        buffer.frameLength = AVAudioFrameCount(input.count)
+        input.withUnsafeBufferPointer { buffer.floatChannelData![0].update(from: $0.baseAddress!, count: $0.count) }
+        let output = AVAudioPCMBuffer(pcmFormat: destination, frameCapacity: AVAudioFrameCount(ceil(Double(input.count) * 16000 / rate)) + 4096)!
+        var offered = false, result = [Float]()
+        for _ in 0..<8 {
+            output.frameLength = 0
+            var error: NSError?
+            let status = converter.convert(to: output, error: &error) { _, state in
+                if !offered { offered = true; state.pointee = .haveData; return buffer }
+                state.pointee = .endOfStream; return nil
+            }
+            if let error { throw error }
+            guard status != .error else { throw OSprError.message("Whole-reference conversion failed.") }
+            result += UnsafeBufferPointer(start: output.floatChannelData![0], count: Int(output.frameLength))
+            if status == .endOfStream { return result }
+        }
+        throw OSprError.message("Whole-reference conversion failed to finish.")
     }
 }

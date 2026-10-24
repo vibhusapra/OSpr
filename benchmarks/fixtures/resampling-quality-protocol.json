@@ -1,5 +1,5 @@
 {
-  "schema": 1,
+  "schema": 2,
   "rates": [
     44100,
     48000
@@ -980,5 +980,5 @@
   ],
   "fidelity_gate_population": "40 English read-speech clips per rate",
   "first_output_gate_packet_frames": 1024,
-  "reference_alignment": "SciPy upsampling uses ceil length. Native reconversion must yield ceil(native_frames*16000/rate), at most one sample beyond the original; that reference tail is padded with zero, with no cropping or alignment search."
+  "reference_alignment": "SciPy source upsampling uses ceil length; native output must be exactly equal to a separate whole-track Apple converter, in both PCM and length, and within one sample of native duration*16000. The original 16 kHz roundtrip reference may gain at most one zero tail sample; no cropping or alignment search."
 }

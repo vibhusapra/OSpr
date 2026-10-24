@@ -321,7 +321,10 @@ def main():
                     order = protocol["policies"][offset:] + protocol["policies"][:offset]
                     for policy in order:
                         output, values, native = convert(path, policy, protocol["packets"])
-                        assert len(values) == int(np.ceil(len(native_source) * 16000 / rate))
+                        assert native["exact_whole_reference"] and native["whole_reference_frames"] == len(
+                            values
+                        )
+                        assert abs(len(values) - len(native_source) * 16000 / rate) <= 1
                         assert 0 <= len(values) - len(original) <= 1
                         reference = np.pad(original, (0, len(values) - len(original)))
                         norm = float(np.linalg.norm(original.astype("float64")))
