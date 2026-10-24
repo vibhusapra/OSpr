@@ -59,3 +59,17 @@ def test_explicit_warmup_primes_once_and_discards_synthetic_output(monkeypatch):
     second = engine.warm('parakeet-v3')
     assert calls == ['parakeet-v3'] and second['prime_ms'] == 0
     assert first['prime_ms'] > 0 and 'text' not in first
+
+
+def test_explicit_text_preparation_never_repairs_partial_cache_even_online(tmp_path, monkeypatch):
+    monkeypatch.setitem(engine.MODEL_LOCK, 'fixture', dict(repo='fixture/repo', revision='a'*40, required_files={'weights.npz':3}))
+    calls = []
+    def cached_only(**kwargs):
+        calls.append(kwargs)
+        assert kwargs.get('local_files_only') is True
+        return str(tmp_path)
+    monkeypatch.setattr(huggingface_hub, 'snapshot_download', cached_only)
+    monkeypatch.delenv('HF_HUB_OFFLINE', raising=False)
+    with pytest.raises(LocalEntryNotFoundError, match='incomplete'):
+        engine.resolve_model('fixture', cache_only=True)
+    assert len(calls) == 1

@@ -1,0 +1,63 @@
+{
+  "status": "passed-text-preparation-cli-contracts",
+  "cases": [
+    {
+      "case": "valid",
+      "status": "passed",
+      "exit_code": 0
+    },
+    {
+      "case": "repeated",
+      "status": "passed",
+      "exit_code": 0
+    },
+    {
+      "case": "wrong-model",
+      "status": "passed",
+      "exit_code": 1
+    },
+    {
+      "case": "wrong-repository",
+      "status": "passed",
+      "exit_code": 1
+    },
+    {
+      "case": "not-prepared",
+      "status": "passed",
+      "exit_code": 1
+    },
+    {
+      "case": "download-route",
+      "status": "passed",
+      "exit_code": 1
+    },
+    {
+      "case": "not-complete",
+      "status": "passed",
+      "exit_code": 1
+    },
+    {
+      "case": "bad-token-type",
+      "status": "passed",
+      "exit_code": 1
+    },
+    {
+      "case": "missing-completion",
+      "status": "passed",
+      "exit_code": 1
+    },
+    {
+      "case": "invalid-before-worker-untrusted/model",
+      "status": "passed",
+      "exit_code": 1
+    },
+    {
+      "case": "invalid-before-worker-rewrite",
+      "status": "passed",
+      "exit_code": 1
+    }
+  ],
+  "cli_sha256": "61fd8f263881b944cf7d579f806c6390a562a11076940e2ab95f72bab0d1b89c",
+  "build": null,
+  "boundary": "Actual Swift CLI on owned fake workers. Selected-model/repository, completed synthetic acknowledgement, typed tokens/cache-only/primed states, idempotent preparation and invalid-model pre-admission. No real model/UI/latency claim."
+}

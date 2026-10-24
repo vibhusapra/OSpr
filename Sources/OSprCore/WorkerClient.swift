@@ -96,13 +96,20 @@ public final class WorkerClient: @unchecked Sendable {
                     let rejection = error as? EngineRejection
                     let action = body["action"] as? String ?? ""
                     let preparationRejection = rejection != nil && ["prepare_review", "prepare_upload", "prepare_upload_parts"].contains(action)
-                    let outputLimit = rejection?.kind == "text-output-limit" && ["rewrite", "notes", "summary"].contains(action)
-                    let missingTextWeights = rejection?.kind == "text-model-not-prepared" && action == "rewrite"
-                    if !preparationRejection && !outputLimit && !missingTextWeights { self.stopOnQueue() }
+                    let textRejection = Self.retainsTextModels(after: error, action: action)
+                    if !preparationRejection && !textRejection { self.stopOnQueue() }
                     continuation.resume(throwing: error)
                 }
             }
         }
+    }
+
+    /// These typed rejections leave the serial decoder healthy. Callers can keep
+    /// speech readiness; unknown/runtime/protocol failures still drop residency.
+    public static func retainsTextModels(after error: Error, action: String) -> Bool {
+        guard let rejection = error as? EngineRejection else { return false }
+        return (rejection.kind == "text-output-limit" && ["rewrite", "notes", "summary", "warm_text"].contains(action)) ||
+            (rejection.kind == "text-model-not-prepared" && ["rewrite", "warm_text"].contains(action))
     }
 
     private func readResult(id: String, progress: (@Sendable ([String: Any]) -> Void)? = nil) throws -> [String: Any] {

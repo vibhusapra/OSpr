@@ -31,12 +31,14 @@ def dispatch(engine, request):
         if request.get("model", "parakeet-v3") not in PUBLIC_MODELS:
             raise ValueError("Model has not passed the shipping quality gate. Use the research harness.")
         return engine.warm(request.get("model", "parakeet-v3"))
+    if action == "warm_text":
+        return engine.warm_text(request.get("model", "rewrite-quality"))
     if action == "model_status":
         from .model_cache import inventory
         from .speech_detector import inventory as speech_inventory
 
         return {"models": inventory(MODEL_LOCK, [*PUBLIC_MODELS, "rewrite-quality", "meeting-quality", "diarization"]) + [speech_inventory()],
-                "resident": list(engine.models), "rewrite_resident": engine.rewriter_id,
+                "resident": list(engine.models), "rewrite_resident": engine.rewriter_id, "rewrite_primed": engine.primed_text_model,
                 "diarizer_resident": engine.diarizer is not None}
     if action == "download_model":
         model = request.get("model")
@@ -146,7 +148,7 @@ def main():
             if not isinstance(request, dict):
                 raise ValueError("Expected a JSON object.")
             request_id = request.get("id")
-            if request.get("action") in {"warm", "download_model", "summary"}:
+            if request.get("action") in {"warm", "warm_text", "download_model", "summary"}:
                 engine.progress = lambda event, request_id=request_id: emit({"id": request_id, "event": "progress", "progress": event})
             response = {"id": request.get("id"), "ok": True, "result": dispatch(engine, request)}
         except Exception as error:

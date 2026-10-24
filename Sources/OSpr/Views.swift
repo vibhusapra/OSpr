@@ -459,7 +459,7 @@ struct ModelsView: View {
                 Card { VStack(alignment: .leading, spacing: 10) {
                     HStack { Text(model.modelProgress).font(.callout); Spacer(); Button("Cancel") { model.cancel() } }
                     if let fraction = model.modelFraction { ProgressView(value: fraction) } else { ProgressView().controlSize(.small) }
-                    Text("Progress counts prepared weight bytes, including reused cache data. The total can change as files are discovered.").font(.caption).foregroundStyle(.secondary)
+                    Text("When downloading, progress counts prepared weight bytes, including reused cache data. The total can change as files are discovered.").font(.caption).foregroundStyle(.secondary)
                 } }
             }
             ForEach(models, id: \.0) { id, name, tag, detail in
@@ -483,22 +483,8 @@ struct ModelsView: View {
                     Button(model.settings.model == id ? "Selected ✓" : "Select") { model.settings.model = id; model.ready = false; model.saveOSprSettings() }.disabled(model.busy)
                 } }
             }
-            HStack { Button("Load selected model") { model.warm() }.buttonStyle(.borderedProminent).disabled(model.busy || !model.engineInstalled); Text("Download alone uses no GPU. Loading also prepares first-use kernels.").font(.caption).foregroundStyle(.secondary) }
-            Text("Optional local models").font(.headline)
-            ForEach([("rewrite-quality", "Qwen3 4B · local refinement & key excerpts"), ("meeting-quality", "Qwen3.5 9B · refinement & summaries · 6 GB download"), ("diarization", "Nemotron · experimental speaker labels"), ("speech-detector", "Silero · experimental neural edges & auto finish (native CPU)")], id: \.0) { id, name in
-                if let cache = model.modelCache[id] {
-                    Card { HStack {
-                        VStack(alignment: .leading, spacing: 5) {
-                            Text(name).font(.callout)
-                            Text(cache.cacheLabel + (model.residentModels.contains(id) ? " · resident" : "")).font(.caption).foregroundStyle(.secondary)
-                            if id == "speech-detector" { Text("MIT model data · optional edge filtering and auto finish; speech recognition uses your selected engine.").font(.caption).foregroundStyle(.secondary) }
-                        }
-                        Spacer()
-                        if !cache.complete { Button("Download") { model.warm(downloadOnly: id) }.disabled(model.busy) }
-                        if let path = cache.path { Button("Show in Finder") { NSWorkspace.shared.selectFile(path, inFileViewerRootedAtPath: "") } }
-                    } }
-                }
-            }
+            HStack { Button("Load selected model") { model.warm() }.buttonStyle(.borderedProminent).disabled(model.busy || model.checkingModels || !model.engineInstalled); Text("Download alone uses no GPU. Loading also prepares first-use kernels.").font(.caption).foregroundStyle(.secondary) }
+            OptionalLocalModels(model: model)
             Text("Model weights have their own licenses. Parakeet weights require attribution under CC BY 4.0; OSpr code is Apache 2.0. Downloads use the shared Hugging Face cache; removing weights there can affect other apps. OSpr never deletes that shared cache.").font(.caption).foregroundStyle(.tertiary)
         }.padding(32) }
         .onAppear { model.refreshModels() }
