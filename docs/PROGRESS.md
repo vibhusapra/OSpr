@@ -29,6 +29,21 @@ open. Google documents this single-turn protocol as Generate Content API (Legacy
 this is not Vertex or Interactions support. Azure remains a native-adapter gap.
 See [implementation, protocol sources and limits](architecture/gemini-refinement.md).
 
+Source `46223b0` CI 40093840656 is green at the matching 366/248 tests, eight CLI
+cases, app/report and clean-runner runtime. The separate Apple Development signed
+`dist/gemini-refinement-v0/OSpr.app` passes relocated offline six-engine/neural/
+extras and exact bundled Gemini CLI replay. Its 395,218,907-byte ZIP is SHA-256
+`752e315c3df6af6dc320a9f3540037f1de0556165855df46d2f62cdeda118b20`.
+CRC/extraction/deep signatures/executable bytes/extracted CLI/license and all 232
+bundled help links pass. The report in the bundle is the source snapshot before
+final receipts. No QA app was launched; normal persisted data matches baseline.
+This is a focused macOS 26.6.2 arm64 test candidate, with separate weights and
+native/account/distribution acceptance still open. The four
+`gemini-refinement-{source-validation,package,portable,bundled-cli}.json` receipts
+separate these gates. To preserve free disk space, two older reproducible archive
+extractions and this new extraction were removed after verification; signed apps,
+ZIPs, receipts and QA profiles remain intact.
+
 ## Insertion delivery guard: uncertain writes no longer trigger another paste
 
 The `codex/insertion-delivery-guard` branch fixes unconditional clipboard

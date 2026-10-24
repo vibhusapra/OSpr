@@ -201,7 +201,7 @@
     {
       "feature": "BYOK and local-server refinement",
       "status": "contract-tested",
-      "evidence": "Compatible chat, Anthropic Messages, Ollama and native Gemini generateContent. Gemini Settings preset/model/Keychain fields, text-only header-key request, completion/safety/thought parsing and guarded UTF-8 file CLI. 366 Swift/248 Python, Ruff, ten new Swift cases and eight actual CLI loopback cases pass; light/dark Settings renders inspected.",
+      "evidence": "Compatible chat, Anthropic Messages, Ollama and native Gemini generateContent. Gemini Settings preset/model/Keychain fields, text-only header-key request, completion/safety/thought parsing and guarded UTF-8 file CLI. 366 Swift/248 Python, Ruff, ten new Swift cases and eight actual CLI loopback cases pass; light/dark Settings renders inspected. Source 46223b0 CI40093840656 passes; a separate signed candidate passes the exact bundled eight-case loopback replay, relocated six-engine/neural/extras, 232 help links and archive gates. No real key/account call or native QA launch.",
       "gap": "Gemini provider-account calls, native Settings/Keychain save/restart and model quality/latency remain unverified. Google labels the supported single-turn REST protocol Generate Content API (Legacy); no Vertex/Interactions support. A 4096-token output cap rejects incomplete replies. Provider-specific Azure adapter not included; compatible gateways may work. Existing fidelity checks are not semantic proof.",
       "priority": "P0"
     },

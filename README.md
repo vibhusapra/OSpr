@@ -83,7 +83,16 @@ models used by the preceding portable smoke suite; weights are never embedded.
 Builds use ad-hoc signing by default; the current local preview uses an Apple Development signature. Developer ID distribution signing, notarization and an updater are not complete. Do not overwrite an existing installation
 until its transcripts/settings are backed up.
 
-The latest checked local delivery is `dist/streaming-v0/OSpr.app` and
+Newer focused test candidates are tracked in [progress](docs/PROGRESS.md). The
+native Gemini candidate at `dist/gemini-refinement-v0/OSpr.app` is source
+`46223b0`: 366 Swift/248 Python tests, source CI, six-engine portable checks,
+eight exact bundled Gemini loopback CLI cases and archive checks pass. It adds
+Gemini Settings/preset/Keychain routing and a guarded text-file CLI, alongside
+the insertion setup test and delivery guard. Native/account/distribution gates
+remain open; this is a separate Apple Development signed test candidate.
+[Manifest and scope](docs/architecture/gemini-refinement.md).
+
+The latest delivery with the broader long-file/transport gate set is `dist/streaming-v0/OSpr.app` and
 `dist/streaming-v0/OSpr-v0.1.0-macOS26.6.2-arm64.zip`, frozen at source `3feaf65`.
 It includes continuous native-rate preview normalization, steady cadence and
 visible preview failure handling, plus full-audio defaults and timing bounds.
@@ -339,6 +348,14 @@ separate limitation. No secure-erasure guarantee is made.
 .build/debug/ospr-cli resolve-profile settings.json com.example.browser https://example.org/team
 .build/debug/ospr-cli analyze-speech public-16k-mono.wav /path/to/model.mlmodelc cpu 1.2
 ```
+
+For explicit Gemini cloud text refinement, configure `OSPR_REWRITE_KEY` through
+your environment/secret tool, then run
+`ospr-cli rewrite-gemini /path/to/transcript.txt https://generativelanguage.googleapis.com/v1beta YOUR_MODEL_ID`.
+The input file is unchanged; JSON reports whether the Clean fidelity guard
+accepted the rewrite or returned the original. Incomplete/blocked/provider
+failures exit without partial output. This command uploads text, uses no audio
+or local model, and does not imply semantic fidelity or provider-account acceptance.
 
 `analyze-speech` is in current source; the context-profiles-v0 ZIP predates it.
 It is a research command for a supplied local Silero-compatible

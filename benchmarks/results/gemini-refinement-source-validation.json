@@ -1,0 +1,42 @@
+{
+  "status": "passed-gemini-source-loopback-and-package-native-account-pending",
+  "application_commit": "46223b01481d61119ece50cfc53795acc13c8f27",
+  "application_source_sha256": "c89645ebfe0a302249ed5525064a34d399cdef144ca6b67dc6b0d028e570998d",
+  "local": {
+    "swift_tests": 366,
+    "python_tests": 248,
+    "ruff": true,
+    "new_swift_tests": 10,
+    "actual_cli_loopback_cases": 8,
+    "actual_bundled_cli_loopback_cases": 8,
+    "layout_fixtures_inspected": [
+      "light",
+      "dark"
+    ],
+    "layout_scope": "Simulated actual SwiftUI Settings in isolated services-disabled profile; not native account/Keychain acceptance"
+  },
+  "ci": {
+    "run_id": 40093840656,
+    "job_id": 120871867776,
+    "conclusion": "success",
+    "url": "https://github.com/vibhusapra/OSpr/actions/runs/40093840656",
+    "swift_tests": 366,
+    "python_tests": 248,
+    "gemini_loopback_cases": 8,
+    "bundled_help_links": 232
+  },
+  "native": {
+    "status": "pending-manual-unlock-and-provider-account-acceptance",
+    "qa_candidate_launched": false,
+    "no_account_call": true,
+    "no_real_provider_key_used": true,
+    "no_recording_or_playback": true,
+    "no_sound_setting_changed": true,
+    "normal_persisted_data_unchanged": true,
+    "manual_unlock_question_already_pending": true
+  },
+  "package_manifest_sha256": "998b437de013f540921e96832043d2051b6476bea30bc2adefee0e1fb4954567",
+  "portable_receipt_sha256": "761300331b3b20279c691eefe2de8d3913028ffa90a3626c7dcb6423cf05f34c",
+  "bundled_cli_receipt_sha256": "40bd5085209edd3d57e50f6eaca68a539fee5fc80dd1300b8224fbcca679ff42",
+  "boundary": "Source/loopback/layout/portable/archive checks only. No Gemini account/model/quotas/provider-side cancellation, native Settings/Keychain, semantic quality, live latency, physical device/insertion, consumer ranking or notarized/clean-Mac/updater acceptance. Normal app/data and prior signed packages preserved. Google Generate Content API (Legacy) single-turn REST only; no Vertex or Interactions. Existing Mac unlock and separate older unmute questions remain pending; no question repeated."
+}

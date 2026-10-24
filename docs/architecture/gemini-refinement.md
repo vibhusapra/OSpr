@@ -73,6 +73,33 @@ Account access, model support, provider-side cancellation/quotas, semantic quali
 and live latency remain unverified. No normal app/settings/history or sound
 setting is changed for these source/loopback checks.
 
+## Separate signed candidate and receipts
+
+Source `46223b01481d61119ece50cfc53795acc13c8f27` is packaged at
+`dist/gemini-refinement-v0/OSpr.app`, application fingerprint
+`c89645ebfe0a302249ed5525064a34d399cdef144ca6b67dc6b0d028e570998d`.
+The 395,218,907-byte ZIP is SHA-256
+`752e315c3df6af6dc320a9f3540037f1de0556165855df46d2f62cdeda118b20`.
+Relocated offline replay passes all six ASR engines/neural-edge routes and
+notes/speakers/mix/review/upload/model/MCP extras. All eight Gemini loopback cases
+also pass against the exact bundled CLI. The archive passes CRC, extraction,
+deep signatures, identical executables, extracted offline CLI inventory and
+license-byte checks. All 232 bundled relative help links resolve. Its report is
+the source snapshot before these final receipts.
+
+Source CI 40093840656 passes matching **366 Swift / 248 Python tests**, the eight
+CLI cases, app/report and clean-runner runtime checks. This is Apple Development
+signed macOS 26.6.2 arm64, with separate weights; it is not Developer ID/notarized,
+clean-Mac/older-OS/updater or native accepted. No QA app was launched. Normal
+persisted data still matches baseline; previous signed candidates are preserved.
+Disposable archive extraction copies were removed only after successful checks
+to preserve disk space. ZIPs, apps, receipts and QA profiles remain available.
+
+[Source/CI and pending native/account state](../../benchmarks/results/gemini-refinement-source-validation.json),
+[archive manifest](../../benchmarks/results/gemini-refinement-package.json),
+[portable engines](../../benchmarks/results/gemini-refinement-portable.json),
+[exact bundled Gemini CLI](../../benchmarks/results/gemini-refinement-bundled-cli.json).
+
 ## Primary references
 
 Checked 2026-10-24. Google's [generateContent REST reference](https://ai.google.dev/api/generate-content)
