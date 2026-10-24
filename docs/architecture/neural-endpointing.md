@@ -287,7 +287,11 @@ exactly once. There is no inserted padding at intermediate packet seams.
 `CapturePipeline.claimNeuralFinish` holds the same ingress lock as capture,
 requires the monitor's processed and received input positions to equal the
 writer's accepted frontier, and atomically closes both admissions on success.
-There can be no received-but-unexamined queue or a read-then-stop race. Activity
+No newer callback packet can still be queued or in flight at that claim, and
+there is no read-then-stop race. This means processing every received input block
+and inspecting all available normalized output; the converter's filter delay is
+separate, not a promise that its newest retained samples have already reached
+the classifier. Activity
 within a partial normalized tail can revoke completion. Converter filter latency
 is still real, as is imperfect model classification; frontier consistency does
 not guarantee that every phoneme is detected or that semantic intent is complete.
@@ -296,7 +300,7 @@ An overflow, input inconsistency or inference error disables the optional monito
 and exposes a manual-finish warning. It never switches silently to RMS. The
 independent original recording writer continues unchanged. Close prevents stale
 in-flight work from publishing, and every new monitor owns fresh per-take state.
-The UI must actually display that warning and use the atomic claim before it can
+The UI must display that warning and use the atomic claim before it can
 enable this experiment. **No current GUI constructs the optional sidecar yet.**
 
 Eighteen new controls bring the local suite to 281 passing Swift tests. These
@@ -309,7 +313,7 @@ preserves a 220-frame probability stream exactly across 1,320 partial probes.
 The private `_benchmark-speech-capture` CLI replays file samples through this
 actual sidecar. It drains every packet before admitting the next, which tests
 function and frontiers without claiming real-time contention or microphone
-acceptance. The pending batch uses all 104 existing validation cases at three
+acceptance. The frozen batch uses all 104 existing validation cases at three
 formats and two packet patterns (624 routes). Stereo gains 0.5/1.5 exercise
 downmix; SciPy creates rate variants, while the live sidecar uses AVAudioConverter.
 Those paths need not produce identical waveform values. Final ASR edge selection
@@ -325,6 +329,58 @@ retains every failed route and all packet/candidate traces. Preparation, packet
 enqueue-through-drain cost and sample-position finish delay are separate; none
 is a measured hardware callback, UI or ASR latency distribution.
 
+### Frozen capture replay result
+
+Source `ace21b8a0ad9998b42e4986c9133721edbbd3f40` completes all 624
+routes with no failed route. Every one of the 594 transformed speech routes arms
+and finishes after source clip end; none of the thirty repeated synthetic-negative
+routes arms. These reuse the same 99 speech / five negative inputs, not 624
+independent utterances. The maximum finish delay is 2.339625 s. The 33 quiet
+inputs remain synthetic electrical attenuation, not real whispered speech.
+
+| Format / packet pattern | Original finish p95 | Quiet finish p95 | Noisy finish p95 | Packet work p95 |
+|---|---:|---:|---:|---:|
+| 16 kHz mono / 1024 | 1.506 s | 2.094 s | 1.800 s | 0.225 ms |
+| 16 kHz mono / irregular | 1.525 s | 2.087 s | 1.841 s | 0.390 ms |
+| 44.1 kHz stereo / 1024 | 1.488 s | 2.076 s | 1.771 s | 0.209 ms |
+| 44.1 kHz stereo / irregular | 1.492 s | 2.066 s | 1.761 s | 0.227 ms |
+| 48 kHz stereo / 1024 | 1.486 s | 2.065 s | 1.766 s | 0.217 ms |
+| 48 kHz stereo / irregular | 1.487 s | 2.068 s | 1.770 s | 0.218 ms |
+
+Irregular packet sizes cycle through 137/509/1024/2048 native-rate frames.
+Finish timing is the first candidate's **input sample position**, minus the
+source clip-end proxy. It includes packet boundaries and conversion behavior;
+there is no wall-clock UI poll. Packet work spans mono-copy admission through
+serial inference/drain (255,236 total packets), excluding file reads, the original
+writer, hardware scheduling, UI and ASR. Preparation separately loads and primes
+a model for each command. Shared M5 Max activity and warm OS caches are not
+controlled, so these costs are diagnostic, not a p95 service guarantee.
+
+The unflushed continuous converter retains six normalized samples at 48 kHz and
+6–6.18 samples at 44.1 kHz in this replay. It is not an identical zero-delay
+replacement for final SciPy normalization. Do not apply its live bounds to a
+different normalized ASR array. End-of-stream resampling tests separately drain
+the complete signal and verify its count/partition invariance.
+
+The stored-evidence checker verifies 312 source/derived audio hashes, all five
+model files, 255,236 packet-frontier records, 35,652 candidate bounds and every
+summary/delay/cost calculation. It does not independently reclassify speech or
+rerun inference. The trace archive preserves every packet and candidate.
+
+- [Functional replay receipt](../../benchmarks/results/native-speech-capture.json)
+- [Every packet and candidate](../../benchmarks/results/native-speech-capture.traces.json.gz)
+- [Stored-evidence checks, diagnostic costs and hardware](../../benchmarks/results/native-speech-capture-checks.json)
+- [Source-bound CI: 281 Swift / 105 Python / 17 CLI cases](../../benchmarks/results/native-speech-capture-ci.json)
+
+```sh
+HF_HUB_OFFLINE=1 uv run --frozen --all-extras python benchmarks/verify_native_speech_capture.py \
+  --receipt benchmarks/results/native-speech-capture.json \
+  --cli .local/vad-candidates/source-ace21b8-cli --output /tmp/native-capture-checks.json
+```
+
+The preserved CLI must match the frozen receipt's hash. A rebuild/reproduction
+needs its own run and fingerprints; do not change the archived receipt hashes.
+
 ## Primary sources and provenance
 
 - [Silero upstream and MIT license](https://github.com/snakers4/silero-vad)
@@ -333,6 +389,8 @@ is a measured hardware callback, UI or ASR latency distribution.
 - [MLX v6 conversion](https://huggingface.co/mlx-community/silero-vad-v6)
 - [Pinned model files](../../benchmarks/fixtures/vad-models.json)
 - [Preselected public protocol](../../benchmarks/fixtures/vad-protocol.json)
+- [Apple AVAudioConverter sample-rate conversion guidance](https://developer.apple.com/documentation/technotes/tn3136-avaudioconverter-performing-sample-rate-conversions)
+- [Apple streaming converter contract](https://developer.apple.com/documentation/avfaudio/avaudioconverter/convert(to:error:withinputfrom:))
 
 Vendor/model-card speed and parity statements are not OSpr measurements. The
 four AMI annotations are coarse speech-timing proxies, not a standard VAD frame

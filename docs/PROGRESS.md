@@ -592,10 +592,20 @@ distribution or a claim of full union parity/top-three product placement.
   boundaries at 8/16/44.1/48/96 kHz. Race, overflow, close, inference failure,
   audio-copy ownership, partial-tail resumption and original-file preservation
   controls pass. A detector failure leaves every stereo sample in the original.
-- [ ] Frozen functional replay: all 104 prior VAD validation cases at 16 kHz
+- [x] Frozen `ace21b8` functional replay: all 104 prior VAD validation cases at 16 kHz
   mono / 44.1 and 48 kHz unequal-gain stereo, each with steady and irregular
   packet sizes (624 routes). This reuses known fixtures; no new quality holdout,
-  model tuning, ASR or physical device acceptance is claimed.
+  model tuning, ASR or physical device acceptance is claimed. All 624 routes
+  complete: 594 speech variants arm/finish after source clip end and 30 repeated
+  synthetic-negative variants never arm. Maximum finish delay is 2.340 s.
+- [x] Stored-evidence checker rehashes 312 source/derived WAVs and five model
+  files, checks all 255,236 packet frontiers and 35,652 candidate frontiers, and
+  recomputes all summaries. Raw packet traces are retained in a 4.07 MB archive.
+  Serial enqueue-through-drain p95 is 0.209–0.390 ms depending on format/pattern;
+  this excludes hardware callbacks, UI polling, input file reads and ASR.
+- [x] Source-bound macOS CI 40043053254 passes all 281 Swift / 105 Python tests,
+  17 profile CLI cases, lint, report/app build and clean-runner bundled imports.
+  The cached-model replay is separate from CI and remains a functional control.
 - [ ] Explicit model preparation/settings and live UI routing. The sidecar is
   connected to CapturePipeline as an optional dependency but no GUI constructs it
   yet; defaults and delivered preview remain unchanged. Final ASR edge selection
