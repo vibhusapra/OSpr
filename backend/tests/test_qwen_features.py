@@ -138,3 +138,12 @@ def test_missing_private_frontend_keeps_existing_generate_contract():
     model = SimpleNamespace(generate=lambda audio, **kwargs: "original")
     result, work = generate(model, np.ones(16, dtype=np.float32))
     assert result == "original" and work.evaluations == work.hits == 0
+
+
+def test_fused_view_uses_actual_bound_generation_owner_and_restores_it():
+    owner, view = Model(), Model()
+    view.generate = owner.generate
+    result, work = generate(view, np.ones(16, dtype=np.float32))
+    assert result.text == "16.0" and owner.calls == 1 and view.calls == 0
+    assert work.evaluations == work.hits == 1
+    assert "_preprocess_audio" not in vars(owner) and "_preprocess_audio" not in vars(view)

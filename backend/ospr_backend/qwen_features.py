@@ -68,6 +68,10 @@ def reuse_features(model, enabled=True):
 def generate(model, audio, **kwargs):
     # A diagnostic escape hatch permits paired real-model baseline comparisons.
     enabled = os.environ.get("OSPR_QWEN_FEATURE_REUSE", "1") != "0"
-    with reuse_features(model, enabled=enabled) as work:
-        result = model.generate(audio, **kwargs)
+    method = model.generate
+    # Model fusion can retain a bound method owned by the pre-fusion object.
+    # Patch the object that actually executes generate, not a neighboring view.
+    owner = getattr(method, "__self__", None)
+    with reuse_features(owner if owner is not None else model, enabled=enabled) as work:
+        result = method(audio, **kwargs)
     return result, work
