@@ -635,6 +635,11 @@ distribution or a claim of full union parity/top-three product placement.
   corruption, new-version publication, locator traversal and symlinked managed
   directories. No SDK/network access occurs during cache-only preparation.
 - [x] The real repaired asset passes independent native size/SHA verification.
+- [x] Frozen `ef50c9a` passes a fresh disposable-cache preparation/corruption/
+  versioned-repair reproduction and 1,320 actual Core ML CPU probes from the
+  relocated model. SDK transfer caches may be reused; network bytes are not measured.
+- [x] The exact source passes macOS CI 40047540458: 292 Swift / 117 Python tests,
+  17 profile CLI cases, lint, report/app build and clean-runner bundled imports.
 - [x] Isolated native Settings exposes the toggle and pause selection. Choosing
   three seconds and Save preferences persisted neural=true / silence=3, legacy
   auto-stop=0 and prior RMS interval=3. A screenshot captures Preferences saved.

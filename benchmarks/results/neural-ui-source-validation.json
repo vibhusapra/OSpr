@@ -1,0 +1,41 @@
+{
+  "status": "source-contracts-passed-native-acceptance-partial",
+  "verified_at": "2026-10-24T01:07:15.825351+00:00",
+  "build": {
+    "version": "0.1.0",
+    "built_at": "2026-10-24T01:02:52.986287+00:00",
+    "git_commit": "ef50c9af7c30f16031dc2ac31ee61438a99954f0",
+    "tracked_changes": false,
+    "application_source_sha256": "04128acf6ecba448ae5b868f8d6f0942b9aa3c0dd512c007dbeb819bddcafca3",
+    "source_manifest_version": 2,
+    "signing_mode": "ad-hoc",
+    "boundary": "Development build; ad-hoc signature; not notarized; weights downloaded separately."
+  },
+  "checks": {
+    "swift_tests": 292,
+    "python_tests": 117,
+    "cli_profile_cases": 17,
+    "lint": true,
+    "release_and_native_app_build": true,
+    "real_public_model_preparation_and_repair": true,
+    "relocated_private_model_cpu_probes": 1320,
+    "staged_qa_bundled_inventory_entries": 9,
+    "staged_qa_detector_missing_in_empty_test_cache": true
+  },
+  "receipts_sha256": {
+    "neural-ui-model-preparation.json": "d375e1ac139147d3d9909243cd34d6191569347daef1fa9d3907007d4bf066d7",
+    "neural-ui-native-settings.json": "222d8c8c16164c26d0c139f0c668b68696d831c25643203c4f3ff1df7c067c2c",
+    "neural-ui-ci.json": "6804bedb71deeb2462ff6b056f36a0ec6253f5bf1be61757061b30b3867000d5"
+  },
+  "staged_qa": {
+    "bundle_id": "app.ospr.neural-ui-qa",
+    "background_services": false,
+    "auto_paste": false,
+    "history_saving": false,
+    "source_commit": "ef50c9af7c30f16031dc2ac31ee61438a99954f0",
+    "signing": "ad-hoc isolated QA; not notarized",
+    "model_cache": "fresh disposable override for pending native Models download",
+    "currently_running": false
+  },
+  "boundary": "New source exposes explicit opt-in neural auto finish. Actual Settings toggle/pause/Save passed at the earlier f293b28 UI binary; the repaired backend is verified separately at ef50c9a and staged for follow-up. Models download/refresh and restart remain blocked by macOS locking. No new downloadable ZIP, native microphone/insertion/device acceptance, end-to-end latency, clean-Mac install or product ranking is established. Normal app/settings/history remain unchanged."
+}

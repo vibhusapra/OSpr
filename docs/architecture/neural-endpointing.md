@@ -440,6 +440,13 @@ restart, hardware, pause/noise/quiet/device behavior and contention remain
 acceptance work. Final ASR edges must use the exact final normalized array. The UI identifies
 volume trimming as separate and advises disabling it for quiet experiments.
 
+- [Source-bound integration checks](../../benchmarks/results/neural-ui-source-validation.json)
+- [Real empty-cache repair and relocated CPU inference](../../benchmarks/results/neural-ui-model-preparation.json)
+- [Observed native Settings Save and remaining gates](../../benchmarks/results/neural-ui-native-settings.json)
+- [CI: 292 Swift / 117 Python / 17 CLI cases](../../benchmarks/results/neural-ui-ci.json)
+
+![Isolated native Settings after Save; three-second neural finish selected](../assets/native-neural-settings.jpg)
+
 ## Primary sources and provenance
 
 - [Silero upstream and MIT license](https://github.com/snakers4/silero-vad)
