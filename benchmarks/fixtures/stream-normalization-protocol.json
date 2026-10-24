@@ -1,0 +1,83 @@
+{
+  "schema": 1,
+  "sources": [
+    {
+      "id": "1272-128104-0000",
+      "path": "fixtures/audio/1272-128104-0000.wav",
+      "reference": "MISTER QUILTER IS THE APOSTLE OF THE MIDDLE CLASSES AND WE ARE GLAD TO WELCOME HIS GOSPEL",
+      "suite": "human-clean",
+      "source_id": "1272-128104-0000",
+      "sha256": "799f78ed4beb4de7ceae3a809262d4ce242394342ccd1d58cef7d49dbc2def46",
+      "seconds": 5.855
+    },
+    {
+      "id": "1272-128104-0001",
+      "path": "fixtures/audio/1272-128104-0001.wav",
+      "reference": "NOR IS MISTER QUILTER'S MANNER LESS INTERESTING THAN HIS MATTER",
+      "suite": "human-clean",
+      "source_id": "1272-128104-0001",
+      "sha256": "473b1bb573e8f7cdcd639c6e318036236190107b66bfe6892286121a92d464c1",
+      "seconds": 4.815
+    },
+    {
+      "id": "1272-128104-0002",
+      "path": "fixtures/audio/1272-128104-0002.wav",
+      "reference": "HE TELLS US THAT AT THIS FESTIVE SEASON OF THE YEAR WITH CHRISTMAS AND ROAST BEEF LOOMING BEFORE US SIMILES DRAWN FROM EATING AND ITS RESULTS OCCUR MOST READILY TO THE MIND",
+      "suite": "human-clean",
+      "source_id": "1272-128104-0002",
+      "sha256": "5f4d8f7331acffc3d2efbe0f764b9eb3447911dc17f9843e38e1083eb1685b9c",
+      "seconds": 12.485
+    }
+  ],
+  "source_manifest_sha256": "ea0df37dc8f5a7b519b115d44fcd71f16413e04f1bac48b15eec9399f4e43c2b",
+  "model": "nemotron-streaming",
+  "model_lock_sha256": "9d523253c866ef3a021e51c0a542e65878a658b8539140a3043518c4c759dffa",
+  "dependency_lock_sha256": "8e306569ebe63c886e9938d06c2e0a6e39d661de20e116a1998321dbfd14a6d2",
+  "language_hint": "en",
+  "native_rates": [
+    44100,
+    48000
+  ],
+  "partitions": [
+    [
+      1024
+    ],
+    [
+      256,
+      1536,
+      8192,
+      512
+    ]
+  ],
+  "policy_orders": [
+    [
+      "canonical",
+      "legacy",
+      "continuous"
+    ],
+    [
+      "continuous",
+      "canonical",
+      "legacy"
+    ],
+    [
+      "legacy",
+      "continuous",
+      "canonical"
+    ]
+  ],
+  "synthetic_rates": [
+    16000,
+    44100,
+    48000
+  ],
+  "synthetic_packets": [
+    256,
+    512,
+    1024,
+    1536,
+    8192
+  ],
+  "stress_seconds": 120,
+  "boundary": "Fixed before outputs: three known single-speaker public English clips, resampled once to FLOAT native-rate PCM; 36 actual cached Nemotron sessions compare continuous native packets, legacy independent normalization and whole-normalized controls. Unpaced replay, not microphone, IPC, UI, latency, energy or general accuracy acceptance. Synthetic fixed partitions and two 120-second streams also compare waveform bytes and retained-state bounds. Preview remains opt-in; no standalone ZIP promotion."
+}

@@ -126,6 +126,7 @@ class Engine:
         self.stream = None
         self.stream_text = ""
         self.stream_id = None
+        self.stream_normalizer = None
         self.progress = None
 
     def _load(self, model_id):
@@ -138,8 +139,7 @@ class Engine:
         # The app serializes GPU work. Evict BEFORE loading, bounding peak residency.
         self.models.clear()
         self.primed_model = None
-        self.stream = None
-        self.stream_id = None
+        self.stream_cancel()
         if "mlx_whisper.transcribe" in sys.modules:
             from mlx_whisper.transcribe import ModelHolder
 
@@ -448,6 +448,7 @@ class Engine:
         )
 
     def stream_begin(self, language=None):
+        self.stream_cancel()
         model, _ = self._load("nemotron-streaming")
         if language and language not in model.prompt_dictionary:
             matches = sorted(
@@ -466,11 +467,21 @@ class Engine:
             raise ValueError("Expired streaming session.")
         started = time.perf_counter()
         if path:
-            audio = read_audio(path)
-            if len(audio) > SAMPLE_RATE * 12:
-                raise ValueError("Streaming packets must be at most 12 seconds.")
-            self.stream.feed(audio)
+            from .streaming_audio import StreamNormalizer, read_stream_packet
+
+            audio, rate = read_stream_packet(path)
+            if self.stream_normalizer is None:
+                self.stream_normalizer = StreamNormalizer(rate)
+            elif rate != self.stream_normalizer.sample_rate:
+                raise ValueError("Microphone sample rate changed; restart live preview.")
+            normalized = self.stream_normalizer.feed(audio)
+            if len(normalized):
+                self.stream.feed(normalized)
         if final:
+            if self.stream_normalizer is not None:
+                tail = self.stream_normalizer.feed([], final=True)
+                if len(tail):
+                    self.stream.feed(tail)
             self.stream.close()
         # Cooperative steps are bounded during live input. At finalization, drain
         # until done with an explicit deadline; queue overflow is never hidden.
@@ -486,6 +497,8 @@ class Engine:
             if not done:
                 raise TimeoutError("Streaming flush exceeded step budget.")
             self.stream = None
+            self.stream_id = None
+            self.stream_normalizer = None
         return {"text": text.strip(), "done": done, "processing_ms": (time.perf_counter() - started) * 1000}
 
     def stream_cancel(self, session_id=None):
@@ -496,6 +509,7 @@ class Engine:
         self.stream = None
         self.stream_id = None
         self.stream_text = ""
+        self.stream_normalizer = None
         return {"cancelled": True}
 
     def notes(self, text):
