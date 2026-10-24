@@ -1021,6 +1021,57 @@
         "https://github.com/Blaizzy/mlx-audio-swift"
       ],
       "notes": ""
+    },
+    {
+      "name": "Apple SpeechAnalyzer / SpeechTranscriber",
+      "kind": "framework",
+      "platforms": "macOS 26+ and other supported Apple platforms; hardware/locale availability varies",
+      "license": "Proprietary system framework and system-managed models",
+      "plans": [
+        [
+          "System API",
+          "Included with a compatible OS",
+          "Locale assets download through AssetInventory; app locale reservations are limited. No separate per-minute API plan is exposed."
+        ]
+      ],
+      "routing": "On-device transcription per Apple. Assets may require a download; OS-managed model revisions and compute-unit selection are opaque.",
+      "difference": "Swift-native file/stream analysis, final or volatile results, timed text runs and model retention. This is an API framework, separate from keyboard Dictation.",
+      "features": [
+        "local_asr",
+        "live_partials",
+        "file_import"
+      ],
+      "sources": [
+        "https://developer.apple.com/documentation/speech/speechanalyzer",
+        "https://developer.apple.com/documentation/speech/assetinventory",
+        "https://developer.apple.com/videos/play/wwdc2025/277/"
+      ],
+      "notes": "Added October 24, 2026. OSpr ran 365 English clips and five nonspeech controls against three resident MLX models: 1,484 requests including preparation trials, zero API errors. Apple aggregate conservative WER 3.67%; Parakeet 3.12%, native-layout Cohere 1.84%, Whisper Turbo 3.81%. Distinct file-runtime paths; no consumer GUI, microphone, memory/energy or GPU-unit ranking. No app/default promotion."
+    },
+    {
+      "name": "Moonshine Voice",
+      "kind": "framework",
+      "platforms": "macOS, iOS, Android, Linux, Windows, Python, JavaScript/WASM and embedded targets per project",
+      "license": "MIT code and models by default; legacy non-streaming non-English weights have noncommercial exceptions",
+      "plans": [
+        [
+          "OSS runtime",
+          "No paid hosted transcription plan required",
+          "Download local model assets; model architecture, language and license must be checked."
+        ]
+      ],
+      "routing": "On-device according to the project; no account/API key required. Reviewed browser demo uses CPU/WASM; Mac GPU acceleration is not established here.",
+      "difference": "Streaming-first ASR and a cross-platform native library, with official Swift packaging and small-to-medium model choices. Vendor accuracy/latency claims are not OSpr measurements.",
+      "features": [
+        "local_asr",
+        "live_partials"
+      ],
+      "sources": [
+        "https://github.com/moonshine-ai/moonshine",
+        "https://moonshine-voice.readthedocs.io/en/latest/using/downloading-models/",
+        "https://github.com/moonshine-ai/moonshine-swift/blob/main/Package.swift"
+      ],
+      "notes": "Added October 24, 2026 from official repository/docs. The project reports MIT-by-default weights, with explicitly listed legacy non-English non-streaming exceptions. Not installed, benchmarked or integrated into OSpr; no inference-quality or Mac GPU claim is made."
     }
   ]
 }

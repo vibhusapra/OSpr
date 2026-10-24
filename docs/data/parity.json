@@ -26,8 +26,8 @@
     {
       "feature": "Mouse-start dictation countdown",
       "status": "partial",
-      "evidence": "Explicit three-second Studio start with a nonactivating HUD. The focused destination is captured at completion, not at button click. Cancellable timer generation prevents a late start after replacement, owner teardown or cancellation; four dedicated tests and the full 219-test Swift suite pass. Source 643b631 passes macOS 15 CI 39915171803 with 219 Swift/94 Python tests, app/report build and clean-runner standalone runtime. A same-identity native candidate retained both permissions, expired into real local microphone capture and discarded three starts through its Cancel button; no history or retained audio was admitted. Normal local-only settings/history were restored unchanged.",
-      "gap": "Native early ticks/HUD and cancellation before expiry, public acoustic auto-stop, owned external destination and successful insertion remain unverified. App-bound automation operates TextEdit but macOS reported ChatGPT in the first two starts and Google Chrome after a human focus handoff. All takes were discarded before recognition. The verified refinement-v0 ZIP includes this feature. A later owned Chrome-field attempt stopped before launch when native control reported the Mac locked; no new take started. A later context-profiles portable candidate again captured a different foreground app from the intended TextEdit field; the take was discarded before recognition or fixture playback. No history/audio/recovery remained and the normal app/data were restored unchanged.",
+      "evidence": "Explicit three-second Studio start with a nonactivating HUD. The focused destination is captured at completion, not at button click. Cancellable timer generation prevents a late start after replacement, owner teardown or cancellation; four dedicated tests and the full 219-test Swift suite pass. Source 643b631 passes macOS 15 CI 39915171803 with 219 Swift/94 Python tests, app/report build and clean-runner standalone runtime. A same-identity native candidate retained both permissions, expired into real local microphone capture and discarded three starts through its Cancel button; no history or retained audio was admitted. Normal local-only settings/history were restored unchanged. Later, Finder Open Finder item activates TextEdit during countdown and the HUD captures the correct target. One focus-only take is discarded; a second local Parakeet take inserts its actual recognizer output into the owned TextEdit field on isolated source 9a51603. The public reference is not recognized because speaker output is muted; this is delivery evidence only. Target file and normal app/data are restored exactly.",
+      "gap": "Audible public-reference recognition, early ticks/HUD cancellation before expiry, auto-stop, current checked-build native acceptance and broader destinations remain open. A single bounded speaker-unmute confirmation is pending; no sound setting has changed.",
       "priority": "P1"
     },
     {
@@ -117,15 +117,15 @@
     {
       "feature": "Clipboard restoration and secure-field handling",
       "status": "partial",
-      "evidence": "Private-pasteboard tests preserve multiple rich items, overlapping paste leases and user-copy changes. Secure-field rejection; strict app/field/cursor/selected-text checks.",
-      "gap": "Real native/browser secure-field and paste-fallback verification still pending. Explicit unverified-field compatibility option reduces field checks.",
+      "evidence": "Private-pasteboard tests preserve multiple rich items, overlapping paste leases and user-copy changes. Secure-field rejection; strict app/field/cursor/selected-text checks. On isolated source 9a51603, a Finder-activated TextEdit target receives the actual raw local recognizer output. The insertion method is not separately identified, and the expected acoustic reference was not heard because speaker output was muted.",
+      "gap": "Native clipboard/paste-fallback restoration, browser/editor and secure-field verification remain. The one observed TextEdit delivery is not a general microphone accuracy or current-build acceptance result. Explicit unverified-field compatibility option reduces field checks.",
       "priority": "P0"
     },
     {
       "feature": "Live local preview",
       "status": "experimental",
       "evidence": "Cached Nemotron streaming plus rolling tail preview for other models. Source cadence uses monotonic deadlines, fences a stale generation before snapshot and reports preview failure while retaining final fallback. Five scheduler tests/310 Swift tests pass; six real 16k packet replays preserve PCM and final text. Modeled first-partial regressions and increased request counts are published. Continuous native-rate normalization now retains a bounded phase-aligned FIR halo, flushes the final tail and rejects sample-rate changes. All 12 corrected real-session PCM hashes/texts match whole-normalized controls across 44.1/48 kHz and two partitions; WER remains 3.39% on three known clips. Fifteen synthetic cases and two 120-second streams also match exact bytes. 230 Python tests pass. A frozen native IPC follow-up compiles the unchanged shipping WorkerClient and passes ten real worker scenarios across both rates: canceled packet admission/awaiting, replacement/stale cancel and restart/full-file fallback. All text controls match; actual Capture/AppModel/UI and physical shortcuts remain separate.",
-      "gap": "Native microphone cadence/failure/stop/device and energy acceptance remains; this is unpaced replay. The checked preview ZIP predates cadence and continuous normalization changes. No broad accuracy or native-latency improvement established.",
+      "gap": "Native microphone cadence/failure/stop/device and energy acceptance remains; this is unpaced replay. The checked streaming-v0 preview at 3feaf65 includes cadence and continuous normalization. No broad accuracy or physical native-latency improvement established.",
       "priority": "P1"
     },
     {
@@ -264,15 +264,15 @@
     {
       "feature": "True incremental local streaming",
       "status": "experimental",
-      "evidence": "Backend 320ms packet replay + native preview/flush integration.",
-      "gap": "Native-rate continuity is not accepted: independently resampled 44.1/48k packets can add samples and change filter boundaries. Continuous bounded resampling, final-tail verification and device acceptance are next. Deadline scheduling does not uniformly improve first partials or prove a native latency win.",
+      "evidence": "Cached Nemotron backend plus native preview/flush integration. Continuous native-rate normalization at 44.1/48 kHz now matches whole-file PCM in twelve real-session controls and bounded stress tests; ten native IPC stop/replacement/fallback controls pass. The checked streaming-v0 preview at 3feaf65 includes the source repair.",
+      "gap": "Physical microphone/cadence/failure/stop/device acceptance and energy profiling remain. Unpaced source/IPC replays do not prove a native latency or broad accuracy gain.",
       "priority": "P1"
     },
     {
       "feature": "Bot-free system/meeting audio capture",
       "status": "experimental",
       "evidence": "ScreenCaptureKit desktop audio and optional separate microphone track on macOS 15+. Timestamp-preserving FFmpeg mix, PCM conversion/gap/tail tests, raw-track recovery and partial-capture warnings.",
-      "gap": "Mac remains locked: physical screen-recording/microphone permission, playback capture, route loss, echo and end-to-end acceptance are untested. Requires local FFmpeg. One-hour capture cap. Meeting recognition runs after stop; no live meeting transcript yet.",
+      "gap": "Physical desktop-audio permission, playback capture, route loss, echo and end-to-end acceptance are untested. Requires local FFmpeg. One-hour capture cap. Meeting recognition runs after stop; no live meeting transcript yet.",
       "priority": "P1"
     },
     {
@@ -320,7 +320,7 @@
     {
       "feature": "Top-three product ranking",
       "status": "unproven",
-      "evidence": "Original official Vibe 3.2.2 versus bundled OSpr pilot completed 180 commands on 20 speakers with zero failures; Vibe was faster. The identical post-optimization pilot also passed: OSpr Parakeet p50 0.757 s versus Vibe 0.943 s, while OSpr Whisper Turbo did not improve (2.108 s). All 180 texts match their original outputs. This is a small file-command comparison with primed OS caches and shared desktop activity.",
+      "evidence": "Original official Vibe 3.2.2 versus bundled OSpr pilot completed 180 commands on 20 speakers with zero failures; Vibe was faster. The identical post-optimization pilot also passed: OSpr Parakeet p50 0.757 s versus Vibe 0.943 s, while OSpr Whisper Turbo did not improve (2.108 s). All 180 texts match their original outputs. This is a small file-command comparison with primed OS caches and shared desktop activity. A separate Apple SpeechTranscriber / resident MLX file-runtime comparison completes 1,484 requests with zero API errors across 365 known English clips, 73 speakers and five nonspeech controls. Aggregate conservative WER: Apple 3.67%, Parakeet 3.12%, Cohere 1.84%, Whisper Turbo 3.81%. No Apple timing-bound or analyzed-endpoint violations are found by the independent checker. These distinct runtime interfaces do not establish consumer GUI ranking.",
       "gap": "Broader equivalent consumer-app GUI/dictation runs and user-task correction-cost study remain. Rootless whole-system energy experiments are exploratory; post-fix Parakeet idle drift was inconclusive, with no calibrated battery attribution.",
       "priority": "P0"
     },

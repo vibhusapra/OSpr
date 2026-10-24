@@ -22,6 +22,14 @@ jobs:
           /usr/bin/sqlite3 --version
           swift test
           swiftc -typecheck -swift-version 5 -parse-as-library Sources/OSprCore/WorkerClient.swift benchmarks/native_stream_stop.swift
+      - name: Typecheck Apple speech research helper when the SDK supports it
+        run: |
+          speech_sdk_version="$(xcrun --show-sdk-version)"
+          if (( ${speech_sdk_version%%.*} >= 26 )); then
+            swiftc -typecheck -swift-version 5 -parse-as-library benchmarks/apple_speech.swift
+          else
+            echo "Apple speech research requires SDK 26; local macOS 26 compile and real-ASR receipts are recorded separately."
+          fi
       - name: Install locked Python environment
         run: uv sync --frozen --all-extras --python 3.12
       - name: Install media decoder for real codec and track-mixing tests

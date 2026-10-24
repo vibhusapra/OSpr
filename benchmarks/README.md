@@ -617,3 +617,23 @@ The checker recomputes inputs, pair order, payload/counter equality and quantile
 without rerunning ASR. See `docs/architecture/qwen-prompt-accounting.md` and public
 `qwen-feature-cache{,-checks}.json`, `qwen-prompt-accounting{,-checks}.json`, raw
 traces and the incomplete-attempt index `qwen-reuse-attempts.json`.
+
+## Apple system speech versus resident MLX (research helper, macOS 26+)
+
+```sh
+swiftc -O -parse-as-library benchmarks/apple_speech.swift -o .local/apple-speech
+PYTHONPATH=backend HF_HUB_OFFLINE=1 .venv/bin/python benchmarks/apple_speech_eval.py --binary .local/apple-speech --output .local/new-apple-speech.json
+.venv/bin/python benchmarks/verify_apple_speech_eval.py --result .local/new-apple-speech.json --output .local/new-apple-speech-checks.json
+.venv/bin/python benchmarks/apple_speech_contracts.py --binary .local/apple-speech --output .local/new-apple-speech-contracts.json
+```
+
+Commit source before the producer and use fresh output paths. The helper's
+`serve en_US` explicitly prepares system model assets, which may download; its
+`inventory` command only reads capability/locale state. No microphone or UI.
+The frozen 365-English/5-nonspeech comparison rotates serial route order, with
+separate resident Parakeet, Cohere and Whisper Turbo Engine instances. Same
+full audio/hint and conservative WER rules; no model-specific number expansion.
+Apple uses its native file API over a JSON pipe; MLX uses direct Python calls.
+This is not a matched consumer-app or microphone latency ranking. Opaque Apple
+weights/compute units can change with OS-managed updates. No app/default/package
+promotion. See `docs/architecture/apple-speech-eval.md` and public raw/check receipts.

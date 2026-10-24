@@ -1,0 +1,161 @@
+{
+  "status": "verified-frozen-source-pcm-order-levenshtein-and-quantiles-not-inference-rerun",
+  "source_result_sha256": "0132ff6b236d9656e88580c77a35a837e8c6ba2b4081137b86b478baf12be699",
+  "verifier_sha256": "9c1236944e4f6834aa399463a1f2b546c373c9cfba1c091533725d08829b89be",
+  "cases": 370,
+  "english_speakers": 73,
+  "requests": 1484,
+  "english": {
+    "apple-speech": {
+      "cases": 365,
+      "reference_words": 7765,
+      "word_errors": 285,
+      "wer": 0.03670315518351577,
+      "p50_ms": 119.84616587869823,
+      "p95_ms": 342.385533452034
+    },
+    "parakeet-v3": {
+      "cases": 365,
+      "reference_words": 7765,
+      "word_errors": 242,
+      "wer": 0.03116548615582743,
+      "p50_ms": 66.79354188963771,
+      "p95_ms": 124.65080027468504
+    },
+    "cohere-native8": {
+      "cases": 365,
+      "reference_words": 7765,
+      "word_errors": 143,
+      "wer": 0.018415969092079845,
+      "p50_ms": 92.94270887039602,
+      "p95_ms": 164.19896706938744
+    },
+    "whisper-turbo": {
+      "cases": 365,
+      "reference_words": 7765,
+      "word_errors": 296,
+      "wer": 0.03811976819059884,
+      "p50_ms": 128.1177499331534,
+      "p95_ms": 178.58868362382054
+    }
+  },
+  "nonspeech": {
+    "apple-speech": [
+      {
+        "id": "synthetic-silence",
+        "text": "",
+        "ok": true
+      },
+      {
+        "id": "synthetic-gaussian",
+        "text": "",
+        "ok": true
+      },
+      {
+        "id": "synthetic-hum60hz",
+        "text": "",
+        "ok": true
+      },
+      {
+        "id": "synthetic-tone440hz",
+        "text": "",
+        "ok": true
+      },
+      {
+        "id": "synthetic-clicks",
+        "text": "",
+        "ok": true
+      }
+    ],
+    "parakeet-v3": [
+      {
+        "id": "synthetic-silence",
+        "text": "",
+        "ok": true
+      },
+      {
+        "id": "synthetic-gaussian",
+        "text": "",
+        "ok": true
+      },
+      {
+        "id": "synthetic-hum60hz",
+        "text": "",
+        "ok": true
+      },
+      {
+        "id": "synthetic-tone440hz",
+        "text": "",
+        "ok": true
+      },
+      {
+        "id": "synthetic-clicks",
+        "text": "",
+        "ok": true
+      }
+    ],
+    "cohere-native8": [
+      {
+        "id": "synthetic-silence",
+        "text": "",
+        "ok": true
+      },
+      {
+        "id": "synthetic-gaussian",
+        "text": "",
+        "ok": true
+      },
+      {
+        "id": "synthetic-hum60hz",
+        "text": "",
+        "ok": true
+      },
+      {
+        "id": "synthetic-tone440hz",
+        "text": "",
+        "ok": true
+      },
+      {
+        "id": "synthetic-clicks",
+        "text": "",
+        "ok": true
+      }
+    ],
+    "whisper-turbo": [
+      {
+        "id": "synthetic-silence",
+        "text": "",
+        "ok": true
+      },
+      {
+        "id": "synthetic-gaussian",
+        "text": "so",
+        "ok": true
+      },
+      {
+        "id": "synthetic-hum60hz",
+        "text": "Thank you.",
+        "ok": true
+      },
+      {
+        "id": "synthetic-tone440hz",
+        "text": ".",
+        "ok": true
+      },
+      {
+        "id": "synthetic-clicks",
+        "text": "Thank you.",
+        "ok": true
+      }
+    ]
+  },
+  "apple_timing_issues": [],
+  "apple_audio_coverage_issues": [],
+  "order_counts": {
+    "apple-speech,parakeet-v3,cohere-native8,whisper-turbo": 93,
+    "parakeet-v3,cohere-native8,whisper-turbo,apple-speech": 93,
+    "cohere-native8,whisper-turbo,apple-speech,parakeet-v3": 92,
+    "whisper-turbo,apple-speech,parakeet-v3,cohere-native8": 92
+  },
+  "boundary": "Independent Unicode punctuation/whitespace normalization, dynamic-programming edit distances and linear quantiles from all raw hypotheses; source and decoded PCM hashes checked. Audits reported Apple timing bounds and consumed audio endpoint; neither proves alignment accuracy. Does not rerun ASR, verify opaque Apple weight revisions/compute units, measure system-service memory/energy, or establish consumer GUI/microphone ranking."
+}
