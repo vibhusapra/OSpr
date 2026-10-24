@@ -69,6 +69,7 @@ OPTIONS = dict(max_tokens=20, sampler=None, logits_processors=None, language='en
 def supported(monkeypatch):
     # The fixture emulates the supported loop; production requires its exact AST.
     monkeypatch.setattr(qf, '_supported_chunk', lambda f: f is Model._generate_single_chunk)
+    monkeypatch.setenv('OSPR_QWEN_FEATURE_REUSE', '1')
 
 
 def test_pinned_upstream_chunk_ast_matches_without_importing_gpu_model():
@@ -84,7 +85,8 @@ def test_pinned_upstream_chunk_ast_matches_without_importing_gpu_model():
     assert hashlib.sha256(ast.dump(normalized.body[0], include_attributes=False).encode()).hexdigest() == qf._CHUNK_AST_SHA256
 
 
-def test_unknown_private_loop_falls_back_and_signature_guard_handles_uninspectable():
+def test_unknown_private_loop_falls_back_and_signature_guard_handles_uninspectable(monkeypatch):
+    monkeypatch.setenv('OSPR_QWEN_FEATURE_REUSE', '1')
     model = Model()
     result, work = qf.generate(model, np.ones(8), **OPTIONS)
     assert result == ('[7, 9]', 12, 2)
@@ -194,3 +196,31 @@ def test_source_guard_hashes_the_same_dedented_function_representation(monkeypat
             assert qf._supported_chunk(function)
     finally:
         qf._supported_chunk.cache_clear()
+
+
+@pytest.mark.parametrize('mode', [None, '', 'true', '2'])
+def test_default_and_unknown_modes_leave_upstream_unwrapped(monkeypatch, mode):
+    if mode is None:
+        monkeypatch.delenv('OSPR_QWEN_FEATURE_REUSE', raising=False)
+    else:
+        monkeypatch.setenv('OSPR_QWEN_FEATURE_REUSE', mode)
+    monkeypatch.setattr(qf, 'reuse_features', lambda *a, **kw: pytest.fail('default must not install hooks'))
+    model = Model()
+    result, work = qf.generate(model, np.ones(8), **OPTIONS)
+    assert result == ('[7, 9]', 12, 2) and model.calls == 2
+    assert not work.enabled and work.evaluations == work.hits == 0
+
+
+def test_unhashable_custom_chunk_callable_falls_back_safely(monkeypatch):
+    monkeypatch.setenv('OSPR_QWEN_FEATURE_REUSE', '1')
+    model = Model()
+
+    class Chunk:
+        __hash__ = None
+
+        def __call__(self, audio, **kwargs):
+            return ('custom', 5, 1)
+
+    model._generate_single_chunk = Chunk()
+    result, work = qf.generate(model, np.ones(8), **OPTIONS)
+    assert result == ('custom', 5, 1) and not work.enabled

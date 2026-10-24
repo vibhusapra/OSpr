@@ -2,6 +2,33 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## Qwen duplicate-work study: exact output, no measured speedup
+
+The source-only `codex/qwen-feature-reuse` branch keeps prompt-count reuse
+**off by default**. Normal generation delegates directly to upstream, without
+hooks. Explicit research setting `OSPR_QWEN_FEATURE_REUSE=1` avoids a redundant
+frontend call by retaining only the actual prompt length; `0` instruments the
+original loop. Unknown private code or stochastic frontends fall back safely.
+
+Both a one-entry exact-feature cache and the smaller integer-only approach pass
+105 exact paired payloads plus 124 native payload comparisons. Each removes one
+frontend call in 96 direct pairs and every optimized native call. Both fail the
+frozen native latency gate: median **139.437→139.574 ms** for the cache and
+**162.507→162.800 ms** for prompt accounting. No speedup/default/package promotion.
+The independent PCM/order/payload/counter/quantile checks pass and retain these
+negative results. Earlier owner/AST guard failures remain as incomplete traces.
+
+Local final validation passes **310 Swift / 248 Python tests**, lint and the
+private-loop guard probe. The measured study source is pinned separately from
+the final default-off wrapper. See `qwen-prompt-accounting.json`,
+`qwen-prompt-accounting-checks.json`, `qwen-feature-cache.json`,
+`qwen-reuse-attempts.json` and `docs/architecture/qwen-prompt-accounting.md`.
+
+A fresh TextEdit handoff starts capture, but OSpr sees Google Chrome as target.
+It is discarded before ASR/insertion. Normal OSpr is visibly restored with eight
+sessions/265 words and unchanged settings/history hashes. Native insertion,
+physical shortcuts/device capture and clean-Mac distribution remain open.
+
 ## Runtime footprint research: Torch retained after a name regression
 
 Branch `codex/runtime-footprint` leaves the checked streaming-v0 app and all six

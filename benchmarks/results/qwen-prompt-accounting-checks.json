@@ -1,0 +1,44 @@
+{
+  "status": "verified-frozen-source-pcm-pairs-work-and-native-metrics-not-model-rerun",
+  "source_result_sha256": "486bb260abb46c39964120a3ca315b1a8a357d21de547fceb2bec93a987aa840",
+  "verifier_sha256": "c19914a851cc5269be10d08c7124a660e635b85bdc338a83ec203a59c1b552d2",
+  "cases": 35,
+  "exact_payload_pairs": 105,
+  "native_payloads": 124,
+  "native_warm_samples_each": 60,
+  "work_patterns": [
+    {
+      "baseline": 0,
+      "reuse": 0,
+      "avoided": 0,
+      "pairs": 3
+    },
+    {
+      "baseline": 1,
+      "reuse": 1,
+      "avoided": 0,
+      "pairs": 6
+    },
+    {
+      "baseline": 2,
+      "reuse": 1,
+      "avoided": 1,
+      "pairs": 96
+    }
+  ],
+  "native_summary": {
+    "baseline": {
+      "warm_samples": 60,
+      "p50_ms": 162.50743749999998,
+      "p95_ms": 172.1761452
+    },
+    "reuse": {
+      "warm_samples": 60,
+      "p50_ms": 162.800104,
+      "p95_ms": 171.43382705
+    }
+  },
+  "native_p50_reduction": -0.0018009421876461484,
+  "predeclared_native_performance_gate": false,
+  "boundary": "Independently reconstructs corpus PCM hashes, pair ordering, exact payload equality, counters and quantiles from all responses. Checks source pinned at producing commit; does not rerun inference, independently time native calls or certify microphone/UI/ranking/energy."
+}

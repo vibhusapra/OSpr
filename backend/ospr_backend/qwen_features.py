@@ -53,8 +53,9 @@ def reuse_features(model, enabled=True):
     if not callable(original) or getattr(model, "_ospr_reusing_features", False):
         yield work
         return
-    work.enabled = bool(enabled and callable(build) and callable(chunk)
-                        and _supported_chunk(getattr(chunk, "__func__", chunk))
+    chunk_function = getattr(chunk, "__func__", chunk)
+    work.enabled = bool(enabled and callable(build) and inspect.isfunction(chunk_function)
+                        and _supported_chunk(chunk_function)
                         and getattr(extractor, "dither", None) == 0)
     missing = object()
     names = ["_preprocess_audio", "_ospr_reusing_features"]
@@ -120,9 +121,12 @@ def reuse_features(model, enabled=True):
 
 
 def generate(model, audio, **kwargs):
-    # Diagnostic escape hatch for paired real-model comparisons.
-    enabled = os.environ.get("OSPR_QWEN_FEATURE_REUSE", "1") != "0"
+    # Research only: the frozen latency gate failed. Default keeps upstream work.
+    mode = os.environ.get("OSPR_QWEN_FEATURE_REUSE")
     method = model.generate
+    if mode not in {"0", "1"}:
+        return method(audio, **kwargs), FeatureWork()
+    enabled = mode == "1"
     # Load-time model views can retain a method bound to another owner.
     owner = getattr(method, "__self__", None)
     with reuse_features(owner if owner is not None else model, enabled=enabled) as work:

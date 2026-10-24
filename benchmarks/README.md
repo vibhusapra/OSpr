@@ -596,3 +596,24 @@ raising its twenty-clip English WER from 2.63% to 2.86%. All 52 multilingual and
 diagnostic reproduces the spelling change with the alternative feature backends.
 The checked app/default runtime remains untouched. Every output and an independent
 PCM/edit-distance checker remain public. See `docs/architecture/runtime-footprint.md`.
+
+
+## Qwen duplicate frontend work (opt-in; latency gate failed)
+
+```sh
+PYTHONPATH=backend HF_HUB_OFFLINE=1 .venv/bin/python benchmarks/qwen_feature_reuse.py --cli .build/release/ospr-cli --output .local/new-qwen-reuse.json
+PYTHONPATH=backend .venv/bin/python benchmarks/verify_qwen_feature_reuse.py --result .local/new-qwen-reuse.json --output .local/new-qwen-reuse-checks.json
+```
+
+The producer requires a committed clean source tree and fresh output paths.
+The frozen 35-case/three-repeat paired protocol compares exact transcript/timing/
+language payloads; four native ABBA blocks have thirty warm calls each after a
+cold call. The gate is a strictly lower native p50 and p95 within +5%. Both the
+feature cache and integer-only prompt-accounting trial fail that gate despite
+removing duplicate frontend work. No speedup or checked-package promotion.
+Default generation installs no hooks. Only explicit `OSPR_QWEN_FEATURE_REUSE=1`
+enables the supported experimental chunk path; `0` counts original work.
+The checker recomputes inputs, pair order, payload/counter equality and quantiles
+without rerunning ASR. See `docs/architecture/qwen-prompt-accounting.md` and public
+`qwen-feature-cache{,-checks}.json`, `qwen-prompt-accounting{,-checks}.json`, raw
+traces and the incomplete-attempt index `qwen-reuse-attempts.json`.
