@@ -23,6 +23,13 @@ belong to the direct benchmark entry point. The standalone harness imports from 
 foreign working directory without the checkout backend; CI verifies that case.
 Neither failure was counted as a successful runtime gate.
 
+Review also preserves the research Cohere candidate's custom engine through an
+explicit factory argument. Constructor controls cover both the candidate and
+default routes without loading weights; CI runs the same helper. The WER
+normalization AST is unchanged from the code used for the retained hour receipts.
+This [compatibility check](../../benchmarks/results/v0-review-scoring-compatibility.json)
+changes neither the packaged app nor the earlier measured outputs.
+
 ## Exact artifact evidence
 
 The [aggregate receipt](../../benchmarks/results/v0-review-package.json) identifies

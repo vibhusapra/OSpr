@@ -40,9 +40,8 @@ def main():
                 self.models[key] = model
             return model, warm
 
-    run.Engine = CandidateEngine
     sys.argv = [str(Path(run.__file__)), '--model', model_id, *remaining]
-    run.main()
+    run.main(engine_factory=CandidateEngine)
     # Keep the candidate override visible alongside the common source fingerprint.
     manifest = remaining[remaining.index('--manifest')+1] if '--manifest' in remaining else 'fixtures/manifest.json'
     name = model_id + ('-notrim' if '--no-trim' in remaining else '')
