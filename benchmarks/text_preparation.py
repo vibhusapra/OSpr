@@ -50,10 +50,15 @@ def main():
                     print(model, repeat, variant, round(row['preparation_wall_ms'], 2), round(row['first_real_rewrite_wall_ms'], 2), flush=True)
                 if pair[0]['raw_text'] != pair[1]['raw_text'] or pair[0]['text'] != pair[1]['text']:
                     mismatches.append(dict(model=model, repeat=repeat))
+    source_digest = hashlib.sha256()
+    for path in sorted((ROOT/'Sources').rglob('*.swift')) + sorted(p for p in (ROOT/'backend/ospr_backend').rglob('*') if p.suffix in {'.py','.json','.npy'}):
+        source_digest.update(str(path.relative_to(ROOT)).encode())
+        source_digest.update(path.read_bytes())
     metadata = cli.parent.parent/'Resources/build-info.json'
     receipt = dict(status='needs-output-review' if mismatches else 'passed-paired-text-preparation-and-warm-speech-controls', paired_output_mismatches=mismatches, timestamp=datetime.datetime.now(datetime.UTC).isoformat(),
                    cli_sha256=hashlib.sha256(cli.read_bytes()).hexdigest(),
                    build=json.loads(metadata.read_text()) if metadata.is_file() else None,
+                   application_source_sha256=source_digest.hexdigest(),
                    source_commit=subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
                    tracked_changes=bool(subprocess.check_output(['git', 'diff', '--name-only'], cwd=ROOT, text=True).strip()),
                    source_sha256={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in [ROOT/'backend/ospr_backend/engine.py', ROOT/'backend/ospr_backend/worker.py', ROOT/'backend/ospr_backend/models.lock.json', ROOT/'Sources/OSprCLI/TextPreparationCheck.swift', Path(__file__).resolve()]},
