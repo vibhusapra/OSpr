@@ -4,6 +4,7 @@ import argparse
 import datetime
 import hashlib
 import json
+import subprocess
 from pathlib import Path
 import time
 
@@ -14,26 +15,36 @@ ROOT = Path(__file__).resolve().parent.parent
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--model", required=True, choices=["qwen3-4b", "qwen3.5-9b"])
+    parser.add_argument("--model", required=True, choices=["qwen3-4b", "qwen3.5-9b", "qwen3.6-35b-a3b"])
     parser.add_argument("--output", required=True, type=Path)
-    parser.add_argument("--algorithm", choices=["current", "v1"], default="current")
+    parser.add_argument("--algorithm", choices=["current", "v1", "pre-fidelity"], default="current")
+    parser.add_argument("--protocol", type=Path, default=ROOT / "benchmarks/fixtures/meeting-summary-protocol.json")
+    parser.add_argument("--case", action="append", dest="case_ids", default=[])
     parser.add_argument("--completion", choices=["eos", "legacy"], default="eos",
                         help="Require production EOS acknowledgement; legacy reproduces historical string-only runs.")
     args = parser.parse_args()
+    if args.output.exists():
+        parser.error("Choose a new receipt path; existing model outputs are preserved.")
     implementation = ROOT / "backend/ospr_backend/summary.py"
     summarize_function = summarize
-    if args.algorithm == "v1":
+    if args.algorithm in {"v1", "pre-fidelity"}:
         import importlib.util
 
-        implementation = ROOT / "benchmarks/fixtures/meeting_summary_v1.py"
+        implementation = ROOT / "benchmarks/fixtures" / (
+            "meeting_summary_v1.py" if args.algorithm == "v1" else "meeting_summary_pre_fidelity.py"
+        )
         module_spec = importlib.util.spec_from_file_location(
             "ospr_backend._meeting_summary_v1", implementation
         )
         module = importlib.util.module_from_spec(module_spec)
         module_spec.loader.exec_module(module)
         summarize_function = module.summarize
-    protocol_path = ROOT / "benchmarks/fixtures/meeting-summary-protocol.json"
+    protocol_path = args.protocol.resolve(strict=True)
     protocol = json.loads(protocol_path.read_text())
+    unknown = set(args.case_ids) - {row["id"] for row in protocol["cases"]}
+    if unknown:
+        parser.error("Unknown case IDs: " + ", ".join(sorted(unknown)))
+    cases = [row for row in protocol["cases"] if not args.case_ids or row["id"] in args.case_ids]
     spec = next(model for model in protocol["models"] if model["id"] == args.model)
     from huggingface_hub import snapshot_download
     from mlx_lm import load, generate, stream_generate
@@ -75,7 +86,7 @@ def main():
         )
         return text
 
-    for case in protocol["cases"]:
+    for case in cases:
         before = len(calls)
         begin = time.perf_counter()
         record = dict(
@@ -101,9 +112,12 @@ def main():
         print(case["id"], record["status"], flush=True)
         receipt = dict(
             timestamp=datetime.datetime.now(datetime.UTC).isoformat(),
-            status="running" if len(records) < len(protocol["cases"]) else "completed-development-comparison",
+            status="running" if len(records) < len(cases) else "completed-development-comparison",
             model=spec,
             algorithm=args.algorithm,
+            source_commit=subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
+            tracked_changes=bool(subprocess.check_output(["git", "diff", "--name-only"], cwd=ROOT, text=True).strip()),
+            selected_case_ids=[row["id"] for row in cases],
             completion_gate=args.completion,
             model_load_ms=loaded_ms,
             protocol_sha256=hashlib.sha256(protocol_path.read_bytes()).hexdigest(),
