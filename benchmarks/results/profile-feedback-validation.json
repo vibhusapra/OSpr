@@ -1,0 +1,118 @@
+{
+  "status": "passed-profile-feedback-source-and-scoped-native-controls",
+  "source_commit": "91a425ad7245e820a51be7a9d5b994c5567a1852",
+  "application_source_sha256": "17bf45f556aff0010b02676babbef87556e2a59b98dd06bd3cbf94450773a33a",
+  "swift_tests": 438,
+  "python_tests": 355,
+  "profile_cli_cases": 17,
+  "native_saved_settings_routing_cases": 3,
+  "release_build": "passed",
+  "ruff": "passed",
+  "native_phases": [
+    {
+      "source_commit": "2814c3dcc06222d0e2c2c45cff8ed7d4aa5bf0ac",
+      "application_source_sha256": "788fea4e210961a3f2cde40c429c4649ba869827eab527a9b45fb94fff19258f",
+      "executable_sha256": "de141186397ad91357221c21b7385a8d9ae87f1d7db7e1c0dbc0225bc80a4c24",
+      "checks": [
+        "editor page opens",
+        "app picker selects TextEdit and fills name and bundle ID",
+        "new-draft Cancel keeps settings bytes unchanged",
+        "Custom / Whisper Turbo / French / instruction controls",
+        "failed save keeps draft and settings bytes unchanged",
+        "retry after restoring QA write access saves",
+        "pending global prompt and translation not committed",
+        "existing profile edit reopens all overrides enabled",
+        "existing-profile rename Cancel keeps stored configuration",
+        "query-bearing site rule disables Save"
+      ],
+      "boundary": "Pre-feedback-change native controls on parent2814c3d. No speech, model loading, provider or insertion."
+    },
+    {
+      "source_commit": "8f1b00b65731e8808638bd240a1bd95fc21b5029",
+      "application_source_sha256": "98164200d752d62872a5d9c5b306c56ea0b89cc21133d424b055dc414ca78ee2",
+      "executable_sha256": "5431d49546fb041fb71451713133fda71618b4c8d553fc27c255ad813af75035",
+      "checks": [
+        "app reopens saved profile",
+        "Modes lists Custom / Whisper Turbo / fr",
+        "global prompt and English translation reset to persisted defaults"
+      ],
+      "boundary": "Initial footer build8f1b00b opened and read after restart. Mac locked before new edit/save or final-footer native checks."
+    }
+  ],
+  "rendered_layouts": [
+    {
+      "path": "docs/assets/profile-feedback-compact-stress.png",
+      "sha256": "1a7275680d02fcf2184ab62e84e85fdeb19c6dc855c4ccb033cf4b4e0d0b29da"
+    },
+    {
+      "path": "docs/assets/profile-feedback-invalid-custom.png",
+      "sha256": "0cb437463b68eaad2d6e6b0759fd52c4e808c1b38e36ea9103b98ab1c996b4b1"
+    },
+    {
+      "path": "docs/assets/profile-feedback-invalid-site-dark.png",
+      "sha256": "f145ef62bba901ce3be9be5b8df9662f2bdf4df3245b55b3ed71ca5536ff221d"
+    },
+    {
+      "path": "docs/assets/profile-feedback-invalid-site-light.png",
+      "sha256": "91979e1d25f5f32f68da503d894f924e1b5121d1d04265c6ede38bdc0978712e"
+    },
+    {
+      "path": "docs/assets/profile-feedback-provider-off-dark.png",
+      "sha256": "9e69b7bc9713a326f41ba7cd26ebf1cfd02d1dd7cacffff391d4ed1291600691"
+    },
+    {
+      "path": "docs/assets/profile-feedback-provider-off-light.png",
+      "sha256": "da9586e0678e7c6a1b186084ea5927d4a6d78a0d2a37d62c2ff5324680024b51"
+    }
+  ],
+  "native_evidence_images": [
+    {
+      "path": "docs/assets/profile-native-picked-app.png",
+      "sha256": "1b041273f2356674b76769fe3213df96498b4efecc3c6e893f540e21cde3e9a2"
+    },
+    {
+      "path": "docs/assets/profile-native-save-failure.png",
+      "sha256": "3d0195ff9290607b6ad27c47c5e1ada2d91b94e399fc256710accc904e331255"
+    },
+    {
+      "path": "docs/assets/profile-native-validation-before.png",
+      "sha256": "9ba40baaa704136af2eb6d5a578962bcaf07062026328ddd87ea95e3a90a04e9"
+    }
+  ],
+  "saved_profile": {
+    "bundleID": "com.apple.TextEdit",
+    "contextEnabled": true,
+    "customPrompt": "Keep every public fixture fact. Preserve names, numbers and negation.",
+    "enabled": false,
+    "id": "BCA90467-EEBC-49DF-9E6C-A6FD5D8A5648",
+    "language": "fr",
+    "localModel": "whisper-turbo",
+    "mode": "custom",
+    "name": "Public TextEdit QA"
+  },
+  "pending_globals_not_committed": {
+    "customPrompt": "Make the text clear and concise. Preserve meaning.",
+    "translationLanguage": "English"
+  },
+  "settings_owner_only": true,
+  "qa_folder_write_access_restored": true,
+  "qa_process_stopped": true,
+  "normal_app_running": true,
+  "normal_settings_history_unchanged": true,
+  "final_footer_native_acceptance": false,
+  "native_limit": "Mac locked before final footer/site translation/enable/delete controls could be tested. No new unlock or permission request sent.",
+  "observations": [
+    "Two transient AXError.failure reports during batched actions; following state observations showed the requested controls/page change completed. No universal inspection-service fix claimed.",
+    "Read-only QA folder forced a real settings write failure; it was restored to0700 before retry and remains0700.",
+    "Modern profiles intentionally encode enabled=false and contextEnabled=true so older builds do not activate incomplete override rules; current native reopen and actual CLI resolution read the effective enabled state correctly."
+  ],
+  "boundary": "Source-only feedback change. Native controls are pinned by phase, not presented as native acceptance of the final moved footer. Six final layouts are headless NSHostingView renders; 500x480 is a component stress case below the native app minimum. No microphone/model/provider/insertion/permission settings or new standalone/notarized package.",
+  "validation_logs_sha256": {
+    "profile-native-swift-final.log": "0ee9294cc36bfd0793915ced7dd5daa890175d97ec73f68c721596ddd9e78e30",
+    "profile-native-python.log": "d4afa9a6638a2d95c1d105bff12a07dd184cacbbb2aea31089fec2a73c05ed77",
+    "profile-native-release-final.log": "d1cbf3d1fa957e2a10b55232d96a3b5e666c0dd1602af73eb8cb58408d3f48a8",
+    "profile-native-ruff.log": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "profile-feedback-render-final.log": "47e63c5b340bf9c8b2d70c4f1fbabbf4d8ea075483753ceb1fae36484320976f"
+  },
+  "current_report_relative_links": 358
+}

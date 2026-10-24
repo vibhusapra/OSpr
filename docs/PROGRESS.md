@@ -2,6 +2,27 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## Visible profile feedback and scoped native save checks
+
+Validation and inactive rewrite-provider explanations now stay immediately above
+Save/Cancel. Normal label text and an orange icon keep the explanation readable.
+Six light/dark/compact source layouts are inspected. 438 Swift / 355 Python,
+release build, Ruff and all 17 profile resolver controls pass locally.
+
+The earlier card-based source2814c3d passed native editor/picker/Cancel,
+Custom+Whisper Turbo+French+instruction controls, real write-failure/draft retention,
+successful retry and existing-profile edit/Cancel. Global pending edits were not
+committed. The first footer build reopened saved overrides and persisted global
+defaults after restart. Actual native-saved settings and a path-sanitized replay
+resolve identically through the CLI; a foreign app retains global settings.
+
+macOS locked before final-footer/site/translation/enable/delete acceptance. Only
+the owned QA process was stopped; its folder write access is restored and the
+normal app remains running with unchanged data. No unlock request, audio, model,
+provider, insertion or OS permission change. The final footer is source-tested,
+not natively accepted; earlier signed ZIPs predate it.
+[Evidence and remaining checks](architecture/profile-feedback.md).
+
 ## Edited-text summaries and retained source snapshots
 
 History now offers explicit original or edited summary sources. Edited summaries

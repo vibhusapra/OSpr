@@ -86,12 +86,16 @@ struct ContextProfileEditor: View {
                         Toggle("Override translation language", isOn: $overrideTranslation)
                         if overrideTranslation { TextField("Translate into", text: $translation) }
                     }
-                    if !rewriteEnabled && ![WritingMode.clean, .verbatim].contains(mode) {
-                        Text("Choose a rewrite provider in Settings to apply this writing mode.").font(.caption).foregroundStyle(.orange)
-                    }
                 } }
-                if let validation = profile.validationError, !bundleID.isEmpty { Text(validation).font(.caption).foregroundStyle(.orange) }
             }.textFieldStyle(.roundedBorder) }
+            if let validation = profile.validationError, !bundleID.isEmpty {
+                Label { Text(validation) } icon: { Image(systemName: "exclamationmark.triangle").foregroundStyle(.orange) }
+                    .font(.caption).fixedSize(horizontal: false, vertical: true)
+            } else if !rewriteEnabled && ![WritingMode.clean, .verbatim].contains(mode) {
+                Label { Text("Choose a rewrite provider in Settings to apply this writing mode.") }
+                    icon: { Image(systemName: "exclamationmark.triangle").foregroundStyle(.orange) }
+                    .font(.caption).fixedSize(horizontal: false, vertical: true)
+            }
             if !error.isEmpty { Text(error).font(.caption).foregroundStyle(.red).accessibilityIdentifier("profile-save-error") }
             HStack { Button("Cancel", action: close).keyboardShortcut(.cancelAction); Spacer(); Button("Save profile") {
                 do { try save(profile); close() } catch { self.error = error.localizedDescription }

@@ -1,0 +1,54 @@
+{
+  "status": "passed-native-saved-profile-resolution",
+  "cli_sha256": "31a55e2f24cf9dd53caa1dbc355298590d1f8aa7476534ec60daf2a8c1833147",
+  "fixture_sha256": "d8a2df7e9e169cc731e75ba6b6261815478217d155952c02c34cb9f58bf4b09d",
+  "native_settings_sha256": "c8144e63e97f854f7d36037118bdc4ab3f85fdabeb1d41c956363eecbbca0688",
+  "records": [
+    {
+      "case": "native-app",
+      "result": {
+        "boundary": "Profile resolution only. No AX lookup, microphone, model loading or provider request. The supplied document URL is not included in the output.",
+        "document_available": false,
+        "instruction": "Keep every public fixture fact. Preserve names, numbers and negation.",
+        "language": "fr",
+        "match": "app",
+        "mode": "custom",
+        "profile_id": "BCA90467-EEBC-49DF-9E6C-A6FD5D8A5648",
+        "profile_name": "Public TextEdit QA",
+        "speech_model": "whisper-turbo",
+        "speech_provider": "local"
+      }
+    },
+    {
+      "case": "sanitized-public-replay",
+      "result": {
+        "boundary": "Profile resolution only. No AX lookup, microphone, model loading or provider request. The supplied document URL is not included in the output.",
+        "document_available": false,
+        "instruction": "Keep every public fixture fact. Preserve names, numbers and negation.",
+        "language": "fr",
+        "match": "app",
+        "mode": "custom",
+        "profile_id": "BCA90467-EEBC-49DF-9E6C-A6FD5D8A5648",
+        "profile_name": "Public TextEdit QA",
+        "speech_model": "whisper-turbo",
+        "speech_provider": "local"
+      }
+    },
+    {
+      "case": "foreign-app",
+      "result": {
+        "boundary": "Profile resolution only. No AX lookup, microphone, model loading or provider request. The supplied document URL is not included in the output.",
+        "document_available": false,
+        "instruction": "Return the transcript unchanged.",
+        "language": "",
+        "match": "global",
+        "mode": "verbatim",
+        "profile_id": null,
+        "profile_name": null,
+        "speech_model": "parakeet-v3",
+        "speech_provider": "local"
+      }
+    }
+  ],
+  "boundary": "Actual native-saved settings and path-sanitized public replay, plus a foreign-app control. No AX capture, speech, model inference, provider or native destination routing. Existing 17 independent resolver controls run separately."
+}
