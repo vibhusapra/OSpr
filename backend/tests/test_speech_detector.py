@@ -39,6 +39,15 @@ def test_inventory_checks_same_size_corruption_and_never_calls_sdk(cache, monkey
     assert root.exists()
 
 
+def test_relative_cache_configuration_returns_absolute_ipc_paths(cache, monkeypatch, tmp_path):
+    root, file = cache
+    file.parent.mkdir(parents=True)
+    file.write_bytes(b"abc")
+    monkeypatch.chdir(tmp_path.parent)
+    result = detector.inventory(cache_root=tmp_path.name)
+    assert result["complete"] and result["path"] == str(root)
+
+
 def test_cached_prepare_uses_no_sdk_or_gpu_and_accepts_shared_blob_symlink(cache, monkeypatch):
     import huggingface_hub
 

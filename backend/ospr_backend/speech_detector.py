@@ -25,7 +25,9 @@ def cache_paths(cache_root=None):
         from huggingface_hub.constants import HF_HUB_CACHE
 
         cache_root = HF_HUB_CACHE
-    base = Path(cache_root)
+    # Paths cross the worker/native IPC boundary; do not return a path whose
+    # meaning depends on the worker's different working directory.
+    base = Path(cache_root).expanduser().resolve()
     shared = base / ("models--" + SPEC["repo"].replace("/", "--")) / "snapshots" / SPEC["revision"]
     owned = base / ".ospr-native-speech" / SPEC["revision"]
     return shared, owned

@@ -631,7 +631,7 @@ distribution or a claim of full union parity/top-three product placement.
   still returned a corrupt snapshot. Repair now stages/hashes known files into
   unique OSpr-owned versions and atomically publishes a locator. Shared snapshots,
   immutable blobs and prior native readers remain untouched.
-- [x] Python suite passes 116 tests. Regressions cover same-size shared/owned
+- [x] Python suite passes 117 tests, including absolute IPC paths for relative cache configuration. Regressions cover same-size shared/owned
   corruption, new-version publication, locator traversal and symlinked managed
   directories. No SDK/network access occurs during cache-only preparation.
 - [x] The real repaired asset passes independent native size/SHA verification.

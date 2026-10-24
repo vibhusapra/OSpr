@@ -400,7 +400,14 @@ verifies and copies only the five known files into an OSpr-owned version under
 publishes a small `current` locator. Shared snapshots and immutable blobs are
 never edited. Prior versions are retained so a model already reading one is not
 disrupted. A malformed locator or symlinked managed directory fails closed.
-Verified shared snapshots remain reusable without another download or copy.
+Verified shared snapshots remain reusable without another download or copy. Worker/native IPC paths are absolute, including relative cache overrides.
+
+Real disposable-cache reproduction (explicit public model preparation; no private audio):
+
+```sh
+uv run --frozen --all-extras python benchmarks/neural_model_preparation.py \
+  --cli .build/release/ospr-cli --output /tmp/neural-model-preparation.json
+```
 
 Preparation and priming run off the main actor before installing the tap. Missing
 or unverified cache fails before recording with an actionable Models message.
@@ -421,7 +428,7 @@ do not silently substitute RMS; new decoders restore both choices. Opening an
 older app can still discard unknown preferences. Full nondefault settings
 round-trip tests guard the custom encoder.
 
-Local contracts pass 292 Swift / 116 Python tests and 17 real profile CLI cases.
+Local contracts pass 292 Swift / 117 Python tests and 17 real profile CLI cases.
 They cover pins, corruption, explicit download versus cache-only preparation,
 settings compatibility, pre-start destination changes, stale-session leases,
 manual fallback and visible recording-warning callbacks. They do not exercise
