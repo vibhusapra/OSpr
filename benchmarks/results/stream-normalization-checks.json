@@ -1,0 +1,39 @@
+{
+  "status": "passed-independent-pcm-source-and-distance-checks",
+  "source_result_sha256": "14139db3f98173e35ea89f036269beb5c75171b48c80416536f9e5acbbedb536",
+  "verifier_sha256": "e6e181046f59bd366055b0c53747fd4dc5120151031e6dbdd1873176ef827ce9",
+  "actual_sessions": 36,
+  "synthetic_cases": 15,
+  "stress_cases": 2,
+  "continuous_text_matches": 12,
+  "summary": [
+    {
+      "policy": "canonical",
+      "sessions": 12,
+      "errors": 8,
+      "words": 236,
+      "wer": 0.03389830508474576,
+      "pcm_matches": 12,
+      "samples_match": 12
+    },
+    {
+      "policy": "legacy",
+      "sessions": 12,
+      "errors": 8,
+      "words": 236,
+      "wer": 0.03389830508474576,
+      "pcm_matches": 0,
+      "samples_match": 0
+    },
+    {
+      "policy": "continuous",
+      "sessions": 12,
+      "errors": 8,
+      "words": 236,
+      "wer": 0.03389830508474576,
+      "pcm_matches": 12,
+      "samples_match": 12
+    }
+  ],
+  "boundary": "Whole-array and independently reconstructed legacy PCM hashes, packet sample positions and edit distances agree with raw receipts. Does not repeat recognizer inference or establish native latency, device behavior or general accuracy."
+}

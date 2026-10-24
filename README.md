@@ -83,7 +83,23 @@ models used by the preceding portable smoke suite; weights are never embedded.
 Builds use ad-hoc signing by default; the current local preview uses an Apple Development signature. Developer ID distribution signing, notarization and an updater are not complete. Do not overwrite an existing installation
 until its transcripts/settings are backed up.
 
-The latest checked local delivery is `dist/full-audio-v0/OSpr.app` and
+The latest checked local delivery is `dist/streaming-v0/OSpr.app` and
+`dist/streaming-v0/OSpr-v0.1.0-macOS26.6.2-arm64.zip`, frozen at source `3feaf65`.
+It includes continuous native-rate preview normalization, steady cadence and
+visible preview failure handling, plus full-audio defaults and timing bounds.
+The [manifest](benchmarks/results/streaming-release-package.json) pins
+310 Swift / 230 Python tests. [Exact-build gates](benchmarks/results/streaming-package-gates.json)
+pass relocated/offline six-engine/neural routes, ten real native IPC stop cases,
+four synthetic hour requests, three every-sample 80-minute local provider
+transports, real MCP defaults, 17 CLI profile cases and ZIP CRC/extraction/signatures.
+All 168 bundled help links pass; CI checks these links on future bundles.
+This remains an Apple Development signed local preview, with separate weights.
+Physical capture/shortcuts/insertion/devices, clean-Mac install, updater and
+Developer ID/notarization acceptance remain open. The normal older app and its
+history/settings are restored unchanged. Bundled help is the pre-packaging source
+snapshot; the current report has final artifact receipts.
+
+The previous checked delivery is `dist/full-audio-v0/OSpr.app` and
 `dist/full-audio-v0/OSpr-v0.1.0-macOS26.6.2-arm64.zip`, frozen at source `9a51603`.
 It adds full-audio defaults, empty-result recovery retention and bounded ASR
 timestamps. The [manifest](benchmarks/results/full-audio-release-package.json)

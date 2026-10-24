@@ -504,6 +504,9 @@ acceptance, notarization or a top-three product ranking.
 
 ## Preview cadence and native-rate packet diagnostic
 
+The diagnostic describes the old stateless path. The later continuous normalizer
+is checked separately below; cadence alone does not repair native-rate PCM.
+
 ```sh
 PYTHONPATH=backend HF_HUB_OFFLINE=1 .venv/bin/python benchmarks/preview_cadence.py --cli .build/release/ospr-cli --output .local/preview-cadence-real.json
 PYTHONPATH=backend .venv/bin/python benchmarks/verify_preview_cadence.py --result .local/preview-cadence-real.json --output .local/preview-cadence-checks.json
@@ -516,3 +519,62 @@ latency. First-partial regressions and increased request counts remain published
 The separate fifteen-case diagnostic exposes existing stateless native-rate
 resampling differences; passing the 16k replay does not accept 44.1/48k continuity.
 Use fresh output paths, a clean frozen checkout and cached model weights.
+
+## Continuous native-rate streaming normalization
+
+```sh
+PYTHONPATH=backend HF_HUB_OFFLINE=1 .venv/bin/python benchmarks/stream_normalization.py --output .local/stream-normalization-real.json
+PYTHONPATH=backend .venv/bin/python benchmarks/verify_stream_normalization.py --result .local/stream-normalization-real.json --output .local/stream-normalization-checks.json
+```
+
+The frozen protocol selects three known English clips, 44.1/48 kHz and two native
+partition patterns before outputs. Thirty-six actual Nemotron sessions compare
+continuous native packets, the old independent packet normalization and controls
+normalized as a whole. All corrected PCM hashes and twelve final texts match
+controls; all policies have 3.39% WER. All twelve legacy PCM hashes/counts differ.
+Fifteen synthetic cases and two 120-second stress streams match exact whole-file
+bytes with bounded resampler state. Every partial and final text remains public.
+The independent checker reconstructs whole/legacy PCM and edit distances without
+using the candidate class. This is an unpaced continuity regression, not physical
+capture, end-to-end latency, energy, general accuracy or a product ranking.
+
+## Native streaming stop and fallback boundary
+
+```sh
+PYTHONPATH=backend HF_HUB_OFFLINE=1 .venv/bin/python benchmarks/native_stream_stop.py --output .local/native-stream-stop.json
+PYTHONPATH=backend .venv/bin/python benchmarks/verify_native_stream_stop.py --result .local/native-stream-stop.json --output .local/native-stream-stop-checks.json
+```
+
+Compiles the unchanged shipping `WorkerClient.swift` plus a separate benchmark
+entry point, then runs a real owned worker with cached Metal Nemotron. Ten
+scenarios cover normal/canceled packet admission, caller cancellation before
+response, replacement/stale-cancel protection and full-file fallback after a rate
+error, at 44.1/48 kHz. All text controls match; both timed cancellations are
+observed between request and return. Six stop/final transcripts and both fallback
+transcripts have zero WER on one known clip; replacement controls both retain
+5.88% WER due to `Mr.` versus `MISTER`. No scoring normalization changes.
+The independent checker verifies ordering, sources, text controls and edit
+distances. This does not operate the microphone, Capture/AppModel, UI, insertion
+or physical shortcuts. See `docs/architecture/native-stream-stop.md`.
+
+The `--app <bundle>` option sends these same requests through its bundled engine
+using the unchanged compiled native client source. Exact-build receipts live in
+`results/streaming-native-ipc/`; temporary trace filenames are preserved there.
+This does not run the app GUI or its compiled CLI entry point.
+
+## Checked streaming preview
+
+The separate `dist/streaming-v0` preview is frozen at `3feaf65`. Its exact-build
+portable, long-file, provider, native IPC and package receipts are linked by
+`results/streaming-package-gates.json`. All 168 bundled help links pass. The first
+candidate omitted a linked SRT; timed exports and recursive receipt assets are
+included by the bundler, and CI now checks every bundled report link. Older
+previews are preserved. Apple Development signing does not provide notarization.
+
+```sh
+.venv/bin/python benchmarks/bundled_defaults.py --app dist/streaming-v0/OSpr.app --output .local/streaming-mcp.json
+```
+
+This invokes the exact bundle's real MCP server on original and -40 dB public
+German speech against known full-audio text/PCM controls, plus exact-zero input.
+The pinned MCP client uses `is_error`. Native UI/capture is not exercised.

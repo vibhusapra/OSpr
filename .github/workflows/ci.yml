@@ -21,6 +21,7 @@ jobs:
         run: |
           /usr/bin/sqlite3 --version
           swift test
+          swiftc -typecheck -swift-version 5 -parse-as-library Sources/OSprCore/WorkerClient.swift benchmarks/native_stream_stop.swift
       - name: Install locked Python environment
         run: uv sync --frozen --all-extras --python 3.12
       - name: Install media decoder for real codec and track-mixing tests
@@ -37,6 +38,7 @@ jobs:
       - name: Verify standalone runtime on a clean runner
         run: |
           scripts/bundle-app.sh
+          uv run --frozen --all-extras python -c 'from pathlib import Path; from benchmarks.portable_app import verify_help_links; print("Bundled help links verified:", verify_help_links(Path("dist/standalone/OSpr.app")))'
           bundle="$GITHUB_WORKSPACE/dist/standalone/OSpr.app"
           task_directory="$(mktemp -d)"
           cd "$task_directory"

@@ -2,6 +2,85 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## Checked streaming preview: source 3feaf65
+
+`dist/streaming-v0/OSpr.app` and its separate arm64/macOS 26.6.2 ZIP include the
+continuous normalizer, steady preview cadence/failure handling, full-audio defaults
+and timing bounds. ZIP: **392,148,942 bytes**, SHA-256
+`8205dabddf9355b26be88f93d719d866e8a0b93fc2f3325afb5607e564e1f861`.
+
+Exact-build gates pass all six offline/neural engines after relocation, ten
+native client/worker stop/fallback cases, four synthetic hour requests, three
+all-sample 80-minute provider transports, two real MCP defaults plus exact-zero
+abstention, 17 bundled profile CLI cases and ZIP CRC/extraction/signatures. Source
+CI at the exact build commit passes **310 Swift / 230 Python tests**, the Swift
+replay typecheck and 168 bundled help links. The first candidate omitted a linked
+SRT export; the fix includes timed exports and makes CI check all help links.
+Nested public receipt assets are also included in future bundles.
+
+Normal OSpr is now visibly restored with eight sessions/265 words and identical
+settings/history hashes. QA/worker stopped; the unused public WAV was closed
+while still at 00:00. No new recording/playback or insertion acceptance. An empty
+QuickTime file picker remains. The checked app stays separate; previous previews
+are intact. This is Apple Development signed, without Developer ID/notarization;
+weights are separate. Physical capture/shortcuts/insertion/devices, system audio,
+clean-Mac/older-OS and updater acceptance remain. No top-three ranking claim.
+See `streaming-package-gates.json`, `streaming-release-package.json`,
+`streaming-ci.json` and `streaming-native-restoration.json`. Bundled help is the
+source snapshot before these final artifact receipts; the current report is newer.
+
+## Later validation: stop packets through the native worker boundary
+
+A frozen standalone Swift harness compiles the unchanged shipping WorkerClient
+and runs cached Metal Nemotron through its real owned Python process. All ten
+44.1/48 kHz scenarios pass: normal packet/tail/flush, already-canceled caller,
+cancellation between request and return, replacement with a stale cancel, and
+full-file fallback after a sample-rate error/worker restart. All final texts
+match controls. Six stop-path texts and both fallback texts have zero WER on one
+known English source; both replacement controls retain 5.88% WER (`Mr.` vs
+`MISTER`). An independent source/ordering/text-distance checker passes. The
+probe and owned workers exit; the separate idle QA worker stays untouched.
+
+This narrows the open IPC cancellation gate. It does not establish physical
+stop, Capture/AppModel behavior, active GPU-kernel cancellation or UI/insertion
+acceptance. No app/model/default/package changes. Final Mac CI at `0bc0acc` is
+also green. Later native cleanup restores normal OSpr and stops QA/worker; no new capture or playback
+started. See `native-stream-stop.json`, raw traces/checker and
+`docs/architecture/native-stream-stop.md`.
+
+## Current work: continuous native-rate preview normalization
+
+Branch `codex/stream-normalization` fixes packet normalization with a bounded,
+phase-aligned FIR halo and explicit final tail. Native packets are validated
+before decode allocation; sample-rate changes reject the preview instead of
+mixing clocks. Cancel, replacement and successful finalization release state.
+Full-file import normalization is unchanged. Preview stays opt-in.
+
+All **230 Python tests** pass, including 52 new contracts across fourteen
+supported native rates, clipping, tiny tails, random partitions, bounded retained
+state, packet limits and engine lifecycle. A frozen real replay completes **36
+Nemotron sessions**: three known public English clips, 44.1/48 kHz, two fixed
+partitions, old/new/whole-normalized controls. Every corrected/control PCM hash
+matches, and all twelve corrected final texts match controls. All policies have
+3.39% WER; no accuracy gain is claimed. Legacy normalization differs in all
+twelve PCM/count cases. Fifteen synthetic cases and two 120-second stress streams
+also match exact whole-file bytes; retained raw state peaks at 507 / 73 samples.
+The independent checker reconstructs source/legacy PCM, sample positions and edit
+distances without importing the candidate normalizer. Mac CI at `aec096f` passes
+310 Swift / 230 Python tests, lint, app/report build, clean-runner bundled imports
+and signature checks. Draft PR: #14.
+
+Native latency, energy, physical capture/rate changes, preview failure and stop
+cancellation remain gates. The latest checked ZIP at 9a51603 predates this change;
+no new standalone package is promoted. The approved public WAV was prepared in
+QuickTime and the isolated old checked profile was warmed for a fresh TextEdit
+focus handoff. No new recording or playback started. macOS then locked before
+cleanup: QA is idle, normal app is stopped and restoration needs an unlocked
+desktop at that checkpoint. Later cleanup above restores normal OSpr and stops QA/worker.
+Normal settings/history hashes remain identical; zero QA recovery files.
+See `stream-normalization-real.json`, its raw traces/checker and
+`docs/architecture/stream-normalization.md`.
+
 ## Current work: stop preview cadence drifting with decode time
 
 Branch `codex/preview-cadence` replaces sleep-after-work with monotonic deadlines,
@@ -22,8 +101,8 @@ A separate fifteen-case diagnostic confirms a pre-existing native-rate packet
 normalization defect: all ten 44.1/48 kHz cases differ from full-file PCM. At
 1,024 native frames per packet, one second yields 16,021 / 16,031 normalized
 samples instead of 16,000. Counts can also match while waveforms differ. All five
-16 kHz controls match. Continuous resampling is the next required streaming fix;
-the cadence change alone does not establish native continuity or energy benefit.
+16 kHz controls match. The later source change above repairs continuous PCM normalization;
+the cadence change alone did not establish native continuity or energy benefit.
 See `preview-cadence-real.json`, its checker, `preview-native-packet-normalization.json`
 and `preview-cadence-source-validation.json`. The current checked
 9a51603 preview is unchanged and predates this source change.
