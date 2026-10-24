@@ -1,149 +1,178 @@
-"""Exact-result reuse, mutation safety and generation lifetime contracts."""
+"""Prompt accounting parity, safe fallback, private API and lifetime checks."""
 
-from types import MethodType, SimpleNamespace
+import ast
+import hashlib
+import importlib.util
+from pathlib import Path
+from types import SimpleNamespace
 import weakref
 
 import numpy as np
 import pytest
 
-from ospr_backend.qwen_features import generate, reuse_features
+from ospr_backend import qwen_features as qf
 
 
 class Model:
     def __init__(self, dither=0):
         self._feature_extractor = SimpleNamespace(dither=dither)
-        self.calls = 0
+        self._tokenizer = SimpleNamespace(decode=lambda tokens, **kw: str(tokens))
+        self.calls = self.builds = 0
+        self.feature_refs = []
+        self.options = None
+        self.tokens = [7, 9]
+        self.omit_prompt = self.fail = self.change_dither = False
 
     def _preprocess_audio(self, audio):
         self.calls += 1
-        if np.any(audio < 0):
-            raise ValueError("invalid fixture")
-        return np.array([np.sum(audio)], dtype=np.float32), np.ones(1), len(audio)
+        features = audio.copy()
+        self.feature_refs.append(weakref.ref(features))
+        return features, None, int(audio.sum())
+
+    def _build_prompt(self, count, language=None, system_prompt=None):
+        self.builds += 1
+        return np.ones((1, count + 4), dtype=np.int32)
+
+    def stream_generate(self, audio, **kwargs):
+        self.options = kwargs
+        if not self.omit_prompt:
+            features, _, count = self._preprocess_audio(audio)
+            self._build_prompt(count, kwargs['language'], kwargs['system_prompt'])
+            del features
+        if self.change_dither:
+            self._feature_extractor.dither = 0.1
+        for token in self.tokens:
+            if self.fail:
+                raise ValueError('fixture stream failure')
+            yield token, None
+
+    def _generate_single_chunk(self, audio, **kwargs):
+        tokens, prompt = [], 0
+        for token, _ in self.stream_generate(audio, **kwargs):
+            if prompt == 0:
+                _, _, count = self._preprocess_audio(audio)
+                prompt = self._build_prompt(count, kwargs['language'], kwargs['system_prompt']).shape[1]
+            tokens.append(int(token))
+        return self._tokenizer.decode(tokens, skip_special_tokens=True), prompt, len(tokens)
 
     def generate(self, audio, **kwargs):
-        first = self._preprocess_audio(audio)
-        second = self._preprocess_audio(audio)
-        return SimpleNamespace(text=str(float(first[0][0])), audio_tokens=second[2], options=kwargs)
+        return self._generate_single_chunk(audio, **kwargs)
 
 
-def test_identical_pcm_copy_reuses_exact_tuple_and_restores_method():
+OPTIONS = dict(max_tokens=20, sampler=None, logits_processors=None, language='en',
+               prefill_step_size=1024, verbose=False, system_prompt='names')
+
+
+@pytest.fixture
+def supported(monkeypatch):
+    # The fixture emulates the supported loop; production requires its exact AST.
+    monkeypatch.setattr(qf, '_supported_chunk', lambda f: f is Model._generate_single_chunk)
+
+
+def test_pinned_upstream_chunk_ast_matches_without_importing_gpu_model():
+    spec = importlib.util.find_spec('mlx_audio')
+    if spec is None:
+        pytest.skip('optional MLX Audio is not installed')
+    source = Path(spec.origin).parent / 'stt/models/qwen3_asr/qwen3_asr.py'
+    tree = ast.parse(source.read_text())
+    chunk = next(n for n in ast.walk(tree) if isinstance(n, ast.FunctionDef) and n.name == '_generate_single_chunk')
+    assert hashlib.sha256(ast.dump(chunk, include_attributes=False).encode()).hexdigest() == qf._CHUNK_AST_SHA256
+
+
+def test_unknown_private_loop_falls_back_and_signature_guard_handles_uninspectable():
     model = Model()
-    audio = np.arange(32, dtype=np.float32)
-    original = model._preprocess_audio.__func__
-    with reuse_features(model) as work:
-        first = model._preprocess_audio(audio)
-        assert model._preprocess_audio(audio.copy()) is first
-        assert work.evaluations == 1 and work.hits == 1 and model.calls == 1
-    assert "_preprocess_audio" not in vars(model) and "_ospr_reusing_features" not in vars(model)
-    assert model._preprocess_audio.__func__ is original
-    model._preprocess_audio(audio)
-    assert model.calls == 2
+    result, work = qf.generate(model, np.ones(8), **OPTIONS)
+    assert result == ('[7, 9]', 12, 2)
+    assert not work.enabled and work.evaluations == 2 and work.hits == 0
+    assert not qf._supported_chunk(len)
 
 
-def test_in_place_mutation_invalidates_same_array_identity():
-    model, audio = Model(), np.ones(16, dtype=np.float32)
-    with reuse_features(model) as work:
-        first = model._preprocess_audio(audio)
+def test_exact_output_and_options_with_one_frontend_and_prompt_build(supported, monkeypatch):
+    audio = np.ones(8)
+    baseline = Model()
+    monkeypatch.setenv('OSPR_QWEN_FEATURE_REUSE', '0')
+    before, off = qf.generate(baseline, audio, **OPTIONS)
+    model = Model()
+    monkeypatch.setenv('OSPR_QWEN_FEATURE_REUSE', '1')
+    after, on = qf.generate(model, audio, **OPTIONS)
+    assert before == after == ('[7, 9]', 12, 2)
+    assert model.options == baseline.options == OPTIONS
+    assert off.evaluations == 2 and off.hits == 0 and not off.enabled
+    assert on.evaluations == 1 and on.hits == 1 and on.enabled
+    assert model.calls == model.builds == 1
+    assert not any(name.startswith('_ospr') for name in vars(model))
+    assert '_generate_single_chunk' not in vars(model) and '_build_prompt' not in vars(model)
+
+
+def test_each_decode_runs_fresh_frontend_even_for_mutated_same_pcm(supported):
+    model, audio = Model(), np.ones(8)
+    with qf.reuse_features(model) as work:
+        assert model.generate(audio, **OPTIONS)[1] == 12
         audio[0] = 9
-        second = model._preprocess_audio(audio)
-        assert first[0][0] == 16 and second[0][0] == 24
-        assert first is not second and work.evaluations == 2 and work.hits == 0
-        assert model._preprocess_audio(audio) is second
+        assert model.generate(audio, **OPTIONS)[1] == 20
+        assert work.evaluations == 2 and work.hits == 2
+        assert all(ref() is None for ref in model.feature_refs)
+    assert all(ref() is None for ref in model.feature_refs)
 
 
-def test_only_latest_result_is_retained_and_exit_releases_it():
+def test_zero_tokens_keep_original_zero_prompt_accounting(supported):
     model = Model()
-    with reuse_features(model):
-        features = model._preprocess_audio(np.ones(32, dtype=np.float32))[0]
-        first_ref = weakref.ref(features)
-        del features
-        assert first_ref() is not None
-        model._preprocess_audio(np.ones(64, dtype=np.float32))
-        assert first_ref() is None
-        last = model._preprocess_audio(np.ones(64, dtype=np.float32))[0]
-        last_ref = weakref.ref(last)
-        del last
-    assert last_ref() is None
+    model.tokens = []
+    result, work = qf.generate(model, np.ones(8), **OPTIONS)
+    assert result == ('[]', 0, 0) and work.evaluations == 1 and work.hits == 0
 
 
-def test_error_restores_method_and_next_generation_has_no_stale_entry():
+def test_custom_stream_without_prompt_uses_original_accounting(supported):
     model = Model()
-    with pytest.raises(ValueError, match="invalid fixture"), reuse_features(model):
-        model._preprocess_audio(np.ones(16, dtype=np.float32))
-        model._preprocess_audio(-np.ones(16, dtype=np.float32))
-    assert "_preprocess_audio" not in vars(model)
-    with reuse_features(model) as work:
-        model._preprocess_audio(np.ones(16, dtype=np.float32))
-        assert work.evaluations == 1 and work.hits == 0
+    model.omit_prompt = True
+    result, work = qf.generate(model, np.ones(8), **OPTIONS)
+    assert result == ('[7, 9]', 12, 2) and work.evaluations == 1 and work.hits == 0
 
 
-@pytest.mark.parametrize("audio", [np.ones(16, dtype=np.float64), np.ones((2, 8), dtype=np.float32),
-                                  np.ones(32, dtype=np.float32)[::2], np.ones(480001, dtype=np.float32)])
-def test_nonstandard_or_oversized_inputs_run_original_without_retention(audio):
+@pytest.mark.parametrize('initial,change', [(0.1, False), (0, True)])
+def test_stochastic_frontend_and_mid_stream_change_keep_original_work(supported, initial, change):
+    model = Model(initial)
+    model.change_dither = change
+    result, work = qf.generate(model, np.ones(8), **OPTIONS)
+    assert result == ('[7, 9]', 12, 2) and work.evaluations == 2 and work.hits == 0
+
+
+def test_exception_restores_every_hook_and_next_call_is_fresh(supported):
     model = Model()
-    with reuse_features(model) as work:
-        model._preprocess_audio(audio)
-        model._preprocess_audio(audio)
-        assert work.evaluations == 2 and work.hits == 0
+    original = vars(model).copy()
+    model.fail = True
+    with pytest.raises(ValueError, match='fixture stream failure'):
+        qf.generate(model, np.ones(8), **OPTIONS)
+    for name in ['_generate_single_chunk', '_build_prompt', '_preprocess_audio', '_ospr_reusing_features']:
+        assert name not in vars(model)
+    model.fail = False
+    assert qf.generate(model, np.ones(8), **OPTIONS)[1].hits == 1
+    assert model._feature_extractor is original['_feature_extractor']
 
 
-def test_dither_and_mid_generation_dither_changes_never_reuse_random_frontend():
-    model, audio = Model(0.1), np.ones(16, dtype=np.float32)
-    with reuse_features(model) as work:
-        model._preprocess_audio(audio)
-        model._preprocess_audio(audio)
-        assert not work.enabled and work.evaluations == 2 and work.hits == 0
-    model._feature_extractor.dither = 0
-    with reuse_features(model) as work:
-        model._preprocess_audio(audio)
-        model._feature_extractor.dither = 0.1
-        model._preprocess_audio(audio)
-        model._feature_extractor.dither = 0
-        model._preprocess_audio(audio)
-        assert work.evaluations == 3 and work.hits == 0
-
-
-def test_preexisting_instance_method_is_restored_exactly():
+def test_existing_instance_methods_and_nested_scope_restore_exact_objects(supported):
     model = Model()
-    custom = MethodType(lambda self, audio: (audio.copy(), None, 1), model)
-    model._preprocess_audio = custom
-    with reuse_features(model):
-        model._preprocess_audio(np.ones(16, dtype=np.float32))
-    assert vars(model)["_preprocess_audio"] is custom
+    model._build_prompt = model._build_prompt
+    previous = model._build_prompt
+    with qf.reuse_features(model) as outer:
+        method = model._generate_single_chunk
+        with qf.reuse_features(model) as inner:
+            assert not inner.enabled and model._generate_single_chunk is method
+            assert model.generate(np.ones(8), **OPTIONS) == ('[7, 9]', 12, 2)
+        assert outer.evaluations == outer.hits == 1
+    assert vars(model)['_build_prompt'] is previous
 
 
-def test_nested_scope_does_not_replace_or_remove_outer_scope():
-    model, audio = Model(), np.ones(16, dtype=np.float32)
-    with reuse_features(model) as outer:
-        first = model._preprocess_audio(audio)
-        with reuse_features(model) as inner:
-            assert not inner.enabled and model._preprocess_audio(audio) is first
-        assert model._preprocess_audio(audio) is first
-        assert outer.hits == 2 and outer.evaluations == 1
-    assert "_preprocess_audio" not in vars(model)
+def test_bound_generation_owner_receives_hooks(supported):
+    owner = Model()
+    view = SimpleNamespace(generate=owner.generate)
+    assert view.generate.__self__ is owner
+    result, work = qf.generate(view, np.ones(8), **OPTIONS)
+    assert result == ('[7, 9]', 12, 2) and work.evaluations == work.hits == 1
+    assert vars(view).keys() == {'generate'}
 
 
-def test_generation_diagnostic_disable_preserves_original_work(monkeypatch):
-    audio = np.ones(16, dtype=np.float32)
-    model = Model()
-    result, enabled = generate(model, audio, language="en")
-    assert result.text == "16.0" and result.audio_tokens == 16 and result.options == {"language": "en"}
-    assert enabled.evaluations == enabled.hits == 1
-    monkeypatch.setenv("OSPR_QWEN_FEATURE_REUSE", "0")
-    result, disabled = generate(model, audio, language="en")
-    assert result.text == "16.0" and disabled.evaluations == 2 and disabled.hits == 0
-
-
-def test_missing_private_frontend_keeps_existing_generate_contract():
-    model = SimpleNamespace(generate=lambda audio, **kwargs: "original")
-    result, work = generate(model, np.ones(16, dtype=np.float32))
-    assert result == "original" and work.evaluations == work.hits == 0
-
-
-def test_fused_view_uses_actual_bound_generation_owner_and_restores_it():
-    owner, view = Model(), Model()
-    view.generate = owner.generate
-    result, work = generate(view, np.ones(16, dtype=np.float32))
-    assert result.text == "16.0" and owner.calls == 1 and view.calls == 0
-    assert work.evaluations == work.hits == 1
-    assert "_preprocess_audio" not in vars(owner) and "_preprocess_audio" not in vars(view)
+def test_missing_frontend_passes_through_unchanged():
+    model = SimpleNamespace(generate=lambda audio, **kw: (audio, kw))
+    result, work = qf.generate(model, 'audio', language='en')
+    assert result == ('audio', {'language': 'en'}) and not work.enabled
