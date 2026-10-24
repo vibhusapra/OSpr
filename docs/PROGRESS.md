@@ -4,6 +4,31 @@ Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
 ## Current work: exact final-ASR neural edges
 
+### Multilingual follow-up: quality failure, not promotion
+
+Frozen harness `ff80e98` uses the delivered source `2f7f2a8` CLI on all fifty
+existing FLEURS clips, original and fixed −40 dB gain. Documented language
+coverage excludes Parakeet Hindi/Japanese/Mandarin and Cohere Hindi before model
+output is observed. Japanese/Mandarin use CER; the others use WER. All 1,040
+routes finish (520 pairs, 1,010 actual ASR calls, 30 detector abstentions), but
+there are **32 new empty transcripts**, including two nonempty detector ranges
+whose ASR output becomes empty. Counts by model: Parakeet 1, Turbo 6, Small 7,
+Qwen 6, Cohere 5, Nemotron 7. Partial deletions remain too: quiet German Parakeet
+WER changes 4.10% → 22.13%, and quiet Mandarin Qwen CER 5.99% → 30.52%.
+
+All 100 normalized waveform hashes and 520 ranges match independently recomputed
+old-CLI controls. The new empty outputs are therefore a quality limitation of
+the policy, not a range-transfer mismatch. The English slice's zero new empty
+result does not generalize. These are small known read-speech slices, with no
+new negative, spontaneous or real-whisper coverage. Defaults remain off. Keep
+neural edges off for quiet/multilingual use while selection is improved.
+
+The checker also exposes **12 Whisper intervals extending past the analyzed
+range**, six beyond the complete source. One selected 0.8-second German range
+receives a 29.98-second segment. A timestamp-boundary fix is next; the current
+ZIP has not been changed. Original source/hypotheses and arithmetic failures are
+preserved in `neural-edges-multilingual-v1{.json,.traces.json.gz,-checks.json}`.
+
 Branch `codex/neural-edges` follows the neural capture/UI PRs. A separate opt-in
 edge setting now uses pinned native CPU analysis on the worker's exact normalized
 float32 audio, with full-waveform hash checks before recognition. It preserves

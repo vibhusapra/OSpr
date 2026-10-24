@@ -221,6 +221,16 @@ build cannot silently substitute RMS. Native controls and physical microphone
 acceptance remain separate gates. The context-profiles-v0 ZIP predates both
 options; see [capture evidence and remaining gates](docs/architecture/neural-endpointing.md).
 
+**Known neural-edge quality failures:** the multilingual follow-up finds 32 new
+empty outputs across 520 model/input pairs, plus partial quiet-speech deletions.
+For example, quiet German Parakeet WER rises 4.10% → 22.13% with the current
+detector policy. Leave neural edges off for quiet/multilingual use while model
+selection is improved. Empty results retain recovery, but a nonempty partial
+transcript can still lose content. The same study exposes out-of-range Whisper
+timestamps; a source fix is in progress. The existing local preview predates it.
+See [multilingual results](benchmarks/results/neural-edges-multilingual-v1.json)
+and [independent checks](benchmarks/results/neural-edges-multilingual-v1-checks.json).
+
 Cloud transcription sends audio; cloud refinement sends transcript text (and the
 selected passage for voice editing). These are separate visible choices. API keys
 use macOS Keychain; settings contain no keys. Provider use may incur charges and

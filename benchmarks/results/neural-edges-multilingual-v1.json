@@ -1,0 +1,2590 @@
+{
+  "status": "completed-known-multilingual-edge-study-not-native-acceptance",
+  "timestamp": "2026-10-24T02:05:05.661115+00:00",
+  "git_commit": "ff80e98a89f3ec98bd9dad03a341ee027135aa9d",
+  "tracked_changes": false,
+  "engine_binding": "bundled",
+  "build": {
+    "version": "0.1.0",
+    "built_at": "2026-10-24T01:42:43.227919+00:00",
+    "git_commit": "2f7f2a8d39f4dd9eb848eb8a6ef0d99c957025e8",
+    "tracked_changes": false,
+    "application_source_sha256": "82655b0d02006584434f06b829a23c3afdbaf9ebad0730bf3b5e24cc3d4b5560",
+    "source_manifest_version": 2,
+    "signing_mode": "configured-identity",
+    "boundary": "Development build; configured signing identity; not notarized; weights downloaded separately."
+  },
+  "cli_sha256": "52bda80a4f48223c73858f81052dd662806bb1b329a78bbc7ec29be82cf63dce",
+  "control_cli_sha256": "805f26ea9366970885a4282b8349172109900a0ff8c346c38f2d358f0f518d26",
+  "control_source_git": "a09b6bda1648cff96cf68bdaf5553b3009440156",
+  "protocol_sha256": "05af2435e55d0c4dbb041783ca7efe6d16be587aa0aeb14bf8741193fd250a12",
+  "dataset_manifest_sha256": "c510080d128d13d5253427bce81ba84f1d88274a2b08b24c5a6a0881086433d6",
+  "harness_sha256": "60c31e5b08ccf5ba76b7d70b24d7435ba0c485b839df8c601a840e3f37ba62eb",
+  "detector_lock_sha256": "56e9e4aebe03cebd656761834a5c813a05a2cdb05d2de978f2026c9592c8d3e4",
+  "asr_lock_sha256": "9d523253c866ef3a021e51c0a542e65878a658b8539140a3043518c4c759dffa",
+  "dependency_lock_sha256": "8e306569ebe63c886e9938d06c2e0a6e39d661de20e116a1998321dbfd14a6d2",
+  "source_utterances": 50,
+  "conditions": 100,
+  "pairs": 520,
+  "routes": 1040,
+  "actual_asr": 1010,
+  "abstentions": 30,
+  "summary": {
+    "parakeet-v3": {
+      "groups": {
+        "es/original": {
+          "full": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.03404255319148936,
+            "reference_units": 235,
+            "substitutions": 6,
+            "deletions": 2,
+            "insertions": 0,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.03829787234042553,
+            "reference_units": 235,
+            "substitutions": 6,
+            "deletions": 3,
+            "insertions": 0,
+            "empty": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "es/quiet40db": {
+          "full": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.029787234042553193,
+            "reference_units": 235,
+            "substitutions": 5,
+            "deletions": 2,
+            "insertions": 0,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.029787234042553193,
+            "reference_units": 235,
+            "substitutions": 5,
+            "deletions": 2,
+            "insertions": 0,
+            "empty": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "de/original": {
+          "full": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.020491803278688523,
+            "reference_units": 244,
+            "substitutions": 5,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.028688524590163935,
+            "reference_units": 244,
+            "substitutions": 6,
+            "deletions": 1,
+            "insertions": 0,
+            "empty": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "de/quiet40db": {
+          "full": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.040983606557377046,
+            "reference_units": 244,
+            "substitutions": 8,
+            "deletions": 1,
+            "insertions": 1,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.22131147540983606,
+            "reference_units": 244,
+            "substitutions": 11,
+            "deletions": 42,
+            "insertions": 1,
+            "empty": 1,
+            "detector_abstentions": 1
+          }
+        }
+      },
+      "changes": {
+        "better": 3,
+        "equal": 27,
+        "worse": 10
+      },
+      "regressions": [
+        {
+          "id": "fleurs-es_419-004-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.07142857142857142,
+          "edge_rate": 0.14285714285714285,
+          "reference": "carpanedo participó en dos carreras individuales del campeonato aparte de la competencia del miércoles",
+          "full": "Carpaneo participó en dos carreras individuales del campeonato, aparte de la competencia del miércoles.",
+          "neural_edges": "Carpaneo participó en dos carreras individuales del campeonato, aparte de la competencia el miércoles."
+        },
+        {
+          "id": "fleurs-es_419-005-original",
+          "metric": "wer",
+          "full_rate": 0.08695652173913043,
+          "edge_rate": 0.17391304347826086,
+          "reference": "hoy en día las personas escriben mensajes en las pantallas de sus computadoras no tienen la necesidad de siquiera aproximarse a un sacapuntas",
+          "full": "Hoy en día, las personas escriben mensajes en las pantallas de sus computadoras, no tienen la necesidad de siquiera aproximarse en sacapuntas.",
+          "neural_edges": "Hoy en día, las personas escriben mensajes en las pantallas de sus computadoras, no tienen la necesidad de siquiera aproximación secapuntas."
+        },
+        {
+          "id": "fleurs-de_de-000-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.05555555555555555,
+          "edge_rate": 0.9444444444444444,
+          "reference": "für die besten aussichten auf hongkong sollten sie die insel verlassen und zum gegenüberliegenden ufer von kowloon fahren",
+          "full": "Für die besten Aussichten auf Hongkong sollten Sie die Insel verlassen und zum gegenüberliegenden Ufer von Kowlum fahren.",
+          "neural_edges": "Besten also."
+        },
+        {
+          "id": "fleurs-de_de-001-original",
+          "metric": "wer",
+          "full_rate": 0.0,
+          "edge_rate": 0.09523809523809523,
+          "reference": "er griff auch alles an was ins wasser kam selbst ein großer dinosaurier wie der t rex war ihm nicht gewachsen",
+          "full": "Er griff auch alles an, was ins Wasser kam: Selbst ein großer Dinosaurier wie der T Rex war ihm nicht gewachsen.",
+          "neural_edges": "Er griff auch alles an, was ins Wasser kam. Selbst ein großer Dinosaurier wie der T-Rex war ihm nicht gewachsen."
+        },
+        {
+          "id": "fleurs-de_de-001-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.09523809523809523,
+          "edge_rate": 0.19047619047619047,
+          "reference": "er griff auch alles an was ins wasser kam selbst ein großer dinosaurier wie der t rex war ihm nicht gewachsen",
+          "full": "Er griff auch alles an, was ins Wasser kam. Selbst ein großer Dinosaurier wie der T-Rex war ihm nicht gewachsen.",
+          "neural_edges": "Er griff auch alles an, was ins Wasser kam, selbst ein großer Dinosaurier wie der T-Rex war im Licht gewachsen."
+        },
+        {
+          "id": "fleurs-de_de-003-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.0,
+          "edge_rate": 0.03225806451612903,
+          "reference": "es leben noch viele männer und frauen die ihre zeit hier überlebt haben und viele weitere mit angehörigen die dort ermordet wurden oder sich zu tode arbeiteten juden und nichtjuden gleichermaßen",
+          "full": "Es leben noch viele Männer und Frauen, die ihre Zeit hier überlebt haben und viele weitere mit Angehörigen, die dort ermordet wurden oder sich zu Tode arbeiteten, Juden und Nichtjuden gleichermaßen.",
+          "neural_edges": "Es leben noch viele Männer und Frauen, die ihre Zeit überlebt haben und viele weitere mit Angehörigen, die dort ermordet wurden oder sich zu Tode arbeiteten, Juden und Nichtjuden gleichermaßen."
+        },
+        {
+          "id": "fleurs-de_de-004-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.0,
+          "edge_rate": 0.047619047619047616,
+          "reference": "die höhle befindet sich auf der spitze eines der berge nördlich von mekka und ist vom rest der welt völlig isoliert",
+          "full": "Die Höhle befindet sich auf der Spitze eines der Berge nördlich von Mekka und ist vom Rest der Welt völlig isoliert.",
+          "neural_edges": "Die Höhle befindet sich auf der Spitze eines der Berge nördlich von Mekka und ist zum Rest der Welt völlig isoliert."
+        },
+        {
+          "id": "fleurs-de_de-006-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.029411764705882353,
+          "edge_rate": 0.08823529411764706,
+          "reference": "blogs können auch dazu beitragen die schreibfertigkeiten von schülern zu verbessern zwar haben schüler am anfang ihrer blogerfahrung oft eine schlampige grammatik und rechtschreibung aber das ändert sich normalerweise wenn es ein publikum gibt",
+          "full": "Blogs können auch dazu beitragen, die Schreibfertigkeiten von Schülern zu verbessern. Zwar haben Schüler am Anfang ihrer Blogerfahrung oft eine stampige Grammatik und Rechtschreibung, aber das ändert sich normalerweise, wenn es ein Publikum gibt.",
+          "neural_edges": "Blogs können auch dazu beitragen, die Schreibfertigkeiten von Schülern zu verbessern. So haben Schüler am Anfang ihrer Blog Erfahrung oft eine schlampige Grammatik und Rechtschreibung, aber das ändert sich normalerweise, wenn es ein Publikum gibt."
+        },
+        {
+          "id": "fleurs-de_de-007-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.05555555555555555,
+          "edge_rate": 1.0,
+          "reference": "nachdem der damm 1963 erbaut worden war kamen die jahreszeitlichen überflutungen die sedimente im fluss verteilen zum stillstand",
+          "full": "Nachdem der Darm 1963 erbaut worden war, kamen die jahreszeitlichen Überflutungen, die Sedimente im Fluss verteilen, zum Stillstand.",
+          "neural_edges": ""
+        },
+        {
+          "id": "fleurs-de_de-009-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.045454545454545456,
+          "edge_rate": 0.18181818181818182,
+          "reference": "die angemessene nutzung von blogs kann schülerinnen und schüler befähigen analytischer und kritischer zu werden; durch die aktive reaktion auf internetmaterialien können die schülerinnen und schüler ihre positionen im kontext der texte anderer definieren und ihre eigenen perspektiven zu bestimmten themen darlegen  oravec 2002",
+          "full": "Die angemessene Nutzung von Blogs kann Schülerinnen und Schüler befähigen, analytischer und kritischer zu werden. Durch die aktive Reaktion auf Internetmaterialien können die Schülerinnen und Schüler ihre Positionen im Kontext der Texte anderer definieren. Und ihre eigenen Perspektiven zu bestimmten Themen darlegen. Hora Vetz 2002",
+          "neural_edges": "Schülerinnen und Schüler befähigen, analytischer und kritischer zu werden. Durch die aktive Reaktion auf Internetmaterialien können die Schülerinnen und Schüler ihre Positionen im Kontext der Texte anderer definieren und ihre eigenen Perspektiven zu bestimmten Themen darlegen. Oraghetz zweitausendzwei."
+        }
+      ],
+      "new_empty": 1,
+      "new_empty_ids": [
+        "fleurs-de_de-007-quiet40db"
+      ]
+    },
+    "whisper-turbo": {
+      "groups": {
+        "es/original": {
+          "full": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.01702127659574468,
+            "reference_units": 235,
+            "substitutions": 3,
+            "deletions": 1,
+            "insertions": 0,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.02127659574468085,
+            "reference_units": 235,
+            "substitutions": 4,
+            "deletions": 1,
+            "insertions": 0,
+            "empty": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "es/quiet40db": {
+          "full": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.02553191489361702,
+            "reference_units": 235,
+            "substitutions": 4,
+            "deletions": 1,
+            "insertions": 1,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.02553191489361702,
+            "reference_units": 235,
+            "substitutions": 4,
+            "deletions": 1,
+            "insertions": 1,
+            "empty": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "de/original": {
+          "full": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.03278688524590164,
+            "reference_units": 244,
+            "substitutions": 6,
+            "deletions": 2,
+            "insertions": 0,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.03278688524590164,
+            "reference_units": 244,
+            "substitutions": 6,
+            "deletions": 2,
+            "insertions": 0,
+            "empty": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "de/quiet40db": {
+          "full": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.040983606557377046,
+            "reference_units": 244,
+            "substitutions": 7,
+            "deletions": 2,
+            "insertions": 1,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.19672131147540983,
+            "reference_units": 244,
+            "substitutions": 10,
+            "deletions": 38,
+            "insertions": 0,
+            "empty": 1,
+            "detector_abstentions": 1
+          }
+        },
+        "hi/original": {
+          "full": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.299625468164794,
+            "reference_units": 267,
+            "substitutions": 68,
+            "deletions": 0,
+            "insertions": 12,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.31086142322097376,
+            "reference_units": 267,
+            "substitutions": 71,
+            "deletions": 0,
+            "insertions": 12,
+            "empty": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "hi/quiet40db": {
+          "full": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.31086142322097376,
+            "reference_units": 267,
+            "substitutions": 70,
+            "deletions": 0,
+            "insertions": 13,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.42696629213483145,
+            "reference_units": 267,
+            "substitutions": 82,
+            "deletions": 18,
+            "insertions": 14,
+            "empty": 1,
+            "detector_abstentions": 1
+          }
+        },
+        "ja/original": {
+          "full": {
+            "cases": 10,
+            "metric": "cer",
+            "rate": 0.07223476297968397,
+            "reference_units": 443,
+            "substitutions": 24,
+            "deletions": 3,
+            "insertions": 5,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "cer",
+            "rate": 0.056433408577878104,
+            "reference_units": 443,
+            "substitutions": 20,
+            "deletions": 3,
+            "insertions": 2,
+            "empty": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "ja/quiet40db": {
+          "full": {
+            "cases": 10,
+            "metric": "cer",
+            "rate": 0.0835214446952596,
+            "reference_units": 443,
+            "substitutions": 26,
+            "deletions": 4,
+            "insertions": 7,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "cer",
+            "rate": 0.10158013544018059,
+            "reference_units": 443,
+            "substitutions": 18,
+            "deletions": 24,
+            "insertions": 3,
+            "empty": 1,
+            "detector_abstentions": 1
+          }
+        },
+        "zh/original": {
+          "full": {
+            "cases": 10,
+            "metric": "cer",
+            "rate": 0.08174386920980926,
+            "reference_units": 367,
+            "substitutions": 18,
+            "deletions": 10,
+            "insertions": 2,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "cer",
+            "rate": 0.09536784741144415,
+            "reference_units": 367,
+            "substitutions": 22,
+            "deletions": 10,
+            "insertions": 3,
+            "empty": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "zh/quiet40db": {
+          "full": {
+            "cases": 10,
+            "metric": "cer",
+            "rate": 0.10354223433242507,
+            "reference_units": 367,
+            "substitutions": 24,
+            "deletions": 11,
+            "insertions": 3,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "cer",
+            "rate": 0.29427792915531337,
+            "reference_units": 367,
+            "substitutions": 19,
+            "deletions": 85,
+            "insertions": 4,
+            "empty": 3,
+            "detector_abstentions": 3
+          }
+        }
+      },
+      "changes": {
+        "better": 10,
+        "equal": 66,
+        "worse": 24
+      },
+      "regressions": [
+        {
+          "id": "fleurs-es_419-001-original",
+          "metric": "wer",
+          "full_rate": 0.0,
+          "edge_rate": 0.0196078431372549,
+          "reference": "el uso adecuado de los blogs «puede empoderar a los alumnos para que sean más analíticos y críticos a través de la respuesta activa a los contenidos de internet pueden definir sus posturas en el contexto de los escritos de otros además de establecer sus perspectivas sobre temas específicos» oravec 2002",
+          "full": "El uso adecuado de los blogs puede empoderar a los alumnos para que sean más analíticos y críticos a través de la respuesta activa a los contenidos de Internet. Pueden definir sus posturas en el contexto de los escritos de otros, además de establecer sus perspectivas sobre temas específicos. ORAVEC 2002",
+          "neural_edges": "El uso adecuado de los blogs puede empoderar a los alumnos para que sean más analíticos y críticos a través de la respuesta activa a los contenidos de Internet. Pueden definir sus posturas en el contexto de los escritos de otros, además de establecer sus perspectivas sobre temas específicos. Orabec 2002"
+        },
+        {
+          "id": "fleurs-de_de-000-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.1111111111111111,
+          "edge_rate": 0.9444444444444444,
+          "reference": "für die besten aussichten auf hongkong sollten sie die insel verlassen und zum gegenüberliegenden ufer von kowloon fahren",
+          "full": "Für die besten Aussichten auf Hongkong sollten Sie die Insel verlassen und zum gegenüberliegenden Ufer von Koh Lung fahren.",
+          "neural_edges": "Das ist die beste Ausdruck."
+        },
+        {
+          "id": "fleurs-de_de-007-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.0,
+          "edge_rate": 1.0,
+          "reference": "nachdem der damm 1963 erbaut worden war kamen die jahreszeitlichen überflutungen die sedimente im fluss verteilen zum stillstand",
+          "full": "Nachdem der Damm 1963 erbaut worden war, kamen die jahreszeitlichen Überflutungen, die Sedimente im Fluss verteilen, zum Stillstand.",
+          "neural_edges": ""
+        },
+        {
+          "id": "fleurs-de_de-008-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.05555555555555555,
+          "edge_rate": 0.1111111111111111,
+          "reference": "insbesondere wird behauptet dass man erkennen kann ob jemand lügt indem man minimale veränderungen des gesichtsausdrucks richtig deutet.x",
+          "full": "Insbesondere wird behauptet, dass man erkennen kann, ob jemand lügt, indem man minimale Veränderungen des Gesichtsausdrucks richtig deutet.",
+          "neural_edges": "Insbesondere wird behauptet, dass man erkennen kann, ob jemand lügt, indem man minimale Veränderungen des Gesichtsausdruckes richtig deutet."
+        },
+        {
+          "id": "fleurs-de_de-009-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.022727272727272728,
+          "edge_rate": 0.1590909090909091,
+          "reference": "die angemessene nutzung von blogs kann schülerinnen und schüler befähigen analytischer und kritischer zu werden; durch die aktive reaktion auf internetmaterialien können die schülerinnen und schüler ihre positionen im kontext der texte anderer definieren und ihre eigenen perspektiven zu bestimmten themen darlegen  oravec 2002",
+          "full": "Die angemessene Nutzung von Blogs kann Schülerinnen und Schüler befähigen, analytischer und kritischer zu werden. Durch die aktive Reaktion auf Internetmaterialien können die Schülerinnen und Schüler ihre Positionen im Kontext der Texte anderer definieren und ihre eigenen Perspektiven zu bestimmten Themen darlegen. OraWet 2002",
+          "neural_edges": "Schülerinnen und Schüler befähigen, analytischer und kritischer zu werden. Durch die aktive Reaktion auf Internetmaterialien können die Schülerinnen und Schüler ihre Positionen im Kontext der Texte anderer definieren und ihre eigenen Perspektiven zu bestimmten Themen darlegen. URAWET 2002"
+        },
+        {
+          "id": "fleurs-hi_in-003-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.16666666666666666,
+          "edge_rate": 1.0,
+          "reference": "टेलीविजन रिपोर्टों में प्लांट से निकलने वाला सफेद धुआं दिखाया गया है",
+          "full": "टेलेविजन रिपोर्टों में प्लांट से निकलने वाला सफेद दुआ दिखाया गया है",
+          "neural_edges": ""
+        },
+        {
+          "id": "fleurs-hi_in-004-original",
+          "metric": "wer",
+          "full_rate": 0.3333333333333333,
+          "edge_rate": 0.4444444444444444,
+          "reference": "इंटरनेट पर यह खोज शत्रुतापूर्ण पर्यावरण पाठ्यक्रम के लिए अक्सर आपको एक स्थानीय कंपनी का पता प्रदान करेगी",
+          "full": "इंटरनेट पर ये खोज सत्रुतापुर्ण परियावरंग पाठिकरम के लिए अक्सर आपको एक इस्थाने कमपनी का पता प्रदान करेगी",
+          "neural_edges": "इंटरनेट पर ये खोज सत्रुता पुर्ण परियावरंग पाठिकरम के लिए अक्सर आपको एक इस्थान में कमपनी का पता प्रदान करेगी"
+        },
+        {
+          "id": "fleurs-hi_in-004-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.3333333333333333,
+          "edge_rate": 0.4444444444444444,
+          "reference": "इंटरनेट पर यह खोज शत्रुतापूर्ण पर्यावरण पाठ्यक्रम के लिए अक्सर आपको एक स्थानीय कंपनी का पता प्रदान करेगी",
+          "full": "इंटरनेट पर ये खोज सत्रुतापुर्ण परियावरंग पाठिकरम के लिए अक्सर आपको एक इस्थानने कमपनी का पता प्रदान करेगी",
+          "neural_edges": "इंटरनेट पर ये खोज सत्रुता पुर्ण परियावरंग पाठिकरम के लिए अक्सर आपको एक इस्थान ने कमपनी का पता प्रदान करेगी"
+        },
+        {
+          "id": "fleurs-hi_in-005-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.23076923076923078,
+          "edge_rate": 0.2692307692307692,
+          "reference": "अपनी सरकार के अलावा आप अन्य देशों की सरकारों की सलाह ले सकते हैं हालांकि उनकी सलाह उनके नागरिकों को ध्यान में रखकर दी जाती हैं",
+          "full": "अपनी सरकार के अलावा आप अन्य देशों की सरकारों की सला ले सकते हैं हालाकि उनकी सला उनके नागरिकों को ध्यान में रख कर दी जाती है",
+          "neural_edges": "अन्य सरकार के अलावा आप अन्य देशों की सरकारों की सला ले सकते हैं, हालाकि उनकी सला उनके नागरिकों को ध्यान में रख कर दी जाती है।"
+        },
+        {
+          "id": "fleurs-hi_in-006-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.358974358974359,
+          "edge_rate": 0.7435897435897436,
+          "reference": "प्राचीनकाल से ही लोग सोने चांदी और तांबे जैसे रासायनिक तत्वों के बारे में ही जानकारी रखते हैं क्योंकि इन्हें प्रकृति में मूल स्वरूप में ढूंढा जा सकता है और इन्हें प्राथमिक उपकरणों के ज़रिए ढूंढना अपेक्षाकृत आसान है",
+          "full": "प्राचीन काल से ही लोग सोने चादी और तामबे जैसे रासाइन एक तत्वों के बारे में ही जानकारी रखते हैं क्योंकि इन्हें प्रकृती में मूल स्वरी में धूना चा सकता है और इन्हें प्रात्मिक उपकरणों के जर्दिये धूना अपेक्षाक्रित आसान है",
+          "neural_edges": "पार्चीन काल से ही लोग सोने चादी और तामबे जैसे रसायने तत्वों के बारे में ही नहीं दोगे जाएंगे जाएंगे जाएंगे जाएंगे जाएंगे जाएंगे जाएंगे जाएंगे जाएंगे जाएंगे जाएंगे जाएंगे जाएंगे जाएंगे जाएंगे जा�"
+        },
+        {
+          "id": "fleurs-hi_in-007-original",
+          "metric": "wer",
+          "full_rate": 0.25,
+          "edge_rate": 0.3,
+          "reference": "इसे केमिकल का ph कहा जाता है आप लाल गोभी के जूस का इस्तेमाल करके एक संकेतक बना सकते हैं",
+          "full": "इसे केमिकल का पी-एच कहा जाता है आप लाल गोभी के जूस को इस्तमाल करके एक संकेत तक बना सकते हैं",
+          "neural_edges": "इसे कैमिकल का पी-एच कहा जाता है आप लाल गोभी के जूस को इस्तमाल करके एक संकेत तक बना सकते हैं"
+        },
+        {
+          "id": "fleurs-hi_in-007-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.3,
+          "edge_rate": 0.35,
+          "reference": "इसे केमिकल का ph कहा जाता है आप लाल गोभी के जूस का इस्तेमाल करके एक संकेतक बना सकते हैं",
+          "full": "इसे केमिकल का पी-एच कहा जाता है आप लाल गोवी के जूस को इस्तमाल करके एक संकेत तक बना सकते हैं",
+          "neural_edges": "इसे कैमिकल का पी-एच कहा जाता है आप लाल गोवी के जूस को इस्तमाल करके एक संकेत तक बना सकते हैं"
+        },
+        {
+          "id": "fleurs-hi_in-008-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.38095238095238093,
+          "edge_rate": 0.42857142857142855,
+          "reference": "सबसे नज़दीकी सिरे पर क्रस्ट की मोटाई करीब 70 किलोमीटर है और सबसे दूर के सिरे पर यह 100 किलोमीटर है",
+          "full": "सबसे नजदी की सिरे पर क्रिस्ट की मोटाई करिव 70 किलो मीटर है और सबसे दूर के सिरे पर यह 100 किलो मीटर है",
+          "neural_edges": "सबसे नजदी की सिरे पर क्रिस्ट की मोटाई करिव 70 किलो मीटर है और सबसे दूर के सिरे पर या 100 किलो मीटर है"
+        },
+        {
+          "id": "fleurs-hi_in-009-original",
+          "metric": "wer",
+          "full_rate": 0.2631578947368421,
+          "edge_rate": 0.2894736842105263,
+          "reference": "यह संबंधित है लेकिन आम तौर पर इसमें अल्पाइन शैली की स्की टूरिंग या माउंटेनीयरिंग शामिल नहीं होती है जिसे खड़े इलाकों में किया जाता है और जिसके लिए बहुत कड़ी स्की और बूट की ज़रूरत होती है",
+          "full": "यह सम्मंदित है लेकिन आम तोर पर इसमें अलपाइन सेली की स्की टूरिंग या माउंटेन ये रंग सामिल नहीं होती है जिसे खड़े इलाकों में किया जाता है और जिसके लिए बहुत कड़े स्की और बूट की जरूरत होती है",
+          "neural_edges": "यह सम्मंदित है लेकिन आम तोर पर इसमें अलपाइन सेली की स्की, टूरिंग या माउंटेन ये रंग सामिल नहीं होती है जिसे खड़े इलाकों में किया जाता है और जिसके लिए बहुत कड़े इसकी और बूट की जरुरत होती है"
+        },
+        {
+          "id": "fleurs-hi_in-009-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.23684210526315788,
+          "edge_rate": 0.2894736842105263,
+          "reference": "यह संबंधित है लेकिन आम तौर पर इसमें अल्पाइन शैली की स्की टूरिंग या माउंटेनीयरिंग शामिल नहीं होती है जिसे खड़े इलाकों में किया जाता है और जिसके लिए बहुत कड़ी स्की और बूट की ज़रूरत होती है",
+          "full": "यह सम्मंद्ध है लेकिन आम तोर पर इसमें अलपाइन सेली की स्की टूरिंग या माउंटेन ये रंग सामिल नहीं होती है जिसे खड़े इलाकों में किया जाता है और जिसके लिए बहुत कड़ी स्की और बूट की जरूरत होती है",
+          "neural_edges": "यह सम्मंदित है लेकिन आम तोर पर इसमें आलपाइन सेली की स्की टूरिंग या माउंटेन ये रंग सामिल नहीं होती है जिसे खड़े इलाकों में किया जाता है और जिसके लिए बहुत कड़े इसकी और बूट की जरुरत होती है"
+        },
+        {
+          "id": "fleurs-ja_jp-005-quiet40db",
+          "metric": "cer",
+          "full_rate": 0.47619047619047616,
+          "edge_rate": 1.0,
+          "reference": "群島や湖では 必ずしもヨットは必要ありません",
+          "full": "このように、水道や湖では必ずしも良くは必要ありません。",
+          "neural_edges": ""
+        },
+        {
+          "id": "fleurs-cmn_hans_cn-000-quiet40db",
+          "metric": "cer",
+          "full_rate": 0.0,
+          "edge_rate": 1.0,
+          "reference": "这 并 不 是 告 别 这 是 一 个 篇 章 的 结 束 也 是 新 篇 章 的 开 始",
+          "full": "这并不是告别,这是一个篇章的结束,也是新篇章的开始",
+          "neural_edges": ""
+        },
+        {
+          "id": "fleurs-cmn_hans_cn-001-original",
+          "metric": "cer",
+          "full_rate": 0.047619047619047616,
+          "edge_rate": 0.09523809523809523,
+          "reference": "钙 钾 等 元 素 属 于 金 属 银 和 金 等 元 素 当 然 也 是 金 属",
+          "full": "钙甲等元素属于金属,银和金等元素当然也是金属",
+          "neural_edges": "钙甲等元素属于金属,银河金等元素当然也是金属"
+        },
+        {
+          "id": "fleurs-cmn_hans_cn-001-quiet40db",
+          "metric": "cer",
+          "full_rate": 0.09523809523809523,
+          "edge_rate": 1.0,
+          "reference": "钙 钾 等 元 素 属 于 金 属 银 和 金 等 元 素 当 然 也 是 金 属",
+          "full": "钙甲等元素属于金属银河金等元素当然也是金属",
+          "neural_edges": ""
+        },
+        {
+          "id": "fleurs-cmn_hans_cn-004-quiet40db",
+          "metric": "cer",
+          "full_rate": 0.0,
+          "edge_rate": 0.03225806451612903,
+          "reference": "科 学 家 们 可 以 得 出 结 论 暗 物 质 对 其 他 暗 物 质 的 影 响 方 式 与 普 通 物 质 相 同",
+          "full": "科学家们可以得出结论暗物质对其他暗物质的影响方式与普通物质相同",
+          "neural_edges": "科学学家们可以得出结论,暗物质对其他暗物质的影响方式与普通物质相同。"
+        },
+        {
+          "id": "fleurs-cmn_hans_cn-005-original",
+          "metric": "cer",
+          "full_rate": 0.06896551724137931,
+          "edge_rate": 0.10344827586206896,
+          "reference": "大 多 数 现 代 科 研 望 远 镜 都 是 巨 型 设 施 位 于 大 气 条 件 优 良 的 偏 远 地 区",
+          "full": "大多数现代科研望远镜都是巨型设施位于大梯条间优良的偏远地区",
+          "neural_edges": "大多数现代科研望远镜都是巨型设施,位于大气条件,有两岛偏远地区。"
+        },
+        {
+          "id": "fleurs-cmn_hans_cn-006-original",
+          "metric": "cer",
+          "full_rate": 0.0,
+          "edge_rate": 0.03225806451612903,
+          "reference": "1963 年 大 坝 建 成 后 季 节 性 洪 水 被 控 制 住 了 沉 积 物 不 再 冲 散 到 河 流 里",
+          "full": "1963年大坝建成后,季节性洪水被控制住了,沉积物不再冲散到河流里",
+          "neural_edges": "1963年大坝建成后,季节性洪水被控制住了,沉寂物不再冲散到河流里。"
+        },
+        {
+          "id": "fleurs-cmn_hans_cn-008-original",
+          "metric": "cer",
+          "full_rate": 0.2702702702702703,
+          "edge_rate": 0.32432432432432434,
+          "reference": "scotturb 403 路 公 共 汽 车 定 期 发 车 前 往 辛 特 拉 sintra 在 罗 卡 角 停 靠",
+          "full": "Skoturb403路公交汽车定期发车前往新特拉在罗卡角停靠",
+          "neural_edges": "SkullTurb403路公交汽车定期发车前往新特拉在罗卡角停靠"
+        },
+        {
+          "id": "fleurs-cmn_hans_cn-009-quiet40db",
+          "metric": "cer",
+          "full_rate": 0.0,
+          "edge_rate": 1.0,
+          "reference": "这 里 几 乎 都 是 沙 滩 游 泳 很 安 全 大 部 分 地 方 都 有 新 西 兰 圣 诞 树 的 树 荫",
+          "full": "这里几乎都是沙滩游泳很安全大部分地方都有新西兰圣诞树的树荫",
+          "neural_edges": ""
+        }
+      ],
+      "new_empty": 6,
+      "new_empty_ids": [
+        "fleurs-de_de-007-quiet40db",
+        "fleurs-hi_in-003-quiet40db",
+        "fleurs-ja_jp-005-quiet40db",
+        "fleurs-cmn_hans_cn-000-quiet40db",
+        "fleurs-cmn_hans_cn-001-quiet40db",
+        "fleurs-cmn_hans_cn-009-quiet40db"
+      ]
+    },
+    "whisper-small": {
+      "groups": {
+        "es/original": {
+          "full": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.05531914893617021,
+            "reference_units": 235,
+            "substitutions": 10,
+            "deletions": 2,
+            "insertions": 1,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.05531914893617021,
+            "reference_units": 235,
+            "substitutions": 10,
+            "deletions": 2,
+            "insertions": 1,
+            "empty": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "es/quiet40db": {
+          "full": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.04680851063829787,
+            "reference_units": 235,
+            "substitutions": 8,
+            "deletions": 2,
+            "insertions": 1,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.0425531914893617,
+            "reference_units": 235,
+            "substitutions": 7,
+            "deletions": 3,
+            "insertions": 0,
+            "empty": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "de/original": {
+          "full": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.0778688524590164,
+            "reference_units": 244,
+            "substitutions": 15,
+            "deletions": 2,
+            "insertions": 2,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.06967213114754098,
+            "reference_units": 244,
+            "substitutions": 14,
+            "deletions": 2,
+            "insertions": 1,
+            "empty": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "de/quiet40db": {
+          "full": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.10245901639344263,
+            "reference_units": 244,
+            "substitutions": 22,
+            "deletions": 2,
+            "insertions": 1,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.2336065573770492,
+            "reference_units": 244,
+            "substitutions": 13,
+            "deletions": 44,
+            "insertions": 0,
+            "empty": 2,
+            "detector_abstentions": 1
+          }
+        },
+        "hi/original": {
+          "full": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.8127340823970037,
+            "reference_units": 267,
+            "substitutions": 129,
+            "deletions": 7,
+            "insertions": 81,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.5393258426966292,
+            "reference_units": 267,
+            "substitutions": 122,
+            "deletions": 11,
+            "insertions": 11,
+            "empty": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "hi/quiet40db": {
+          "full": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 1.0,
+            "reference_units": 267,
+            "substitutions": 146,
+            "deletions": 10,
+            "insertions": 111,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.6404494382022472,
+            "reference_units": 267,
+            "substitutions": 139,
+            "deletions": 16,
+            "insertions": 16,
+            "empty": 1,
+            "detector_abstentions": 1
+          }
+        },
+        "ja/original": {
+          "full": {
+            "cases": 10,
+            "metric": "cer",
+            "rate": 0.14672686230248308,
+            "reference_units": 443,
+            "substitutions": 48,
+            "deletions": 7,
+            "insertions": 10,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "cer",
+            "rate": 0.1580135440180587,
+            "reference_units": 443,
+            "substitutions": 48,
+            "deletions": 14,
+            "insertions": 8,
+            "empty": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "ja/quiet40db": {
+          "full": {
+            "cases": 10,
+            "metric": "cer",
+            "rate": 0.5417607223476298,
+            "reference_units": 443,
+            "substitutions": 58,
+            "deletions": 7,
+            "insertions": 175,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "cer",
+            "rate": 0.19413092550790068,
+            "reference_units": 443,
+            "substitutions": 46,
+            "deletions": 29,
+            "insertions": 11,
+            "empty": 1,
+            "detector_abstentions": 1
+          }
+        },
+        "zh/original": {
+          "full": {
+            "cases": 10,
+            "metric": "cer",
+            "rate": 0.1553133514986376,
+            "reference_units": 367,
+            "substitutions": 41,
+            "deletions": 10,
+            "insertions": 6,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "cer",
+            "rate": 0.19346049046321526,
+            "reference_units": 367,
+            "substitutions": 55,
+            "deletions": 11,
+            "insertions": 5,
+            "empty": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "zh/quiet40db": {
+          "full": {
+            "cases": 10,
+            "metric": "cer",
+            "rate": 0.1880108991825613,
+            "reference_units": 367,
+            "substitutions": 52,
+            "deletions": 12,
+            "insertions": 5,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "cer",
+            "rate": 0.3678474114441417,
+            "reference_units": 367,
+            "substitutions": 44,
+            "deletions": 85,
+            "insertions": 6,
+            "empty": 3,
+            "detector_abstentions": 3
+          }
+        }
+      },
+      "changes": {
+        "better": 17,
+        "equal": 55,
+        "worse": 28
+      },
+      "regressions": [
+        {
+          "id": "fleurs-de_de-000-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.2222222222222222,
+          "edge_rate": 1.0,
+          "reference": "für die besten aussichten auf hongkong sollten sie die insel verlassen und zum gegenüberliegenden ufer von kowloon fahren",
+          "full": "Für die besten Aussichten auf Hongkong sollten sie die Insel verlassen und um die genübelnde Ufer von Korum fahren.",
+          "neural_edges": ""
+        },
+        {
+          "id": "fleurs-de_de-007-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.16666666666666666,
+          "edge_rate": 1.0,
+          "reference": "nachdem der damm 1963 erbaut worden war kamen die jahreszeitlichen überflutungen die sedimente im fluss verteilen zum stillstand",
+          "full": "Nachdem der Dame 1963 erbaut worden war, kamen sie Jahreszeitlichen Überflutungen, die Sedimente im Fluss verteilen zum Stilstand.",
+          "neural_edges": ""
+        },
+        {
+          "id": "fleurs-de_de-009-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.09090909090909091,
+          "edge_rate": 0.18181818181818182,
+          "reference": "die angemessene nutzung von blogs kann schülerinnen und schüler befähigen analytischer und kritischer zu werden; durch die aktive reaktion auf internetmaterialien können die schülerinnen und schüler ihre positionen im kontext der texte anderer definieren und ihre eigenen perspektiven zu bestimmten themen darlegen  oravec 2002",
+          "full": "Die angemessenen Nutzung von Blocks kann Schülerinnen und Schüler bewegen, analytischer und kritischer zu werden. Durch die aktive Reaktion auf Internetmaterialien können die Schülerinnen und Schüler ihre Positionen im Kontext der Texte anderer definieren und ihre eigenen Perspektiven zu bestimmten Themen darlegen. ORAWETZ 2002",
+          "neural_edges": "Schülerinnen und Schüler bewegen, analytischer und kritischer zu werden, durch die aktive Reaktion auf Internetmaterialien, können die Schülerinnen und Schüler ihre Positionen im Kontext der Texte anderer definieren und ihre eigenen Perspektiven zu bestimmten Themen darlegen. Uralitz 2002"
+        },
+        {
+          "id": "fleurs-hi_in-000-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.5,
+          "edge_rate": 0.7083333333333334,
+          "reference": "कुछ अणुओं में अस्थिर केंद्रक होता है जिसका मतलब यह है कि उनमें थोड़े या बिना किसी झटके से टूटने की प्रवृत्ति होती है",
+          "full": "अग्वो में आज्द केंदरक होता है, जिसका मतला भी आज्गा की उन्में थोड़े या बिना किसी जधके से तुटनें की प्रवत्ती होती है.",
+          "neural_edges": "अद्वों लेए अज़्े खेन्ड़ा कोता है, यस का मतला भी आज़्ा की उन्मे थोडे या बिना किसी जठके से तुटने की प्रवत्ती होती है."
+        },
+        {
+          "id": "fleurs-hi_in-002-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.5862068965517241,
+          "edge_rate": 0.6206896551724138,
+          "reference": "ऐसी कोई वैश्विक परिभाषा नहीं है जिसके लिए निर्मित सामान एंटीक होते हैं कुछ कर एजेंसियां 100 साल से पुराने सामान को एंटीक के तौर पर परिभाषित करती हैं",
+          "full": "अईसी कोई वाईस्पिक परिवाशा नहीं है, जिसके लिए निर्विद समान अंटिक होते है, पुचकर अजंश्या शव साल से पुरानि समान को अंटिक के तोर पर परिवाशित करती है.",
+          "neural_edges": "अईसी कोई वैस्पिक परिवाशा नहीं जिसके लिए निर्विद समान अंटिक होते है पुचकर अजंश्या शव साल से पुरानि समान को अंटिक के तोर पर परिवाशित करती है"
+        },
+        {
+          "id": "fleurs-hi_in-003-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.6666666666666666,
+          "edge_rate": 1.0,
+          "reference": "टेलीविजन रिपोर्टों में प्लांट से निकलने वाला सफेद धुआं दिखाया गया है",
+          "full": "तेलीविशन लिपोटो में प्लाँट से निकलनेंवाला सबे दुमा दिखाया देःगे है",
+          "neural_edges": ""
+        },
+        {
+          "id": "fleurs-hi_in-004-original",
+          "metric": "wer",
+          "full_rate": 0.6111111111111112,
+          "edge_rate": 0.6666666666666666,
+          "reference": "इंटरनेट पर यह खोज शत्रुतापूर्ण पर्यावरण पाठ्यक्रम के लिए अक्सर आपको एक स्थानीय कंपनी का पता प्रदान करेगी",
+          "full": "अंटरनेट पर ये खोज सत्रुता पुर्न पर्यावरं पाटक्रम के लिये अकसर आपको एक इस तान्ने कमपनी का पता प्रदान करेगी",
+          "neural_edges": "अंटरनेट पर ये खोज शत्रुता पुर्न पर्यावरं पाट्करम के लिया अकसर आपको एक इस धानने कमपनी का प्रदान करेगी"
+        },
+        {
+          "id": "fleurs-hi_in-006-original",
+          "metric": "wer",
+          "full_rate": 0.5897435897435898,
+          "edge_rate": 0.6410256410256411,
+          "reference": "प्राचीनकाल से ही लोग सोने चांदी और तांबे जैसे रासायनिक तत्वों के बारे में ही जानकारी रखते हैं क्योंकि इन्हें प्रकृति में मूल स्वरूप में ढूंढा जा सकता है और इन्हें प्राथमिक उपकरणों के ज़रिए ढूंढना अपेक्षाकृत आसान है",
+          "full": "प्राछीन काल से ही लोग सोने चार्दी और तामभेज़ से रासायनिक तत्पोगे बारे में ही जानकारी रकते हैं, कि इने प्रक्रिती में मूल स्वरिएप में दूना चासकता है, और इने प्रात्मिक उपकरनो के जर ये दूना अपेख्षा क्रित आसान है.",
+          "neural_edges": "प्राछीन काल से ही लोग सोने चादी और तामभेजा से रासायनिक तत्पोगे बारे मेही जानकारी रकते हैं कि इने प्रक्रिती में मूल स्वरीएप में दूना चासकता है और इने प्रात्मिक उपकरनो के जर ये दूना अपेक्षाक् क्रित आसान है"
+        },
+        {
+          "id": "fleurs-hi_in-006-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.5897435897435898,
+          "edge_rate": 0.9487179487179487,
+          "reference": "प्राचीनकाल से ही लोग सोने चांदी और तांबे जैसे रासायनिक तत्वों के बारे में ही जानकारी रखते हैं क्योंकि इन्हें प्रकृति में मूल स्वरूप में ढूंढा जा सकता है और इन्हें प्राथमिक उपकरणों के ज़रिए ढूंढना अपेक्षाकृत आसान है",
+          "full": "प्राछीन काल से ही लोग सोने चादी और तामभेज़ से रासायने तत्पोगे बारे में ही जानकारी रकते हैं, कि इने प्रक्रिती में मुल्स्वरिप में दूना चासकता है, और इने प्रात्मिक उपकरनो के जर दूना अपिक्षाएक्रित आसान है.",
+          "neural_edges": "अद्चीन काल से ही लोग सोने चादी और तामभे जासे रासायने कटबोगे बारे में ही जासे अद्चीन काल से ही लोग सोने चादी और तामभे जासे रासायने कटबोगे बारे में ही जासे रासायने कटबोगे बारे में ही जासे रासायने कटबोगे बारे में ही जासे रा"
+        },
+        {
+          "id": "fleurs-hi_in-007-original",
+          "metric": "wer",
+          "full_rate": 0.2,
+          "edge_rate": 0.25,
+          "reference": "इसे केमिकल का ph कहा जाता है आप लाल गोभी के जूस का इस्तेमाल करके एक संकेतक बना सकते हैं",
+          "full": "इसे केमिकल का पीज कहा जाता है, आप लाल गोभी के जूस को इस्तमाल करके एक संकेत बना सकते हैं.",
+          "neural_edges": "इसे केमिकल का पीज कहा जाता है, आप लाल गोभी के जूस को इस्तमाल करके एक संके तक बना सकते हैं."
+        },
+        {
+          "id": "fleurs-hi_in-009-original",
+          "metric": "wer",
+          "full_rate": 0.5,
+          "edge_rate": 0.5263157894736842,
+          "reference": "यह संबंधित है लेकिन आम तौर पर इसमें अल्पाइन शैली की स्की टूरिंग या माउंटेनीयरिंग शामिल नहीं होती है जिसे खड़े इलाकों में किया जाता है और जिसके लिए बहुत कड़ी स्की और बूट की ज़रूरत होती है",
+          "full": "यह सम्मन्द थे लेकिन आम तोर पर यस में आल्पाईच यह लिए की तूरिंग यह मांटे नियरंग सामिल नहीं होती है, जिसे खडे अलाक्पों में किया जाता है और जिसके लिए बवध करी यसकी और बूट की जरुरत होती है.",
+          "neural_edges": "यह सम्मन्दित है, लेकिन आम तोर पर इस में आलपाईन्च्या लिए की तूरिंग यह मांटेन यह रन्च्या मिल नहीं होती है, जिसे कफ़े इलाक्पों में की आदाटा है, और जिसके लिए बावद्वत करी यसकी और बूट की ज़र्वरत होती है."
+        },
+        {
+          "id": "fleurs-ja_jp-000-original",
+          "metric": "cer",
+          "full_rate": 0.044444444444444446,
+          "edge_rate": 0.1111111111111111,
+          "reference": "インターネットで 敵対的環境コース について検索すると おそらく現地企業の住所が出てくるでしょう",
+          "full": "インターネットで適対的環境コースについて検索すると、おそらく現地企業の重所が出てくるでしょう。",
+          "neural_edges": "インターネットで適対的環境構成について検索すると、おそらく現地企業の重所が出てくるでしょう。"
+        },
+        {
+          "id": "fleurs-ja_jp-000-quiet40db",
+          "metric": "cer",
+          "full_rate": 0.06666666666666667,
+          "edge_rate": 0.13333333333333333,
+          "reference": "インターネットで 敵対的環境コース について検索すると おそらく現地企業の住所が出てくるでしょう",
+          "full": "インターネットで適対的環境コースについて検索すると、おそらく現地企業の重症が出てくるでしょう。",
+          "neural_edges": "インターネットで適対的環境構成について検索するとおそらく現地企業の重症が出てくるでしょう"
+        },
+        {
+          "id": "fleurs-ja_jp-002-quiet40db",
+          "metric": "cer",
+          "full_rate": 0.23943661971830985,
+          "edge_rate": 0.2676056338028169,
+          "reference": "バルセロナの公用語はカタルーニャ語とスペイン語です 約半数がカタルーニャ語を好み 大多数がカタルーニャ語を理解し ほぼ全員がスペイン語を知っています",
+          "full": "バルセイナの講義用語はカタルネゴとスペイン語です。よく半数がカタルネゴを好み、大多数がカタルネゴを理解し、ほぼ全員がスペイン語を知っています。",
+          "neural_edges": "バルセアナの講義を語るカタルネゴとスペイン語です。よく半数がカタルネゴを好み、大多数がカタルネゴを理解し、ほぼ全員がスペイン語を知っています。"
+        },
+        {
+          "id": "fleurs-ja_jp-003-original",
+          "metric": "cer",
+          "full_rate": 0.26785714285714285,
+          "edge_rate": 0.2857142857142857,
+          "reference": "その長い顎には70本以上の鋭い歯が並び 口蓋には別の歯列があり つまりここを通ったら逃げ道はないということになります",
+          "full": "その長い顎には70本以上の数という幅が並び、後外にはウェスの指列があり、つまりここを通ったら握りちゃわないということになります。",
+          "neural_edges": "その長い顎には70本以上の数という歯が並び、後外には別の指列があり、つまりここを通ったら握りにくいとなります。"
+        },
+        {
+          "id": "fleurs-ja_jp-003-quiet40db",
+          "metric": "cer",
+          "full_rate": 0.25,
+          "edge_rate": 0.2857142857142857,
+          "reference": "その長い顎には70本以上の鋭い歯が並び 口蓋には別の歯列があり つまりここを通ったら逃げ道はないということになります",
+          "full": "その長い顎には70本以上の数という歯が並び、 後外にはウェスの指列があり、つまりここを通ったら握りちゃわないということになります。",
+          "neural_edges": "その長い顎には70本以上の数という幅並び、 公外にはウェスの指列があり、つまりここを通ったらねぎめちゃいないということになります。"
+        },
+        {
+          "id": "fleurs-ja_jp-005-original",
+          "metric": "cer",
+          "full_rate": 0.23809523809523808,
+          "edge_rate": 0.3333333333333333,
+          "reference": "群島や湖では 必ずしもヨットは必要ありません",
+          "full": "軍頭や湖では必ずしもよっては必要ありません",
+          "neural_edges": "軍頭や水海では必ずしもよっとは必要ありません"
+        },
+        {
+          "id": "fleurs-cmn_hans_cn-000-original",
+          "metric": "cer",
+          "full_rate": 0.17391304347826086,
+          "edge_rate": 0.4782608695652174,
+          "reference": "这 并 不 是 告 别 这 是 一 个 篇 章 的 结 束 也 是 新 篇 章 的 开 始",
+          "full": "这并不是告别,这是一个偏僵的结束,也是新偏僵的开始。",
+          "neural_edges": "這並不是告別,這是一個偏張的結束,也是新偏張的開始"
+        },
+        {
+          "id": "fleurs-cmn_hans_cn-000-quiet40db",
+          "metric": "cer",
+          "full_rate": 0.17391304347826086,
+          "edge_rate": 1.0,
+          "reference": "这 并 不 是 告 别 这 是 一 个 篇 章 的 结 束 也 是 新 篇 章 的 开 始",
+          "full": "这并不是告别这是一个偏僵的结束也是新偏僵的开始",
+          "neural_edges": ""
+        },
+        {
+          "id": "fleurs-cmn_hans_cn-001-quiet40db",
+          "metric": "cer",
+          "full_rate": 0.5238095238095238,
+          "edge_rate": 1.0,
+          "reference": "钙 钾 等 元 素 属 于 金 属 银 和 金 等 元 素 当 然 也 是 金 属",
+          "full": "盖甲的元素屬於金屬銀河金的元素當然也是金屬",
+          "neural_edges": ""
+        },
+        {
+          "id": "fleurs-cmn_hans_cn-002-original",
+          "metric": "cer",
+          "full_rate": 0.13513513513513514,
+          "edge_rate": 0.16216216216216217,
+          "reference": "桥 下 垂 直 净 空 15 米 该 项 目 于 2011 年 8 月 完 工 但 直 到 2017 年 3 月 才 开 始 通 车",
+          "full": "乔夏垂直进空15米,该项目于2011年8月晚供但直到2017年3月才开始通车",
+          "neural_edges": "乔夏垂直进空15米 盖下贸于2011年8月完工但直到2017年3月才开始通车"
+        },
+        {
+          "id": "fleurs-cmn_hans_cn-004-original",
+          "metric": "cer",
+          "full_rate": 0.06451612903225806,
+          "edge_rate": 0.0967741935483871,
+          "reference": "科 学 家 们 可 以 得 出 结 论 暗 物 质 对 其 他 暗 物 质 的 影 响 方 式 与 普 通 物 质 相 同",
+          "full": "科学家们可以得出结论按物质对其他按物质的影响方式与普通物质相同",
+          "neural_edges": "科学家们可以得出结论按物质对其他按物质的影像方式与普通物质相同"
+        },
+        {
+          "id": "fleurs-cmn_hans_cn-004-quiet40db",
+          "metric": "cer",
+          "full_rate": 0.06451612903225806,
+          "edge_rate": 0.16129032258064516,
+          "reference": "科 学 家 们 可 以 得 出 结 论 暗 物 质 对 其 他 暗 物 质 的 影 响 方 式 与 普 通 物 质 相 同",
+          "full": "科学家们可以得出结论按物质对其他按物质的影响方式与普通物质相同",
+          "neural_edges": "科学部加门可以得出结论按物质对其他按物质的影响方式与普通物质相同"
+        },
+        {
+          "id": "fleurs-cmn_hans_cn-005-original",
+          "metric": "cer",
+          "full_rate": 0.13793103448275862,
+          "edge_rate": 0.3448275862068966,
+          "reference": "大 多 数 现 代 科 研 望 远 镜 都 是 巨 型 设 施 位 于 大 气 条 件 优 良 的 偏 远 地 区",
+          "full": "大多数现在科研望远镜都是巨型设施位于大体大体条件优良的偏远地区",
+          "neural_edges": "大多数现在科研网已经都是巨型设施位于大梯大体条件有两个偏远地区"
+        },
+        {
+          "id": "fleurs-cmn_hans_cn-005-quiet40db",
+          "metric": "cer",
+          "full_rate": 0.13793103448275862,
+          "edge_rate": 0.5862068965517241,
+          "reference": "大 多 数 现 代 科 研 望 远 镜 都 是 巨 型 设 施 位 于 大 气 条 件 优 良 的 偏 远 地 区",
+          "full": "大多数现在科研望远镜都是巨型设施位于大体大体条件优良的偏远地区",
+          "neural_edges": "大多數現在科研網眼鏡都是巨星設施位於大體大體條件有兩的偏遠地區"
+        },
+        {
+          "id": "fleurs-cmn_hans_cn-006-original",
+          "metric": "cer",
+          "full_rate": 0.12903225806451613,
+          "edge_rate": 0.16129032258064516,
+          "reference": "1963 年 大 坝 建 成 后 季 节 性 洪 水 被 控 制 住 了 沉 积 物 不 再 冲 散 到 河 流 里",
+          "full": "1963年大壩建成后,季节性洪水被控制住了,趁机雾不再冲散到河流里",
+          "neural_edges": "1963年大壩建成后,积极性洪水被控制住了趁机物不再冲散到河流里"
+        },
+        {
+          "id": "fleurs-cmn_hans_cn-007-original",
+          "metric": "cer",
+          "full_rate": 0.17391304347826086,
+          "edge_rate": 0.21739130434782608,
+          "reference": "它 的 长 下 颚 上 布 满 了 70 多 颗 剃 刀 般 锋 利 的 牙 齿 上 颚 上 还 有 一 排 这 意 味 着 任 何 与 它 相 遇 的 东 西 都 无 路 可 逃",
+          "full": "他的乘下饿上不满了七十多颗剃刀般锋利的牙齿上饿上还有一排这意味着任何与他相遇的东西都无路可逃",
+          "neural_edges": "他的乘下恶伤铺满了七十多颗剃刀般锋利的牙齿上恶伤还有一排这意味着任何与他相遇的东西都无路可逃"
+        },
+        {
+          "id": "fleurs-cmn_hans_cn-009-quiet40db",
+          "metric": "cer",
+          "full_rate": 0.13793103448275862,
+          "edge_rate": 1.0,
+          "reference": "这 里 几 乎 都 是 沙 滩 游 泳 很 安 全 大 部 分 地 方 都 有 新 西 兰 圣 诞 树 的 树 荫",
+          "full": "这里几乎都是沙滩游泳很安全大部分地方都有西西兰生酸树的树蔭",
+          "neural_edges": ""
+        }
+      ],
+      "new_empty": 7,
+      "new_empty_ids": [
+        "fleurs-de_de-000-quiet40db",
+        "fleurs-de_de-007-quiet40db",
+        "fleurs-hi_in-003-quiet40db",
+        "fleurs-ja_jp-005-quiet40db",
+        "fleurs-cmn_hans_cn-000-quiet40db",
+        "fleurs-cmn_hans_cn-001-quiet40db",
+        "fleurs-cmn_hans_cn-009-quiet40db"
+      ]
+    },
+    "qwen3-asr": {
+      "groups": {
+        "es/original": {
+          "full": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.029787234042553193,
+            "reference_units": 235,
+            "substitutions": 5,
+            "deletions": 2,
+            "insertions": 0,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.029787234042553193,
+            "reference_units": 235,
+            "substitutions": 5,
+            "deletions": 2,
+            "insertions": 0,
+            "empty": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "es/quiet40db": {
+          "full": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.029787234042553193,
+            "reference_units": 235,
+            "substitutions": 5,
+            "deletions": 2,
+            "insertions": 0,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.01702127659574468,
+            "reference_units": 235,
+            "substitutions": 3,
+            "deletions": 1,
+            "insertions": 0,
+            "empty": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "de/original": {
+          "full": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.02459016393442623,
+            "reference_units": 244,
+            "substitutions": 5,
+            "deletions": 1,
+            "insertions": 0,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.02459016393442623,
+            "reference_units": 244,
+            "substitutions": 5,
+            "deletions": 1,
+            "insertions": 0,
+            "empty": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "de/quiet40db": {
+          "full": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.028688524590163935,
+            "reference_units": 244,
+            "substitutions": 6,
+            "deletions": 1,
+            "insertions": 0,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.19262295081967212,
+            "reference_units": 244,
+            "substitutions": 6,
+            "deletions": 41,
+            "insertions": 0,
+            "empty": 1,
+            "detector_abstentions": 1
+          }
+        },
+        "hi/original": {
+          "full": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.11610486891385768,
+            "reference_units": 267,
+            "substitutions": 24,
+            "deletions": 3,
+            "insertions": 4,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.149812734082397,
+            "reference_units": 267,
+            "substitutions": 31,
+            "deletions": 4,
+            "insertions": 5,
+            "empty": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "hi/quiet40db": {
+          "full": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.12734082397003746,
+            "reference_units": 267,
+            "substitutions": 29,
+            "deletions": 2,
+            "insertions": 3,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.25842696629213485,
+            "reference_units": 267,
+            "substitutions": 26,
+            "deletions": 40,
+            "insertions": 3,
+            "empty": 1,
+            "detector_abstentions": 1
+          }
+        },
+        "ja/original": {
+          "full": {
+            "cases": 10,
+            "metric": "cer",
+            "rate": 0.045146726862302484,
+            "reference_units": 443,
+            "substitutions": 18,
+            "deletions": 0,
+            "insertions": 2,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "cer",
+            "rate": 0.05869074492099323,
+            "reference_units": 443,
+            "substitutions": 23,
+            "deletions": 1,
+            "insertions": 2,
+            "empty": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "ja/quiet40db": {
+          "full": {
+            "cases": 10,
+            "metric": "cer",
+            "rate": 0.03611738148984198,
+            "reference_units": 443,
+            "substitutions": 14,
+            "deletions": 0,
+            "insertions": 2,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "cer",
+            "rate": 0.09255079006772009,
+            "reference_units": 443,
+            "substitutions": 18,
+            "deletions": 21,
+            "insertions": 2,
+            "empty": 1,
+            "detector_abstentions": 1
+          }
+        },
+        "zh/original": {
+          "full": {
+            "cases": 10,
+            "metric": "cer",
+            "rate": 0.10626702997275204,
+            "reference_units": 367,
+            "substitutions": 25,
+            "deletions": 10,
+            "insertions": 4,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "cer",
+            "rate": 0.10626702997275204,
+            "reference_units": 367,
+            "substitutions": 25,
+            "deletions": 10,
+            "insertions": 4,
+            "empty": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "zh/quiet40db": {
+          "full": {
+            "cases": 10,
+            "metric": "cer",
+            "rate": 0.05994550408719346,
+            "reference_units": 367,
+            "substitutions": 10,
+            "deletions": 10,
+            "insertions": 2,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "cer",
+            "rate": 0.30517711171662126,
+            "reference_units": 367,
+            "substitutions": 26,
+            "deletions": 82,
+            "insertions": 4,
+            "empty": 3,
+            "detector_abstentions": 3
+          }
+        }
+      },
+      "changes": {
+        "better": 7,
+        "equal": 67,
+        "worse": 26
+      },
+      "regressions": [
+        {
+          "id": "fleurs-de_de-000-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.0,
+          "edge_rate": 0.9444444444444444,
+          "reference": "für die besten aussichten auf hongkong sollten sie die insel verlassen und zum gegenüberliegenden ufer von kowloon fahren",
+          "full": "Für die besten Aussichten auf Hongkong sollten Sie die Insel verlassen und zum gegenüberliegenden Ufer von Kowloon fahren.",
+          "neural_edges": "besten aus."
+        },
+        {
+          "id": "fleurs-de_de-006-original",
+          "metric": "wer",
+          "full_rate": 0.0,
+          "edge_rate": 0.029411764705882353,
+          "reference": "blogs können auch dazu beitragen die schreibfertigkeiten von schülern zu verbessern zwar haben schüler am anfang ihrer blogerfahrung oft eine schlampige grammatik und rechtschreibung aber das ändert sich normalerweise wenn es ein publikum gibt",
+          "full": "Blogs können auch dazu beitragen, die Schreibfertigkeiten von Schülern zu verbessern. Zwar haben Schüler am Anfang ihrer Blog-Erfahrung oft eine schlampige Grammatik und Rechtschreibung, aber das ändert sich normalerweise, wenn es ein Publikum gibt.",
+          "neural_edges": "Blogs können auch dazu beitragen, die Schreibfähigkeiten von Schülern zu verbessern. Zwar haben Schüler am Anfang ihrer Blog-Erfahrung oft eine schlampige Grammatik und Rechtschreibung, aber das ändert sich normalerweise, wenn es ein Publikum gibt."
+        },
+        {
+          "id": "fleurs-de_de-007-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.0,
+          "edge_rate": 1.0,
+          "reference": "nachdem der damm 1963 erbaut worden war kamen die jahreszeitlichen überflutungen die sedimente im fluss verteilen zum stillstand",
+          "full": "Nachdem der Damm 1963 erbaut worden war, kamen die jahreszeitlichen Überflutungen, die Sedimente im Fluss verteilen, zum Stillstand.",
+          "neural_edges": ""
+        },
+        {
+          "id": "fleurs-de_de-009-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.045454545454545456,
+          "edge_rate": 0.18181818181818182,
+          "reference": "die angemessene nutzung von blogs kann schülerinnen und schüler befähigen analytischer und kritischer zu werden; durch die aktive reaktion auf internetmaterialien können die schülerinnen und schüler ihre positionen im kontext der texte anderer definieren und ihre eigenen perspektiven zu bestimmten themen darlegen  oravec 2002",
+          "full": "Die angemessene Nutzung von Blogs kann Schülerinnen und Schüler befähigen, analytischer und kritischer zu werden. Durch die aktive Reaktion auf Internetmaterialien können die Schülerinnen und Schüler ihre Positionen im Kontext der Texte andere definieren. und ihre eigenen Perspektiven zu bestimmten Themen darlegen. O'Ravetz, 2002.",
+          "neural_edges": "Schülerinnen und Schüler befähigen analytischer und kritischer zu werden. Durch die aktive Reaktion auf Internetmaterialien können die Schülerinnen und Schüler ihre Positionen im Kontext der Texte andere definieren und ihre eigenen Perspektiven zu bestimmten Themen darlegen. Orawetz, 2002."
+        },
+        {
+          "id": "fleurs-hi_in-000-original",
+          "metric": "wer",
+          "full_rate": 0.041666666666666664,
+          "edge_rate": 0.125,
+          "reference": "कुछ अणुओं में अस्थिर केंद्रक होता है जिसका मतलब यह है कि उनमें थोड़े या बिना किसी झटके से टूटने की प्रवृत्ति होती है",
+          "full": "कुछ अणुओं में आंशिक केंद्रक होता है, जिसका मतलब यह है कि उनमें थोड़े या बिना किसी झटके से टूटने की प्रवृत्ति होती है।",
+          "neural_edges": "कुछ अणुओं में आहिस्त्र केंद्रक होता है, जिसका मतलब यहाँ कि उनमें थोड़े या बिना किसी झटके से टूटने की प्रवृत्ति होती है।"
+        },
+        {
+          "id": "fleurs-hi_in-002-original",
+          "metric": "wer",
+          "full_rate": 0.06896551724137931,
+          "edge_rate": 0.13793103448275862,
+          "reference": "ऐसी कोई वैश्विक परिभाषा नहीं है जिसके लिए निर्मित सामान एंटीक होते हैं कुछ कर एजेंसियां 100 साल से पुराने सामान को एंटीक के तौर पर परिभाषित करती हैं",
+          "full": "ऐसी कोई वास्तविक परिभाषा नहीं है, जिसके लिए निर्मित सामान एंटीक होते हैं, कुछ कर एजेंसियां शॉव साल से पुराने सामान को एंटीक के तौर पर परिभाषित करती हैं।",
+          "neural_edges": "ऐसी कोई वैश्विक परिभाषा नहीं है, जिसके लिए निर्मित सामान एंटिक होते हैं, कुछ कर एजेंसियां शौचाल से पुराने सामान को एंटिक के तौर पर परिभाषित करती हैं।"
+        },
+        {
+          "id": "fleurs-hi_in-002-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.06896551724137931,
+          "edge_rate": 0.10344827586206896,
+          "reference": "ऐसी कोई वैश्विक परिभाषा नहीं है जिसके लिए निर्मित सामान एंटीक होते हैं कुछ कर एजेंसियां 100 साल से पुराने सामान को एंटीक के तौर पर परिभाषित करती हैं",
+          "full": "ऐसी कोई वास्तविक परिभाषा नहीं है, जिसके लिए निर्मित सामान एंटीक होते हैं, कुछ कर एजेंसियां शॉव साल से पुराने सामान को एंटीक के तौर पर परिभाषित करती हैं।",
+          "neural_edges": "ऐसी कोई वैश्विक परिभाषा नहीं है, जिसके लिए निर्मित सामान एंटिक होते हैं, कुछ कर एजेंसियां शॉव साल से पुराने सामान को एंटिक के तौर पर परिभाषित करती हैं।"
+        },
+        {
+          "id": "fleurs-hi_in-003-original",
+          "metric": "wer",
+          "full_rate": 0.0,
+          "edge_rate": 0.16666666666666666,
+          "reference": "टेलीविजन रिपोर्टों में प्लांट से निकलने वाला सफेद धुआं दिखाया गया है",
+          "full": "टेलीविजन रिपोर्टों में प्लांट से निकलने वाला सफेद धुआं दिखाया गया है।",
+          "neural_edges": "टेलीविज़न रिपोर्टों में प्लांट से निकलने वाला सफ़ेद धुआं दिखाया गया है।"
+        },
+        {
+          "id": "fleurs-hi_in-003-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.0,
+          "edge_rate": 1.0,
+          "reference": "टेलीविजन रिपोर्टों में प्लांट से निकलने वाला सफेद धुआं दिखाया गया है",
+          "full": "टेलीविजन रिपोर्टों में प्लांट से निकलने वाला सफेद धुआं दिखाया गया है।",
+          "neural_edges": ""
+        },
+        {
+          "id": "fleurs-hi_in-004-original",
+          "metric": "wer",
+          "full_rate": 0.16666666666666666,
+          "edge_rate": 0.2222222222222222,
+          "reference": "इंटरनेट पर यह खोज शत्रुतापूर्ण पर्यावरण पाठ्यक्रम के लिए अक्सर आपको एक स्थानीय कंपनी का पता प्रदान करेगी",
+          "full": "इंटरनेट पर ये खोज सत्रुता पूर्ण पर्यावरण पाठ्यक्रम के लिए अक्सर आपको एक स्थानीय कंपनी का पता प्रदान करेगी।",
+          "neural_edges": "इंटरनेट पर ये खोज सत्रुता पूर्ण पर्यावरण पाठ्कर्म के लिए अक्सर आपको एक स्थानीय कंपनी का पता प्रदान करेगी।"
+        },
+        {
+          "id": "fleurs-hi_in-005-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.07692307692307693,
+          "edge_rate": 0.11538461538461539,
+          "reference": "अपनी सरकार के अलावा आप अन्य देशों की सरकारों की सलाह ले सकते हैं हालांकि उनकी सलाह उनके नागरिकों को ध्यान में रखकर दी जाती हैं",
+          "full": "अपनी सरकार के अलावा अन्य देशों की सरकारों की सलाह ले सकते हैं, हालांकि उनकी सलाह उनके नागरिकों को ध्यान में रखकर दी जाती है।",
+          "neural_edges": "सरकार के अलावा अन्य देशों की सरकारों की सलाह ले सकते हैं, हालांकि उनकी सलाह उनके नागरिकों को ध्यान में रखकर दी जाती है।"
+        },
+        {
+          "id": "fleurs-hi_in-006-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.07692307692307693,
+          "edge_rate": 0.6410256410256411,
+          "reference": "प्राचीनकाल से ही लोग सोने चांदी और तांबे जैसे रासायनिक तत्वों के बारे में ही जानकारी रखते हैं क्योंकि इन्हें प्रकृति में मूल स्वरूप में ढूंढा जा सकता है और इन्हें प्राथमिक उपकरणों के ज़रिए ढूंढना अपेक्षाकृत आसान है",
+          "full": "प्राचीन काल से ही लोग सोने, चांदी और तांबे जैसे रासायनिक तत्वों के बारे में ही जानकारी रखते हैं, क्योंकि इन्हें प्रकृति में मूल स्वरूप में ढूंढा जा सकता है, और इन्हें प्राथमिक उपकरणों के जरिए ढूंढना अपेक्षाकृत आसान है।",
+          "neural_edges": "छिनकाल से ही लोग सोने चांदी और तांबे जैसे रासायनिक तत्वों के बारे में ही"
+        },
+        {
+          "id": "fleurs-hi_in-008-original",
+          "metric": "wer",
+          "full_rate": 0.047619047619047616,
+          "edge_rate": 0.23809523809523808,
+          "reference": "सबसे नज़दीकी सिरे पर क्रस्ट की मोटाई करीब 70 किलोमीटर है और सबसे दूर के सिरे पर यह 100 किलोमीटर है",
+          "full": "सबसे नजदीकी सिरे पर क्रस्ट की मोटाई करीब 70 किलोमीटर है और सबसे दूर के सिरे पर यह 100 किलोमीटर है।",
+          "neural_edges": "सबसे नजदीकी किसी रेखा पर क्रस्ट की मोटाई करीब 70 किलोमीटर है और सबसे दूर किसी रेखा पर यह 100 किलोमीटर है।"
+        },
+        {
+          "id": "fleurs-hi_in-008-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.047619047619047616,
+          "edge_rate": 0.14285714285714285,
+          "reference": "सबसे नज़दीकी सिरे पर क्रस्ट की मोटाई करीब 70 किलोमीटर है और सबसे दूर के सिरे पर यह 100 किलोमीटर है",
+          "full": "सबसे नजदीकी सिरे पर क्रस्ट की मोटाई करीब 70 किलोमीटर है और सबसे दूर के सिरे पर यह 100 किलोमीटर है।",
+          "neural_edges": "सबसे नजदीकी श्रेणी पर क्रस्ट की मोटाई करीब 70 किलोमीटर है और सबसे दूर के श्रेणी पर यह 100 किलोमीटर है।"
+        },
+        {
+          "id": "fleurs-ja_jp-000-original",
+          "metric": "cer",
+          "full_rate": 0.06666666666666667,
+          "edge_rate": 0.1111111111111111,
+          "reference": "インターネットで 敵対的環境コース について検索すると おそらく現地企業の住所が出てくるでしょう",
+          "full": "インターネットで適体適環境コースについて検索すると、おそらく現地企業の住所が出てくるでしょう。",
+          "neural_edges": "インターネットで適体的環境構成について検索すると、おそらく現地企業の住所が出てくるでしょう。"
+        },
+        {
+          "id": "fleurs-ja_jp-002-quiet40db",
+          "metric": "cer",
+          "full_rate": 0.0,
+          "edge_rate": 0.014084507042253521,
+          "reference": "バルセロナの公用語はカタルーニャ語とスペイン語です 約半数がカタルーニャ語を好み 大多数がカタルーニャ語を理解し ほぼ全員がスペイン語を知っています",
+          "full": "バルセロナの公用語はカタルーニャ語とスペイン語です。約半数がカタルーニャ語を好み、大多数がカタルーニャ語を理解し、ほぼ全員がスペイン語を知っています。",
+          "neural_edges": "バルセアナの公用語はカタルーニャ語とスペイン語です。約半数がカタルーニャ語を好み、大多数がカタルーニャ語を理解し、ほぼ全員がスペイン語を知っています。"
+        },
+        {
+          "id": "fleurs-ja_jp-003-original",
+          "metric": "cer",
+          "full_rate": 0.10714285714285714,
+          "edge_rate": 0.17857142857142858,
+          "reference": "その長い顎には70本以上の鋭い歯が並び 口蓋には別の歯列があり つまりここを通ったら逃げ道はないということになります",
+          "full": "その長い顎には70本以上の鋭い歯が並び、口蓋には別の支離があり、つまりここを通ったら逃げめちゃわないということになります。",
+          "neural_edges": "その長いアゴには七十本以上の鋭い歯が並び、口蓋には別の支離があり、つまりここを通ったらネギ目ではないということになります。"
+        },
+        {
+          "id": "fleurs-ja_jp-003-quiet40db",
+          "metric": "cer",
+          "full_rate": 0.08928571428571429,
+          "edge_rate": 0.16071428571428573,
+          "reference": "その長い顎には70本以上の鋭い歯が並び 口蓋には別の歯列があり つまりここを通ったら逃げ道はないということになります",
+          "full": "その長い顎には70本以上の鋭い歯が並び、口蓋には別の支離があり、つまりここを通ったら逃げめちゃはないということになります。",
+          "neural_edges": "その長い顎には七十本以上の鋭い歯が並び、口蓋には別の支離があり、つまりここを通ったらネギメチャはないということになります。"
+        },
+        {
+          "id": "fleurs-ja_jp-005-quiet40db",
+          "metric": "cer",
+          "full_rate": 0.0,
+          "edge_rate": 1.0,
+          "reference": "群島や湖では 必ずしもヨットは必要ありません",
+          "full": "群島や湖では必ずしもヨットは必要ありません。",
+          "neural_edges": ""
+        },
+        {
+          "id": "fleurs-ja_jp-006-original",
+          "metric": "cer",
+          "full_rate": 0.03333333333333333,
+          "edge_rate": 0.1,
+          "reference": "パリジャンは 自己中心的で横柄で失礼な人が多いと言われています",
+          "full": "パリジャンは自己中心的だ、横柄で失礼な人が多いと言われています。",
+          "neural_edges": "パリジャンは自己中心的だ、傲平で失礼な人が多いと言われています。"
+        },
+        {
+          "id": "fleurs-cmn_hans_cn-000-quiet40db",
+          "metric": "cer",
+          "full_rate": 0.0,
+          "edge_rate": 1.0,
+          "reference": "这 并 不 是 告 别 这 是 一 个 篇 章 的 结 束 也 是 新 篇 章 的 开 始",
+          "full": "这并不是告别，这是一个篇章的结束，也是新篇章的开始。",
+          "neural_edges": ""
+        },
+        {
+          "id": "fleurs-cmn_hans_cn-001-quiet40db",
+          "metric": "cer",
+          "full_rate": 0.047619047619047616,
+          "edge_rate": 1.0,
+          "reference": "钙 钾 等 元 素 属 于 金 属 银 和 金 等 元 素 当 然 也 是 金 属",
+          "full": "钙、钾等元素属于金属，银、合金等元素当然也是金属。",
+          "neural_edges": ""
+        },
+        {
+          "id": "fleurs-cmn_hans_cn-002-quiet40db",
+          "metric": "cer",
+          "full_rate": 0.0,
+          "edge_rate": 0.32432432432432434,
+          "reference": "桥 下 垂 直 净 空 15 米 该 项 目 于 2011 年 8 月 完 工 但 直 到 2017 年 3 月 才 开 始 通 车",
+          "full": "桥下垂直净空15米，该项目于2011年8月完工，但直到2017年3月才开始通车。",
+          "neural_edges": "桥下垂直净空十五米。该项目于二零一一年八月完工，但直到二零一七年三月才开始通车。"
+        },
+        {
+          "id": "fleurs-cmn_hans_cn-005-quiet40db",
+          "metric": "cer",
+          "full_rate": 0.0,
+          "edge_rate": 0.06896551724137931,
+          "reference": "大 多 数 现 代 科 研 望 远 镜 都 是 巨 型 设 施 位 于 大 气 条 件 优 良 的 偏 远 地 区",
+          "full": "大多数现代科研望远镜都是巨型设施，位于大气条件优良的偏远地区。",
+          "neural_edges": "大多数现代科研望远镜都是巨型设施，位于大气大气条件优良的偏远地区。"
+        },
+        {
+          "id": "fleurs-cmn_hans_cn-006-quiet40db",
+          "metric": "cer",
+          "full_rate": 0.0,
+          "edge_rate": 0.12903225806451613,
+          "reference": "1963 年 大 坝 建 成 后 季 节 性 洪 水 被 控 制 住 了 沉 积 物 不 再 冲 散 到 河 流 里",
+          "full": "1963年大坝建成后，季节性洪水被控制住了，沉积物不再冲散到河流里。",
+          "neural_edges": "一九六三年大坝建成后，季节性洪水被控制住了，沉积物不再冲散到河流里。"
+        },
+        {
+          "id": "fleurs-cmn_hans_cn-009-quiet40db",
+          "metric": "cer",
+          "full_rate": 0.0,
+          "edge_rate": 1.0,
+          "reference": "这 里 几 乎 都 是 沙 滩 游 泳 很 安 全 大 部 分 地 方 都 有 新 西 兰 圣 诞 树 的 树 荫",
+          "full": "这里几乎都是沙滩，游泳很安全，大部分地方都有新西兰圣诞树的树荫。",
+          "neural_edges": ""
+        }
+      ],
+      "new_empty": 6,
+      "new_empty_ids": [
+        "fleurs-de_de-007-quiet40db",
+        "fleurs-hi_in-003-quiet40db",
+        "fleurs-ja_jp-005-quiet40db",
+        "fleurs-cmn_hans_cn-000-quiet40db",
+        "fleurs-cmn_hans_cn-001-quiet40db",
+        "fleurs-cmn_hans_cn-009-quiet40db"
+      ]
+    },
+    "cohere-native8": {
+      "groups": {
+        "es/original": {
+          "full": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.0425531914893617,
+            "reference_units": 235,
+            "substitutions": 6,
+            "deletions": 3,
+            "insertions": 1,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.03829787234042553,
+            "reference_units": 235,
+            "substitutions": 4,
+            "deletions": 5,
+            "insertions": 0,
+            "empty": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "es/quiet40db": {
+          "full": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.03404255319148936,
+            "reference_units": 235,
+            "substitutions": 5,
+            "deletions": 3,
+            "insertions": 0,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.03404255319148936,
+            "reference_units": 235,
+            "substitutions": 5,
+            "deletions": 3,
+            "insertions": 0,
+            "empty": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "de/original": {
+          "full": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.03278688524590164,
+            "reference_units": 244,
+            "substitutions": 6,
+            "deletions": 1,
+            "insertions": 1,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.036885245901639344,
+            "reference_units": 244,
+            "substitutions": 7,
+            "deletions": 1,
+            "insertions": 1,
+            "empty": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "de/quiet40db": {
+          "full": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.036885245901639344,
+            "reference_units": 244,
+            "substitutions": 7,
+            "deletions": 1,
+            "insertions": 1,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.20901639344262296,
+            "reference_units": 244,
+            "substitutions": 8,
+            "deletions": 43,
+            "insertions": 0,
+            "empty": 1,
+            "detector_abstentions": 1
+          }
+        },
+        "ja/original": {
+          "full": {
+            "cases": 10,
+            "metric": "cer",
+            "rate": 0.03837471783295711,
+            "reference_units": 443,
+            "substitutions": 14,
+            "deletions": 1,
+            "insertions": 2,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "cer",
+            "rate": 0.05417607223476298,
+            "reference_units": 443,
+            "substitutions": 19,
+            "deletions": 4,
+            "insertions": 1,
+            "empty": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "ja/quiet40db": {
+          "full": {
+            "cases": 10,
+            "metric": "cer",
+            "rate": 0.04740406320541761,
+            "reference_units": 443,
+            "substitutions": 16,
+            "deletions": 1,
+            "insertions": 4,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "cer",
+            "rate": 0.1038374717832957,
+            "reference_units": 443,
+            "substitutions": 18,
+            "deletions": 25,
+            "insertions": 3,
+            "empty": 1,
+            "detector_abstentions": 1
+          }
+        },
+        "zh/original": {
+          "full": {
+            "cases": 10,
+            "metric": "cer",
+            "rate": 0.11716621253405994,
+            "reference_units": 367,
+            "substitutions": 23,
+            "deletions": 15,
+            "insertions": 5,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "cer",
+            "rate": 0.10354223433242507,
+            "reference_units": 367,
+            "substitutions": 22,
+            "deletions": 13,
+            "insertions": 3,
+            "empty": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "zh/quiet40db": {
+          "full": {
+            "cases": 10,
+            "metric": "cer",
+            "rate": 0.12534059945504086,
+            "reference_units": 367,
+            "substitutions": 26,
+            "deletions": 15,
+            "insertions": 5,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "cer",
+            "rate": 0.29155313351498635,
+            "reference_units": 367,
+            "substitutions": 17,
+            "deletions": 87,
+            "insertions": 3,
+            "empty": 3,
+            "detector_abstentions": 3
+          }
+        }
+      },
+      "changes": {
+        "better": 8,
+        "equal": 55,
+        "worse": 17
+      },
+      "regressions": [
+        {
+          "id": "fleurs-de_de-000-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.05555555555555555,
+          "edge_rate": 1.0,
+          "reference": "für die besten aussichten auf hongkong sollten sie die insel verlassen und zum gegenüberliegenden ufer von kowloon fahren",
+          "full": "Für die besten Aussichten auf Hongkong sollten Sie die Insel verlassen und zum gegenüberliegenden Ufer von Kongyong fahren.",
+          "neural_edges": "Vielen Dank."
+        },
+        {
+          "id": "fleurs-de_de-002-original",
+          "metric": "wer",
+          "full_rate": 0.043478260869565216,
+          "edge_rate": 0.08695652173913043,
+          "reference": "wenn sie den film das vermächtnis der tempelritter gesehen haben denken sie vielleicht dass auf die rückseite der unabhängigkeitserklärung eine schatzkarte gezeichnet wurde",
+          "full": "Wenn Sie den Film Das Vermächtnis der Tempelritter gesehen haben, denken Sie vielleicht, dass auf der Rückseite der Unabhängigkeitserklärung eine Schatzkarte gezeichnet wurde.",
+          "neural_edges": "Wenn Sie den Film Das Vermächtnis der Tempelritter gesehen haben denken Sie vielleicht daß auf der Rückseite der unabhängigkeitserklärung eine Schatzkarte gezeichnet wurde."
+        },
+        {
+          "id": "fleurs-de_de-006-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.0,
+          "edge_rate": 0.058823529411764705,
+          "reference": "blogs können auch dazu beitragen die schreibfertigkeiten von schülern zu verbessern zwar haben schüler am anfang ihrer blogerfahrung oft eine schlampige grammatik und rechtschreibung aber das ändert sich normalerweise wenn es ein publikum gibt",
+          "full": "Blogs können auch dazu beitragen, die Schreibfertigkeiten von Schülern zu verbessern. Zwar haben Schüler am Anfang ihrer Blog-Erfahrung oft eine schlampige Grammatik und Rechtschreibung, aber das ändert sich normalerweise, wenn es ein Publikum gibt.",
+          "neural_edges": "Blogs können auch dazu beitragen, die Schreibfertigkeiten von Schülern zu verbessern. So haben Schüler am Anfang ihrer Blog-Erfahrung oft eine stumpfe Grammatik und Rechtschreibung, aber das ändert sich normalerweise, wenn es ein Publikum gibt."
+        },
+        {
+          "id": "fleurs-de_de-007-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.05555555555555555,
+          "edge_rate": 1.0,
+          "reference": "nachdem der damm 1963 erbaut worden war kamen die jahreszeitlichen überflutungen die sedimente im fluss verteilen zum stillstand",
+          "full": "Nachdem der Damm 1963 erbaut worden war, kamen die jahreszeitlichen Überflutungen, die Sedimente im Fluss verteilten, zum Stillstand.",
+          "neural_edges": ""
+        },
+        {
+          "id": "fleurs-de_de-008-original",
+          "metric": "wer",
+          "full_rate": 0.05555555555555555,
+          "edge_rate": 0.1111111111111111,
+          "reference": "insbesondere wird behauptet dass man erkennen kann ob jemand lügt indem man minimale veränderungen des gesichtsausdrucks richtig deutet.x",
+          "full": "Insbesondere wird behauptet, dass man erkennen kann, ob jemand lügt, indem man minimale Veränderungen des Gesichtsausdrucks richtig deutet.",
+          "neural_edges": "Insbesondere wird behauptet, daß man erkennen kann, ob jemand lügt, indem man minimale Veränderungen des Gesichtsausdrucks richtig deutet."
+        },
+        {
+          "id": "fleurs-de_de-009-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.06818181818181818,
+          "edge_rate": 0.20454545454545456,
+          "reference": "die angemessene nutzung von blogs kann schülerinnen und schüler befähigen analytischer und kritischer zu werden; durch die aktive reaktion auf internetmaterialien können die schülerinnen und schüler ihre positionen im kontext der texte anderer definieren und ihre eigenen perspektiven zu bestimmten themen darlegen  oravec 2002",
+          "full": "Die angemessene Nutzung von Blogs kann Schülerinnen und Schüler befähigen, analytischer und kritischer zu werden. Durch die aktive Reaktion auf Internetmaterialien können die Schülerinnen und Schüler ihre Positionen im Kontext der Texte anderer definieren und ihre eigenen Perspektiven zu bestimmten Themen darlegen. Ora jetzt, zweitausendzwei.",
+          "neural_edges": "Schüler befähigen, analytischer und kritischer zu werden. Durch die aktive Reaktion auf Internetmaterialien können die Schülerinnen und Schüler ihre Positionen im Kontext der Texte anderer definieren und ihre eigenen Perspektiven zu bestimmten Themen darlegen. Oragetz 2002"
+        },
+        {
+          "id": "fleurs-ja_jp-002-original",
+          "metric": "cer",
+          "full_rate": 0.0,
+          "edge_rate": 0.09859154929577464,
+          "reference": "バルセロナの公用語はカタルーニャ語とスペイン語です 約半数がカタルーニャ語を好み 大多数がカタルーニャ語を理解し ほぼ全員がスペイン語を知っています",
+          "full": "バルセロナの公用語はカタルーニャ語とスペイン語です。約半数がカタルーニャ語を好み、大多数がカタルーニャ語を理解し、ほぼ全員がスペイン語を知っています。",
+          "neural_edges": "バルセアナの公用語はカタルーネ語とスペイン語です。約半数がカタルーネ語を好み、大多数がカタルーネ語を理解し、ほぼ全員がスペイン語を知っています。"
+        },
+        {
+          "id": "fleurs-ja_jp-002-quiet40db",
+          "metric": "cer",
+          "full_rate": 0.0,
+          "edge_rate": 0.08450704225352113,
+          "reference": "バルセロナの公用語はカタルーニャ語とスペイン語です 約半数がカタルーニャ語を好み 大多数がカタルーニャ語を理解し ほぼ全員がスペイン語を知っています",
+          "full": "バルセロナの公用語はカタルーニャ語とスペイン語です。約半数がカタルーニャ語を好み、大多数がカタルーニャ語を理解し、ほぼ全員がスペイン語を知っています。",
+          "neural_edges": "バルセロナの公用語はカタルーネ語とスペイン語です。約半数がカタルーネ語を好み、大多数がカタルーネ語を理解し、ほぼ全員がスペイン語を知っています。"
+        },
+        {
+          "id": "fleurs-ja_jp-003-original",
+          "metric": "cer",
+          "full_rate": 0.08928571428571429,
+          "edge_rate": 0.125,
+          "reference": "その長い顎には70本以上の鋭い歯が並び 口蓋には別の歯列があり つまりここを通ったら逃げ道はないということになります",
+          "full": "その長い顎には、70本以上の鋭い刃が並び、郊外には別の私立があり、つまりここを通ったら逃げ道はないということになります。",
+          "neural_edges": "その長い矢後には、70本以上の鋭い刃が並び、郊外には別の私立があり、つまりここを通ったら、逃げ道はないということになります。"
+        },
+        {
+          "id": "fleurs-ja_jp-003-quiet40db",
+          "metric": "cer",
+          "full_rate": 0.08928571428571429,
+          "edge_rate": 0.10714285714285714,
+          "reference": "その長い顎には70本以上の鋭い歯が並び 口蓋には別の歯列があり つまりここを通ったら逃げ道はないということになります",
+          "full": "その長い顎には、70本以上の鋭い刃が並び、郊外には別の私立があり、つまりここを通ったら逃げ道はないということになります。",
+          "neural_edges": "その長いあごには、70本以上の鋭い刃が並び、口外には別の私立があり、つまりここを通ったら逃げ道はないということになります。"
+        },
+        {
+          "id": "fleurs-ja_jp-005-quiet40db",
+          "metric": "cer",
+          "full_rate": 0.14285714285714285,
+          "edge_rate": 1.0,
+          "reference": "群島や湖では 必ずしもヨットは必要ありません",
+          "full": "ブリン島や湖では、必ずしもヨットは必要ありません。",
+          "neural_edges": ""
+        },
+        {
+          "id": "fleurs-cmn_hans_cn-000-quiet40db",
+          "metric": "cer",
+          "full_rate": 0.0,
+          "edge_rate": 1.0,
+          "reference": "这 并 不 是 告 别 这 是 一 个 篇 章 的 结 束 也 是 新 篇 章 的 开 始",
+          "full": "这并不是告别:这是一个篇章的结束,也是新篇章的开始。",
+          "neural_edges": ""
+        },
+        {
+          "id": "fleurs-cmn_hans_cn-001-quiet40db",
+          "metric": "cer",
+          "full_rate": 0.38095238095238093,
+          "edge_rate": 1.0,
+          "reference": "钙 钾 等 元 素 属 于 金 属 银 和 金 等 元 素 当 然 也 是 金 属",
+          "full": "盖甲等元素属于鲸鱼,银河鲸等元素当然也是鲸鱼。",
+          "neural_edges": ""
+        },
+        {
+          "id": "fleurs-cmn_hans_cn-002-quiet40db",
+          "metric": "cer",
+          "full_rate": 0.0,
+          "edge_rate": 0.02702702702702703,
+          "reference": "桥 下 垂 直 净 空 15 米 该 项 目 于 2011 年 8 月 完 工 但 直 到 2017 年 3 月 才 开 始 通 车",
+          "full": "桥下垂直净空 15 米,该项目于 2011 年 8 月完工,但直到 2017 年 3 月才开始通车。",
+          "neural_edges": "敲下垂直净空 15 米,该项目于 2011 年 8 月完工,但直到 2017 年 3 月才开始通车。"
+        },
+        {
+          "id": "fleurs-cmn_hans_cn-006-quiet40db",
+          "metric": "cer",
+          "full_rate": 0.06451612903225806,
+          "edge_rate": 0.12903225806451613,
+          "reference": "1963 年 大 坝 建 成 后 季 节 性 洪 水 被 控 制 住 了 沉 积 物 不 再 冲 散 到 河 流 里",
+          "full": "1963 年大坝建成后,季节性洪水被控制住了,呈籍物不再冲散到河流里。",
+          "neural_edges": "一九六三年大坝建成后,季节性洪水被控制住了,沉积物不再冲散到河流里。"
+        },
+        {
+          "id": "fleurs-cmn_hans_cn-007-original",
+          "metric": "cer",
+          "full_rate": 0.13043478260869565,
+          "edge_rate": 0.17391304347826086,
+          "reference": "它 的 长 下 颚 上 布 满 了 70 多 颗 剃 刀 般 锋 利 的 牙 齿 上 颚 上 还 有 一 排 这 意 味 着 任 何 与 它 相 遇 的 东 西 都 无 路 可 逃",
+          "full": "它的长架额上布满了十多颗剔刀般锋利的牙齿,上额上还有一排,这意味着任何与它相遇的东西都无路可逃。",
+          "neural_edges": "他的长夏鳄上扑满了七十多颗剃刀般锋利的牙齿,上鳄上还有一排,这意味着任何与他相遇的东西都无路可逃。"
+        },
+        {
+          "id": "fleurs-cmn_hans_cn-009-quiet40db",
+          "metric": "cer",
+          "full_rate": 0.034482758620689655,
+          "edge_rate": 1.0,
+          "reference": "这 里 几 乎 都 是 沙 滩 游 泳 很 安 全 大 部 分 地 方 都 有 新 西 兰 圣 诞 树 的 树 荫",
+          "full": "这里几乎都是沙滩,游泳很安全,大部分地方都有新西兰圣诞树的树林。",
+          "neural_edges": ""
+        }
+      ],
+      "new_empty": 5,
+      "new_empty_ids": [
+        "fleurs-de_de-007-quiet40db",
+        "fleurs-ja_jp-005-quiet40db",
+        "fleurs-cmn_hans_cn-000-quiet40db",
+        "fleurs-cmn_hans_cn-001-quiet40db",
+        "fleurs-cmn_hans_cn-009-quiet40db"
+      ]
+    },
+    "nemotron-streaming": {
+      "groups": {
+        "es/original": {
+          "full": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.04680851063829787,
+            "reference_units": 235,
+            "substitutions": 6,
+            "deletions": 2,
+            "insertions": 3,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.04680851063829787,
+            "reference_units": 235,
+            "substitutions": 6,
+            "deletions": 3,
+            "insertions": 2,
+            "empty": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "es/quiet40db": {
+          "full": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.059574468085106386,
+            "reference_units": 235,
+            "substitutions": 9,
+            "deletions": 1,
+            "insertions": 4,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.05531914893617021,
+            "reference_units": 235,
+            "substitutions": 9,
+            "deletions": 2,
+            "insertions": 2,
+            "empty": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "de/original": {
+          "full": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.06967213114754098,
+            "reference_units": 244,
+            "substitutions": 14,
+            "deletions": 0,
+            "insertions": 3,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.07377049180327869,
+            "reference_units": 244,
+            "substitutions": 13,
+            "deletions": 1,
+            "insertions": 4,
+            "empty": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "de/quiet40db": {
+          "full": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.3770491803278688,
+            "reference_units": 244,
+            "substitutions": 22,
+            "deletions": 68,
+            "insertions": 2,
+            "empty": 1,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.38524590163934425,
+            "reference_units": 244,
+            "substitutions": 9,
+            "deletions": 84,
+            "insertions": 1,
+            "empty": 3,
+            "detector_abstentions": 1
+          }
+        },
+        "hi/original": {
+          "full": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.11610486891385768,
+            "reference_units": 267,
+            "substitutions": 23,
+            "deletions": 4,
+            "insertions": 4,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.10486891385767791,
+            "reference_units": 267,
+            "substitutions": 21,
+            "deletions": 4,
+            "insertions": 3,
+            "empty": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "hi/quiet40db": {
+          "full": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.15355805243445692,
+            "reference_units": 267,
+            "substitutions": 34,
+            "deletions": 5,
+            "insertions": 2,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "wer",
+            "rate": 0.2846441947565543,
+            "reference_units": 267,
+            "substitutions": 18,
+            "deletions": 56,
+            "insertions": 2,
+            "empty": 2,
+            "detector_abstentions": 1
+          }
+        },
+        "ja/original": {
+          "full": {
+            "cases": 10,
+            "metric": "cer",
+            "rate": 0.11286681715575621,
+            "reference_units": 443,
+            "substitutions": 43,
+            "deletions": 5,
+            "insertions": 2,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "cer",
+            "rate": 0.11512415349887133,
+            "reference_units": 443,
+            "substitutions": 42,
+            "deletions": 8,
+            "insertions": 1,
+            "empty": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "ja/quiet40db": {
+          "full": {
+            "cases": 10,
+            "metric": "cer",
+            "rate": 0.1580135440180587,
+            "reference_units": 443,
+            "substitutions": 40,
+            "deletions": 26,
+            "insertions": 4,
+            "empty": 1,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "cer",
+            "rate": 0.16478555304740405,
+            "reference_units": 443,
+            "substitutions": 38,
+            "deletions": 29,
+            "insertions": 6,
+            "empty": 1,
+            "detector_abstentions": 1
+          }
+        },
+        "zh/original": {
+          "full": {
+            "cases": 10,
+            "metric": "cer",
+            "rate": 0.19346049046321526,
+            "reference_units": 367,
+            "substitutions": 46,
+            "deletions": 22,
+            "insertions": 3,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "cer",
+            "rate": 0.19346049046321526,
+            "reference_units": 367,
+            "substitutions": 54,
+            "deletions": 13,
+            "insertions": 4,
+            "empty": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "zh/quiet40db": {
+          "full": {
+            "cases": 10,
+            "metric": "cer",
+            "rate": 0.26975476839237056,
+            "reference_units": 367,
+            "substitutions": 56,
+            "deletions": 40,
+            "insertions": 3,
+            "empty": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 10,
+            "metric": "cer",
+            "rate": 0.4141689373297003,
+            "reference_units": 367,
+            "substitutions": 49,
+            "deletions": 98,
+            "insertions": 5,
+            "empty": 3,
+            "detector_abstentions": 3
+          }
+        }
+      },
+      "changes": {
+        "better": 20,
+        "equal": 53,
+        "worse": 27
+      },
+      "regressions": [
+        {
+          "id": "fleurs-es_419-004-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.07142857142857142,
+          "edge_rate": 0.14285714285714285,
+          "reference": "carpanedo participó en dos carreras individuales del campeonato aparte de la competencia del miércoles",
+          "full": "Carpaneo participó en dos carreras individuales del campeonato aparte de la competencia del miércoles.",
+          "neural_edges": "Carpano participó en dos carregas individuales del campeonato aparte de la competencia del miércoles."
+        },
+        {
+          "id": "fleurs-es_419-005-original",
+          "metric": "wer",
+          "full_rate": 0.08695652173913043,
+          "edge_rate": 0.13043478260869565,
+          "reference": "hoy en día las personas escriben mensajes en las pantallas de sus computadoras no tienen la necesidad de siquiera aproximarse a un sacapuntas",
+          "full": "Hoy en día, las personas escriben mensajes en las pantallas de sus computadoras, no tienen la necesidad de siquiera aproximarse en sacapuntas",
+          "neural_edges": "Hoy en día, las personas escriben mensajes en las pantallas de sus computadoras, no tienen la necesidad de siquiera aproximación sacapuntas."
+        },
+        {
+          "id": "fleurs-es_419-005-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.08695652173913043,
+          "edge_rate": 0.13043478260869565,
+          "reference": "hoy en día las personas escriben mensajes en las pantallas de sus computadoras no tienen la necesidad de siquiera aproximarse a un sacapuntas",
+          "full": "Hoy en día, las personas escriben mensajes en las pantallas de sus computadoras, no tienen la necesidad de siquiera aproximarse a sus capuntas.",
+          "neural_edges": "Hoy en día, las personas escriben mensajes en las pantallas de sus computadoras, no tienen la necesidad de siquiera aproximarse en socapuntas."
+        },
+        {
+          "id": "fleurs-de_de-000-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.8333333333333334,
+          "edge_rate": 1.0,
+          "reference": "für die besten aussichten auf hongkong sollten sie die insel verlassen und zum gegenüberliegenden ufer von kowloon fahren",
+          "full": "Die besten Aus Hongkong dort neu an.",
+          "neural_edges": ""
+        },
+        {
+          "id": "fleurs-de_de-002-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.13043478260869565,
+          "edge_rate": 0.17391304347826086,
+          "reference": "wenn sie den film das vermächtnis der tempelritter gesehen haben denken sie vielleicht dass auf die rückseite der unabhängigkeitserklärung eine schatzkarte gezeichnet wurde",
+          "full": "Wenn Sie den Film das Vermechnis der Tempel gesehen haben, denken Sie vielleicht, dass auf der Rückseite der Unabhängigkeitserklärung eine Schatzkarte gezeichnet wurde.",
+          "neural_edges": "Wenn Sie den Film das einperdä gesehen haben, denken Sie vielleicht, dass auf der Rückseite der Unabhängigkeitserklärung eine Schatzkarte gezeichnet wurde."
+        },
+        {
+          "id": "fleurs-de_de-004-original",
+          "metric": "wer",
+          "full_rate": 0.047619047619047616,
+          "edge_rate": 0.09523809523809523,
+          "reference": "die höhle befindet sich auf der spitze eines der berge nördlich von mekka und ist vom rest der welt völlig isoliert",
+          "full": "Die Höhle befindet sich auf der Spitze eines der Berge nördlich von Mekka und ist zum Rest der Welt völlig isoliert.",
+          "neural_edges": "Die Höhle befindet sich auf der Spitze eines der Berge nördlich von Mecka und ist zum Rest der Welt völlig isoliert."
+        },
+        {
+          "id": "fleurs-de_de-004-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.0,
+          "edge_rate": 0.047619047619047616,
+          "reference": "die höhle befindet sich auf der spitze eines der berge nördlich von mekka und ist vom rest der welt völlig isoliert",
+          "full": "Die Höhle befindet sich auf der Spitze eines der Berge nördlich von Mekka und ist vom Rest der Welt völlig isoliert.",
+          "neural_edges": "Die Höhle befindet sich auf der Spitze eines der Berge nördlich von Mekka und ist zum Rest der Welt völlig isoliert."
+        },
+        {
+          "id": "fleurs-de_de-007-original",
+          "metric": "wer",
+          "full_rate": 0.2222222222222222,
+          "edge_rate": 0.3333333333333333,
+          "reference": "nachdem der damm 1963 erbaut worden war kamen die jahreszeitlichen überflutungen die sedimente im fluss verteilen zum stillstand",
+          "full": "Nachdem der Darm eintausendneunhundertdrei und sechzig erbaut worden war, kamen die jahreszeitlichen Überflutungen.  Die Sedimente im Fluss verteilen zum Stillstand",
+          "neural_edges": "Nachdem der Darm eintausend hundert drei und sechzig erbaut worden war, kamen die jahreszeitlichen Überflutungen.  Die Sedimente im Fluss verteilen zum Stillstand."
+        },
+        {
+          "id": "fleurs-de_de-009-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.9090909090909091,
+          "edge_rate": 1.0,
+          "reference": "die angemessene nutzung von blogs kann schülerinnen und schüler befähigen analytischer und kritischer zu werden; durch die aktive reaktion auf internetmaterialien können die schülerinnen und schüler ihre positionen im kontext der texte anderer definieren und ihre eigenen perspektiven zu bestimmten themen darlegen  oravec 2002",
+          "full": "Perspektiven zu bestimmten Themen Dalet zwei Tau",
+          "neural_edges": ""
+        },
+        {
+          "id": "fleurs-hi_in-002-original",
+          "metric": "wer",
+          "full_rate": 0.06896551724137931,
+          "edge_rate": 0.13793103448275862,
+          "reference": "ऐसी कोई वैश्विक परिभाषा नहीं है जिसके लिए निर्मित सामान एंटीक होते हैं कुछ कर एजेंसियां 100 साल से पुराने सामान को एंटीक के तौर पर परिभाषित करती हैं",
+          "full": "ऐसी कोई वैश्विक परिभाषा नहीं है जिसके लिए निर्मित समान एंटीक होते हैं, कुछ कर एजेंसियां सौ साल से पुराने सामान को एंटीक के तौर पर परिभाषित करती हैं।",
+          "neural_edges": "आई सी कोई वैश्विक परिभाषा नहीं है जिसके लिए निर्मित समान एंटीक होते हैं, कुछ कर एजेंसियां सौ साल से पुराने सामान को एंटीक के तौर पर परिभाषित करती हैं।"
+        },
+        {
+          "id": "fleurs-hi_in-003-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.4166666666666667,
+          "edge_rate": 1.0,
+          "reference": "टेलीविजन रिपोर्टों में प्लांट से निकलने वाला सफेद धुआं दिखाया गया है",
+          "full": "टेलीविजन रिपोर्टोमेट प्लान से निकलने वाला सफेद दिनों दिखाया दिया है।",
+          "neural_edges": ""
+        },
+        {
+          "id": "fleurs-hi_in-005-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.07692307692307693,
+          "edge_rate": 0.11538461538461539,
+          "reference": "अपनी सरकार के अलावा आप अन्य देशों की सरकारों की सलाह ले सकते हैं हालांकि उनकी सलाह उनके नागरिकों को ध्यान में रखकर दी जाती हैं",
+          "full": "अपनी सरकार के अलावा अन्य देशों की सरकारों की सलाह ले सकते हैं, हालांकि उनकी सलाह उनके नागरिकों को ध्यान में रखकर दी जाती है।",
+          "neural_edges": "सरकार के अलावा अन्य देशों की सरकारों की सलाह ले सकते हैं, हालांकि उनकी सलाह उनके नागरिकों को ध्यान में रखकर दी जाती है।"
+        },
+        {
+          "id": "fleurs-hi_in-006-quiet40db",
+          "metric": "wer",
+          "full_rate": 0.1794871794871795,
+          "edge_rate": 1.0,
+          "reference": "प्राचीनकाल से ही लोग सोने चांदी और तांबे जैसे रासायनिक तत्वों के बारे में ही जानकारी रखते हैं क्योंकि इन्हें प्रकृति में मूल स्वरूप में ढूंढा जा सकता है और इन्हें प्राथमिक उपकरणों के ज़रिए ढूंढना अपेक्षाकृत आसान है",
+          "full": "प्राचीन काल से ही लोग सोने, चाबी और तंबे जैसे रासायनिक तत्वों के बारे में ही जानकारी रखते हैं क्योंकि इन्हें प्रकृति में मूल स्वरूप में धोना जा सकता है और इन्हें प्राथमिक उपकरणों के जरिए ढूंढ़ना अपेक्षाकृत आसान है।",
+          "neural_edges": ""
+        },
+        {
+          "id": "fleurs-ja_jp-001-original",
+          "metric": "cer",
+          "full_rate": 0.021739130434782608,
+          "edge_rate": 0.043478260869565216,
+          "reference": "また 北側に行くなら世界的に有名なマリア像の聖地であるファティマの聖母の聖域神社を訪れましょう",
+          "full": "また北側に行くなら世界的に有名なマリア像の聖地であるファティマの聖母の成域神社を訪れましょう。",
+          "neural_edges": "また北代に行くなら世界的に有名なマリア像の聖地であるファティマの聖母の成域神社を訪れましょう。"
+        },
+        {
+          "id": "fleurs-ja_jp-002-quiet40db",
+          "metric": "cer",
+          "full_rate": 0.18309859154929578,
+          "edge_rate": 0.2112676056338028,
+          "reference": "バルセロナの公用語はカタルーニャ語とスペイン語です 約半数がカタルーニャ語を好み 大多数がカタルーニャ語を理解し ほぼ全員がスペイン語を知っています",
+          "full": "バルセアの交用後はカタルーニごとスペインゴリス、約数がカタルーニアを好み、大多数がカタルーニア語を理解し、ほぼ全員がスペイン語を知っています",
+          "neural_edges": "バルセアの公用後はカタルーニごとスペイン語です。  よく半数がカタルウネがお好み、大多数がカタルーネ語を理解し、ほぼ全員がスペインを知っています。"
+        },
+        {
+          "id": "fleurs-ja_jp-003-original",
+          "metric": "cer",
+          "full_rate": 0.19642857142857142,
+          "edge_rate": 0.23214285714285715,
+          "reference": "その長い顎には70本以上の鋭い歯が並び 口蓋には別の歯列があり つまりここを通ったら逃げ道はないということになります",
+          "full": "その長い顎には七十本以上の数大波が並び、郊外には別の私立があり、つまりここを通ったらねぎ道はないということになります。",
+          "neural_edges": "その長いは七十本以上の数大波が並び、郊外には別の私立があり、つまりここを通ったらにぎ道はないということになります。"
+        },
+        {
+          "id": "fleurs-ja_jp-006-quiet40db",
+          "metric": "cer",
+          "full_rate": 0.2,
+          "edge_rate": 0.23333333333333334,
+          "reference": "パリジャンは 自己中心的で横柄で失礼な人が多いと言われています",
+          "full": "パリジャンは事故中心的な欧平で失礼の人が多いと言われています",
+          "neural_edges": "パリジャンは事故中心的だ失礼の人が多いと言われています。"
+        },
+        {
+          "id": "fleurs-ja_jp-008-original",
+          "metric": "cer",
+          "full_rate": 0.05128205128205128,
+          "edge_rate": 0.07692307692307693,
+          "reference": "参列者の数が多すぎて 全員がサンピエトロ広場での葬儀に参加することは不可能でした",
+          "full": "三列者の数が多すぎて、全員がサンピエトル広場での葬儀に参加することは不可能でした。",
+          "neural_edges": "三列車の数が多すぎて全員がサンピエトル広場での葬儀に参加することは不可能でした。"
+        },
+        {
+          "id": "fleurs-cmn_hans_cn-000-quiet40db",
+          "metric": "cer",
+          "full_rate": 0.2608695652173913,
+          "edge_rate": 1.0,
+          "reference": "这 并 不 是 告 别 这 是 一 个 篇 章 的 结 束 也 是 新 篇 章 的 开 始",
+          "full": "设定不是告这是一个偏章的结局, 也是新偏章的开始。",
+          "neural_edges": ""
+        },
+        {
+          "id": "fleurs-cmn_hans_cn-001-original",
+          "metric": "cer",
+          "full_rate": 0.09523809523809523,
+          "edge_rate": 0.14285714285714285,
+          "reference": "钙 钾 等 元 素 属 于 金 属 银 和 金 等 元 素 当 然 也 是 金 属",
+          "full": "钙夹等元素属于金属, 银河金等元素当然也是金属。",
+          "neural_edges": "钙夹等元素属于金属, 银河精等元素当然也是金属。"
+        },
+        {
+          "id": "fleurs-cmn_hans_cn-001-quiet40db",
+          "metric": "cer",
+          "full_rate": 0.8095238095238095,
+          "edge_rate": 1.0,
+          "reference": "钙 钾 等 元 素 属 于 金 属 银 和 金 等 元 素 当 然 也 是 金 属",
+          "full": "一个当然也是定义",
+          "neural_edges": ""
+        },
+        {
+          "id": "fleurs-cmn_hans_cn-002-quiet40db",
+          "metric": "cer",
+          "full_rate": 0.13513513513513514,
+          "edge_rate": 0.16216216216216217,
+          "reference": "桥 下 垂 直 净 空 15 米 该 项 目 于 2011 年 8 月 完 工 但 直 到 2017 年 3 月 才 开 始 通 车",
+          "full": "敲下垂直进空十五米, 该项目于 2011 年 8 月完工, 但直到 2017 年 3 月才开始通称。",
+          "neural_edges": "敲下垂直进空十五米, 该项目与 2011 年 8 月完工, 但直到 2017 年 3 月才开始通称。"
+        },
+        {
+          "id": "fleurs-cmn_hans_cn-005-original",
+          "metric": "cer",
+          "full_rate": 0.2413793103448276,
+          "edge_rate": 0.3103448275862069,
+          "reference": "大 多 数 现 代 科 研 望 远 镜 都 是 巨 型 设 施 位 于 大 气 条 件 优 良 的 偏 远 地 区",
+          "full": "大多数现代科研旺眼镜都是巨星设施, 位于大 T 大气条件六量的偏远地区。",
+          "neural_edges": "大多数现在科研贸易境都是巨星设施, 位于大 T 大气条件六两的偏远地区"
+        },
+        {
+          "id": "fleurs-cmn_hans_cn-005-quiet40db",
+          "metric": "cer",
+          "full_rate": 0.20689655172413793,
+          "edge_rate": 0.27586206896551724,
+          "reference": "大 多 数 现 代 科 研 望 远 镜 都 是 巨 型 设 施 位 于 大 气 条 件 优 良 的 偏 远 地 区",
+          "full": "大多数现代科研望眼镜都是巨型设施, 位于大 T 大气条件又两个偏远地区。",
+          "neural_edges": "大多数现在科研旺远镜都是巨星设施, 位于大 T 大气条件又两个偏远地区。"
+        },
+        {
+          "id": "fleurs-cmn_hans_cn-007-quiet40db",
+          "metric": "cer",
+          "full_rate": 0.391304347826087,
+          "edge_rate": 0.41304347826086957,
+          "reference": "它 的 长 下 颚 上 布 满 了 70 多 颗 剃 刀 般 锋 利 的 牙 齿 上 颚 上 还 有 一 排 这 意 味 着 任 何 与 它 相 遇 的 东 西 都 无 路 可 逃",
+          "full": "它的成下不满了七十多颗 TI 的牙齿, 上还有一排, 这意味着任何一张项密的东西都无路可套",
+          "neural_edges": "它的厂下不满了七十多颗, 替到半风力的压制, 上还有一排, 这意味着任何与他效率的东西都无路可套。"
+        },
+        {
+          "id": "fleurs-cmn_hans_cn-008-quiet40db",
+          "metric": "cer",
+          "full_rate": 0.35135135135135137,
+          "edge_rate": 0.5405405405405406,
+          "reference": "scotturb 403 路 公 共 汽 车 定 期 发 车 前 往 辛 特 拉 sintra 在 罗 卡 角 停 靠",
+          "full": "Scott 543 公交汽车定期发车前往星特拉, 在罗卡角停靠",
+          "neural_edges": "四零三度公交汽车定期发车前往新特拉, 在罗卡角停靠"
+        },
+        {
+          "id": "fleurs-cmn_hans_cn-009-quiet40db",
+          "metric": "cer",
+          "full_rate": 0.2413793103448276,
+          "edge_rate": 1.0,
+          "reference": "这 里 几 乎 都 是 沙 滩 游 泳 很 安 全 大 部 分 地 方 都 有 新 西 兰 圣 诞 树 的 树 荫",
+          "full": "这里几乎都是沙滩游泳很安全, 大部分地方都有吸息蓝生担术的树印。",
+          "neural_edges": ""
+        }
+      ],
+      "new_empty": 7,
+      "new_empty_ids": [
+        "fleurs-de_de-000-quiet40db",
+        "fleurs-de_de-009-quiet40db",
+        "fleurs-hi_in-003-quiet40db",
+        "fleurs-hi_in-006-quiet40db",
+        "fleurs-cmn_hans_cn-000-quiet40db",
+        "fleurs-cmn_hans_cn-001-quiet40db",
+        "fleurs-cmn_hans_cn-009-quiet40db"
+      ]
+    }
+  },
+  "traces_file": "neural-edges-multilingual-v1.traces.json.gz",
+  "traces_sha256": "8587583ff260bd3ba0d8cd5d3949d4b5c87c1ffd5360824b7ea3d901315afbb4",
+  "traces_uncompressed_bytes": 2357015,
+  "boundary": "Pinned multilingual final-edge check on existing public FLEURS slices.\n\nUses the delivered bundled CLI, actual six-engine recognition within documented\nlanguage coverage, and an earlier frozen raw-score CLI as a range control. The\nsame fifty known clips are tested at original gain and -40 dB; this is not a new\nholdout, real whispering, microphone acceptance or a latency comparison. Language hints are explicit. Parakeet excludes Hindi/Japanese/Mandarin; Cohere excludes Hindi before seeing outputs. All ASR is actual inference without output reuse. Every native range matches the earlier raw-score control with full PCM hashes. All references and hypotheses, including losses, remain in the archive. No default or model-promotion change; weights/cache and the delivered app signature are unchanged."
+}
