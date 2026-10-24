@@ -71,7 +71,7 @@ REWRITE_MODEL = "mlx-community/Qwen3-4B-Instruct-2507-4bit"
 MODEL_LOCK = json.loads(Path(__file__).with_name("models.lock.json").read_text())
 
 
-def resolve_model(model_id, progress=None):
+def resolve_model(model_id, progress=None, *, cache_only=False):
     """Pinned weights, cache-first: offline hot/cold loads never need a hub call."""
     from huggingface_hub import snapshot_download
     from huggingface_hub.errors import LocalEntryNotFoundError
@@ -100,7 +100,7 @@ def resolve_model(model_id, progress=None):
                 "Pinned model cache is incomplete. Reconnect once to repair the download."
             )
     except LocalEntryNotFoundError:
-        if offline:
+        if offline or cache_only:
             raise
         if progress:
             from .model_cache import progress_bar
@@ -121,6 +121,7 @@ class Engine:
         self.models = OrderedDict()
         self.rewriter = None
         self.rewriter_id = None
+        self.primed_text_model = None
         self.diarizer = None
         self.primed_model = None
         self.stream = None
@@ -532,6 +533,54 @@ class Engine:
         result = select(text, lambda prompt, instruction: self.rewrite(prompt, instruction, task="source-selection")["text"])
         return dict(result, model=MODEL_LOCK["rewrite-quality"]["repo"], total_ms=(time.perf_counter() - started) * 1000)
 
+    def _load_rewriter(self, model_id, *, cache_only=False):
+        if self.rewriter is not None and self.rewriter_id == model_id:
+            return
+        from mlx_lm import load
+        from .refinement import LocalModelNotPrepared
+        from huggingface_hub.errors import LocalEntryNotFoundError
+
+        # Resolve before eviction: a missing optional asset must not evict either
+        # resident model. cache_only never repairs/downloads even in online mode.
+        try:
+            path = resolve_model(model_id, self.progress, cache_only=True) if cache_only else resolve_model(model_id, self.progress)
+        except LocalEntryNotFoundError:
+            if not cache_only:
+                raise
+            raise LocalModelNotPrepared("Download the pinned text weights in Models before preparing them on Metal.") from None
+        self.rewriter = None
+        self.rewriter_id = None
+        self.primed_text_model = None
+        gc.collect()
+        if self.progress:
+            self.progress(dict(phase="loading", model=model_id))
+        self.rewriter = load(path)
+        self.rewriter_id = model_id
+
+    def warm_text(self, model_id):
+        from .refinement import local_model
+
+        model_id = local_model(model_id)
+        started = time.perf_counter()
+        with redirect_stdout(sys.stderr):
+            self._load_rewriter(model_id, cache_only=True)
+            load_ms = (time.perf_counter() - started) * 1000
+            already = self.primed_text_model == model_id
+            prime_ms, tokens = 0, 0
+            if not already:
+                if self.progress:
+                    self.progress(dict(phase="priming-text", model=model_id))
+                priming = time.perf_counter()
+                # Production transcript prompt and decoder, synthetic text only.
+                # Completion is discarded; EOS remains mandatory before readiness.
+                result = self.rewrite("The model is ready.", "Copy the transcript exactly.", model_id=model_id)
+                tokens = result["generation_tokens"]
+                prime_ms = (time.perf_counter() - priming) * 1000
+                self.primed_text_model = model_id
+        return dict(model=model_id, repository=MODEL_LOCK[model_id]["repo"], primed=True,
+                    cache_only=True, already_prepared=already, finish_reason="stop", generation_tokens=tokens,
+                    load_ms=load_ms, prime_ms=prime_ms, total_ms=(time.perf_counter() - started) * 1000)
+
     def rewrite(self, text, instruction, model_id="rewrite-quality", task="transcript"):
         from .refinement import messages
 
@@ -539,22 +588,13 @@ class Engine:
         if not text.strip():
             return {"text": "", "total_ms": 0}
         started = time.perf_counter()
-        from mlx_lm import load, stream_generate
+        from mlx_lm import stream_generate
         from .local_completion import completed_text
 
         with redirect_stdout(sys.stderr):
             if model_id not in {"rewrite", "rewrite-quality", "meeting-quality"}:
                 raise ValueError("Unsupported local rewrite model.")
-            if self.rewriter is None or self.rewriter_id != model_id:
-                # Keep one ASR and one small refiner resident. Repeated dictations
-                # must not reload both models at every ASR/refinement boundary.
-                self.rewriter = None
-                gc.collect()
-                path = resolve_model(model_id, self.progress)
-                if self.progress:
-                    self.progress(dict(phase="loading", model=model_id))
-                self.rewriter = load(path)
-                self.rewriter_id = model_id
+            self._load_rewriter(model_id)
             model, tokenizer = self.rewriter
             prompt = tokenizer.apply_chat_template(
                 conversation, tokenize=False, add_generation_prompt=True, enable_thinking=False

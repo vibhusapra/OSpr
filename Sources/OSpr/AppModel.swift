@@ -31,6 +31,7 @@ import OSprCore
     @Published var accessibilityReady = AXIsProcessTrusted()
     @Published var modelCache: [String: ModelCacheStatus] = [:]
     @Published var residentModels: Set<String> = []
+    @Published private(set) var preparedTextModel: String?
     @Published var modelProgress = ""
     @Published var modelFraction: Double?
     @Published var checkingModels = false
@@ -333,7 +334,7 @@ import OSprCore
         panel.message = "Select the OSpr repository containing pyproject.toml and backend/."
         guard panel.runModal() == .OK, let url = panel.url else { return }
         guard FileManager.default.fileExists(atPath: url.appendingPathComponent("backend/ospr_backend/worker.py").path) else { error = "This folder is not an OSpr checkout."; return }
-        worker.shutdown(); settings.rootPath = url.path; worker = WorkerClient(root: url.path); ready = false; saveOSprSettings()
+        generation = UUID(); worker.shutdown(); settings.rootPath = url.path; worker = WorkerClient(root: url.path); ready = false; residentModels = []; preparedTextModel = nil; saveOSprSettings()
     }
 
     func installEngine() {
@@ -360,11 +361,13 @@ import OSprCore
 
     func refreshModels() {
         guard !busy, !checkingModels, engineInstalled else { return }
-        checkingModels = true
+        checkingModels = true; preparedTextModel = nil
+        let token = generation
         Task {
             defer { checkingModels = false }
             do {
                 let result = try await worker.request(["action": "model_status"])
+                guard token == generation else { return }
                 let rows = result["models"] as? [[String: Any]] ?? []
                 modelCache = Dictionary(uniqueKeysWithValues: rows.compactMap { row in
                     guard let value = ModelCacheStatus(row) else { return nil }
@@ -372,27 +375,34 @@ import OSprCore
                 })
                 residentModels = Set(result["resident"] as? [String] ?? [])
                 if let rewrite = result["rewrite_resident"] as? String { residentModels.insert(rewrite) }
+                if let primed = result["rewrite_primed"] as? String, primed == result["rewrite_resident"] as? String,
+                   LocalRefinementModel.allCases.contains(where: { $0.workerModel == primed }) { preparedTextModel = primed }
                 if result["diarizer_resident"] as? Bool == true { residentModels.insert("diarization") }
-            } catch { self.error = error.localizedDescription }
+            } catch { if token == generation { self.error = error.localizedDescription } }
         }
     }
 
     func releaseModels() {
         guard !busy, !checkingModels else { return }
-        worker.shutdown(); ready = false; residentModels = []
+        worker.shutdown(); ready = false; residentModels = []; preparedTextModel = nil
         status = "Local engine released · downloaded weights remain on disk"
     }
 
-    func warm(downloadOnly id: String? = nil) {
+    func warm(downloadOnly id: String? = nil) { prepareModel(downloadOnly: id, textChoice: nil) }
+    func prepareTextModel(_ choice: LocalRefinementModel) { prepareModel(downloadOnly: nil, textChoice: choice) }
+    private func prepareModel(downloadOnly id: String?, textChoice: LocalRefinementModel?) {
         guard !busy else { return }
         generation = UUID(); let token = generation
-        let modelID = id ?? settings.model
+        let modelID = textChoice?.workerModel ?? id ?? settings.model
+        let textPreparation = textChoice != nil
+        if textPreparation { preparedTextModel = nil }
         modelProgress = "Checking pinned weights"; modelFraction = nil
-        if id == nil { ready = false }
-        phase = "warming"; error = ""; status = id == nil ? "Loading model · first use downloads weights" : "Downloading pinned model weights"
+        if id == nil && !textPreparation { ready = false }
+        phase = "warming"; error = ""
+        status = textPreparation ? "Preparing text model · cached weights only" : id == nil ? "Loading model · first use downloads weights" : "Downloading pinned model weights"
         operationTask = Task {
             do {
-                _ = try await worker.request(["action": id == nil ? "warm" : "download_model", "model": modelID], progress: { [weak self] event in
+                let result = try await worker.request(["action": textPreparation ? "warm_text" : id == nil ? "warm" : "download_model", "model": modelID], progress: { [weak self] event in
                     let phase = event["phase"] as? String ?? ""
                     let completed = (event["completed_bytes"] as? NSNumber)?.doubleValue ?? 0
                     let total = (event["total_bytes"] as? NSNumber)?.doubleValue ?? 0
@@ -403,14 +413,25 @@ import OSprCore
                         case "download": self.modelProgress = total > 0 ? "Preparing weights · \(ByteCountFormatter.string(fromByteCount: Int64(completed), countStyle: .file)) / \(ByteCountFormatter.string(fromByteCount: Int64(total), countStyle: .file))" : "Downloading pinned weights · this can take several minutes"
                         case "loading": self.modelProgress = "Loading weights onto Metal"
                         case "priming": self.modelProgress = "Preparing first-use kernels · synthetic audio only"
+                        case "priming-text": self.modelProgress = "Preparing first-use text kernels · synthetic text only"
                         default: self.modelProgress = "Checking pinned weights"
                         }
                     }
                 }, timeout: id == nil ? nil : 3600)
                 guard token == generation else { return }
-                if id == nil { ready = true }
-                status = id == nil ? "Model ready on your Mac" : "Weights downloaded · ready for offline loading"
-            } catch { if token == generation { ready = false; residentModels = []; self.error = error.localizedDescription; status = id == nil ? "Model could not be loaded" : "Download could not be completed" } }
+                if let textChoice { try textChoice.validatePreparation(result); preparedTextModel = modelID }
+                else if id == nil { ready = true }
+                status = textPreparation ? "Text model prepared on Metal · synthetic output discarded" : id == nil ? "Model ready on your Mac" : "Weights downloaded · ready for offline loading"
+            } catch {
+                if token == generation {
+                    if !textPreparation || !WorkerClient.retainsTextModels(after: error, action: "warm_text") {
+                        if textPreparation { worker.shutdown() }
+                        ready = false; residentModels = []; preparedTextModel = nil
+                    }
+                    self.error = error.localizedDescription
+                    status = textPreparation ? "Text model could not be prepared" : id == nil ? "Model could not be loaded" : "Download could not be completed"
+                }
+            }
             if token == generation { phase = "idle"; modelProgress = ""; modelFraction = nil; refreshModels() }
         }
     }
@@ -616,7 +637,7 @@ import OSprCore
             }
             try preserveOnQuit()
             generation = UUID(); operationTask?.cancel(); previewTask?.cancel()
-            worker.shutdown(); ready = false; residentModels = []
+            worker.shutdown(); ready = false; residentModels = []; preparedTextModel = nil
             meetingTimer?.invalidate(); meetingTimer = nil
             if let meetingSession { await meetingSession.discard() }
             meetingSession = nil; recordingDesktop = false
@@ -770,7 +791,7 @@ import OSprCore
         dictationCountdown.cancel(); countdownSeconds = nil
         let wasCapture = phase == "recording" || phase == "starting"
         generation = UUID(); operationTask?.cancel(); operationTask = nil; previewTask?.cancel()
-        if phase == "warming" || phase == "transcribing" || previewTask != nil { worker.shutdown(); ready = false; residentModels = [] }
+        if phase == "warming" || phase == "transcribing" || previewTask != nil { worker.shutdown(); ready = false; residentModels = []; preparedTextModel = nil }
         modelProgress = ""; modelFraction = nil
         streamSession = nil; backgroundGeneration = nil
         meetingTimer?.invalidate(); meetingTimer = nil

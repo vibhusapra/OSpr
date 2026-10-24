@@ -12,6 +12,24 @@ public enum LocalRefinementModel: String, CaseIterable, Sendable {
         ["action": "rewrite", "model": workerModel, "text": text, "instruction": instruction,
          "task": editingSelection ? "edit-selection" : "transcript"]
     }
+    public var preparationRequest: [String: Any] { ["action": "warm_text", "model": workerModel] }
+    public func validatePreparation(_ result: [String: Any]) throws {
+        struct Preparation: Decodable {
+            let model: String, repository: String, finish_reason: String
+            let primed: Bool, cache_only: Bool, already_prepared: Bool
+            let generation_tokens: Int
+            let load_ms: Double, prime_ms: Double, total_ms: Double
+        }
+        guard JSONSerialization.isValidJSONObject(result),
+              let data = try? JSONSerialization.data(withJSONObject: result),
+              let value = try? JSONDecoder().decode(Preparation.self, from: data),
+              value.model == workerModel, value.repository == repository,
+              value.primed, value.cache_only, value.finish_reason == "stop",
+              [value.load_ms, value.prime_ms, value.total_ms].allSatisfy({ $0.isFinite && $0 >= 0 }),
+              value.already_prepared ? (value.generation_tokens == 0 && value.prime_ms == 0) : (1...4096).contains(value.generation_tokens) else {
+            throw OSprError.message("The engine did not acknowledge preparation of the selected text model. Update the engine and retry.")
+        }
+    }
     public func completedText(_ result: [String: Any]) throws -> String {
         struct Completion: Decodable {
             let text: String
@@ -19,7 +37,8 @@ public enum LocalRefinementModel: String, CaseIterable, Sendable {
             let finish_reason: String
             let generation_tokens: Int
         }
-        guard let data = try? JSONSerialization.data(withJSONObject: result),
+        guard JSONSerialization.isValidJSONObject(result),
+              let data = try? JSONSerialization.data(withJSONObject: result),
               let completion = try? JSONDecoder().decode(Completion.self, from: data),
               completion.model == repository, completion.finish_reason == "stop",
               (1...4096).contains(completion.generation_tokens),

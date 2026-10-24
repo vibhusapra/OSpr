@@ -1,0 +1,44 @@
+{
+  "status": "passed-frozen-text-preparation-development-controls",
+  "source": "e74ddf3ed29877f4f5308a23c013a1dbbce59c1d",
+  "application_source_sha256": "9e1d9af9f265422e3e27d78d91b6eaeea01b6ffb757b06caf7f106c4df6f39d4",
+  "rows": [
+    {
+      "preparation_wall_ms": 2225.757956504822,
+      "first_real_rewrite_wall_ms": 252.43496894836426,
+      "preparation_plus_first_rewrite_ms": 2478.192925453186,
+      "model": "rewrite-quality",
+      "name": "Qwen3 4B",
+      "baseline_first_ms": 2477.27108001709
+    },
+    {
+      "preparation_wall_ms": 2748.6510276794434,
+      "first_real_rewrite_wall_ms": 460.8490467071533,
+      "preparation_plus_first_rewrite_ms": 3209.5000743865967,
+      "model": "meeting-quality",
+      "name": "Qwen3.5 9B",
+      "baseline_first_ms": 3034.5460176467896
+    }
+  ],
+  "quality": {
+    "4b": {
+      "raw_lexical": 31,
+      "fallbacks": 6,
+      "delivered_lexical": 36,
+      "denominator": 36,
+      "raw_outputs_identical_to_previous_choice_probe": true
+    },
+    "9b": {
+      "raw_lexical": 34,
+      "fallbacks": 3,
+      "delivered_lexical": 36,
+      "denominator": 36,
+      "raw_outputs_identical_to_previous_choice_probe": true
+    }
+  },
+  "paired_raw_and_delivered_outputs_identical": true,
+  "pairs_per_model": 3,
+  "total_fresh_workers": 12,
+  "timing_receipt_sha256": "246e613e911ec6a29816d39ccc9974db129f9572c83d4b0e5b12f2d0298f5ca9",
+  "boundary": "Medians of three alternating-order pairs/model on one shared Mac and one synthetic public rewrite input. Speech before/after matches with the same PID. Work is shifted before dictation; combined cost is reported. Seventy-two reused development outputs are identical, not representative semantic acceptance or consumer ranking."
+}

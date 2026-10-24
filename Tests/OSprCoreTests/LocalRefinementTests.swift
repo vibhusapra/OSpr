@@ -47,4 +47,27 @@ final class LocalRefinementTests: XCTestCase {
             XCTFail("Local model tags must never become remote compatible requests")
         } catch { XCTAssertEqual(error.localizedDescription, "Choose a supported rewrite provider in Settings.") }
     }
+    func testPreparationRequiresSelectedModelSyntheticCompletionAndValidTimings() throws {
+        for choice in LocalRefinementModel.allCases {
+            XCTAssertEqual(choice.preparationRequest["action"] as? String, "warm_text")
+            XCTAssertEqual(choice.preparationRequest["model"] as? String, choice.workerModel)
+            let valid: [String: Any] = ["model": choice.workerModel, "repository": choice.repository,
+                "primed": true, "cache_only": true, "already_prepared": false, "finish_reason": "stop",
+                "generation_tokens": 7, "load_ms": 10.0, "prime_ms": 20.0, "total_ms": 30.0]
+            try choice.validatePreparation(valid)
+            var repeated = valid; repeated["already_prepared"] = true; repeated["generation_tokens"] = 0; repeated["prime_ms"] = 0
+            try choice.validatePreparation(repeated)
+            for (field, value) in [("model", "other" as Any), ("repository", "other"), ("primed", false),
+                ("cache_only", false), ("already_prepared", true), ("generation_tokens", 0), ("generation_tokens", true),
+                ("finish_reason", "length"), ("load_ms", -1), ("prime_ms", Double.infinity)] {
+                var bad = valid; bad[field] = value
+                XCTAssertThrowsError(try choice.validatePreparation(bad), field)
+            }
+            for field in valid.keys {
+                var old = valid; old.removeValue(forKey: field)
+                XCTAssertThrowsError(try choice.validatePreparation(old), field)
+            }
+        }
+    }
+
 }

@@ -666,3 +666,25 @@ Apple uses its native file API over a JSON pipe; MLX uses direct Python calls.
 This is not a matched consumer-app or microphone latency ranking. Opaque Apple
 weights/compute units can change with OS-managed updates. No app/default/package
 promotion. See `docs/architecture/apple-speech-eval.md` and public raw/check receipts.
+
+## Explicit text-model preparation
+
+`text_preparation.py --cli .build/release/ospr-cli --output <new.json>` runs three
+alternating-order fresh Swift worker pairs/model with resident Parakeet, exact
+first-rewrite timers, actual Clean receiver/fallback, same-PID/warm-ASR controls
+and repeated-preparation checks. The first rewrite excludes preparation; combined
+cost includes it. Every output and partial timing record is retained. One synthetic
+rewrite and a 5.855s public speech control are development diagnostics, not product
+latency, representative quality, battery or consumer ranking.
+
+`text_preparation_cache.py` exposes only cached public Parakeet weights in a
+disposable cache and verifies both text preparations reject without download or
+speech eviction. `text_preparation_contracts.py` runs eleven actual Swift CLI
+acknowledgement/admission cases with owned fake workers. `refinement_eval.py
+--prepare-text` primes the current selected refiner before the development replay.
+Source layouts and headless AppModel controls remain separate from native
+acceptance. A separately signed isolated profile now passes Models preparation,
+4B-to-9B replacement with speech retained, release/cancel and 9B Save/restart;
+recording remains separate. See `results/text-preparation-native.json` and
+`results/text-preparation-package.json` for exact source/package boundaries. A standalone `prepare-text` CLI invocation
+releases its worker on exit; app preparation retains it for later dictation.

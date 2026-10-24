@@ -61,20 +61,35 @@ passes [package gates](benchmarks/results/local-model-package.json) and
 Development signed macOS 26.6.2 arm64; weights separate; not notarized. Older
 packages above predate this choice.
 
-The current experimental source preview is on `codex/web-insertion` ([draft PR #28](https://github.com/vibhusapra/OSpr/pull/28)), stacked on the summary and combined-v0 reviews. `main` still contains the initial bootstrap.
+The current experimental source preview is on `codex/text-model-preparation` ([draft PR #29](https://github.com/vibhusapra/OSpr/pull/29)), stacked on the summary and combined-v0 reviews. `main` still contains the initial bootstrap.
 
 The [web insertion follow-up](docs/architecture/web-insertion.md) fixes a reproduced
 Chrome AX-success/no-visible-delivery failure and verifies real browser paste and
 clipboard restoration. The model-choice ZIP above predates this fix.
 
+The [text preparation follow-up](docs/architecture/text-model-preparation.md) adds
+optional cache-only 4B/9B preparation before dictation, with synthetic output
+discarded and speech residency preserved. Native isolated-profile Models and
+Settings preparation/replacement/release/cancel/Save/restart controls pass. The
+separate `dist/text-preparation-v0/OSpr.app` passes [exact package
+gates](benchmarks/results/text-preparation-package.json), including offline
+relocation, bundled CLI/MCP, provider contracts and archive extraction. Its
+397,708,787-byte `OSpr-v0.1.0-text-preparation-macOS26.6.2-arm64.zip` has SHA-256
+`307e5ba2587382d36cfbe7c53d8fbc18c60921b1cf5b48cb7d72f55d229086f0`.
+Apple Development signed, macOS 26.6.2 arm64, weights separate; not notarized.
+Earlier packages above predate this action and the browser insertion fix. Full
+native dictation, semantic quality and distribution acceptance remain open.
+
 Requirements: Apple Silicon, macOS 14+, Xcode 16+ / Swift 6, [uv](https://docs.astral.sh/uv/),
-and roughly 3–8 GB of available memory for the selected inference configuration.
+and available memory for the selected inference configuration. Text-only short
+probes previously observed 2.64 GiB (4B) / 5.29 GiB (9B) MLX allocation, excluding
+speech/OS/RSS/longer contexts; lower-memory Mac acceptance remains open.
 The small development build retains a checkout/runtime dependency. An optional
 standalone app bundles Python and locked inference libraries. Model
 weights download on first load; disk use depends on the selected models.
 
 ```sh
-git clone --branch codex/web-insertion https://github.com/vibhusapra/OSpr.git
+git clone --branch codex/text-model-preparation https://github.com/vibhusapra/OSpr.git
 cd OSpr
 scripts/setup.sh
 scripts/build-app.sh

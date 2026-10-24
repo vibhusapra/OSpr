@@ -30,7 +30,7 @@ struct TextRefinementPreferences: View {
                 }
             }
             if let choice = model.settings.localRefinementModel {
-                Text(choice == .larger ? "Experimental · 6 GB download shared with meeting summaries. Prepare in Models before dictating. Uses more memory than 4B. AI edits can change meaning; originals stay in History." : "First use downloads a quantized language model. Refinement adds latency and can change meaning; original transcripts stay available in History.").font(.caption).foregroundStyle(.secondary)
+                Text(choice == .larger ? "Experimental · 6 GB download shared with meeting summaries. Download in Models, then Prepare on Metal to move first-use work before dictation. Uses more memory than 4B. AI edits can change meaning; originals stay in History." : "First use downloads a quantized language model. Models offers optional preparation with synthetic text before dictating. Refinement adds latency and can change meaning; original transcripts stay available in History.").font(.caption).foregroundStyle(.secondary)
                 if choice == .larger { Button("Prepare 9B model in Models") { model.tab = "Models" }.buttonStyle(.link) }
             }
         }

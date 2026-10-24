@@ -33,8 +33,11 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--baseline-engine", type=Path)
     parser.add_argument("--baseline-commit")
+    parser.add_argument("--prepare-text", action="store_true", help="Run explicit cached synthetic preparation before the replay.")
     parser.add_argument("--model", choices=["rewrite-quality", "meeting-quality"], default="rewrite-quality")
     args = parser.parse_args()
+    if args.prepare_text and args.baseline_engine:
+        parser.error("Preparation replay uses the current engine only.")
     if args.output.exists():
         parser.error("Output already exists; choose a new receipt path.")
     case_file = ROOT / "benchmarks/refinement_cases.json"
@@ -58,10 +61,12 @@ def main():
         spec.loader.exec_module(module)
         variants.append(("baseline", module.Engine, sha(args.baseline_engine)))
     variants.append(("candidate", Engine, sha(ROOT / "backend/ospr_backend/engine.py")))
-    records = []
+    records, preparations = [], []
     for variant, engine_class, engine_sha in variants:
         engine = engine_class()
         try:
+            if args.prepare_text:
+                preparations.append(engine.warm_text(args.model))
             for case in cases:
                 import mlx.core as mx
                 mx.reset_peak_memory()
@@ -87,7 +92,7 @@ def main():
         cases_sha256=sha(case_file), harness_sha256=sha(Path(__file__)),
         refinement_sha256=sha(ROOT / "backend/ospr_backend/refinement.py"),
         dependency_lock_sha256=sha(ROOT / "uv.lock"), model=MODEL_LOCK[args.model],
-        model_id=args.model,
+        model_id=args.model, text_prepared=args.prepare_text, preparations=preparations,
         instruction=INSTRUCTION, records=records,
         limitations=[
             "Twelve existing development cases plus 24 fresh synthetic challenge cases; not a representative held-out benchmark.",
