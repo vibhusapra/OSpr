@@ -97,8 +97,12 @@ def main():
             assert replay['buffered_input_samples'] == 0
             record['maximum_roundtrip_error'] = float(np.max(np.abs(full - expected)))
             record['relative_rms_roundtrip_error'] = float(np.linalg.norm(full - expected) / np.linalg.norm(expected))
-            assert record['maximum_roundtrip_error'] <= protocol['max_sample_error']
-            assert record['relative_rms_roundtrip_error'] <= protocol['max_relative_rms_error']
+            reference, reference_rate = sf.read(folder / replay['reference_file'], dtype='float32')
+            assert reference_rate == 16000 and len(reference) == len(full)
+            record['whole_track_reference_pcm_sha256'] = pcmsha(reference)
+            record['maximum_whole_track_error'] = float(np.max(np.abs(full - reference)))
+            save()
+            assert record['maximum_whole_track_error'] <= protocol['max_whole_track_error']
             # Every packet, including the independently flushed converter tail.
             state = engine.stream_begin('en')
             supplied = []
@@ -131,7 +135,7 @@ def main():
         git_commit=commit, cli_sha256=cli_sha, protocol_sha256=sha(PROTOCOL), harness_sha256=sha(Path(__file__)),
         mixer_sha256=sha(ROOT/'Sources/OSprCore/MeetingPreviewMixer.swift'), expected_text=expected_text,
         expected_samples=len(expected), expected_pcm_sha256=pcmsha(expected),
-        variants=[{key: row[key] for key in ['id', 'samples', 'full_pcm_sha256', 'maximum_roundtrip_error', 'relative_rms_roundtrip_error', 'final']} for row in records],
+        variants=[{key: row[key] for key in ['id', 'samples', 'full_pcm_sha256', 'maximum_roundtrip_error', 'relative_rms_roundtrip_error', 'whole_track_reference_pcm_sha256', 'maximum_whole_track_error', 'final']} for row in records],
         full_pcm_partition_invariant=True, full_final_text_partition_invariant=True,
         traces_file=traces.name, traces_sha256=sha(traces), boundary=protocol['boundary'])
     args.output.write_text(json.dumps(receipt, indent=2, ensure_ascii=False) + '\n')

@@ -54,6 +54,17 @@ enum MeetingPreviewCheck {
         }
         events.sort { $0.arrival == $1.arrival ? $0.source.rawValue < $1.source.rawValue : $0.arrival < $1.arrival }
         try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true, attributes: [.posixPermissions: 0o700])
+        let reference = try wholeTrackReference(fixture.sources)
+        let referenceURL = directory.appendingPathComponent("reference.wav")
+        do {
+            let format = AVAudioFormat(standardFormatWithSampleRate: 16000, channels: 1)!
+            let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: AVAudioFrameCount(reference.count))!
+            buffer.frameLength = AVAudioFrameCount(reference.count)
+            reference.withUnsafeBufferPointer { buffer.floatChannelData![0].update(from: $0.baseAddress!, count: $0.count) }
+            let file = try AVAudioFile(forWriting: referenceURL, settings: format.settings)
+            try FileManager.default.setAttributes([.posixPermissions: 0o600], ofItemAtPath: referenceURL.path)
+            try file.write(from: buffer)
+        }
         let mixer = try MeetingPreviewMixer(includeMicrophone: fixture.sources.contains { $0.source == "microphone" })
         let fullURL = directory.appendingPathComponent("full.wav")
         let format = AVAudioFormat(standardFormatWithSampleRate: 16000, channels: 1)!
@@ -91,9 +102,49 @@ enum MeetingPreviewCheck {
         mixer.finish()
         while try snapshot(at: events.last!.arrival, final: true) {}
         full = nil // Close the file before a caller can inspect its frame count.
-        return ["packets": rows, "full_file": fullURL.lastPathComponent, "samples": samplesWritten,
+        return ["packets": rows, "full_file": fullURL.lastPathComponent, "reference_file": referenceURL.lastPathComponent, "samples": samplesWritten,
                 "start_time": mixer.startTime! - 1000, "buffered_input_samples": mixer.bufferedInputSamples,
                 "allocated_sample_capacity": mixer.allocatedSampleCapacity, "input_events": events.count,
                 "boundary": "Unpaced public-file production mixer replay. Synthetic source arrival clock; no capture, ASR, UI, latency, memory peak or energy measurement."]
+    }
+
+    /// Separate, whole-file AVAudioConverter path: no production mixer, segment
+    /// queue, rolling window or StreamingSpeechResampler. Bounded fixture only.
+    private static func wholeTrackReference(_ sources: [Manifest.Source]) throws -> [Float] {
+        var normalized = [(Int, [Float])]()
+        let origin = sources.map(\.offset).min()!
+        let destination = AVAudioFormat(standardFormatWithSampleRate: 16000, channels: 1)!
+        for source in sources {
+            let file = try AVAudioFile(forReading: URL(fileURLWithPath: source.path))
+            let format = file.processingFormat
+            let input = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: AVAudioFrameCount(file.length))!
+            var position = 0
+            let block = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: 8192)!
+            while position < file.length {
+                try file.read(into: block, frameCount: AVAudioFrameCount(min(8192, Int(file.length) - position)))
+                guard block.frameLength > 0 else { throw OSprError.message("Incomplete reference input.") }
+                input.floatChannelData![0].advanced(by: position).update(from: block.floatChannelData![0], count: Int(block.frameLength))
+                position += Int(block.frameLength)
+            }
+            input.frameLength = AVAudioFrameCount(position)
+            let converter = AVAudioConverter(from: format, to: destination)!
+            let output = AVAudioPCMBuffer(pcmFormat: destination, frameCapacity: AVAudioFrameCount(ceil(Double(position) * 16000 / format.sampleRate)) + 4096)!
+            var offered = false
+            var error: NSError?
+            let status = converter.convert(to: output, error: &error) { _, state in
+                if !offered { offered = true; state.pointee = .haveData; return input }
+                state.pointee = .endOfStream; return nil
+            }
+            if let error { throw error }
+            guard status == .endOfStream else { throw OSprError.message("Whole-track reference did not finish.") }
+            normalized.append((Int(((source.offset - origin) * 16000).rounded()),
+                               Array(UnsafeBufferPointer(start: output.floatChannelData![0], count: Int(output.frameLength)))))
+        }
+        var mixed = [Float](repeating: 0, count: normalized.map { $0.0 + $0.1.count }.max()!)
+        let gain: Float = sources.contains { $0.source == "microphone" } ? 0.5 : 1
+        for (offset, samples) in normalized {
+            for (index, sample) in samples.enumerated() { mixed[offset + index] += sample * gain }
+        }
+        return mixed.map { min(1, max(-1, $0)) }
     }
 }

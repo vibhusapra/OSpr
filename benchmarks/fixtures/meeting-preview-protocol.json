@@ -1,5 +1,5 @@
 {
-  "schema": 1,
+  "schema": 2,
   "seconds": 60,
   "microphone_offset": 0.125,
   "sources": [
@@ -85,8 +85,6 @@
       "jitter": 0.1
     }
   ],
-  "max_sample_error": 0.05,
-  "max_relative_rms_error": 0.1,
   "final_models": [
     "nemotron-streaming",
     "parakeet-v3"
@@ -96,5 +94,6 @@
     "uv.lock": "8e306569ebe63c886e9938d06c2e0a6e39d661de20e116a1998321dbfd14a6d2",
     "benchmarks/fixtures/manifest.json": "ea0df37dc8f5a7b519b115d44fcd71f16413e04f1bac48b15eec9399f4e43c2b"
   },
-  "boundary": "Unpaced native production mix from two public read-English clips by one speaker, placed without speech overlap on simulated 44.1/48 kHz sources. Three partition/cadence/delivery schedules, half gain per source and 125 ms source offset. Cached Nemotron receives every draft packet; its final stream flush is diagnostic only. The app cancels provisional draft and independently recognizes the complete durable mix. No microphone, ScreenCaptureKit, UI, physical stop, latency, peak-memory, energy, diarization, echo or broad natural-meeting quality claim. Roundtrip tolerance checks conversion/timeline only; ASR WER is descriptive, not an accuracy acceptance threshold. No candidate/default/distribution promotion from this replay."
+  "boundary": "Unpaced native production mix from two public read-English clips by one speaker, placed without speech overlap on simulated 44.1/48 kHz sources. Three partition/cadence/delivery schedules, half gain per source and 125 ms source offset. Cached Nemotron receives every draft packet; its final stream flush is diagnostic only. The app cancels provisional draft and independently recognizes the complete durable mix. No microphone, ScreenCaptureKit, UI, physical stop, latency, peak-memory, energy, diarization, echo or broad natural-meeting quality claim. Whole-track AVAudioConverter comparison checks packet preservation. SciPy-to-Apple roundtrip differences are reported without a threshold; ASR WER is descriptive, not an accuracy acceptance threshold. No candidate/default/distribution promotion from this replay.",
+  "max_whole_track_error": 1e-07
 }
