@@ -6,7 +6,6 @@ import gzip
 import hashlib
 import importlib.metadata
 import json
-import os
 from pathlib import Path
 import platform
 import queue

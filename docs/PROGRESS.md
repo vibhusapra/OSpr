@@ -2,6 +2,38 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## Apple native-runtime baseline: portfolio unchanged
+
+The source-only `codex/apple-speech-eval` branch adds a macOS 26 Swift file helper
+and frozen 365-English/5-nonspeech comparison with Parakeet, native-layout Cohere
+8-bit and Whisper Turbo. Four initial trials plus four routes per case complete
+**1,484 requests with zero API errors**. Serial route order rotates per case;
+MLX models stay resident in separate Engine instances and all use full audio.
+
+Aggregate conservative English WER across 73 speakers / 7,765 reference words:
+**Apple 3.670%, Parakeet 3.117%, Cohere 1.842%, Whisper Turbo 3.812%**. Five
+nonspeech controls yield nonempty text in zero Apple/Parakeet/Cohere responses
+and four Turbo responses. Independent PCM/order/edit-distance/quantile checks
+pass; no Apple reported timing-bound or analyzed-endpoint violations are found.
+Five native subprocess controls also pass, including per-file failure isolation
+and successful subsequent recognition. A lint-only unused import is removed
+from the producer after the measured source; inference/helper code is unchanged.
+
+Apple uses JSON IPC to a native system file API; MLX uses in-process Python.
+Caller timings are descriptive of these distinct paths, with no consumer-app,
+microphone, isolated memory/energy or GPU/ANE-unit claim. Apple manages opaque
+weights outside app memory. English assets were prepared through its manager;
+no OSpr settings/history or running app changes. This is a research baseline,
+not a new app engine/default/checked package. Parakeet/Cohere remain the preferred
+measured English choices. The report now maps 29 offerings/runtimes, adding
+Apple SpeechAnalyzer and Moonshine from October 24 official sources. Moonshine
+is research-only here, without an installation or Mac GPU/accuracy claim.
+
+See `apple-speech-real.json`, raw traces, `apple-speech-checks.json`,
+`apple-speech-contracts.json` and `docs/architecture/apple-speech-eval.md`.
+The ledger also removes stale claims that native-rate continuity is still broken
+or the Mac is still locked; physical capture/insertion acceptance remains open.
+
 ## Qwen duplicate-work study: exact output, no measured speedup
 
 The source-only `codex/qwen-feature-reuse` branch keeps prompt-count reuse
