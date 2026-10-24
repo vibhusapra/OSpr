@@ -42,9 +42,28 @@ See `meeting-preview-real-v3.json`, every raw response, independent checks,
 `docs/architecture/meeting-live-preview.md`. No running app/settings/history,
 volume, microphone capture or approved player state changed in these tests.
 
+A separate Apple Development signed test preview at source `2ceb234` is now
+available in `dist/meeting-preview-v0/`. The 393,425,164-byte ZIP has SHA-256
+`8ca84dfbbdcd69f3ecaaa1a3840d5ee91ff904dd1204591977dc9214e82d7ada`.
+Relocated/offline/hostile-PYTHONPATH checks pass all six engines and native
+neural-edge routes, notes/speakers/mix/review/MCP and nine model inventories.
+The packaged CLI preserves exact mixed PCM across all three schedules and its
+real WorkerClient reproduces both final transcripts. Its 208 help links,
+license bytes, ZIP CRC, extraction, signatures and extracted CLI inventory pass.
+Exact application-source macOS CI is green (run 40084618083), with 331 Swift /
+248 Python tests, lint, app/report and clean-runner runtime imports. The Apple
+research helper is explicitly skipped on the runner's older SDK.
+
+This is a separate macOS 26.6.2 arm64 test candidate, with weights downloaded
+separately, not Developer ID/notarized or clean-Mac accepted. Bundled help is
+the pre-receipt source snapshot. The previous checked streaming preview and
+normal running app remain intact; settings/history hashes are unchanged.
+See `meeting-preview-package.json`, `meeting-preview-portable.json`,
+`meeting-preview-bundled-checks.json` and `meeting-preview-source-validation.json`.
+
 Remaining work: physical live desktop/microphone capture, route changes, stop
-interaction and echo checks; then exact-bundle replay and distribution gates.
-No checked-package promotion, full feature-union or top-three claim. Native
+interaction and echo checks; clean-Mac/older-OS/updater and distribution gates.
+No promotion over the earlier checked preview, full feature-union or top-three claim. Native
 insertion/shortcut acceptance and the single pending audible-test confirmation
 remain separate. The broader goal stays active.
 

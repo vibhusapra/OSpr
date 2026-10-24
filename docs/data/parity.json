@@ -279,8 +279,8 @@
       "feature": "Live meeting transcript",
       "status": "experimental",
       "priority": "P1",
-      "evidence": "Opt-in native desktop/microphone draft mix with bounded FIFOs, clock offsets, continuous per-source AVAudioConverter, 500 ms reorder budget and visible failure isolation. Nemotron continuous draft or other models rolling 12 seconds. 21 new mixer/pipeline/AppModel tests. Three real local-ASR file replays preserve all 962,000 samples exactly against whole-track Apple conversion and across packet schedules; final text is invariant per model.",
-      "gap": "Source-only; physical ScreenCaptureKit/microphone/device/stop acceptance remains. Preview is provisional and has no live speaker labels; final transcription independently decodes full durable audio. Extra compute, fixed half gain in duplex mode, no echo cancellation, no consumer latency/energy/top-three claim."
+      "evidence": "Opt-in native desktop/microphone draft mix with bounded FIFOs, clock offsets, continuous per-source AVAudioConverter, 500 ms reorder budget and visible failure isolation. Nemotron continuous draft or other models rolling 12 seconds. 21 new mixer/pipeline/AppModel tests. Three real local-ASR file replays preserve all 962,000 samples exactly against whole-track Apple conversion and across packet schedules; final text is invariant per model. Separate 2ceb234 signed test candidate passes relocated six-engine/neural routes, exact packaged mix and native WorkerClient final-ASR checks; source CI passes 331 Swift / 248 Python tests.",
+      "gap": "Separate test candidate; physical ScreenCaptureKit/microphone/device/stop acceptance remains. Preview is provisional and has no live speaker labels; final transcription independently decodes full durable audio. Extra compute, fixed half gain in duplex mode, no echo cancellation, no consumer latency/energy/top-three claim."
     },
     {
       "feature": "Speaker diarization",

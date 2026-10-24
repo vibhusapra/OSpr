@@ -82,3 +82,21 @@ Receipts: [replay](../../benchmarks/results/meeting-preview-real-v3.json),
 [mutated receipt controls](../../benchmarks/results/meeting-preview-verifier-controls.json).
 [Layout fixture](../assets/meeting-preview-layout.png) is a render of actual
 SwiftUI source with simulated state, not native capture/recognition evidence.
+
+## Separate test candidate
+
+`dist/meeting-preview-v0/OSpr.app` and its ZIP freeze application source
+`2ceb234`, fingerprint
+`e6b9856a3641e4071bf42fde462c79faa60fb669ffa9dcb4dc371be6eabf9837`.
+The Apple Development signed macOS 26.6.2 arm64 candidate passes relocated
+six-engine/neural checks and exact bundled mixer/real WorkerClient final-ASR
+checks. All 208 bundled help links resolve. ZIP CRC, extraction, signature,
+license bytes and extracted offline CLI inventory pass. Source CI is green at
+331 Swift / 248 Python tests. This does not establish native capture acceptance,
+Developer ID/notarization, clean-Mac/older-OS installation or updater readiness.
+The earlier checked streaming preview remains intact.
+
+[Package manifest](../../benchmarks/results/meeting-preview-package.json),
+[portable models and extras](../../benchmarks/results/meeting-preview-portable.json),
+[bundled mixed-file and WorkerClient checks](../../benchmarks/results/meeting-preview-bundled-checks.json),
+[source validation](../../benchmarks/results/meeting-preview-source-validation.json).
