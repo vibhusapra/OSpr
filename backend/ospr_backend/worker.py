@@ -21,6 +21,8 @@ MAX_REQUEST = 2 * 1024 * 1024
 
 def dispatch(engine, request):
     action = request.get("action")
+    if action in {"transcribe", "meeting"} and type(request.get("trim", False)) is not bool:
+        raise ValueError("trim must be a boolean.")
     if action == "ping":
         return {"version": __version__, "pid": os.getpid(), "models": PUBLIC_MODELS}
     if action == "warm":
@@ -80,7 +82,7 @@ def dispatch(engine, request):
             request.get("model", "parakeet-v3"),
             request.get("language"),
             request.get("vocabulary", "")[:16000],
-            bool(request.get("trim", True)),
+            request.get("trim", False),
             float(request.get("threshold", 0.003)),
             speech_edges=request.get("speech_edges"),
         )
@@ -96,7 +98,7 @@ def dispatch(engine, request):
             model,
             request.get("language"),
             request.get("vocabulary", "")[:16000],
-            bool(request.get("trim", True)),
+            request.get("trim", False),
             threshold,
             speech_edges=request.get("speech_edges"),
         )

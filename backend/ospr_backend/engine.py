@@ -207,7 +207,7 @@ class Engine:
         model_id="parakeet-v3",
         language=None,
         vocabulary="",
-        trim=True,
+        trim=False,
         threshold=0.003,
         word_timestamps=False,
         speech_edges=None,
@@ -237,7 +237,9 @@ class Engine:
         }
         if speech_edges is not None:
             base["speech_edges"] = speech_edges
-        if len(audio) < 320:
+        # Only exact zeros bypass ASR by default. A volume threshold is an
+        # explicit opt-in: even very quiet nonzero samples can contain words.
+        if len(audio) < 320 or not audio.any():
             return dict(
                 base,
                 text="",
@@ -245,6 +247,9 @@ class Engine:
                 language=language,
                 silence=True,
                 detector_abstained=speech_edges is not None,
+                empty_reason=("detector_abstained" if speech_edges is not None else
+                              "volume_filter_abstained" if trim and len(audio) < 320 else
+                              "too_short" if len(audio) < 320 else "normalized_zero"),
                 warm=True,
                 load_ms=0,
                 decode_ms=0,
@@ -372,7 +377,7 @@ class Engine:
             vocabulary_applied=spec["engine"] == "whisper" and bool(vocabulary),
         )
 
-    def meeting(self, path, model_id="parakeet-v3", language=None, vocabulary="", trim=True, threshold=0.003, speech_edges=None):
+    def meeting(self, path, model_id="parakeet-v3", language=None, vocabulary="", trim=False, threshold=0.003, speech_edges=None):
         if model_id not in {"parakeet-v3", "whisper-turbo", "whisper-small"}:
             raise ValueError("Speaker-labeled imports currently require Parakeet or Whisper word timing.")
         started = time.perf_counter()
@@ -386,8 +391,10 @@ class Engine:
             if end - start < 320:
                 return dict(text="", raw_text="", words=[], segments=[], speaker_turns=[], model=model_id,
                             audio_seconds=len(audio) / SAMPLE_RATE, speech_seconds=(end - start) / SAMPLE_RATE,
-                            silence=True, detector_abstained=True, speech_edges=speech_edges, total_ms=0)
-        if not len(audio) or (trim and speech_bounds(audio, threshold=float(threshold)) == (0, 0)):
+                            silence=True, detector_abstained=True, empty_reason="detector_abstained",
+                            speech_edges=speech_edges, total_ms=0)
+        volume_abstained = trim and speech_bounds(audio, threshold=float(threshold)) == (0, 0)
+        if len(audio) < 320 or not audio.any() or volume_abstained:
             return dict(
                 text="",
                 raw_text="",
@@ -397,6 +404,8 @@ class Engine:
                 model=model_id,
                 audio_seconds=len(audio) / SAMPLE_RATE,
                 silence=True,
+                empty_reason=("volume_filter_abstained" if volume_abstained else
+                              "too_short" if len(audio) < 320 else "normalized_zero"),
                 total_ms=0,
             )
         from mlx_audio.vad import load

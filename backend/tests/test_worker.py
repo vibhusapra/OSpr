@@ -19,6 +19,7 @@ def test_silence_never_loads_a_model(tmp_path):
     result = engine.transcribe(str(path))
     assert result["silence"]
     assert result["text"] == ""
+    assert result["empty_reason"] == "normalized_zero"
     assert not engine.models
 
 
@@ -28,6 +29,9 @@ def test_silence_never_loads_a_model(tmp_path):
         {"action": "unknown"},
         {"action": "transcribe", "model": "untrusted/repo"},
         {"action": "transcribe", "path": "unused", "threshold": -1},
+        {"action": "transcribe", "path": "unused", "trim": "false"},
+        {"action": "meeting", "path": "unused", "trim": 0},
+        {"action": "meeting", "path": "unused", "trim": None},
         {"action": "rewrite", "text": "a" * 100001},
     ],
 )

@@ -215,6 +215,13 @@ complete take gets a separate final decode. An empty detector range keeps
 completed recording recovery available; **Retry without edge trimming** uses the
 full recording for that attempt, without changing saved preferences.
 
+New installations now leave both volume and neural edge trimming off so local
+recognition receives the full normalized audio. Explicit saved preferences are
+preserved; CLI, worker and MCP defaults also use full audio. Every empty result
+retains completed recording recovery for review/retry, including a silence flag.
+See [full-audio defaults](docs/architecture/full-audio-defaults.md). Existing ZIPs
+predate this change.
+
 Both neural options are off by default. New settings encode legacy edge trimming
 and auto-stop as off while their neural counterparts are enabled, so an older
 build cannot silently substitute RMS. Native controls and physical microphone
@@ -304,8 +311,8 @@ separate limitation. No secure-erasure guarantee is made.
 It is a research command for a supplied local Silero-compatible
 Core ML model. It reports probabilities and audio-time endpoint events without
 microphone capture, ASR or network access. Current source adds the opt-in native
-microphone option above; defaults and the delivered preview keep their existing
-behavior. See [evaluation and integration gates](docs/architecture/neural-endpointing.md).
+microphone option above. The delivered preview predates the safer full-audio
+defaults in source. See [evaluation and integration gates](docs/architecture/neural-endpointing.md).
 
 The standalone app also includes `Contents/MacOS/ospr-cli`, which discovers its
 bundled engine automatically, including through a symlink. For example:

@@ -2,7 +2,23 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
-## Current work: keep recognition timings inside analyzed audio
+## Current work: preserve quiet audio by default
+
+Branch `codex/full-audio-defaults` follows the timing fix. New or missing native
+settings, CLI/worker requests and direct Python/MCP calls now use full normalized
+audio without RMS or neural edge filtering. Explicit stored choices survive.
+Exact-zero normalized input skips model loading; very quiet nonzero samples
+remain eligible. Every empty result leaves completed recording recovery available,
+including a silence flag. This does not fix partial ASR deletions or establish
+native recovery/insertion acceptance. Existing ZIPs predate these changes.
+
+Source checks pass **178 Python / 305 Swift tests** and lint. The additional fixed
+real-ASR regression will compare default requests against prior full-audio text
+on source 000 in each supported language, original and −40 dB, for all six
+models (52 requests). This selection is fixed before running. Results pending.
+See `docs/architecture/full-audio-defaults.md`.
+
+## Previous work: keep recognition timings inside analyzed audio
 
 Branch `codex/asr-timing-bounds` follows the multilingual failure study. A common
 local return-path guard now bounds segment/word estimates to the actual selected
