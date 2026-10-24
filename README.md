@@ -84,6 +84,14 @@ Builds use ad-hoc signing by default; the current local preview uses an Apple De
 until its transcripts/settings are backed up.
 
 Newer focused test candidates are tracked in [progress](docs/PROGRESS.md). The
+Azure candidate at `dist/azure-refinement-v0/OSpr.app` is source `3fb3c1d`:
+377 Swift/248 Python tests, source CI, six-engine portable checks, twelve Azure /
+eight Gemini bundled CLI loopback cases and archive checks pass. It adds native
+Azure v1 resource-key/deployment text refinement to the prior source features.
+Live account/native/distribution gates remain open.
+[Manifest and scope](docs/architecture/azure-refinement.md).
+
+The
 native Gemini candidate at `dist/gemini-refinement-v0/OSpr.app` is source
 `46223b0`: 366 Swift/248 Python tests, source CI, six-engine portable checks,
 eight exact bundled Gemini loopback CLI cases and archive checks pass. It adds
@@ -164,7 +172,7 @@ actual microphone-to-insertion acceptance remains open.
   [native acceptance and compatibility limits](docs/architecture/context-profiles.md)
   are tracked separately.
 - Optional local Qwen3 4B Instruct refinement, Ollama/compatible services, or BYOK
-  compatible/Anthropic/native Gemini rewriting. Refinement can change meaning; raw text is kept
+  compatible/Anthropic/native Gemini/Azure v1 rewriting. Refinement can change meaning; raw text is kept
   and a conservative preservation check rejects several obvious regressions.
   Local cleanup now passes the transcript as JSON-quoted data, with separate
   tasks for deliberate selection editing and extractive notes. A 36-case probe
@@ -356,6 +364,11 @@ The input file is unchanged; JSON reports whether the Clean fidelity guard
 accepted the rewrite or returned the original. Incomplete/blocked/provider
 failures exit without partial output. This command uploads text, uses no audio
 or local model, and does not imply semantic fidelity or provider-account acceptance.
+
+`ospr-cli rewrite-azure /path/to/transcript.txt https://YOUR-RESOURCE.openai.azure.com YOUR_DEPLOYMENT`
+uses an Azure resource key from `OSPR_REWRITE_KEY` with the same input-preservation
+and Clean guard behavior. Configure your own resource and deployment. It supports
+v1 resource-key authentication, not dated deployment URLs or Entra sign-in.
 
 `analyze-speech` is in current source; the context-profiles-v0 ZIP predates it.
 It is a research command for a supplied local Silero-compatible

@@ -668,15 +668,19 @@ struct PreferencesView: View {
                     Text("BYOK · OpenAI-compatible API").tag("compatible")
                     Text("BYOK · Anthropic Messages API").tag("anthropic")
                     Text("BYOK · Google Gemini API").tag("gemini")
+                    Text("BYOK · Azure v1 API").tag("azure")
                 }
-                if ["ollama", "compatible", "anthropic", "gemini"].contains(model.settings.rewriteProvider) {
+                if ["ollama", "compatible", "anthropic", "gemini", "azure"].contains(model.settings.rewriteProvider) {
                     ProviderPresetPicker(kind: "rewrite", model: model)
-                    TextField(model.settings.rewriteProvider == "gemini" ? "Base URL, including /v1beta" : "Base URL, including /v1", text: $model.settings.rewriteURL)
-                    TextField("Model ID", text: $model.settings.rewriteModel)
+                    TextField(model.settings.rewriteProvider == "azure" ? "Azure resource URL or /openai/v1 base" : model.settings.rewriteProvider == "gemini" ? "Base URL, including /v1beta" : "Base URL, including /v1", text: $model.settings.rewriteURL)
+                    TextField(model.settings.rewriteProvider == "azure" ? "Azure deployment name" : "Model ID", text: $model.settings.rewriteModel)
                     SecureField("API key · saved in Keychain", text: $model.rewriteKey)
                     Text("Only transcript text and selected-text editing context go to this endpoint. Screen content and clipboard are never read for context.").font(.caption).foregroundStyle(.secondary)
                     if model.settings.rewriteProvider == "gemini" {
                         Text("Use the Gemini Developer API base URL and a model ID from your account. Incomplete or blocked responses keep the original text. This option sends text to your configured provider; it does not send audio.").font(.caption).foregroundStyle(.secondary)
+                    }
+                    if model.settings.rewriteProvider == "azure" {
+                        Text("Use your Azure resource URL and deployment name, which may differ from the model name. This v1 option uses a resource API key, sends text only, and keeps the original on incomplete or blocked replies. Dated deployment URLs and Entra sign-in are not supported here.").font(.caption).foregroundStyle(.secondary)
                     }
                 }
                 if model.settings.rewriteProvider == "local" { Text("First use downloads a quantized language model. Refinement adds latency and can change meaning; original transcripts stay available in History.").font(.caption).foregroundStyle(.secondary) }
@@ -734,6 +738,7 @@ struct ProviderPresetPicker: View {
                 Button("OpenAI-compatible · enter model ID") { model.settings.rewriteProvider = "compatible"; model.settings.rewriteURL = "https://api.openai.com/v1"; model.settings.rewriteModel = "" }
                 Button("Anthropic · enter model ID") { model.settings.rewriteProvider = "anthropic"; model.settings.rewriteURL = "https://api.anthropic.com/v1"; model.settings.rewriteModel = "" }
                 Button("Google Gemini · enter model ID") { model.settings.rewriteProvider = "gemini"; model.settings.rewriteURL = "https://generativelanguage.googleapis.com/v1beta"; model.settings.rewriteModel = "" }
+                Button("Azure v1 · enter resource URL and deployment") { model.settings.rewriteProvider = "azure"; model.settings.rewriteURL = ""; model.settings.rewriteModel = "" }
             }
         }.font(.caption)
     }

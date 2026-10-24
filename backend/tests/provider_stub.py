@@ -73,6 +73,30 @@ class Handler(BaseHTTPRequestHandler):
             if route.path.startswith("/gemini-negation/"):
                 candidate["content"]["parts"] = [{"text": "Do not ship."}]
             result = {"candidates": [candidate]}
+        elif route.path.endswith("/openai/v1/chat/completions"):
+            body = json.loads(data)
+            assert self.headers["api-key"] == "test-key"
+            assert self.headers.get("Authorization") is None
+            assert self.headers.get("x-goog-api-key") is None
+            assert not route.query
+            assert body["model"] == "test-deployment"
+            assert body["messages"][0]["role"] == "system"
+            assert body["messages"][0]["content"].endswith("Clean up.")
+            assert body["messages"][1] == {"role": "user", "content": "test passage"}
+            assert body["max_completion_tokens"] == 4096 and body["n"] == 1
+            assert body["stream"] is False and body["store"] is False
+            assert "temperature" not in body and "tools" not in body
+            message = {"role": "assistant", "content": "Edited passage.", "refusal": None}
+            choice = {"index": 0, "finish_reason": "stop", "message": message}
+            if route.path.startswith("/azure-truncated/"):
+                choice["finish_reason"] = "length"
+            if route.path.startswith("/azure-filtered/"):
+                choice["content_filter_results"] = {"hate": {"filtered": True}}
+            if route.path.startswith("/azure-refused/"):
+                message["refusal"] = "PRIVATE REFUSAL"
+            if route.path.startswith("/azure-negation/"):
+                message["content"] = "Do not ship."
+            result = {"choices": [choice]}
         elif self.path.endswith("/chat/completions"):
             body = json.loads(data)
             assert body["messages"][0]["role"] == "system"

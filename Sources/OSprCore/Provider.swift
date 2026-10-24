@@ -50,11 +50,14 @@ public enum ProviderClient {
     }
 
     public static func rewrite(text: String, instruction: String, provider: String, base: String, model: String, key: String) async throws -> String {
-        guard ["compatible", "ollama", "anthropic", "gemini"].contains(provider) else {
+        guard ["compatible", "ollama", "anthropic", "gemini", "azure"].contains(provider) else {
             throw OSprError.message("Choose a supported rewrite provider in Settings.")
         }
         if provider == "gemini" {
             return try await GeminiRewrite.rewrite(text: text, instruction: instruction, base: base, model: model, key: key)
+        }
+        if provider == "azure" {
+            return try await AzureRewrite.rewrite(text: text, instruction: instruction, base: base, deployment: model, key: key)
         }
         var request = URLRequest(url: try endpoint(base: base, path: provider == "anthropic" ? "messages" : "chat/completions"))
         request.httpMethod = "POST"; request.setValue("application/json", forHTTPHeaderField: "Content-Type")

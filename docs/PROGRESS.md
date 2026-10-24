@@ -2,6 +2,45 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## Azure v1 BYOK refinement: native adapter and CLI contracts pass
+
+The `codex/azure-refinement` branch closes the remaining Azure resource-key text
+adapter gap. Settings has an Azure selector and deliberately unconfigured preset,
+resource URL/v1 base and deployment-name fields with the existing scoped Keychain.
+The native API normalizes root URLs, uses `api-key` header authentication and
+one bounded text-only Chat Completions request. Deployment is JSON data; no dated
+API query, tool invocation, OAuth flow, continuation or automatic retry is added.
+
+Only a complete single index-zero assistant response reaches the existing
+fidelity guard. Filtered prompt/candidate output, refusal/tool/function/audio,
+incomplete/malformed/ambiguous replies fail and original text remains available.
+The file CLI preserves its input and returns original text on a lexical tripwire;
+provider failure returns no partial stdout. Defaults stay local/off.
+
+Local **377 Swift / 248 Python tests** and Ruff pass, including eleven new Swift
+cases. Twelve actual Azure CLI loopback cases and eight Gemini regression cases
+pass. Light/dark actual Settings source renders were inspected in an isolated
+services-disabled profile. These are simulated layout/protocol tests, not native
+Settings/Keychain or provider-account evidence. No Azure account, real key, new
+recording/playback, normal data or sound setting is involved. Native Mac unlock,
+resource/model/parameter compatibility, semantics and live latency remain open.
+Dated Azure/Entra/Azure Speech Services are outside this adapter.
+See [the protocol, CLI and primary references](architecture/azure-refinement.md).
+
+Source `3fb3c1d` CI 40095224602 passes matching 377/248 tests, both CLI suites,
+app/report and clean-runner runtime. Its separate Apple Development signed
+`dist/azure-refinement-v0/OSpr.app` passes relocated offline six-engine/neural/extras
+and exact bundled Azure/Gemini CLI replay. The 396,023,372-byte ZIP is SHA-256
+`0b38a8aa1ca76305771fc3f71e20a379b15888d756605addd74aaed2d38ca6bc`.
+Archive CRC/extraction/deep signatures/executable bytes/extracted offline CLI/
+license and all 238 bundled help links pass. Bundled help is the source snapshot
+before final receipts. Normal data hashes remain identical, no QA app was launched,
+and no recording/playback or sound setting changed. The disposable extraction was
+removed after verification. The five `azure-refinement-*` / Azure-bundle Gemini
+regression receipts separate source/package checks from native/account gates.
+This remains a focused macOS 26.6.2 arm64 test candidate, not full-v0/top-three or
+distribution acceptance.
+
 ## Native Gemini BYOK refinement: source and loopback CLI contracts pass
 
 The `codex/gemini-refinement` branch adds a native Gemini Developer API adapter,
@@ -26,7 +65,7 @@ No Gemini account request, real key, paid call, audio/model download or normal
 app/settings/history/sound change is part of this verification. Native Settings,
 Keychain save/restart and provider account/model/quality/latency acceptance remain
 open. Google documents this single-turn protocol as Generate Content API (Legacy);
-this is not Vertex or Interactions support. Azure remains a native-adapter gap.
+this is not Vertex or Interactions support. Azure was still an adapter gap at this source; the newer v1 section above tracks its implementation.
 See [implementation, protocol sources and limits](architecture/gemini-refinement.md).
 
 Source `46223b0` CI 40093840656 is green at the matching 366/248 tests, eight CLI
