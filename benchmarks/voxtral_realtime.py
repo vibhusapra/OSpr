@@ -132,6 +132,14 @@ def main():
     summary = {route: summarize([row for row in records if row["route"] == route]) for route in protocol["routes"]}
     streamed = [row for row in records if row["route"] == "stream" and "error" not in row]
     first = [row["first_partial_audio_ms"] for row in streamed if row["first_partial_audio_ms"] is not None and row["expected_speech"]]
+    stream_timings = {}
+    for suite in sorted({row["suite"] for row in streamed}):
+        rows = [row for row in streamed if row["suite"] == suite]
+        partials = [row["first_partial_audio_ms"] for row in rows if row["first_partial_audio_ms"] is not None]
+        stream_timings[suite] = dict(cases=len(rows), early_completions=sum(row["early_completion"] for row in rows),
+            p50_first_partial_audio_ms=float(np.median(partials)) if partials else None,
+            p50_final_flush_ms=float(np.median([row["final_flush_ms"] for row in rows])),
+            max_step_ms=max(event["step_ms"] for row in rows for event in row["events"]))
     receipt = dict(status="completed-research-not-shipping-promotion", timestamp=datetime.datetime.now(datetime.UTC).isoformat(),
         git_commit=subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(), tracked_changes=False,
         phase=args.phase, model=protocol["model"], protocol_sha256=sha(PROTOCOL), harness_sha256=sha(Path(__file__)),
@@ -139,7 +147,7 @@ def main():
         host=dict(machine=platform.machine(), macos=platform.mac_ver()[0], device=str(mx.default_device())),
         load_ms=load_ms, options=protocol["options"], cases=len(items), actual_routes=len(records),
         errors=sum("error" in row for row in records), early_stream_completions=sum(row["early_completion"] for row in streamed),
-        summary=summary, p50_first_partial_audio_ms=float(np.median(first)) if first else None,
+        summary=summary, stream_timings=stream_timings, p50_first_partial_audio_ms=float(np.median(first)) if first else None,
         p50_final_flush_ms=float(np.median([row["final_flush_ms"] for row in streamed])) if streamed else None,
         traces_file=archive.name, traces_sha256=sha(archive), boundary=protocol["boundary"])
     assert checked_model(protocol["model"]) == path
