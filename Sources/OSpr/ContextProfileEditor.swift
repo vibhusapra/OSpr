@@ -4,11 +4,11 @@ import UniformTypeIdentifiers
 import OSprCore
 
 struct ContextProfileEditor: View {
-    @Environment(\.dismiss) private var dismiss
     private let id: UUID
     let localSpeech: Bool
     let rewriteEnabled: Bool
     let save: (AppProfile) throws -> Void
+    let close: () -> Void
     @State private var name: String
     @State private var bundleID: String
     @State private var mode: WritingMode
@@ -24,8 +24,9 @@ struct ContextProfileEditor: View {
     @State private var translation: String
     @State private var error = ""
 
-    init(profile: AppProfile, localSpeech: Bool, rewriteEnabled: Bool, globalTranslation: String, save: @escaping (AppProfile) throws -> Void) {
-        id = profile.id; self.localSpeech = localSpeech; self.rewriteEnabled = rewriteEnabled; self.save = save
+    init(profile: AppProfile, localSpeech: Bool, rewriteEnabled: Bool, globalTranslation: String,
+         close: @escaping () -> Void, save: @escaping (AppProfile) throws -> Void) {
+        id = profile.id; self.localSpeech = localSpeech; self.rewriteEnabled = rewriteEnabled; self.save = save; self.close = close
         _name = State(initialValue: profile.name ?? ""); _bundleID = State(initialValue: profile.bundleID)
         _mode = State(initialValue: profile.mode); _enabled = State(initialValue: profile.enabled)
         _useSite = State(initialValue: profile.site != nil); _site = State(initialValue: profile.site ?? "")
@@ -52,19 +53,22 @@ struct ContextProfileEditor: View {
         VStack(alignment: .leading, spacing: 18) {
             HStack { VStack(alignment: .leading, spacing: 5) { Text("Make dictation fit your work.").font(.title2.bold()); Text("A profile applies to one app, with an optional site rule.").foregroundStyle(.secondary) }; Spacer() }
             ScrollView { VStack(alignment: .leading, spacing: 20) {
-                GroupBox { VStack(alignment: .leading, spacing: 12) {
+                Card { VStack(alignment: .leading, spacing: 12) {
+                    Label("Application", systemImage: "app").font(.headline)
                     TextField("Profile name (optional)", text: $name)
                     HStack { TextField("App bundle ID", text: $bundleID); Button("Choose app…", action: chooseApp) }
                     Toggle("Enable this profile", isOn: $enabled)
-                }.padding(8) } label: { Label("Application", systemImage: "app") }
-                GroupBox { VStack(alignment: .leading, spacing: 12) {
+                } }
+                Card { VStack(alignment: .leading, spacing: 12) {
+                    Label("Site", systemImage: "globe").font(.headline)
                     Toggle("Match a site in this app", isOn: $useSite)
                     if useSite {
                         TextField("https://example.com/project", text: $site)
                         Text("Exact origin and an optional path prefix. Queries and fragments are ignored in the active document; leave them out of the rule. Accessibility reads only document URL metadata when this app has an enabled site rule. If unavailable, the app rule or global mode applies.").font(.caption).foregroundStyle(.secondary)
                     }
-                }.padding(8) } label: { Label("Site", systemImage: "globe") }
-                GroupBox { VStack(alignment: .leading, spacing: 12) {
+                } }
+                Card { VStack(alignment: .leading, spacing: 12) {
+                    Label("Dictation", systemImage: "waveform").font(.headline)
                     Picker("Writing mode", selection: $mode) { ForEach(WritingMode.allCases) { Text($0.title).tag($0) } }
                     Picker("Local speech model", selection: $localModel) {
                         Text("Use global model").tag("")
@@ -85,14 +89,14 @@ struct ContextProfileEditor: View {
                     if !rewriteEnabled && ![WritingMode.clean, .verbatim].contains(mode) {
                         Text("Choose a rewrite provider in Settings to apply this writing mode.").font(.caption).foregroundStyle(.orange)
                     }
-                }.padding(8) } label: { Label("Dictation", systemImage: "waveform") }
+                } }
                 if let validation = profile.validationError, !bundleID.isEmpty { Text(validation).font(.caption).foregroundStyle(.orange) }
-                if !error.isEmpty { Text(error).font(.caption).foregroundStyle(.red) }
             }.textFieldStyle(.roundedBorder) }
-            HStack { Button("Cancel") { dismiss() }.keyboardShortcut(.cancelAction); Spacer(); Button("Save profile") {
-                do { try save(profile); dismiss() } catch { self.error = error.localizedDescription }
+            if !error.isEmpty { Text(error).font(.caption).foregroundStyle(.red).accessibilityIdentifier("profile-save-error") }
+            HStack { Button("Cancel", action: close).keyboardShortcut(.cancelAction); Spacer(); Button("Save profile") {
+                do { try save(profile); close() } catch { self.error = error.localizedDescription }
             }.keyboardShortcut(.defaultAction).disabled(profile.validationError != nil) }
-        }.padding(24).frame(width: 620, height: 700)
+        }.padding(32).frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
 
     private func chooseApp() {

@@ -123,3 +123,14 @@ no public speech was played or insertion attempted. Zero test history, audio or
 recovery remains, and the normal app/settings/history were restored unchanged.
 The earlier `refinement-v0` ZIP is preserved. Full feature-union and top-three
 placement remain unproven.
+
+## Later editor and persistence update
+
+[Profile editor page](profile-editor-page.md) retains all routing options, uses a
+workspace page with pinned Save/Cancel and separates profile persistence from
+unrelated global edits/retention. Six new durability/failure tests pass in the
+424-test Swift suite; all 17 resolver CLI cases still pass. The first page still
+triggers the native inspection-service failure, so removing the sheet alone is
+not a demonstrated fix. A later standard-card candidate awaits an unlocked Mac;
+no native Save/restart or live URL routing pass is claimed. The normal app and
+its original data are restored. Old packages predate this new source.
