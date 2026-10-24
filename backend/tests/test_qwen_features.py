@@ -6,6 +6,8 @@ import importlib.util
 from pathlib import Path
 from types import SimpleNamespace
 import weakref
+import inspect
+import textwrap
 
 import numpy as np
 import pytest
@@ -74,9 +76,12 @@ def test_pinned_upstream_chunk_ast_matches_without_importing_gpu_model():
     if spec is None:
         pytest.skip('optional MLX Audio is not installed')
     source = Path(spec.origin).parent / 'stt/models/qwen3_asr/qwen3_asr.py'
-    tree = ast.parse(source.read_text())
+    text = source.read_text()
+    tree = ast.parse(text)
     chunk = next(n for n in ast.walk(tree) if isinstance(n, ast.FunctionDef) and n.name == '_generate_single_chunk')
-    assert hashlib.sha256(ast.dump(chunk, include_attributes=False).encode()).hexdigest() == qf._CHUNK_AST_SHA256
+    # inspect.getsource is dedented before hashing, including docstring whitespace.
+    normalized = ast.parse(textwrap.dedent(''.join(text.splitlines(keepends=True)[chunk.lineno - 1:chunk.end_lineno])))
+    assert hashlib.sha256(ast.dump(normalized.body[0], include_attributes=False).encode()).hexdigest() == qf._CHUNK_AST_SHA256
 
 
 def test_unknown_private_loop_falls_back_and_signature_guard_handles_uninspectable():
@@ -176,3 +181,16 @@ def test_missing_frontend_passes_through_unchanged():
     model = SimpleNamespace(generate=lambda audio, **kw: (audio, kw))
     result, work = qf.generate(model, 'audio', language='en')
     assert result == ('audio', {'language': 'en'}) and not work.enabled
+
+
+def test_source_guard_hashes_the_same_dedented_function_representation(monkeypatch):
+    function = Model._generate_single_chunk
+    tree = ast.parse(textwrap.dedent(inspect.getsource(function)))
+    digest = hashlib.sha256(ast.dump(tree.body[0], include_attributes=False).encode()).hexdigest()
+    qf._supported_chunk.cache_clear()
+    try:
+        with monkeypatch.context() as patch:
+            patch.setattr(qf, '_CHUNK_AST_SHA256', digest)
+            assert qf._supported_chunk(function)
+    finally:
+        qf._supported_chunk.cache_clear()

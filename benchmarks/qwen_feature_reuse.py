@@ -75,7 +75,7 @@ def main():
                 baseline = pair["baseline"]["result"].get("frontend_evaluations", 0)
                 optimized = pair["reuse"]["result"].get("frontend_evaluations", 0)
                 hits = pair["reuse"]["result"].get("frontend_cache_hits", 0)
-                assert optimized <= baseline and optimized + hits == baseline, (case["id"], baseline, optimized, hits)
+                assert (baseline, optimized, hits) in [(0, 0, 0), (1, 1, 0), (2, 1, 1)], (case["id"], baseline, optimized, hits)
         print(json.dumps(dict(completed_cases=index + 1, cases=len(protocol["cases"]), id=case["id"])), flush=True)
     source = ROOT / "benchmarks" / protocol["native_source"]["path"]
     assert sha(source) == protocol["native_source"]["sha256"]

@@ -15,7 +15,7 @@ import textwrap
 from types import MethodType
 
 # MLX Audio 0.6.1's single-chunk loop. Fail closed on private-API changes.
-_CHUNK_AST_SHA256 = "1f9b5bb07dda1357d888a66d12623d9821123f09de30e726454513bed1644d37"
+_CHUNK_AST_SHA256 = "32a087e9e44bbb788c9260e13e2c7fccf482ad06acab3e70c2a3975a4adf041b"
 
 
 @dataclass
