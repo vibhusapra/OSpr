@@ -23,6 +23,7 @@ jobs:
         run: |
           /usr/bin/sqlite3 --version
           swift test
+          swiftc -typecheck -parse-as-library -I .build/debug/Modules benchmarks/refinement_guard.swift
           swiftc -typecheck -swift-version 5 -parse-as-library Sources/OSprCore/WorkerClient.swift benchmarks/native_stream_stop.swift
           swiftc -typecheck -swift-version 5 -parse-as-library Sources/OSprCore/WorkerClient.swift Sources/OSprCore/StreamingSpeechResampler.swift benchmarks/resampling_quality.swift
       - name: Typecheck Apple speech research helper when the SDK supports it
@@ -44,6 +45,7 @@ jobs:
           uv run --frozen --all-extras python benchmarks/azure_contracts.py --cli .build/debug/ospr-cli --output /tmp/ospr-azure-contracts.json
           uv run --frozen --all-extras python benchmarks/rewrite_completion_contracts.py --cli .build/debug/ospr-cli --output /tmp/ospr-rewrite-completion-contracts.json
           uv run --frozen --all-extras python benchmarks/meeting_summary_cli.py --cli .build/debug/ospr-cli --output /tmp/ospr-summary-contracts.json --contracts-only
+          uv run --frozen --all-extras python benchmarks/local_model_cli.py --cli .build/debug/ospr-cli --output /tmp/ospr-local-model-contracts.json --contracts-only
       - name: Build app and self-contained research report
         run: |
           scripts/build-app.sh

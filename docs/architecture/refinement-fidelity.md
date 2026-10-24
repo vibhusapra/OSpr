@@ -1,5 +1,9 @@
 # Local refinement fidelity
 
+The later [local model choice](local-model-choice.md) adds an opt-in 9B refiner,
+Latin-spelling preservation and shared native/CLI fallback behavior. The recorded
+f8ba4a0 comparison below remains historical and unchanged.
+
 Ordinary dictation must preserve a spoken question or command as text. The old
 local prompt sometimes answered a question, followed a dictated instruction or
 explained a file command. A JSON envelope now separates the transcript from the

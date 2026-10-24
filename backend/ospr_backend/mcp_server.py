@@ -57,14 +57,19 @@ def transcribe_file(
 
 
 @server.tool()
-def rewrite_text(text: str, instruction: str) -> str:
+def rewrite_text(text: str, instruction: str, model: str = "rewrite-quality") -> str:
     """Rewrite supplied text using the local quantized model. Original is returned
-    alongside output for review: LLM edits may omit or change meaning.
+    alongside output for review: LLM edits may omit or change meaning. model is
+    rewrite-quality (4B, default) or meeting-quality (9B, experimental). Prepare
+    the 6 GB 9B weights first with CLI download meeting-quality or native Models.
     """
     if len(text) > 100000 or len(instruction) > 16000:
         raise ValueError("Rewrite input too long.")
+    from .refinement import prepared_local_model
+
     with gpu_lock, redirect_stdout(sys.stderr):
-        return json.dumps(dict(original=text, **engine.rewrite(text, instruction)))
+        selected_model = prepared_local_model(model, engine)
+        return json.dumps(dict(original=text, **engine.rewrite(text, instruction, model_id=selected_model)))
 
 
 @server.tool()

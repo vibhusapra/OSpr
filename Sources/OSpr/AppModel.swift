@@ -117,7 +117,7 @@ import OSprCore
     var engineInstalled: Bool { FileManager.default.isExecutableFile(atPath: root.appendingPathComponent(".venv/bin/python").path) }
     var localOnly: Bool {
         let host = URL(string: settings.rewriteURL)?.host ?? ""
-        let localRewrite = ["none", "local"].contains(settings.rewriteProvider) ||
+        let localRewrite = settings.rewriteProvider == "none" || settings.localRefinementModel != nil ||
             (["ollama", "compatible"].contains(settings.rewriteProvider) && ["localhost", "127.0.0.1", "::1", "[::1]"].contains(host))
         return settings.transcriptionProvider == "local" && localRewrite
     }
@@ -946,10 +946,9 @@ import OSprCore
                 do {
                     let beforeRewrite = text
                     let instruction = mode.instruction(custom: config.customPrompt, language: config.translationLanguage)
-                    if config.rewriteProvider == "local" {
-                        let rewritten = try await worker.request(["action": "rewrite", "text": input, "instruction": instruction,
-                            "task": mode == .assistant ? "edit-selection" : "transcript"])
-                        text = rewritten["text"] as? String ?? text
+                    if let localModel = config.localRefinementModel {
+                        let rewritten = try await worker.request(localModel.request(text: input, instruction: instruction, editingSelection: mode == .assistant))
+                        text = try localModel.completedText(rewritten)
                     } else {
                         text = try await ProviderClient.rewrite(text: input, instruction: instruction, provider: config.rewriteProvider,
                             base: config.rewriteURL, model: config.rewriteModel, key: try ProviderCredentialScope.checkedKey(rewriteKey, boundTo: rewriteKeyScope, kind: .rewrite, base: config.rewriteURL))

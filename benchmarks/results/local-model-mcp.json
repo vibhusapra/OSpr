@@ -1,0 +1,30 @@
+{
+  "status": "passed-local-text-choice-mcp",
+  "records": [
+    {
+      "model": "rewrite-quality",
+      "result": {
+        "original": "Please do not ship Friday.",
+        "text": "Please do not ship Friday.",
+        "finish_reason": "stop",
+        "generation_tokens": 7,
+        "total_ms": 2505.3701251745224,
+        "model": "mlx-community/Qwen3-4B-Instruct-2507-4bit"
+      }
+    },
+    {
+      "model": "meeting-quality",
+      "result": {
+        "original": "Please do not ship Friday.",
+        "text": "Please do not ship Friday.",
+        "finish_reason": "stop",
+        "generation_tokens": 7,
+        "total_ms": 1318.5554998926818,
+        "model": "mlx-community/Qwen3.5-9B-4bit"
+      }
+    }
+  ],
+  "invalid_model_rejected_without_echo": true,
+  "build": null,
+  "boundary": "Actual local stdio MCP tool schema, two cached selected-model acknowledgements and invalid-model rejection. MCP returns raw generated text with original for review; no Swift fidelity guard, UI, insertion, provider or representative quality claim."
+}

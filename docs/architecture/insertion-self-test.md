@@ -90,3 +90,19 @@ unchanged. This is not Developer ID/notarized or clean-Mac/older-OS/updater acce
 [archive manifest](../../benchmarks/results/insertion-self-test-package.json),
 [portable engines](../../benchmarks/results/insertion-self-test-portable.json),
 [simulated layout](../assets/insertion-self-test-layout.png).
+
+## Native component follow-up, 2026-10-24
+
+The preserved source `7e85e12` isolated signed candidate was exercised after manual
+unlock. TextEdit cursor insertion and selected-passage replacement visibly passed;
+a moved cursor and a password field were refused. Cancellation returned to idle.
+Chrome textarea/contenteditable setters acknowledged success but neither visible
+field changed and no input events fired. Both received an explicit negative
+acknowledgement. Browser delivery and actual clipboard restoration remain open.
+The normal app/data and public target were restored. No audio was used.
+
+[Exact receipt and scope](../../benchmarks/results/native-insertion-component.json),
+[TextEdit cursor](../assets/native-insertion-textedit-cursor.png),
+[TextEdit selection](../assets/native-insertion-textedit-selection.png),
+[unchanged browser field](../assets/native-insertion-browser-textarea-no-delivery.png),
+[password refusal](../assets/native-insertion-password-refusal.png).

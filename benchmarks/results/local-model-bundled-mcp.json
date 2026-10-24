@@ -1,0 +1,39 @@
+{
+  "status": "passed-local-text-choice-mcp",
+  "records": [
+    {
+      "model": "rewrite-quality",
+      "result": {
+        "original": "Please do not ship Friday.",
+        "text": "Please do not ship Friday.",
+        "finish_reason": "stop",
+        "generation_tokens": 7,
+        "total_ms": 5071.680125081912,
+        "model": "mlx-community/Qwen3-4B-Instruct-2507-4bit"
+      }
+    },
+    {
+      "model": "meeting-quality",
+      "result": {
+        "original": "Please do not ship Friday.",
+        "text": "Please do not ship Friday.",
+        "finish_reason": "stop",
+        "generation_tokens": 7,
+        "total_ms": 1073.5310828313231,
+        "model": "mlx-community/Qwen3.5-9B-4bit"
+      }
+    }
+  ],
+  "invalid_model_rejected_without_echo": true,
+  "build": {
+    "version": "0.1.0",
+    "built_at": "2026-10-24T17:25:29.795153+00:00",
+    "git_commit": "e27b374978b74c4d06dca511594944e9ed1fbdfb",
+    "tracked_changes": false,
+    "application_source_sha256": "7730f21e4f1d201f679a899451a8b0f2051e5980caf1e5201b3bcb3c25dc73d6",
+    "source_manifest_version": 2,
+    "signing_mode": "configured-identity",
+    "boundary": "Development build; configured signing identity; not notarized; weights downloaded separately."
+  },
+  "boundary": "Actual local stdio MCP tool schema, two cached selected-model acknowledgements and invalid-model rejection. MCP returns raw generated text with original for review; no Swift fidelity guard, UI, insertion, provider or representative quality claim."
+}

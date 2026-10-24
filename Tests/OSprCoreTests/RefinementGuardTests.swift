@@ -2,6 +2,20 @@ import XCTest
 @testable import OSprCore
 
 final class RefinementGuardTests: XCTestCase {
+    func testObservedLargerModelAccentLossKeepsOriginalAcrossFormattingModes() {
+        for mode: WritingMode in [.clean, .email, .bullets, .code] {
+            XCTAssertNotNil(RewriteGuard.rejection(original: "Send this to Niamh O’Rourke and Zoë Saldaña, not the other team.", rewritten: "Send this to Niamh O'Rourke and Zoe Saldaña, not the other team.", mode: mode))
+            XCTAssertNotNil(RewriteGuard.rejection(original: "Ask José and José.", rewritten: "Ask José and Jose.", mode: mode))
+            XCTAssertNotNil(RewriteGuard.rejection(original: "Ask İpek.", rewritten: "Ask Ipek.", mode: mode))
+        }
+    }
+
+    func testCanonicalAccentsCaseAndSmartPunctuationRemainAllowed() {
+        XCTAssertNil(RewriteGuard.rejection(original: "Um, ask Jose\u{301} and Zoë O’Rourke.", rewritten: "Ask JOSÉ and Zoë O'Rourke.", mode: .clean))
+        XCTAssertNil(RewriteGuard.rejection(original: "Ask İpek.", rewritten: "Ask İPEK.", mode: .clean))
+        XCTAssertNil(RewriteGuard.rejection(original: "Rename Zoë to Zoe.", rewritten: "Zoe", mode: .assistant))
+        XCTAssertNil(RewriteGuard.rejection(original: "José", rewritten: "Joseph", mode: .translate))
+    }
     func testQuestionCannotBecomeAnAnswerWithoutInventedDigits() {
         XCTAssertNotNil(RewriteGuard.rejection(original: "Should I invite Maya?", rewritten: "You should invite Maya.", mode: .clean))
         XCTAssertNotNil(RewriteGuard.rejection(original: "東京に行きますか？", rewritten: "東京に行きます。", mode: .clean))
@@ -57,5 +71,23 @@ final class RefinementGuardTests: XCTestCase {
             let data = try JSONSerialization.data(withJSONObject: result, options: [.sortedKeys])
             print("REFINEMENT_GUARD " + String(decoding: data, as: UTF8.self))
         }
+    }
+    func testRecordedLargerModelPreservesLexicalSentinelsWithSpellingFallback() throws {
+        let root = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
+        let file = root.appendingPathComponent("benchmarks/results/local-model-refinement-9b.json")
+        let payload = try XCTUnwrap(JSONSerialization.jsonObject(with: Data(contentsOf: file)) as? [String: Any])
+        let rows = try XCTUnwrap(payload["records"] as? [[String: Any]])
+        XCTAssertEqual(rows.count, 36)
+        var fallback = Set<String>()
+        for row in rows {
+            let id = try XCTUnwrap(row["id"] as? String), source = try XCTUnwrap(row["input"] as? String)
+            let output = try XCTUnwrap(row["text"] as? String)
+            let reason = RewriteGuard.rejection(original: source, rewritten: output, mode: .clean)
+            if reason != nil { fallback.insert(id) }
+            let delivered = reason == nil ? output : source
+            for fact in try XCTUnwrap(row["facts"] as? [String]) { XCTAssertTrue(delivered.localizedCaseInsensitiveContains(fact), id + ": " + fact) }
+            for word in try XCTUnwrap(row["forbidden"] as? [String]) { XCTAssertFalse(delivered.localizedCaseInsensitiveContains(word), id + ": " + word) }
+        }
+        XCTAssertEqual(fallback, ["delimiter-literal", "two-speakers", "spelling-name"])
     }
 }

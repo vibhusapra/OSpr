@@ -1,0 +1,76 @@
+{
+  "status": "partial-native-insertion-browser-failure-reproduced",
+  "timestamp": "2026-10-24T17:48:39.321472+00:00",
+  "tested_source": "7e85e12541206c577752ec03a85044f786f7a363",
+  "isolated_data_profile": true,
+  "normal_app_restored": true,
+  "normal_settings_and_history_bytes_unchanged": true,
+  "public_target_file_restored": true,
+  "microphone_used": false,
+  "audio_playback_used": false,
+  "sound_settings_changed": false,
+  "checks": [
+    {
+      "case": "TextEdit cursor",
+      "result": "passed",
+      "before": "OSpr insertion component target.\n",
+      "after": "OSpr is ready.OSpr insertion component target.\n",
+      "delivery": "accessibility",
+      "clipboard": "not used",
+      "visually_acknowledged_after_independent_field_read": true
+    },
+    {
+      "case": "TextEdit selection replacement",
+      "result": "passed",
+      "selected": "OSpr insertion component target.",
+      "after": "OSpr is ready.OSpr is ready.\n",
+      "delivery": "accessibility"
+    },
+    {
+      "case": "TextEdit changed cursor",
+      "result": "passed-refusal",
+      "message": "The text cursor moved. Select the field again before retrying.",
+      "owned_field_unchanged": true
+    },
+    {
+      "case": "Chrome textarea",
+      "result": "failed-visible-delivery",
+      "transport": "AX setter success",
+      "before": "Public textarea baseline.",
+      "after": "Public textarea baseline.",
+      "input_events": 0,
+      "negative_acknowledgement": true
+    },
+    {
+      "case": "Chrome contenteditable",
+      "result": "failed-visible-delivery",
+      "transport": "AX setter success",
+      "before": "Public editable note baseline.",
+      "after": "Public editable note baseline.",
+      "input_events": 0,
+      "negative_acknowledgement": true
+    },
+    {
+      "case": "Chrome password capture",
+      "result": "passed-refusal",
+      "message": "Password fields cannot receive the test phrase.",
+      "input_events": 0,
+      "field_value_verification": "not claimed: browser inspection redacts password values"
+    },
+    {
+      "case": "Countdown cancel",
+      "result": "passed",
+      "returned_idle_studio": true
+    }
+  ],
+  "not_tested": [
+    "actual clipboard restoration",
+    "app switch after capture",
+    "slow app / uncertain setter native fault",
+    "physical Fn/PTT",
+    "microphone-ASR-insertion",
+    "model-choice native UI",
+    "broad browser/editor compatibility"
+  ],
+  "boundary": "Owned fixed-text component test on preserved source7e85 candidate, not the model-choice package or end-to-end dictation. No send attempted into protected host/unknown destination. Transport acknowledgement alone is not visible delivery; browser compatibility remains failed/open."
+}

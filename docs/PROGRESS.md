@@ -2,6 +2,54 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## Native insertion component: TextEdit passes; browser failure reproduced
+
+After the manual unlock, the preserved isolated source `7e85e12` candidate
+inserted at a TextEdit cursor and replaced an owned selection exactly once.
+A moved cursor was refused; password capture was refused; countdown cancellation
+returned to idle. The same Chrome textarea/contenteditable AX setters reported
+success but changed no visible text and emitted no input events. Both were
+explicitly marked as failed delivery. This is a reproduced browser compatibility
+issue, not an acceptance pass. The normal app/settings/history and public target
+file were restored. No microphone, audio playback or sound change was used.
+Actual clipboard restoration, app-switch/slow-app faults, physical shortcuts and
+microphone-to-insertion remain open. [Native receipt](../benchmarks/results/native-insertion-component.json).
+
+## Optional 9B refinement and a reproduced spelling loss
+
+`codex/local-model-choice` adds an explicit experimental 9B refinement choice in
+Settings, CLI and MCP. Off and existing 4B preferences retain their behavior.
+The shared 6 GB asset must be prepared before ordinary 9B refinement; missing
+weights return a typed error without download, model substitution or ASR eviction.
+Native/CLI receivers require the selected model and completion acknowledgement.
+Legacy provider parsing refuses the new tag before transport. Cloud fields are
+preserved; settings/privacy-label restart tests pass in an isolated profile.
+
+The same 36 synthetic development cases yield 31/36 raw lexical checks for 4B
+and 34/36 for 9B. The 9B model drops an accent in “Zoë,” previously accepted by
+the native guard. A new non-ASCII Latin spelling tripwire rejects this loss while
+allowing canonical Unicode, case and smart punctuation. Current native fallback
+retains all 36 lexical sentinels for both models, with six 4B and three 9B
+fallbacks. These are not representative semantic scores or a default promotion.
+Observed text-only MLX allocation is 2.64/5.29 GiB, excluding ASR, RSS and longer
+contexts. Full source suites pass 408 Swift / 330 Python tests and Ruff. Actual
+CLI passes ten rejection/control cases plus two local inferences; actual MCP
+checks schema/model selection, and a private-cache Swift replay verifies no 9B
+download and unchanged warm ASR. Light/dark/narrow Settings section renders were
+inspected; these are not native interaction. Signed runtime `e27b374` passes
+exact bundled CLI/MCP, relocated offline six-engine/neural/extras, missing-9B and
+output-limit warm-ASR, summary/provider, archive/signature/source/license gates.
+The 396,791,467-byte ZIP has SHA-256
+`665d2c17c14d2abf76c5aae3d0be7d50321b9ed15d73373d6a8f03c8191ddd89`.
+Clean-runner [CI 40116390475](https://github.com/vibhusapra/OSpr/actions/runs/40116390475)
+passes matching 408/330 tests and all contracts. Its `e564819` test-only fix waits
+for queued history teardown to release the instance lock before restart; product
+sources match the frozen package. The initial new restart test raced in CI; the
+runtime lock was not weakened. Apple Development signed macOS 26.6.2 arm64,
+weights separate, not notarized. [Package](../benchmarks/results/local-model-package.json),
+[bound source validation](../benchmarks/results/local-model-source-validation.json).
+[Contracts, raw outputs, limitations and remaining acceptance](architecture/local-model-choice.md).
+
 ## Local text completion and warm-speech recovery
 
 `codex/local-completion` requires actual local EOS acknowledgement for cleanup,

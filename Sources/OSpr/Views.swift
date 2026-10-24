@@ -485,7 +485,7 @@ struct ModelsView: View {
             }
             HStack { Button("Load selected model") { model.warm() }.buttonStyle(.borderedProminent).disabled(model.busy || !model.engineInstalled); Text("Download alone uses no GPU. Loading also prepares first-use kernels.").font(.caption).foregroundStyle(.secondary) }
             Text("Optional local models").font(.headline)
-            ForEach([("rewrite-quality", "Qwen3 4B · local refinement & key excerpts"), ("meeting-quality", "Qwen3.5 9B · meeting summaries · 6 GB download"), ("diarization", "Nemotron · experimental speaker labels"), ("speech-detector", "Silero · experimental neural edges & auto finish (native CPU)")], id: \.0) { id, name in
+            ForEach([("rewrite-quality", "Qwen3 4B · local refinement & key excerpts"), ("meeting-quality", "Qwen3.5 9B · refinement & summaries · 6 GB download"), ("diarization", "Nemotron · experimental speaker labels"), ("speech-detector", "Silero · experimental neural edges & auto finish (native CPU)")], id: \.0) { id, name in
                 if let cache = model.modelCache[id] {
                     Card { HStack {
                         VStack(alignment: .leading, spacing: 5) {
@@ -666,31 +666,7 @@ struct PreferencesView: View {
                     }
                 }
             }
-            Section("Optional text refinement") {
-                Picker("Rewrite provider", selection: $model.settings.rewriteProvider) {
-                    Text("Off · deterministic text rules only").tag("none")
-                    Text("Local MLX · Qwen3 4B Instruct 4-bit").tag("local")
-                    Text("Local Ollama / compatible service").tag("ollama")
-                    Text("BYOK · OpenAI-compatible API").tag("compatible")
-                    Text("BYOK · Anthropic Messages API").tag("anthropic")
-                    Text("BYOK · Google Gemini API").tag("gemini")
-                    Text("BYOK · Azure v1 API").tag("azure")
-                }
-                if ["ollama", "compatible", "anthropic", "gemini", "azure"].contains(model.settings.rewriteProvider) {
-                    ProviderPresetPicker(kind: "rewrite", model: model)
-                    TextField(model.settings.rewriteProvider == "azure" ? "Azure resource URL or /openai/v1 base" : model.settings.rewriteProvider == "gemini" ? "Base URL, including /v1beta" : "Base URL, including /v1", text: $model.settings.rewriteURL)
-                    TextField(model.settings.rewriteProvider == "azure" ? "Azure deployment name" : "Model ID", text: $model.settings.rewriteModel)
-                    SecureField("API key · saved in Keychain", text: $model.rewriteKey)
-                    Text("Only transcript text and selected-text editing context go to this endpoint. Screen content and clipboard are never read for context.").font(.caption).foregroundStyle(.secondary)
-                    if model.settings.rewriteProvider == "gemini" {
-                        Text("Use the Gemini Developer API base URL and a model ID from your account. Incomplete or blocked responses keep the original text. This option sends text to your configured provider; it does not send audio.").font(.caption).foregroundStyle(.secondary)
-                    }
-                    if model.settings.rewriteProvider == "azure" {
-                        Text("Use your Azure resource URL and deployment name, which may differ from the model name. This v1 option uses a resource API key, sends text only, and keeps the original on incomplete or blocked replies. Dated deployment URLs and Entra sign-in are not supported here.").font(.caption).foregroundStyle(.secondary)
-                    }
-                }
-                if model.settings.rewriteProvider == "local" { Text("First use downloads a quantized language model. Refinement adds latency and can change meaning; original transcripts stay available in History.").font(.caption).foregroundStyle(.secondary) }
-            }
+            TextRefinementPreferences(model: model)
             Section("File imports") {
                 Toggle("Add anonymous speaker labels locally", isOn: $model.settings.speakerLabels)
                 Text("Uses Nemotron diarization plus Parakeet/Whisper word timing. Downloads a separate 107 MB model. Imports keep raw ASR and timing, skip rewriting, and flag overlapping speech instead of claiming to separate it. Up to eight generic speaker channels; real-meeting accuracy is still being evaluated.").font(.caption).foregroundStyle(.secondary)

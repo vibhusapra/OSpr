@@ -74,6 +74,19 @@ def test_non_object_json_is_not_a_protocol_crash():
     assert json.loads(process.stdout.splitlines()[1])["ok"]
 
 
+def test_missing_larger_text_cache_is_classified_without_download_or_text_echo(tmp_path):
+    cache = tmp_path / 'empty-cache'
+    cache.mkdir()
+    env = dict(os.environ, PYTHONPATH=str(Path(__file__).resolve().parents[1]), HF_HUB_CACHE=str(cache), HF_HUB_OFFLINE='1')
+    request = dict(action='rewrite', model='meeting-quality', text='PRIVATE_SYNTHETIC_TEXT', id='a')
+    process = subprocess.run([sys.executable, '-m', 'ospr_backend.worker'], input=json.dumps(request)+'\n'+json.dumps(dict(action='ping',id='b'))+'\n',
+                             capture_output=True, text=True, timeout=30, env=env)
+    rejected, ready = map(json.loads, process.stdout.splitlines())
+    assert process.returncode == 0 and not rejected['ok'] and rejected['error_kind'] == 'text-model-not-prepared'
+    assert ready['ok'] and 'PRIVATE_SYNTHETIC_TEXT' not in process.stdout+process.stderr
+    assert not list(cache.iterdir())
+
+
 @pytest.mark.parametrize('output_limit', [True, False])
 def test_stdio_only_classifies_verified_text_limit_without_exposing_draft(monkeypatch, output_limit):
     import io
