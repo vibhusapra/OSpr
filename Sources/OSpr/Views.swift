@@ -526,14 +526,14 @@ struct PreferencesView: View {
                     Button("Open edge detector model") { model.tab = "Models" }
                 } else {
                     Toggle("Volume-based silence edge trimming", isOn: $model.settings.silenceTrim)
-                    Text("Volume filtering can remove quiet speech. Turn it off to recognize the complete audio.").font(.caption).foregroundStyle(.secondary)
+                    Text("Off by default so the recognizer receives the complete audio. Volume filtering can remove quiet speech, including parts of a take. Empty results keep completed audio for retry.").font(.caption).foregroundStyle(.secondary)
                     HStack { Text("Silence threshold"); Slider(value: $model.settings.silenceThreshold, in: 0.0001...0.02); Text(String(format: "%.4f", model.settings.silenceThreshold)).monospacedDigit() }
                 }
                 Toggle("Neural auto finish · experimental", isOn: $model.settings.neuralAutoFinish)
                 if model.settings.neuralAutoFinish {
                     Picker("Detector silence before finish", selection: $model.settings.neuralSilenceSeconds) { Text("1.2 seconds").tag(1.2); Text("1.5 seconds").tag(1.5); Text("3 seconds").tag(3.0); Text("5 seconds").tag(5.0) }
                     Text("Uses a local speech detector instead of volume alone. Pauses can end a take. Detection failure leaves recording active so you can stop manually. Prepare its small model in Models before use.").font(.caption).foregroundStyle(.secondary)
-                    if model.settings.silenceTrim && !model.settings.neuralEdgeTrim { Text("Final edge trimming still uses volume. Disable it above or try neural edges when testing quiet speech.").font(.caption).foregroundStyle(.orange) }
+                    if model.settings.silenceTrim && !model.settings.neuralEdgeTrim { Text("Final edge trimming still uses volume. Disable it above to preserve quiet speech; neural edges can also miss quiet words.").font(.caption).foregroundStyle(.orange) }
                     Button("Open detector model") { model.tab = "Models" }
                 } else {
                     Picker("Level-based auto finish", selection: $model.settings.autoStopSeconds) { Text("Off").tag(0.0); Text("1.5 seconds").tag(1.5); Text("3 seconds").tag(3.0); Text("5 seconds").tag(5.0) }

@@ -41,6 +41,7 @@ def transcribe_file(
     list_models. Local model weights download from Hugging Face on first use.
     speaker_labels enables experimental local anonymous diarization and word
     timing with Parakeet or Whisper; it does not identify people or separate overlap.
+    The full normalized waveform is recognized without volume or neural edge filtering.
     """
     from pathlib import Path
 

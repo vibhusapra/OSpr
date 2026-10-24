@@ -2,7 +2,47 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
-## Current work: keep recognition timings inside analyzed audio
+## Current work: preserve quiet audio by default
+
+Branch `codex/full-audio-defaults` follows the timing fix. New or missing native
+settings, CLI/worker requests and direct Python/MCP calls now use full normalized
+audio without RMS or neural edge filtering. Explicit stored choices survive.
+Exact-zero normalized input skips model loading; very quiet nonzero samples
+remain eligible. Every empty result leaves completed recording recovery available,
+including a silence flag. This does not fix partial ASR deletions or establish
+native recovery/insertion acceptance. Older deliveries predate these changes.
+
+Source checks pass **178 Python / 305 Swift tests**, lint, 17 profile CLI cases,
+release build and signature checks. The fixed real-ASR regression passes all
+**52 actual default requests** against prior full-audio text on source 000 in each
+supported language, original and −40 dB, across all six models. Every request
+recognizes the complete normalized range and returns identical text. The
+selection was fixed before running. Results: `full-audio-defaults-real.json` and
+`full-audio-defaults-source-validation.json`. Draft PR: #11.
+Two real bundled MCP requests match original/quiet German full-audio controls.
+A paired nonspeech check runs 60 default/RMS requests: false positives match on
+both routes (Parakeet/Cohere/Nemotron 0/5, Turbo 4/5, Small 1/5, Qwen 2/5).
+This is not a hallucination fix or a real-world false-positive estimate.
+Source CI at `a147930` and the complete receipt/report head `3c07c02` are green:
+305 Swift / 178 Python / 17 CLI cases, including
+app/report build and clean-runner bundled imports. A fresh signed standalone
+preview at `9a51603` has the same application fingerprint and passes relocation,
+six-engine offline/neural checks, two default hour-file requests and all three
+80-minute sample-preserving provider transports. Both additional neural hour
+requests pass at the same 2.72% Parakeet / 2.37% Qwen WER. ZIP CRC, extracted
+signatures and extracted CLI inventory pass. The archive is 391,502,064 bytes,
+SHA-256 `e4ba51c3984e74454fc250c07e4243f6b58097151c8629ea17e09f8801cd42b4`.
+See `full-audio-package-gates.json` and `full-audio-release-package.json`.
+A later CUA restoration request reopens the exact normal-app process, but its UI
+is unavailable while macOS remains locked. Visible restoration and cleanup of the
+single generated TextEdit test space are still pending. Isolated QA is stopped;
+normal settings/history hashes remain unchanged. No new microphone take,
+playback, insertion or native recovery interaction occurred during this work.
+The stopped isolated QA bundle is prepared from checked source `9a51603`, with
+its own data directory and the existing signing identity, ready for later tests.
+See `docs/architecture/full-audio-defaults.md`.
+
+## Previous work: keep recognition timings inside analyzed audio
 
 Branch `codex/asr-timing-bounds` follows the multilingual failure study. A common
 local return-path guard now bounds segment/word estimates to the actual selected
@@ -21,7 +61,8 @@ pairs (42 inferences, two detector abstentions), with every text string unchange
 Source CI at `529359b` is green at 304 Swift / 163 Python / 17 CLI cases,
 including app/report build and clean-runner bundled imports. Native warning/export
 interaction remains open. The existing signed
-ZIP remains at source `2f7f2a8` and does not include this fix. See
+neural-edges-v0 ZIP remains at source `2f7f2a8` and does not include this fix;
+the later full-audio-v0 ZIP above does. See
 `docs/architecture/timing-bounds.md`.
 
 ### Native preflight and pending restoration

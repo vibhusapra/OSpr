@@ -874,7 +874,11 @@ import OSprCore
                     self.error = "Quiet speech can be missed. Completed recording audio is kept for retry; imported files are unchanged. Retry without edge trimming."
                     return false
                 }
-                if result["silence"] as? Bool == true { status = "No speech detected"; return true }
+                if result["silence"] as? Bool == true {
+                    status = "No words returned from this audio"
+                    self.error = "Completed recording audio is kept for review and retry; imported files are unchanged. Check the recording and retry without edge trimming."
+                    return false
+                }
                 status = "The recognizer returned no words"
                 self.error = "No transcript was returned. Completed recording audio is kept for retry; imported source files are unchanged. Try another model or language hint."
                 return false

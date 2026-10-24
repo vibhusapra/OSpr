@@ -49,14 +49,15 @@ def test_meeting_silence_gate_honors_quiet_audio_opt_out(tmp_path, monkeypatch):
     path = tmp_path / "quiet.wav"
     sf.write(path, np.full(16000, 0.001, dtype=np.float32), 16000, subtype="FLOAT")
     engine = Engine()
-    assert engine.meeting(str(path))["silence"]
+    result = engine.meeting(str(path), trim=True)
+    assert result["silence"] and result["empty_reason"] == "volume_filter_abstained"
 
     def reached_loader(*args, **kwargs):
         raise RuntimeError("diarizer reached")
 
     monkeypatch.setitem(sys.modules, "mlx_audio.vad", SimpleNamespace(load=reached_loader))
     monkeypatch.setattr("ospr_backend.engine.resolve_model", lambda _: "fixture")
-    for options in [{"trim": False}, {"threshold": 0.0001}]:
+    for options in [{}, {"trim": False}, {"trim": True, "threshold": 0.0001}]:
         with pytest.raises(RuntimeError, match="diarizer reached"):
             engine.meeting(str(path), **options)
     with pytest.raises(ValueError, match="Threshold"):

@@ -151,7 +151,7 @@ public struct OSprSettings: Codable, Sendable, Equatable {
     public var restoreClipboard = true
     public var allowUnverifiedPaste = false
     public var spokenPunctuation = false
-    public var silenceTrim = true
+    public var silenceTrim = false
     public var neuralEdgeTrim = false
     public var usesNeuralEdges: Bool { transcriptionProvider == "local" && neuralEdgeTrim }
     public var silenceThreshold = 0.003

@@ -2,6 +2,16 @@ import XCTest
 @testable import OSprCore
 
 final class NeuralSettingsTests: XCTestCase {
+    func testFreshAndMissingPreferencesKeepFullAudioButExplicitChoicesSurvive() throws {
+        XCTAssertFalse(OSprSettings().silenceTrim)
+        XCTAssertFalse(try JSONDecoder().decode(OSprSettings.self, from: Data("{}".utf8)).silenceTrim)
+        for value in [true, false] {
+            let bytes = try JSONSerialization.data(withJSONObject: ["silenceTrim": value])
+            let decoded = try JSONDecoder().decode(OSprSettings.self, from: bytes)
+            XCTAssertEqual(decoded.silenceTrim, value)
+            XCTAssertEqual(try JSONDecoder().decode(OSprSettings.self, from: JSONEncoder().encode(decoded)).silenceTrim, value)
+        }
+    }
     func testLegacySettingsKeepTheirBehaviorAndNeuralDefaultsOff() throws {
         let old = try JSONDecoder().decode(OSprSettings.self, from: Data(#"{"autoStopSeconds":3,"silenceTrim":false}"#.utf8))
         XCTAssertFalse(old.neuralAutoFinish); XCTAssertEqual(old.neuralSilenceSeconds, 1.2)
@@ -31,7 +41,7 @@ final class NeuralSettingsTests: XCTestCase {
         s.profiles = [.init(bundleID: "app.fixture", mode: .verbatim, name: "Fixture", site: "https://example.com/path", language: "fr")]
         s.saveHistory = false; s.keepAudio = true; s.audioBudgetMB = 512; s.retentionDays = 7
         s.autoPaste = false; s.restoreClipboard = false; s.allowUnverifiedPaste = true; s.spokenPunctuation = true
-        s.silenceTrim = false; s.silenceThreshold = 0.001; s.autoStopSeconds = 3
+        s.silenceTrim = true; s.silenceThreshold = 0.001; s.autoStopSeconds = 3
         s.neuralAutoFinish = true; s.neuralSilenceSeconds = 1.5; s.neuralEdgeTrim = true
         s.pushToTalk = true; s.hotkeyFnOnly = true; s.hotkeyCode = 6; s.hotkeyModifiers = 768
         s.microphoneID = "fixture-input"; s.preview = true; s.speakerLabels = true; s.launchAtLogin = true; s.rootPath = "/tmp/fixture-engine"
@@ -48,7 +58,7 @@ final class NeuralSettingsTests: XCTestCase {
         }
     }
     func testNeuralEdgesPreventOlderAppsFromApplyingRMSAndKeepTheStoredChoice() throws {
-        var settings = OSprSettings(); settings.neuralEdgeTrim = true
+        var settings = OSprSettings(); settings.neuralEdgeTrim = true; settings.silenceTrim = true
         let bytes = try JSONEncoder().encode(settings)
         struct Legacy: Decodable { let silenceTrim: Bool }
         XCTAssertFalse(try JSONDecoder().decode(Legacy.self, from: bytes).silenceTrim)

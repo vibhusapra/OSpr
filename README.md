@@ -83,7 +83,20 @@ models used by the preceding portable smoke suite; weights are never embedded.
 Builds use ad-hoc signing by default; the current local preview uses an Apple Development signature. Developer ID distribution signing, notarization and an updater are not complete. Do not overwrite an existing installation
 until its transcripts/settings are backed up.
 
-The latest checked local delivery is `dist/neural-edges-v0/OSpr.app` and
+The latest checked local delivery is `dist/full-audio-v0/OSpr.app` and
+`dist/full-audio-v0/OSpr-v0.1.0-macOS26.6.2-arm64.zip`, frozen at source `9a51603`.
+It adds full-audio defaults, empty-result recovery retention and bounded ASR
+timestamps. The [manifest](benchmarks/results/full-audio-release-package.json)
+pins 305 Swift / 178 Python tests; [artifact gates](benchmarks/results/full-audio-package-gates.json)
+verify all six offline engines after relocation, four synthetic hour requests,
+three every-sample 80-minute transports, real MCP defaults, 17 bundled CLI cases
+and ZIP CRC/extraction/signatures/inventory. Source CI is green at the identical
+application fingerprint; native insertion/recovery interaction, clean-Mac
+installation and notarization remain open. Weights download separately. The
+[noise controls](benchmarks/results/full-audio-negatives.json) preserve remaining
+false positives rather than promoting a universal quality claim.
+
+The earlier checked delivery remains `dist/neural-edges-v0/OSpr.app` and
 `dist/neural-edges-v0/OSpr-v0.1.0-macOS26.6.2-arm64.zip`, frozen at source `2f7f2a8`.
 It includes app/site profiles, indexed history, Soniox BYOK, mouse-start countdown,
 local refinement, and separate opt-in neural auto-finish/final-edge controls.
@@ -215,6 +228,15 @@ complete take gets a separate final decode. An empty detector range keeps
 completed recording recovery available; **Retry without edge trimming** uses the
 full recording for that attempt, without changing saved preferences.
 
+New installations now leave both volume and neural edge trimming off so local
+recognition receives the full normalized audio. Explicit saved preferences are
+preserved; CLI, worker and MCP defaults also use full audio. Every empty result
+retains completed recording recovery for review/retry, including a silence flag.
+See [full-audio defaults and noise tradeoffs](docs/architecture/full-audio-defaults.md).
+The older neural-edges-v0 and context-profiles-v0 ZIPs predate this change.
+Full-audio recognition can still emit false words from noise on some models;
+volume trimming did not reduce those outputs in the five synthetic controls.
+
 Both neural options are off by default. New settings encode legacy edge trimming
 and auto-stop as off while their neural counterparts are enabled, so an older
 build cannot silently substitute RMS. Native controls and physical microphone
@@ -231,7 +253,7 @@ transcript can still lose content. The same study exposes out-of-range Whisper
 timestamps. The source now bounds those estimates and preserves the transcript,
 with explicit approximate timing when alignment is unusable. All 12 observed
 overruns are corrected in real old/new reproduction, with text unchanged. The
-existing local preview predates this fix; native warning/export acceptance is open.
+older neural-edges-v0 preview predates this fix; native warning/export acceptance is open.
 See [multilingual results](benchmarks/results/neural-edges-multilingual-v1.json)
 and [independent checks](benchmarks/results/neural-edges-multilingual-v1-checks.json).
 
@@ -304,8 +326,8 @@ separate limitation. No secure-erasure guarantee is made.
 It is a research command for a supplied local Silero-compatible
 Core ML model. It reports probabilities and audio-time endpoint events without
 microphone capture, ASR or network access. Current source adds the opt-in native
-microphone option above; defaults and the delivered preview keep their existing
-behavior. See [evaluation and integration gates](docs/architecture/neural-endpointing.md).
+microphone option above. The older neural-edges-v0 preview predates the safer
+full-audio defaults included in full-audio-v0. See [evaluation and integration gates](docs/architecture/neural-endpointing.md).
 
 The standalone app also includes `Contents/MacOS/ospr-cli`, which discovers its
 bundled engine automatically, including through a symlink. For example:

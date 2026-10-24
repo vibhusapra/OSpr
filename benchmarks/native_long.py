@@ -21,7 +21,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--app", required=True, type=Path)
     parser.add_argument("--output", type=Path, default=ROOT / "results/native-long-files.json")
-    parser.add_argument("--neural-edges", action="store_true", help="Exercise exact-sample neural final edges instead of default RMS.")
+    parser.add_argument("--neural-edges", action="store_true", help="Exercise exact-sample neural final edges instead of the default transcription route.")
     args = parser.parse_args()
     app = args.app.resolve(strict=True)
     cli = app / "Contents/MacOS/ospr-cli"
@@ -89,7 +89,7 @@ def main():
                    neural_edges=args.neural_edges, normalized_pcm_sha256=normalized_sha,
                    boundary="Two separate cold bundled Swift CLI → owned worker → Metal long-file requests, offline from a foreign cwd. " +
                             ("Exact-sample native neural edge analysis, full PCM hash checks and original timeline offsets; automatic language."
-                             if args.neural_edges else "CLI defaults use silence trimming and automatic language, unlike the explicit-hint/no-trim in-process study."),
+                             if args.neural_edges else "CLI default transcription with automatic language and no supplied trim flag; audio_seconds and speech_seconds record the actual analyzed duration."),
                    limitations=["Functional regression check, not a latency benchmark; includes cold loading and shared-system activity.",
                                 "One repeated-speech synthetic hour input, not natural-meeting or production accuracy.",
                                 "No microphone, app permissions, audible playback, native UI or insertion."])
