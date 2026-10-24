@@ -313,7 +313,10 @@ enum InsertionDelivery: Equatable { case accessibility, clipboard }
                 AXUIElementSetAttributeValue(element, kAXSelectedTextAttribute as CFString, text as CFTypeRef)
             })
         }
-        return try InsertionTransport.send(accessibility: accessibility, validate: {
+        return try InsertionTransport.send(accessibility: accessibility, preferClipboard: {
+            guard let element else { return false }
+            return try AccessibilityAncestry.isWebContent(element)
+        }, validate: {
             try validateForInsertion(allowUnverified: allowUnverified)
         }, paste: {
             guard let source = CGEventSource(stateID: .combinedSessionState),

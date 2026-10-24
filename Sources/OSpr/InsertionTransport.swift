@@ -9,7 +9,8 @@ import OSprCore
         let write: () -> AXError
     }
 
-    static func send(accessibility: Accessibility?, validate: () throws -> Void,
+    static func send(accessibility: Accessibility?, preferClipboard: () throws -> Bool = { false },
+                     validate: () throws -> Void,
                      paste: () throws -> Void) throws -> InsertionDelivery {
         func validateCurrent() throws {
             try Task.checkCancellation()
@@ -17,7 +18,7 @@ import OSprCore
             try Task.checkCancellation()
         }
         try validateCurrent()
-        if let accessibility {
+        if try !preferClipboard(), let accessibility {
             let (capability, settable) = accessibility.isSettable()
             switch capability {
             case .success:
