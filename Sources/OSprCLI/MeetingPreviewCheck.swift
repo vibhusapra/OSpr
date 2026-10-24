@@ -130,15 +130,21 @@ enum MeetingPreviewCheck {
             let converter = AVAudioConverter(from: format, to: destination)!
             let output = AVAudioPCMBuffer(pcmFormat: destination, frameCapacity: AVAudioFrameCount(ceil(Double(position) * 16000 / format.sampleRate)) + 4096)!
             var offered = false
-            var error: NSError?
-            let status = converter.convert(to: output, error: &error) { _, state in
-                if !offered { offered = true; state.pointee = .haveData; return input }
-                state.pointee = .endOfStream; return nil
+            var values = [Float](), finished = false
+            for _ in 0..<8 {
+                output.frameLength = 0
+                var error: NSError?
+                let status = converter.convert(to: output, error: &error) { _, state in
+                    if !offered { offered = true; state.pointee = .haveData; return input }
+                    state.pointee = .endOfStream; return nil
+                }
+                if let error { throw error }
+                guard status != .error else { throw OSprError.message("Whole-track reference conversion failed.") }
+                values.append(contentsOf: UnsafeBufferPointer(start: output.floatChannelData![0], count: Int(output.frameLength)))
+                if status == .endOfStream { finished = true; break }
             }
-            if let error { throw error }
-            guard status == .endOfStream else { throw OSprError.message("Whole-track reference did not finish.") }
-            normalized.append((Int(((source.offset - origin) * 16000).rounded()),
-                               Array(UnsafeBufferPointer(start: output.floatChannelData![0], count: Int(output.frameLength)))))
+            guard finished else { throw OSprError.message("Whole-track reference did not finish.") }
+            normalized.append((Int(((source.offset - origin) * 16000).rounded()), values))
         }
         var mixed = [Float](repeating: 0, count: normalized.map { $0.0 + $0.1.count }.max()!)
         let gain: Float = sources.contains { $0.source == "microphone" } ? 0.5 : 1
