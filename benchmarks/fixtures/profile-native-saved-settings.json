@@ -1,0 +1,23 @@
+{
+  "model": "parakeet-v3",
+  "language": "",
+  "mode": "verbatim",
+  "transcriptionProvider": "local",
+  "rewriteProvider": "none",
+  "customPrompt": "Make the text clear and concise. Preserve meaning.",
+  "translationLanguage": "English",
+  "profiles": [
+    {
+      "bundleID": "com.apple.TextEdit",
+      "contextEnabled": true,
+      "customPrompt": "Keep every public fixture fact. Preserve names, numbers and negation.",
+      "enabled": false,
+      "id": "BCA90467-EEBC-49DF-9E6C-A6FD5D8A5648",
+      "language": "fr",
+      "localModel": "whisper-turbo",
+      "mode": "custom",
+      "name": "Public TextEdit QA"
+    }
+  ],
+  "rootPath": "/unavailable-public-fixture-engine"
+}

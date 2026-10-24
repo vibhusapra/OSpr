@@ -89,11 +89,12 @@ struct ContextProfileEditor: View {
                 } }
             }.textFieldStyle(.roundedBorder) }
             if let validation = profile.validationError, !bundleID.isEmpty {
-                Label(validation, systemImage: "exclamationmark.triangle")
-                    .font(.caption).foregroundStyle(.orange).fixedSize(horizontal: false, vertical: true)
+                Label { Text(validation) } icon: { Image(systemName: "exclamationmark.triangle").foregroundStyle(.orange) }
+                    .font(.caption).fixedSize(horizontal: false, vertical: true)
             } else if !rewriteEnabled && ![WritingMode.clean, .verbatim].contains(mode) {
-                Label("Choose a rewrite provider in Settings to apply this writing mode.", systemImage: "exclamationmark.triangle")
-                    .font(.caption).foregroundStyle(.orange).fixedSize(horizontal: false, vertical: true)
+                Label { Text("Choose a rewrite provider in Settings to apply this writing mode.") }
+                    icon: { Image(systemName: "exclamationmark.triangle").foregroundStyle(.orange) }
+                    .font(.caption).fixedSize(horizontal: false, vertical: true)
             }
             if !error.isEmpty { Text(error).font(.caption).foregroundStyle(.red).accessibilityIdentifier("profile-save-error") }
             HStack { Button("Cancel", action: close).keyboardShortcut(.cancelAction); Spacer(); Button("Save profile") {
