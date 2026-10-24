@@ -2,6 +2,26 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## Optional text preparation: move first-use work before dictation
+
+Models adds explicit cache-only 4B/9B preparation with synthetic output discarded,
+selected-model/EOS/type acknowledgements and idempotent repeated preparation.
+It keeps any loaded speech model resident, does not enable refinement or alter
+settings/history, and fences cancellation/stale inventory. Expected missing-cache
+and verified output-limit rejections retain the healthy worker; runtime/protocol
+failures clear it. Download/Off/defaults, model/dependency/history pins remain.
+
+Frozen source `e74ddf3` passes 418 Swift / 341 Python tests and source CI40121755671,
+including eleven actual preparation CLI contracts. Twelve fresh-worker timing
+runs preserve paired output and warm ASR/PID. A separate prepared 72-output replay
+is identical to prior raw text; existing 6/3 fallbacks still fire. First-refinement
+wait is lower after preparation, with its cost recorded separately and combined.
+No representative semantic, total-work, physical latency/energy or ranking claim.
+A private Parakeet-only cache rejects both text preparations without a download or
+ASR eviction. Actual light/dark/narrow source section renders are inspected.
+New artifact/native Models validation is in progress. [Implementation and exact
+measurements](architecture/text-model-preparation.md).
+
 ## Web insertion fix: visible browser delivery and clipboard restoration
 
 Source `e4bc75c` chooses guarded clipboard paste for web-area ancestry before any
