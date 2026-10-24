@@ -26,8 +26,7 @@ reader upgrade-fence probe pass. SwiftUI body renders in light/dark/narrow layou
 were inspected; wrapping preserves long qualifiers. These are not native
 scroll/disclosure/copy tests. Source tests cover save/restart, editor and audio
 mutations, stale/deleted sources, selection change, cancelled late results,
-session-memory transfer and transactional v3 old-writer fencing. Package and
-source CI validation are in progress. No normal app/data, recording/playback,
+session-memory transfer and transactional v3 old-writer fencing. Signed source `566c637` passes [CI 40108225943](https://github.com/vibhusapra/OSpr/actions/runs/40108225943) with 399 Swift / 279 Python tests, eight summary contracts, 41 provider regressions, app/runtime and 264 help links. Its separate `dist/meeting-summaries-v0/OSpr.app` passes relocated offline six-engine/neural/extras, ten cached assets, four MCP tools, eleven exact bundled summary CLI cases, actual bundled MCP summary/oversize rejection, provider regressions and ZIP CRC/extraction/signatures/executable-byte/offline-CLI/license/NOTICE gates. The 396,453,429-byte ZIP has SHA-256 `391dc41bc29c3e28b2f2178393f3529217ff3262fcce9bc1ff58ade5722a1e5b`. Apple Development signed macOS 26.6.2 arm64; weights separate. The bundled report is the frozen source snapshot before final receipts. [Package](../benchmarks/results/meeting-summary-package.json), [source validation](../benchmarks/results/meeting-summary-source-validation.json). No normal app/data, recording/playback,
 sound setting, real provider key/account or native QA launch is involved.
 
 [Implementation, exact contracts, models and remaining gates](architecture/meeting-summaries.md).

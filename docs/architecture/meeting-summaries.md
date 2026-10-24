@@ -141,8 +141,21 @@ contracts plus three offline 9B file replays; actual MCP summary/oversize reject
 and the separate old-Core reader fence pass. Process peak MLX allocation in the
 development runs is 3.21 GiB for 4B and 6.25 GiB for 9B; it is not RSS or an
 end-to-end memory/energy acceptance result. CLI/MCP probes, layout-body renders
-and archive-fence receipts are retained with this branch. Native interaction and a fresh signed
-package are still being validated. Layout renders use the actual SwiftUI content
+and archive-fence receipts are retained with this branch. Frozen source `566c637` [CI 40108225943](https://github.com/vibhusapra/OSpr/actions/runs/40108225943)
+passes matching tests, eight summary contracts, 41 provider regressions, app/runtime
+and 264 help links. Its separate `dist/meeting-summaries-v0/OSpr.app` passes offline
+relocated six-engine/neural/extras, ten cached assets/four MCP tools, eleven exact
+bundled summary CLI cases, actual bundled MCP summary/oversize rejection and
+provider/archive gates. The ZIP is 396,453,429 bytes with SHA-256
+`391dc41bc29c3e28b2f2178393f3529217ff3262fcce9bc1ff58ade5722a1e5b`.
+It is Apple Development signed for macOS 26.6.2 arm64, weights separate; the
+bundled report is the frozen source snapshot before final receipts.
+[Package manifest](../../benchmarks/results/meeting-summary-package.json) ·
+[Source validation](../../benchmarks/results/meeting-summary-source-validation.json) ·
+[Portable replay](../../benchmarks/results/meeting-summary-portable.json) ·
+[Exact bundled CLI](../../benchmarks/results/meeting-summary-bundled-cli.json) ·
+[Exact bundled MCP](../../benchmarks/results/meeting-summary-bundled-mcp.json).
+Native interaction and semantic/distribution acceptance remain open. Layout renders use the actual SwiftUI content
 body outside the native ScrollView; they do not verify disclosure/copy/scroll
 interaction. Remaining work includes representative, independently reviewed
 meeting summaries, source-language fidelity, cross-chunk scope/reconciliation,

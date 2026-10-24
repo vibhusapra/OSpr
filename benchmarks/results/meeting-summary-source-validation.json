@@ -1,0 +1,68 @@
+{
+  "status": "passed-meeting-summary-source-cli-mcp-and-development-package-semantic-native-release-pending",
+  "verified_at": "2026-10-24T15:59:04.539635+00:00",
+  "application_commit": "566c6370ad451d3de4f02b56dc8867815e8bc527",
+  "application_source_sha256": "a8122927255dc2ec8fdd130255a215b8d61c589f2c5f0f59cc3bc6cd178037e0",
+  "local": {
+    "swift_tests": 399,
+    "python_tests": 279,
+    "ruff": true,
+    "summary_cli_cases": 11,
+    "summary_cli_contracts": 8,
+    "summary_cli_real_9b_cases": 3,
+    "actual_mcp_summary_and_oversize_rejection": true,
+    "provider_regression_cases": {
+      "compatible_anthropic": 21,
+      "azure": 12,
+      "gemini": 8
+    },
+    "layout_body_fixtures": [
+      "light",
+      "dark",
+      "narrow"
+    ],
+    "layout_boundary": "Actual SwiftUI content body outside native ScrollView using a public model result; not native interaction"
+  },
+  "ci": {
+    "run_id": 40108225943,
+    "job_id": 120914273198,
+    "conclusion": "success",
+    "url": "https://github.com/vibhusapra/OSpr/actions/runs/40108225943",
+    "swift_tests": 399,
+    "python_tests": 279,
+    "summary_contract_cases": 8,
+    "compatible_anthropic_cli_cases": 21,
+    "azure_cli_cases": 12,
+    "gemini_cli_cases": 8,
+    "bundled_help_links": 264,
+    "clean_runner_bundle_imports": true
+  },
+  "model_development": {
+    "protocol_cases": 14,
+    "current_4b_accepted_for_review": 11,
+    "current_9b_accepted_for_review": 13,
+    "semantic_acceptance": false,
+    "calibration_not_sealed_holdout": true,
+    "known_errors_retained": true
+  },
+  "package_manifest_sha256": "d06578944c5581c2d0a69d327d61ba6b57b3fda827d82d9217fdd0f1abc72796",
+  "related_receipt_sha256": {
+    "portable": "a209378ecb5b401868232ebfe56846e86cd769af3b0d4564147202bb72ea52b3",
+    "bundled-cli": "b4a04180e6506394b7ceb66feabd508ef7928a0094734704682ac24c9ad87398",
+    "bundled-mcp": "9950ed2cc5aac03c51c2a54ce39ba59e59d634f64644b4fd1f1f5e54f292663f",
+    "bundled-rewrite": "431af5bd0694b8594d0e2fdc9755c8b92ffae3555568fb0f6a6fdb337b7e2a2c",
+    "bundled-azure": "93728ee8454e6e73237665c579ad67d54092b7e80afa10bbdab0712cfbecf3a1",
+    "bundled-gemini": "83ca0afb1653a724d968c235fe47e5e39376aa9a21ab6f427aff938b36f37d01",
+    "upgrade-fence": "40af225c19ba600ca917a998d6377cf5154a349db809db6434df2aa6624fa791",
+    "weight-checks": "ca4810e7346b8639014059e9b068eb1433d2b08bf7c9cabacec44b135154e500"
+  },
+  "native": {
+    "status": "pending-manual-unlock",
+    "qa_candidate_launched": false,
+    "no_recording_or_playback": true,
+    "no_sound_setting_changed": true,
+    "normal_persisted_data_unchanged": true,
+    "no_real_provider_key_or_account_call": true
+  },
+  "boundary": "Source/structural/source-reference/CLI/MCP/portable/archive gates only. Accepted paraphrases still contain known semantic errors and one calendar case returns no summary after bounded repair. Not representative independent meeting-quality, corrected-source/timestamp workflow, native UI/physical/device/capture/Keychain, isolated energy/latency, consumer ranking or Developer ID/notarized/installer/updater/older-OS acceptance. Normal app/data and prior candidates preserved. Existing unlock and separate bounded-unmute questions remain pending, not repeated. Full original goal remains open."
+}

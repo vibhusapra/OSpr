@@ -26,11 +26,18 @@ Newer experimental [local meeting summaries](docs/architecture/meeting-summaries
 are on `codex/meeting-summaries`: a separate pinned 9B model, structured notes,
 source quotes, CLI and MCP. Structural/source validation passes 13/14 development
 cases; accepted paraphrases still have known semantic errors. The preserved
-integration ZIP above predates this feature; a newer package is being validated.
+integration ZIP above predates this feature. The newer source `566c637` candidate
+is `dist/meeting-summaries-v0/OSpr.app`; its
+`OSpr-v0.1.0-meeting-summaries-macOS26.6.2-arm64.zip` is 396,453,429 bytes
+(SHA-256 `391dc41bc29c3e28b2f2178393f3529217ff3262fcce9bc1ff58ade5722a1e5b`).
+[Package/source evidence](benchmarks/results/meeting-summary-source-validation.json)
+passes offline engines, actual bundled CLI/MCP, provider regressions, archive and
+source CI checks. Apple Development signed macOS 26.6.2 arm64; weights separate.
+Native, semantic-quality and distribution acceptance remain open.
 
 ## Run on your Mac
 
-The combined preview is on `codex/v0-integration` ([draft review #24](https://github.com/vibhusapra/OSpr/pull/24)); `main` still contains the initial bootstrap.
+The current experimental preview is on `codex/meeting-summaries` ([draft PR #25](https://github.com/vibhusapra/OSpr/pull/25)), stacked on the combined v0 review. `main` still contains the initial bootstrap.
 
 Requirements: Apple Silicon, macOS 14+, Xcode 16+ / Swift 6, [uv](https://docs.astral.sh/uv/),
 and roughly 3–8 GB of available memory for the selected inference configuration.
@@ -39,7 +46,7 @@ standalone app bundles Python and locked inference libraries. Model
 weights download on first load; disk use depends on the selected models.
 
 ```sh
-git clone --branch codex/v0-integration https://github.com/vibhusapra/OSpr.git
+git clone --branch codex/meeting-summaries https://github.com/vibhusapra/OSpr.git
 cd OSpr
 scripts/setup.sh
 scripts/build-app.sh
