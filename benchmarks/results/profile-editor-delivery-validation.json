@@ -1,0 +1,35 @@
+{
+  "status": "passed-profile-editor-delivery-source-and-archive-gates",
+  "runtime_source_commit": "df00940af27f5765802a564899fe12ad58790b04",
+  "application_source_sha256": "38ff9488bbe5510f4d81bd0ee8bbbb584605ce8c325e9f846f62eeb29ca3eaae",
+  "source_ci": {
+    "url": "https://github.com/vibhusapra/OSpr/actions/runs/40130618237",
+    "head": "df00940af27f5765802a564899fe12ad58790b04",
+    "conclusion": "success",
+    "swift_tests": 424,
+    "python_tests": 355,
+    "bundled_help_links": 322,
+    "inference_imports": true
+  },
+  "package_receipt_sha256": "4d287db0675cb6131a89587631bb44298a7d022a9fe9e55b201e8d8f27f63c47",
+  "mlx_device_capability": {
+    "default_device": "Device(gpu, 0)",
+    "metal_available": true
+  },
+  "native_profile_acceptance": "pending",
+  "native_boundary": "Initial page at5e2790a crashed inspection service; standard-card4b46bb9 candidate was not launched because macOS locked. Normal app was restored before lock and settings/history remain unchanged. Package inference uses public files and is separate from native acceptance.",
+  "final_pr_checks": "See final head checks on draft PR31; this receipt binds the completed runtime-source CI and signed source package.",
+  "pull_request": "https://github.com/vibhusapra/OSpr/pull/31",
+  "scope": "424 Swift/355 Python source CI; actual exact package offline engines/neural/extras/CLI/MCP/worker/provider/resolver gates; ZIP CRC/extraction/signatures/source/locks/licenses. Capability probe reports Metal available/default GPU, not per-operation profiling, isolated speed/energy, consumer ranking or full native/release acceptance.",
+  "final_report": {
+    "local_links": 327,
+    "sha256": "7f5c27d95ea04252b614efec33f2319c8fa209941a453887a4048b481dd3c408",
+    "layout": "Actual generated report inspected in Chrome at desktop and390px; no narrow overflow390/390; native Mac remains locked."
+  },
+  "distribution_identity_check": {
+    "checked_at": "2026-10-24T20:51:58.535050+00:00",
+    "valid_apple_development_identities": 1,
+    "valid_developer_id_application_identities": 0,
+    "scope": "Local codesigning identity inventory only; no private key export, credential search, Apple-account request or notarization submission."
+  }
+}

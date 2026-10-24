@@ -68,3 +68,40 @@ No new standalone/notarized package or full-parity claim.
 [Dark](../assets/profile-editor-page-dark.png) ·
 [Compact](../assets/profile-editor-page-compact.png) ·
 [Routing and storage contract](context-profiles.md).
+
+## Current signed standalone candidate
+
+Clean source `df00940` passes [CI40130618237](https://github.com/vibhusapra/OSpr/actions/runs/40130618237):
+424 Swift / 355 Python tests, contracts, app/report/standalone imports and 322
+frozen help links. A separate Apple Development signed standalone candidate is
+at `dist/profile-editor-v0/OSpr.app`; its ZIP is **399,006,628 bytes**, SHA-256
+`1802aac57a77a5b11de71b787108677f45cb60348f5d242f1c97394dad64c5c6`.
+It targets macOS 26.6.2 arm64, keeps weights separate and is not notarized.
+
+The exact bundle passes offline relocation of all six speech engines and neural/
+extras, ten cached assets/four MCP tools, eleven preparation contracts, four
+fresh-worker paired preparation controls, both cache-miss rejections, twelve
+selected-model CLI cases/two actual MCP model calls, eleven summary CLI cases/
+actual MCP input bound, seventeen profile resolver cases, real output-limit
+warm-ASR retention and 41 provider loopback controls. These are smoke/contracts,
+not fresh comparative performance or representative semantic acceptance. The
+packaged interpreter reports Metal available and default Device(gpu,0); this is
+a capability probe, not a trace of every operation or battery measurement.
+Research grammar dependencies/encoding/35B remain outside the application.
+
+ZIP CRC, extraction, deep signatures, identical executable bytes, extracted
+offline CLI inventory, source/lock/license/NOTICE matching and normal-data hashes
+pass. The bundled report is the frozen 322-link source snapshot before these
+receipts; older candidates and the normal app are preserved. Native profile/
+input/device and clean-Mac/older-OS/updater/Developer-ID gates remain open.
+
+[Package and archive binding](../../benchmarks/results/profile-editor-package.json) ·
+[Source CI/delivery scope](../../benchmarks/results/profile-editor-delivery-validation.json) ·
+[Offline relocated runtime](../../benchmarks/results/profile-editor-portable.json) ·
+[Exact bundled summary CLI](../../benchmarks/results/profile-editor-bundled-summary-cli.json) ·
+[Exact bundled MCP](../../benchmarks/results/profile-editor-bundled-summary-mcp.json).
+
+Local signing-identity inventory was rechecked after packaging: Apple Development
+is the only available identity; no Developer ID Application identity is available.
+Production signing/notarization cannot be completed with the current local identity.
+No private keys were exported and no Apple-account/notary request was made.

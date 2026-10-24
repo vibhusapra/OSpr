@@ -19,6 +19,17 @@ No profile/audio/history fixture was admitted. The normal app is restored with
 unchanged settings/history. No new standalone distribution or native editor pass.
 [Bound source/native receipt](../benchmarks/results/profile-editor-page-validation.json).
 
+Clean source df00940 [CI40130618237](https://github.com/vibhusapra/OSpr/actions/runs/40130618237)
+passes 424 Swift / 355 Python, contracts, app/report/standalone imports and 322 links.
+Its separate signed standalone passes offline six-engine/neural/extras relocation,
+preparation/model-choice/summary CLI and MCP, profile resolver, warm-ASR retention,
+41 provider loopbacks and ZIP/source/signature/lock/license gates. The 399,006,628-
+byte ZIP is Apple Development signed macOS 26.6.2 arm64; weights separate, not
+notarized. Native profile/current insertion/physical device and semantic quality
+remain open. [Package](../benchmarks/results/profile-editor-package.json),
+[delivery scope](../benchmarks/results/profile-editor-delivery-validation.json).
+
+
 ## Source-grounded summary reconciliation and bounded repair
 
 A new 18-case public synthetic development study retains all ten model/algorithm/encoding
