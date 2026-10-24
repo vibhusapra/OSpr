@@ -2,6 +2,31 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## Source-grounded summary reconciliation and bounded repair
+
+A new 18-case public synthetic development study retains all ten model/algorithm/encoding
+runs and failures (180 case executions). Reconciliation now sees exact cited original
+evidence, and one repair receives a bounded rejected draft and item-specific checks.
+This improves source access and diagnostic feedback, without proving meaning or coverage.
+355 Python tests and eight actual Swift CLI summary contracts pass locally; Swift
+source is unchanged from the parent’s 418-test suite. Final source CI is recorded
+separately below when available.
+
+9B structural admission changes from 16/18 baseline to 17/18 current and 18/18 with
+research grammar; accepted notes still have heading/ownership/coverage errors. Lossless
+exact-text references retain one late reporting fact omitted by full-source 9B, but
+4B long-input omissions remain. The research-only 35B model uses ~20 GiB MLX allocation
+and still has omissions and a new numeric rejection; it is not promoted. Grammar and
+encoding stay outside the application runtime/dependency locks. The previous signed
+text-preparation package predates this summary-source change.
+[Study, reproduction and review observations](architecture/summary-fidelity.md) ·
+[Raw-run bindings](../benchmarks/results/summary-fidelity-study.json).
+
+The latest native TextEdit retry captured Google Chrome despite the manual foreground
+handoff; no phrase was sent. The owned target is unchanged, the QA app is quit, and
+the normal local-only app is restored with byte-identical settings/history. This
+retry does not close TextEdit acceptance. [Retry receipt](../benchmarks/results/web-insertion-textedit-retry.json).
+
 ## Optional text preparation: move first-use work before dictation
 
 Models adds explicit cache-only 4B/9B preparation with synthetic output discarded,
