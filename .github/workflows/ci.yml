@@ -48,6 +48,7 @@ jobs:
           uv run --frozen --all-extras python benchmarks/preview_package_verify.py --help
           uv run --frozen --all-extras python benchmarks/verify_scoring_factory.py
           uv run --frozen --all-extras python benchmarks/context_profiles.py --cli .build/debug/ospr-cli
+          uv run --frozen --all-extras python benchmarks/profile_controls.py --cli .build/debug/ospr-cli --output /tmp/ospr-native-profile-controls.json
           uv run --frozen --all-extras python benchmarks/gemini_contracts.py --cli .build/debug/ospr-cli --output /tmp/ospr-gemini-contracts.json
           uv run --frozen --all-extras python benchmarks/azure_contracts.py --cli .build/debug/ospr-cli --output /tmp/ospr-azure-contracts.json
           uv run --frozen --all-extras python benchmarks/rewrite_completion_contracts.py --cli .build/debug/ospr-cli --output /tmp/ospr-rewrite-completion-contracts.json

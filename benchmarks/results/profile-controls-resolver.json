@@ -1,0 +1,190 @@
+{
+  "status": "passed-native-profile-controls-resolver-replay",
+  "timestamp": "2026-10-24T23:21:45.202721+00:00",
+  "cli_sha256": "3e0e214484145a24cf15d7dc1e91e77b950c04a52cb69e6f31f90de8fd9ccfba",
+  "source_sha256": "5d6eaf086cbe2966f125f304bda171c09efd2b1c666c9ac84686da02d86fe40f",
+  "records": [
+    {
+      "state": "disabled",
+      "case": "site",
+      "result": {
+        "boundary": "Profile resolution only. No AX lookup, microphone, model loading or provider request. The supplied document URL is not included in the output.",
+        "document_available": false,
+        "instruction": "Return the transcript unchanged.",
+        "language": "",
+        "match": "global",
+        "mode": "verbatim",
+        "profile_id": null,
+        "profile_name": null,
+        "speech_model": "parakeet-v3",
+        "speech_provider": "local"
+      }
+    },
+    {
+      "state": "disabled",
+      "case": "outside",
+      "result": {
+        "boundary": "Profile resolution only. No AX lookup, microphone, model loading or provider request. The supplied document URL is not included in the output.",
+        "document_available": false,
+        "instruction": "Return the transcript unchanged.",
+        "language": "",
+        "match": "global",
+        "mode": "verbatim",
+        "profile_id": null,
+        "profile_name": null,
+        "speech_model": "parakeet-v3",
+        "speech_provider": "local"
+      }
+    },
+    {
+      "state": "disabled",
+      "case": "foreign",
+      "result": {
+        "boundary": "Profile resolution only. No AX lookup, microphone, model loading or provider request. The supplied document URL is not included in the output.",
+        "document_available": false,
+        "instruction": "Return the transcript unchanged.",
+        "language": "",
+        "match": "global",
+        "mode": "verbatim",
+        "profile_id": null,
+        "profile_name": null,
+        "speech_model": "parakeet-v3",
+        "speech_provider": "local"
+      }
+    },
+    {
+      "state": "enabled",
+      "case": "site",
+      "result": {
+        "boundary": "Profile resolution only. No AX lookup, microphone, model loading or provider request. The supplied document URL is not included in the output.",
+        "document_available": true,
+        "instruction": "Translate into French. Preserve names, numbers and meaning.",
+        "language": "",
+        "match": "site",
+        "mode": "translate",
+        "profile_id": "3A59DC8C-3DB1-4192-802A-8F73A2AE1A90",
+        "profile_name": "OSpr translation QA",
+        "speech_model": "qwen3-asr",
+        "speech_provider": "local"
+      }
+    },
+    {
+      "state": "enabled",
+      "case": "outside",
+      "result": {
+        "boundary": "Profile resolution only. No AX lookup, microphone, model loading or provider request. The supplied document URL is not included in the output.",
+        "document_available": true,
+        "instruction": "Return the transcript unchanged.",
+        "language": "",
+        "match": "global",
+        "mode": "verbatim",
+        "profile_id": null,
+        "profile_name": null,
+        "speech_model": "parakeet-v3",
+        "speech_provider": "local"
+      }
+    },
+    {
+      "state": "enabled",
+      "case": "foreign",
+      "result": {
+        "boundary": "Profile resolution only. No AX lookup, microphone, model loading or provider request. The supplied document URL is not included in the output.",
+        "document_available": false,
+        "instruction": "Return the transcript unchanged.",
+        "language": "",
+        "match": "global",
+        "mode": "verbatim",
+        "profile_id": null,
+        "profile_name": null,
+        "speech_model": "parakeet-v3",
+        "speech_provider": "local"
+      }
+    },
+    {
+      "state": "enabled",
+      "case": "canonical-document",
+      "result": {
+        "boundary": "Profile resolution only. No AX lookup, microphone, model loading or provider request. The supplied document URL is not included in the output.",
+        "document_available": true,
+        "instruction": "Translate into French. Preserve names, numbers and meaning.",
+        "language": "",
+        "match": "site",
+        "mode": "translate",
+        "profile_id": "3A59DC8C-3DB1-4192-802A-8F73A2AE1A90",
+        "profile_name": "OSpr translation QA",
+        "speech_model": "qwen3-asr",
+        "speech_provider": "local"
+      }
+    },
+    {
+      "state": "enabled",
+      "case": "query-not-echoed",
+      "result": {
+        "boundary": "Profile resolution only. No AX lookup, microphone, model loading or provider request. The supplied document URL is not included in the output.",
+        "document_available": true,
+        "instruction": "Translate into French. Preserve names, numbers and meaning.",
+        "language": "",
+        "match": "site",
+        "mode": "translate",
+        "profile_id": "3A59DC8C-3DB1-4192-802A-8F73A2AE1A90",
+        "profile_name": "OSpr translation QA",
+        "speech_model": "qwen3-asr",
+        "speech_provider": "local"
+      }
+    },
+    {
+      "state": "inherited",
+      "case": "site",
+      "result": {
+        "boundary": "Profile resolution only. No AX lookup, microphone, model loading or provider request. The supplied document URL is not included in the output.",
+        "document_available": true,
+        "instruction": "Translate into English. Preserve names, numbers and meaning.",
+        "language": "",
+        "match": "site",
+        "mode": "translate",
+        "profile_id": "3A59DC8C-3DB1-4192-802A-8F73A2AE1A90",
+        "profile_name": "OSpr translation QA",
+        "speech_model": "qwen3-asr",
+        "speech_provider": "local"
+      }
+    },
+    {
+      "state": "inherited",
+      "case": "outside",
+      "result": {
+        "boundary": "Profile resolution only. No AX lookup, microphone, model loading or provider request. The supplied document URL is not included in the output.",
+        "document_available": true,
+        "instruction": "Return the transcript unchanged.",
+        "language": "",
+        "match": "global",
+        "mode": "verbatim",
+        "profile_id": null,
+        "profile_name": null,
+        "speech_model": "parakeet-v3",
+        "speech_provider": "local"
+      }
+    },
+    {
+      "state": "inherited",
+      "case": "foreign",
+      "result": {
+        "boundary": "Profile resolution only. No AX lookup, microphone, model loading or provider request. The supplied document URL is not included in the output.",
+        "document_available": false,
+        "instruction": "Return the transcript unchanged.",
+        "language": "",
+        "match": "global",
+        "mode": "verbatim",
+        "profile_id": null,
+        "profile_name": null,
+        "speech_model": "parakeet-v3",
+        "speech_provider": "local"
+      }
+    }
+  ],
+  "fixture_sha256": {
+    "disabled": "fee7604410d23eaa143c7ad37754bf3e9d1bc7b774638e4cda0b3d5a384c7dff",
+    "enabled": "737cbbd5613fa4d954267e777f4d5e2e69ba6f082c9f33826a900244b7bba920",
+    "inherited": "f3912b768d4b9370e70ded9b5f46fb46bd1a3bd60ba498de57a52bb1dded98c7"
+  },
+  "boundary": "Eleven actual Swift resolver requests against native-saved configuration checkpoints. No AX lookup, microphone, model, provider, translation quality or live dictation/insertion acceptance."
+}

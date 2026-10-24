@@ -1,0 +1,58 @@
+{
+  "status": "passed-scoped-native-profile-controls-and-resolver-replay",
+  "timestamp": "2026-10-24T23:22:19.881694+00:00",
+  "build": {
+    "version": "0.1.0",
+    "built_at": "2026-10-24T22:37:48.754331+00:00",
+    "git_commit": "7a6e9ff2fdf1aa9c38a638fd1c88f927507060a5",
+    "tracked_changes": false,
+    "application_source_sha256": "17bf45f556aff0010b02676babbef87556e2a59b98dd06bd3cbf94450773a33a",
+    "source_manifest_version": 2,
+    "signing_mode": "configured-identity",
+    "boundary": "Development build; configured signing identity; not notarized; weights downloaded separately."
+  },
+  "packaged_executable_sha256": "13ffee7cef9355d1845517b9e0c2bb55cec5afff5c858d65a54ba7d44ea4221a",
+  "qa_resigned_executable_sha256": "dc008f18cc0358d03a395c756fd599f0fe8230b1d1d94a56b9f7064e3d77d430",
+  "unsigned_gui_sha256": "2148db2c57b5b4a08c91d0c9038222b01160fce0859f4c08c7b17a2a1781d68b",
+  "unsigned_gui_bytes_identical": true,
+  "native_checks": [
+    "Existing Custom/site/instruction reopened after quit/restart",
+    "Disabled Translate + Qwen3-ASR + explicit blank automatic language + French target saved",
+    "Mixed-case host/default443/trailing-slash site normalized to https://example.com/project",
+    "Pending global instruction/German target not committed by profile Save; defaults restored after restart",
+    "Disabled Off row and model/automatic-language/French controls survived restart",
+    "Profile re-enabled and saved with same identity and exact overrides",
+    "Equivalent app/site duplicate rejected visibly; draft retained; file bytes unchanged after rejection/Cancel",
+    "Unchecking both overrides removes their keys; native summary no longer claims automatic language",
+    "Inherited configuration resolves translation back to persisted English target"
+  ],
+  "native_checkpoints_sha256": {
+    "disabled": "5c0f052eddda3bc003c49c5de264f6709e83e5ddf3fa8d78ad732165f3359eb2",
+    "enabled": "32da18df710bd1475265d204709f14524499a06c9cfa47ea627257a82c9daaa9",
+    "inherited": "410316e7f05dd014c59b4920316bcdcb6f8ae2d8dd39fed654103d8a56223c07"
+  },
+  "public_fixture_sha256": {
+    "disabled": "fee7604410d23eaa143c7ad37754bf3e9d1bc7b774638e4cda0b3d5a384c7dff",
+    "enabled": "737cbbd5613fa4d954267e777f4d5e2e69ba6f082c9f33826a900244b7bba920",
+    "inherited": "f3912b768d4b9370e70ded9b5f46fb46bd1a3bd60ba498de57a52bb1dded98c7"
+  },
+  "resolver_receipt_sha256": "52693df3955b9959af4fa821b8adf602695b8f44269f3f6242daa1bc09786fe1",
+  "raw_native_and_public_replay_identical": true,
+  "screenshots_sha256": {
+    "profile-controls-translation-draft.png": "58c400cf7d2fa897e24f6651a60ca192da894cd6882c62593ce3375eb4d4bb74",
+    "profile-controls-globals-after-restart.png": "ecccfac83a9808931b7aa14cf140a6a0f9a29864ae86ea60340b85ec324d2331",
+    "profile-controls-duplicate-error.png": "ed2e9b279fde889117d61ffbd389e3c1ef9ed4f6bbd100782412e997367c50d9",
+    "profile-controls-inherited-profile.png": "00d59052e82e2df126b96e0b82230dc96ee48184bb20eae02107bb1bce074433"
+  },
+  "normal_app_restored": true,
+  "normal_data_and_app_unchanged": true,
+  "target_unchanged": true,
+  "private_candidate_stopped": true,
+  "audio_model_provider_or_permission_used": false,
+  "limitations": [
+    "Thin private session-only QA overlay re-signs the same compiled release GUI; unsigned executable bytes match the packaged GUI. Archive itself was not launched against normal data.",
+    "Light-mode native controls and eleven explicit-URL resolver requests; no live Chrome/Safari metadata capture, physical shortcut, model invocation, translation quality or insertion claim.",
+    "Native Delete, dark/compact/VoiceOver and actual capture-time model/language routing remain open.",
+    "One Edit action reported transient AX failure; refreshed state showed editor opened. No inspection-service reliability fix is claimed."
+  ]
+}
