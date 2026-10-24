@@ -2,6 +2,27 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## Web insertion fix: visible browser delivery and clipboard restoration
+
+Source `e4bc75c` chooses guarded clipboard paste for web-area ancestry before any
+AX setter attempt. Native fields retain their capability/write path; ancestry
+errors/cycles/depth overflow stop, and focus/cancellation are rechecked before paste.
+This addresses the Chrome AX-success/no-visible-change failure recorded below,
+without retrying after an uncertain write. Four new tests pass; full local Swift
+suite is 412. [CI 40118451239](https://github.com/vibhusapra/OSpr/actions/runs/40118451239)
+passes 412 Swift / 330 Python tests, local-model/summary/provider contracts,
+app/report/standalone imports and 290 links. The isolated signed QA overlay
+visibly passes Chrome textarea, contenteditable and selected-text replacement,
+with trusted paste/input events and captured clipboard restoration on all three.
+Password capture is refused and the public password baseline stays unchanged.
+An actual foreground change is refused. Current-build TextEdit regression still
+needs actual foreground focus; older-build TextEdit delivery passed earlier.
+The normal local-only app and byte-identical settings/history are restored; owned
+browser fixtures are reset/closed. No microphone, playback or sound change.
+[Contract and limits](architecture/web-insertion.md),
+[native receipt](../benchmarks/results/web-insertion-native.json),
+[bound source/CI](../benchmarks/results/web-insertion-source-validation.json).
+
 ## Native insertion component: TextEdit passes; browser failure reproduced
 
 After the manual unlock, the preserved isolated source `7e85e12` candidate

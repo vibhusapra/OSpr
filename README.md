@@ -61,7 +61,11 @@ passes [package gates](benchmarks/results/local-model-package.json) and
 Development signed macOS 26.6.2 arm64; weights separate; not notarized. Older
 packages above predate this choice.
 
-The current experimental preview is on `codex/local-model-choice` ([draft PR #27](https://github.com/vibhusapra/OSpr/pull/27)), stacked on the summary and combined-v0 reviews. `main` still contains the initial bootstrap.
+The current experimental source preview is on `codex/web-insertion` ([draft PR #28](https://github.com/vibhusapra/OSpr/pull/28)), stacked on the summary and combined-v0 reviews. `main` still contains the initial bootstrap.
+
+The [web insertion follow-up](docs/architecture/web-insertion.md) fixes a reproduced
+Chrome AX-success/no-visible-delivery failure and verifies real browser paste and
+clipboard restoration. The model-choice ZIP above predates this fix.
 
 Requirements: Apple Silicon, macOS 14+, Xcode 16+ / Swift 6, [uv](https://docs.astral.sh/uv/),
 and roughly 3–8 GB of available memory for the selected inference configuration.
@@ -70,7 +74,7 @@ standalone app bundles Python and locked inference libraries. Model
 weights download on first load; disk use depends on the selected models.
 
 ```sh
-git clone --branch codex/local-model-choice https://github.com/vibhusapra/OSpr.git
+git clone --branch codex/web-insertion https://github.com/vibhusapra/OSpr.git
 cd OSpr
 scripts/setup.sh
 scripts/build-app.sh

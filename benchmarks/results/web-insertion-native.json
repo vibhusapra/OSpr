@@ -1,0 +1,94 @@
+{
+  "status": "passed-browser-component-native-gates-textedit-regression-pending",
+  "timestamp": "2026-10-24T18:07:22.728346+00:00",
+  "build": {
+    "version": "0.1.0",
+    "built_at": "2026-10-24T17:54:01.442760+00:00",
+    "git_commit": "e4bc75c90b95c3d089827f1679a76f7e2b3bbe36",
+    "tracked_changes": false,
+    "application_source_sha256": "ecec8fd317bdf549a5487507f79dc39a4d226c1a6983a5a2c508fb98df7d963c",
+    "source_manifest_version": 2,
+    "signing_mode": "configured-identity",
+    "boundary": "Isolated native QA overlay: new OSpr executable and profile on preserved e27b374 bundled engine/CLI/help. Not a distribution archive; weights separate; not notarized."
+  },
+  "signed_ospr_executable_sha256": "e4540fddaaf3830828d8b181d0404b87998e54c966a04da8d52f18780daf79b5",
+  "deep_signature_verified": true,
+  "isolated_profile": true,
+  "qa_overlay_engine_cli_help_source": "e27b374978b74c4d06dca511594944e9ed1fbdfb",
+  "not_distribution_archive": true,
+  "checks": [
+    {
+      "case": "Chrome textarea cursor",
+      "result": "passed-visible-delivery",
+      "before": "Public textarea baseline.",
+      "after": "Public textarea baseline.OSpr is ready.",
+      "delivery": "clipboard",
+      "paste_events": 1,
+      "beforeinput_events": 1,
+      "input_events": 1,
+      "trusted_events": true,
+      "captured_clipboard_restored": true,
+      "visually_acknowledged_after_independent_field_read": true
+    },
+    {
+      "case": "Chrome contenteditable cursor",
+      "result": "passed-visible-delivery",
+      "before": "Public editable note baseline.",
+      "after": "Public editable note baseline.OSpr is ready.",
+      "delivery": "clipboard",
+      "paste_events": 1,
+      "beforeinput_events": 1,
+      "input_events": 1,
+      "trusted_events": true,
+      "captured_clipboard_restored": true,
+      "visually_acknowledged_after_independent_field_read": true
+    },
+    {
+      "case": "Chrome textarea selection",
+      "result": "passed-visible-delivery",
+      "before": "Public textarea baseline.",
+      "after": "OSpr is ready.",
+      "delivery": "clipboard",
+      "paste_events": 1,
+      "beforeinput_events": 1,
+      "input_events": 1,
+      "trusted_events": true,
+      "captured_clipboard_restored": true,
+      "visually_acknowledged_after_independent_field_read": true
+    },
+    {
+      "case": "Chrome password capture",
+      "result": "passed-refusal",
+      "public_baseline_check": "Password matches the public baseline.",
+      "new_input_events": 0
+    },
+    {
+      "case": "Foreground change after capture",
+      "result": "passed-refusal",
+      "message": "The active app changed. Focus the intended field and try again.",
+      "owned_contenteditable_unchanged": true
+    }
+  ],
+  "normal_app_restored": true,
+  "normal_settings_and_history_bytes_unchanged": true,
+  "normal_providers_local_only": true,
+  "public_target_files_restored": true,
+  "microphone_used": false,
+  "audio_playback_used": false,
+  "sound_settings_changed": false,
+  "assets_sha256": {
+    "docs/assets/web-insertion-browser-textarea.png": "fad6e27a77d55ed92966f4e20b3558af9f4e64d4e23d7f231b7a858f27dc3573",
+    "docs/assets/web-insertion-browser-contenteditable.png": "1b18fa34df0e75d25de7dfab1df7f9f7f9dbba3db2ae3312668728febf8b3062",
+    "docs/assets/web-insertion-browser-selection.png": "83d17fe8ebde708570f49e4bd1d5ca35fe64d305c3b8d0795fc4d4b231a821ed",
+    "docs/assets/web-insertion-clipboard-restored.png": "53c9293efabb366c000c3f2da17c4981f879bb481dbefcf453d4b54e17a3161b",
+    "docs/assets/web-insertion-password-baseline.png": "17f2f2dacc26c63f17cc54c486ad9aa0714c2a4a8991c1245e0d2d8a292c4c1f",
+    "docs/assets/web-insertion-password-refusal.png": "0473ce04e2736836b927d5cb726c98d44ac687179d08d7909dc2f0ea06a0a318"
+  },
+  "pending": [
+    "Actual foreground TextEdit regression on source e4bc75c; older source7e85 cursor/selection passed",
+    "Physical Fn/PTT and microphone-ASR-insertion",
+    "Broad browser/editor, slow/unresponsive app and uncertain-setter native fault",
+    "New full distribution archive / notarization / clean-Mac acceptance"
+  ],
+  "boundary": "Owned fixed-text native Chrome checks only; no send into protected host/unknown destination. The background-window control tool does not establish actual foreground focus; unexpected app capture was never confirmed. Clipboard contents were not logged. Exactly-once observed effects here do not prove atomic delivery under all races. Normal app/data restored."
+}
