@@ -136,4 +136,30 @@ final class InsertionTransportTests: XCTestCase {
             XCTAssertEqual(pastes, 0)
         }
     }
+    @MainActor func testWebRouteNeverQueriesOrWritesMisleadingSelectedTextCapability() throws {
+        var events: [String] = []
+        XCTAssertEqual(try InsertionTransport.send(accessibility: .init(isSettable: {
+            events.append("capability"); return (.success, true)
+        }, write: { events.append("write"); return .success }), preferClipboard: {
+            events.append("web-role"); return true
+        }, validate: { events.append("validate") }, paste: { events.append("paste") }), .clipboard)
+        XCTAssertEqual(events, ["validate", "web-role", "validate", "paste"])
+    }
+
+    @MainActor func testWebRoutingFailureOrFocusChangeHasNoWriteOrPaste() {
+        for unreadable in [true, false] {
+            var changed = false, effects = 0
+            XCTAssertThrowsError(try InsertionTransport.send(accessibility: .init(isSettable: {
+                effects += 1; return (.success, true)
+            }, write: { effects += 1; return .success }), preferClipboard: {
+                changed = true
+                if unreadable { throw OSprError.message("Unavailable ancestry") }
+                return true
+            }, validate: {
+                if changed { throw OSprError.message("Field changed during ancestry read") }
+            }, paste: { effects += 1 }))
+            XCTAssertEqual(effects, 0)
+        }
+    }
+
 }
