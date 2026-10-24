@@ -504,6 +504,9 @@ acceptance, notarization or a top-three product ranking.
 
 ## Preview cadence and native-rate packet diagnostic
 
+The diagnostic describes the old stateless path. The later continuous normalizer
+is checked separately below; cadence alone does not repair native-rate PCM.
+
 ```sh
 PYTHONPATH=backend HF_HUB_OFFLINE=1 .venv/bin/python benchmarks/preview_cadence.py --cli .build/release/ospr-cli --output .local/preview-cadence-real.json
 PYTHONPATH=backend .venv/bin/python benchmarks/verify_preview_cadence.py --result .local/preview-cadence-real.json --output .local/preview-cadence-checks.json
@@ -516,3 +519,21 @@ latency. First-partial regressions and increased request counts remain published
 The separate fifteen-case diagnostic exposes existing stateless native-rate
 resampling differences; passing the 16k replay does not accept 44.1/48k continuity.
 Use fresh output paths, a clean frozen checkout and cached model weights.
+
+## Continuous native-rate streaming normalization
+
+```sh
+PYTHONPATH=backend HF_HUB_OFFLINE=1 .venv/bin/python benchmarks/stream_normalization.py --output .local/stream-normalization-real.json
+PYTHONPATH=backend .venv/bin/python benchmarks/verify_stream_normalization.py --result .local/stream-normalization-real.json --output .local/stream-normalization-checks.json
+```
+
+The frozen protocol selects three known English clips, 44.1/48 kHz and two native
+partition patterns before outputs. Thirty-six actual Nemotron sessions compare
+continuous native packets, the old independent packet normalization and controls
+normalized as a whole. All corrected PCM hashes and twelve final texts match
+controls; all policies have 3.39% WER. All twelve legacy PCM hashes/counts differ.
+Fifteen synthetic cases and two 120-second stress streams match exact whole-file
+bytes with bounded resampler state. Every partial and final text remains public.
+The independent checker reconstructs whole/legacy PCM and edit distances without
+using the candidate class. This is an unpaced continuity regression, not physical
+capture, end-to-end latency, energy, general accuracy or a product ranking.

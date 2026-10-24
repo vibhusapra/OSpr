@@ -2,6 +2,34 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## Current work: continuous native-rate preview normalization
+
+Branch `codex/stream-normalization` fixes packet normalization with a bounded,
+phase-aligned FIR halo and explicit final tail. Native packets are validated
+before decode allocation; sample-rate changes reject the preview instead of
+mixing clocks. Cancel, replacement and successful finalization release state.
+Full-file import normalization is unchanged. Preview stays opt-in.
+
+All **230 Python tests** pass, including 52 new contracts across fourteen
+supported native rates, clipping, tiny tails, random partitions, bounded retained
+state, packet limits and engine lifecycle. A frozen real replay completes **36
+Nemotron sessions**: three known public English clips, 44.1/48 kHz, two fixed
+partitions, old/new/whole-normalized controls. Every corrected/control PCM hash
+matches, and all twelve corrected final texts match controls. All policies have
+3.39% WER; no accuracy gain is claimed. Legacy normalization differs in all
+twelve PCM/count cases. Fifteen synthetic cases and two 120-second stress streams
+also match exact whole-file bytes; retained raw state peaks at 507 / 73 samples.
+The independent checker reconstructs source/legacy PCM, sample positions and edit
+distances without importing the candidate normalizer.
+
+Native latency, energy, physical capture/rate changes, preview failure and stop
+cancellation remain gates. The latest checked ZIP at 9a51603 predates this change;
+no new standalone package is promoted. The approved public WAV is prepared in
+QuickTime and the isolated old checked profile is warm for a fresh TextEdit focus
+handoff; no new recording or playback has started at this checkpoint.
+See `stream-normalization-real.json`, its raw traces/checker and
+`docs/architecture/stream-normalization.md`.
+
 ## Current work: stop preview cadence drifting with decode time
 
 Branch `codex/preview-cadence` replaces sleep-after-work with monotonic deadlines,
@@ -22,8 +50,8 @@ A separate fifteen-case diagnostic confirms a pre-existing native-rate packet
 normalization defect: all ten 44.1/48 kHz cases differ from full-file PCM. At
 1,024 native frames per packet, one second yields 16,021 / 16,031 normalized
 samples instead of 16,000. Counts can also match while waveforms differ. All five
-16 kHz controls match. Continuous resampling is the next required streaming fix;
-the cadence change alone does not establish native continuity or energy benefit.
+16 kHz controls match. The later source change above repairs continuous PCM normalization;
+the cadence change alone did not establish native continuity or energy benefit.
 See `preview-cadence-real.json`, its checker, `preview-native-packet-normalization.json`
 and `preview-cadence-source-validation.json`. The current checked
 9a51603 preview is unchanged and predates this source change.
