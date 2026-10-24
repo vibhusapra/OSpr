@@ -15,6 +15,7 @@ import importlib.util
 import json
 import os
 from pathlib import Path
+import resource
 import subprocess
 import sys
 import tempfile
@@ -40,7 +41,7 @@ def worker(manifest):
     assert bool(torch_version) == manifest["expect_torch"]
     assert mx.metal.is_available() and str(mx.default_device()) == "Device(gpu, 0)"
     engine, rows = Engine(), []
-    for request in manifest["requests"]:
+    for index, request in enumerate(manifest["requests"], 1):
         started = time.perf_counter()
         result, error = None, None
         try:
@@ -60,7 +61,7 @@ def worker(manifest):
                 result = dict(partial=partial, final=final, text=final["text"])
             else:
                 raise ValueError("Unknown frozen runtime request")
-            if action in {"transcribe", "meeting", "stream"} and not result.get("text", "").strip():
+            if action in {"transcribe", "meeting", "stream"} and request.get("require_nonempty", True) and not result.get("text", "").strip():
                 raise ValueError("Speech fixture returned empty text")
             if action == "warm" and result.get("primed_sample_rate") != 48000:
                 raise ValueError("Model warm-up did not prime native-rate kernels")
@@ -75,8 +76,11 @@ def worker(manifest):
         rows.append(dict(id=request["id"], action=request["action"], result=result, error=error,
             wall_ms=(time.perf_counter() - started) * 1000,
             torch_imported=any(name == "torch" or name.startswith("torch.") for name in sys.modules)))
+        if index % 10 == 0 or index == len(manifest["requests"]):
+            print("runtime_probe_progress " + json.dumps(dict(completed=index, total=len(manifest["requests"]), id=request["id"])), file=sys.stderr, flush=True)
     return dict(torch_spec_present=torch_spec, torch_metadata_version=torch_version,
-                default_device=str(mx.default_device()), records=rows)
+                default_device=str(mx.default_device()), process_peak_rss_bytes=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,
+                peak_mlx_bytes=mx.get_peak_memory(), records=rows)
 
 
 def main():
@@ -84,6 +88,7 @@ def main():
     parser.add_argument("--app", type=Path)
     parser.add_argument("--output", type=Path)
     parser.add_argument("--worker", type=Path)
+    parser.add_argument("--protocol", type=Path)
     args = parser.parse_args()
     if args.worker:
         with redirect_stdout(sys.stderr):
@@ -97,7 +102,7 @@ def main():
     packages = resources / "Engine/.venv/lib/python3.12/site-packages"
     python_home = resources / "Python"
     backend = resources / "Engine/backend"
-    protocol_path = ROOT / "benchmarks/fixtures/runtime-footprint-protocol.json"
+    protocol_path = args.protocol or ROOT / "benchmarks/fixtures/runtime-footprint-protocol.json"
     protocol = json.loads(protocol_path.read_text())
     item = protocol["source"]
     source = ROOT / "benchmarks" / item["path"]
@@ -116,6 +121,7 @@ def main():
                  dict(id="meeting", action="meeting", path=str(source)),
                  dict(id="stream", action="stream", path=str(source))]
     records = []
+    inputs = []
     with tempfile.TemporaryDirectory(prefix="runtime-footprint-", dir=ROOT / ".local") as directory:
         staging = Path(directory)
         candidate = staging / "site-packages"
@@ -123,6 +129,37 @@ def main():
         for path in packages.iterdir():
             if path.name not in excluded:
                 (candidate / path.name).symlink_to(path, target_is_directory=path.is_dir())
+        if protocol.get("cases"):
+            import numpy as np
+            import soundfile as sf
+
+            requests = []
+            for model in protocol["models"]:
+                requests.append(dict(id="warm-" + model, action="warm", model=model))
+                for index, case in enumerate(protocol["cases"]):
+                    if case["model"] != model:
+                        continue
+                    source_path = ROOT / "benchmarks" / case["path"]
+                    assert sha(source_path) == case["sha256"]
+                    audio, rate = sf.read(source_path, dtype="float32")
+                    assert rate == 16000 and audio.ndim == 1
+                    audio *= np.float32(case.get("amplitude", 1))
+                    pcm = np.clip(audio, -1, 1)
+                    digest = hashlib.sha256(pcm.astype("<f4", copy=False).tobytes()).hexdigest()
+                    if case.get("pcm_sha256"):
+                        assert digest == case["pcm_sha256"]
+                    path = source_path
+                    if case.get("amplitude", 1) != 1:
+                        path = staging / f"quiet-{index}.wav"
+                        sf.write(path, audio, rate, subtype="FLOAT")
+                        decoded, decoded_rate = sf.read(path, dtype="float32")
+                        assert decoded_rate == rate and decoded.tobytes() == audio.tobytes()
+                    requests.append(dict(id=case["id"], action="transcribe", path=str(path), model=model,
+                        language=case["language"], require_nonempty=case["expected_speech"]))
+                    inputs.append(dict(id=case["id"], file_sha256=sha(path), normalized_samples=len(pcm), pcm_sha256=digest))
+            requests += [dict(id="notes", action="notes", text=protocol["notes_text"]),
+                         dict(id="meeting", action="meeting", path=str(source)),
+                         dict(id="stream", action="stream", path=str(source))]
         for variant in protocol["variant_order"]:
             manifest = staging / (variant + ".json")
             manifest.write_text(json.dumps(dict(expect_torch=variant == "baseline", requests=requests)))
@@ -130,13 +167,16 @@ def main():
                 PYTHONPATH=str(packages if variant == "baseline" else candidate) + os.pathsep + str(backend),
                 PYTHONNOUSERSITE="1", PYTHONSAFEPATH="1", PYTHONDONTWRITEBYTECODE="1", HF_HUB_OFFLINE="1",
                 HF_HUB_DISABLE_TELEMETRY="1", OSPR_DEBUG_LOG="0")
-            result = subprocess.run([str(python_home / "bin/python3.12"), str(Path(__file__).resolve()), "--worker", str(manifest)],
-                                    cwd=staging, env=environment, capture_output=True, text=True, timeout=300)
+            log_path = args.output.with_name(args.output.stem + "." + variant + ".log")
+            with log_path.open("w") as log:
+                result = subprocess.run([str(python_home / "bin/python3.12"), str(Path(__file__).resolve()), "--worker", str(manifest)],
+                    cwd=staging, env=environment, stdout=subprocess.PIPE, stderr=log, text=True,
+                    timeout=protocol.get("worker_timeout_seconds", 300))
             row = dict(variant=variant, returncode=result.returncode)
             if result.returncode == 0:
                 row.update(json.loads(result.stdout))
             else:
-                row["failure_stderr"] = result.stderr[-8000:]
+                row["failure_stderr"] = log_path.read_text()[-8000:]
             records.append(row)
             print(json.dumps(dict(variant=variant, returncode=result.returncode,
                 request_errors=sum(bool(r["error"]) for r in row.get("records", [])))), flush=True)
@@ -160,7 +200,7 @@ def main():
         git_commit=subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
         build=json.loads((resources / "build-info.json").read_text()), harness_sha256=sha(Path(__file__)),
         protocol_sha256=sha(protocol_path), excluded_top_level_entries=sorted(excluded), torch_version=torch.version,
-        requests_each=len(requests), summary=pairs, traces_file=archive.name, traces_sha256=sha(archive),
+        requests_each=len(requests), source_inputs=inputs, summary=pairs, traces_file=archive.name, traces_sha256=sha(archive),
         checked_app_signature_unchanged=True, boundary=protocol["boundary"])
     assert not subprocess.check_output(["git", "diff", "--name-only", "HEAD"], cwd=ROOT)
     args.output.write_text(json.dumps(receipt, indent=2) + "\n")
