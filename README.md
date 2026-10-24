@@ -83,24 +83,25 @@ models used by the preceding portable smoke suite; weights are never embedded.
 Builds use ad-hoc signing by default; the current local preview uses an Apple Development signature. Developer ID distribution signing, notarization and an updater are not complete. Do not overwrite an existing installation
 until its transcripts/settings are backed up.
 
-The latest checked local delivery is `dist/context-profiles-v0/OSpr.app` and
-`dist/context-profiles-v0/OSpr-v0.1.0-macOS26.6.2-arm64.zip`, frozen at source `db0987a`.
-It includes app/site profiles with per-take model, language and instructions,
-indexed history, Soniox BYOK, the mouse-start countdown and explicit local
-refinement tasks. Its [SHA-256 manifest](benchmarks/results/context-profiles-release-package.json)
-pins 244 Swift/105 Python tests, relocated offline smoke, both synthetic hour-file
-regressions and all three 80-minute transports. The exact bundled CLI passes
-[17 profile cases](benchmarks/results/context-profiles-bundled-cli.json). Three [bundled rewrite smokes](benchmarks/results/context-profiles-bundled-rewrite-smoke.json) pass too.
-[CI at the packaged head](benchmarks/results/context-profiles-ci.json) also passes.
+The latest checked local delivery is `dist/neural-edges-v0/OSpr.app` and
+`dist/neural-edges-v0/OSpr-v0.1.0-macOS26.6.2-arm64.zip`, frozen at source `2f7f2a8`.
+It includes app/site profiles, indexed history, Soniox BYOK, mouse-start countdown,
+local refinement, and separate opt-in neural auto-finish/final-edge controls.
+Its [SHA-256 manifest](benchmarks/results/neural-edges-release-package.json) pins
+304 Swift/141 Python tests. [Portable gates](benchmarks/results/neural-edges-package-gates.json)
+include all six engines and native neural edges offline after relocation, nine
+model inventories, audio review/MCP, both synthetic hour-file regressions with
+and without neural edges, and all three 80-minute transports. The exact bundled
+CLI passes [17 profile cases](benchmarks/results/neural-edges-bundled-cli.json).
+[CI at the packaged head](benchmarks/results/neural-edges-packaged-ci.json) passes.
 Quit other OSpr copies before opening a new bundle. Back up
 existing settings/history before an archive upgrade; the normal older preview
 remains unchanged. This is an Apple Development signed macOS 26.6.2 arm64 preview,
 with separate weight downloads and native interaction gates still open. Its bundled
-report is a snapshot preceding the final artifact receipts. The earlier
-`refinement-v0` delivery and [manifest](benchmarks/results/refinement-release-package.json)
-remain available. A new isolated microphone start was discarded before recognition
-when the captured foreground app differed from the intended TextEdit target;
-[insertion remains unverified](benchmarks/results/context-profiles-insertion-preflight.json).
+report is a snapshot preceding the final artifact receipts. Earlier
+`context-profiles-v0` and `refinement-v0` deliveries remain available. The latest
+insertion handoff stopped at the macOS lock before a recording could start;
+actual microphone-to-insertion acceptance remains open.
 
 ## Included
 
@@ -109,7 +110,7 @@ when the captured foreground app differed from the intended TextEdit target;
 - A three-second mouse-start countdown gives you time to focus the destination
   field before recording. Allow microphone access first; cancel from the HUD,
   Studio or the global shortcut. Native countdown/insertion acceptance is pending;
-  the latest `context-profiles-v0` preview includes this feature.
+  the latest preview includes this feature.
 - Local MLX/Metal ASR: Parakeet v3, Whisper Turbo/Small, Qwen3 ASR 1.7B 8-bit,
   Nemotron 3.5 ASR 8-bit, and native-layout Cohere Transcribe 8-bit. Cohere
   supports 14 languages with an explicit hint; blank uses English. Exact revisions are in

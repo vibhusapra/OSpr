@@ -27,6 +27,32 @@ microphone and insertion acceptance remain open. The latest insertion handoff
 again encountered the macOS lock, before any recording was started. PR #8's final
 head `12361fd` has green macOS CI including clean-runner packaging.
 
+### New local preview
+
+`dist/neural-edges-v0/OSpr.app` and its ZIP are frozen at source `2f7f2a8`, with
+the same application fingerprint as the six-engine study. Apple Development
+signing is preserved; this is not Developer ID/notarized distribution. Source CI
+passes 304 Swift / 141 Python / 17 CLI cases. The 390,800,816-byte ZIP has SHA-256
+`5bc611c311973507bdd0a10e5a3b22efb31f9f195db2d16c07f439b2e697b2d9`.
+
+Actual copied-bundle offline checks pass all six ASR engines, all six native
+neural-edge paths, detector abstention, nine inventories, source-excerpt notes,
+speaker word attribution, mixing/upload preparation, history/audio review and
+MCP. A path with spaces, foreign cwd and poisoned PYTHONPATH are exercised; 113
+bundled help links resolve and signatures remain valid. Bundled MLX reports GPU
+as default and Metal available. Both hour-file models pass with and without
+neural edges, with identical WER in this repeated fixture (Parakeet 2.72%, Qwen
+2.37%). Neural scans verify all 57,704,488 normalized samples before selection.
+The three local fake-provider checks each pass nine exact-sample parts over 80
+minutes, including owned Soniox cleanup. ZIP CRC, extraction, signatures and the
+extracted offline CLI pass. These tests do not establish paid recognition,
+natural-meeting quality or comparative latency/energy.
+
+The normal app and previous previews remain in place. New neural options stay
+off by default. Native controls/recovery/preview-to-final, microphone/shortcuts,
+insertion, devices, clean-Mac distribution and updater acceptance remain open.
+See `benchmarks/results/neural-edges-package-gates.json` for bound receipts.
+
 ## Working implementation
 
 - [x] Native SwiftUI Studio, History, Models, Dictionary, Modes, Settings,
