@@ -11,6 +11,7 @@ public enum OSprError: LocalizedError {
 public final class WorkerClient: @unchecked Sendable {
     private struct EngineRejection: LocalizedError {
         let message: String
+        let kind: String?
         var errorDescription: String? { message }
     }
     private let queue = DispatchQueue(label: "app.ospr.worker", qos: .userInitiated)
@@ -89,12 +90,14 @@ public final class WorkerClient: @unchecked Sendable {
                     let result = try readResult(id: id, progress: progress)
                     continuation.resume(returning: result)
                 } catch {
-                    // A failed inference has a valid protocol response, but restart
-                    // after any error so broken pipes cannot poison subsequent work.
-                    // Local audio preparation never mutates model state. Keep a
-                    // warm ASR after an expected size/codec rejection; malformed
-                    // framing, broken pipes and inference errors still restart.
-                    if !(error is EngineRejection && ["prepare_review", "prepare_upload", "prepare_upload_parts"].contains(body["action"] as? String ?? "")) { self.stopOnQueue() }
+                    // Completed output-budget stops leave the decoder healthy.
+                    // Keep warm ASR after these or expected audio preparation
+                    // rejections; all other inference/protocol failures restart.
+                    let rejection = error as? EngineRejection
+                    let action = body["action"] as? String ?? ""
+                    let preparationRejection = rejection != nil && ["prepare_review", "prepare_upload", "prepare_upload_parts"].contains(action)
+                    let outputLimit = rejection?.kind == "text-output-limit" && ["rewrite", "notes", "summary"].contains(action)
+                    if !preparationRejection && !outputLimit { self.stopOnQueue() }
                     continuation.resume(throwing: error)
                 }
             }
@@ -125,7 +128,7 @@ public final class WorkerClient: @unchecked Sendable {
             guard let ok = response["ok"] as? Bool else { throw OSprError.message("Invalid local engine response.") }
             if !ok {
                 guard let message = response["error"] as? String else { throw OSprError.message("Invalid local engine response.") }
-                throw EngineRejection(message: message)
+                throw EngineRejection(message: message, kind: response["error_kind"] as? String)
             }
             guard let result = response["result"] as? [String: Any] else { throw OSprError.message("Invalid local engine response.") }
             return result

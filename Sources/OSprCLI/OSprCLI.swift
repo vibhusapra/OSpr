@@ -11,6 +11,9 @@ import OSprCore
         do {
             let result: [String: Any]
             switch command {
+            case "_verify-local-completion":
+                guard args.count == 2 else { usage(); exit(2) }
+                result = try await LocalCompletionCheck.run(source: URL(fileURLWithPath: args[1]), worker: worker)
             case "_benchmark-meeting-preview":
                 guard args.count == 3 else { usage(); exit(2) }
                 result = try MeetingPreviewCheck.run(manifest: URL(fileURLWithPath: args[1]), directory: URL(fileURLWithPath: args[2]))

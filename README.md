@@ -35,6 +35,13 @@ passes offline engines, actual bundled CLI/MCP, provider regressions, archive an
 source CI checks. Apple Development signed macOS 26.6.2 arm64; weights separate.
 Native, semantic-quality and distribution acceptance remain open.
 
+The newer `codex/local-completion` source adds a [local EOS completion gate](docs/architecture/local-completion.md)
+for all text tasks. Eight actual old/new controls preserve completed output; two
+valid-JSON output-limit sentinels fail safely. A verified text output limit retains
+warm speech. Full source checks pass 400 Swift / 318 Python tests; both 14-case
+summary replays preserve the previous outputs and known semantic failures.
+The packaged source566c637 preview above predates this guard.
+
 ## Run on your Mac
 
 The current experimental preview is on `codex/meeting-summaries` ([draft PR #25](https://github.com/vibhusapra/OSpr/pull/25)), stacked on the combined v0 review. `main` still contains the initial bootstrap.

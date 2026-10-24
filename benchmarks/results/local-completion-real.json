@@ -1,0 +1,196 @@
+{
+  "status": "passed",
+  "timestamp": "2026-10-24T16:31:04.443970+00:00",
+  "mlx_lm_version": "0.32.2",
+  "implementation_sha256": {
+    "backend/ospr_backend/local_completion.py": "40ca9f33969f37b62d5dbc8a36a2a6040a513cf624f4e832c4b1d6382a42ef0d",
+    "backend/ospr_backend/engine.py": "f5515f0f8e8134df6890e3a3dd451a6538149ca3e776add6875bb62f4324d382"
+  },
+  "models": {
+    "rewrite-quality": {
+      "repo": "mlx-community/Qwen3-4B-Instruct-2507-4bit",
+      "revision": "50d427756c6b1b2fe0c0a10f67fbda1fc8e82c1b",
+      "license": "apache-2.0",
+      "safetensor_bytes": 2263022417,
+      "required_files": {
+        "added_tokens.json": 707,
+        "chat_template.jinja": 4040,
+        "config.json": 938,
+        "generation_config.json": 238,
+        "merges.txt": 1671853,
+        "model.safetensors": 2263022417,
+        "model.safetensors.index.json": 63964,
+        "special_tokens_map.json": 613,
+        "tokenizer.json": 11422654,
+        "tokenizer_config.json": 5440,
+        "vocab.json": 2776833
+      },
+      "artifact_bytes": 2278969697
+    },
+    "meeting-quality": {
+      "repo": "mlx-community/Qwen3.5-9B-4bit",
+      "revision": "8b2b98c00a6b4d291155e4890773ca8f769aee53",
+      "license": "apache-2.0",
+      "safetensor_bytes": 5950221072,
+      "required_files": {
+        "chat_template.jinja": 7756,
+        "config.json": 3331,
+        "model-00001-of-00002.safetensors": 5349771222,
+        "model-00002-of-00002.safetensors": 600449850,
+        "model.safetensors.index.json": 123592,
+        "preprocessor_config.json": 390,
+        "processor_config.json": 1300,
+        "tokenizer.json": 19989343,
+        "tokenizer_config.json": 1139,
+        "video_preprocessor_config.json": 385,
+        "vocab.json": 6722759
+      },
+      "artifact_bytes": 5977071067
+    }
+  },
+  "controls": [
+    {
+      "model": "rewrite-quality",
+      "task": "transcript",
+      "prompt_sha256": "18ecb63b89c91965c9b598e1eb939763564a7ceccf9ecd354c98e58baafff0ef",
+      "max_tokens": 292,
+      "generation_tokens": 25,
+      "terminal_token": 151645,
+      "eos_token_ids": [
+        151643,
+        151645
+      ],
+      "finish_reason": "stop",
+      "text": "Maya will send the draft on June 5. The budget is $250. Approval is still pending.",
+      "old_text_identical": true
+    },
+    {
+      "model": "rewrite-quality",
+      "task": "edit-selection",
+      "prompt_sha256": "2b560d009deabbe562d23cbe66a3200a479baf92ea26c700603b573ff99e0bc9",
+      "max_tokens": 292,
+      "generation_tokens": 25,
+      "terminal_token": 151645,
+      "eos_token_ids": [
+        151643,
+        151645
+      ],
+      "finish_reason": "stop",
+      "text": "Maya will send the draft on June 5. The budget is $250. Approval is still pending.",
+      "old_text_identical": true
+    },
+    {
+      "model": "rewrite-quality",
+      "task": "source-selection",
+      "prompt_sha256": "c9d777f6d9bb2d7ac1942c7fdfb470c25921d6d59e4fecdda2697b74824e9f0f",
+      "max_tokens": 128,
+      "generation_tokens": 5,
+      "terminal_token": 151645,
+      "eos_token_ids": [
+        151643,
+        151645
+      ],
+      "finish_reason": "stop",
+      "text": "{\"items\":[]}",
+      "old_text_identical": true
+    },
+    {
+      "model": "rewrite-quality",
+      "task": "meeting-summary",
+      "prompt_sha256": "c9d777f6d9bb2d7ac1942c7fdfb470c25921d6d59e4fecdda2697b74824e9f0f",
+      "max_tokens": 4096,
+      "generation_tokens": 5,
+      "terminal_token": 151645,
+      "eos_token_ids": [
+        151643,
+        151645
+      ],
+      "finish_reason": "stop",
+      "text": "{\"items\":[]}",
+      "old_text_identical": true
+    },
+    {
+      "model": "meeting-quality",
+      "task": "transcript",
+      "prompt_sha256": "998dbc51e83bf8bcc9ffc8965f2ab1ac247cdecfa8ba0795a191e6ff0bceeb8a",
+      "max_tokens": 292,
+      "generation_tokens": 25,
+      "terminal_token": 248046,
+      "eos_token_ids": [
+        248046
+      ],
+      "finish_reason": "stop",
+      "text": "Maya will send the draft on June 5. The budget is $250. Approval is still pending.",
+      "old_text_identical": true
+    },
+    {
+      "model": "meeting-quality",
+      "task": "edit-selection",
+      "prompt_sha256": "bd0127bbd022c59e641fac545202a8b009c08ba27e3027c4b86405eab0a3c778",
+      "max_tokens": 292,
+      "generation_tokens": 25,
+      "terminal_token": 248046,
+      "eos_token_ids": [
+        248046
+      ],
+      "finish_reason": "stop",
+      "text": "Maya will send the draft on June 5. The budget is $250. Approval is still pending.",
+      "old_text_identical": true
+    },
+    {
+      "model": "meeting-quality",
+      "task": "source-selection",
+      "prompt_sha256": "6ec719e0c9aee58319c1a331e8aa46f8023776faab5e1e95d218634c61114f62",
+      "max_tokens": 128,
+      "generation_tokens": 6,
+      "terminal_token": 248046,
+      "eos_token_ids": [
+        248046
+      ],
+      "finish_reason": "stop",
+      "text": "{\"items\": []}",
+      "old_text_identical": true
+    },
+    {
+      "model": "meeting-quality",
+      "task": "meeting-summary",
+      "prompt_sha256": "6ec719e0c9aee58319c1a331e8aa46f8023776faab5e1e95d218634c61114f62",
+      "max_tokens": 4096,
+      "generation_tokens": 6,
+      "terminal_token": 248046,
+      "eos_token_ids": [
+        248046
+      ],
+      "finish_reason": "stop",
+      "text": "{\"items\": []}",
+      "old_text_identical": true
+    }
+  ],
+  "deliberate_limit_sentinels": [
+    {
+      "model": "rewrite-quality",
+      "prompt_sha256": "693cf7594b9495d1bd155b77c872d15a5c65da213f7ab714b7fa3c510917cb1d",
+      "max_tokens": 4,
+      "generation_tokens": 4,
+      "terminal_token": 66277,
+      "finish_reason": "length",
+      "valid_json_draft": "{\"items\":[]}",
+      "old_string_api_delivered_draft": true,
+      "eos_gate_rejected": true,
+      "recoverable_output_limit": true
+    },
+    {
+      "model": "meeting-quality",
+      "prompt_sha256": "7ab224a276b89da82af613f88a5073fca0ecc9d71146b527d0e490f852d144f5",
+      "max_tokens": 4,
+      "generation_tokens": 4,
+      "terminal_token": 64040,
+      "finish_reason": "length",
+      "valid_json_draft": "{\"items\":[]}",
+      "old_string_api_delivered_draft": true,
+      "eos_gate_rejected": true,
+      "recoverable_output_limit": true
+    }
+  ],
+  "boundary": "Actual cached local Metal generation, greedy/nonthinking. Eight known-input same-prompt old/new controls and two deliberately chosen JSON budget sentinels. Completion acknowledgement only; no semantic fidelity, held-out accuracy, latency/energy, native insertion or product ranking claim."
+}

@@ -2,6 +2,21 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## Local text completion and warm-speech recovery
+
+`codex/local-completion` requires actual local EOS acknowledgement for cleanup,
+selection editing, source excerpts and summaries. Eight reproduced pre-fix draft
+returns now fail. Eight actual old/new 4B/9B controls preserve completed text;
+two balanced-JSON budget sentinels are rejected. A verified text-output-limit
+rejection keeps the worker warm only for text actions. Actual shared Swift IPC
+observes the same PID, resident Parakeet and identical warm recognition afterward.
+Malformed/runtime/unknown failures still restart. This measures avoided eviction,
+not end-to-end latency. Full source checks pass 400 Swift / 318 Python tests and
+Ruff; eight summary and 21 compatible/Anthropic CLI contracts pass. Models,
+dependency lock, budgets and defaults remain unchanged. Packaging/CI are pending.
+The normal app/data remain preserved; native insertion and semantic summary
+acceptance remain open. [Contract and receipts](architecture/local-completion.md).
+
 ## Local meeting summaries: source implemented; semantic and native acceptance open
 
 The `codex/meeting-summaries` branch adds explicit local Qwen3.5 9B summaries,

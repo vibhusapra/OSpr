@@ -15,7 +15,7 @@ parser and Gemini retains its native completed-candidate parser.
 | Compatible, Ollama and Azure chat | One index-zero assistant message, `finish_reason: stop`, nonempty string content; no filter flags, refusal, function/tool or audio output |
 | Anthropic Messages | A message/assistant response, `stop_reason: end_turn`, text blocks with optional thinking/redacted-thinking blocks excluded; no stop-sequence/details or unexpected block types |
 | Gemini | Existing single `STOP` candidate with complete text/safety checks |
-| Local MLX | Existing worker protocol and fidelity guard; unchanged by remote response parsing |
+| Local MLX | Separate [local EOS completion gate](local-completion.md), followed by the existing fidelity guard |
 
 Missing, unknown or incomplete finish metadata fails explicitly. Compatible
 servers must provide the standard non-streaming chat response fields; a loosely
