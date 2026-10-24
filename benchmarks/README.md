@@ -68,7 +68,7 @@ HF_HUB_OFFLINE=1 .venv/bin/python benchmarks/stream_replay.py
 HF_HUB_OFFLINE=1 .venv/bin/python benchmarks/stream_replay.py --context-frames 1
 HF_HUB_OFFLINE=1 .venv/bin/python benchmarks/ablations.py
 HF_HUB_OFFLINE=1 .venv/bin/python benchmarks/rewrite_eval.py
-.venv/bin/python benchmarks/statistics.py
+.venv/bin/python benchmarks/speaker_bootstrap.py
 .build/debug/ospr-cli benchmark /absolute/public-sample.wav parakeet-v3 30
 python3 scripts/build-report.py
 ```
