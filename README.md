@@ -69,8 +69,16 @@ clipboard restoration. The model-choice ZIP above predates this fix.
 
 The [text preparation follow-up](docs/architecture/text-model-preparation.md) adds
 optional cache-only 4B/9B preparation before dictation, with synthetic output
-discarded and speech residency preserved. Existing standalone packages above
-predate this action.
+discarded and speech residency preserved. Native isolated-profile Models and
+Settings preparation/replacement/release/cancel/Save/restart controls pass. The
+separate `dist/text-preparation-v0/OSpr.app` passes [exact package
+gates](benchmarks/results/text-preparation-package.json), including offline
+relocation, bundled CLI/MCP, provider contracts and archive extraction. Its
+397,708,787-byte `OSpr-v0.1.0-text-preparation-macOS26.6.2-arm64.zip` has SHA-256
+`307e5ba2587382d36cfbe7c53d8fbc18c60921b1cf5b48cb7d72f55d229086f0`.
+Apple Development signed, macOS 26.6.2 arm64, weights separate; not notarized.
+Earlier packages above predate this action and the browser insertion fix. Full
+native dictation, semantic quality and distribution acceptance remain open.
 
 Requirements: Apple Silicon, macOS 14+, Xcode 16+ / Swift 6, [uv](https://docs.astral.sh/uv/),
 and available memory for the selected inference configuration. Text-only short

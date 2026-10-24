@@ -1,0 +1,65 @@
+{
+  "status": "passed-text-preparation-development-package-gates",
+  "timestamp": "2026-10-24T19:17:33.792435+00:00",
+  "build": {
+    "version": "0.1.0",
+    "built_at": "2026-10-24T18:54:42.306647+00:00",
+    "git_commit": "10ecb97acd30db433973f7e75e364dd9cfadf655",
+    "tracked_changes": false,
+    "application_source_sha256": "9e1d9af9f265422e3e27d78d91b6eaeea01b6ffb757b06caf7f106c4df6f39d4",
+    "source_manifest_version": 2,
+    "signing_mode": "configured-identity",
+    "boundary": "Development build; configured signing identity; not notarized; weights downloaded separately."
+  },
+  "archive": "OSpr-v0.1.0-text-preparation-macOS26.6.2-arm64.zip",
+  "archive_bytes": 397708787,
+  "archive_sha256": "307e5ba2587382d36cfbe7c53d8fbc18c60921b1cf5b48cb7d72f55d229086f0",
+  "zip_entries": 67553,
+  "zip_crc": true,
+  "extracted_signature": true,
+  "extracted_executables_identical": true,
+  "extracted_offline_cli_inventory": [
+    "cohere-native8",
+    "nemotron-streaming",
+    "parakeet-v3",
+    "qwen3-asr",
+    "whisper-small",
+    "whisper-turbo"
+  ],
+  "extraction_removed_after_verification": true,
+  "bundled_source_bytes_match": true,
+  "normal_persisted_data_unchanged": true,
+  "bundled_help_relative_links": 306,
+  "source_local_tests": {
+    "swift": 418,
+    "python": 341
+  },
+  "bundled_provider_regressions": {
+    "rewrite": {
+      "cases": 21,
+      "receipt_sha256": "1394f5a85d75b0864af107708afd1ec9db3898acd0d820344da9a8a4be641dc0"
+    },
+    "azure": {
+      "cases": 12,
+      "receipt_sha256": "991ba97ac48678350da00895ee789b7b8088ba0337b4ae7ff7a80b565d22f1f9"
+    },
+    "gemini": {
+      "cases": 8,
+      "receipt_sha256": "e5fffe876c24c767f175d9df30e31460e411e0d518cd9e1c853c042d856e5823"
+    }
+  },
+  "license_and_notice_match": true,
+  "receipt_sha256": {
+    "portable": "73469d9cc012af214cdcc6f7f09f44fa72671c6ca45d245aced08b251ff06074",
+    "bundled-cli": "4c244c15f8c16b7d066f8e28e8dcaaab1d4c90eed20fcd4a87e1a674bdaccca7",
+    "bundled-timing": "18c458b07366fdeeb2f460af301fb1c0b5cca81a46f01c6261442524905807f9",
+    "bundled-cache": "16af247b08760296aac23d59dea1675413d0334f5f420e031acb552246670db6",
+    "bundled-choice-cli": "b8a51de55053a4dfb735092f1588d05b70e657bfc9ced22af6d0b50ef92ad83f",
+    "bundled-choice-mcp": "42851f93acc51766807fd7ac9c9b8ab3afe05846bd96e7c551286f8d863ab3cc",
+    "bundled-summary-cli": "29c88b8ca66ebb59a321d5374a71b368afc5768a4b1b9f81b507f69e2c122995",
+    "bundled-summary-mcp": "5ff397ddf1c3000d117604213486ee8f24548eeffbcf2030e2ca64a40e4d4c1d",
+    "bundled-limit": "e1e116b8e1f3541ec7948606578c5aa8b8b7bf8ba1a58e257ce38e0e36ef2997",
+    "native": "e8c821fdbdbb4ca8b222cb8f52394011fba4b5e06875971f49f537b238f37c25"
+  },
+  "boundary": "Separate Apple Development signed macOS26.6.2 arm64 candidate; weights separate, not notarized. Offline relocated six-engine/neural/extras, ten cached assets, four MCP tools, eleven preparation contracts, four fresh-worker paired preparation controls, both missing-text-cache/warm-ASR rejections, twelve selected-model CLI cases and actual MCP, output-limit warm-ASR retention, eleven summary CLI cases and actual MCP/input bound, 41 provider loopback cases, archive/source/signature/license gates. Native isolated-profile Models/Settings controls passed separately with same unsigned executable code; normal app restored and persisted hashes unchanged. No new microphone/playback/sound change, real provider key/account, physical shortcut or insertion acceptance. No representative semantic fidelity, lower-memory Mac, comparative p95/energy/consumer rank, clean-Mac/older-OS/updater acceptance. Bundled report is source snapshot before final receipts; older candidates preserved."
+}

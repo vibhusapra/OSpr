@@ -72,7 +72,8 @@ ospr-cli prepare-text meeting-quality
 
 Each CLI invocation releases its worker at exit, so `prepare-text` is a diagnostic
 for that invocation. Use the app's Models action to retain preparation for later
-dictation. Native picker/preparation/recording interaction is not yet accepted.
+dictation. Native Models and Settings checks now pass in an isolated profile;
+recording and microphone-to-insertion remain separate open gates.
 
 Source checks pass **418 Swift / 341 Python tests** and Ruff. Eleven actual Swift
 CLI admission/acknowledgement cases pass. A disposable cache exposing only existing
@@ -87,8 +88,33 @@ inspected; these are not native interaction evidence.
 passes matching 418/341 tests, eleven preparation/ten local-choice/eight summary/41
 provider contracts, app/report/standalone imports and 296 frozen help links.
 [Bound source/CI validation](../../benchmarks/results/text-preparation-source-validation.json).
-A new signed standalone artifact and native Models checks are being prepared.
-The normal app/data and older candidates remain preserved. The independent
+Docs-head CI40122878412 also passes 418/341 tests and 306 frozen help links.
+The separate clean-source `10ecb97` signed standalone candidate passes offline
+relocation and six-engine/neural/extras checks. Eleven exact preparation CLI
+contracts, four additional fresh-worker paired controls, both missing-cache
+rejections with warm speech retained, twelve model-choice CLI cases and actual
+4B/9B MCP, eleven summary CLI cases and actual MCP/input bound, a real text-output
+limit with warm speech retained and all 41 provider loopback cases pass. The
+loopback fixtures use the source test interpreter; MCP loads the packaged backend
+through its bundled interpreter. No real provider key/account is used.
+
+ZIP CRC, extraction, deep signatures, executable identity, source bytes, extracted
+offline CLI and LICENSE/NOTICE checks pass. The 397,708,787-byte archive
+`dist/text-preparation-v0/OSpr-v0.1.0-text-preparation-macOS26.6.2-arm64.zip` has
+SHA-256 `307e5ba2587382d36cfbe7c53d8fbc18c60921b1cf5b48cb7d72f55d229086f0`.
+Apple Development signed for macOS 26.6.2 arm64, weights separate, not notarized.
+The bundled report is the source snapshot before these final receipts.
+
+Native Models controls were exercised in an isolated profile: synthetic Parakeet
+load, 4B preparation, then 9B replacement keep speech resident (two models total).
+Refinement stays Off until explicitly selected. Save of the 9B choice and restart
+preserve that choice while preparation/residency reset to zero. Release clears both
+models; cancelling a fresh 9B preparation clears markers and shows Cancelled with
+no late success observed. No history/audio/recovery records are created. The QA
+copy changes only its private data path and disables background services; temporary
+unsigned executable comparison confirms the same code after re-signing.
+The normal app was restored with unchanged settings/history hashes; older
+candidates remain preserved. The independent
 TextEdit foreground-focus question remains pending; no recording/playback or sound
 setting is needed for this feature's checks.
 
@@ -99,3 +125,9 @@ setting is needed for this feature's checks.
 - [Actual Swift 4B guard](../../benchmarks/results/text-preparation-refinement-4b-guard.json), [9B guard](../../benchmarks/results/text-preparation-refinement-9b-guard.json)
 - [CLI contracts](../../benchmarks/results/text-preparation-cli.json), [isolated-cache/warm-ASR proof](../../benchmarks/results/text-preparation-cache.json)
 - Source layouts: [light](../assets/text-preparation-models-light.png), [dark](../assets/text-preparation-models-dark.png), [narrow](../assets/text-preparation-models-narrow.png)
+
+- [Native Models/Settings observations](../../benchmarks/results/text-preparation-native.json), [4B ready](../assets/text-preparation-native-4b.png), [9B replacement](../assets/text-preparation-native-9b.png), [cancelled](../assets/text-preparation-native-cancel.png)
+
+- [Exact development package gates](../../benchmarks/results/text-preparation-package.json), [offline relocated engines](../../benchmarks/results/text-preparation-portable.json), [bundled preparation CLI](../../benchmarks/results/text-preparation-bundled-cli.json), [paired bundled controls](../../benchmarks/results/text-preparation-bundled-timing.json), [bundled cache rejection](../../benchmarks/results/text-preparation-bundled-cache.json)
+- [Bundled choice CLI](../../benchmarks/results/text-preparation-bundled-choice-cli.json), [choice MCP](../../benchmarks/results/text-preparation-bundled-choice-mcp.json), [summary CLI](../../benchmarks/results/text-preparation-bundled-summary-cli.json), [summary MCP](../../benchmarks/results/text-preparation-bundled-summary-mcp.json), [output-limit retention](../../benchmarks/results/text-preparation-bundled-limit.json)
+- Provider loopback regressions: [compatible/Anthropic](../../benchmarks/results/text-preparation-bundled-rewrite.json), [Azure](../../benchmarks/results/text-preparation-bundled-azure.json), [Gemini](../../benchmarks/results/text-preparation-bundled-gemini.json)

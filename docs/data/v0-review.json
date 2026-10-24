@@ -306,7 +306,21 @@
       "state": "Implemented",
       "implementation": "Explicit model loading decodes a one-second 48 kHz synthetic tone and discards the result, preparing resampling and first-use kernels before the next real turn.",
       "measurement": "Three paired fresh processes per model; compare first-real latency, preparation cost and identical outputs. Work is shifted, not removed.",
-      "evidence": "Fresh-process warmup harness; 16/48 kHz controls and six-engine packaged preparation"
+      "evidence": "Fresh-process warmup harness; 16/48 kHz controls and six-engine packaged preparation",
+      "follow_up": {
+        "source": "e74ddf3ed29877f4f5308a23c013a1dbbce59c1d",
+        "feature": "Optional cached text-model preparation alongside existing speech preparation",
+        "evidence": "text-preparation-comparison.json; text-preparation-native.json",
+        "pairs_per_model": 3,
+        "fresh_workers": 12,
+        "first_refinement_median_ms": {
+          "4b_before": 2477.27,
+          "4b_after": 252.43,
+          "9b_before": 3034.55,
+          "9b_after": 460.85
+        },
+        "boundary": "Shared-Mac one-input diagnostic; preparation cost is separate and combined in receipt. Native Models preparation/replacement/release/cancel and 9B Save/restart observed in an isolated profile. No microphone-to-insertion, representative semantic, p95/energy/lower-memory or consumer-ranking claim. Original combined-review snapshot retained."
+      }
     }
   ],
   "requirements": [

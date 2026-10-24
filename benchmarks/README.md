@@ -682,6 +682,9 @@ disposable cache and verifies both text preparations reject without download or
 speech eviction. `text_preparation_contracts.py` runs eleven actual Swift CLI
 acknowledgement/admission cases with owned fake workers. `refinement_eval.py
 --prepare-text` primes the current selected refiner before the development replay.
-Native source layouts and headless AppModel controls remain separate from actual
-Models/picker/recording acceptance. A standalone `prepare-text` CLI invocation
+Source layouts and headless AppModel controls remain separate from native
+acceptance. A separately signed isolated profile now passes Models preparation,
+4B-to-9B replacement with speech retained, release/cancel and 9B Save/restart;
+recording remains separate. See `results/text-preparation-native.json` and
+`results/text-preparation-package.json` for exact source/package boundaries. A standalone `prepare-text` CLI invocation
 releases its worker on exit; app preparation retains it for later dictation.

@@ -74,6 +74,12 @@ in for a successful observed cross-app dictation flow.
 | Cached incremental streaming | Nemotron replay/stop/tail controls; physical cadence/device/energy acceptance remains |
 | Prime kernels before recording | Measured explicit preparation, discarded synthetic input and output-equivalence controls; work is shifted, not removed |
 
+The later [text-preparation follow-up](text-model-preparation.md) extends the tenth
+track to cached 4B/9B refinement, with twelve fresh-worker controls and isolated
+native preparation/replacement/release/cancel and 9B Save/restart observations.
+Preparation cost is retained; the original combined-review snapshot above remains
+scoped to its source.
+
 The frozen 20-case product pilot compared OSpr Parakeet, OSpr Whisper Turbo and
 Vibe Whisper Turbo, with three process trials per case. It used read speech,
 primed OS caches and a shared active Mac. It excludes microphone, UI, endpointing,

@@ -1,0 +1,79 @@
+{
+  "status": "passed-native-text-model-preparation-controls",
+  "timestamp": "2026-10-24T19:08:22.010378+00:00",
+  "build": {
+    "version": "0.1.0",
+    "built_at": "2026-10-24T18:54:42.306647+00:00",
+    "git_commit": "10ecb97acd30db433973f7e75e364dd9cfadf655",
+    "tracked_changes": false,
+    "application_source_sha256": "9e1d9af9f265422e3e27d78d91b6eaeea01b6ffb757b06caf7f106c4df6f39d4",
+    "source_manifest_version": 2,
+    "signing_mode": "configured-identity",
+    "boundary": "Development build; configured signing identity; not notarized; weights downloaded separately."
+  },
+  "qa_overlay_keys": [
+    "OSprDataDirectory",
+    "OSprDisableBackgroundServices"
+  ],
+  "qa_unsigned_main_executable_identical": true,
+  "qa_unsigned_main_executable_sha256": "f066bc2e91e27994d84f2c533828b84e062c96db6893ebb12b14d388e3cb5961",
+  "qa_cli_identical": true,
+  "qa_deep_signature": true,
+  "normal_app_restored": true,
+  "normal_persisted_data_unchanged": true,
+  "qa_history_audio_recovery_records": 0,
+  "observed_controls": [
+    {
+      "action": "load-public-Parakeet-synthetic-warm",
+      "resident_count": 1
+    },
+    {
+      "action": "prepare-4b",
+      "ready": true,
+      "asr_still_loaded": true,
+      "resident_count": 2
+    },
+    {
+      "action": "prepare-9b",
+      "ready": true,
+      "replaces_4b": true,
+      "asr_still_loaded": true,
+      "resident_count": 2
+    },
+    {
+      "action": "check-preparation-does-not-enable-refinement",
+      "rewrite_provider": "none"
+    },
+    {
+      "action": "save-9b-rewrite-choice",
+      "persisted": true
+    },
+    {
+      "action": "release-engine-memory",
+      "resident_count": 0,
+      "prepared_markers_cleared": true
+    },
+    {
+      "action": "cancel-cold-9b-preparation",
+      "status": "Cancelled",
+      "resident_count": 0,
+      "no_late_success_observed": true
+    },
+    {
+      "action": "restart",
+      "rewrite_provider": "local-9b",
+      "resident_count": 0,
+      "prepared_markers_cleared": true,
+      "saveHistory": false,
+      "keepAudio": false,
+      "autoPaste": false,
+      "launchAtLogin": false
+    }
+  ],
+  "screenshots_sha256": {
+    "docs/assets/text-preparation-native-4b.png": "1688f72e92996f7679c7dab84406dc4f5530f18978e36a25cadf073089492698",
+    "docs/assets/text-preparation-native-9b.png": "47fc02e48e40dd4fd69bbff69e575be25c7b635660a8fafd02afc82532eab622",
+    "docs/assets/text-preparation-native-cancel.png": "dfd619a17217be7c865b06738d4f431e1a7bd0b978e86a927e96d316eed2bd63"
+  },
+  "boundary": "Observed native Models and Settings actions in a separately signed, isolated profile with background services disabled; synthetic warmup outputs discarded. The normal app was idle before quit and restored with its settings/history hashes unchanged. No microphone, playback, sound-setting, provider key/account, physical shortcut or insertion test. The 9B choice was saved only in disposable QA. This does not establish native dictation/refinement quality, lower-memory-device acceptance or consumer ranking."
+}

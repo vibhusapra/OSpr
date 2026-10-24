@@ -19,7 +19,14 @@ wait is lower after preparation, with its cost recorded separately and combined.
 No representative semantic, total-work, physical latency/energy or ranking claim.
 A private Parakeet-only cache rejects both text preparations without a download or
 ASR eviction. Actual light/dark/narrow source section renders are inspected.
-New artifact/native Models validation is in progress. [Implementation and exact
+Native Models preparation/replacement, retained speech, release/cancel and 9B
+picker Save/restart pass in an isolated profile, with no synthetic history/audio.
+The normal app is restored and its settings/history hashes are unchanged.
+The clean-source signed standalone passes offline relocation, exact bundled
+preparation/model-choice/summary CLI and MCP, missing-cache/output-limit warm-ASR
+retention, 41 provider contracts and ZIP/extraction/signature/source/license gates.
+[Package receipt](../benchmarks/results/text-preparation-package.json) binds the
+397,708,787-byte separate development ZIP; weights separate, not notarized. [Implementation and exact
 measurements](architecture/text-model-preparation.md).
 
 ## Web insertion fix: visible browser delivery and clipboard restoration
