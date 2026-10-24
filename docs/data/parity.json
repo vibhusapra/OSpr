@@ -124,8 +124,8 @@
     {
       "feature": "Live local preview",
       "status": "experimental",
-      "evidence": "Cached Nemotron streaming plus rolling tail preview for other models.",
-      "gap": "Nemotron supports final cache flush; native microphone path still pending interactive acceptance.",
+      "evidence": "Cached Nemotron streaming plus rolling tail preview for other models. Source cadence uses monotonic deadlines, fences a stale generation before snapshot and reports preview failure while retaining final fallback. Five scheduler tests/310 Swift tests pass; six real 16k packet replays preserve PCM and final text. Modeled first-partial regressions and increased request counts are published.",
+      "gap": "Native microphone cadence/failure/energy acceptance remains. A fifteen-case diagnostic confirms stateless native-rate packet normalization differs from full-file input; continuous resampling and final-tail integrity are required. Existing preview ZIP predates cadence changes.",
       "priority": "P1"
     },
     {
@@ -265,7 +265,7 @@
       "feature": "True incremental local streaming",
       "status": "experimental",
       "evidence": "Backend 320ms packet replay + native preview/flush integration.",
-      "gap": "Default first-partial audio position ~1.28s in 20-clip replay; lower latency and device acceptance remain.",
+      "gap": "Native-rate continuity is not accepted: independently resampled 44.1/48k packets can add samples and change filter boundaries. Continuous bounded resampling, final-tail verification and device acceptance are next. Deadline scheduling does not uniformly improve first partials or prove a native latency win.",
       "priority": "P1"
     },
     {

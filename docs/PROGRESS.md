@@ -11,10 +11,21 @@ session IDs no longer route incremental packets through offline transcription.
 Preview remains off by default; request frequency/energy can increase.
 
 Five scheduler tests and the complete **310-test Swift suite** pass. The release
-CLI includes a bounded probe for the actual Core schedule. A fixed six-session
-real Nemotron packet-continuity replay is prepared with 40/120/600 ms modeled
-processing costs and one repeated public sixty-second input; results pending.
-The replay does not measure microphone or native latency. The current checked
+CLI includes a bounded probe for the actual Core schedule. Release app/CLI,
+**178 Python tests** and lint also pass. Six real Nemotron sessions preserve all
+960,000 samples and return identical text (zero WER on one repeated public
+sixty-second fixture). Independent schedule/metric checks pass. Request counts
+increase; modeled first-partial delivery improves only at 40 ms work and regresses
+at 120/600 ms. Those results remain published, without a native latency claim.
+
+A separate fifteen-case diagnostic confirms a pre-existing native-rate packet
+normalization defect: all ten 44.1/48 kHz cases differ from full-file PCM. At
+1,024 native frames per packet, one second yields 16,021 / 16,031 normalized
+samples instead of 16,000. Counts can also match while waveforms differ. All five
+16 kHz controls match. Continuous resampling is the next required streaming fix;
+the cadence change alone does not establish native continuity or energy benefit.
+See `preview-cadence-real.json`, its checker, `preview-native-packet-normalization.json`
+and `preview-cadence-source-validation.json`. The current checked
 9a51603 preview is unchanged and predates this source change.
 
 The host-browser insertion alternative cannot proceed: native control of the

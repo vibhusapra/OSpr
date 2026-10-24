@@ -1,0 +1,48 @@
+{
+  "status": "passed-source-tests-and-16k-replay-native-continuity-open",
+  "timestamp": "2026-10-24T04:34:22.311055+00:00",
+  "build": {
+    "version": "0.1.0",
+    "built_at": "2026-10-24T04:24:16.676647+00:00",
+    "git_commit": "c10148b9195c1d04a213c25e3d8afc4fa4fd727e",
+    "tracked_changes": false,
+    "application_source_sha256": "0f4b73f3aafb30d97cb159d7bfc5d2731cea5bdce0908c5bff9145dc4e44f87d",
+    "source_manifest_version": 2,
+    "signing_mode": "ad-hoc",
+    "boundary": "Development build; ad-hoc signature; not notarized; weights downloaded separately."
+  },
+  "checks": {
+    "swift_tests": 310,
+    "python_tests": 178,
+    "scheduler_tests": 5,
+    "lint": true,
+    "release_app_build": true,
+    "release_cli_build": true,
+    "signature": true
+  },
+  "actual_asr_sessions": 6,
+  "input_samples_each": 960000,
+  "matched_pcm_routes": 6,
+  "identical_text_pairs": 3,
+  "repeated_fixture_wer": 0.0,
+  "modeled_first_partial_regressions_ms": [
+    120,
+    600
+  ],
+  "native_packet_diagnostic_cases": 15,
+  "native_packet_waveform_mismatches": 10,
+  "executable_sha256": "52b3671c5a8a7aa99fc70d7c3cda2a7331396bcd6d6d8fb04a220602af43a667",
+  "cli_sha256": "52eceaf0666a6cc0133be1d4df712e186267e98a418e6d82d0f88f753c5cde17",
+  "receipts_sha256": {
+    "preview-cadence-real.json": "6d4195d169f01bae6aeee30523fd5728de6765cb93ac2eb529219ec34e81317e",
+    "preview-cadence-checks.json": "2777bb261d24714fb55d1e7dec5b1e1a4276c6cb06399d123cd4ba5583af6632",
+    "preview-native-packet-normalization.json": "df0bce6c6dc8f5204bfdb73cd0dc69e8332f86de9e66174e20fb0bdede78344a"
+  },
+  "log_sha256": {
+    "preview-cadence-swift-all.log": "e5f25b72b44c019cff6d2ff5a384100cb28b6b7c10cb56d44099978bc16d4765",
+    "preview-cadence-python.log": "1774f6e583aabefb6edaa845a242ed8d620c8785f1463195f4f6322cedc0e78c",
+    "preview-cadence-app-build.log": "bbb07e465281611bc7b6c7236762e025f74d4df80e4cd5f92922a5b28a573473",
+    "preview-cadence-cli-build.log": "6696462af479985cebe0f003acaa73847f86bada8d390f64e0d1b72020239980"
+  },
+  "boundary": "Real ASR replay only uses 16 kHz mono and synthetic scheduling costs, not paced microphone/UI latency or energy. All six repeated-speech final texts match; modeled first-partial delivery regresses at work 120/600 ms. The separate stateless packet diagnostic confirms native-rate count/filter-boundary defects that this scheduling change does not fix. New cadence/failure UI is source-built, not in the existing checked 9a51603 ZIP. Protected host-app native control was refused; no attempt was made to bypass it. Mac locks before QuickTime preparation; normal app remains restored and QA stays stopped."
+}

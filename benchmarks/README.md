@@ -501,3 +501,18 @@ hour files, and every sample/time offset in both loopback 80-minute transports.
 UI acceptance. The final source adds the no-query audio-lease regression. These
 are distinct boundaries; packaging does not imply microphone/shortcut/insertion
 acceptance, notarization or a top-three product ranking.
+
+## Preview cadence and native-rate packet diagnostic
+
+```sh
+PYTHONPATH=backend HF_HUB_OFFLINE=1 .venv/bin/python benchmarks/preview_cadence.py --cli .build/release/ospr-cli --output .local/preview-cadence-real.json
+PYTHONPATH=backend .venv/bin/python benchmarks/verify_preview_cadence.py --result .local/preview-cadence-real.json --output .local/preview-cadence-checks.json
+PYTHONPATH=backend .venv/bin/python benchmarks/stream_packet_normalization.py --output .local/preview-native-packet-normalization.json
+```
+
+The producer uses the actual Core schedule probe and six actual Nemotron sessions
+on a repeated public input. Work costs and delivery times are modeled, not native
+latency. First-partial regressions and increased request counts remain published.
+The separate fifteen-case diagnostic exposes existing stateless native-rate
+resampling differences; passing the 16k replay does not accept 44.1/48k continuity.
+Use fresh output paths, a clean frozen checkout and cached model weights.

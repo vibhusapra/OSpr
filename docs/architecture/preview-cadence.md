@@ -43,3 +43,28 @@ slower loop. This is not a free energy win; preview remains opt-in. Native
 microphone cadence, main-actor wake jitter, source continuity under contention,
 stop/cancel, fallback messages and battery behavior remain acceptance work. The
 checked full-audio-v0 ZIP at 9a51603 predates this source change.
+
+## Fixed replay results and native-rate limitation
+
+All six actual sixty-second Nemotron sessions receive the same 960,000 normalized
+samples/PCM hash and return identical text, zero WER on this repeated fixture.
+The independent checker validates the Core probe against closed-form schedules
+and recomputes text error counts. The 40/120/600 ms work cases issue respectively
+166→187, 136→187 and 65→100 live requests (legacy→deadline). More work is explicit.
+
+First partial modeled delivery is not uniformly better: 1,440→1,320 ms for the
+40 ms case, 1,320→1,400 ms for 120 ms, and 1,840→2,120 ms for 600 ms. Packet phase
+relative to decoder readiness matters. These are modeled delivery times on a
+repeated clip, not measured native latency. No threshold/policy was retuned to
+hide the regressions. Native acceptance and energy effects remain open.
+
+A separate fifteen-case diagnostic uncovers an existing continuity gap outside
+that 16 kHz replay. Capture snapshots use the microphone's native rate, while
+`Engine.stream_feed` normalizes every packet independently. A one-second 44.1 kHz
+waveform in 1,024-frame packets produces 16,021 samples versus 16,000 full-file;
+48 kHz produces 16,031. At 48 kHz/1,536-frame packets the counts match but PCM
+differs because the filter sees separate boundaries. All five 16 kHz cases match
+exactly; all ten higher-rate cases differ. These are synthetic packetizations,
+not measured microphone packet cadence. The next streaming acceptance change
+needs bounded continuous resampling and final-tail checks; this deadline change
+does not solve it. The full-recording fallback remains available.
