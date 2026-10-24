@@ -51,14 +51,14 @@ async def check(app, staging):
             pcm_sha = hashlib.sha256(decoded.astype("<f4", copy=False).tobytes()).hexdigest()
             assert pcm_sha == expected["pcm_sha256"]
             result = await client.call_tool("transcribe_file", dict(path=str(path), model="parakeet-v3", language="de"))
-            assert not result.isError
+            assert not result.is_error
             value = json.loads(result.content[0].text)
             assert value["text"] == expected["expected_text"]
             assert value["audio_seconds"] == value["speech_seconds"] == len(audio) / rate
             records.append(dict(id=identifier, pcm_sha256=pcm_sha, samples=len(decoded),
                                 expected_text=expected["expected_text"], result=value))
         result = await client.call_tool("transcribe_file", dict(path=str(zero), model="parakeet-v3"))
-        assert not result.isError
+        assert not result.is_error
         value = json.loads(result.content[0].text)
         assert value["text"] == "" and value["empty_reason"] == "normalized_zero"
         records.append(dict(id="synthetic-exact-zero", samples=16000, result=value))
