@@ -13,7 +13,19 @@ observes the same PID, resident Parakeet and identical warm recognition afterwar
 Malformed/runtime/unknown failures still restart. This measures avoided eviction,
 not end-to-end latency. Full source checks pass 400 Swift / 318 Python tests and
 Ruff; eight summary and 21 compatible/Anthropic CLI contracts pass. Models,
-dependency lock, budgets and defaults remain unchanged. Packaging/CI are pending.
+dependency lock, budgets and defaults remain unchanged. The source `0cacb1d`
+signed candidate at `dist/local-completion-v0/OSpr.app` passes relocated offline
+six-engine/neural/extras, eleven bundled summary CLI cases, four MCP tools,
+actual MCP inference/input limits, bundled warm-ASR retention, 41 provider
+contracts and ZIP CRC/extraction/signature/executable/CLI/license gates. The
+396,521,056-byte ZIP has SHA-256
+`3c640d05a3cf7a5f08eb2957f7c425ac6dbeb520c14a59250800793dde0e0d43`.
+Apple Development signed macOS 26.6.2 arm64; weights separate; not notarized.
+[Package receipt](../benchmarks/results/local-completion-package.json).
+Source `0cacb1d` [CI 40112387746](https://github.com/vibhusapra/OSpr/actions/runs/40112387746)
+passes matching 400/318 tests, eight summary/41 provider contracts, app/report,
+relocated runtime imports and 271 bundled help links.
+[Bound source validation](../benchmarks/results/local-completion-source-validation.json).
 The normal app/data remain preserved; native insertion and semantic summary
 acceptance remain open. [Contract and receipts](architecture/local-completion.md).
 

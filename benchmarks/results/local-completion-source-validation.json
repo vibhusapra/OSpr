@@ -1,0 +1,51 @@
+{
+  "status": "passed-local-completion-source-and-ci-gates",
+  "timestamp": "2026-10-24T16:42:38.260680+00:00",
+  "build": {
+    "version": "0.1.0",
+    "built_at": "2026-10-24T16:37:03.413800+00:00",
+    "git_commit": "0cacb1db055fb6231314beb6010c60a3eb653e65",
+    "tracked_changes": false,
+    "application_source_sha256": "b38ef3a64f1f0e942346cbd05bfc3ffb3744a9754caff1d7f78fea3098ffa920",
+    "source_manifest_version": 2,
+    "signing_mode": "configured-identity",
+    "boundary": "Development build; configured signing identity; not notarized; weights downloaded separately."
+  },
+  "checks": {
+    "swift_tests": 400,
+    "python_tests": 318,
+    "ruff": "passed",
+    "release_build": "passed",
+    "summary_cli_contracts": 8,
+    "provider_cli_contracts": {
+      "compatible_anthropic": 21,
+      "azure": 12,
+      "gemini": 8
+    },
+    "real_model_controls": 8,
+    "deliberate_json_limit_sentinels": 2,
+    "actual_swift_warm_asr_after_text_limit": "passed",
+    "summary_development_replays": {
+      "qwen3_4b": 11,
+      "qwen35_9b": 13,
+      "denominator_each": 14,
+      "statuses_and_results_identical_to_pre_eos": true
+    }
+  },
+  "ci": {
+    "run_id": 40112387746,
+    "url": "https://github.com/vibhusapra/OSpr/actions/runs/40112387746",
+    "source": "0cacb1db055fb6231314beb6010c60a3eb653e65",
+    "conclusion": "success",
+    "swift_tests": 400,
+    "python_tests": 318,
+    "bundled_help_relative_links": 271,
+    "log_sha256": "909d40712dc5fe1805d5055aec2c47bc01bb5d0d40e3cabfa15b2b3cae2e55c6"
+  },
+  "local_log_sha256": {
+    "local-completion-swift.log": "928f947817534a4c4139e168ba8160d039b8ebe6e7cea5d167494d9fe198234d",
+    "local-completion-python.log": "dcc9ff0ee8d8803ab8b6bbf9a23f3f20cf60c3e01642a76e4f325a97206ece2e"
+  },
+  "package_receipt_sha256": "af25fccd6aa18ab368cbf4db4a2d3aabf2270b2c22b4638b44bf026110b52ab7",
+  "boundary": "Source tests plus actual cached-model same-prompt controls/deliberate budget sentinels, shared Swift worker residency, 14-case development replays and exact-source clean-runner CI. Structural/completion checks do not establish semantic quality, native microphone/insertion, lower-memory Mac, isolated comparative latency/energy, consumer ranking or notarized distribution acceptance. Models, budgets, lock and defaults unchanged; normal app/data and earlier candidates preserved."
+}
