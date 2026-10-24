@@ -1,5 +1,25 @@
 import AVFoundation
 
+/// Internal research choices. Production callers retain the native default
+/// until a frozen signal, ASR, continuity and processing-cost gate passes.
+enum SpeechResamplingPolicy: String, CaseIterable {
+    case systemDefault = "system-default"
+    case normalHigh = "normal-high"
+    case normalMax = "normal-max"
+    case masteringMax = "mastering-max"
+    case minimumPhaseMax = "minimum-phase-max"
+
+    func configure(_ converter: AVAudioConverter) {
+        guard self != .systemDefault else { return }
+        converter.sampleRateConverterQuality = self == .normalHigh ? AVAudioQuality.high.rawValue : AVAudioQuality.max.rawValue
+        switch self {
+        case .masteringMax: converter.sampleRateConverterAlgorithm = AVSampleRateConverterAlgorithm_Mastering
+        case .minimumPhaseMax: converter.sampleRateConverterAlgorithm = AVSampleRateConverterAlgorithm_MinimumPhase
+        default: converter.sampleRateConverterAlgorithm = AVSampleRateConverterAlgorithm_Normal
+        }
+    }
+}
+
 /// One continuous mono conversion session, owned by the inference queue. Never
 /// recreate it for each hardware block; doing so resets the filter at each seam.
 final class StreamingSpeechResampler {
@@ -7,7 +27,7 @@ final class StreamingSpeechResampler {
     private let converter: AVAudioConverter?
     private let output: AVAudioPCMBuffer
     private var finished = false
-    init(sampleRate: Double) throws {
+    init(sampleRate: Double, policy: SpeechResamplingPolicy = .systemDefault) throws {
         guard sampleRate.isFinite, (8_000...192_000).contains(sampleRate),
               let inputFormat = AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: 1),
               let destination = AVAudioFormat(standardFormatWithSampleRate: 16_000, channels: 1),
@@ -20,8 +40,17 @@ final class StreamingSpeechResampler {
             guard let converter = AVAudioConverter(from: inputFormat, to: destination) else {
                 throw OSprError.message("Could not prepare continuous microphone resampling.")
             }
+            policy.configure(converter)
             self.converter = converter
         }
+    }
+    var diagnostics: [String: Any] {
+        guard let converter else { return ["passthrough": true] }
+        return ["passthrough": false, "quality": converter.sampleRateConverterQuality,
+                "algorithm": converter.sampleRateConverterAlgorithm ?? "",
+                "prime_method": converter.primeMethod.rawValue,
+                "leading_frames": converter.primeInfo.leadingFrames,
+                "trailing_frames": converter.primeInfo.trailingFrames]
     }
     func process(_ input: AVAudioPCMBuffer, consume: (UnsafeBufferPointer<Float>) throws -> Void) throws {
         guard !finished, input.format.isEqual(inputFormat), input.frameLength > 0,
