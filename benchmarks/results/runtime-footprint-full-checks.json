@@ -1,0 +1,73 @@
+{
+  "status": "verified-runtime-evidence-not-quality-promotion",
+  "source_result_sha256": "6e0a0698da76b4e004f36e6fb1dfa155d49a4f08f8ff263692dd7f68e4b85baf",
+  "verifier_sha256": "56b83f88b9fc05d41bb0f4d951357421efef138c48ca46e54fb64d6dfb58928b",
+  "requests_each": 211,
+  "normalized_case_hashes": 202,
+  "api_errors": 0,
+  "text_pairs": 204,
+  "text_differences": [
+    "qwen3-asr:1089-134686-0004"
+  ],
+  "metrics": [
+    {
+      "model": "parakeet-v3",
+      "english_cases": 20,
+      "baseline_errors": 13,
+      "baseline_wer": 0.031026252983293555,
+      "without_torch_errors": 13,
+      "without_torch_wer": 0.031026252983293555,
+      "reference_words": 419
+    },
+    {
+      "model": "whisper-turbo",
+      "english_cases": 20,
+      "baseline_errors": 13,
+      "baseline_wer": 0.031026252983293555,
+      "without_torch_errors": 13,
+      "without_torch_wer": 0.031026252983293555,
+      "reference_words": 419
+    },
+    {
+      "model": "whisper-small",
+      "english_cases": 20,
+      "baseline_errors": 21,
+      "baseline_wer": 0.050119331742243436,
+      "without_torch_errors": 21,
+      "without_torch_wer": 0.050119331742243436,
+      "reference_words": 419
+    },
+    {
+      "model": "qwen3-asr",
+      "english_cases": 20,
+      "baseline_errors": 11,
+      "baseline_wer": 0.026252983293556086,
+      "without_torch_errors": 12,
+      "without_torch_wer": 0.028639618138424822,
+      "reference_words": 419
+    },
+    {
+      "model": "nemotron-streaming",
+      "english_cases": 20,
+      "baseline_errors": 18,
+      "baseline_wer": 0.04295942720763723,
+      "without_torch_errors": 18,
+      "without_torch_wer": 0.04295942720763723,
+      "reference_words": 419
+    },
+    {
+      "model": "cohere-native8",
+      "english_cases": 20,
+      "baseline_errors": 6,
+      "baseline_wer": 0.014319809069212411,
+      "without_torch_errors": 6,
+      "without_torch_wer": 0.014319809069212411,
+      "reference_words": 419
+    }
+  ],
+  "multilingual_cases": 52,
+  "multilingual_text_matches": 52,
+  "nonspeech_cases": 30,
+  "nonspeech_text_matches": 30,
+  "boundary": "Frozen producer source, protocol/dependency/model pins, PCM recipes, Torch absence and raw text/control metrics check. Does not rerun model inference, reconstruct ephemeral WAV headers, prove latency/energy/RAM improvement or promote a reduced distributable."
+}

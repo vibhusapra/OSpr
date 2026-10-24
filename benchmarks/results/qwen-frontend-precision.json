@@ -1,0 +1,241 @@
+{
+  "status": "completed-known-regression-frontend-diagnostic-not-quality-promotion",
+  "timestamp": "2026-10-24T06:35:38.507751+00:00",
+  "git_commit": "a201e893750dadb91268f42fc4fdc2cf135e2c0a",
+  "harness_sha256": "c0d6200cd1e7bbbb9827574b94649ea0dff231c1153d2696554ce31d5e1a2a33",
+  "source_protocol_sha256": "7b6cb0df35f3bfa9ab52fff8fe07aa5f7119447ea073d8ac1b1f9dd3c7650987",
+  "source_sha256": "62fa78c06e5a74d08d38ab3e899eb3115810a4f33769389a2c6b498f01d5deb1",
+  "reference": "NUMBER TEN FRESH NELLY IS WAITING ON YOU GOOD NIGHT HUSBAND",
+  "window_sha256": "c692d19f0b2bd745f0dfc967261c3e3d21a2473e485a677d219e9b4a73e0218e",
+  "records": [
+    {
+      "variant": "torch",
+      "text": "Number ten, fresh Nelly is waiting on you. Good night, husband.",
+      "feature_extractions": 2,
+      "shape": [
+        1,
+        128,
+        521
+      ],
+      "features_sha256": "8771d8c7b942b3918966a2b142aa604401606d1168dcee42210a2cad6500477a",
+      "result": {
+        "model": "qwen3-asr",
+        "audio_seconds": 5.2150625,
+        "speech_seconds": 5.2150625,
+        "segments": [
+          {
+            "start": 0,
+            "end": 5.2150625,
+            "text": "Number ten, fresh Nelly is waiting on you. Good night, husband."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "Number ten, fresh Nelly is waiting on you. Good night, husband.",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0017909333109855652,
+        "preprocess_ms": 0.708709005266428,
+        "decode_ms": 133.41025006957352,
+        "total_ms": 134.18470905162394,
+        "peak_gpu_bytes": 3499243036,
+        "active_gpu_bytes": 2492275618,
+        "vocabulary_applied": false
+      },
+      "max_abs_feature_difference_from_torch": 0.0,
+      "features_identical_to_torch": true
+    },
+    {
+      "variant": "numpy",
+      "text": "Number ten, fresh Nellie is waiting on you. Good night, husband.",
+      "feature_extractions": 2,
+      "shape": [
+        1,
+        128,
+        521
+      ],
+      "features_sha256": "0c6501ebd83f13b9696596aee9ec409cc9a2141bb821e6c30f50c0f27365de35",
+      "result": {
+        "model": "qwen3-asr",
+        "audio_seconds": 5.2150625,
+        "speech_seconds": 5.2150625,
+        "segments": [
+          {
+            "start": 0,
+            "end": 5.2150625,
+            "text": "Number ten, fresh Nellie is waiting on you. Good night, husband."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "Number ten, fresh Nellie is waiting on you. Good night, husband.",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.001375097781419754,
+        "preprocess_ms": 0.5124998278915882,
+        "decode_ms": 138.48129101097584,
+        "total_ms": 139.0588330104947,
+        "peak_gpu_bytes": 3499243036,
+        "active_gpu_bytes": 2492275618,
+        "vocabulary_applied": false
+      },
+      "max_abs_feature_difference_from_torch": 1.2636184692382812e-05,
+      "features_identical_to_torch": false
+    },
+    {
+      "variant": "scipy-f32",
+      "text": "Number ten, fresh Nellie is waiting on you. Good night, husband.",
+      "feature_extractions": 2,
+      "shape": [
+        1,
+        128,
+        521
+      ],
+      "features_sha256": "e62823d363b330fa50d9b66743b93b6c056b48b40dbd16ae75688ccecb2833cb",
+      "result": {
+        "model": "qwen3-asr",
+        "audio_seconds": 5.2150625,
+        "speech_seconds": 5.2150625,
+        "segments": [
+          {
+            "start": 0,
+            "end": 5.2150625,
+            "text": "Number ten, fresh Nellie is waiting on you. Good night, husband."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "Number ten, fresh Nellie is waiting on you. Good night, husband.",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0012079253792762756,
+        "preprocess_ms": 0.4752080421894789,
+        "decode_ms": 135.52670902572572,
+        "total_ms": 136.06079085730016,
+        "peak_gpu_bytes": 3499243036,
+        "active_gpu_bytes": 2492275618,
+        "vocabulary_applied": false
+      },
+      "max_abs_feature_difference_from_torch": 1.2516975402832031e-05,
+      "features_identical_to_torch": false
+    },
+    {
+      "variant": "scipy-f32",
+      "text": "Number ten, fresh Nellie is waiting on you. Good night, husband.",
+      "feature_extractions": 2,
+      "shape": [
+        1,
+        128,
+        521
+      ],
+      "features_sha256": "e62823d363b330fa50d9b66743b93b6c056b48b40dbd16ae75688ccecb2833cb",
+      "result": {
+        "model": "qwen3-asr",
+        "audio_seconds": 5.2150625,
+        "speech_seconds": 5.2150625,
+        "segments": [
+          {
+            "start": 0,
+            "end": 5.2150625,
+            "text": "Number ten, fresh Nellie is waiting on you. Good night, husband."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "Number ten, fresh Nellie is waiting on you. Good night, husband.",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.001125037670135498,
+        "preprocess_ms": 0.5054580979049206,
+        "decode_ms": 137.6162921078503,
+        "total_ms": 138.17837508395314,
+        "peak_gpu_bytes": 3499243036,
+        "active_gpu_bytes": 2492275618,
+        "vocabulary_applied": false
+      },
+      "max_abs_feature_difference_from_torch": 1.2516975402832031e-05,
+      "features_identical_to_torch": false
+    },
+    {
+      "variant": "numpy",
+      "text": "Number ten, fresh Nellie is waiting on you. Good night, husband.",
+      "feature_extractions": 2,
+      "shape": [
+        1,
+        128,
+        521
+      ],
+      "features_sha256": "0c6501ebd83f13b9696596aee9ec409cc9a2141bb821e6c30f50c0f27365de35",
+      "result": {
+        "model": "qwen3-asr",
+        "audio_seconds": 5.2150625,
+        "speech_seconds": 5.2150625,
+        "segments": [
+          {
+            "start": 0,
+            "end": 5.2150625,
+            "text": "Number ten, fresh Nellie is waiting on you. Good night, husband."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "Number ten, fresh Nellie is waiting on you. Good night, husband.",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0017080456018447876,
+        "preprocess_ms": 0.5314999725669622,
+        "decode_ms": 139.63520782999694,
+        "total_ms": 140.22137480787933,
+        "peak_gpu_bytes": 3499243036,
+        "active_gpu_bytes": 2492275618,
+        "vocabulary_applied": false
+      },
+      "max_abs_feature_difference_from_torch": 1.2636184692382812e-05,
+      "features_identical_to_torch": false
+    },
+    {
+      "variant": "torch",
+      "text": "Number ten, fresh Nelly is waiting on you. Good night, husband.",
+      "feature_extractions": 2,
+      "shape": [
+        1,
+        128,
+        521
+      ],
+      "features_sha256": "8771d8c7b942b3918966a2b142aa604401606d1168dcee42210a2cad6500477a",
+      "result": {
+        "model": "qwen3-asr",
+        "audio_seconds": 5.2150625,
+        "speech_seconds": 5.2150625,
+        "segments": [
+          {
+            "start": 0,
+            "end": 5.2150625,
+            "text": "Number ten, fresh Nelly is waiting on you. Good night, husband."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "utterance",
+        "text": "Number ten, fresh Nelly is waiting on you. Good night, husband.",
+        "language": "en",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0010828953236341476,
+        "preprocess_ms": 0.5024999845772982,
+        "decode_ms": 131.8668748717755,
+        "total_ms": 132.4270418845117,
+        "peak_gpu_bytes": 3499243036,
+        "active_gpu_bytes": 2492275618,
+        "vocabulary_applied": false
+      },
+      "max_abs_feature_difference_from_torch": 0.0,
+      "features_identical_to_torch": true
+    }
+  ],
+  "boundary": "Isolate a known Qwen spelling change at its feature-extraction boundary.\n\nThe input is intentionally the changed case from the Torch-absence study, not\nan accuracy evaluation. One resident model, alternating six frontend calls. SciPy candidate uses the pinned Torch-generated Hann window as a diagnostic constant; this process still has Torch installed. No package/default change or held-out accuracy claim."
+}

@@ -1,0 +1,13 @@
+{
+  "status": "verified-upstream-feature-hashes-and-repeat-controls-not-model-rerun",
+  "source_result_sha256": "369ae20385a0363341719d9726f001763104e9007be0d25ceb959ba9e15a5a35",
+  "verifier_sha256": "da5fffeef565de93ac8346accf055c73cc324073a7f9f74a5286d11454149c6a",
+  "recomputed_frontends": [
+    "torch",
+    "numpy"
+  ],
+  "observed_asr_calls": 6,
+  "upstream_max_abs_difference": 1.2636184692382812e-05,
+  "repeated_feature_extractions_each": 2,
+  "boundary": "Recomputes upstream Torch/NumPy F32 feature arrays and hashes against model-captured receipts; checks repeat text/hash controls and frozen source. SciPy numeric values are producer evidence, not an independently reimplemented FFT. Does not rerun recognition or certify another corpus/runtime."
+}
