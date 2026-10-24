@@ -14,8 +14,6 @@ from pathlib import Path
 import jiwer
 import numpy as np
 
-from ospr_backend.engine import Engine, MODELS
-
 ROOT = Path(__file__).resolve().parent
 
 
@@ -66,7 +64,12 @@ def summarize(records):
     return summary
 
 
-def main():
+def main(engine_factory=None):
+    # Scoring helpers also run against standalone apps from foreign working
+    # directories, where importing the checkout backend is neither needed nor
+    # desirable. Only the direct backend benchmark requires this import.
+    from ospr_backend.engine import Engine, MODELS
+
     parser = argparse.ArgumentParser()
     parser.add_argument("--model", default="parakeet-v3", choices=MODELS)
     parser.add_argument("--limit", type=int, default=0)
@@ -81,7 +84,7 @@ def main():
         items = items[: args.limit]
     if not items:
         raise SystemExit("No fixtures selected. Run benchmarks/prepare.py first.")
-    engine = Engine()
+    engine = (engine_factory or Engine)()
     # Cold means process/model initialization with already-downloaded weights.
     # First decode/JIT is recorded separately and excluded from warm statistics.
     cold_start = time.perf_counter()

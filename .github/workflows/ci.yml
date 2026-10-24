@@ -42,6 +42,11 @@ jobs:
         run: |
           uv run --frozen --all-extras ruff check backend benchmarks scripts
           uv run --frozen --all-extras pytest -q
+          task_directory="$(mktemp -d)"
+          (cd "$task_directory" && "$GITHUB_WORKSPACE/.venv/bin/python" "$GITHUB_WORKSPACE/benchmarks/native_long.py" --help)
+          uv run --frozen --all-extras python benchmarks/preview_package_gates.py --help
+          uv run --frozen --all-extras python benchmarks/preview_package_verify.py --help
+          uv run --frozen --all-extras python benchmarks/verify_scoring_factory.py
           uv run --frozen --all-extras python benchmarks/context_profiles.py --cli .build/debug/ospr-cli
           uv run --frozen --all-extras python benchmarks/gemini_contracts.py --cli .build/debug/ospr-cli --output /tmp/ospr-gemini-contracts.json
           uv run --frozen --all-extras python benchmarks/azure_contracts.py --cli .build/debug/ospr-cli --output /tmp/ospr-azure-contracts.json

@@ -2,6 +2,42 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## Current standalone review package and reproducible gates
+
+Clean source `7a6e9ff` now has a separate Apple Development signed macOS26.6.2
+arm64 preview including edited-summary sources and final profile feedback.
+An actual absolute-output-path failure is fixed; a build with an absolute spaced
+path succeeds. Standalone scoring no longer imports the checkout backend.
+
+All 18 exact-bundle functional gates pass: six-engine/neural offline relocation,
+text preparation/cache/model choice/summary CLI and MCP, 17 profile controls,
+warm-ASR output-limit retention, 41 loopback rewrite/Azure/Gemini cases,
+both default/neural hour-long routes and all three 80-minute upload transports.
+438 optimized Swift / 355 Python tests and Ruff pass. A private-copy actual
+legacy-archive migration/search/edit/quit/restart check preserves all eight
+records and referenced audio, with unchanged original files and no published
+source content. The ZIP passes CRC/extraction/signatures/offline CLI and exact
+executable hashes; source/backend/locks/licenses match. Normal app/data hashes
+are unchanged. Frozen bundled help contains 358 links.
+
+The current GUI payload also passes scoped native light-mode site/Custom/footer
+validation, provider-off guidance and private profile Save. Re-signed QA and
+packaged GUI compare byte-identical after removing signatures from temporary
+copies. [Native receipt](../benchmarks/results/v0-review-native-feedback.json).
+A retry still captured Chrome; it was cancelled without send. The owned TextEdit
+field is unchanged and normal OSpr is visibly restored. Current insertion,
+broader native profile controls and VoiceOver remain open.
+
+[Exact package manifest](../benchmarks/results/v0-review-package.json) records
+all gate/receipt hashes and archive SHA256.
+[Scope and reproduction](architecture/v0-review-package.md) ·
+[Private-copy upgrade result](../benchmarks/results/v0-review-existing-archive-upgrade.json) ·
+[PR34](https://github.com/vibhusapra/OSpr/pull/34).
+Weights remain separate and the preview is not notarized. Broader profile/current
+insertion, physical shortcut/device/acoustic, VoiceOver, clean-Mac/older-OS/updater,
+representative semantic quality and isolated energy/latency/consumer ranking
+remain open. This is not full union parity or top-three acceptance.
+
 ## Visible profile feedback and scoped native save checks
 
 Validation and inactive rewrite-provider explanations now stay immediately above
