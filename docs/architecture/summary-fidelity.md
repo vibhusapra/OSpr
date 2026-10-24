@@ -73,6 +73,6 @@ rejection contracts and three offline 9B inferences; the actual stdio MCP server
 passes local summary inference and 100,001-character rejection without echo.
 Swift sources match the parent’s 418-test source; the final draft PR checks rerun
 that suite on a clean macOS runner. Desktop and 390px report layouts are inspected;
-all 315 local report links resolve.
+all 316 local report links resolve.
 [Local validation](../../benchmarks/results/summary-fidelity-source-validation.json) ·
 [Draft PR30 and final checks](https://github.com/vibhusapra/OSpr/pull/30).
