@@ -216,15 +216,18 @@ class Engine:
         audio = read_audio(path)
         original_duration = len(audio) / SAMPLE_RATE
         offset = 0
+        selected_start = 0
         if speech_edges is not None:
             from .speech_edges import checked_bounds
 
             start, end = checked_bounds(audio, speech_edges, trim)
             offset = start / SAMPLE_RATE
+            selected_start = start
             audio = audio[start:end]
         elif trim:
             start, end = speech_bounds(audio, threshold=float(threshold))
             offset = start / SAMPLE_RATE
+            selected_start = start
             audio = audio[start:end]
         preprocess_ms = (time.perf_counter() - started) * 1000
         base = {
@@ -349,11 +352,14 @@ class Engine:
                     detected_language = language_tag(detected_language, language)
             mx.synchronize()
         decode_ms = (time.perf_counter() - decoded) * 1000
+        from .timing import bound_timings
+
+        timing = bound_timings(segments, words, start=offset, end=(selected_start + len(audio)) / SAMPLE_RATE,
+            text=text, granularity=("chunk" if "decoder_chunks" in base else "utterance") if spec["engine"] == "mlx-audio" else "segment")
         return dict(
             base,
+            **timing,
             text=text.strip(),
-            segments=segments,
-            words=words,
             language=detected_language,
             silence=False,
             warm=warm,
@@ -364,7 +370,6 @@ class Engine:
             peak_gpu_bytes=mx.get_peak_memory(),
             active_gpu_bytes=mx.get_active_memory(),
             vocabulary_applied=spec["engine"] == "whisper" and bool(vocabulary),
-            timestamp_granularity=("chunk" if "decoder_chunks" in base else "utterance") if spec["engine"] == "mlx-audio" else "segment",
         )
 
     def meeting(self, path, model_id="parakeet-v3", language=None, vocabulary="", trim=True, threshold=0.003, speech_edges=None):

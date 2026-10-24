@@ -224,10 +224,14 @@ options; see [capture evidence and remaining gates](docs/architecture/neural-end
 **Known neural-edge quality failures:** the multilingual follow-up finds 32 new
 empty outputs across 520 model/input pairs, plus partial quiet-speech deletions.
 For example, quiet German Parakeet WER rises 4.10% → 22.13% with the current
-detector policy. Leave neural edges off for quiet/multilingual use while model
+detector policy. For quiet/multilingual use, keep both neural options off and
+disable volume-based edge trimming to recognize the full audio while model
 selection is improved. Empty results retain recovery, but a nonempty partial
 transcript can still lose content. The same study exposes out-of-range Whisper
-timestamps; a source fix is in progress. The existing local preview predates it.
+timestamps. The source now bounds those estimates and preserves the transcript,
+with explicit approximate timing when alignment is unusable. All 12 observed
+overruns are corrected in real old/new reproduction, with text unchanged. The
+existing local preview predates this fix; native warning/export acceptance is open.
 See [multilingual results](benchmarks/results/neural-edges-multilingual-v1.json)
 and [independent checks](benchmarks/results/neural-edges-multilingual-v1-checks.json).
 
