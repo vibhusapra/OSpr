@@ -46,8 +46,9 @@ used, and no silent cloud fallback exists.
   some inputs within the character limit still require splitting.
 - Per-batch paraphrases carry source IDs. A second pass sees every candidate
   with its chunk ordering and reconciles duplicates, corrections and conflicts.
-  It sees candidate notes rather than the entire original transcript again, so
-  omissions or misinterpretations in the first pass can propagate. A writing-
+  It now also receives the exact original source excerpts cited by those candidates.
+  Material omitted by all drafts is still unavailable to reconciliation; source
+  access does not prove the resulting paraphrases. A writing-
   system hint helps retain non-Latin scripts without guessing the language.
 - A strict JSON schema rejects unknown/duplicate keys, malformed categories,
   invalid/duplicate source IDs and empty final reconciliation of nonempty notes.
@@ -60,7 +61,8 @@ used, and no silent cloud fallback exists.
   prove entailment, preserve every name/polarity/condition, or cover all languages,
   relative dates, novel weekdays or numbers written as words.
 - A failed format/source check gets one bounded generation repair using the
-  same source input and a stricter instruction. It never bypasses validation.
+  same source input and a stricter instruction, bounded rejected draft and item-
+  specific validation feedback. It never bypasses validation.
   Model/load/timeout/cancellation failures are not automatically retried by this
   mechanism. If repair fails, the whole request fails; no partial notes are saved.
 - Swift independently checks source-quote membership, source fingerprint,
@@ -166,3 +168,11 @@ meeting summaries, source-language fidelity, cross-chunk scope/reconciliation,
 corrected-transcript source selection, editable/reviewed summaries, timestamp navigation, native operation/
 cancellation/copy/privacy flows, lower-memory Macs and comparison with equivalent
 consumer workflows. The overall original goal remains open.
+
+## Later source-fidelity study
+
+The 14-case results above remain a frozen earlier development snapshot. See
+[source-grounded reconciliation and bounded repair](summary-fidelity.md) for the
+new 18-case/ten-run study, exact baseline archive, current algorithm, retained
+failures, research-only grammar/source encoding and larger model. The earlier
+meeting-summary and text-preparation packages do not contain this newer source.

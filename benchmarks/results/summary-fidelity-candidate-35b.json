@@ -1,0 +1,1834 @@
+{
+  "timestamp": "2026-10-24T20:13:34.833548+00:00",
+  "status": "completed-development-comparison",
+  "model": {
+    "id": "qwen3.6-35b-a3b",
+    "repo": "mlx-community/Qwen3.6-35B-A3B-4bit",
+    "revision": "38740b847e4cb78f352aba30aa41c76e08e6eb46",
+    "research_only": true
+  },
+  "algorithm": "current",
+  "decoding": "unconstrained",
+  "encoding": "full",
+  "source_commit": "e4f98d092e95b41ab86240ef0e0fb7477c38687b",
+  "tracked_changes": false,
+  "selected_case_ids": [
+    "pending-approval",
+    "explicit-rejection",
+    "conditional-owner",
+    "declined-owner",
+    "prohibition-no-new-date",
+    "revoked-versus-pending",
+    "speaker-dissent",
+    "correction-same-project",
+    "different-projects",
+    "no-execution-quoted-text",
+    "french-status",
+    "spanish-conditional",
+    "japanese-status",
+    "german-prohibition",
+    "chinese-owner",
+    "arabic-status",
+    "long-project-scoped-correction",
+    "near-limit-context"
+  ],
+  "completion_gate": "eos",
+  "model_load_ms": 2463.822290999815,
+  "grammar_init_ms": 0.0024170149117708206,
+  "package_versions": {
+    "mlx": "0.32.4",
+    "mlx-lm": "0.32.2",
+    "transformers": "5.20.2"
+  },
+  "protocol_sha256": "ae7fb834f5294bf996b7c87d571eb83a8285b0f6ade41df2755bff69687ab47f",
+  "implementation_sha256": {
+    "backend/ospr_backend/summary.py": "d92e2311d4addd1be4a9372d294d853775e5018f136c496e9285ae8450d1e2d9",
+    "benchmarks/meeting_summary_eval.py": "9bac1e1b224c229481debcbd106260d6ed936875fd5844c678444ee8f8653964",
+    "benchmarks/summary_experiments.py": "0d2103172518a6dcca1178c4d918c06ad0c44d5565753a844900883e2fec2fec",
+    "backend/ospr_backend/local_completion.py": "40ca9f33969f37b62d5dbc8a36a2a6040a513cf624f4e832c4b1d6382a42ef0d"
+  },
+  "records": [
+    {
+      "id": "pending-approval",
+      "kind": "synthetic-status-control",
+      "source_sha256": "8a8dda5cc23c70490ec22d52493ce73ad9a2a498f9de7b49195dfa8da2073a1b",
+      "status": "accepted-for-review",
+      "result": {
+        "items": [
+          {
+            "section": "overview",
+            "text": "The $24 plan remains unapproved but not rejected; Rosa will resubmit it following a security review.",
+            "source_ids": [
+              0,
+              1,
+              2
+            ]
+          }
+        ],
+        "excerpts": [
+          {
+            "id": 0,
+            "text": "The $24 plan has not been approved yet."
+          },
+          {
+            "id": 1,
+            "text": "The committee has not rejected it."
+          },
+          {
+            "id": 2,
+            "text": "Rosa will bring it back after the security review."
+          }
+        ],
+        "source_characters": 125,
+        "chunks": 1,
+        "validation_retries": 0,
+        "reconciled": false,
+        "limitations": "AI paraphrases with exact-source citations. Citations do not prove entailment, relevance or completeness. Review source quotes and the full transcript; no task is executed."
+      },
+      "required_source_coverage": [],
+      "exact_source_only": true,
+      "calls": [
+        {
+          "prompt_sha256": "91b4c12a5ffd0939a52a1822c5f668135323ff86943a198145ee1941e66c6321",
+          "input_tokens": 430,
+          "output": "{\n  \"items\": [\n    {\n      \"section\": \"overview\",\n      \"text\": \"The $24 plan remains unapproved but not rejected; Rosa will resubmit it following a security review.\",\n      \"source_ids\": [0, 1, 2]\n    }\n  ]\n}",
+          "encoding": null,
+          "status": "completed",
+          "grammar_prepare_ms": 0.000125030055642128,
+          "observed_finish_reason": "stop",
+          "observed_generation_tokens": 71,
+          "completion": {
+            "finish_reason": "stop",
+            "generation_tokens": 71
+          },
+          "wall_ms": 1247.931791935116
+        }
+      ],
+      "wall_ms": 1263.9595840591937
+    },
+    {
+      "id": "explicit-rejection",
+      "kind": "synthetic-status-control",
+      "source_sha256": "005efe9f3a7334e3ccd87943284a89cb983f218dd24419139785771cdea8aaa0",
+      "status": "accepted-for-review",
+      "result": {
+        "items": [
+          {
+            "section": "decisions",
+            "text": "The $24 plan was rejected due to its cost.",
+            "source_ids": [
+              0
+            ]
+          },
+          {
+            "section": "actions",
+            "text": "Rosa will document the rejection on Thursday.",
+            "source_ids": [
+              2
+            ]
+          },
+          {
+            "section": "questions",
+            "text": "The $18 plan is still being evaluated.",
+            "source_ids": [
+              1
+            ]
+          }
+        ],
+        "excerpts": [
+          {
+            "id": 0,
+            "text": "We reject the $24 plan because of its cost."
+          },
+          {
+            "id": 1,
+            "text": "The $18 plan is still being evaluated."
+          },
+          {
+            "id": 2,
+            "text": "Rosa will document the rejection on Thursday."
+          }
+        ],
+        "source_characters": 128,
+        "chunks": 1,
+        "validation_retries": 0,
+        "reconciled": false,
+        "limitations": "AI paraphrases with exact-source citations. Citations do not prove entailment, relevance or completeness. Review source quotes and the full transcript; no task is executed."
+      },
+      "required_source_coverage": [],
+      "exact_source_only": true,
+      "calls": [
+        {
+          "prompt_sha256": "c1075c12e39b0c670513effaac0bd886f4f1b06b4ea44c8189626e73699a893f",
+          "input_tokens": 432,
+          "output": "{\n  \"items\": [\n    {\n      \"section\": \"decisions\",\n      \"text\": \"The $24 plan was rejected due to its cost.\",\n      \"source_ids\": [0]\n    },\n    {\n      \"section\": \"actions\",\n      \"text\": \"Rosa will document the rejection on Thursday.\",\n      \"source_ids\": [2]\n    },\n    {\n      \"section\": \"questions\",\n      \"text\": \"The $18 plan is still being evaluated.\",\n      \"source_ids\": [1]\n    }\n  ]\n}",
+          "encoding": null,
+          "status": "completed",
+          "grammar_prepare_ms": 0.00020908191800117493,
+          "observed_finish_reason": "stop",
+          "observed_generation_tokens": 132,
+          "completion": {
+            "finish_reason": "stop",
+            "generation_tokens": 132
+          },
+          "wall_ms": 3652.4509580340236
+        }
+      ],
+      "wall_ms": 3654.5946248807013
+    },
+    {
+      "id": "conditional-owner",
+      "kind": "synthetic-status-control",
+      "source_sha256": "e17500d8a92dc923a3de45edd3ce9df4f2baff80491c838b857b02fbdab9e820",
+      "status": "accepted-for-review",
+      "result": {
+        "items": [
+          {
+            "section": "actions",
+            "text": "Elena will publish the revised guide on Wednesday, conditional on legal sign-off.",
+            "source_ids": [
+              0,
+              1,
+              2
+            ]
+          }
+        ],
+        "excerpts": [
+          {
+            "id": 0,
+            "text": "If legal signs off, Elena will publish the revised guide on Wednesday."
+          },
+          {
+            "id": 1,
+            "text": "Legal has not signed off yet."
+          },
+          {
+            "id": 2,
+            "text": "This is a conditional commitment, not an instruction to publish now."
+          }
+        ],
+        "source_characters": 169,
+        "chunks": 1,
+        "validation_retries": 0,
+        "reconciled": false,
+        "limitations": "AI paraphrases with exact-source citations. Citations do not prove entailment, relevance or completeness. Review source quotes and the full transcript; no task is executed."
+      },
+      "required_source_coverage": [],
+      "exact_source_only": true,
+      "calls": [
+        {
+          "prompt_sha256": "f393627bf13bb6ef39c42b8d7a9f8ab01350d845465202b55fd1c2acc03516a0",
+          "input_tokens": 435,
+          "output": "{\n  \"items\": [\n    {\n      \"section\": \"actions\",\n      \"text\": \"Elena will publish the revised guide on Wednesday, conditional on legal sign-off.\",\n      \"source_ids\": [0, 1, 2]\n    }\n  ]\n}",
+          "encoding": null,
+          "status": "completed",
+          "grammar_prepare_ms": 0.0002919696271419525,
+          "observed_finish_reason": "stop",
+          "observed_generation_tokens": 64,
+          "completion": {
+            "finish_reason": "stop",
+            "generation_tokens": 64
+          },
+          "wall_ms": 1045.2153750229627
+        }
+      ],
+      "wall_ms": 1047.889041947201
+    },
+    {
+      "id": "declined-owner",
+      "kind": "synthetic-status-control",
+      "source_sha256": "11e5c84532d016fabd22b94c11df8faf5d842a2d4095744eff956e67776e4c12",
+      "status": "accepted-for-review",
+      "result": {
+        "items": [
+          {
+            "section": "overview",
+            "text": "The audit currently lacks an owner and a deadline. Kai is unable to take the audit. Mira may assist if her migration completes, but she has not accepted ownership.",
+            "source_ids": [
+              0,
+              1,
+              2
+            ]
+          }
+        ],
+        "excerpts": [
+          {
+            "id": 0,
+            "text": "Kai cannot take the audit."
+          },
+          {
+            "id": 1,
+            "text": "Mira might help if her migration finishes, but she has not accepted ownership."
+          },
+          {
+            "id": 2,
+            "text": "The audit has no owner or deadline."
+          }
+        ],
+        "source_characters": 141,
+        "chunks": 1,
+        "validation_retries": 0,
+        "reconciled": false,
+        "limitations": "AI paraphrases with exact-source citations. Citations do not prove entailment, relevance or completeness. Review source quotes and the full transcript; no task is executed."
+      },
+      "required_source_coverage": [],
+      "exact_source_only": true,
+      "calls": [
+        {
+          "prompt_sha256": "d9a23706257757473df473b67c5a9c1f732a17aaa449202850e077c5c954036d",
+          "input_tokens": 432,
+          "output": "{\n  \"items\": [\n    {\n      \"section\": \"overview\",\n      \"text\": \"The audit currently lacks an owner and a deadline. Kai is unable to take the audit. Mira may assist if her migration completes, but she has not accepted ownership.\",\n      \"source_ids\": [0, 1, 2]\n    }\n  ]\n}",
+          "encoding": null,
+          "status": "completed",
+          "grammar_prepare_ms": 0.00016600824892520905,
+          "observed_finish_reason": "stop",
+          "observed_generation_tokens": 81,
+          "completion": {
+            "finish_reason": "stop",
+            "generation_tokens": 81
+          },
+          "wall_ms": 1498.5927920788527
+        }
+      ],
+      "wall_ms": 1500.6134591531008
+    },
+    {
+      "id": "prohibition-no-new-date",
+      "kind": "synthetic-status-control",
+      "source_sha256": "bc2eb6cb5b876b231904a79ef95e80bac992aeb4e78f8f8a38e78aedea4eda83",
+      "status": "accepted-for-review",
+      "result": {
+        "items": [
+          {
+            "section": "decisions",
+            "text": "Deployment is prohibited on Saturday.",
+            "source_ids": [
+              0
+            ]
+          },
+          {
+            "section": "questions",
+            "text": "No deployment date has been chosen, and agreement to deploy on Sunday has not been reached.",
+            "source_ids": [
+              1
+            ]
+          },
+          {
+            "section": "actions",
+            "text": "Chen will send the risk report on Friday.",
+            "source_ids": [
+              2
+            ]
+          }
+        ],
+        "excerpts": [
+          {
+            "id": 0,
+            "text": "Do not deploy on Saturday."
+          },
+          {
+            "id": 1,
+            "text": "We have not chosen a deployment date, and we have not agreed to deploy on Sunday."
+          },
+          {
+            "id": 2,
+            "text": "Chen will send the risk report on Friday."
+          }
+        ],
+        "source_characters": 150,
+        "chunks": 1,
+        "validation_retries": 0,
+        "reconciled": false,
+        "limitations": "AI paraphrases with exact-source citations. Citations do not prove entailment, relevance or completeness. Review source quotes and the full transcript; no task is executed."
+      },
+      "required_source_coverage": [],
+      "exact_source_only": true,
+      "calls": [
+        {
+          "prompt_sha256": "1712aa6f275181eda484a11931ed41ea60279f1356085141eb03c361e12b8fcb",
+          "input_tokens": 435,
+          "output": "{\n  \"items\": [\n    {\n      \"section\": \"decisions\",\n      \"text\": \"Deployment is prohibited on Saturday.\",\n      \"source_ids\": [0]\n    },\n    {\n      \"section\": \"questions\",\n      \"text\": \"No deployment date has been chosen, and agreement to deploy on Sunday has not been reached.\",\n      \"source_ids\": [1]\n    },\n    {\n      \"section\": \"actions\",\n      \"text\": \"Chen will send the risk report on Friday.\",\n      \"source_ids\": [2]\n    }\n  ]\n}",
+          "encoding": null,
+          "status": "completed",
+          "grammar_prepare_ms": 0.0002498272806406021,
+          "observed_finish_reason": "stop",
+          "observed_generation_tokens": 135,
+          "completion": {
+            "finish_reason": "stop",
+            "generation_tokens": 135
+          },
+          "wall_ms": 2598.2723340857774
+        }
+      ],
+      "wall_ms": 2600.945542100817
+    },
+    {
+      "id": "revoked-versus-pending",
+      "kind": "synthetic-status-control",
+      "source_sha256": "741c9e25aec5ad9de2f591847365d36732f8fe9a7a900a21b2b4b8303db7fd19",
+      "status": "rejected-no-summary",
+      "error": "ValueError: Summary contains a quantity absent from its cited sources. Previous notes and transcript are unchanged.",
+      "calls": [
+        {
+          "prompt_sha256": "a21a0051d230924fd96c127fc284aa8ff5f3420d55f574ecbe921e55455b1238",
+          "input_tokens": 427,
+          "output": "{\n  \"items\": [\n    {\n      \"section\": \"decisions\",\n      \"text\": \"The board revoked the pilot approval that was granted last week (0, 1).\",\n      \"source_ids\": [0, 1]\n    },\n    {\n      \"section\": \"decisions\",\n      \"text\": \"The larger rollout remains under review and has never been approved (2).\",\n      \"source_ids\": [2]\n    }\n  ]\n}",
+          "encoding": null,
+          "status": "completed",
+          "grammar_prepare_ms": 0.00016600824892520905,
+          "observed_finish_reason": "stop",
+          "observed_generation_tokens": 109,
+          "completion": {
+            "finish_reason": "stop",
+            "generation_tokens": 109
+          },
+          "wall_ms": 2102.1895830053836
+        },
+        {
+          "prompt_sha256": "cef1a33fa05084c2c6aecdc37c08a193d483665af992d438912d92ac5ec8c4dd",
+          "input_tokens": 756,
+          "output": "{\n  \"items\": [\n    {\n      \"section\": \"decisions\",\n      \"text\": \"The board revoked the pilot approval that was granted last week (0, 1).\",\n      \"source_ids\": [0, 1]\n    },\n    {\n      \"section\": \"decisions\",\n      \"text\": \"The larger rollout remains under review and has never been approved (2).\",\n      \"source_ids\": [2]\n    }\n  ]\n}",
+          "encoding": null,
+          "status": "completed",
+          "grammar_prepare_ms": 0.000250060111284256,
+          "observed_finish_reason": "stop",
+          "observed_generation_tokens": 109,
+          "completion": {
+            "finish_reason": "stop",
+            "generation_tokens": 109
+          },
+          "wall_ms": 2222.6085839793086
+        }
+      ],
+      "wall_ms": 4329.34904191643
+    },
+    {
+      "id": "speaker-dissent",
+      "kind": "synthetic-status-control",
+      "source_sha256": "877737abd106e05e4bb08c541cce3ed9113b7f69bf41a6df87727370990c5f0b",
+      "status": "accepted-for-review",
+      "result": {
+        "items": [
+          {
+            "section": "overview",
+            "text": "A proposal was discussed with opposing views recorded by Nora and Alex; no vote or team decision was made.",
+            "source_ids": [
+              0,
+              1,
+              2
+            ]
+          }
+        ],
+        "excerpts": [
+          {
+            "id": 0,
+            "text": "Nora: I oppose the proposal."
+          },
+          {
+            "id": 1,
+            "text": "Alex: I support it."
+          },
+          {
+            "id": 2,
+            "text": "Chair: We are recording both views; there has been no vote or team decision."
+          }
+        ],
+        "source_characters": 125,
+        "chunks": 1,
+        "validation_retries": 0,
+        "reconciled": false,
+        "limitations": "AI paraphrases with exact-source citations. Citations do not prove entailment, relevance or completeness. Review source quotes and the full transcript; no task is executed."
+      },
+      "required_source_coverage": [],
+      "exact_source_only": true,
+      "calls": [
+        {
+          "prompt_sha256": "2fb35155d1dc17859b9373da6aa9f0f6e784a5a4e349b139ac986a05c95960df",
+          "input_tokens": 432,
+          "output": "{\n  \"items\": [\n    {\n      \"section\": \"overview\",\n      \"text\": \"A proposal was discussed with opposing views recorded by Nora and Alex; no vote or team decision was made.\",\n      \"source_ids\": [0, 1, 2]\n    }\n  ]\n}",
+          "encoding": null,
+          "status": "completed",
+          "grammar_prepare_ms": 0.000125030055642128,
+          "observed_finish_reason": "stop",
+          "observed_generation_tokens": 69,
+          "completion": {
+            "finish_reason": "stop",
+            "generation_tokens": 69
+          },
+          "wall_ms": 1396.7929580248892
+        }
+      ],
+      "wall_ms": 1400.0535828527063
+    },
+    {
+      "id": "correction-same-project",
+      "kind": "synthetic-status-control",
+      "source_sha256": "fe6c6c04cc8098ab3e2bade514ec565a891891142f60794657de7b8036e1dca5",
+      "status": "accepted-for-review",
+      "result": {
+        "items": [
+          {
+            "section": "decisions",
+            "text": "The initial migration date of May 10 is withdrawn; the team agreed to migrate on May 17, subject to backup verification.",
+            "source_ids": [
+              0,
+              1,
+              2
+            ]
+          },
+          {
+            "section": "actions",
+            "text": "Sam will verify backups before May 16.",
+            "source_ids": [
+              3
+            ]
+          }
+        ],
+        "excerpts": [
+          {
+            "id": 0,
+            "text": "The initial migration date was May 10."
+          },
+          {
+            "id": 1,
+            "text": "Correction: that date is withdrawn."
+          },
+          {
+            "id": 2,
+            "text": "We now agree to migrate on May 17, subject to backup verification."
+          },
+          {
+            "id": 3,
+            "text": "Sam will verify backups before May 16."
+          }
+        ],
+        "source_characters": 180,
+        "chunks": 1,
+        "validation_retries": 0,
+        "reconciled": false,
+        "limitations": "AI paraphrases with exact-source citations. Citations do not prove entailment, relevance or completeness. Review source quotes and the full transcript; no task is executed."
+      },
+      "required_source_coverage": [],
+      "exact_source_only": true,
+      "calls": [
+        {
+          "prompt_sha256": "d06ae3fae745e94273c088b7054c12fb30865389db2878c50b305830d86f9ba5",
+          "input_tokens": 455,
+          "output": "{\n  \"items\": [\n    {\n      \"section\": \"decisions\",\n      \"text\": \"The initial migration date of May 10 is withdrawn; the team agreed to migrate on May 17, subject to backup verification.\",\n      \"source_ids\": [0, 1, 2]\n    },\n    {\n      \"section\": \"actions\",\n      \"text\": \"Sam will verify backups before May 16.\",\n      \"source_ids\": [3]\n    }\n  ]\n}",
+          "encoding": null,
+          "status": "completed",
+          "grammar_prepare_ms": 0.000125030055642128,
+          "observed_finish_reason": "stop",
+          "observed_generation_tokens": 116,
+          "completion": {
+            "finish_reason": "stop",
+            "generation_tokens": 116
+          },
+          "wall_ms": 2001.6631660982966
+        }
+      ],
+      "wall_ms": 2004.008375108242
+    },
+    {
+      "id": "different-projects",
+      "kind": "synthetic-status-control",
+      "source_sha256": "1ab056efb39cddfa7424c75405e4e817b3c0fb857d6656b65e1c787f60e75254",
+      "status": "accepted-for-review",
+      "result": {
+        "items": [
+          {
+            "section": "decisions",
+            "text": "Project Maple is approved to launch on Tuesday, while Project Cedar remains pending and is not approved for that date.",
+            "source_ids": [
+              0,
+              1,
+              2
+            ]
+          }
+        ],
+        "excerpts": [
+          {
+            "id": 0,
+            "text": "Project Cedar is not approved to launch on Tuesday."
+          },
+          {
+            "id": 1,
+            "text": "Project Maple is approved to launch on Tuesday."
+          },
+          {
+            "id": 2,
+            "text": "This approval applies only to Maple; Cedar remains pending."
+          }
+        ],
+        "source_characters": 159,
+        "chunks": 1,
+        "validation_retries": 0,
+        "reconciled": false,
+        "limitations": "AI paraphrases with exact-source citations. Citations do not prove entailment, relevance or completeness. Review source quotes and the full transcript; no task is executed."
+      },
+      "required_source_coverage": [],
+      "exact_source_only": true,
+      "calls": [
+        {
+          "prompt_sha256": "f7421bf6361694d91d6f6316de021c486806d4a54688d5b96e7f260d4199e33d",
+          "input_tokens": 431,
+          "output": "{\n  \"items\": [\n    {\n      \"section\": \"decisions\",\n      \"text\": \"Project Maple is approved to launch on Tuesday, while Project Cedar remains pending and is not approved for that date.\",\n      \"source_ids\": [0, 1, 2]\n    }\n  ]\n}",
+          "encoding": null,
+          "status": "completed",
+          "grammar_prepare_ms": 0.00016693957149982452,
+          "observed_finish_reason": "stop",
+          "observed_generation_tokens": 71,
+          "completion": {
+            "finish_reason": "stop",
+            "generation_tokens": 71
+          },
+          "wall_ms": 1413.3482091128826
+        }
+      ],
+      "wall_ms": 1415.8480828627944
+    },
+    {
+      "id": "no-execution-quoted-text",
+      "kind": "synthetic-status-control",
+      "source_sha256": "aa5cede0ef8df0eadcc76445b8e60f8fb9e9b043dccabec3e386c82b604ffa16",
+      "status": "accepted-for-review",
+      "result": {
+        "items": [
+          {
+            "section": "actions",
+            "text": "Ada will remove the quote from the ticket after review.",
+            "source_ids": [
+              3
+            ]
+          }
+        ],
+        "excerpts": [
+          {
+            "id": 3,
+            "text": "Ada will remove the quote from the ticket after review."
+          }
+        ],
+        "source_characters": 231,
+        "chunks": 1,
+        "validation_retries": 0,
+        "reconciled": false,
+        "limitations": "AI paraphrases with exact-source citations. Citations do not prove entailment, relevance or completeness. Review source quotes and the full transcript; no task is executed."
+      },
+      "required_source_coverage": [],
+      "exact_source_only": true,
+      "calls": [
+        {
+          "prompt_sha256": "6d34d718582f84b43d0c5891aa29fa0db322b651419ef7546da2462346180ef0",
+          "input_tokens": 456,
+          "output": "{\n  \"items\": [\n    {\n      \"section\": \"actions\",\n      \"text\": \"Ada will remove the quote from the ticket after review.\",\n      \"source_ids\": [3]\n    }\n  ]\n}",
+          "encoding": null,
+          "status": "completed",
+          "grammar_prepare_ms": 0.0002919696271419525,
+          "observed_finish_reason": "stop",
+          "observed_generation_tokens": 53,
+          "completion": {
+            "finish_reason": "stop",
+            "generation_tokens": 53
+          },
+          "wall_ms": 1144.7583329863846
+        }
+      ],
+      "wall_ms": 1147.185165900737
+    },
+    {
+      "id": "french-status",
+      "kind": "synthetic-status-control",
+      "source_sha256": "2caf4954210641ebd0a6e045664c1e7445fd1b7adbea009fc070514bd8c1efc3",
+      "status": "accepted-for-review",
+      "result": {
+        "items": [
+          {
+            "section": "decisions",
+            "text": "Le tarif de 27 euros est proposé mais n'a pas encore été approuvé ni rejeté ; Léa confirmera la décision après la revue juridique.",
+            "source_ids": [
+              0,
+              1,
+              2
+            ]
+          }
+        ],
+        "excerpts": [
+          {
+            "id": 0,
+            "text": "Le tarif de 27 euros est proposé, mais il n’a pas encore été approuvé."
+          },
+          {
+            "id": 1,
+            "text": "Il n’a pas été rejeté non plus."
+          },
+          {
+            "id": 2,
+            "text": "Léa confirmera la décision après la revue juridique."
+          }
+        ],
+        "source_characters": 155,
+        "chunks": 1,
+        "validation_retries": 0,
+        "reconciled": false,
+        "limitations": "AI paraphrases with exact-source citations. Citations do not prove entailment, relevance or completeness. Review source quotes and the full transcript; no task is executed."
+      },
+      "required_source_coverage": [],
+      "exact_source_only": true,
+      "calls": [
+        {
+          "prompt_sha256": "cb77385bf64f4eb380da85afdbf889365bd89c84277c9f4b539e24f647523da1",
+          "input_tokens": 444,
+          "output": "{\n  \"items\": [\n    {\n      \"section\": \"decisions\",\n      \"text\": \"Le tarif de 27 euros est proposé mais n'a pas encore été approuvé ni rejeté ; Léa confirmera la décision après la revue juridique.\",\n      \"source_ids\": [0, 1, 2]\n    }\n  ]\n}",
+          "encoding": null,
+          "status": "completed",
+          "grammar_prepare_ms": 0.000250060111284256,
+          "observed_finish_reason": "stop",
+          "observed_generation_tokens": 82,
+          "completion": {
+            "finish_reason": "stop",
+            "generation_tokens": 82
+          },
+          "wall_ms": 1658.8536670897156
+        }
+      ],
+      "wall_ms": 1661.6666249465197
+    },
+    {
+      "id": "spanish-conditional",
+      "kind": "synthetic-status-control",
+      "source_sha256": "adfcc226a8c0ea5f783c510eca99ee9bf9492253a6203769a456356706142665",
+      "status": "accepted-for-review",
+      "result": {
+        "items": [
+          {
+            "section": "overview",
+            "text": "Lucía publicará el informe el jueves si el equipo de seguridad da su aprobación. La aprobación todavía no ha llegado. No se ha decidido publicar el viernes.",
+            "source_ids": [
+              0,
+              1,
+              2
+            ]
+          }
+        ],
+        "excerpts": [
+          {
+            "id": 0,
+            "text": "Si el equipo de seguridad da su aprobación, Lucía publicará el informe el jueves."
+          },
+          {
+            "id": 1,
+            "text": "La aprobación todavía no ha llegado."
+          },
+          {
+            "id": 2,
+            "text": "No hemos decidido publicarlo el viernes."
+          }
+        ],
+        "source_characters": 159,
+        "chunks": 1,
+        "validation_retries": 0,
+        "reconciled": false,
+        "limitations": "AI paraphrases with exact-source citations. Citations do not prove entailment, relevance or completeness. Review source quotes and the full transcript; no task is executed."
+      },
+      "required_source_coverage": [],
+      "exact_source_only": true,
+      "calls": [
+        {
+          "prompt_sha256": "d5b5845a4c2e0e5fb91b137c9a533afac186c98962a94be94afd6c705410e3c0",
+          "input_tokens": 434,
+          "output": "{\n  \"items\": [\n    {\n      \"section\": \"overview\",\n      \"text\": \"Lucía publicará el informe el jueves si el equipo de seguridad da su aprobación. La aprobación todavía no ha llegado. No se ha decidido publicar el viernes.\",\n      \"source_ids\": [0, 1, 2]\n    }\n  ]\n}",
+          "encoding": null,
+          "status": "completed",
+          "grammar_prepare_ms": 0.000250060111284256,
+          "observed_finish_reason": "stop",
+          "observed_generation_tokens": 80,
+          "completion": {
+            "finish_reason": "stop",
+            "generation_tokens": 80
+          },
+          "wall_ms": 1530.3559999447316
+        }
+      ],
+      "wall_ms": 1532.8901251778007
+    },
+    {
+      "id": "japanese-status",
+      "kind": "synthetic-status-control",
+      "source_sha256": "2dc8d5b11f4cbee26a993b07a3785fc0ac9760fda0058014f8af3c92f7c255d8",
+      "status": "accepted-for-review",
+      "result": {
+        "items": [
+          {
+            "section": "overview",
+            "text": "新しい料金案は法務確認待ちで未承認かつ未却下。佐藤氏が確認後に結果共有予定。",
+            "source_ids": [
+              0,
+              1,
+              2
+            ]
+          }
+        ],
+        "excerpts": [
+          {
+            "id": 0,
+            "text": "新しい料金案はまだ承認されていません。"
+          },
+          {
+            "id": 1,
+            "text": "ただし、却下されたわけではありません。"
+          },
+          {
+            "id": 2,
+            "text": "佐藤さんは法務の確認後に結果を共有します。"
+          }
+        ],
+        "source_characters": 59,
+        "chunks": 1,
+        "validation_retries": 0,
+        "reconciled": false,
+        "limitations": "AI paraphrases with exact-source citations. Citations do not prove entailment, relevance or completeness. Review source quotes and the full transcript; no task is executed."
+      },
+      "required_source_coverage": [],
+      "exact_source_only": true,
+      "calls": [
+        {
+          "prompt_sha256": "39f764cd1491a0c154a7fc93c86838862cebc2a5f2cafe0855ef3ea7c78458c0",
+          "input_tokens": 461,
+          "output": "{\n\"items\": [\n{\n\"section\": \"overview\",\n\"text\": \"新しい料金案は法務確認待ちで未承認かつ未却下。佐藤氏が確認後に結果共有予定。\",\n\"source_ids\": [0, 1, 2]\n}\n]\n}",
+          "encoding": null,
+          "status": "completed",
+          "grammar_prepare_ms": 4.21423465013504e-05,
+          "observed_finish_reason": "stop",
+          "observed_generation_tokens": 66,
+          "completion": {
+            "finish_reason": "stop",
+            "generation_tokens": 66
+          },
+          "wall_ms": 1260.058666812256
+        }
+      ],
+      "wall_ms": 1262.3182081151754
+    },
+    {
+      "id": "german-prohibition",
+      "kind": "synthetic-status-control",
+      "source_sha256": "f934fcba71c6ba9a5c903fb298ca79a5ff03751e8e77e3a260e6238b488bdc13",
+      "status": "accepted-for-review",
+      "result": {
+        "items": [
+          {
+            "section": "decisions",
+            "text": "Die Veröffentlichung der neuen Version ist am Freitag untersagt.",
+            "source_ids": [
+              0
+            ]
+          },
+          {
+            "section": "decisions",
+            "text": "Ein neuer Termin wurde noch nicht beschlossen.",
+            "source_ids": [
+              1
+            ]
+          },
+          {
+            "section": "actions",
+            "text": "Hannah sendet den Prüfbericht am Donnerstag.",
+            "source_ids": [
+              2
+            ]
+          }
+        ],
+        "excerpts": [
+          {
+            "id": 0,
+            "text": "Am Freitag darf die neue Version nicht veröffentlicht werden."
+          },
+          {
+            "id": 1,
+            "text": "Ein neuer Termin wurde noch nicht beschlossen."
+          },
+          {
+            "id": 2,
+            "text": "Hannah sendet den Prüfbericht am Donnerstag."
+          }
+        ],
+        "source_characters": 153,
+        "chunks": 1,
+        "validation_retries": 0,
+        "reconciled": false,
+        "limitations": "AI paraphrases with exact-source citations. Citations do not prove entailment, relevance or completeness. Review source quotes and the full transcript; no task is executed."
+      },
+      "required_source_coverage": [],
+      "exact_source_only": true,
+      "calls": [
+        {
+          "prompt_sha256": "bc475848bbae0df1f0042b289bd1856892fbc106c3ee5ecc9b8e934d31cded0e",
+          "input_tokens": 429,
+          "output": "{\n  \"items\": [\n    {\n      \"section\": \"decisions\",\n      \"text\": \"Die Veröffentlichung der neuen Version ist am Freitag untersagt.\",\n      \"source_ids\": [0]\n    },\n    {\n      \"section\": \"decisions\",\n      \"text\": \"Ein neuer Termin wurde noch nicht beschlossen.\",\n      \"source_ids\": [1]\n    },\n    {\n      \"section\": \"actions\",\n      \"text\": \"Hannah sendet den Prüfbericht am Donnerstag.\",\n      \"source_ids\": [2]\n    }\n  ]\n}",
+          "encoding": null,
+          "status": "completed",
+          "grammar_prepare_ms": 0.0001671724021434784,
+          "observed_finish_reason": "stop",
+          "observed_generation_tokens": 132,
+          "completion": {
+            "finish_reason": "stop",
+            "generation_tokens": 132
+          },
+          "wall_ms": 2464.411332970485
+        }
+      ],
+      "wall_ms": 2466.756791109219
+    },
+    {
+      "id": "chinese-owner",
+      "kind": "synthetic-status-control",
+      "source_sha256": "b5afc2c1d3611dd7a45ba88c48fca268ae12977ec3d510606f5a7bdf12fa1d28",
+      "status": "accepted-for-review",
+      "result": {
+        "items": [
+          {
+            "section": "overview",
+            "text": "方案未获批准也未否决；李明可能协助测试但未承诺负责；未指定负责人或截止日期。",
+            "source_ids": [
+              0,
+              1,
+              2
+            ]
+          }
+        ],
+        "excerpts": [
+          {
+            "id": 0,
+            "text": "这个方案还没有获得批准，但也没有被否决。"
+          },
+          {
+            "id": 1,
+            "text": "李明可能协助测试，不过他没有承诺负责。"
+          },
+          {
+            "id": 2,
+            "text": "我们还没有指定负责人或截止日期。"
+          }
+        ],
+        "source_characters": 55,
+        "chunks": 1,
+        "validation_retries": 0,
+        "reconciled": false,
+        "limitations": "AI paraphrases with exact-source citations. Citations do not prove entailment, relevance or completeness. Review source quotes and the full transcript; no task is executed."
+      },
+      "required_source_coverage": [],
+      "exact_source_only": true,
+      "calls": [
+        {
+          "prompt_sha256": "3a7bc77694ff80258e8cb953240aaf2949f1777d540b32804c8efb1a52a7b8fb",
+          "input_tokens": 462,
+          "output": "{\n  \"items\": [\n    {\n      \"section\": \"overview\",\n      \"text\": \"方案未获批准也未否决；李明可能协助测试但未承诺负责；未指定负责人或截止日期。\",\n      \"source_ids\": [0, 1, 2]\n    }\n  ]\n}",
+          "encoding": null,
+          "status": "completed",
+          "grammar_prepare_ms": 0.0001671724021434784,
+          "observed_finish_reason": "stop",
+          "observed_generation_tokens": 70,
+          "completion": {
+            "finish_reason": "stop",
+            "generation_tokens": 70
+          },
+          "wall_ms": 1416.5028750430793
+        }
+      ],
+      "wall_ms": 1418.801291845739
+    },
+    {
+      "id": "arabic-status",
+      "kind": "synthetic-status-control",
+      "source_sha256": "290df033c94a813ef0fd6fa16e999d627ceb484ee91f6f20e64419a179fd914c",
+      "status": "accepted-for-review",
+      "result": {
+        "items": [
+          {
+            "section": "actions",
+            "text": "ترسل مريم تقرير المراجعة يوم الاثنين.",
+            "source_ids": [
+              1
+            ]
+          },
+          {
+            "section": "questions",
+            "text": "لا يوجد موعد إطلاق متفق عليه.",
+            "source_ids": [
+              2
+            ]
+          },
+          {
+            "section": "overview",
+            "text": "لم تتم الموافقة على الخطة بعد، لكنها لم تُرفض أيضا.",
+            "source_ids": [
+              0
+            ]
+          }
+        ],
+        "excerpts": [
+          {
+            "id": 0,
+            "text": "لم تتم الموافقة على الخطة بعد، لكنها لم تُرفض أيضا."
+          },
+          {
+            "id": 1,
+            "text": "سترسل مريم تقرير المراجعة يوم الاثنين."
+          },
+          {
+            "id": 2,
+            "text": "لا يوجد موعد إطلاق متفق عليه."
+          }
+        ],
+        "source_characters": 120,
+        "chunks": 1,
+        "validation_retries": 0,
+        "reconciled": false,
+        "limitations": "AI paraphrases with exact-source citations. Citations do not prove entailment, relevance or completeness. Review source quotes and the full transcript; no task is executed."
+      },
+      "required_source_coverage": [],
+      "exact_source_only": true,
+      "calls": [
+        {
+          "prompt_sha256": "3e62720d4582677d8512e13b2c0efaa7112e5172a2ff90b9e7df76734b7ef22f",
+          "input_tokens": 466,
+          "output": "{\n\"items\": [\n{\n\"section\": \"actions\",\n\"text\": \"ترسل مريم تقرير المراجعة يوم الاثنين.\",\n\"source_ids\": [1]\n},\n{\n\"section\": \"questions\",\n\"text\": \"لا يوجد موعد إطلاق متفق عليه.\",\n\"source_ids\": [2]\n},\n{\n\"section\": \"overview\",\n\"text\": \"لم تتم الموافقة على الخطة بعد، لكنها لم تُرفض أيضا.\",\n\"source_ids\": [0]\n}\n]\n}",
+          "encoding": null,
+          "status": "completed",
+          "grammar_prepare_ms": 0.0002498272806406021,
+          "observed_finish_reason": "stop",
+          "observed_generation_tokens": 113,
+          "completion": {
+            "finish_reason": "stop",
+            "generation_tokens": 113
+          },
+          "wall_ms": 2062.4152501113713
+        }
+      ],
+      "wall_ms": 2064.9167909286916
+    },
+    {
+      "id": "long-project-scoped-correction",
+      "kind": "synthetic-multi-chunk-status-control",
+      "source_sha256": "1ccf000f8ab552645b41540ca932c3fde28b290ea481227d4bfe5e11f849fa20",
+      "status": "accepted-for-review",
+      "result": {
+        "items": [
+          {
+            "section": "overview",
+            "text": "Project Cedar remains unapproved (not rejected) after reviewing usability observations; no change to standing plan. Project Maple is approved for release on Thursday; this does not approve Cedar.",
+            "source_ids": [
+              0,
+              1,
+              90,
+              131,
+              179,
+              180,
+              262,
+              263
+            ]
+          }
+        ],
+        "excerpts": [
+          {
+            "id": 0,
+            "text": "Project Cedar is still awaiting approval."
+          },
+          {
+            "id": 1,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 90,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 131,
+            "text": "Project Maple is approved for release on Thursday."
+          },
+          {
+            "id": 179,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 180,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 262,
+            "text": "Cedar remains unapproved, not rejected."
+          },
+          {
+            "id": 263,
+            "text": "Maple approval does not approve Cedar."
+          }
+        ],
+        "source_characters": 23573,
+        "chunks": 3,
+        "validation_retries": 0,
+        "reconciled": true,
+        "limitations": "AI paraphrases with exact-source citations. Citations do not prove entailment, relevance or completeness. Review source quotes and the full transcript; no task is executed."
+      },
+      "required_source_coverage": [],
+      "exact_source_only": true,
+      "calls": [
+        {
+          "prompt_sha256": "9955a85ce1e63a807f94b36e037db63396eb79d1fbf9c4602d52cd7d0163e521",
+          "input_tokens": 2602,
+          "output": "{\n  \"items\": [\n    {\n      \"section\": \"overview\",\n      \"text\": \"Project Cedar is still awaiting approval. Participants reviewed usability observations and reported no change to the standing plan.\",\n      \"source_ids\": [0, 1]\n    }\n  ]\n}",
+          "encoding": null,
+          "status": "completed",
+          "grammar_prepare_ms": 0.000250060111284256,
+          "observed_finish_reason": "stop",
+          "observed_generation_tokens": 65,
+          "completion": {
+            "finish_reason": "stop",
+            "generation_tokens": 65
+          },
+          "wall_ms": 2077.417250024155
+        },
+        {
+          "prompt_sha256": "2c9eb841ef4a671bc0bf57d28ed90def7730d977543669eb5a048337b6948f0f",
+          "input_tokens": 2694,
+          "output": "{\n\"items\": [\n{\n\"section\": \"overview\",\n\"text\": \"Participants reviewed usability observations and reported no change to the standing plan. Project Maple is approved for release on Thursday.\",\n\"source_ids\": [90, 131, 179]\n}\n]\n}",
+          "encoding": null,
+          "status": "completed",
+          "grammar_prepare_ms": 0.000250060111284256,
+          "observed_finish_reason": "stop",
+          "observed_generation_tokens": 67,
+          "completion": {
+            "finish_reason": "stop",
+            "generation_tokens": 67
+          },
+          "wall_ms": 2086.6012920159847
+        },
+        {
+          "prompt_sha256": "f0a6a682fd2dac34f5fc9ccc4360eea35dc28e3847caf57f868229be749ca10e",
+          "input_tokens": 2543,
+          "output": "{\n\"items\": [\n{\n\"section\": \"overview\",\n\"text\": \"Participants reviewed usability observations and reported no change to the standing plan. Cedar remains unapproved, not rejected. Maple approval does not approve Cedar.\",\n\"source_ids\": [180, 262, 263]\n}\n]\n}",
+          "encoding": null,
+          "status": "completed",
+          "grammar_prepare_ms": 0.00016600824892520905,
+          "observed_finish_reason": "stop",
+          "observed_generation_tokens": 74,
+          "completion": {
+            "finish_reason": "stop",
+            "generation_tokens": 74
+          },
+          "wall_ms": 2304.782124934718
+        },
+        {
+          "prompt_sha256": "dea1574f357a1a6a33099fcf0f7dde91ec53facad43a01deb2c2e047c6b6aafc",
+          "input_tokens": 693,
+          "output": "{\n\"items\": [\n{\n\"section\": \"overview\",\n\"text\": \"Project Cedar remains unapproved (not rejected) after reviewing usability observations; no change to standing plan. Project Maple is approved for release on Thursday; this does not approve Cedar.\",\n\"source_ids\": [0, 1, 90, 131, 179, 180, 262, 263]\n}\n]\n}",
+          "encoding": null,
+          "status": "completed",
+          "grammar_prepare_ms": 0.000125030055642128,
+          "observed_finish_reason": "stop",
+          "observed_generation_tokens": 101,
+          "completion": {
+            "finish_reason": "stop",
+            "generation_tokens": 101
+          },
+          "wall_ms": 2023.0510830879211
+        }
+      ],
+      "wall_ms": 8527.560457820073
+    },
+    {
+      "id": "near-limit-context",
+      "kind": "synthetic-context-cost-stress",
+      "source_sha256": "0855ca42036b5a0e6af6fa2396276b1a3376d51d006784080feedf7b7f19281e",
+      "status": "accepted-for-review",
+      "result": {
+        "items": [
+          {
+            "section": "overview",
+            "text": "Project Cedar remains unapproved, not rejected. Participants reviewed usability observations with no change to the standing plan. Rosa will report after the review.",
+            "source_ids": [
+              0,
+              1,
+              90,
+              91,
+              92,
+              93,
+              94,
+              95,
+              96,
+              97,
+              98,
+              99,
+              100,
+              101,
+              102,
+              103,
+              104,
+              105,
+              106,
+              107,
+              108,
+              109,
+              110,
+              111,
+              112,
+              113,
+              114,
+              115,
+              116,
+              117,
+              118,
+              119,
+              120,
+              121,
+              122,
+              123,
+              124,
+              125,
+              126,
+              127,
+              128,
+              129,
+              130,
+              131,
+              132,
+              133,
+              134,
+              135,
+              136,
+              137,
+              138,
+              139,
+              140,
+              141,
+              142,
+              143,
+              144,
+              145,
+              146,
+              147,
+              148,
+              149,
+              150,
+              151,
+              152,
+              153,
+              154,
+              155,
+              156,
+              157,
+              158,
+              159,
+              160,
+              161,
+              162,
+              163,
+              164,
+              165,
+              166,
+              167,
+              168,
+              169,
+              170,
+              171,
+              172,
+              173,
+              174,
+              175,
+              176,
+              177,
+              178,
+              980,
+              1021,
+              1022
+            ]
+          }
+        ],
+        "excerpts": [
+          {
+            "id": 0,
+            "text": "Project Cedar is still awaiting approval."
+          },
+          {
+            "id": 1,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 90,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 91,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 92,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 93,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 94,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 95,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 96,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 97,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 98,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 99,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 100,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 101,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 102,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 103,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 104,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 105,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 106,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 107,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 108,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 109,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 110,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 111,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 112,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 113,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 114,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 115,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 116,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 117,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 118,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 119,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 120,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 121,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 122,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 123,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 124,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 125,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 126,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 127,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 128,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 129,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 130,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 131,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 132,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 133,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 134,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 135,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 136,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 137,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 138,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 139,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 140,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 141,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 142,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 143,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 144,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 145,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 146,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 147,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 148,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 149,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 150,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 151,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 152,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 153,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 154,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 155,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 156,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 157,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 158,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 159,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 160,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 161,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 162,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 163,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 164,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 165,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 166,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 167,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 168,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 169,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 170,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 171,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 172,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 173,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 174,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 175,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 176,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 177,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 178,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 980,
+            "text": "Participants reviewed usability observations and reported no change to the standing plan."
+          },
+          {
+            "id": 1021,
+            "text": "Project Cedar remains unapproved, not rejected."
+          },
+          {
+            "id": 1022,
+            "text": "Rosa will report after the review."
+          }
+        ],
+        "source_characters": 91925,
+        "chunks": 12,
+        "validation_retries": 0,
+        "reconciled": true,
+        "limitations": "AI paraphrases with exact-source citations. Citations do not prove entailment, relevance or completeness. Review source quotes and the full transcript; no task is executed."
+      },
+      "required_source_coverage": [],
+      "exact_source_only": true,
+      "calls": [
+        {
+          "prompt_sha256": "9955a85ce1e63a807f94b36e037db63396eb79d1fbf9c4602d52cd7d0163e521",
+          "input_tokens": 2602,
+          "output": "{\n  \"items\": [\n    {\n      \"section\": \"overview\",\n      \"text\": \"Project Cedar is still awaiting approval. Participants reviewed usability observations and reported no change to the standing plan.\",\n      \"source_ids\": [0, 1]\n    }\n  ]\n}",
+          "encoding": null,
+          "status": "completed",
+          "grammar_prepare_ms": 0.00016693957149982452,
+          "observed_finish_reason": "stop",
+          "observed_generation_tokens": 65,
+          "completion": {
+            "finish_reason": "stop",
+            "generation_tokens": 65
+          },
+          "wall_ms": 1998.6815841402858
+        },
+        {
+          "prompt_sha256": "5886a6e240ddcdfba5e89aa433f96da0be5c6ed725a0ed68fa4606e2c04199c4",
+          "input_tokens": 2672,
+          "output": "{\n\"items\": [\n{\n\"section\": \"overview\",\n\"text\": \"Participants reviewed usability observations and reported no change to the standing plan.\",\n\"source_ids\": [90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178]\n}\n]\n}",
+          "encoding": null,
+          "status": "completed",
+          "grammar_prepare_ms": 0.000250060111284256,
+          "observed_finish_reason": "stop",
+          "observed_generation_tokens": 479,
+          "completion": {
+            "finish_reason": "stop",
+            "generation_tokens": 479
+          },
+          "wall_ms": 9754.651667084545
+        },
+        {
+          "prompt_sha256": "ff27652b6f3139f3290c987f6d2d8009397cb69da9c45439ba091115112e5bf0",
+          "input_tokens": 2682,
+          "output": "{\n\"items\": [\n{\n\"section\": \"overview\",\n\"text\": \"Participants reviewed usability observations and reported no change to the standing plan.\",\n\"source_ids\": [179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194]\n}\n]\n}",
+          "encoding": null,
+          "status": "completed",
+          "grammar_prepare_ms": 0.00016693957149982452,
+          "observed_finish_reason": "stop",
+          "observed_generation_tokens": 124,
+          "completion": {
+            "finish_reason": "stop",
+            "generation_tokens": 124
+          },
+          "wall_ms": 2891.1222089082003
+        },
+        {
+          "prompt_sha256": "3e0a33ff42236afb65a3665a2815b1f0cc8b15b9eb97c4eb6911d1e6e24fa1dd",
+          "input_tokens": 2682,
+          "output": "{\n\"items\": [\n{\n\"section\": \"overview\",\n\"text\": \"Participants reviewed usability observations and reported no change to the standing plan.\",\n\"source_ids\": [268, 269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283]\n}\n]\n}",
+          "encoding": null,
+          "status": "completed",
+          "grammar_prepare_ms": 0.0001671724021434784,
+          "observed_finish_reason": "stop",
+          "observed_generation_tokens": 124,
+          "completion": {
+            "finish_reason": "stop",
+            "generation_tokens": 124
+          },
+          "wall_ms": 3292.582582915202
+        },
+        {
+          "prompt_sha256": "e1144937adcba6968f4ac4be2b4302ed77c50a72e09e617e69c353f34c204692",
+          "input_tokens": 2682,
+          "output": "{\n\"items\": [\n{\n\"section\": \"overview\",\n\"text\": \"Participants reviewed usability observations and reported no change to the standing plan.\",\n\"source_ids\": [357, 358, 359, 360, 361, 362, 363, 364, 365, 366, 367, 368, 369, 370, 371, 372, 373, 374, 375, 376, 377, 378, 379, 380, 381, 382, 383, 384, 385, 386, 387, 388, 389, 390, 391, 392, 393, 394, 395, 396, 397, 398, 399, 400, 401, 402, 403, 404, 405, 406, 407, 408, 409, 410, 411, 412, 413, 414, 415, 416, 417, 418, 419, 420, 421, 422, 423, 424, 425, 426, 427, 428, 429, 430, 431, 432, 433, 434, 435, 436, 437, 438, 439, 440, 441, 442, 443, 444, 445]\n}\n]\n}",
+          "encoding": null,
+          "status": "completed",
+          "grammar_prepare_ms": 0.00020791776478290558,
+          "observed_finish_reason": "stop",
+          "observed_generation_tokens": 489,
+          "completion": {
+            "finish_reason": "stop",
+            "generation_tokens": 489
+          },
+          "wall_ms": 8081.829417031258
+        },
+        {
+          "prompt_sha256": "d8a55e1f4362b1303d3f9efc6a8af72c235dfd98febfba2265a3532b04b57c71",
+          "input_tokens": 2682,
+          "output": "{\n\"items\": [\n{\n\"section\": \"overview\",\n\"text\": \"Participants reviewed usability observations and reported no change to the standing plan.\",\n\"source_ids\": [446, 447, 448, 449, 450, 451, 452, 453, 454, 455, 456, 457, 458, 459, 460, 461, 462, 463, 464, 465, 466, 467, 468, 469, 470, 471, 472, 473, 474, 475, 476, 477, 478, 479, 480, 481, 482, 483, 484, 485, 486, 487, 488, 489, 490, 491, 492, 493, 494, 495, 496, 497, 498, 499, 500, 501, 502, 503, 504, 505, 506, 507, 508, 509, 510, 511, 512, 513, 514, 515, 516, 517, 518, 519, 520, 521, 522, 523, 524, 525, 526, 527, 528, 529, 530, 531, 532, 533, 534]\n}\n]\n}",
+          "encoding": null,
+          "status": "completed",
+          "grammar_prepare_ms": 0.000250060111284256,
+          "observed_finish_reason": "stop",
+          "observed_generation_tokens": 489,
+          "completion": {
+            "finish_reason": "stop",
+            "generation_tokens": 489
+          },
+          "wall_ms": 8343.098333105445
+        },
+        {
+          "prompt_sha256": "13d15f9d4872259749718d67c4b4e6927cf55d5554552b0c97d586cbc55edcb2",
+          "input_tokens": 2682,
+          "output": "{\n\"items\": [\n{\n\"section\": \"overview\",\n\"text\": \"Participants reviewed usability observations and reported no change to the standing plan.\",\n\"source_ids\": [535, 536, 537, 538, 539, 540, 541, 542, 543, 544, 545, 546, 547, 548, 549, 550]\n}\n]\n}",
+          "encoding": null,
+          "status": "completed",
+          "grammar_prepare_ms": 8.288770914077759e-05,
+          "observed_finish_reason": "stop",
+          "observed_generation_tokens": 124,
+          "completion": {
+            "finish_reason": "stop",
+            "generation_tokens": 124
+          },
+          "wall_ms": 3308.7584578897804
+        },
+        {
+          "prompt_sha256": "4fe7f1e9119885969192adaf860f0f32ce63ede3525b307d38ea710188d32f3f",
+          "input_tokens": 2682,
+          "output": "{\n  \"items\": [\n    {\n      \"section\": \"overview\",\n      \"text\": \"Participants reviewed usability observations and reported no change to the standing plan.\",\n      \"source_ids\": [624, 625, 626, 627, 628, 629, 630, 631, 632, 633, 634, 635, 636, 637, 638, 639]\n    }\n  ]\n}",
+          "encoding": null,
+          "status": "completed",
+          "grammar_prepare_ms": 0.000125030055642128,
+          "observed_finish_reason": "stop",
+          "observed_generation_tokens": 132,
+          "completion": {
+            "finish_reason": "stop",
+            "generation_tokens": 132
+          },
+          "wall_ms": 3214.986041886732
+        },
+        {
+          "prompt_sha256": "79a8f7307a745beb2f4b5167a608b0d327294bf67e35a67a66d92fa8aa3e264c",
+          "input_tokens": 2682,
+          "output": "{\n\"items\": [\n{\n\"section\": \"overview\",\n\"text\": \"Participants reviewed usability observations and reported no change to the standing plan.\",\n\"source_ids\": [713, 714, 715, 716, 717, 718, 719, 720, 721, 722, 723, 724, 725, 726, 727, 728]\n}\n]\n}",
+          "encoding": null,
+          "status": "completed",
+          "grammar_prepare_ms": 0.00016693957149982452,
+          "observed_finish_reason": "stop",
+          "observed_generation_tokens": 124,
+          "completion": {
+            "finish_reason": "stop",
+            "generation_tokens": 124
+          },
+          "wall_ms": 3080.5813330225646
+        },
+        {
+          "prompt_sha256": "68ed578dfe7c68196509d612f1da208f2956840b23dac9d88266000121582140",
+          "input_tokens": 2682,
+          "output": "{\n\"items\": [\n{\n\"section\": \"overview\",\n\"text\": \"Participants reviewed usability observations and reported no change to the standing plan.\",\n\"source_ids\": [802, 803, 804, 805, 806, 807, 808, 809, 810, 811, 812, 813, 814, 815, 816, 817, 818, 819, 820, 821, 822, 823, 824, 825, 826, 827, 828, 829, 830, 831, 832, 833, 834, 835, 836, 837, 838, 839, 840, 841, 842, 843, 844, 845, 846, 847, 848, 849, 850, 851, 852, 853, 854, 855, 856, 857, 858, 859, 860, 861, 862, 863, 864, 865, 866, 867, 868, 869, 870, 871, 872, 873, 874, 875, 876, 877, 878, 879, 880, 881, 882, 883, 884, 885, 886, 887, 888, 889, 890]\n}\n]\n}",
+          "encoding": null,
+          "status": "completed",
+          "grammar_prepare_ms": 0.00020815059542655945,
+          "observed_finish_reason": "stop",
+          "observed_generation_tokens": 489,
+          "completion": {
+            "finish_reason": "stop",
+            "generation_tokens": 489
+          },
+          "wall_ms": 8536.820499924943
+        },
+        {
+          "prompt_sha256": "bec6c526fe108c5fc81c2bf3ce27d67e9824c8cd61464d7b16383dd8abf94d77",
+          "input_tokens": 2682,
+          "output": "{\n\"items\": [\n{\n\"section\": \"overview\",\n\"text\": \"Participants reviewed usability observations and reported no change to the standing plan.\",\n\"source_ids\": [891, 979]\n}\n]\n}",
+          "encoding": null,
+          "status": "completed",
+          "grammar_prepare_ms": 0.00016693957149982452,
+          "observed_finish_reason": "stop",
+          "observed_generation_tokens": 54,
+          "completion": {
+            "finish_reason": "stop",
+            "generation_tokens": 54
+          },
+          "wall_ms": 1917.4159578979015
+        },
+        {
+          "prompt_sha256": "d73ea17227febf04f3b4dbe2ff21fb1ec287fbc96bf6deb87262e9162d1fe766",
+          "input_tokens": 1500,
+          "output": "{\n\"items\": [\n{\n\"section\": \"overview\",\n\"text\": \"Participants reviewed usability observations and reported no change to the standing plan. Project Cedar remains unapproved, not rejected. Rosa will report after the review.\",\n\"source_ids\": [980, 1021, 1022]\n}\n]\n}",
+          "encoding": null,
+          "status": "completed",
+          "grammar_prepare_ms": 0.00016693957149982452,
+          "observed_finish_reason": "stop",
+          "observed_generation_tokens": 77,
+          "completion": {
+            "finish_reason": "stop",
+            "generation_tokens": 77
+          },
+          "wall_ms": 2069.6472090203315
+        },
+        {
+          "prompt_sha256": "ee3852e11eb28a62466bc190da9630c7624676af1229c426a41d283e8dc0e8ca",
+          "input_tokens": 3342,
+          "output": "{\n\"items\": [\n{\n\"section\": \"overview\",\n\"text\": \"Project Cedar remains unapproved, not rejected. Participants reviewed usability observations with no change to the standing plan. Rosa will report after the review.\",\n\"source_ids\": [0, 1, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 980, 1021, 1022]\n}\n]\n}",
+          "encoding": null,
+          "status": "completed",
+          "grammar_prepare_ms": 0.00016693957149982452,
+          "observed_finish_reason": "stop",
+          "observed_generation_tokens": 517,
+          "completion": {
+            "finish_reason": "stop",
+            "generation_tokens": 517
+          },
+          "wall_ms": 10103.578542126343
+        }
+      ],
+      "wall_ms": 66726.61883407272
+    }
+  ],
+  "peak_mlx_bytes": 21453243898,
+  "boundary": "Eighteen authored public synthetic development controls, sixteen short multilingual/status controls and two multi-chunk/context-cost stress inputs. Reference expectations are review criteria, never included in model prompts. Compare frozen pre-fidelity and current algorithms on identical model/prompt budgets; record raw outputs, failures and context tokens. No automatic entailment certificate, sealed holdout, real meeting/ASR robustness, calibrated latency/energy or consumer ranking. Protocol frozen before measuring these cases; known fourteen-case calibration remains separate."
+}

@@ -61,3 +61,12 @@ captures the actual foreground app; background field focus alone is insufficient
 
 The normal local-only app is restored with byte-identical settings/history and
 unchanged public target files. Test-only browser tabs are reset/closed afterward.
+
+## Later manual-focus retry
+
+The unlocked-Mac retry after the human TextEdit foreground handoff still captured
+Google Chrome. No phrase was sent to that destination; the confirmation was
+cancelled. The target remains byte-identical, the QA app was quit, and the normal
+local-only app is visibly restored with unchanged settings/history hashes.
+This does not establish the current-build TextEdit regression.
+[Retry receipt](../../benchmarks/results/web-insertion-textedit-retry.json).

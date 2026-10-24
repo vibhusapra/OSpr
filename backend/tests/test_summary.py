@@ -61,6 +61,9 @@ def test_all_chunks_read_then_reconciled_and_final_refs_bounded_to_candidates():
             candidates.append(row)
             return json.dumps(dict(items=[row]))
         assert [{k: v for k, v in row.items() if k != "chunk"} for row in value["candidates"]] == candidates
+        assert value["evidence"] == [
+            dict(id=row["source_ids"][0], text=row["text"]) for row in candidates
+        ]
         return json.dumps(dict(items=[candidates[-1]]))
 
     result = summarize(text, complete)
@@ -185,6 +188,14 @@ def test_one_bounded_format_source_repair_then_atomic_rejection():
 
     def complete(prompt, instruction):
         calls.append(instruction)
+        value = json.loads(prompt)
+        if len(calls) == 2:
+            assert value["previous_attempt"]["draft"] == json.dumps(
+                dict(items=[item("Price is $12.55.")])
+            )
+            assert "quantity absent" in value["previous_attempt"]["validation_error"]
+            assert value["previous_attempt"]["truncated"] is False
+            assert value["transcript"] == [dict(id=0, text="Price is $12.50.")]
         return json.dumps(dict(items=[item("Price is $12.55." if len(calls) == 1 else "Price is $12.50.")]))
 
     result = summarize("Price is $12.50.", complete, progress=events.append)
@@ -200,6 +211,115 @@ def test_one_bounded_format_source_repair_then_atomic_rejection():
     with pytest.raises(ValueError):
         summarize("Price is $12.50.", invalid)
     assert len(failed) == 2
+
+
+def test_repair_draft_is_bounded_quoted_data_and_does_not_grow_on_retry():
+    prompts = []
+
+    def complete(prompt, instruction):
+        value = json.loads(prompt)
+        prompts.append(value)
+        if len(prompts) == 1:
+            return "malformed " + "x" * 100000
+        assert "quoted data" in instruction
+        previous = value["previous_attempt"]
+        assert len(previous["draft"]) == 12000 and previous["truncated"]
+        assert "previous_attempt" not in prompts[0]
+        return '{"items":[]}'
+
+    assert summarize("Public source.", complete)["validation_retries"] == 1
+    assert len(prompts) == 2
+
+
+def test_repair_receives_all_item_specific_preservation_failures_without_public_echo():
+    calls = []
+
+    def complete(prompt, _):
+        value = json.loads(prompt)
+        calls.append(value)
+        if len(calls) == 1:
+            return json.dumps(dict(items=[item("Price is $98.10."), item(
+                "Review before Monday.", [1], "actions"
+            )]))
+        assert value["previous_attempt"]["validation_checks"] == [
+            dict(item_index=0, issue="uncited-quantity", spellings=["98.10"]),
+            dict(item_index=1, issue="changed-date-qualifier", date="monday",
+                 used="before", supported=["on"]),
+        ]
+        assert "98.10" not in value["previous_attempt"]["validation_error"]
+        return json.dumps(dict(items=[item("Price remains $12.50."), item(
+            "Review on Monday.", [1], "actions"
+        )]))
+
+    result = summarize("Price is $12.50. Review on Monday.", complete)
+    assert result["validation_retries"] == 1
+
+
+def test_repair_identifies_an_unsupported_section_without_echoing_generated_text():
+    calls = []
+
+    def complete(prompt, _):
+        calls.append(json.loads(prompt))
+        if len(calls) == 1:
+            return json.dumps(dict(items=[item("Publish only if approved.", section="conditions")]))
+        previous = calls[-1]["previous_attempt"]
+        assert previous["validation_checks"] == [dict(
+            item_index=0, issue="invalid-section",
+            allowed_sections=["actions", "decisions", "overview", "questions"],
+        )]
+        assert "conditions" not in previous["validation_error"]
+        return json.dumps(dict(items=[item("Publish only if approved.", section="actions")]))
+
+    assert summarize("Publish only if approved.", complete)["validation_retries"] == 1
+
+
+def test_repair_metadata_is_bounded_even_with_many_source_failures():
+    calls = []
+    bad_text = " ".join(str(i) for i in range(100000, 100120))
+
+    def complete(prompt, _):
+        calls.append(json.loads(prompt))
+        if len(calls) == 1:
+            return json.dumps(dict(items=[item(bad_text)] * 32))
+        previous = calls[-1]["previous_attempt"]
+        assert previous["checks_truncated"] is True
+        assert len(json.dumps(previous["validation_checks"], ensure_ascii=False)) <= 4000
+        assert len(previous["draft"]) <= 12000
+        assert calls[-1]["transcript"] == [dict(id=0, text="Price stays 0.")]
+        return '{"items":[]}'
+
+    assert summarize("Price stays 0.", complete)["validation_retries"] == 1
+
+
+def test_reconciliation_evidence_is_exact_unique_ordered_and_never_uncited():
+    text = "A proposal remains unapproved. " + "No substantive update. " * 400
+    citations = []
+
+    def complete(prompt, _):
+        value = json.loads(prompt)
+        if "candidates" not in value:
+            row = value["transcript"][0]
+            citations.append(row)
+            return json.dumps(dict(items=[item(row["text"], [row["id"]], "overview")]))
+        assert value["evidence"] == citations
+        assert {r["id"] for r in value["evidence"]} == {
+            i for row in value["candidates"] for i in row["source_ids"]
+        }
+        return json.dumps(dict(items=value["candidates"][:1]))
+
+    assert summarize(text, complete)["reconciled"]
+
+
+def test_generation_failure_is_not_retried_as_a_format_repair():
+    calls = []
+
+    def complete(*_):
+        calls.append(True)
+        raise RuntimeError("Local completion not acknowledged")
+
+    with pytest.raises(RuntimeError, match="not acknowledged"):
+        summarize("Public source.", complete)
+    assert len(calls) == 1
 
 
 def test_month_day_and_clock_qualifiers_are_preserved_but_bare_deadlines_are_allowed():

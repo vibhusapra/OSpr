@@ -688,3 +688,17 @@ acceptance. A separately signed isolated profile now passes Models preparation,
 recording remains separate. See `results/text-preparation-native.json` and
 `results/text-preparation-package.json` for exact source/package boundaries. A standalone `prepare-text` CLI invocation
 releases its worker on exit; app preparation retains it for later dictation.
+
+## Summary source fidelity and research variants
+
+`meeting_summary_eval.py --protocol benchmarks/fixtures/summary-fidelity-protocol.json`
+uses 18 new public synthetic development controls; the old 14-case protocol and
+outputs remain. Select `--algorithm pre-fidelity|current`, `--decoding
+unconstrained|xgrammar`, and `--encoding full|exact-references`; outputs must be new
+paths. Grammar packages from `summary-research-requirements.txt` belong in a
+separate research directory, not the application environment. The research-only
+35B model is pinned in this protocol and absent from the application ModelLock.
+`results/summary-fidelity-study.json` binds ten complete serial runs and raw calls.
+Accepted-for-review is schema/source admission, not semantic quality. See
+`docs/architecture/summary-fidelity.md` for timing/memory boundaries, review
+observations, reproduction and open gates. No grammar/encoding/model promotion.
