@@ -54,10 +54,7 @@ cp docs/research.html docs/PROGRESS.md "$resources/Engine/docs/"
 cp docs/architecture/*.md "$resources/Engine/docs/architecture/"
 cp docs/assets/* "$resources/Engine/docs/assets/"
 cp docs/data/*.json "$resources/Engine/docs/data/"
-cp benchmarks/results/*.json "$resources/Engine/benchmarks/results/"
-for trace in benchmarks/results/*.json.gz benchmarks/results/*.srt benchmarks/results/*.vtt; do
-  if [[ -f "$trace" ]]; then cp "$trace" "$resources/Engine/benchmarks/results/"; fi
-done
+rsync -a --include='*/' --include='*.json' --include='*.json.gz' --include='*.srt' --include='*.vtt' --exclude='*' benchmarks/results/ "$resources/Engine/benchmarks/results/"
 cp benchmarks/README.md "$resources/Engine/benchmarks/"
 cp benchmarks/fixtures/*.json "$resources/Engine/benchmarks/fixtures/"
 "$resources/Engine/.venv/bin/python" -c 'import importlib.metadata as m, json; print(json.dumps(sorted([{"name":d.metadata["Name"], "version":d.version, "license":d.metadata.get("License-Expression") or d.metadata.get("License"), "source":d.metadata.get("Home-page")} for d in m.distributions()], key=lambda x:x["name"].lower()), indent=2))' > "$resources/dependencies.json"

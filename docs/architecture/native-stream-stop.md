@@ -52,4 +52,5 @@ acceptance. The live application and source-normalization gates remain distinct.
 
 No production model, default or standalone package changes. Preview stays
 opt-in; the checked `9a51603` ZIP predates continuous normalization and cadence.
-Native QA cleanup remains pending a macOS unlock at this checkpoint.
+Later native cleanup restores normal OSpr with unchanged settings/history and
+stops QA/worker. The unused public WAV is closed without playback.

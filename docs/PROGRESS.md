@@ -2,6 +2,33 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## Checked streaming preview: source 3feaf65
+
+`dist/streaming-v0/OSpr.app` and its separate arm64/macOS 26.6.2 ZIP include the
+continuous normalizer, steady preview cadence/failure handling, full-audio defaults
+and timing bounds. ZIP: **392,148,942 bytes**, SHA-256
+`8205dabddf9355b26be88f93d719d866e8a0b93fc2f3325afb5607e564e1f861`.
+
+Exact-build gates pass all six offline/neural engines after relocation, ten
+native client/worker stop/fallback cases, four synthetic hour requests, three
+all-sample 80-minute provider transports, two real MCP defaults plus exact-zero
+abstention, 17 bundled profile CLI cases and ZIP CRC/extraction/signatures. Source
+CI at the exact build commit passes **310 Swift / 230 Python tests**, the Swift
+replay typecheck and 168 bundled help links. The first candidate omitted a linked
+SRT export; the fix includes timed exports and makes CI check all help links.
+Nested public receipt assets are also included in future bundles.
+
+Normal OSpr is now visibly restored with eight sessions/265 words and identical
+settings/history hashes. QA/worker stopped; the unused public WAV was closed
+while still at 00:00. No new recording/playback or insertion acceptance. An empty
+QuickTime file picker remains. The checked app stays separate; previous previews
+are intact. This is Apple Development signed, without Developer ID/notarization;
+weights are separate. Physical capture/shortcuts/insertion/devices, system audio,
+clean-Mac/older-OS and updater acceptance remain. No top-three ranking claim.
+See `streaming-package-gates.json`, `streaming-release-package.json`,
+`streaming-ci.json` and `streaming-native-restoration.json`. Bundled help is the
+source snapshot before these final artifact receipts; the current report is newer.
+
 ## Later validation: stop packets through the native worker boundary
 
 A frozen standalone Swift harness compiles the unchanged shipping WorkerClient
@@ -17,7 +44,7 @@ probe and owned workers exit; the separate idle QA worker stays untouched.
 This narrows the open IPC cancellation gate. It does not establish physical
 stop, Capture/AppModel behavior, active GPU-kernel cancellation or UI/insertion
 acceptance. No app/model/default/package changes. Final Mac CI at `0bc0acc` is
-also green. Native QA cleanup still requires unlock; no new capture or playback
+also green. Later native cleanup restores normal OSpr and stops QA/worker; no new capture or playback
 started. See `native-stream-stop.json`, raw traces/checker and
 `docs/architecture/native-stream-stop.md`.
 
@@ -49,7 +76,8 @@ no new standalone package is promoted. The approved public WAV was prepared in
 QuickTime and the isolated old checked profile was warmed for a fresh TextEdit
 focus handoff. No new recording or playback started. macOS then locked before
 cleanup: QA is idle, normal app is stopped and restoration needs an unlocked
-desktop. Normal settings/history hashes remain identical; zero QA recovery files.
+desktop at that checkpoint. Later cleanup above restores normal OSpr and stops QA/worker.
+Normal settings/history hashes remain identical; zero QA recovery files.
 See `stream-normalization-real.json`, its raw traces/checker and
 `docs/architecture/stream-normalization.md`.
 

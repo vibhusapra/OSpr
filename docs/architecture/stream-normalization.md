@@ -62,5 +62,7 @@ device interruptions. The unit tests reject rate changes; actual hardware route
 changes and app fallback still need native acceptance. Stop cancellation while a
 request is in flight also remains separate. Preview stays off by default.
 
-The checked full-audio-v0 ZIP at source `9a51603` predates this and the cadence
-changes. No new standalone distribution claim follows from these source checks.
+The earlier full-audio-v0 ZIP at source `9a51603` predates this and the cadence
+changes. A later separate streaming-v0 preview at `3feaf65` includes both and
+passes exact-build artifact gates; see `streaming-package-gates.json`. It remains
+a local development-signed preview, with physical native and distribution gates open.

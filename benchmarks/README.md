@@ -556,3 +556,25 @@ transcripts have zero WER on one known clip; replacement controls both retain
 The independent checker verifies ordering, sources, text controls and edit
 distances. This does not operate the microphone, Capture/AppModel, UI, insertion
 or physical shortcuts. See `docs/architecture/native-stream-stop.md`.
+
+The `--app <bundle>` option sends these same requests through its bundled engine
+using the unchanged compiled native client source. Exact-build receipts live in
+`results/streaming-native-ipc/`; temporary trace filenames are preserved there.
+This does not run the app GUI or its compiled CLI entry point.
+
+## Checked streaming preview
+
+The separate `dist/streaming-v0` preview is frozen at `3feaf65`. Its exact-build
+portable, long-file, provider, native IPC and package receipts are linked by
+`results/streaming-package-gates.json`. All 168 bundled help links pass. The first
+candidate omitted a linked SRT; timed exports and recursive receipt assets are
+included by the bundler, and CI now checks every bundled report link. Older
+previews are preserved. Apple Development signing does not provide notarization.
+
+```sh
+.venv/bin/python benchmarks/bundled_defaults.py --app dist/streaming-v0/OSpr.app --output .local/streaming-mcp.json
+```
+
+This invokes the exact bundle's real MCP server on original and -40 dB public
+German speech against known full-audio text/PCM controls, plus exact-zero input.
+The pinned MCP client uses `is_error`. Native UI/capture is not exercised.

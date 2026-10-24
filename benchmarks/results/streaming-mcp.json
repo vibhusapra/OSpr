@@ -1,0 +1,106 @@
+{
+  "records": [
+    {
+      "id": "fleurs-de_de-000-original",
+      "pcm_sha256": "2bc82d9c2d75aa89b91c374d7b4edb05b3b1f15c852baf7ed1ce0b9ee7e25554",
+      "samples": 287040,
+      "expected_text": "Für die besten Aussichten auf Hongkong sollten sie die Insel verlassen und zum gegenüberliegenden Ufer von Kowloon fahren.",
+      "result": {
+        "model": "parakeet-v3",
+        "audio_seconds": 17.94,
+        "speech_seconds": 17.94,
+        "segments": [
+          {
+            "start": 3.84,
+            "end": 14.72,
+            "text": " Für die besten Aussichten auf Hongkong sollten sie die Insel verlassen und zum gegenüberliegenden Ufer von Kowloon fahren."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": "Für die besten Aussichten auf Hongkong sollten sie die Insel verlassen und zum gegenüberliegenden Ufer von Kowloon fahren.",
+        "language": "de",
+        "silence": false,
+        "warm": false,
+        "load_ms": 245.81312504597008,
+        "preprocess_ms": 0.9027081541717052,
+        "decode_ms": 157.45762502774596,
+        "total_ms": 404.70595797523856,
+        "peak_gpu_bytes": 3615087088,
+        "active_gpu_bytes": 1296754892,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "fleurs-de_de-000-quiet40db",
+      "pcm_sha256": "02d1804a1a3f3609e7b14bc6a830bf4c883911f7b76abebd6ddda52873327e44",
+      "samples": 287040,
+      "expected_text": "Für die besten Aussichten auf Hongkong sollten Sie die Insel verlassen und zum gegenüberliegenden Ufer von Kowlum fahren.",
+      "result": {
+        "model": "parakeet-v3",
+        "audio_seconds": 17.94,
+        "speech_seconds": 17.94,
+        "segments": [
+          {
+            "start": 3.84,
+            "end": 14.4,
+            "text": " Für die besten Aussichten auf Hongkong sollten Sie die Insel verlassen und zum gegenüberliegenden Ufer von Kowlum fahren."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "text": "Für die besten Aussichten auf Hongkong sollten Sie die Insel verlassen und zum gegenüberliegenden Ufer von Kowlum fahren.",
+        "language": "de",
+        "silence": false,
+        "warm": true,
+        "load_ms": 0.0012919772416353226,
+        "preprocess_ms": 0.44008297845721245,
+        "decode_ms": 80.79495909623802,
+        "total_ms": 81.34254184551537,
+        "peak_gpu_bytes": 2404426224,
+        "active_gpu_bytes": 1296754892,
+        "vocabulary_applied": false
+      }
+    },
+    {
+      "id": "synthetic-exact-zero",
+      "samples": 16000,
+      "result": {
+        "model": "parakeet-v3",
+        "audio_seconds": 1.0,
+        "speech_seconds": 1.0,
+        "text": "",
+        "segments": [],
+        "language": null,
+        "silence": true,
+        "detector_abstained": false,
+        "empty_reason": "normalized_zero",
+        "warm": true,
+        "load_ms": 0,
+        "decode_ms": 0,
+        "preprocess_ms": 0.2685000654309988,
+        "total_ms": 0.2685000654309988
+      }
+    }
+  ],
+  "source_sha256": "7131c007c5c5c7b72c2fae333c9bccf5e2c02a4abb32b740f314e58b1488f149",
+  "source_receipt_sha256": "cd8e9e6c0af19dafe8a144af7d7998354ea370e4cc70f63acd0ff2e556eb59b3",
+  "python_launcher_sha256": "aac23a47517dd402c2050dd6bbbd035bd28707a4ff51fa8b6746f98d534ee4d3",
+  "status": "passed",
+  "timestamp": "2026-10-24T05:55:07.454552+00:00",
+  "build": {
+    "version": "0.1.0",
+    "built_at": "2026-10-24T05:42:59.924765+00:00",
+    "git_commit": "3feaf65bf771b3a67beceea7a3d74651bd8f2d1d",
+    "tracked_changes": false,
+    "application_source_sha256": "32d6af7e99aa6d993e34a67ed8d3a38aef725cb0accedb9b323c5c4a288e37c7",
+    "source_manifest_version": 2,
+    "signing_mode": "configured-identity",
+    "boundary": "Development build; configured signing identity; not notarized; weights downloaded separately."
+  },
+  "harness_sha256": "83effc99ede904b699a19deba48e5aedf2ff62bc9d2624fd115a42fcfac979ae",
+  "actual_asr": 2,
+  "requests": 3,
+  "signature_valid_after_inference": true,
+  "boundary": "Real bundled MCP default transcription against two known full-audio controls and exact-zero abstention. Offline, foreign cwd, no supplied trim flag; quiet PCM hash checked before inference. No microphone, native UI, insertion, new accuracy or latency comparison."
+}
