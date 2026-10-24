@@ -486,18 +486,26 @@ import OSprCore
             if incremental {
                 do {
                     let result = try await worker.request(["action": "stream_begin", "language": recordingSettings.language])
-                    sessionID = result["session_id"] as? String
+                    guard let identifier = result["session_id"] as? String, !identifier.isEmpty else {
+                        throw OSprError.message("The engine did not return a preview session.")
+                    }
+                    sessionID = identifier
                     guard generation == token, !Task.isCancelled else {
                         if let sessionID { _ = try? await worker.request(["action": "stream_cancel", "session_id": sessionID]) }
                         return
                     }
                     if let sessionID { streamSession = (token, sessionID) }
-                } catch { return }
+                } catch is CancellationError { return } catch {
+                    showPreviewFailure(token: token)
+                    return
+                }
             }
+            let clock = ContinuousClock()
+            var cadence = PreviewCadence(interval: .milliseconds(incremental ? 320 : 3000), startingAt: clock.now)
             while !Task.isCancelled && generation == token && phase == "recording" {
                 do {
-                    try await Task.sleep(for: .milliseconds(incremental ? 320 : 3000))
-                    guard phase == "recording", !Task.isCancelled else { break }
+                    try await clock.sleep(until: cadence.nextDeadline(at: clock.now))
+                    guard phase == "recording", generation == token, !Task.isCancelled else { break }
                     guard let file = try capture.snapshot(incremental: incremental) else { continue }
                     defer { try? FileManager.default.removeItem(at: file) }
                     let request: [String: Any] = sessionID.map { ["action": "stream_feed", "session_id": $0, "path": file.path] } ??
@@ -508,10 +516,16 @@ import OSprCore
                 } catch is CancellationError { break } catch {
                     if let sessionID { _ = try? await worker.request(["action": "stream_cancel", "session_id": sessionID]) }
                     if streamSession?.generation == token { streamSession = nil }
+                    showPreviewFailure(token: token)
                     break // Final transcription can fall back to the complete audio.
                 }
             }
         }
+    }
+    private func showPreviewFailure(token: UUID) {
+        guard generation == token, phase == "recording" else { return }
+        let warning = "Live preview stopped. You can keep recording; final transcription will run when you finish."
+        error = error.isEmpty ? warning : error + "\n" + warning
     }
     func stop() {
         if recordingDesktop { stopMeeting(); return }

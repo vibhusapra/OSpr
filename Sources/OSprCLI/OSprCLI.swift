@@ -11,6 +11,9 @@ import OSprCore
         do {
             let result: [String: Any]
             switch command {
+            case "_benchmark-preview-cadence":
+                guard args.count == 4, let interval = Int(args[1]), let work = Int(args[2]), let stop = Int(args[3]) else { usage(); exit(2) }
+                result = try PreviewCadenceCheck.run(intervalMS: interval, workMS: work, stopMS: stop)
             case "_benchmark-neural-edges":
                 guard args.count == 3 else { usage(); exit(2) }
                 result = try await NeuralEdgeCheck.run(manifest: URL(fileURLWithPath: args[1]), model: args[2], worker: worker)

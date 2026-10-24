@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "source": {
+    "id": "1272-128104-0000",
+    "path": "fixtures/audio/1272-128104-0000.wav",
+    "reference": "MISTER QUILTER IS THE APOSTLE OF THE MIDDLE CLASSES AND WE ARE GLAD TO WELCOME HIS GOSPEL",
+    "suite": "human-clean",
+    "source_id": "1272-128104-0000",
+    "sha256": "799f78ed4beb4de7ceae3a809262d4ce242394342ccd1d58cef7d49dbc2def46",
+    "seconds": 5.855
+  },
+  "source_manifest_sha256": "ea0df37dc8f5a7b519b115d44fcd71f16413e04f1bac48b15eec9399f4e43c2b",
+  "model": "nemotron-streaming",
+  "model_lock_sha256": "9d523253c866ef3a021e51c0a542e65878a658b8539140a3043518c4c759dffa",
+  "dependency_lock_sha256": "8e306569ebe63c886e9938d06c2e0a6e39d661de20e116a1998321dbfd14a6d2",
+  "repetitions": 10,
+  "block_seconds": 6,
+  "stop_ms": 60000,
+  "intervals_ms": [
+    320,
+    3000
+  ],
+  "modeled_work_ms": [
+    40,
+    120,
+    600
+  ],
+  "actual_asr_interval_ms": 320,
+  "policy_orders": [
+    [
+      "legacy",
+      "deadline"
+    ],
+    [
+      "deadline",
+      "legacy"
+    ],
+    [
+      "legacy",
+      "deadline"
+    ]
+  ],
+  "language_hint": "en",
+  "boundary": "Fixed modeled-work schedule comparison from the actual Swift Core helper, plus six real cached Nemotron sessions on the same repeated public sixty-second waveform. No wall-clock pacing or microphone/IPC/UI latency measurement. Work costs are synthetic, not measured decoder costs. Live calls finish before final draining in this replay; mid-request user-stop cancellation remains separate. One repeated speaker is not a general accuracy dataset. No preview defaults change."
+}
