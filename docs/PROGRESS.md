@@ -2,6 +2,27 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## Current work: stop preview cadence drifting with decode time
+
+Branch `codex/preview-cadence` replaces sleep-after-work with monotonic deadlines,
+keeps one request in flight, checks the generation again before snapshot and
+shows a visible preview-failure message while preserving final fallback. Missing
+session IDs no longer route incremental packets through offline transcription.
+Preview remains off by default; request frequency/energy can increase.
+
+Five scheduler tests and the complete **310-test Swift suite** pass. The release
+CLI includes a bounded probe for the actual Core schedule. A fixed six-session
+real Nemotron packet-continuity replay is prepared with 40/120/600 ms modeled
+processing costs and one repeated public sixty-second input; results pending.
+The replay does not measure microphone or native latency. The current checked
+9a51603 preview is unchanged and predates this source change.
+
+The host-browser insertion alternative cannot proceed: native control of the
+host Codex app is restricted, and macOS locks before QuickTime preparation. No
+new take or playback starts; normal OSpr remains restored and QA is stopped.
+Actual TextEdit focus still requires a fresh physical handoff after preparation.
+See `docs/architecture/preview-cadence.md`.
+
 ## Latest native check: warning, exports and normal-app restoration
 
 During an unlocked interval, normal OSpr is visibly restored with its eight
