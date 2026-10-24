@@ -9,76 +9,34 @@ or a top-three product ranking. See [progress](docs/PROGRESS.md), the
 [acceptance ledger](docs/data/parity.json), and the self-contained
 [research and benchmark report](docs/research.html).
 
-[Combined v0 review](docs/architecture/v0-review.md) maps the original request to
-current evidence, the 23 component PRs and remaining acceptance work. It includes
-a sanitized existing-archive-copy migration/restart check and a fix for remote
-rewrite completion status. The signed source `728ef76` integration candidate passes offline relocated
-six-engine, all 41 bundled provider CLI and archive checks. Full parity and a
-top-three result remain unproven. [Package evidence](benchmarks/results/v0-integration-package.json).
+The current source preview is on `codex/v0-review-package`
+([draft PR #34](https://github.com/vibhusapra/OSpr/pull/34), stacked on #33).
+The separate clean-source `7a6e9ff` package includes edited-source summary
+snapshots, explicit local model preparation, browser insertion fixes and the
+final visible profile-feedback footer. [Package scope and reproduction](docs/architecture/v0-review-package.md).
 
-The local candidate is `dist/v0-integration/OSpr.app`; its 396,062,164-byte ZIP is
-`dist/v0-integration/OSpr-v0.1.0-integration-macOS26.6.2-arm64.zip`
-(SHA-256 `9cbf06f32b858355f491234332b348018053a2694246dcbaf93ab12e791b9cd3`).
-Apple Development signed, macOS 26.6.2 arm64, model weights separate; native and
-release acceptance remain pending. Older candidates and the normal app are preserved.
+Local review artifact: `dist/v0 review/OSpr.app`. Its
+`dist/v0 review/OSpr-v0.1.0-macOS26.6.2-arm64.zip` is 400,931,517 bytes,
+SHA256 `1de0985a612dca7eec8a2bbecd408e4b5acc4288928216a07f561f5943e8e561`.
+Apple Development signed, macOS26.6.2 arm64, weights separate; **not notarized**.
+The archive is generated locally and is not a public GitHub release download.
 
-Newer experimental [local meeting summaries](docs/architecture/meeting-summaries.md)
-are on `codex/meeting-summaries`: a separate pinned 9B model, structured notes,
-source quotes, CLI and MCP. Structural/source validation passes 13/14 development
-cases; accepted paraphrases still have known semantic errors. The preserved
-integration ZIP above predates this feature. The newer source `566c637` candidate
-is `dist/meeting-summaries-v0/OSpr.app`; its
-`OSpr-v0.1.0-meeting-summaries-macOS26.6.2-arm64.zip` is 396,453,429 bytes
-(SHA-256 `391dc41bc29c3e28b2f2178393f3529217ff3262fcce9bc1ff58ade5722a1e5b`).
-[Package/source evidence](benchmarks/results/meeting-summary-source-validation.json)
-passes offline engines, actual bundled CLI/MCP, provider regressions, archive and
-source CI checks. Apple Development signed macOS 26.6.2 arm64; weights separate.
-Native, semantic-quality and distribution acceptance remain open.
+438 optimized Swift tests, 355 Python tests and 18 exact-bundle functional gates
+pass, including offline relocated six-engine inference, local text CLI/MCP,
+default/neural synthetic-hour regressions and three 80-minute loopback transports.
+The ZIP passes CRC/extraction, signatures and executable identity; normal app/data
+hashes are unchanged. A private-copy current AppModel upgrade preserves the eight
+existing records and referenced audio across migration/edit/quit/restart.
+[Exact manifest and all gate hashes](benchmarks/results/v0-review-package.json).
 
-The newer `codex/local-completion` source adds a [local EOS completion gate](docs/architecture/local-completion.md)
-for all text tasks. Eight actual old/new controls preserve completed output; two
-valid-JSON output-limit sentinels fail safely. A verified text output limit retains
-warm speech. Full source checks pass 400 Swift / 318 Python tests; both 14-case
-summary replays preserve the previous outputs and known semantic failures.
-The new source `0cacb1d` candidate is `dist/local-completion-v0/OSpr.app`.
-Its 396,521,056-byte `OSpr-v0.1.0-local-completion-macOS26.6.2-arm64.zip`
-has SHA-256 `3c640d05a3cf7a5f08eb2957f7c425ac6dbeb520c14a59250800793dde0e0d43`.
-[Exact package gates](benchmarks/results/local-completion-package.json) include
-offline engines, bundled warm-ASR recovery, summary CLI/MCP, provider contracts,
-archive extraction and signatures. Apple Development signed macOS 26.6.2 arm64;
-weights separate; native and release acceptance remain open. Earlier candidates
-are preserved and predate this guard.
+Current native footer/insertion, physical shortcut/device/acoustic, VoiceOver,
+representative semantic quality, clean-Mac/older-OS/updater/Developer-ID and
+isolated energy/latency/consumer-ranking acceptance remain open. Synthetic and
+loopback gates do not establish full parity or top-three performance. Earlier
+candidates are preserved; [progress](docs/PROGRESS.md) and the
+[combined v0 review](docs/architecture/v0-review.md) retain their source scopes.
 
 ## Run on your Mac
-
-The [local model choice](docs/architecture/local-model-choice.md) source on
-`codex/local-model-choice` adds experimental 9B refinement, explicit preparation,
-selected-model acknowledgement and accented-spelling preservation. The 36-case
-development comparison favors 9B on raw lexical checks but still finds mistakes;
-4B and Off remain unchanged. The separate signed `dist/local-model-choice-v0/OSpr.app`
-passes [package gates](benchmarks/results/local-model-package.json) and
-[source/CI gates](benchmarks/results/local-model-source-validation.json). Apple
-Development signed macOS 26.6.2 arm64; weights separate; not notarized. Older
-packages above predate this choice.
-
-The current experimental source preview is on `codex/text-model-preparation` ([draft PR #29](https://github.com/vibhusapra/OSpr/pull/29)), stacked on the summary and combined-v0 reviews. `main` still contains the initial bootstrap.
-
-The [web insertion follow-up](docs/architecture/web-insertion.md) fixes a reproduced
-Chrome AX-success/no-visible-delivery failure and verifies real browser paste and
-clipboard restoration. The model-choice ZIP above predates this fix.
-
-The [text preparation follow-up](docs/architecture/text-model-preparation.md) adds
-optional cache-only 4B/9B preparation before dictation, with synthetic output
-discarded and speech residency preserved. Native isolated-profile Models and
-Settings preparation/replacement/release/cancel/Save/restart controls pass. The
-separate `dist/text-preparation-v0/OSpr.app` passes [exact package
-gates](benchmarks/results/text-preparation-package.json), including offline
-relocation, bundled CLI/MCP, provider contracts and archive extraction. Its
-397,708,787-byte `OSpr-v0.1.0-text-preparation-macOS26.6.2-arm64.zip` has SHA-256
-`307e5ba2587382d36cfbe7c53d8fbc18c60921b1cf5b48cb7d72f55d229086f0`.
-Apple Development signed, macOS 26.6.2 arm64, weights separate; not notarized.
-Earlier packages above predate this action and the browser insertion fix. Full
-native dictation, semantic quality and distribution acceptance remain open.
 
 Requirements: Apple Silicon, macOS 14+, Xcode 16+ / Swift 6, [uv](https://docs.astral.sh/uv/),
 and available memory for the selected inference configuration. Text-only short
@@ -89,7 +47,7 @@ standalone app bundles Python and locked inference libraries. Model
 weights download on first load; disk use depends on the selected models.
 
 ```sh
-git clone --branch codex/text-model-preparation https://github.com/vibhusapra/OSpr.git
+git clone --branch codex/v0-review-package https://github.com/vibhusapra/OSpr.git
 cd OSpr
 scripts/setup.sh
 scripts/build-app.sh
@@ -134,7 +92,7 @@ older macOS chooses compatible wheels. Older-OS bundle acceptance is untested. T
 the runtime boundary, not interactive microphone/insertion behavior.
 
 After running `benchmarks/portable_app.py`, the bundled hour-long regression
-check (`PYTHONPATH=backend .venv/bin/python benchmarks/native_long.py --app dist/standalone/OSpr.app`),
+check (`.venv/bin/python benchmarks/native_long.py --app dist/standalone/OSpr.app`),
 all three public 80-minute loopback transport checks, and successful native/Python
 test logs, create a verified delivery archive with:
 
