@@ -241,7 +241,7 @@ def test_repair_receives_all_item_specific_preservation_failures_without_public_
             return json.dumps(dict(items=[item("Price is $98.10."), item(
                 "Review before Monday.", [1], "actions"
             )]))
-        assert value["previous_attempt"]["source_checks"] == [
+        assert value["previous_attempt"]["validation_checks"] == [
             dict(item_index=0, issue="uncited-quantity", spellings=["98.10"]),
             dict(item_index=1, issue="changed-date-qualifier", date="monday",
                  used="before", supported=["on"]),
@@ -253,6 +253,42 @@ def test_repair_receives_all_item_specific_preservation_failures_without_public_
 
     result = summarize("Price is $12.50. Review on Monday.", complete)
     assert result["validation_retries"] == 1
+
+
+def test_repair_identifies_an_unsupported_section_without_echoing_generated_text():
+    calls = []
+
+    def complete(prompt, _):
+        calls.append(json.loads(prompt))
+        if len(calls) == 1:
+            return json.dumps(dict(items=[item("Publish only if approved.", section="conditions")]))
+        previous = calls[-1]["previous_attempt"]
+        assert previous["validation_checks"] == [dict(
+            item_index=0, issue="invalid-section",
+            allowed_sections=["actions", "decisions", "overview", "questions"],
+        )]
+        assert "conditions" not in previous["validation_error"]
+        return json.dumps(dict(items=[item("Publish only if approved.", section="actions")]))
+
+    assert summarize("Publish only if approved.", complete)["validation_retries"] == 1
+
+
+def test_repair_metadata_is_bounded_even_with_many_source_failures():
+    calls = []
+    bad_text = " ".join(str(i) for i in range(100000, 100120))
+
+    def complete(prompt, _):
+        calls.append(json.loads(prompt))
+        if len(calls) == 1:
+            return json.dumps(dict(items=[item(bad_text)] * 32))
+        previous = calls[-1]["previous_attempt"]
+        assert previous["checks_truncated"] is True
+        assert len(json.dumps(previous["validation_checks"], ensure_ascii=False)) <= 4000
+        assert len(previous["draft"]) <= 12000
+        assert calls[-1]["transcript"] == [dict(id=0, text="Price stays 0.")]
+        return '{"items":[]}'
+
+    assert summarize("Price stays 0.", complete)["validation_retries"] == 1
 
 
 def test_reconciliation_evidence_is_exact_unique_ordered_and_never_uncited():
