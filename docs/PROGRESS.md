@@ -27,6 +27,20 @@ resource/model/parameter compatibility, semantics and live latency remain open.
 Dated Azure/Entra/Azure Speech Services are outside this adapter.
 See [the protocol, CLI and primary references](architecture/azure-refinement.md).
 
+Source `3fb3c1d` CI 40095224602 passes matching 377/248 tests, both CLI suites,
+app/report and clean-runner runtime. Its separate Apple Development signed
+`dist/azure-refinement-v0/OSpr.app` passes relocated offline six-engine/neural/extras
+and exact bundled Azure/Gemini CLI replay. The 396,023,372-byte ZIP is SHA-256
+`0b38a8aa1ca76305771fc3f71e20a379b15888d756605addd74aaed2d38ca6bc`.
+Archive CRC/extraction/deep signatures/executable bytes/extracted offline CLI/
+license and all 238 bundled help links pass. Bundled help is the source snapshot
+before final receipts. Normal data hashes remain identical, no QA app was launched,
+and no recording/playback or sound setting changed. The disposable extraction was
+removed after verification. The five `azure-refinement-*` / Azure-bundle Gemini
+regression receipts separate source/package checks from native/account gates.
+This remains a focused macOS 26.6.2 arm64 test candidate, not full-v0/top-three or
+distribution acceptance.
+
 ## Native Gemini BYOK refinement: source and loopback CLI contracts pass
 
 The `codex/gemini-refinement` branch adds a native Gemini Developer API adapter,
@@ -51,7 +65,7 @@ No Gemini account request, real key, paid call, audio/model download or normal
 app/settings/history/sound change is part of this verification. Native Settings,
 Keychain save/restart and provider account/model/quality/latency acceptance remain
 open. Google documents this single-turn protocol as Generate Content API (Legacy);
-this is not Vertex or Interactions support. Azure remains a native-adapter gap.
+this is not Vertex or Interactions support. Azure was still an adapter gap at this source; the newer v1 section above tracks its implementation.
 See [implementation, protocol sources and limits](architecture/gemini-refinement.md).
 
 Source `46223b0` CI 40093840656 is green at the matching 366/248 tests, eight CLI

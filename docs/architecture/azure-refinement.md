@@ -80,6 +80,32 @@ provider-side cancellation/quotas, semantic quality and live latency remain
 unverified. No normal app/data, recording/playback or sound change is part of
 source/loopback validation.
 
+## Separate signed candidate and receipts
+
+Source `3fb3c1da330b2e4f34ce8e95a101cc64ae84f9a2` is packaged at
+`dist/azure-refinement-v0/OSpr.app`, application fingerprint
+`e26312a47602795a5b57abe2b82dbc5a4ef1e39c1886b5e50f2f38770c2096e4`.
+The 396,023,372-byte ZIP is SHA-256
+`0b38a8aa1ca76305771fc3f71e20a379b15888d756605addd74aaed2d38ca6bc`.
+Relocated offline six-engine/neural/extras checks pass. The exact bundled CLI
+passes twelve Azure and eight Gemini loopback cases. Archive CRC, extraction,
+deep signatures, executable bytes, extracted offline CLI inventory and license
+checks pass. All 238 bundled relative help links resolve. Its report is the source
+snapshot before final receipts.
+
+Source CI 40095224602 passes matching 377 Swift / 248 Python tests, twelve Azure /
+eight Gemini CLI cases, app/report and clean-runner runtime. This is Apple
+Development signed macOS 26.6.2 arm64 with separate weights; no Developer ID/
+notarized, clean-Mac/older-OS/updater, native/account or ranking acceptance.
+No QA app was launched. Normal data hashes still match baseline; previous signed
+apps/ZIPs are preserved. The disposable extraction is removed after verification.
+
+[Source/CI and pending native/account state](../../benchmarks/results/azure-refinement-source-validation.json),
+[archive manifest](../../benchmarks/results/azure-refinement-package.json),
+[portable engines](../../benchmarks/results/azure-refinement-portable.json),
+[exact bundled Azure CLI](../../benchmarks/results/azure-refinement-bundled-cli.json),
+[bundled Gemini regression](../../benchmarks/results/azure-gemini-bundled-regression.json).
+
 ## Primary references
 
 Checked 2026-10-24. Microsoft's [Azure v1 Chat reference](https://learn.microsoft.com/en-us/rest/api/microsoft-foundry/azureopenai/chat)
