@@ -1,0 +1,65 @@
+{
+  "status": "passed-stored-evidence-checks",
+  "timestamp": "2026-10-24T01:38:12.221030+00:00",
+  "source_result_sha256": "8ba3535bb7cb0d4edfb43d6b6616e45075ac50522c60434b6fd3b5b5bd431779",
+  "traces_sha256": "31e96a6a421ba5f80ea2ad0eb8bcfd57c5866e7398bf457529e93ae178c1025d",
+  "checker_sha256": "2db78bf6abd0bebf1455bff194b79124b49d13f65223a8e30d44d1eb8f9bca9e",
+  "cli_sha256": "49d74ab339d242d463c485c76f3a5f9d3c4dc788b53e7556cecfa4476a1e54ae",
+  "audio_files_checked": 110,
+  "native_manifests_checked": 660,
+  "transport_control_sha256": "07d2a8bd40e9a2a3a3ddd711f8b57470a9826a26263da1a52c61e385a9407bc2",
+  "transport_control_cli_sha256": "805f26ea9366970885a4282b8349172109900a0ff8c346c38f2d358f0f518d26",
+  "actual_asr_records": 1278,
+  "abstention_records": 42,
+  "summaries": {
+    "parakeet-v3": {
+      "changes": {
+        "better": 10,
+        "equal": 77,
+        "worse": 16
+      },
+      "new_empty_speech": 0
+    },
+    "whisper-turbo": {
+      "changes": {
+        "better": 8,
+        "equal": 88,
+        "worse": 7
+      },
+      "new_empty_speech": 0
+    },
+    "whisper-small": {
+      "changes": {
+        "better": 12,
+        "equal": 83,
+        "worse": 8
+      },
+      "new_empty_speech": 0
+    },
+    "qwen3-asr": {
+      "changes": {
+        "better": 3,
+        "equal": 90,
+        "worse": 10
+      },
+      "new_empty_speech": 0
+    },
+    "cohere-native8": {
+      "changes": {
+        "better": 14,
+        "equal": 81,
+        "worse": 8
+      },
+      "new_empty_speech": 0
+    },
+    "nemotron-streaming": {
+      "changes": {
+        "better": 14,
+        "equal": 77,
+        "worse": 12
+      },
+      "new_empty_speech": 0
+    }
+  },
+  "boundary": "Rehashes 110 source/derived waveforms, the frozen CLI/source locks and stored traces; independently recomputes PCM hashes, original-timeline ranges, transcript-score arithmetic and aggregate counts. Bounds use frozen stored scores for 104 inputs and six separate raw-probability controls from the preserved earlier CLI. This checker does not rerun models, verify spoken content manually, or accept microphone/UI/insertion behavior."
+}

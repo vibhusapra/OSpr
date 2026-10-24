@@ -1,0 +1,1798 @@
+{
+  "status": "completed-real-final-edge-pipeline-not-native-acceptance",
+  "timestamp": "2026-10-24T01:37:46.782833+00:00",
+  "git_commit": "efe99b473822a34ff75dc477b3c05f7501bfe375",
+  "tracked_changes": false,
+  "cli_sha256": "49d74ab339d242d463c485c76f3a5f9d3c4dc788b53e7556cecfa4476a1e54ae",
+  "harness_sha256": "38e59d8207f1acd78ef22be3c6e638075c07a105ac3ca31e3088ead3ba56bfd7",
+  "protocol_sha256": "a7e37dc3fa33be62dfc11b321cf442e3e7c3a5ed25490dd9fcbb9a6ae6581e4e",
+  "previous_traces_sha256": "d5206eee0bcdddd6d447fed005dc994d0d2f738366fbcb7919025163e2128f5b",
+  "dependency_lock_sha256": "8e306569ebe63c886e9938d06c2e0a6e39d661de20e116a1998321dbfd14a6d2",
+  "asr_lock_sha256": "9d523253c866ef3a021e51c0a542e65878a658b8539140a3043518c4c759dffa",
+  "detector_lock_sha256": "56e9e4aebe03cebd656761834a5c813a05a2cdb05d2de978f2026c9592c8d3e4",
+  "models": [
+    "parakeet-v3",
+    "whisper-turbo",
+    "whisper-small",
+    "qwen3-asr",
+    "cohere-native8",
+    "nemotron-streaming"
+  ],
+  "cases": 110,
+  "frozen_cases": 104,
+  "transport_cases": 6,
+  "pairs": 660,
+  "routes": 1320,
+  "actual_asr": 1278,
+  "edge_abstentions": 42,
+  "exact_range_and_hash_checks": 660,
+  "summary": {
+    "parakeet-v3": {
+      "suites": {
+        "noise10db": {
+          "full": {
+            "cases": 33,
+            "wer": 0.06317411402157165,
+            "substitutions": 35,
+            "deletions": 5,
+            "insertions": 1,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 33,
+            "wer": 0.05855161787365177,
+            "substitutions": 30,
+            "deletions": 6,
+            "insertions": 2,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "original": {
+          "full": {
+            "cases": 33,
+            "wer": 0.03852080123266564,
+            "substitutions": 22,
+            "deletions": 3,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 33,
+            "wer": 0.04314329738058552,
+            "substitutions": 23,
+            "deletions": 3,
+            "insertions": 2,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "quiet40db": {
+          "full": {
+            "cases": 33,
+            "wer": 0.061633281972265024,
+            "substitutions": 33,
+            "deletions": 4,
+            "insertions": 3,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 33,
+            "wer": 0.06317411402157165,
+            "substitutions": 32,
+            "deletions": 6,
+            "insertions": 3,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "synthetic-negative": {
+          "full": {
+            "cases": 5,
+            "wer": null,
+            "substitutions": null,
+            "deletions": null,
+            "insertions": null,
+            "empty": 5,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 5,
+            "wer": null,
+            "substitutions": null,
+            "deletions": null,
+            "insertions": null,
+            "empty": 5,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 5
+          }
+        },
+        "transport-44100-original": {
+          "full": {
+            "cases": 1,
+            "wer": 0.0,
+            "substitutions": 0,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 1,
+            "wer": 0.0,
+            "substitutions": 0,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "transport-44100-quiet40db": {
+          "full": {
+            "cases": 1,
+            "wer": 0.1111111111111111,
+            "substitutions": 1,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 1,
+            "wer": 0.2222222222222222,
+            "substitutions": 2,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "transport-44100-synthetic-negative": {
+          "full": {
+            "cases": 1,
+            "wer": null,
+            "substitutions": null,
+            "deletions": null,
+            "insertions": null,
+            "empty": 1,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 1,
+            "wer": null,
+            "substitutions": null,
+            "deletions": null,
+            "insertions": null,
+            "empty": 1,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 1
+          }
+        },
+        "transport-48000-original": {
+          "full": {
+            "cases": 1,
+            "wer": 0.0,
+            "substitutions": 0,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 1,
+            "wer": 0.0,
+            "substitutions": 0,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "transport-48000-quiet40db": {
+          "full": {
+            "cases": 1,
+            "wer": 0.1111111111111111,
+            "substitutions": 1,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 1,
+            "wer": 0.2222222222222222,
+            "substitutions": 2,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "transport-48000-synthetic-negative": {
+          "full": {
+            "cases": 1,
+            "wer": null,
+            "substitutions": null,
+            "deletions": null,
+            "insertions": null,
+            "empty": 1,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 1,
+            "wer": null,
+            "substitutions": null,
+            "deletions": null,
+            "insertions": null,
+            "empty": 1,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 1
+          }
+        }
+      },
+      "speech_changes": {
+        "better": 10,
+        "equal": 77,
+        "worse": 16
+      },
+      "regressions": [
+        {
+          "id": "vad-validation-test-clean-4970-29093-0000-original",
+          "reference": "YOU'LL NEVER DIG IT OUT OF THE ASTOR LIBRARY",
+          "full": "You'll never dig it out of the Astor Library.",
+          "neural_edges": "You'll never dig it out of the Aster Library."
+        },
+        {
+          "id": "vad-validation-test-clean-4970-29093-0000-noise10db",
+          "reference": "YOU'LL NEVER DIG IT OUT OF THE ASTOR LIBRARY",
+          "full": "You'll never dig it out of the Astor Library.",
+          "neural_edges": "You'll never dig it out at the Astor Library."
+        },
+        {
+          "id": "vad-validation-test-clean-5142-33396-0000-original",
+          "reference": "AT ANOTHER TIME HARALD ASKED",
+          "full": "At another time, Harold asked,",
+          "neural_edges": "At another time Harold asked why?"
+        },
+        {
+          "id": "vad-validation-test-clean-5683-32865-0000-original",
+          "reference": "YOU KNOW CAPTAIN LAKE",
+          "full": "You know Captain Lake?",
+          "neural_edges": "You know Captain Leake?"
+        },
+        {
+          "id": "vad-validation-test-clean-5683-32865-0000-noise10db",
+          "reference": "YOU KNOW CAPTAIN LAKE",
+          "full": "You know Captain Lake?",
+          "neural_edges": "Do you know Captain Lake?"
+        },
+        {
+          "id": "vad-validation-test-clean-7176-88083-0000-original",
+          "reference": "ALL ABOUT HIM WAS A TUMULT OF BRIGHT AND BROKEN COLOR SCATTERED IN BROAD SPLASHES",
+          "full": "All about him was a tumult of bright and broken color, scattered in broad splashes.",
+          "neural_edges": "all about him was a tumult of bright and broken colour, scattered in broad splashes."
+        },
+        {
+          "id": "vad-validation-test-clean-8555-284447-0000-original",
+          "reference": "THEN HE RUSHED DOWN STAIRS INTO THE COURTYARD SHOUTING LOUDLY FOR HIS SOLDIERS AND THREATENING TO PATCH EVERYBODY IN HIS DOMINIONS IF THE SAILORMAN WAS NOT RECAPTURED",
+          "full": "Then he rushed downstairs into the courtyard, shouting loudly for his soldiers and threatening to patch everybody in his dominions if the sailorman was not recaptured.",
+          "neural_edges": "Then he rushed downstairs into the courtyard, shouting loudly for his soldiers and threatening to patch everybody in his dominions if the sailor was not recaptured."
+        },
+        {
+          "id": "vad-validation-test-clean-8555-284447-0000-noise10db",
+          "reference": "THEN HE RUSHED DOWN STAIRS INTO THE COURTYARD SHOUTING LOUDLY FOR HIS SOLDIERS AND THREATENING TO PATCH EVERYBODY IN HIS DOMINIONS IF THE SAILORMAN WAS NOT RECAPTURED",
+          "full": "Then he rushed downstairs into the courtyard, shouting loudly for his soldiers and threatening to patch everybody in his dominions if the sailor man was not recaptured.",
+          "neural_edges": "Then he rushed downstairs into the courtyard, shouting loudly for his soldiers and threatening to patch everybody in his domain if the sailor man was not recaptured."
+        },
+        {
+          "id": "vad-validation-test-other-5764-299665-0000-quiet40db",
+          "reference": "AFTERWARD IT WAS SUPPOSED THAT HE WAS SATISFIED WITH THE BLOOD OF OXEN LAMBS AND DOVES AND THAT IN EXCHANGE FOR OR ON ACCOUNT OF THESE SACRIFICES THIS GOD GAVE RAIN SUNSHINE AND HARVEST",
+          "full": "Afterwards, it was supposed that he was satisfied with the blood of oxen, lambs, and dogs, and that in exchange for or in account of these sacrifices, this god gave rain, sunshine, and harvest.",
+          "neural_edges": "Afterwards, it was supposed that he was satisfied with the blood of oxen, lambs, and dogs, and that in exchange for or in account of these sacrifices, his god gave rain, sunshine, and harvest."
+        },
+        {
+          "id": "vad-validation-test-other-6070-63485-0000-quiet40db",
+          "reference": "THEY'RE DONE FOR SAID THE SCHOOLMASTER IN A LOW KEY TO THE CHOUETTE OUT WITH YOUR VITRIOL AND MIND YOUR EYE",
+          "full": "They're done far, said the schoolmaster in a low key to the schweed. Out with your vitriol and mind your eye.",
+          "neural_edges": "There, done for, said the schoolmaster in a low-key to the schweid. Out with your vitriol and mind your eye."
+        },
+        {
+          "id": "vad-validation-test-other-6070-63485-0000-noise10db",
+          "reference": "THEY'RE DONE FOR SAID THE SCHOOLMASTER IN A LOW KEY TO THE CHOUETTE OUT WITH YOUR VITRIOL AND MIND YOUR EYE",
+          "full": "There, done for, said the schoolmaster in a low key to the schweig, out with your vitriol and mind your eye.",
+          "neural_edges": "There, dunfar, said the schoolmaster in a low key to the schweig, out with your vitriol and mind your eye."
+        },
+        {
+          "id": "vad-validation-test-other-7105-2330-0000-quiet40db",
+          "reference": "UNFORTUNATELY THERE COULD BE NO DOUBT OR MISCONCEPTION AS TO PLATTERBAFF'S GUILT",
+          "full": "Unfortunately, there could be no doubt or misconception as to Platterbass Guilt.",
+          "neural_edges": "Unfortunately, there could be no doubt or misconception as to Platter Best Guilt."
+        },
+        {
+          "id": "vad-validation-test-other-8280-266249-0000-quiet40db",
+          "reference": "OLD MISTER DINSMORE HAD ACCEPTED A PRESSING INVITATION FROM HIS GRANDDAUGHTER AND HER HUSBAND TO JOIN THE PARTY AND WITH THE ADDITION OF SERVANTS IT WAS A LARGE ONE",
+          "full": "Old Mr. Dinsmore had accepted a pressing invitation from his granddaughter and her husband to join the party, and with the addition of servants it was a large one.",
+          "neural_edges": "Mr Dinsmore had accepted a pressing invitation from his granddaughter and her husband to join the party, and with the addition of servants it was a large one."
+        },
+        {
+          "id": "vad-validation-test-other-8461-258277-0000-original",
+          "reference": "WHEN IT WAS THE SEVEN HUNDRED AND EIGHTEENTH NIGHT",
+          "full": "When it was the seven hundred and eighteenth night.",
+          "neural_edges": "When it was the seven hundred and eighteenth night, I"
+        },
+        {
+          "id": "transport-44100-vad-validation-test-clean-4970-29093-0000-quiet40db",
+          "reference": "YOU'LL NEVER DIG IT OUT OF THE ASTOR LIBRARY",
+          "full": "You'll never dig it out of the Astro Library.",
+          "neural_edges": "You'll never dig it out at the Astro Library."
+        },
+        {
+          "id": "transport-48000-vad-validation-test-clean-4970-29093-0000-quiet40db",
+          "reference": "YOU'LL NEVER DIG IT OUT OF THE ASTOR LIBRARY",
+          "full": "You'll never dig it out of the Astro Library.",
+          "neural_edges": "You'll never dig it out at the Astro Library."
+        }
+      ],
+      "new_empty_speech": 0
+    },
+    "whisper-turbo": {
+      "suites": {
+        "noise10db": {
+          "full": {
+            "cases": 33,
+            "wer": 0.061633281972265024,
+            "substitutions": 35,
+            "deletions": 4,
+            "insertions": 1,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 33,
+            "wer": 0.06317411402157165,
+            "substitutions": 35,
+            "deletions": 4,
+            "insertions": 2,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "original": {
+          "full": {
+            "cases": 33,
+            "wer": 0.046224961479198766,
+            "substitutions": 27,
+            "deletions": 3,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 33,
+            "wer": 0.040061633281972264,
+            "substitutions": 23,
+            "deletions": 3,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "quiet40db": {
+          "full": {
+            "cases": 33,
+            "wer": 0.060092449922958396,
+            "substitutions": 33,
+            "deletions": 5,
+            "insertions": 1,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 33,
+            "wer": 0.05546995377503852,
+            "substitutions": 31,
+            "deletions": 4,
+            "insertions": 1,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "synthetic-negative": {
+          "full": {
+            "cases": 5,
+            "wer": null,
+            "substitutions": null,
+            "deletions": null,
+            "insertions": null,
+            "empty": 0,
+            "nonempty_negatives": 5,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 5,
+            "wer": null,
+            "substitutions": null,
+            "deletions": null,
+            "insertions": null,
+            "empty": 5,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 5
+          }
+        },
+        "transport-44100-original": {
+          "full": {
+            "cases": 1,
+            "wer": 0.0,
+            "substitutions": 0,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 1,
+            "wer": 0.0,
+            "substitutions": 0,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "transport-44100-quiet40db": {
+          "full": {
+            "cases": 1,
+            "wer": 0.0,
+            "substitutions": 0,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 1,
+            "wer": 0.0,
+            "substitutions": 0,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "transport-44100-synthetic-negative": {
+          "full": {
+            "cases": 1,
+            "wer": null,
+            "substitutions": null,
+            "deletions": null,
+            "insertions": null,
+            "empty": 0,
+            "nonempty_negatives": 1,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 1,
+            "wer": null,
+            "substitutions": null,
+            "deletions": null,
+            "insertions": null,
+            "empty": 1,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 1
+          }
+        },
+        "transport-48000-original": {
+          "full": {
+            "cases": 1,
+            "wer": 0.0,
+            "substitutions": 0,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 1,
+            "wer": 0.0,
+            "substitutions": 0,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "transport-48000-quiet40db": {
+          "full": {
+            "cases": 1,
+            "wer": 0.0,
+            "substitutions": 0,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 1,
+            "wer": 0.0,
+            "substitutions": 0,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "transport-48000-synthetic-negative": {
+          "full": {
+            "cases": 1,
+            "wer": null,
+            "substitutions": null,
+            "deletions": null,
+            "insertions": null,
+            "empty": 0,
+            "nonempty_negatives": 1,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 1,
+            "wer": null,
+            "substitutions": null,
+            "deletions": null,
+            "insertions": null,
+            "empty": 1,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 1
+          }
+        }
+      },
+      "speech_changes": {
+        "better": 8,
+        "equal": 88,
+        "worse": 7
+      },
+      "regressions": [
+        {
+          "id": "vad-validation-test-clean-8230-279154-0000-original",
+          "reference": "THE ANALYSIS OF KNOWLEDGE WILL OCCUPY US UNTIL THE END OF THE THIRTEENTH LECTURE AND IS THE MOST DIFFICULT PART OF OUR WHOLE ENTERPRISE",
+          "full": "The analysis of knowledge will occupy us until the end of the thirteenth lecture, and is the most difficult part of our whole enterprise.",
+          "neural_edges": "The analysis of knowledge will occupy us until the end of the 13th lecture, and is the most difficult part of our whole enterprise."
+        },
+        {
+          "id": "vad-validation-test-clean-8230-279154-0000-noise10db",
+          "reference": "THE ANALYSIS OF KNOWLEDGE WILL OCCUPY US UNTIL THE END OF THE THIRTEENTH LECTURE AND IS THE MOST DIFFICULT PART OF OUR WHOLE ENTERPRISE",
+          "full": "The analysis of knowledge will occupy us until the end of the thirteenth lecture and is the most difficult part of our whole enterprise.",
+          "neural_edges": "The analysis of knowledge will occupy us until the end of the 13th lecture, and is the most difficult part of our whole enterprise."
+        },
+        {
+          "id": "vad-validation-test-clean-8455-210777-0000-original",
+          "reference": "I REMAINED THERE ALONE FOR MANY HOURS BUT I MUST ACKNOWLEDGE THAT BEFORE I LEFT THE CHAMBERS I HAD GRADUALLY BROUGHT MYSELF TO LOOK AT THE MATTER IN ANOTHER LIGHT",
+          "full": "I remained there alone for many hours, but I must acknowledge that before I left the chambers, I had gradually brought myself to look at the matter in another light.",
+          "neural_edges": "i remain there alone for many hours but i must acknowledge that before i left the chambers i had gradually brought myself to look at the matter in another light"
+        },
+        {
+          "id": "vad-validation-test-clean-8463-287645-0000-noise10db",
+          "reference": "THIS WAS WHAT DID THE MISCHIEF SO FAR AS THE RUNNING AWAY WAS CONCERNED",
+          "full": "This was what did the mischief so far as the running away was concerned.",
+          "neural_edges": "This is what did the mischief so far as the running away was concerned."
+        },
+        {
+          "id": "vad-validation-test-other-6128-63240-0000-quiet40db",
+          "reference": "THE GENTLEMAN HAD NOT EVEN NEEDED TO SIT DOWN TO BECOME INTERESTED APPARENTLY HE HAD TAKEN UP THE VOLUME FROM A TABLE AS SOON AS HE CAME IN AND STANDING THERE AFTER A SINGLE GLANCE ROUND THE APARTMENT HAD LOST HIMSELF IN ITS PAGES",
+          "full": "The gentleman had not even needed to sit down to become interested. Apparently he had taken up the volume from a table as soon as he came in and standing there, after a single glance round the apartment, had lost himself in its pages.",
+          "neural_edges": "The gentleman had not even needed to sit down to become interested. Apparently, he had taken up the volume from a table as soon as he came in, and standing there, after a single glance round the apartment, had lost himself in his pages."
+        },
+        {
+          "id": "vad-validation-test-other-6128-63240-0000-noise10db",
+          "reference": "THE GENTLEMAN HAD NOT EVEN NEEDED TO SIT DOWN TO BECOME INTERESTED APPARENTLY HE HAD TAKEN UP THE VOLUME FROM A TABLE AS SOON AS HE CAME IN AND STANDING THERE AFTER A SINGLE GLANCE ROUND THE APARTMENT HAD LOST HIMSELF IN ITS PAGES",
+          "full": "The gentleman had not even needed to sit down to become interested. Apparently he had taken up the volume from the table as soon as he came in, and standing there, after a single glance round the apartment, had lost himself in its pages.",
+          "neural_edges": "the gentleman had not even needed to sit down to become interested apparently he had taken up the volume from the table as soon as he came in and standing there after a single glance round the apartment had locked himself in its pages"
+        },
+        {
+          "id": "vad-validation-test-other-8280-266249-0000-quiet40db",
+          "reference": "OLD MISTER DINSMORE HAD ACCEPTED A PRESSING INVITATION FROM HIS GRANDDAUGHTER AND HER HUSBAND TO JOIN THE PARTY AND WITH THE ADDITION OF SERVANTS IT WAS A LARGE ONE",
+          "full": "Old Mr. Dinsmore had accepted a pressing invitation from his granddaughter and her husband to join the party, and with the addition of servants it was a large one.",
+          "neural_edges": "Old Mr. Densmore had accepted a pressing invitation from his granddaughter and her husband to join the party, and with the addition of servants, it was a large one."
+        }
+      ],
+      "new_empty_speech": 0
+    },
+    "whisper-small": {
+      "suites": {
+        "noise10db": {
+          "full": {
+            "cases": 33,
+            "wer": 0.12172573189522343,
+            "substitutions": 69,
+            "deletions": 7,
+            "insertions": 3,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 33,
+            "wer": 0.12942989214175654,
+            "substitutions": 72,
+            "deletions": 7,
+            "insertions": 5,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "original": {
+          "full": {
+            "cases": 33,
+            "wer": 0.08320493066255778,
+            "substitutions": 45,
+            "deletions": 7,
+            "insertions": 2,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 33,
+            "wer": 0.07395993836671803,
+            "substitutions": 41,
+            "deletions": 6,
+            "insertions": 1,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "quiet40db": {
+          "full": {
+            "cases": 33,
+            "wer": 0.07704160246533127,
+            "substitutions": 42,
+            "deletions": 7,
+            "insertions": 1,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 33,
+            "wer": 0.07550077041602465,
+            "substitutions": 41,
+            "deletions": 7,
+            "insertions": 1,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "synthetic-negative": {
+          "full": {
+            "cases": 5,
+            "wer": null,
+            "substitutions": null,
+            "deletions": null,
+            "insertions": null,
+            "empty": 4,
+            "nonempty_negatives": 1,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 5,
+            "wer": null,
+            "substitutions": null,
+            "deletions": null,
+            "insertions": null,
+            "empty": 5,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 5
+          }
+        },
+        "transport-44100-original": {
+          "full": {
+            "cases": 1,
+            "wer": 0.0,
+            "substitutions": 0,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 1,
+            "wer": 0.0,
+            "substitutions": 0,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "transport-44100-quiet40db": {
+          "full": {
+            "cases": 1,
+            "wer": 0.0,
+            "substitutions": 0,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 1,
+            "wer": 0.0,
+            "substitutions": 0,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "transport-44100-synthetic-negative": {
+          "full": {
+            "cases": 1,
+            "wer": null,
+            "substitutions": null,
+            "deletions": null,
+            "insertions": null,
+            "empty": 1,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 1,
+            "wer": null,
+            "substitutions": null,
+            "deletions": null,
+            "insertions": null,
+            "empty": 1,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 1
+          }
+        },
+        "transport-48000-original": {
+          "full": {
+            "cases": 1,
+            "wer": 0.0,
+            "substitutions": 0,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 1,
+            "wer": 0.0,
+            "substitutions": 0,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "transport-48000-quiet40db": {
+          "full": {
+            "cases": 1,
+            "wer": 0.0,
+            "substitutions": 0,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 1,
+            "wer": 0.0,
+            "substitutions": 0,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "transport-48000-synthetic-negative": {
+          "full": {
+            "cases": 1,
+            "wer": null,
+            "substitutions": null,
+            "deletions": null,
+            "insertions": null,
+            "empty": 1,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 1,
+            "wer": null,
+            "substitutions": null,
+            "deletions": null,
+            "insertions": null,
+            "empty": 1,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 1
+          }
+        }
+      },
+      "speech_changes": {
+        "better": 12,
+        "equal": 83,
+        "worse": 8
+      },
+      "regressions": [
+        {
+          "id": "vad-validation-test-clean-6829-68769-0000-quiet40db",
+          "reference": "KENNETH AND BETH REFRAINED FROM TELLING THE OTHER GIRLS OR UNCLE JOHN OF OLD WILL ROGERS'S VISIT BUT THEY GOT MISTER WATSON IN THE LIBRARY AND QUESTIONED HIM CLOSELY ABOUT THE PENALTY FOR FORGING A CHECK",
+          "full": "Kenneth and Beth refrained from telling the other girls or Uncle John of old Will Rogers visit, but they got Mr. Watson in the library and questioned him closely about the penalty for forging a check.",
+          "neural_edges": "Kenneth and Beth refrain from telling the other girls or Uncle John of Old Will Rogers visit, but they got Mr. Watson in the library and questioned him closely about the penalty for forging a check."
+        },
+        {
+          "id": "vad-validation-test-clean-8555-284447-0000-original",
+          "reference": "THEN HE RUSHED DOWN STAIRS INTO THE COURTYARD SHOUTING LOUDLY FOR HIS SOLDIERS AND THREATENING TO PATCH EVERYBODY IN HIS DOMINIONS IF THE SAILORMAN WAS NOT RECAPTURED",
+          "full": "Then he rushed downstairs into the courtyard, shouting loudly for his soldiers and threatening to patch everybody and his dominions that the sailor-man was not recaptured.",
+          "neural_edges": "Then he rushed downstairs into the courtyard, shouting loudly for his soldiers and threatening to patch everybody in his dominions that the sailor man was not recaptured."
+        },
+        {
+          "id": "vad-validation-test-clean-8555-284447-0000-noise10db",
+          "reference": "THEN HE RUSHED DOWN STAIRS INTO THE COURTYARD SHOUTING LOUDLY FOR HIS SOLDIERS AND THREATENING TO PATCH EVERYBODY IN HIS DOMINIONS IF THE SAILORMAN WAS NOT RECAPTURED",
+          "full": "Then he rushed downstairs into the courtyard, shouting loudly for his soldiers and threatening to catch everybody in his denignments if the settlement is not recaptured.",
+          "neural_edges": "Then he rushed downstairs into the courtyard, shouting loudly for his soldiers and threatening to catch everybody in his denigrant. The facility man was not recaptured."
+        },
+        {
+          "id": "vad-validation-test-clean-908-157963-0000-noise10db",
+          "reference": "TO FADE AWAY LIKE MORNING BEAUTY FROM HER MORTAL DAY DOWN BY THE RIVER OF ADONA HER SOFT VOICE IS HEARD AND THUS HER GENTLE LAMENTATION FALLS LIKE MORNING DEW",
+          "full": "To fade away like morning beauty from her mortal day, down by the river of Adana, her soft voice is heard, and thus her gentle lamentation falls like morning dew.",
+          "neural_edges": "to fade away like morning beauty from her mortal bed. Down by the river of Adana, her soft voice is heard, and thus her gentle lamentation falls like morning dew."
+        },
+        {
+          "id": "vad-validation-test-other-5764-299665-0000-noise10db",
+          "reference": "AFTERWARD IT WAS SUPPOSED THAT HE WAS SATISFIED WITH THE BLOOD OF OXEN LAMBS AND DOVES AND THAT IN EXCHANGE FOR OR ON ACCOUNT OF THESE SACRIFICES THIS GOD GAVE RAIN SUNSHINE AND HARVEST",
+          "full": "After that, it was supposed that he was satisfied with a blood of oxen, lambs and doves, and that in exchange for or in account of these sacrifices, these doves gave rain, sunshine and harvest.",
+          "neural_edges": "afterwards, it was supposed that he was satisfied with the blood of a person, lamps and doves, and that in exchange for or in account of these sacrifices, these doves gave rain, sunshine and harvest."
+        },
+        {
+          "id": "vad-validation-test-other-6070-63485-0000-noise10db",
+          "reference": "THEY'RE DONE FOR SAID THE SCHOOLMASTER IN A LOW KEY TO THE CHOUETTE OUT WITH YOUR VITRIOL AND MIND YOUR EYE",
+          "full": "There, done far, said the schoolmaster in a low key to the sweat. Out with your vitriol and line your eye.",
+          "neural_edges": "there done far said the schoolmaster in a low key to the sweat out with the obituary all and line your eyes"
+        },
+        {
+          "id": "vad-validation-test-other-7018-75788-0000-noise10db",
+          "reference": "THEN I TOOK UP A GREAT STONE FROM AMONG THE TREES AND COMING UP TO HIM SMOTE HIM THEREWITH ON THE HEAD WITH ALL MY MIGHT AND CRUSHED IN HIS SKULL AS HE LAY DEAD DRUNK",
+          "full": "Then I took up a great stone from among the trees, and coming up to him, smote him, therewith on the head, with all my might, and crushed in his skull as he lay dead drunk.",
+          "neural_edges": "Then I took up a great stone from among the trees, and coming up to him, smote him their whip from the head. With all my might, I crushed in his skull as he lay dead drunk."
+        },
+        {
+          "id": "vad-validation-test-other-7975-280057-0000-noise10db",
+          "reference": "THESE HATREDS WERE SOON TO MAKE TROUBLE FOR ME OF WHICH I HAD NEVER DREAMED",
+          "full": "These acres were soon to make trouble for me, of which I had never dreamed.",
+          "neural_edges": "The insiders were soon to make trouble for me, of which I had never dreamed."
+        }
+      ],
+      "new_empty_speech": 0
+    },
+    "qwen3-asr": {
+      "suites": {
+        "noise10db": {
+          "full": {
+            "cases": 33,
+            "wer": 0.04930662557781202,
+            "substitutions": 27,
+            "deletions": 4,
+            "insertions": 1,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 33,
+            "wer": 0.05855161787365177,
+            "substitutions": 31,
+            "deletions": 6,
+            "insertions": 1,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "original": {
+          "full": {
+            "cases": 33,
+            "wer": 0.04160246533127889,
+            "substitutions": 22,
+            "deletions": 4,
+            "insertions": 1,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 33,
+            "wer": 0.040061633281972264,
+            "substitutions": 22,
+            "deletions": 3,
+            "insertions": 1,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "quiet40db": {
+          "full": {
+            "cases": 33,
+            "wer": 0.04468412942989214,
+            "substitutions": 25,
+            "deletions": 3,
+            "insertions": 1,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 33,
+            "wer": 0.04776579352850539,
+            "substitutions": 25,
+            "deletions": 5,
+            "insertions": 1,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "synthetic-negative": {
+          "full": {
+            "cases": 5,
+            "wer": null,
+            "substitutions": null,
+            "deletions": null,
+            "insertions": null,
+            "empty": 2,
+            "nonempty_negatives": 3,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 5,
+            "wer": null,
+            "substitutions": null,
+            "deletions": null,
+            "insertions": null,
+            "empty": 5,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 5
+          }
+        },
+        "transport-44100-original": {
+          "full": {
+            "cases": 1,
+            "wer": 0.0,
+            "substitutions": 0,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 1,
+            "wer": 0.0,
+            "substitutions": 0,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "transport-44100-quiet40db": {
+          "full": {
+            "cases": 1,
+            "wer": 0.0,
+            "substitutions": 0,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 1,
+            "wer": 0.0,
+            "substitutions": 0,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "transport-44100-synthetic-negative": {
+          "full": {
+            "cases": 1,
+            "wer": null,
+            "substitutions": null,
+            "deletions": null,
+            "insertions": null,
+            "empty": 0,
+            "nonempty_negatives": 1,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 1,
+            "wer": null,
+            "substitutions": null,
+            "deletions": null,
+            "insertions": null,
+            "empty": 1,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 1
+          }
+        },
+        "transport-48000-original": {
+          "full": {
+            "cases": 1,
+            "wer": 0.0,
+            "substitutions": 0,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 1,
+            "wer": 0.0,
+            "substitutions": 0,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "transport-48000-quiet40db": {
+          "full": {
+            "cases": 1,
+            "wer": 0.0,
+            "substitutions": 0,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 1,
+            "wer": 0.0,
+            "substitutions": 0,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "transport-48000-synthetic-negative": {
+          "full": {
+            "cases": 1,
+            "wer": null,
+            "substitutions": null,
+            "deletions": null,
+            "insertions": null,
+            "empty": 0,
+            "nonempty_negatives": 1,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 1,
+            "wer": null,
+            "substitutions": null,
+            "deletions": null,
+            "insertions": null,
+            "empty": 1,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 1
+          }
+        }
+      },
+      "speech_changes": {
+        "better": 3,
+        "equal": 90,
+        "worse": 10
+      },
+      "regressions": [
+        {
+          "id": "vad-validation-test-clean-6829-68769-0000-noise10db",
+          "reference": "KENNETH AND BETH REFRAINED FROM TELLING THE OTHER GIRLS OR UNCLE JOHN OF OLD WILL ROGERS'S VISIT BUT THEY GOT MISTER WATSON IN THE LIBRARY AND QUESTIONED HIM CLOSELY ABOUT THE PENALTY FOR FORGING A CHECK",
+          "full": "Kenneth and Beth refrained from telling the other girls or Uncle John of Old Will Rogers' visit, but they got Mister Watson in the library and questioned him closely about the penalty for forging a check.",
+          "neural_edges": "Kenneth and Beth refrained from telling the other girls or Uncle John of Old Will Rogers' visit, but they got Mister Watson in the library and questioned him closely about the penalty for fortune-check."
+        },
+        {
+          "id": "vad-validation-test-clean-7127-75946-0000-noise10db",
+          "reference": "AT THE CONCLUSION OF THE BANQUET WHICH WAS SERVED AT FIVE O'CLOCK THE KING ENTERED HIS CABINET WHERE HIS TAILORS WERE AWAITING HIM FOR THE PURPOSE OF TRYING ON THE CELEBRATED COSTUME REPRESENTING SPRING WHICH WAS THE RESULT OF SO MUCH IMAGINATION AND HAD COST SO MANY EFFORTS OF THOUGHT TO THE DESIGNERS AND ORNAMENT WORKERS OF THE COURT",
+          "full": "At the conclusion of the banquet, which was served at five o'clock, the king entered his cabinet, where his tailors were awaiting him for the purpose of trying on the celebrated costume representing spring, which was the result of so much imagination, and had cost so many efforts of thought to the designers and ornament workers of the court.",
+          "neural_edges": "At the conclusion of the banquet, which was served at five o'clock, the king entered his cabinet, where his tailors were awaiting him for the purpose of trying on the celebrated costume representing spring, which was the result of so much imagination, and had caused so many efforts of thought to the designers and ornament workers of the court."
+        },
+        {
+          "id": "vad-validation-test-clean-8555-284447-0000-original",
+          "reference": "THEN HE RUSHED DOWN STAIRS INTO THE COURTYARD SHOUTING LOUDLY FOR HIS SOLDIERS AND THREATENING TO PATCH EVERYBODY IN HIS DOMINIONS IF THE SAILORMAN WAS NOT RECAPTURED",
+          "full": "Then he rushed downstairs into the courtyard, shouting loudly for his soldiers and threatening to patch everybody in his dominions if the sailor man was not recaptured.",
+          "neural_edges": "Then he rushed downstairs into the courtyard, shouting loudly for his soldiers and threatening to patch everybody in his dominions that the sailor man was not recaptured."
+        },
+        {
+          "id": "vad-validation-test-other-5764-299665-0000-noise10db",
+          "reference": "AFTERWARD IT WAS SUPPOSED THAT HE WAS SATISFIED WITH THE BLOOD OF OXEN LAMBS AND DOVES AND THAT IN EXCHANGE FOR OR ON ACCOUNT OF THESE SACRIFICES THIS GOD GAVE RAIN SUNSHINE AND HARVEST",
+          "full": "Afterward, it was supposed that he was satisfied with the blood of oxen, lambs, and dogs, and that in exchange for, or in account of these sacrifices, his god gave rain, sunshine, and harvest.",
+          "neural_edges": "Afterwards, it was supposed that he was satisfied with the blood of oxen, lambs, and dogs, and that in exchange for, or in account of these sacrifices, this god gave rain, sunshine, and harvests."
+        },
+        {
+          "id": "vad-validation-test-other-6070-63485-0000-quiet40db",
+          "reference": "THEY'RE DONE FOR SAID THE SCHOOLMASTER IN A LOW KEY TO THE CHOUETTE OUT WITH YOUR VITRIOL AND MIND YOUR EYE",
+          "full": "They're done for,\" said the schoolmaster in a low key to the schwede. \"Out with your vitriol and mind your eye.\"",
+          "neural_edges": "There, Dunfer, said the schoolmaster in a low key to the schwede. Out with your vitriol and mind your eye."
+        },
+        {
+          "id": "vad-validation-test-other-8131-117016-0000-quiet40db",
+          "reference": "CAPTAIN MURDOCH",
+          "full": "Captain Murdoch.",
+          "neural_edges": "Captain Murdock."
+        },
+        {
+          "id": "vad-validation-test-other-8131-117016-0000-noise10db",
+          "reference": "CAPTAIN MURDOCH",
+          "full": "Captain Murdoch.",
+          "neural_edges": "Captain Murdock."
+        },
+        {
+          "id": "vad-validation-test-other-8280-266249-0000-original",
+          "reference": "OLD MISTER DINSMORE HAD ACCEPTED A PRESSING INVITATION FROM HIS GRANDDAUGHTER AND HER HUSBAND TO JOIN THE PARTY AND WITH THE ADDITION OF SERVANTS IT WAS A LARGE ONE",
+          "full": "Old Mister Dinsmore had accepted a pressing invitation from his granddaughter and her husband to join the party, and with the addition of servants, it was a large one.",
+          "neural_edges": "Old Mr. Dinsmore had accepted a pressing invitation from his granddaughter and her husband to join the party, and with the addition of servants, it was a large one."
+        },
+        {
+          "id": "vad-validation-test-other-8280-266249-0000-quiet40db",
+          "reference": "OLD MISTER DINSMORE HAD ACCEPTED A PRESSING INVITATION FROM HIS GRANDDAUGHTER AND HER HUSBAND TO JOIN THE PARTY AND WITH THE ADDITION OF SERVANTS IT WAS A LARGE ONE",
+          "full": "Old Mr. Dinsmore had accepted a pressing invitation from his granddaughter and her husband to join the party, and with the addition of servants, it was a large one.",
+          "neural_edges": "Mr. Dinsmore had accepted a pressing invitation from his granddaughter and her husband to join the party, and with the addition of servants, it was a large one."
+        },
+        {
+          "id": "vad-validation-test-other-8280-266249-0000-noise10db",
+          "reference": "OLD MISTER DINSMORE HAD ACCEPTED A PRESSING INVITATION FROM HIS GRANDDAUGHTER AND HER HUSBAND TO JOIN THE PARTY AND WITH THE ADDITION OF SERVANTS IT WAS A LARGE ONE",
+          "full": "Old Mister Dinsmore had accepted a pressing invitation from his granddaughter and her husband to join the party, and with the addition of servants, it was a large one.",
+          "neural_edges": "Old Mr. Dinsmore had accepted a pressing invitation from his granddaughter and her husband to join the party, and with the addition of servants, it was a large one."
+        }
+      ],
+      "new_empty_speech": 0
+    },
+    "cohere-native8": {
+      "suites": {
+        "noise10db": {
+          "full": {
+            "cases": 33,
+            "wer": 0.05084745762711865,
+            "substitutions": 28,
+            "deletions": 4,
+            "insertions": 1,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 33,
+            "wer": 0.04468412942989214,
+            "substitutions": 25,
+            "deletions": 4,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "original": {
+          "full": {
+            "cases": 33,
+            "wer": 0.03543913713405239,
+            "substitutions": 20,
+            "deletions": 3,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 33,
+            "wer": 0.032357473035439135,
+            "substitutions": 18,
+            "deletions": 3,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "quiet40db": {
+          "full": {
+            "cases": 33,
+            "wer": 0.04776579352850539,
+            "substitutions": 25,
+            "deletions": 5,
+            "insertions": 1,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 33,
+            "wer": 0.04468412942989214,
+            "substitutions": 23,
+            "deletions": 6,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "synthetic-negative": {
+          "full": {
+            "cases": 5,
+            "wer": null,
+            "substitutions": null,
+            "deletions": null,
+            "insertions": null,
+            "empty": 5,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 5,
+            "wer": null,
+            "substitutions": null,
+            "deletions": null,
+            "insertions": null,
+            "empty": 5,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 5
+          }
+        },
+        "transport-44100-original": {
+          "full": {
+            "cases": 1,
+            "wer": 0.0,
+            "substitutions": 0,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 1,
+            "wer": 0.0,
+            "substitutions": 0,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "transport-44100-quiet40db": {
+          "full": {
+            "cases": 1,
+            "wer": 0.0,
+            "substitutions": 0,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 1,
+            "wer": 0.0,
+            "substitutions": 0,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "transport-44100-synthetic-negative": {
+          "full": {
+            "cases": 1,
+            "wer": null,
+            "substitutions": null,
+            "deletions": null,
+            "insertions": null,
+            "empty": 1,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 1,
+            "wer": null,
+            "substitutions": null,
+            "deletions": null,
+            "insertions": null,
+            "empty": 1,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 1
+          }
+        },
+        "transport-48000-original": {
+          "full": {
+            "cases": 1,
+            "wer": 0.0,
+            "substitutions": 0,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 1,
+            "wer": 0.0,
+            "substitutions": 0,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "transport-48000-quiet40db": {
+          "full": {
+            "cases": 1,
+            "wer": 0.0,
+            "substitutions": 0,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 1,
+            "wer": 0.0,
+            "substitutions": 0,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "transport-48000-synthetic-negative": {
+          "full": {
+            "cases": 1,
+            "wer": null,
+            "substitutions": null,
+            "deletions": null,
+            "insertions": null,
+            "empty": 1,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 1,
+            "wer": null,
+            "substitutions": null,
+            "deletions": null,
+            "insertions": null,
+            "empty": 1,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 1
+          }
+        }
+      },
+      "speech_changes": {
+        "better": 14,
+        "equal": 81,
+        "worse": 8
+      },
+      "regressions": [
+        {
+          "id": "vad-validation-test-clean-5639-40744-0000-quiet40db",
+          "reference": "ELEVEN O'CLOCK HAD STRUCK IT WAS A FINE CLEAR NIGHT THEY WERE THE ONLY PERSONS ON THE ROAD AND THEY SAUNTERED LEISURELY ALONG TO AVOID PAYING THE PRICE OF FATIGUE FOR THE RECREATION PROVIDED FOR THE TOLEDANS IN THEIR VALLEY OR ON THE BANKS OF THEIR RIVER",
+          "full": "Eleven o'clock had struck. It was a fine clear night. They were the only persons on the road, and they sauntered leisurely along to avoid paying the price of fatigue for the recreation provided for the Toledans in the valley or on the banks of their river.",
+          "neural_edges": "11 o'clock had struck. It was a fine clear night. They were the only persons on the road, and they sauntered leisurely along to avoid paying the price of fatigue for the recreation provided for the Toledans in the valley or on the banks of their river."
+        },
+        {
+          "id": "vad-validation-test-clean-5639-40744-0000-noise10db",
+          "reference": "ELEVEN O'CLOCK HAD STRUCK IT WAS A FINE CLEAR NIGHT THEY WERE THE ONLY PERSONS ON THE ROAD AND THEY SAUNTERED LEISURELY ALONG TO AVOID PAYING THE PRICE OF FATIGUE FOR THE RECREATION PROVIDED FOR THE TOLEDANS IN THEIR VALLEY OR ON THE BANKS OF THEIR RIVER",
+          "full": "eleven o'clock had struck it was a fine clear night they were the only persons on the road and they sauntered leisurely along to avoid paying the price of fatigue for the recreation provided for the toledans in the valley or on the banks of their river",
+          "neural_edges": "eleven o'clock had struck it was a fine clear night they were the only persons on the road and they sauntered leisurely along to avoid paying the price of fatigue for the recreation provided for the toledans in the valle or on the banks of their river"
+        },
+        {
+          "id": "vad-validation-test-clean-7127-75946-0000-quiet40db",
+          "reference": "AT THE CONCLUSION OF THE BANQUET WHICH WAS SERVED AT FIVE O'CLOCK THE KING ENTERED HIS CABINET WHERE HIS TAILORS WERE AWAITING HIM FOR THE PURPOSE OF TRYING ON THE CELEBRATED COSTUME REPRESENTING SPRING WHICH WAS THE RESULT OF SO MUCH IMAGINATION AND HAD COST SO MANY EFFORTS OF THOUGHT TO THE DESIGNERS AND ORNAMENT WORKERS OF THE COURT",
+          "full": "At the conclusion of the banquet, which was served at five o'clock, the king entered his cabinet where his tailors were awaiting him for the purpose of trying on the celebrated costume representing spring, which was the result of so much imagination and had cost so many efforts of thought to the designers and ornament workers of the court.",
+          "neural_edges": "At the conclusion of the banquet, which was served at five o'clock, the king entered his cabinet, where his tailors were awaiting him for the purpose of trying on the celebrated costume representing spring, which was the result of so much imagination and had caused so many efforts of thought to the designers and ornament workers of the court."
+        },
+        {
+          "id": "vad-validation-test-clean-7127-75946-0000-noise10db",
+          "reference": "AT THE CONCLUSION OF THE BANQUET WHICH WAS SERVED AT FIVE O'CLOCK THE KING ENTERED HIS CABINET WHERE HIS TAILORS WERE AWAITING HIM FOR THE PURPOSE OF TRYING ON THE CELEBRATED COSTUME REPRESENTING SPRING WHICH WAS THE RESULT OF SO MUCH IMAGINATION AND HAD COST SO MANY EFFORTS OF THOUGHT TO THE DESIGNERS AND ORNAMENT WORKERS OF THE COURT",
+          "full": "At the conclusion of the banquet, which was served at five o'clock, the king entered his cabinet, where his tailors were awaiting him for the purpose of trying on the celebrated costume representing spring, which was the result of so much imagination and had cost so many efforts of thought to the designers and ornament workers of the court.",
+          "neural_edges": "At the conclusion of the banquet which was served at five o'clock the king entered his cabinet where his tailors were awaiting him for the purpose of trying on the celebrated costume representing spring which was the result of so much imagination and had caused so many efforts of thought to the designers and ornament workers of the court"
+        },
+        {
+          "id": "vad-validation-test-other-6070-63485-0000-noise10db",
+          "reference": "THEY'RE DONE FOR SAID THE SCHOOLMASTER IN A LOW KEY TO THE CHOUETTE OUT WITH YOUR VITRIOL AND MIND YOUR EYE",
+          "full": "they're done for said the schoolmaster in a low key to the chouette out with your vitriol and mind your eye",
+          "neural_edges": "They're done for, said the schoolmaster in a low key to the shwed. Out with your vitriol, and mind your eye."
+        },
+        {
+          "id": "vad-validation-test-other-6432-63722-0000-original",
+          "reference": "BUT SCUSE ME DIDN'T YO FIGGER ON DOIN SOME DETECTIN AN GIVE UP FISHIN",
+          "full": "But, excuse me, didn't you figure on doing some detecting and giving up fishing?",
+          "neural_edges": "Excuse me, didn't you figure on doing some detecting and giving up fishing?"
+        },
+        {
+          "id": "vad-validation-test-other-8131-117016-0000-original",
+          "reference": "CAPTAIN MURDOCH",
+          "full": "Captain Murdoch.",
+          "neural_edges": "Captain Murdock"
+        },
+        {
+          "id": "vad-validation-test-other-8280-266249-0000-quiet40db",
+          "reference": "OLD MISTER DINSMORE HAD ACCEPTED A PRESSING INVITATION FROM HIS GRANDDAUGHTER AND HER HUSBAND TO JOIN THE PARTY AND WITH THE ADDITION OF SERVANTS IT WAS A LARGE ONE",
+          "full": "Old Mr Dinsmore had accepted a pressing invitation from his granddaughter and her husband to join the party and with the addition of servants it was a large one.",
+          "neural_edges": "Mr. Dinsmore had accepted a pressing invitation from his granddaughter and her husband to join the party, and with the addition of servants, it was a large one."
+        }
+      ],
+      "new_empty_speech": 0
+    },
+    "nemotron-streaming": {
+      "suites": {
+        "noise10db": {
+          "full": {
+            "cases": 33,
+            "wer": 0.10939907550077041,
+            "substitutions": 57,
+            "deletions": 11,
+            "insertions": 3,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 33,
+            "wer": 0.10939907550077041,
+            "substitutions": 55,
+            "deletions": 14,
+            "insertions": 2,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "original": {
+          "full": {
+            "cases": 33,
+            "wer": 0.06317411402157165,
+            "substitutions": 34,
+            "deletions": 6,
+            "insertions": 1,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 33,
+            "wer": 0.053929121725731895,
+            "substitutions": 30,
+            "deletions": 4,
+            "insertions": 1,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "quiet40db": {
+          "full": {
+            "cases": 33,
+            "wer": 0.13097072419106318,
+            "substitutions": 36,
+            "deletions": 49,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 33,
+            "wer": 0.09090909090909091,
+            "substitutions": 35,
+            "deletions": 23,
+            "insertions": 1,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "synthetic-negative": {
+          "full": {
+            "cases": 5,
+            "wer": null,
+            "substitutions": null,
+            "deletions": null,
+            "insertions": null,
+            "empty": 5,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 5,
+            "wer": null,
+            "substitutions": null,
+            "deletions": null,
+            "insertions": null,
+            "empty": 5,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 5
+          }
+        },
+        "transport-44100-original": {
+          "full": {
+            "cases": 1,
+            "wer": 0.1111111111111111,
+            "substitutions": 1,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 1,
+            "wer": 0.1111111111111111,
+            "substitutions": 1,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "transport-44100-quiet40db": {
+          "full": {
+            "cases": 1,
+            "wer": 0.1111111111111111,
+            "substitutions": 1,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 1,
+            "wer": 0.1111111111111111,
+            "substitutions": 1,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "transport-44100-synthetic-negative": {
+          "full": {
+            "cases": 1,
+            "wer": null,
+            "substitutions": null,
+            "deletions": null,
+            "insertions": null,
+            "empty": 1,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 1,
+            "wer": null,
+            "substitutions": null,
+            "deletions": null,
+            "insertions": null,
+            "empty": 1,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 1
+          }
+        },
+        "transport-48000-original": {
+          "full": {
+            "cases": 1,
+            "wer": 0.1111111111111111,
+            "substitutions": 1,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 1,
+            "wer": 0.1111111111111111,
+            "substitutions": 1,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "transport-48000-quiet40db": {
+          "full": {
+            "cases": 1,
+            "wer": 0.1111111111111111,
+            "substitutions": 1,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 1,
+            "wer": 0.1111111111111111,
+            "substitutions": 1,
+            "deletions": 0,
+            "insertions": 0,
+            "empty": 0,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          }
+        },
+        "transport-48000-synthetic-negative": {
+          "full": {
+            "cases": 1,
+            "wer": null,
+            "substitutions": null,
+            "deletions": null,
+            "insertions": null,
+            "empty": 1,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 0
+          },
+          "neural_edges": {
+            "cases": 1,
+            "wer": null,
+            "substitutions": null,
+            "deletions": null,
+            "insertions": null,
+            "empty": 1,
+            "nonempty_negatives": 0,
+            "detector_abstentions": 1
+          }
+        }
+      },
+      "speech_changes": {
+        "better": 14,
+        "equal": 77,
+        "worse": 12
+      },
+      "regressions": [
+        {
+          "id": "vad-validation-test-clean-4992-23283-0000-noise10db",
+          "reference": "BUT THE MORE FORGETFULNESS HAD THEN PREVAILED THE MORE POWERFUL WAS THE FORCE OF REMEMBRANCE WHEN SHE AWOKE",
+          "full": "But the more forgetfulness had then prevailed, the more powerful was the force of remembrance when she awoke.",
+          "neural_edges": "But the more forgetfulness had been prevailed, the more powerful was the force of remembrance when she awoke."
+        },
+        {
+          "id": "vad-validation-test-clean-5639-40744-0000-quiet40db",
+          "reference": "ELEVEN O'CLOCK HAD STRUCK IT WAS A FINE CLEAR NIGHT THEY WERE THE ONLY PERSONS ON THE ROAD AND THEY SAUNTERED LEISURELY ALONG TO AVOID PAYING THE PRICE OF FATIGUE FOR THE RECREATION PROVIDED FOR THE TOLEDANS IN THEIR VALLEY OR ON THE BANKS OF THEIR RIVER",
+          "full": "Eleven o'clock had struck.  It was a fine, clear night they were the only persons on the road and they sauntered leisurely along to avoid paying the price of fatigue for the recreation provided for the Toledons in the valley or on the banks of their river.",
+          "neural_edges": "Eleven o'clock get struck.  It was a fine clear night they were the only persons on the road and they sauntered leisurely along to avoid paying the price of fatigue for the recreation provided for the Toledons in the valley or on the banks of their river."
+        },
+        {
+          "id": "vad-validation-test-clean-6829-68769-0000-noise10db",
+          "reference": "KENNETH AND BETH REFRAINED FROM TELLING THE OTHER GIRLS OR UNCLE JOHN OF OLD WILL ROGERS'S VISIT BUT THEY GOT MISTER WATSON IN THE LIBRARY AND QUESTIONED HIM CLOSELY ABOUT THE PENALTY FOR FORGING A CHECK",
+          "full": "Kelhet and Beth refrained from telling that other girls or Uncle John of Old Will Rogers' visit, but they got Mister Watson in the library and questioned him closely about the penalty for forging a check.",
+          "neural_edges": "Galiph and Beth refrained from telling that other girls or Uncle John of Old Will Rogers' visit, but they got Mister Watson in the library and questioned him closely about the penalty for fortuning a check."
+        },
+        {
+          "id": "vad-validation-test-clean-7127-75946-0000-noise10db",
+          "reference": "AT THE CONCLUSION OF THE BANQUET WHICH WAS SERVED AT FIVE O'CLOCK THE KING ENTERED HIS CABINET WHERE HIS TAILORS WERE AWAITING HIM FOR THE PURPOSE OF TRYING ON THE CELEBRATED COSTUME REPRESENTING SPRING WHICH WAS THE RESULT OF SO MUCH IMAGINATION AND HAD COST SO MANY EFFORTS OF THOUGHT TO THE DESIGNERS AND ORNAMENT WORKERS OF THE COURT",
+          "full": "At the conclusion of the banquet, which was served at five o'clock, the king entered his cabinet for his tailors were awaiting him for the purpose of trying on the celebrated costume representing spring, which was the result of so much imagination and had caused so many efforts of thought to the designers and ornament workers of the court.",
+          "neural_edges": "At the conclusion of the banquet, which was served at five o'clock, the king entered his cabinet for his tailors or awaiting him for the purpose of trying on the celebrated costume representing spring, which was the result of so much imagination and had caused so many efforts of thought to the designers and ornament workers of the court."
+        },
+        {
+          "id": "vad-validation-test-clean-7176-88083-0000-noise10db",
+          "reference": "ALL ABOUT HIM WAS A TUMULT OF BRIGHT AND BROKEN COLOR SCATTERED IN BROAD SPLASHES",
+          "full": "All about him was a tumult of bright and broken color scattered in broad splashes.",
+          "neural_edges": "All about him was a tumult of bright and broken colour scattered in broad splashes."
+        },
+        {
+          "id": "vad-validation-test-clean-8224-274381-0000-noise10db",
+          "reference": "THOUGH THROWN INTO PRISON FOR THIS ENTERPRISE AND DETAINED SOME TIME HE WAS NOT DISCOURAGED BUT STILL CONTINUED BY HIS COUNTENANCE AND PROTECTION TO INFUSE SPIRIT INTO THE DISTRESSED ROYALISTS",
+          "full": "Though thrown into prison for this enterprise and detained some time, he was not discouraged but still continued by his countenance and protection to infuse spirit into the distressed royalists",
+          "neural_edges": "Though thrown into prison for this enterprise and detained some time, he was not discouraged, but still continuing by his countenance and protection to infuse spirit into the distressed royalists."
+        },
+        {
+          "id": "vad-validation-test-other-6070-63485-0000-noise10db",
+          "reference": "THEY'RE DONE FOR SAID THE SCHOOLMASTER IN A LOW KEY TO THE CHOUETTE OUT WITH YOUR VITRIOL AND MIND YOUR EYE",
+          "full": "The donebah said the schoolmaster in a low key to the shred out with the arbitrial and mind your eye",
+          "neural_edges": "Their Dunfor said the schoolmaster in a low key to the shoed out were the arbitrial and mind your eye."
+        },
+        {
+          "id": "vad-validation-test-other-6128-63240-0000-quiet40db",
+          "reference": "THE GENTLEMAN HAD NOT EVEN NEEDED TO SIT DOWN TO BECOME INTERESTED APPARENTLY HE HAD TAKEN UP THE VOLUME FROM A TABLE AS SOON AS HE CAME IN AND STANDING THERE AFTER A SINGLE GLANCE ROUND THE APARTMENT HAD LOST HIMSELF IN ITS PAGES",
+          "full": "The gentleman had not even needed to sit down to become interested.  Apparently he had taken up the volume from a table as soon as he came in and standing there after a single glance round the apartment had lost himself in its pages.",
+          "neural_edges": "The gentleman had not even needed to sit down to become interested.  Apparently, he had taken up the volume from a table as soon as he came in, and standing there after a single glance round the apartment had lost himself in its ages."
+        },
+        {
+          "id": "vad-validation-test-other-6938-70848-0000-original",
+          "reference": "EVEN THE SUN CAME OUT PALE AND WATERY AT NOON",
+          "full": "Even the sun came out pale and water at noon",
+          "neural_edges": "Ivn the sun came out pale and water at noon."
+        },
+        {
+          "id": "vad-validation-test-other-7105-2330-0000-quiet40db",
+          "reference": "UNFORTUNATELY THERE COULD BE NO DOUBT OR MISCONCEPTION AS TO PLATTERBAFF'S GUILT",
+          "full": "Unfortunately, there could be no doubt our misconception as to platterbaff's guilt.",
+          "neural_edges": "Unfortunately, there could be no doubt our misconception as the platter best guilt."
+        },
+        {
+          "id": "vad-validation-test-other-7975-280057-0000-noise10db",
+          "reference": "THESE HATREDS WERE SOON TO MAKE TROUBLE FOR ME OF WHICH I HAD NEVER DREAMED",
+          "full": "Resecrets were seen to make trouble for me, of which I have never dreamed.",
+          "neural_edges": "These saters were seeing to make public home, but which I had never dreamed."
+        },
+        {
+          "id": "vad-validation-test-other-8461-258277-0000-noise10db",
+          "reference": "WHEN IT WAS THE SEVEN HUNDRED AND EIGHTEENTH NIGHT",
+          "full": "When it was the seven hundred and eighteenth night",
+          "neural_edges": "When it was the seven hundred and a faint night."
+        }
+      ],
+      "new_empty_speech": 0
+    }
+  },
+  "traces_file": "neural-final-edges.traces.json.gz",
+  "traces_sha256": "31e96a6a421ba5f80ea2ad0eb8bcfd57c5866e7398bf457529e93ae178c1025d",
+  "traces_uncompressed_bytes": 1118991,
+  "host": {
+    "machine": "arm64",
+    "macos": "26.6.2",
+    "hardware": "Mac17,6"
+  },
+  "boundary": "Real final-ASR edge orchestration on every frozen VAD validation fixture.\n\nSix local engines compare complete audio with the opt-in native edge path. The\nsame 33 known English speakers and five synthetic negatives are reused, plus six\ntransport fixtures. This is pipeline/quality evidence, not new held-out data or\ncomparative latency, power, microphone or insertion acceptance. All ASR is actual current-source inference with no output reuse. Native edge ranges match frozen reference bounds for all 104 known inputs and independent raw-score/Python bounds on six new transport inputs. Full and selected audio share the original normalized timeline and full PCM hash. Timing fields are diagnostic only; no end-to-end latency or product ranking. No private audio, cloud provider, microphone or insertion. Defaults remain unchanged."
+}

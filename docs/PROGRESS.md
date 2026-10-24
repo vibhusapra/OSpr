@@ -13,9 +13,16 @@ The CLI uses the same orchestration. Empty detector ranges retain completed
 recovery; a new retry uses the full audio for one attempt. Defaults, normal app
 data and the delivered preview remain unchanged.
 
-Focused and full checks pass: **304 Swift / 141 Python tests**; the real CLI has
-completed its first pinned CPU + Metal ASR take. The all-six-engine/frozen-input
-validation is pending. Native edge controls, recovery retry, physical shortcut,
+Focused and full checks pass: **304 Swift / 141 Python tests**. Frozen source
+`efe99b4` completes **1,320 routes** through six actual local engines on 110 known
+inputs, with 1,278 inferences and 42 detector abstentions. All 660 ranges/PCM hashes
+match their references, with zero new empty result across 618 speech/model pairs.
+The checker rehashes every waveform and recomputes bounds and WER totals. The 104
+frozen inputs reuse 33 English speakers/three transforms/five negatives; six
+additional stereo transport inputs repeat one speaker and a tone. These are not
+new held-out samples. Quality can regress: Qwen noisy WER rises 4.93% → 5.86%, while
+Nemotron quiet WER falls 13.10% → 9.09%. Every hypothesis/regression is retained.
+Native edge controls, recovery retry, physical shortcut,
 microphone and insertion acceptance remain open. The latest insertion handoff
 again encountered the macOS lock, before any recording was started. PR #8's final
 head `12361fd` has green macOS CI including clean-runner packaging.
