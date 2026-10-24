@@ -14,8 +14,6 @@ from pathlib import Path
 import jiwer
 import numpy as np
 
-from ospr_backend.engine import Engine, MODELS
-
 ROOT = Path(__file__).resolve().parent
 
 
@@ -67,6 +65,11 @@ def summarize(records):
 
 
 def main():
+    # Scoring helpers also run against standalone apps from foreign working
+    # directories, where importing the checkout backend is neither needed nor
+    # desirable. Only the direct backend benchmark requires this import.
+    from ospr_backend.engine import Engine, MODELS
+
     parser = argparse.ArgumentParser()
     parser.add_argument("--model", default="parakeet-v3", choices=MODELS)
     parser.add_argument("--limit", type=int, default=0)
