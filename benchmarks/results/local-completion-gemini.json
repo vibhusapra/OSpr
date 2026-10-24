@@ -1,0 +1,72 @@
+{
+  "status": "passed-loopback-gemini-cli-contracts",
+  "cli_sha256": "3b2cd78391460da9bb8f3ee0840d2d870a93b3d26a060be383ac9bda5c2d374f",
+  "build": null,
+  "cases": [
+    {
+      "case": "v1beta",
+      "expected": "accepted",
+      "exit_code": 0,
+      "input_unchanged": true,
+      "stdout_text_delivered": true,
+      "private_fixture_and_key_not_exposed": true
+    },
+    {
+      "case": "gemini-negation",
+      "expected": "original-retained",
+      "exit_code": 0,
+      "input_unchanged": true,
+      "stdout_text_delivered": true,
+      "private_fixture_and_key_not_exposed": true
+    },
+    {
+      "case": "gemini-truncated",
+      "expected": "incomplete",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "stdout_text_delivered": false,
+      "private_fixture_and_key_not_exposed": true
+    },
+    {
+      "case": "gemini-blocked",
+      "expected": "incomplete",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "stdout_text_delivered": false,
+      "private_fixture_and_key_not_exposed": true
+    },
+    {
+      "case": "error",
+      "expected": "HTTP 401",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "stdout_text_delivered": false,
+      "private_fixture_and_key_not_exposed": true
+    },
+    {
+      "case": "redirect",
+      "expected": "HTTP 307",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "stdout_text_delivered": false,
+      "private_fixture_and_key_not_exposed": true
+    },
+    {
+      "case": "missing-key",
+      "expected": "key",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "stdout_text_delivered": false,
+      "private_fixture_and_key_not_exposed": true
+    },
+    {
+      "case": "invalid-model",
+      "expected": "model ID",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "stdout_text_delivered": false,
+      "private_fixture_and_key_not_exposed": true
+    }
+  ],
+  "boundary": "Owned loopback fixture, synthetic key and public text only. Actual Swift CLI checks wire headers/body, parser, explicit incomplete/blocked errors, no redirect following, missing key/model rejection, input preservation and one native fidelity tripwire. No Gemini account call, model quality, semantic fidelity, native Settings/Keychain interaction, latency or consumer ranking acceptance."
+}

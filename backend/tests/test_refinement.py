@@ -53,10 +53,10 @@ def test_worker_routes_explicit_edit_task_without_changing_default(monkeypatch):
 def test_generation_keeps_resident_model_and_distinct_notes_budget(monkeypatch):
     from ospr_backend import engine as module
     templates, generations, loads = [], [], []
-    tokenizer = SimpleNamespace(apply_chat_template=lambda rows, **kwargs: templates.append(rows) or "prompt")
+    tokenizer = SimpleNamespace(apply_chat_template=lambda rows, **kwargs: templates.append(rows) or "prompt", eos_token_ids={2})
     monkeypatch.setitem(sys.modules, "mlx_lm", SimpleNamespace(
         load=lambda path: loads.append(path) or ("model", tokenizer),
-        generate=lambda *args, **kwargs: generations.append(kwargs) or "Result.",
+        stream_generate=lambda *args, **kwargs: generations.append(kwargs) or iter([SimpleNamespace(text="Result.", finish_reason="stop", token=2, generation_tokens=1)]),
     ))
     monkeypatch.setattr(module, "resolve_model", lambda *args: "cached-model")
     engine = Engine()
@@ -75,7 +75,7 @@ def test_summary_budget_rejects_overlong_context_before_generation(monkeypatch):
     from ospr_backend import engine as module
     calls = []
     tokenizer = SimpleNamespace(apply_chat_template=lambda *args, **kwargs: "prompt", encode=lambda _: [0]*30000)
-    monkeypatch.setitem(sys.modules, "mlx_lm", SimpleNamespace(load=lambda _: ("model", tokenizer), generate=lambda *args, **kwargs: calls.append(kwargs)))
+    monkeypatch.setitem(sys.modules, "mlx_lm", SimpleNamespace(load=lambda _: ("model", tokenizer), stream_generate=lambda *args, **kwargs: calls.append(kwargs)))
     monkeypatch.setattr(module, "resolve_model", lambda *args: "cached-model")
     with pytest.raises(ValueError, match='Summary context'):
         Engine().rewrite('{"transcript":[]}', 'Summarize.', task='meeting-summary')

@@ -126,6 +126,38 @@ final class WorkerTests: XCTestCase {
         let next = try await worker.request(["action": "ping"])
         XCTAssertNotEqual(first["pid"] as? Int, next["pid"] as? Int)
     }
+    func testTextOutputLimitKeepsWarmWorkerOnlyForTextActions() async throws {
+        let source = directory.appendingPathComponent("backend/ospr_backend/worker.py")
+        try """
+        import json, sys, os
+        for line in sys.stdin:
+            request = json.loads(line)
+            if request.get('action') == 'ping':
+                response = {'id': request['id'], 'ok': True, 'result': {'pid': os.getpid()}}
+            else:
+                response = {'id': request['id'], 'ok': False, 'error': 'Original retained.', 'error_kind': request.get('kind')}
+            print(json.dumps(response), flush=True)
+        """.write(to: source, atomically: true, encoding: .utf8)
+        let worker = WorkerClient(root: directory.path)
+        defer { worker.shutdown() }
+        for (action, kind, preserve) in [
+            ("rewrite", "text-output-limit", true),
+            ("notes", "text-output-limit", true),
+            ("summary", "text-output-limit", true),
+            ("transcribe", "text-output-limit", false),
+            ("warm", "text-output-limit", false),
+            ("rewrite", "runtime", false),
+            ("summary", "", false)
+        ] {
+            let before = try await worker.request(["action": "ping"])
+            do {
+                _ = try await worker.request(["action": action, "kind": kind])
+                XCTFail("Expected rejection for \(action)")
+            } catch { XCTAssertEqual(error.localizedDescription, "Original retained.") }
+            let after = try await worker.request(["action": "ping"])
+            XCTAssertEqual(before["pid"] as? Int == after["pid"] as? Int, preserve, "\(action) / \(kind)")
+        }
+    }
     func testAlreadyCancelledInferenceNeverStartsWorker() async throws {
         let source = directory.appendingPathComponent("backend/ospr_backend/worker.py")
         let original = try String(contentsOf: source, encoding: .utf8)

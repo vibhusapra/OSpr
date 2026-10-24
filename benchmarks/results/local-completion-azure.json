@@ -1,0 +1,104 @@
+{
+  "status": "passed-loopback-azure-cli-contracts",
+  "cli_sha256": "3b2cd78391460da9bb8f3ee0840d2d870a93b3d26a060be383ac9bda5c2d374f",
+  "build": null,
+  "cases": [
+    {
+      "case": "resource-root",
+      "expected": "accepted",
+      "exit_code": 0,
+      "input_unchanged": true,
+      "stdout_text_delivered": true,
+      "private_fixture_and_key_not_exposed": true
+    },
+    {
+      "case": "v1-base",
+      "expected": "accepted",
+      "exit_code": 0,
+      "input_unchanged": true,
+      "stdout_text_delivered": true,
+      "private_fixture_and_key_not_exposed": true
+    },
+    {
+      "case": "negation",
+      "expected": "original-retained",
+      "exit_code": 0,
+      "input_unchanged": true,
+      "stdout_text_delivered": true,
+      "private_fixture_and_key_not_exposed": true
+    },
+    {
+      "case": "truncated",
+      "expected": "incomplete",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "stdout_text_delivered": false,
+      "private_fixture_and_key_not_exposed": true
+    },
+    {
+      "case": "filtered",
+      "expected": "incomplete",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "stdout_text_delivered": false,
+      "private_fixture_and_key_not_exposed": true
+    },
+    {
+      "case": "refused",
+      "expected": "incomplete",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "stdout_text_delivered": false,
+      "private_fixture_and_key_not_exposed": true
+    },
+    {
+      "case": "error",
+      "expected": "HTTP 401",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "stdout_text_delivered": false,
+      "private_fixture_and_key_not_exposed": true
+    },
+    {
+      "case": "redirect",
+      "expected": "HTTP 307",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "stdout_text_delivered": false,
+      "private_fixture_and_key_not_exposed": true
+    },
+    {
+      "case": "missing-key",
+      "expected": "key",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "stdout_text_delivered": false,
+      "private_fixture_and_key_not_exposed": true
+    },
+    {
+      "case": "missing-deployment",
+      "expected": "deployment name",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "stdout_text_delivered": false,
+      "private_fixture_and_key_not_exposed": true
+    },
+    {
+      "case": "dated-query",
+      "expected": "HTTPS provider URL",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "stdout_text_delivered": false,
+      "private_fixture_and_key_not_exposed": true
+    },
+    {
+      "case": "legacy-path",
+      "expected": "base ending in /openai/v1",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "stdout_text_delivered": false,
+      "private_fixture_and_key_not_exposed": true
+    }
+  ],
+  "boundary": "Owned loopback fixture, synthetic resource key and public text only. Actual Swift CLI checks Azure v1 resource-root/base normalization, header/deployment/body contract, completion/filter/refusal errors, no redirects, input preservation, absent key/deployment/dated-path rejection and one native fidelity tripwire. No Azure account, model availability/quality, quota/provider-side cancellation, native Settings/Keychain, latency or consumer ranking acceptance."
+}

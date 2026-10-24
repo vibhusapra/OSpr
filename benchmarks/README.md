@@ -1,5 +1,17 @@
 # OSpr measurement protocol
 
+## Local text completion controls
+
+`local_completion.py` compares identical prompt/budget old-string/new-EOS output
+on cached pinned 4B/9B models. Eight completed controls retain identical text;
+two deliberately budget-limited valid-JSON answers fail the EOS gate. The
+`_verify-local-completion <public-audio>` Swift CLI probes a real output limit,
+then verifies the same worker PID, resident speech model and unchanged warm ASR.
+These are completion/residency checks, not semantic quality or comparative timing.
+See [the contract](../docs/architecture/local-completion.md) and retained JSON.
+The summary harness defaults to EOS; `--completion legacy` reproduces historical
+string-only runs. Earlier summary receipts remain historical and unchanged.
+
 ## Final-ASR neural edge pipeline
 
 `neural-final-edges.json` freezes source `efe99b4`: six engines, 110 known public

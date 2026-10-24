@@ -35,6 +35,10 @@ used, and no silent cloud fallback exists.
 
 ## Generation and preservation contract
 
+- Every local model call now requires [EOS acknowledgement](local-completion.md)
+  before schema/source validation. Valid JSON at a token limit fails without
+  publication or format repair. Earlier saved development results predate this
+  gate; the new harness defaults to EOS and offers explicit `--completion legacy`.
 - The full supplied transcript is split into exact source units, then batches of
   at most about 8,000 source characters. Every batch is read, without a silently
   truncated prefix. Inputs above 100,000 Python characters are rejected. Each

@@ -539,7 +539,8 @@ class Engine:
         if not text.strip():
             return {"text": "", "total_ms": 0}
         started = time.perf_counter()
-        from mlx_lm import load, generate
+        from mlx_lm import load, stream_generate
+        from .local_completion import completed_text
 
         with redirect_stdout(sys.stderr):
             if model_id not in {"rewrite", "rewrite-quality", "meeting-quality"}:
@@ -560,11 +561,11 @@ class Engine:
             )
             if task == "meeting-summary" and len(tokenizer.encode(prompt)) + 4096 > 32768:
                 raise ValueError("Summary context exceeds the local model budget; split the transcript. Previous notes are unchanged.")
-            result = generate(
-                model, tokenizer, prompt=prompt, max_tokens=128 if task == "source-selection" else 4096 if task == "meeting-summary" else min(4096, len(text) * 2 + 128), verbose=False
-            )
+            budget = 128 if task == "source-selection" else 4096 if task == "meeting-summary" else min(4096, len(text) * 2 + 128)
+            result = completed_text(stream_generate(model, tokenizer, prompt=prompt, max_tokens=budget),
+                                    eos_token_ids=tokenizer.eos_token_ids, max_tokens=budget)
         return {
-            "text": result.strip(),
+            **result,
             "total_ms": (time.perf_counter() - started) * 1000,
             "model": MODEL_LOCK[model_id]["repo"],
         }

@@ -2,6 +2,33 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## Local text completion and warm-speech recovery
+
+`codex/local-completion` requires actual local EOS acknowledgement for cleanup,
+selection editing, source excerpts and summaries. Eight reproduced pre-fix draft
+returns now fail. Eight actual old/new 4B/9B controls preserve completed text;
+two balanced-JSON budget sentinels are rejected. A verified text-output-limit
+rejection keeps the worker warm only for text actions. Actual shared Swift IPC
+observes the same PID, resident Parakeet and identical warm recognition afterward.
+Malformed/runtime/unknown failures still restart. This measures avoided eviction,
+not end-to-end latency. Full source checks pass 400 Swift / 318 Python tests and
+Ruff; eight summary and 21 compatible/Anthropic CLI contracts pass. Models,
+dependency lock, budgets and defaults remain unchanged. The source `0cacb1d`
+signed candidate at `dist/local-completion-v0/OSpr.app` passes relocated offline
+six-engine/neural/extras, eleven bundled summary CLI cases, four MCP tools,
+actual MCP inference/input limits, bundled warm-ASR retention, 41 provider
+contracts and ZIP CRC/extraction/signature/executable/CLI/license gates. The
+396,521,056-byte ZIP has SHA-256
+`3c640d05a3cf7a5f08eb2957f7c425ac6dbeb520c14a59250800793dde0e0d43`.
+Apple Development signed macOS 26.6.2 arm64; weights separate; not notarized.
+[Package receipt](../benchmarks/results/local-completion-package.json).
+Source `0cacb1d` [CI 40112387746](https://github.com/vibhusapra/OSpr/actions/runs/40112387746)
+passes matching 400/318 tests, eight summary/41 provider contracts, app/report,
+relocated runtime imports and 271 bundled help links.
+[Bound source validation](../benchmarks/results/local-completion-source-validation.json).
+The normal app/data remain preserved; native insertion and semantic summary
+acceptance remain open. [Contract and receipts](architecture/local-completion.md).
+
 ## Local meeting summaries: source implemented; semantic and native acceptance open
 
 The `codex/meeting-summaries` branch adds explicit local Qwen3.5 9B summaries,

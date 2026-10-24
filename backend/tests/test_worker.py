@@ -72,3 +72,25 @@ def test_non_object_json_is_not_a_protocol_crash():
     assert len(process.stdout.splitlines()) == 2
     assert not json.loads(process.stdout.splitlines()[0])["ok"]
     assert json.loads(process.stdout.splitlines()[1])["ok"]
+
+
+@pytest.mark.parametrize('output_limit', [True, False])
+def test_stdio_only_classifies_verified_text_limit_without_exposing_draft(monkeypatch, output_limit):
+    import io
+    from ospr_backend import worker
+    from ospr_backend.local_completion import LocalCompletionError
+
+    def reject(engine, request):
+        if request['action'] == 'rewrite':
+            raise LocalCompletionError('Original retained.', output_limit=output_limit)
+        return {'pid': 123}
+    stdin = io.TextIOWrapper(io.BytesIO(b'{"id":"a","action":"rewrite"}\n{"id":"b","action":"ping"}\n'))
+    stdout = io.StringIO()
+    monkeypatch.setattr(worker.sys, 'stdin', stdin)
+    monkeypatch.setattr(worker.sys, 'stdout', stdout)
+    monkeypatch.setattr(worker.os, 'setsid', lambda: None)
+    monkeypatch.setattr(worker, 'dispatch', reject)
+    worker.main()
+    rejection, next_reply = map(json.loads, stdout.getvalue().splitlines())
+    assert rejection == dict(id='a', ok=False, error='LocalCompletionError: Original retained.', **({'error_kind':'text-output-limit'} if output_limit else {}))
+    assert next_reply == dict(id='b', ok=True, result={'pid':123})

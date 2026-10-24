@@ -35,9 +35,23 @@ passes offline engines, actual bundled CLI/MCP, provider regressions, archive an
 source CI checks. Apple Development signed macOS 26.6.2 arm64; weights separate.
 Native, semantic-quality and distribution acceptance remain open.
 
+The newer `codex/local-completion` source adds a [local EOS completion gate](docs/architecture/local-completion.md)
+for all text tasks. Eight actual old/new controls preserve completed output; two
+valid-JSON output-limit sentinels fail safely. A verified text output limit retains
+warm speech. Full source checks pass 400 Swift / 318 Python tests; both 14-case
+summary replays preserve the previous outputs and known semantic failures.
+The new source `0cacb1d` candidate is `dist/local-completion-v0/OSpr.app`.
+Its 396,521,056-byte `OSpr-v0.1.0-local-completion-macOS26.6.2-arm64.zip`
+has SHA-256 `3c640d05a3cf7a5f08eb2957f7c425ac6dbeb520c14a59250800793dde0e0d43`.
+[Exact package gates](benchmarks/results/local-completion-package.json) include
+offline engines, bundled warm-ASR recovery, summary CLI/MCP, provider contracts,
+archive extraction and signatures. Apple Development signed macOS 26.6.2 arm64;
+weights separate; native and release acceptance remain open. Earlier candidates
+are preserved and predate this guard.
+
 ## Run on your Mac
 
-The current experimental preview is on `codex/meeting-summaries` ([draft PR #25](https://github.com/vibhusapra/OSpr/pull/25)), stacked on the combined v0 review. `main` still contains the initial bootstrap.
+The current experimental preview is on `codex/local-completion` ([draft PR #26](https://github.com/vibhusapra/OSpr/pull/26)), stacked on the summary and combined-v0 reviews. `main` still contains the initial bootstrap.
 
 Requirements: Apple Silicon, macOS 14+, Xcode 16+ / Swift 6, [uv](https://docs.astral.sh/uv/),
 and roughly 3–8 GB of available memory for the selected inference configuration.
@@ -46,7 +60,7 @@ standalone app bundles Python and locked inference libraries. Model
 weights download on first load; disk use depends on the selected models.
 
 ```sh
-git clone --branch codex/meeting-summaries https://github.com/vibhusapra/OSpr.git
+git clone --branch codex/local-completion https://github.com/vibhusapra/OSpr.git
 cd OSpr
 scripts/setup.sh
 scripts/build-app.sh

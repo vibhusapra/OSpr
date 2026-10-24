@@ -15,6 +15,7 @@ import threading
 
 from . import __version__
 from .engine import Engine, PUBLIC_MODELS, MODEL_LOCK, resolve_model
+from .local_completion import LocalCompletionError
 
 MAX_REQUEST = 2 * 1024 * 1024
 
@@ -153,6 +154,10 @@ def main():
                 "ok": False,
                 "error": f"{type(error).__name__}: {error}",
             }
+            # Only a fully consumed, well-formed MLX output-budget stop is
+            # recoverable. Runtime, framing and missing-EOS failures are not.
+            if isinstance(error, LocalCompletionError) and error.output_limit:
+                response["error_kind"] = "text-output-limit"
         finally:
             engine.progress = None
         emit(response)
