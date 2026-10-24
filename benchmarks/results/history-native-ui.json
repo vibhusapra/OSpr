@@ -1,0 +1,45 @@
+{
+  "status": "passed",
+  "verified_at": "2026-10-23T01:14:12.793494+00:00",
+  "boundary": "Native SwiftUI development bundle on one Mac, generated 235-record profile with a distinct bundle identifier and background services disabled. Not a microphone/inference/hotkey/insertion test or an app-launch latency benchmark.",
+  "git_commit": "163a113eb187c565ae958a4d6862fdc43f57d769",
+  "application_source_sha256": "cb4fb1a765583f98487b3523b1bc1d2fdf8c7b48cbccf901f05e072674ac1615",
+  "app_executable_sha256": "1a2db8bb929c8a846bb74eb82357812f425066a0615015e82bf3bccb9729ad51",
+  "fixture_sha256": "326eaa6c6a6a048baec7fb370c4152304ad56516e31bbf0cbf3a4bfd0e33c70d",
+  "records": 235,
+  "checks": {
+    "legacy_migration_and_aggregate_count": true,
+    "initial_summary_page_100": true,
+    "search_record_beyond_first_page": true,
+    "complete_selected_text_beyond_preview": true,
+    "native_edit_preserves_original_and_word_timing": true,
+    "session_only_content_counters_search_empty_on_disk": true,
+    "session_only_full_detail_stays_visible": true,
+    "reenable_saving_restores_all_235_complete_payloads": true,
+    "load_more_list_expands_to_235": true,
+    "last_pending_edit_flushed_on_quit": true,
+    "restart_recovers_full_edited_detail": true,
+    "native_txt_export_matches_full_1407_character_record": true,
+    "summary_context_copy_pasted_into_owned_textedit_file_matches_export": true,
+    "saving_restored_before_quit": true
+  },
+  "cleared_database_bytes": 49152,
+  "complete_text_bytes": 1407,
+  "complete_text_sha256": "f5d2f90da3df787bb03bcff1157ba6582f1578ab53b7cbb2c1ddfefbd3fbbd75",
+  "screenshots": {
+    "session_only_sha256": "df29c3f66173a5a7e3b2cefe4d5af7a8549bc3e2791ae651e212aaf53bca62ab",
+    "restarted_history_sha256": "c0df20e13e8c3fc8fd7c69a177b23df7783a4eca47bb449c87cc4f76e4ab4004"
+  },
+  "ci": {
+    "url": "https://github.com/vibhusapra/OSpr/actions/runs/39881939294",
+    "conclusion": "success",
+    "swift_tests": 196,
+    "python_tests": 94
+  },
+  "limitations": [
+    "Synthetic public text, one Mac and development checkout runtime.",
+    "Normal running preview and its production archive were not upgraded or used as QA fixtures.",
+    "Failure-path/native quit dialog interaction covered by application/repository regressions; no forced disk failure in this native session.",
+    "Microphone, global shortcut, insertion, cloud streaming and desktop capture acceptance remain separate."
+  ]
+}

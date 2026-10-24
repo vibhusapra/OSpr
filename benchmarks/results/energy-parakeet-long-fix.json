@@ -1,0 +1,2617 @@
+{
+  "timestamp": "2026-10-22T17:05:32.123730+00:00",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "hardware": "Apple M5 Max",
+  "tool": {
+    "version": "mactop version: v2.1.6",
+    "upstream_revision": "1e314f047dd7b494f286b7118fea80b3006c41be",
+    "executable_sha256": "4476367b966e7edc4870498ad85c9456937bcbc580a32ac199a4cf602ac2abb1",
+    "source": "https://github.com/metaspartan/mactop/tree/1e314f047dd7b494f286b7118fea80b3006c41be"
+  },
+  "source_sha256": "3384e268d3fea6a8fed946b158b73575254ff22f520716117e03702da0b891ed",
+  "corpus": {
+    "manifest": "test-clean.json",
+    "manifest_sha256": "91b33742ba81809c5e4739cb2beea34b17294de738185d31d2e45b87a2057569",
+    "license": "CC BY 4.0 \u00b7 Vassil Panayotov, Guoguo Chen, Daniel Povey, Sanjeev Khudanpur; LibriVox speakers",
+    "selection": "First 5 utterances per speaker sorted by archive path, selected before inference."
+  },
+  "model_lock": {
+    "parakeet-v3": {
+      "repo": "mlx-community/parakeet-tdt-0.6b-v3",
+      "revision": "ed2b7e8c15f9aaa0b5772e2efb986255eaef7e15",
+      "license": "cc-by-4.0",
+      "safetensor_bytes": 2508288736,
+      "required_files": {
+        "config.json": 244093,
+        "model.safetensors": 2508288736,
+        "tokenizer.model": 360916,
+        "vocab.txt": 46772
+      },
+      "artifact_bytes": 2508940517
+    },
+    "whisper-turbo": {
+      "repo": "mlx-community/whisper-large-v3-turbo",
+      "revision": "a4aaeec0636e6fef84abdcbe3544cb2bf7e9f6fb",
+      "license": "mit (upstream weights; conversion card not explicitly tagged)",
+      "safetensor_bytes": 1613977612,
+      "required_files": {
+        "config.json": 268,
+        "weights.safetensors": 1613977612
+      },
+      "artifact_bytes": 1613977880
+    },
+    "whisper-small": {
+      "repo": "mlx-community/whisper-small-mlx",
+      "revision": "45f3915923c7a79a5a5b5a7d909d39aeb0e5630e",
+      "license": "mit (upstream weights; conversion card not explicitly tagged)",
+      "safetensor_bytes": 0,
+      "required_files": {
+        "config.json": 266,
+        "weights.npz": 481307592
+      },
+      "artifact_bytes": 481307858
+    },
+    "qwen3-asr": {
+      "repo": "mlx-community/Qwen3-ASR-1.7B-8bit",
+      "revision": "a8379a2e2f9e313c9292cdf1af4055ab56d50d55",
+      "license": "apache-2.0",
+      "safetensor_bytes": 2463307541,
+      "required_files": {
+        "chat_template.json": 1161,
+        "config.json": 7188,
+        "generation_config.json": 142,
+        "merges.txt": 1671853,
+        "model.safetensors": 2463307541,
+        "model.safetensors.index.json": 78968,
+        "preprocessor_config.json": 330,
+        "tokenizer_config.json": 12487,
+        "vocab.json": 2776833
+      },
+      "artifact_bytes": 2467856503
+    },
+    "rewrite": {
+      "repo": "mlx-community/Qwen3-1.7B-4bit",
+      "revision": "3b1b1768f8f8cf8351c712464f906e86c2b8269e",
+      "license": "apache-2.0",
+      "safetensor_bytes": 968080210,
+      "required_files": {
+        "added_tokens.json": 707,
+        "config.json": 937,
+        "merges.txt": 1671853,
+        "model.safetensors": 968080210,
+        "model.safetensors.index.json": 49731,
+        "special_tokens_map.json": 613,
+        "tokenizer.json": 11422654,
+        "tokenizer_config.json": 9706,
+        "vocab.json": 2776833
+      },
+      "artifact_bytes": 984013244
+    },
+    "cohere-transcribe": {
+      "repo": "beshkenadze/cohere-transcribe-03-2026-mlx-8bit",
+      "revision": "d1f843476f84846e6fe7aa58a6033f17882f0ec9",
+      "license": "apache-2.0",
+      "safetensor_bytes": 2418031831,
+      "required_files": {
+        "config.json": 4336,
+        "conversion_summary.json": 5237,
+        "key_map.json": 179652,
+        "model.safetensors": 2418031831,
+        "preprocessor_config.json": 420,
+        "special_tokens_map.json": 4091,
+        "tokenizer.model": 492827,
+        "tokenizer_config.json": 48141
+      },
+      "artifact_bytes": 2418766535
+    },
+    "nemotron-streaming": {
+      "repo": "mlx-community/nemotron-3.5-asr-streaming-0.6b-8bit",
+      "revision": "7279359e4481b5e9e185a318bd618e429c6d86cd",
+      "license": "other",
+      "safetensor_bytes": 755598923,
+      "required_files": {
+        "config.json": 159605,
+        "model.safetensors": 755598923,
+        "tokenizer.model": 406554,
+        "vocab.txt": 78294
+      },
+      "artifact_bytes": 756243376
+    },
+    "rewrite-quality": {
+      "repo": "mlx-community/Qwen3-4B-Instruct-2507-4bit",
+      "revision": "50d427756c6b1b2fe0c0a10f67fbda1fc8e82c1b",
+      "license": "apache-2.0",
+      "safetensor_bytes": 2263022417,
+      "required_files": {
+        "added_tokens.json": 707,
+        "chat_template.jinja": 4040,
+        "config.json": 938,
+        "generation_config.json": 238,
+        "merges.txt": 1671853,
+        "model.safetensors": 2263022417,
+        "model.safetensors.index.json": 63964,
+        "special_tokens_map.json": 613,
+        "tokenizer.json": 11422654,
+        "tokenizer_config.json": 5440,
+        "vocab.json": 2776833
+      },
+      "artifact_bytes": 2278969697
+    },
+    "diarization": {
+      "repo": "mlx-community/Nemotron-3-Diarization-8bit",
+      "revision": "dd8b8ce3d69a80540a7e50150e2beed1c34fee37",
+      "license": "openmdw-1.1",
+      "required_files": {
+        "config.json": 1694,
+        "model.safetensors": 106613900
+      },
+      "artifact_bytes": 106615594
+    },
+    "cohere-native8": {
+      "repo": "littoralai/cohere-transcribe-mlx-8bit",
+      "revision": "b3f1f6b5fb5ae1bd17c9be2bcd85806339890450",
+      "license": "apache-2.0",
+      "safetensor_bytes": 2420197751,
+      "required_files": {
+        "config.json": 4906,
+        "generation_config.json": 234,
+        "model.safetensors": 2420197751,
+        "model.safetensors.index.json": 243634,
+        "preprocessor_config.json": 420,
+        "processor_config.json": 131,
+        "special_tokens_map.json": 4091,
+        "tokenizer.json": 1816694,
+        "tokenizer.model": 492827,
+        "tokenizer_config.json": 48138
+      },
+      "artifact_bytes": 2422808826,
+      "safetensor_sha256": "aadaf8d3388975853385400c9bd8dee92a71e12a83860f35bebaac345aa8af93"
+    }
+  },
+  "backend_sha256": "b47e0600a114e460480709c61abd521c48c48d9f7a32e04fe2bea6616593795a",
+  "git_commit": "6ce7abc2728797df3d0cc61f5d899b3f17cb2cd1",
+  "offline": true,
+  "order": [
+    "parakeet-v3"
+  ],
+  "trials": [
+    {
+      "model": "parakeet-v3",
+      "model_spec": {
+        "repo": "mlx-community/parakeet-tdt-0.6b-v3",
+        "engine": "parakeet",
+        "name": "Parakeet v3 \u00b7 fast multilingual",
+        "languages": "25 European languages",
+        "license": "CC-BY-4.0 (weights); Apache-2.0 (runtime)"
+      },
+      "idle_before": {
+        "samples": 9,
+        "start_monotonic": 967673.572471541,
+        "end_monotonic": 967693.573425791,
+        "interior_seconds": 14.000954249990173,
+        "mean": {
+          "cpu_power": 50.3156222063633,
+          "gpu_power": 0.07252276086215961,
+          "ane_power": 0.0,
+          "dram_power": 3.4371283828849895,
+          "total_power": 100.89433712429471,
+          "cpu_temp": 77.03033599999999,
+          "gpu_temp": 67.88121222222223,
+          "gpu_active": 9.058997896701653
+        },
+        "thermal_states": [
+          "Moderate"
+        ]
+      },
+      "active": {
+        "samples": 18,
+        "start_monotonic": 967693.573425791,
+        "end_monotonic": 967723.57784025,
+        "interior_seconds": 24.00441445899196,
+        "mean": {
+          "cpu_power": 37.51559711515312,
+          "gpu_power": 11.24363394103037,
+          "ane_power": 0.0006040792441763925,
+          "dram_power": 7.354768982717831,
+          "total_power": 114.35729259914822,
+          "cpu_temp": 74.43448477777777,
+          "gpu_temp": 71.7517495,
+          "gpu_active": 98.11571598375225
+        },
+        "thermal_states": [
+          "Moderate"
+        ]
+      },
+      "idle_after": {
+        "samples": 10,
+        "start_monotonic": 967723.57784025,
+        "end_monotonic": 967743.580725041,
+        "interior_seconds": 14.002884790999815,
+        "mean": {
+          "cpu_power": 21.08820553118739,
+          "gpu_power": 1.0779465242171242,
+          "ane_power": 0.0,
+          "dram_power": 2.904955350990148,
+          "total_power": 61.01492462158203,
+          "cpu_temp": 70.4622131,
+          "gpu_temp": 65.1197507,
+          "gpu_active": 71.30561689029687
+        },
+        "thermal_states": [
+          "Moderate"
+        ]
+      },
+      "active_seconds": 30.00441445899196,
+      "audio_seconds": 2371.135375,
+      "requests": 264,
+      "aggregate_rtf": 0.012654028435214064,
+      "gross_joules_estimate": {
+        "cpu_power": 1125.6335245196174,
+        "gpu_power": 337.35865279186436,
+        "ane_power": 0.018125044008343087,
+        "dram_power": 220.67553680760446,
+        "total_power": 3431.2236035530573
+      },
+      "idle_subtracted_joules_estimate": {
+        "cpu_power": 54.41850382164866,
+        "gpu_power": 320.09907416593484,
+        "ane_power": 0.018125044008343087,
+        "dram_power": 125.53028236519403,
+        "total_power": 1002.2273064667083
+      },
+      "incremental_joules_per_audio_minute": {
+        "cpu_power": 1.37702396232814,
+        "gpu_power": 8.099893684879165,
+        "ane_power": 0.00045864215597584145,
+        "dram_power": 3.1764601132955734,
+        "total_power": 25.36069387771776
+      },
+      "telemetry": [
+        {
+          "monotonic": 967678.488666583,
+          "timestamp": "2026-10-22T10:05:37-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 50.00795564533961,
+            "gpu_power": 0.18458105298095065,
+            "ane_power": 0.0,
+            "dram_power": 3.0965468851938827,
+            "total_power": 97.4156265258789,
+            "cpu_temp": 79.38158,
+            "gpu_temp": 67.45386,
+            "gpu_active": 14.398642821047671
+          }
+        },
+        {
+          "monotonic": 967680.827162625,
+          "timestamp": "2026-10-22T10:05:39-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 45.79012957563305,
+            "gpu_power": 0.05672960083440968,
+            "ane_power": 0.0,
+            "dram_power": 3.8322733039117254,
+            "total_power": 101.89932250976562,
+            "cpu_temp": 74.33594,
+            "gpu_temp": 67.74243,
+            "gpu_active": 8.325054408076591
+          }
+        },
+        {
+          "monotonic": 967682.153783958,
+          "timestamp": "2026-10-22T10:05:41-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 47.87135879021999,
+            "gpu_power": 0.0859864289682727,
+            "ane_power": 0.0,
+            "dram_power": 3.927990177278777,
+            "total_power": 104.13514709472656,
+            "cpu_temp": 73.99424,
+            "gpu_temp": 67.696045,
+            "gpu_active": 11.482703319467754
+          }
+        },
+        {
+          "monotonic": 967683.465967833,
+          "timestamp": "2026-10-22T10:05:42-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 48.65577800515382,
+            "gpu_power": 0.030416589367836044,
+            "ane_power": 0.0,
+            "dram_power": 3.2432915841500938,
+            "total_power": 98.2816162109375,
+            "cpu_temp": 74.42064,
+            "gpu_temp": 67.706055,
+            "gpu_active": 5.332357204598128
+          }
+        },
+        {
+          "monotonic": 967684.790668833,
+          "timestamp": "2026-10-22T10:05:43-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 52.6467490045594,
+            "gpu_power": 0.07439139677567948,
+            "ane_power": 0.0,
+            "dram_power": 3.7006407191870574,
+            "total_power": 98.58651733398438,
+            "cpu_temp": 75.561264,
+            "gpu_temp": 67.779785,
+            "gpu_active": 11.048081040591384
+          }
+        },
+        {
+          "monotonic": 967686.213188333,
+          "timestamp": "2026-10-22T10:05:45-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 50.92256699001739,
+            "gpu_power": 0.03173680744234393,
+            "ane_power": 0.0,
+            "dram_power": 3.2386863046786765,
+            "total_power": 98.48577880859375,
+            "cpu_temp": 77.34786,
+            "gpu_temp": 67.91284,
+            "gpu_active": 5.435948594282525
+          }
+        },
+        {
+          "monotonic": 967687.519857,
+          "timestamp": "2026-10-22T10:05:46-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 54.22073926808772,
+            "gpu_power": 0.07769534959998207,
+            "ane_power": 0.0,
+            "dram_power": 3.5498189180645983,
+            "total_power": 100.55329132080078,
+            "cpu_temp": 79.01275,
+            "gpu_temp": 68.06763,
+            "gpu_active": 9.47272828866279
+          }
+        },
+        {
+          "monotonic": 967688.831835041,
+          "timestamp": "2026-10-22T10:05:47-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 51.14768884131495,
+            "gpu_power": 0.042925266835085345,
+            "ane_power": 0.0,
+            "dram_power": 3.1701487728044495,
+            "total_power": 105.77501678466797,
+            "cpu_temp": 79.550575,
+            "gpu_temp": 68.27832,
+            "gpu_active": 6.587894680614757
+          }
+        },
+        {
+          "monotonic": 967690.135532666,
+          "timestamp": "2026-10-22T10:05:49-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 51.57763373694376,
+            "gpu_power": 0.06824235495487659,
+            "ane_power": 0.0,
+            "dram_power": 3.1747587806956443,
+            "total_power": 102.91671752929688,
+            "cpu_temp": 79.668175,
+            "gpu_temp": 68.293945,
+            "gpu_active": 9.447570712973272
+          }
+        },
+        {
+          "monotonic": 967691.434663958,
+          "timestamp": "2026-10-22T10:05:50-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 50.39059241147841,
+            "gpu_power": 0.06093138023375955,
+            "ane_power": 0.0,
+            "dram_power": 3.1509590852042444,
+            "total_power": 100.95042419433594,
+            "cpu_temp": 79.71381,
+            "gpu_temp": 68.321045,
+            "gpu_active": 7.924421150750351
+          }
+        },
+        {
+          "monotonic": 967692.764912583,
+          "timestamp": "2026-10-22T10:05:51-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 50.12412257428461,
+            "gpu_power": 0.10922153287862744,
+            "ane_power": 0.0,
+            "dram_power": 3.1735858102293615,
+            "total_power": 99.3621826171875,
+            "cpu_temp": 79.60855,
+            "gpu_temp": 68.31592,
+            "gpu_active": 11.28795396686092
+          }
+        },
+        {
+          "monotonic": 967694.088402458,
+          "timestamp": "2026-10-22T10:05:53-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 48.5757616075154,
+            "gpu_power": 2.454693510045593,
+            "ane_power": 0.0,
+            "dram_power": 4.196012990608053,
+            "total_power": 98.68283081054688,
+            "cpu_temp": 79.126236,
+            "gpu_temp": 68.15015,
+            "gpu_active": 29.24339534156636
+          }
+        },
+        {
+          "monotonic": 967695.464682916,
+          "timestamp": "2026-10-22T10:05:54-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 42.44448738999728,
+            "gpu_power": 11.512277812537151,
+            "ane_power": 0.0,
+            "dram_power": 7.347361839897652,
+            "total_power": 109.19635009765625,
+            "cpu_temp": 77.849915,
+            "gpu_temp": 69.27051,
+            "gpu_active": 98.14771846386432
+          }
+        },
+        {
+          "monotonic": 967696.803777666,
+          "timestamp": "2026-10-22T10:05:55-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 33.91131626394786,
+            "gpu_power": 9.877643021965408,
+            "ane_power": 0.0,
+            "dram_power": 6.7338081449951055,
+            "total_power": 122.77584838867188,
+            "cpu_temp": 75.20107,
+            "gpu_temp": 69.99829,
+            "gpu_active": 97.72901266822458
+          }
+        },
+        {
+          "monotonic": 967698.143438958,
+          "timestamp": "2026-10-22T10:05:57-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 32.35882358834309,
+            "gpu_power": 10.636079911744499,
+            "ane_power": 0.0,
+            "dram_power": 7.211184784804174,
+            "total_power": 107.2923355102539,
+            "cpu_temp": 72.7977,
+            "gpu_temp": 69.98389,
+            "gpu_active": 96.80402464044226
+          }
+        },
+        {
+          "monotonic": 967699.571224791,
+          "timestamp": "2026-10-22T10:05:58-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 34.60368462441313,
+            "gpu_power": 10.959593896737294,
+            "ane_power": 0.0,
+            "dram_power": 7.245758364860556,
+            "total_power": 103.88790893554688,
+            "cpu_temp": 72.37994,
+            "gpu_temp": 70.049805,
+            "gpu_active": 98.4307568278496
+          }
+        },
+        {
+          "monotonic": 967700.908016458,
+          "timestamp": "2026-10-22T10:05:59-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 36.0679891943986,
+            "gpu_power": 10.277272373747913,
+            "ane_power": 0.0,
+            "dram_power": 7.067278132363286,
+            "total_power": 108.72626495361328,
+            "cpu_temp": 73.04811,
+            "gpu_temp": 70.35742,
+            "gpu_active": 97.41326608806055
+          }
+        },
+        {
+          "monotonic": 967702.229306708,
+          "timestamp": "2026-10-22T10:06:01-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 37.52003844807244,
+            "gpu_power": 11.042751928716116,
+            "ane_power": 0.0,
+            "dram_power": 6.912932333493162,
+            "total_power": 110.22921752929688,
+            "cpu_temp": 73.368835,
+            "gpu_temp": 70.64819,
+            "gpu_active": 97.90251509368882
+          }
+        },
+        {
+          "monotonic": 967703.565924416,
+          "timestamp": "2026-10-22T10:06:02-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 39.29490233804587,
+            "gpu_power": 10.783329497382924,
+            "ane_power": 0.0,
+            "dram_power": 7.249412106290744,
+            "total_power": 113.32688903808594,
+            "cpu_temp": 73.61595,
+            "gpu_temp": 70.78223,
+            "gpu_active": 97.90310198140773
+          }
+        },
+        {
+          "monotonic": 967704.8858175,
+          "timestamp": "2026-10-22T10:06:03-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 38.49913558373431,
+            "gpu_power": 10.704969736049945,
+            "ane_power": 0.0,
+            "dram_power": 7.11141037957849,
+            "total_power": 114.52494812011719,
+            "cpu_temp": 73.94819,
+            "gpu_temp": 71.32031,
+            "gpu_active": 98.24134313369714
+          }
+        },
+        {
+          "monotonic": 967706.4129305,
+          "timestamp": "2026-10-22T10:06:05-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 38.019606360843596,
+            "gpu_power": 10.671714023371528,
+            "ane_power": 0.0,
+            "dram_power": 7.3273192826418025,
+            "total_power": 114.78170776367188,
+            "cpu_temp": 74.026726,
+            "gpu_temp": 71.53784,
+            "gpu_active": 97.75511172271106
+          }
+        },
+        {
+          "monotonic": 967707.734415583,
+          "timestamp": "2026-10-22T10:06:06-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 38.00063381970304,
+            "gpu_power": 10.445297111907166,
+            "ane_power": 0.0,
+            "dram_power": 7.374686788197508,
+            "total_power": 115.88304901123047,
+            "cpu_temp": 74.269325,
+            "gpu_temp": 71.59668,
+            "gpu_active": 97.93579224468672
+          }
+        },
+        {
+          "monotonic": 967709.060405041,
+          "timestamp": "2026-10-22T10:06:08-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 39.736955898173065,
+            "gpu_power": 10.877790838031943,
+            "ane_power": 0.0,
+            "dram_power": 7.678194064009161,
+            "total_power": 113.80171203613281,
+            "cpu_temp": 74.72574,
+            "gpu_temp": 71.94702,
+            "gpu_active": 97.47975253563669
+          }
+        },
+        {
+          "monotonic": 967710.391653083,
+          "timestamp": "2026-10-22T10:06:09-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 38.84807103856822,
+            "gpu_power": 10.437233650634598,
+            "ane_power": 0.0,
+            "dram_power": 7.3625689324068775,
+            "total_power": 116.01858520507812,
+            "cpu_temp": 74.6912,
+            "gpu_temp": 72.173096,
+            "gpu_active": 97.76927712035393
+          }
+        },
+        {
+          "monotonic": 967711.717223833,
+          "timestamp": "2026-10-22T10:06:10-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 38.158532323137955,
+            "gpu_power": 11.846898090427494,
+            "ane_power": 0.0,
+            "dram_power": 7.195525592425803,
+            "total_power": 115.56184387207031,
+            "cpu_temp": 74.98766,
+            "gpu_temp": 72.28516,
+            "gpu_active": 98.3279032152145
+          }
+        },
+        {
+          "monotonic": 967713.110220041,
+          "timestamp": "2026-10-22T10:06:12-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 39.22414728005196,
+            "gpu_power": 11.36091593361119,
+            "ane_power": 0.0,
+            "dram_power": 7.652133412329579,
+            "total_power": 116.49705505371094,
+            "cpu_temp": 75.1065,
+            "gpu_temp": 72.58472,
+            "gpu_active": 98.80261624432623
+          }
+        },
+        {
+          "monotonic": 967714.454734,
+          "timestamp": "2026-10-22T10:06:13-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 38.196743857449135,
+            "gpu_power": 13.16901604298647,
+            "ane_power": 0.007207102782131492,
+            "dram_power": 7.386379463837013,
+            "total_power": 119.16433715820312,
+            "cpu_temp": 75.17393,
+            "gpu_temp": 72.96753,
+            "gpu_active": 98.42988973810166
+          }
+        },
+        {
+          "monotonic": 967715.78633725,
+          "timestamp": "2026-10-22T10:06:14-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 38.160012745460755,
+            "gpu_power": 12.237160159367242,
+            "ane_power": 0.003666323613043572,
+            "dram_power": 7.426138478219754,
+            "total_power": 117.11277770996094,
+            "cpu_temp": 75.38734,
+            "gpu_temp": 73.12109,
+            "gpu_active": 99.09394523282512
+          }
+        },
+        {
+          "monotonic": 967717.126592583,
+          "timestamp": "2026-10-22T10:06:16-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 37.992295188527166,
+            "gpu_power": 12.237362238645398,
+            "ane_power": 0.0,
+            "dram_power": 7.799251790924012,
+            "total_power": 117.9842300415039,
+            "cpu_temp": 75.67516,
+            "gpu_temp": 73.27319,
+            "gpu_active": 99.05192803524318
+          }
+        },
+        {
+          "monotonic": 967718.479397666,
+          "timestamp": "2026-10-22T10:06:17-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 37.803485382890614,
+            "gpu_power": 12.24294248407774,
+            "ane_power": 0.0,
+            "dram_power": 7.734591658706827,
+            "total_power": 115.04215240478516,
+            "cpu_temp": 75.76439,
+            "gpu_temp": 73.32031,
+            "gpu_active": 97.69659455649054
+          }
+        },
+        {
+          "monotonic": 967719.875306583,
+          "timestamp": "2026-10-22T10:06:18-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 38.884374136995376,
+            "gpu_power": 12.577439999141774,
+            "ane_power": 0.0,
+            "dram_power": 7.9172679788370965,
+            "total_power": 115.82040405273438,
+            "cpu_temp": 75.65296,
+            "gpu_temp": 73.58472,
+            "gpu_active": 99.31605662858009
+          }
+        },
+        {
+          "monotonic": 967721.19879825,
+          "timestamp": "2026-10-22T10:06:20-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 39.18247412045674,
+            "gpu_power": 11.6119567849081,
+            "ane_power": 0.0009142607770132472,
+            "dram_power": 7.390884121375091,
+            "total_power": 118.7427978515625,
+            "cpu_temp": 75.8491,
+            "gpu_temp": 73.60986,
+            "gpu_active": 98.66714409578688
+          }
+        },
+        {
+          "monotonic": 967722.50335475,
+          "timestamp": "2026-10-22T10:06:21-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 23.135486026141777,
+            "gpu_power": 15.931890155799637,
+            "ane_power": 0.0,
+            "dram_power": 8.621574187719698,
+            "total_power": 114.93045043945312,
+            "cpu_temp": 76.3713,
+            "gpu_temp": 73.83179,
+            "gpu_active": 99.11860574555395
+          }
+        },
+        {
+          "monotonic": 967723.777514125,
+          "timestamp": "2026-10-22T10:06:22-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 23.590307689679126,
+            "gpu_power": 14.815551318204852,
+            "ane_power": 0.0,
+            "dram_power": 7.4148102748879685,
+            "total_power": 106.19941711425781,
+            "cpu_temp": 76.32854,
+            "gpu_temp": 73.88965,
+            "gpu_active": 98.93593193502468
+          }
+        },
+        {
+          "monotonic": 967725.070228458,
+          "timestamp": "2026-10-22T10:06:24-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 17.29905331486452,
+            "gpu_power": 2.5439219981542163,
+            "ane_power": 0.0,
+            "dram_power": 2.8668623070586112,
+            "total_power": 95.48602294921875,
+            "cpu_temp": 74.938324,
+            "gpu_temp": 71.61572,
+            "gpu_active": 69.52745081231751
+          }
+        },
+        {
+          "monotonic": 967726.399197541,
+          "timestamp": "2026-10-22T10:06:25-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 21.360784587007622,
+            "gpu_power": 0.9330897815557413,
+            "ane_power": 0.0,
+            "dram_power": 2.4911345937332223,
+            "total_power": 86.94731140136719,
+            "cpu_temp": 74.26316,
+            "gpu_temp": 69.95068,
+            "gpu_active": 59.116088645954044
+          }
+        },
+        {
+          "monotonic": 967727.684550833,
+          "timestamp": "2026-10-22T10:06:26-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 20.63879093105997,
+            "gpu_power": 1.465401982241373,
+            "ane_power": 0.0,
+            "dram_power": 2.81324783139711,
+            "total_power": 57.7155647277832,
+            "cpu_temp": 74.02097,
+            "gpu_temp": 68.61719,
+            "gpu_active": 76.68553673655788
+          }
+        },
+        {
+          "monotonic": 967728.970072375,
+          "timestamp": "2026-10-22T10:06:28-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 18.941447628653528,
+            "gpu_power": 1.4913790684482255,
+            "ane_power": 0.0,
+            "dram_power": 2.9701604068456855,
+            "total_power": 62.15010070800781,
+            "cpu_temp": 71.988075,
+            "gpu_temp": 67.02832,
+            "gpu_active": 79.70946621941879
+          }
+        },
+        {
+          "monotonic": 967730.2999355,
+          "timestamp": "2026-10-22T10:06:29-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 16.028589508166164,
+            "gpu_power": 1.222530804830971,
+            "ane_power": 0.0,
+            "dram_power": 2.7871427356199794,
+            "total_power": 58.57938766479492,
+            "cpu_temp": 70.521385,
+            "gpu_temp": 66.33081,
+            "gpu_active": 78.74241144366239
+          }
+        },
+        {
+          "monotonic": 967731.600323708,
+          "timestamp": "2026-10-22T10:06:30-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 29.781846095322976,
+            "gpu_power": 1.2432138678767497,
+            "ane_power": 0.0,
+            "dram_power": 3.9453917088056643,
+            "total_power": 54.17743682861328,
+            "cpu_temp": 71.47369,
+            "gpu_temp": 65.7832,
+            "gpu_active": 81.35750185962448
+          }
+        },
+        {
+          "monotonic": 967732.947794166,
+          "timestamp": "2026-10-22T10:06:32-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 18.132097768282208,
+            "gpu_power": 1.2021646408078963,
+            "ane_power": 0.0,
+            "dram_power": 3.0700237605942977,
+            "total_power": 74.78008270263672,
+            "cpu_temp": 70.544,
+            "gpu_temp": 65.09546,
+            "gpu_active": 77.78752155303876
+          }
+        },
+        {
+          "monotonic": 967734.240191416,
+          "timestamp": "2026-10-22T10:06:33-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 21.153919090052163,
+            "gpu_power": 1.0141061516388552,
+            "ane_power": 0.0,
+            "dram_power": 3.0850236210129425,
+            "total_power": 66.63619232177734,
+            "cpu_temp": 70.17105,
+            "gpu_temp": 64.63574,
+            "gpu_active": 77.4374377047394
+          }
+        },
+        {
+          "monotonic": 967735.542703958,
+          "timestamp": "2026-10-22T10:06:34-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 17.786638080231686,
+            "gpu_power": 1.0268169613358653,
+            "ane_power": 0.0,
+            "dram_power": 2.7874993991466845,
+            "total_power": 61.88106918334961,
+            "cpu_temp": 69.938736,
+            "gpu_temp": 64.232666,
+            "gpu_active": 70.41735814198016
+          }
+        },
+        {
+          "monotonic": 967736.819746125,
+          "timestamp": "2026-10-22T10:06:35-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 24.21334264148466,
+            "gpu_power": 0.7284173677861098,
+            "ane_power": 0.0,
+            "dram_power": 2.647589629214792,
+            "total_power": 62.47524642944336,
+            "cpu_temp": 69.675575,
+            "gpu_temp": 63.692383,
+            "gpu_active": 59.347008869479325
+          }
+        },
+        {
+          "monotonic": 967738.117792958,
+          "timestamp": "2026-10-22T10:06:37-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 14.73918186825706,
+            "gpu_power": 0.5647165861239091,
+            "ane_power": 0.0,
+            "dram_power": 1.777608115364336,
+            "total_power": 63.197784423828125,
+            "cpu_temp": 67.35814,
+            "gpu_temp": 63.13623,
+            "gpu_active": 39.04503671272
+          }
+        },
+        {
+          "monotonic": 967739.455549833,
+          "timestamp": "2026-10-22T10:06:38-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 29.466201700363513,
+            "gpu_power": 0.8207178110812867,
+            "ane_power": 0.0,
+            "dram_power": 3.1658663018999857,
+            "total_power": 48.55638122558594,
+            "cpu_temp": 68.93051,
+            "gpu_temp": 62.645508,
+            "gpu_active": 72.52688966174753
+          }
+        },
+        {
+          "monotonic": 967740.7185155,
+          "timestamp": "2026-10-22T10:06:39-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 15.969277408325166,
+            "gpu_power": 0.5992715014216451,
+            "ane_power": 0.0,
+            "dram_power": 1.895526640794913,
+            "total_power": 76.11417388916016,
+            "cpu_temp": 68.57936,
+            "gpu_temp": 62.55591,
+            "gpu_active": 45.190719291464596
+          }
+        },
+        {
+          "monotonic": 967742.032475458,
+          "timestamp": "2026-10-22T10:06:41-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 20.23011303831004,
+            "gpu_power": 0.6435318930251378,
+            "ane_power": 0.0,
+            "dram_power": 2.249205122678628,
+            "total_power": 51.92377853393555,
+            "cpu_temp": 66.43709,
+            "gpu_temp": 61.645996,
+            "gpu_active": 53.90557681720237
+          }
+        },
+        {
+          "monotonic": 967743.343155541,
+          "timestamp": "2026-10-22T10:06:42-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 23.507613644133453,
+            "gpu_power": 0.8979968595865077,
+            "ane_power": 0.0,
+            "dram_power": 2.879826662739485,
+            "total_power": 50.47505187988281,
+            "cpu_temp": 66.95518,
+            "gpu_temp": 61.32544,
+            "gpu_active": 75.8976225687786
+          }
+        },
+        {
+          "monotonic": 967744.642993375,
+          "timestamp": "2026-10-22T10:06:43-07:00",
+          "thermal_state": "Moderate",
+          "counters": {
+            "cpu_power": 26.444779246919595,
+            "gpu_power": 0.9686923133368649,
+            "ane_power": 0.0,
+            "dram_power": 2.861981123317296,
+            "total_power": 67.91598510742188,
+            "cpu_temp": 68.164474,
+            "gpu_temp": 61.30493,
+            "gpu_active": 71.88907522792142
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "id": "1089-134686-0000",
+          "seconds": 10.435,
+          "wall_ms": 135.32412494532764,
+          "text": "He hoped there would be stew for dinner, turnips and carrots and bruised potatoes, and fat mutton pieces to be ladled out in thick, peppered, flour fattened sauce,"
+        },
+        {
+          "id": "1089-134686-0001",
+          "seconds": 3.275,
+          "wall_ms": 50.106666050851345,
+          "text": "Stuff it into you, his belly counseled him."
+        },
+        {
+          "id": "1089-134686-0002",
+          "seconds": 6.625,
+          "wall_ms": 76.94845797959715,
+          "text": "After early nightfall the yellow lamps would light up here and there the squalid quarter of the brothels."
+        },
+        {
+          "id": "1089-134686-0003",
+          "seconds": 2.68,
+          "wall_ms": 44.33070810046047,
+          "text": "Hello, Bertie, any good in your mind?"
+        },
+        {
+          "id": "1089-134686-0004",
+          "seconds": 5.2150625,
+          "wall_ms": 73.57037498150021,
+          "text": "Number ten Fresh Nelly is waiting on you. Good night, husband."
+        },
+        {
+          "id": "1188-133604-0000",
+          "seconds": 10.725,
+          "wall_ms": 105.94625002704561,
+          "text": "You will find me continually speaking of four men Titian, Holbein, Turner, and Tinteret, in almost the same terms."
+        },
+        {
+          "id": "1188-133604-0001",
+          "seconds": 9.04,
+          "wall_ms": 98.30433398019522,
+          "text": "They unite every quality. And sometimes you will find me referring to them as colorists, sometimes as chiaroscurists."
+        },
+        {
+          "id": "1188-133604-0002",
+          "seconds": 17.96,
+          "wall_ms": 170.52795900963247,
+          "text": "By being studious of colour they are studious of division, and while the curoscurist devotes himself to the representation of degrees of force in one thing, unseparated light, the colourists have for their function the attainment of beauty by arrangement of the divisions of light."
+        },
+        {
+          "id": "1188-133604-0003",
+          "seconds": 12.61,
+          "wall_ms": 119.4384170230478,
+          "text": "my first and principal reason was that they enforced, beyond all resistance, on any student who might attempt to copy them, this method of laying portions of distinct hue side by side,"
+        },
+        {
+          "id": "1188-133604-0004",
+          "seconds": 10.65,
+          "wall_ms": 116.90795794129372,
+          "text": "Some of the touches indeed, when the tint has been mixed with much water, have been laid in little drops or ponds, so that the pigment might crystallize hard at the edge."
+        },
+        {
+          "id": "121-121726-0000",
+          "seconds": 8.46,
+          "wall_ms": 101.26933304127306,
+          "text": "also a popular contrivance whereby lovemaking may be suspended but not stopped during the picnic season."
+        },
+        {
+          "id": "121-121726-0001",
+          "seconds": 5.925,
+          "wall_ms": 68.44458309933543,
+          "text": "Harangue The tiresome product of a tireless tongue."
+        },
+        {
+          "id": "121-121726-0002",
+          "seconds": 4.41,
+          "wall_ms": 52.61200002860278,
+          "text": "anger, pain. Painful to hear."
+        },
+        {
+          "id": "121-121726-0003",
+          "seconds": 6.755,
+          "wall_ms": 79.64025007095188,
+          "text": "Hay fever, a heart trouble caused by falling in love with a grass widow."
+        },
+        {
+          "id": "121-121726-0004",
+          "seconds": 4.02,
+          "wall_ms": 69.7467919671908,
+          "text": "Heaven A good place to be raised to."
+        },
+        {
+          "id": "1221-135766-0000",
+          "seconds": 12.435,
+          "wall_ms": 159.444542019628,
+          "text": "How strange it seemed to the sad woman, as she watched the growth and the beauty that became every day more brilliant, and the intelligence that threw its quivering sunshine over the tiny features of this child."
+        },
+        {
+          "id": "1221-135766-0001",
+          "seconds": 16.715,
+          "wall_ms": 205.95116598997265,
+          "text": "God, as a direct consequence of the sin which man thus punished, had given her a lovely child, whose place was on that same dishonored bosom, to connect her parent for ever with the race and descent of mortals, and to be finally a blessed soul in heaven."
+        },
+        {
+          "id": "1221-135766-0002",
+          "seconds": 4.825,
+          "wall_ms": 80.93754097353667,
+          "text": "Yet these thoughts affected Hester Prynne less with hope than apprehension."
+        },
+        {
+          "id": "1221-135766-0003",
+          "seconds": 13.72,
+          "wall_ms": 170.79795897006989,
+          "text": "The child had a native grace which does not invariably coexist with faultless beauty. Its attire, however simple, always impressed the beholder as if it were the very garb that precisely became it best."
+        },
+        {
+          "id": "1221-135766-0004",
+          "seconds": 7.44,
+          "wall_ms": 95.61708301771432,
+          "text": "This outward mutability indicated, and did not more than fairly express the various properties of her inner life."
+        },
+        {
+          "id": "1284-1180-0000",
+          "seconds": 8.12,
+          "wall_ms": 128.38929193094373,
+          "text": "He wore blue silk stockings, blue knee pants with gold buckles, a blue ruffled waist and a jacket of bright blue braided with gold."
+        },
+        {
+          "id": "1284-1180-0001",
+          "seconds": 7.755,
+          "wall_ms": 131.7952920217067,
+          "text": "His hat had a peaked crown and a flat brim, and around the brim was a row of tiny golden bells that tinkled when he moved."
+        },
+        {
+          "id": "1284-1180-0002",
+          "seconds": 7.68,
+          "wall_ms": 95.91929207090288,
+          "text": "Instead of shoes, the old man wore boots with turnover tops, and his blue coat had wide cuffs of gold braid."
+        },
+        {
+          "id": "1284-1180-0003",
+          "seconds": 4.835,
+          "wall_ms": 86.8873749859631,
+          "text": "For a long time he had wished to explore the beautiful land of Oz in which they lived,"
+        },
+        {
+          "id": "1284-1180-0004",
+          "seconds": 4.285,
+          "wall_ms": 78.64333293400705,
+          "text": "When they were outside, Unk simply latched the door and started up the path."
+        },
+        {
+          "id": "1320-122612-0000",
+          "seconds": 13.48,
+          "wall_ms": 181.37912498787045,
+          "text": "Since the period of our tale, the active spirit of the country has surrounded it with a belt of rich and thriving settlements, though none but the hunter or the savage is ever known even now to penetrate its wild recesses."
+        },
+        {
+          "id": "1320-122612-0001",
+          "seconds": 9.52,
+          "wall_ms": 134.96058399323374,
+          "text": "The dews were suffered to exhale, and the sun had dispersed the mists, and was shedding a strong and clear light in the forest when the travellers resumed their journey."
+        },
+        {
+          "id": "1320-122612-0002",
+          "seconds": 7.46,
+          "wall_ms": 99.95029109995812,
+          "text": "After proceeding a few miles, the progress of Hawkeye, who led the advance, became more deliberate and watchful."
+        },
+        {
+          "id": "1320-122612-0003",
+          "seconds": 9.865,
+          "wall_ms": 132.99045793246478,
+          "text": "He often stopped to examine the trees, nor did he cross a rivulet without attentively considering the quantity, the velocity, and the colour of its waters."
+        },
+        {
+          "id": "1320-122612-0004",
+          "seconds": 6.425,
+          "wall_ms": 110.83829205017537,
+          "text": "Distrusting his own judgment, his appeals to the opinion of Chingachkuk were frequent and earnest."
+        },
+        {
+          "id": "1580-141083-0000",
+          "seconds": 8.94,
+          "wall_ms": 124.02383401058614,
+          "text": "I will endeavor in my statement to avoid such terms as would serve to limit the events to any particular place, or give a clue as to the people concerned."
+        },
+        {
+          "id": "1580-141083-0001",
+          "seconds": 10.255,
+          "wall_ms": 141.14283304661512,
+          "text": "I had always known him to be restless in his manner, but on this particular occasion he was in such a state of uncontrollable agitation that it was clear something very unusual had occurred."
+        },
+        {
+          "id": "1580-141083-0002",
+          "seconds": 6.135,
+          "wall_ms": 93.00337499007583,
+          "text": "My friend's temper had not improved, since he had been deprived of the congenial surroundings of Baker Street."
+        },
+        {
+          "id": "1580-141083-0003",
+          "seconds": 6.55,
+          "wall_ms": 91.63366700522602,
+          "text": "Without his scrapbooks, his chemicals, and his homely untidiness, he was an uncomfortable man."
+        },
+        {
+          "id": "1580-141083-0004",
+          "seconds": 4.515,
+          "wall_ms": 73.22070898953825,
+          "text": "I had to read it over carefully, as the text must be absolutely correct."
+        },
+        {
+          "id": "1995-1826-0000",
+          "seconds": 9.485,
+          "wall_ms": 156.31399990525097,
+          "text": "In the debate between the senior societies, her defense of the fifteenth amendment had been not only a notable bit of reasoning, but delivered with real enthusiasm."
+        },
+        {
+          "id": "1995-1826-0001",
+          "seconds": 10.17,
+          "wall_ms": 159.16766703594476,
+          "text": "The South she had not thought of seriously, and yet, knowing of its delightful hospitality and mild climate, she was not averse to Charleston or New Orleans."
+        },
+        {
+          "id": "1995-1826-0002",
+          "seconds": 4.605,
+          "wall_ms": 79.25783295650035,
+          "text": "John Taylor, who had supported her through college, was interested in cotton."
+        },
+        {
+          "id": "1995-1826-0003",
+          "seconds": 3.09,
+          "wall_ms": 79.8153339419514,
+          "text": "Better go, he had counseled sententiously."
+        },
+        {
+          "id": "1995-1826-0004",
+          "seconds": 3.035,
+          "wall_ms": 55.03529205452651,
+          "text": "might learn something useful down there."
+        },
+        {
+          "id": "2094-142345-0000",
+          "seconds": 22.57,
+          "wall_ms": 265.202916925773,
+          "text": "It is a very fine old place, of red brick, softened by a pale, powdery lichen, which has dispersed itself with happy irregularity, so as to bring the red brick into terms of friendly companionship with the limestone ornaments surrounding the three gables, the windows, and the doorplace."
+        },
+        {
+          "id": "2094-142345-0001",
+          "seconds": 8.03,
+          "wall_ms": 102.50329098198563,
+          "text": "But the windows are patched with wooden panes, and the door, I think, is like the gate. It is never opened."
+        },
+        {
+          "id": "2094-142345-0002",
+          "seconds": 15.52,
+          "wall_ms": 223.08029106352478,
+          "text": "for it is a solid, heavy, handsome door, and must once have been in the habit of shutting with a sonorous bang behind the liveried lackey, who had just seen his master and mistress off the grounds, in a carriage and pair."
+        },
+        {
+          "id": "2094-142345-0003",
+          "seconds": 14.675,
+          "wall_ms": 231.84991593006998,
+          "text": "a large open fireplace with rusty dogs in it, and a bare boarded floor. At the far end fleeces of wool stacked up. In the middle of the floor some empty corn bags."
+        },
+        {
+          "id": "2094-142345-0004",
+          "seconds": 2.64,
+          "wall_ms": 60.40337507147342,
+          "text": "And what through the left hand window?"
+        },
+        {
+          "id": "2300-131720-0000",
+          "seconds": 5.08,
+          "wall_ms": 94.04800005722791,
+          "text": "The Paris plant, like that at the Crystal Palace, was a temporary exhibit."
+        },
+        {
+          "id": "2300-131720-0001",
+          "seconds": 14.63,
+          "wall_ms": 191.7239590547979,
+          "text": "The London plant was less temporary but not permanent, supplying before it was torn out no fewer than three thousand lamps in hotels, churches, stores, and dwellings in the vicinity of Holborn Viaduct."
+        },
+        {
+          "id": "2300-131720-0002",
+          "seconds": 13.115,
+          "wall_ms": 152.97187503892928,
+          "text": "There, Messiers Johnson and Hammer put into practice many of the ideas now standard in the art, and secured much useful data for the work in New York, of which the story has just been told."
+        },
+        {
+          "id": "2300-131720-0003",
+          "seconds": 16.76,
+          "wall_ms": 196.87400001566857,
+          "text": "The dynamo electric machine, though small, was robust, for under all the varying speeds of water power and the vicissitudes of the plant to which it belonged, it continued in active use until eighteen ninety-nine, seventeen years."
+        },
+        {
+          "id": "2300-131720-0004",
+          "seconds": 19.91,
+          "wall_ms": 225.85149994120002,
+          "text": "owing to his insistence on low pressure, direct current for use in densely populated districts as the only safe and truly universal, profitable way of delivering electrical energy to the consumers, Edison has been frequently spoken of as an opponent of the alternating current."
+        },
+        {
+          "id": "237-126133-0000",
+          "seconds": 13.29,
+          "wall_ms": 179.87245798576623,
+          "text": "here she would stay, comforted and soothed among the lovely plants and rich exotics, rejoicing the heart of old Turner the gardener, who since Polly's first rapturous entrance had taken her into his good graces for all time."
+        },
+        {
+          "id": "237-126133-0001",
+          "seconds": 11.965,
+          "wall_ms": 152.88199996575713,
+          "text": "Every chance she could steal after practice hours were over, and after the clamorous demands of the boys upon her time were fully satisfied, was seized to fly on the wings of the wind to the flowers."
+        },
+        {
+          "id": "237-126133-0002",
+          "seconds": 8.92,
+          "wall_ms": 132.60316604282707,
+          "text": "Then, dear, said Mrs. Whitney, you must be kinder to her than ever. Think what it would be for one of you to be away from home, even among friends."
+        },
+        {
+          "id": "237-126133-0003",
+          "seconds": 6.56,
+          "wall_ms": 115.27608300093561,
+          "text": "somehow, of all the days when the home feeling was the strongest, this day it seemed as if she could bear it no longer."
+        },
+        {
+          "id": "237-126133-0004",
+          "seconds": 3.295,
+          "wall_ms": 57.58174997754395,
+          "text": "if she could only see Phronsie for just one moment."
+        },
+        {
+          "id": "260-123286-0000",
+          "seconds": 7.04,
+          "wall_ms": 108.80516702309251,
+          "text": "Saturday, august fifteenth. The sea unbroken all round. No land in sight."
+        },
+        {
+          "id": "260-123286-0001",
+          "seconds": 3.07,
+          "wall_ms": 51.519458065740764,
+          "text": "The horizon seems extremely distant."
+        },
+        {
+          "id": "260-123286-0002",
+          "seconds": 9.985,
+          "wall_ms": 122.42433300707489,
+          "text": "All my danger and sufferings were needed to strike a spark of human feeling out of him. But now that I am well, his nature has resumed its sway."
+        },
+        {
+          "id": "260-123286-0003",
+          "seconds": 7.37,
+          "wall_ms": 95.35987500566989,
+          "text": "You seem anxious, my uncle, I said, seeing him continually with his glass to his eye. Anxious"
+        },
+        {
+          "id": "260-123286-0004",
+          "seconds": 3.465,
+          "wall_ms": 62.099959002807736,
+          "text": "One might be, with less reason than now,"
+        },
+        {
+          "id": "2830-3979-0000",
+          "seconds": 6.12,
+          "wall_ms": 106.73483402933925,
+          "text": "We want you to help us publish some leading work of Luther's for the general American market. Will you do it?"
+        },
+        {
+          "id": "2830-3979-0001",
+          "seconds": 16.1250625,
+          "wall_ms": 203.70004198048264,
+          "text": "The condition is that I will be permitted to make Luther talk American streamline him, so to speak, because you will never get people, whether in or outside the Lutheran Church, actually to read Luther unless we make him talk as he would talk today to Americans."
+        },
+        {
+          "id": "2830-3979-0002",
+          "seconds": 4.315,
+          "wall_ms": 64.0677500050515,
+          "text": "Let us begin with that, his commentary on Galatians."
+        },
+        {
+          "id": "2830-3979-0003",
+          "seconds": 8.085,
+          "wall_ms": 110.93999992590398,
+          "text": "The undertaking, which seemed so attractive when viewed as a literary task, proved the most difficult one and at times became oppressive."
+        },
+        {
+          "id": "2830-3979-0004",
+          "seconds": 1.945,
+          "wall_ms": 40.59495800174773,
+          "text": "It was written in Latin."
+        },
+        {
+          "id": "2961-960-0000",
+          "seconds": 27.18,
+          "wall_ms": 236.1340830102563,
+          "text": "he passes abruptly from persons to ideas and numbers, and from ideas and numbers to persons, from the heavens to men, from astronomy to physiology. He confuses, or rather, does not distinguish subject and object, first and final causes, and is dreaming of geometrical figures lost in a flux of sense."
+        },
+        {
+          "id": "2961-960-0001",
+          "seconds": 8.2500625,
+          "wall_ms": 86.72600006684661,
+          "text": "The influence which the Timaeus has exercised upon posterity is due partly to a misunderstanding,"
+        },
+        {
+          "id": "2961-960-0002",
+          "seconds": 15.35,
+          "wall_ms": 173.47791593056172,
+          "text": "In the supposed depths of this dialogue, the Neoplatonists found hidden meanings and connections with the Jewish and Christian scriptures, and out of them they elicited doctrines quite at variance with the spirit of Plato."
+        },
+        {
+          "id": "2961-960-0003",
+          "seconds": 17.315,
+          "wall_ms": 171.7218749690801,
+          "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him, his effort to realize and connect abstractions, was not understood by them at all."
+        },
+        {
+          "id": "2961-960-0004",
+          "seconds": 8.22,
+          "wall_ms": 101.15266591310501,
+          "text": "There is no danger of the modern commentators on the Timaeus falling into the absurdities of the Neoplatonists."
+        },
+        {
+          "id": "3570-5694-0000",
+          "seconds": 12.085,
+          "wall_ms": 166.14016704261303,
+          "text": "But already at a point in economic evolution far antedating the emergence of the lady, specialized consumption of goods as an evidence of pecuniary strength had begun to work out in a more or less elaborate system."
+        },
+        {
+          "id": "3570-5694-0001",
+          "seconds": 5.675,
+          "wall_ms": 92.74079196620733,
+          "text": "The utility of consumption as an evidence of wealth is to be classed as a derivative of growth."
+        },
+        {
+          "id": "3570-5694-0002",
+          "seconds": 10.615,
+          "wall_ms": 145.04329091869295,
+          "text": "Such consumption as falls through the women is merely incidental to their work. It is a means to their continued labour, and not a consumption directed to their own comfort and fullness of life."
+        },
+        {
+          "id": "3570-5694-0003",
+          "seconds": 19.025,
+          "wall_ms": 230.6842909893021,
+          "text": "With a further advance in culture, this taboo may change into simple custom of a more or less rigorous character, but whatever be the theoretical basis of the distinction which is maintained, whether it be a taboo or a larger conventionality, the features of the conventional scheme of consumption do not change easily."
+        },
+        {
+          "id": "3570-5694-0004",
+          "seconds": 5.33,
+          "wall_ms": 84.23662499990314,
+          "text": "In the nature of things, luxuries and the comforts of life belong to the leisure class."
+        },
+        {
+          "id": "3575-170457-0000",
+          "seconds": 8.23,
+          "wall_ms": 108.72537503018975,
+          "text": "And often has my mother said, While on her lap I laid my head, She feared for time I was not made, but for eternity."
+        },
+        {
+          "id": "3575-170457-0001",
+          "seconds": 2.99,
+          "wall_ms": 50.019499962218106,
+          "text": "Why are we to be denied each other's society?"
+        },
+        {
+          "id": "3575-170457-0002",
+          "seconds": 2.11,
+          "wall_ms": 41.891333064995706,
+          "text": "Why are we to be divided?"
+        },
+        {
+          "id": "3575-170457-0003",
+          "seconds": 7.595,
+          "wall_ms": 111.83879093732685,
+          "text": "Surely it must be because we're in danger of loving each other too well, of losing sight of the creator and idolatry of the creature,"
+        },
+        {
+          "id": "3575-170457-0004",
+          "seconds": 3.105,
+          "wall_ms": 56.203208048827946,
+          "text": "We used to dispute about politics and religion."
+        },
+        {
+          "id": "3729-6852-0000",
+          "seconds": 11.17,
+          "wall_ms": 129.2303749360144,
+          "text": "To celebrate the arrival of her son, Sylvia gave a splendid supper to which she had invited all her relatives, and it was a good opportunity for me to make their acquaintance."
+        },
+        {
+          "id": "3729-6852-0001",
+          "seconds": 12.195,
+          "wall_ms": 141.75470895133913,
+          "text": "Without saying it positively, she made me understand that being herself an illustrious member of the Republic of Letters, she was well aware that she was speaking to an insect."
+        },
+        {
+          "id": "3729-6852-0002",
+          "seconds": 8.78,
+          "wall_ms": 106.22733295895159,
+          "text": "In order to please her, I spoke to her of the Abbey Conti, and I had occasion to quote two lines of that profound writer."
+        },
+        {
+          "id": "3729-6852-0003",
+          "seconds": 21.48,
+          "wall_ms": 240.41125003714114,
+          "text": "Madame corrected me with a patronizing air for my pronunciation of the word skevre, which means divided, saying that it ought to be pronounced scura, and she added that I ought to be very glad to have learned so much on the first day of my arrival in Paris, telling me that it would be an important day in my life."
+        },
+        {
+          "id": "3729-6852-0004",
+          "seconds": 16.46,
+          "wall_ms": 175.65391690004617,
+          "text": "Her face was an enigma, for it inspired every one with the warmest sympathy. And yet, if you examined it attentively, there was not one beautiful feature. She could not be called handsome, but no one could have thought her ugly,"
+        },
+        {
+          "id": "4077-13751-0000",
+          "seconds": 9.56,
+          "wall_ms": 137.19520799349993,
+          "text": "On the sixth of april, eighteen thirty, the Church of Jesus Christ of Latter day Saints was formally organized and thus took on a legal existence."
+        },
+        {
+          "id": "4077-13751-0001",
+          "seconds": 8.745,
+          "wall_ms": 108.16491604782641,
+          "text": "its origin was small, a germ, an insignificant seed, hardly to be thought of as likely to arouse opposition."
+        },
+        {
+          "id": "4077-13751-0002",
+          "seconds": 9.75,
+          "wall_ms": 121.0601250641048,
+          "text": "Instead of but six regularly affiliated members, and at most two score of adherents, the organization numbers today many hundred thousand souls."
+        },
+        {
+          "id": "4077-13751-0003",
+          "seconds": 16.72,
+          "wall_ms": 191.21270801406354,
+          "text": "In place of a single hamlet, in the smallest corner of which the members could have congregated, there now are about seventy stakes of Zion and about seven hundred organized wards, each ward and stake with its full complement of officers and priesthood organizations."
+        },
+        {
+          "id": "4077-13751-0004",
+          "seconds": 16.68,
+          "wall_ms": 194.10345796495676,
+          "text": "The practice of gathering its proselytes into one place prevents the building up and strengthening of foreign branches, and inasmuch as extensive and strong organizations are seldom met with abroad, very erroneous ideas exist concerning the strength of the church."
+        },
+        {
+          "id": "4446-2271-0000",
+          "seconds": 3.495,
+          "wall_ms": 53.094959002919495,
+          "text": "Mainhall liked Alexander because he was an engineer."
+        },
+        {
+          "id": "4446-2271-0001",
+          "seconds": 6.35,
+          "wall_ms": 101.25654190778732,
+          "text": "He had preconceived ideas about everything, and his idea about Americans was that they should be engineers or mechanics."
+        },
+        {
+          "id": "4446-2271-0002",
+          "seconds": 2.385,
+          "wall_ms": 61.47045793477446,
+          "text": "It's tremendously well put on, too."
+        },
+        {
+          "id": "4446-2271-0003",
+          "seconds": 3.7,
+          "wall_ms": 81.09300001524389,
+          "text": "It's been on only two weeks, and I've been half a dozen times already."
+        },
+        {
+          "id": "4446-2271-0004",
+          "seconds": 12.01,
+          "wall_ms": 168.70416700839996,
+          "text": "D'ye know, Alexander, Mainhall looked with perplexity up into the top of the hansom and rubbed his pink cheek with his gloved finger. D'ye know I sometimes think of taking to criticism seriously myself."
+        },
+        {
+          "id": "4507-16021-0000",
+          "seconds": 2.59,
+          "wall_ms": 64.15454193484038,
+          "text": "CHAPTER IRIGING"
+        },
+        {
+          "id": "4507-16021-0001",
+          "seconds": 11.32,
+          "wall_ms": 105.32795905601233,
+          "text": "It engenders a whole world la pegre for which red theft and a hell la pegren for which red hunger."
+        },
+        {
+          "id": "4507-16021-0002",
+          "seconds": 3.185,
+          "wall_ms": 48.30483300611377,
+          "text": "Thus idleness is the mother."
+        },
+        {
+          "id": "4507-16021-0003",
+          "seconds": 4.895,
+          "wall_ms": 62.2083330526948,
+          "text": "She has a son, theft, and a daughter, hunger."
+        },
+        {
+          "id": "4507-16021-0004",
+          "seconds": 2.135,
+          "wall_ms": 39.717125007882714,
+          "text": "What is slang?"
+        },
+        {
+          "id": "4970-29093-0000",
+          "seconds": 3.03,
+          "wall_ms": 80.90124989394099,
+          "text": "You'll never dig it out of the Aster Library."
+        },
+        {
+          "id": "4970-29093-0001",
+          "seconds": 11.92,
+          "wall_ms": 137.06954196095467,
+          "text": "To the young American, here or elsewhere, the paths to fortune are innumerable, and all open. There is invitation in the air, and success in all his wide horizon."
+        },
+        {
+          "id": "4970-29093-0002",
+          "seconds": 10.73,
+          "wall_ms": 117.48304206412286,
+          "text": "he has no traditions to bind him or guide him, and his impulse is to break away from the occupation his father has followed, and make a new way for himself."
+        },
+        {
+          "id": "4970-29093-0003",
+          "seconds": 15.355,
+          "wall_ms": 190.2109159855172,
+          "text": "The modest fellow would have liked fame thrust upon him for some worthy achievement. It might be for a book, or for the skillful management of some great newspaper, or for some daring expedition like that of Lieutenant Strane or Doctor Cain."
+        },
+        {
+          "id": "4970-29093-0004",
+          "seconds": 3.75,
+          "wall_ms": 56.51933292392641,
+          "text": "He was unable to decide exactly what it should be."
+        },
+        {
+          "id": "4992-23283-0000",
+          "seconds": 6.645,
+          "wall_ms": 92.83095807768404,
+          "text": "But the more forgetfulness had then prevailed, the more powerful was the force of remembrance when she awoke."
+        },
+        {
+          "id": "4992-23283-0001",
+          "seconds": 2.71,
+          "wall_ms": 56.185459019616246,
+          "text": "Miss Milner's health is not good."
+        },
+        {
+          "id": "4992-23283-0002",
+          "seconds": 3.12,
+          "wall_ms": 61.265583033673465,
+          "text": "said Mrs. Horton a few minutes after."
+        },
+        {
+          "id": "4992-23283-0003",
+          "seconds": 4.645,
+          "wall_ms": 72.80941598583013,
+          "text": "So there is to me, added Sanford with a sarcastic sneer."
+        },
+        {
+          "id": "4992-23283-0004",
+          "seconds": 8.06,
+          "wall_ms": 111.92495899740607,
+          "text": "And yet you must own her behaviour has warranted them. Has it not been in this particular incoherent and unaccountable?"
+        },
+        {
+          "id": "5105-28233-0000",
+          "seconds": 4.51,
+          "wall_ms": 79.18441703077406,
+          "text": "Length of service fourteen years, three months, and five days."
+        },
+        {
+          "id": "5105-28233-0001",
+          "seconds": 4.49,
+          "wall_ms": 77.9362500179559,
+          "text": "He seemed born to please without being conscious of the power he possessed,"
+        },
+        {
+          "id": "5105-28233-0002",
+          "seconds": 8.285,
+          "wall_ms": 106.01624997798353,
+          "text": "It must be owned, and no one was more ready to confess it than himself, that his literary attainments were by no means of a high order."
+        },
+        {
+          "id": "5105-28233-0003",
+          "seconds": 14.81,
+          "wall_ms": 203.47475004382432,
+          "text": "We don't spin tops, is a favorite saying amongst artillery officers, indicating that they do not shirk their duty by frivolous pursuits. But it must be confessed that Servadac, being naturally idle, was very much given to spinning tops."
+        },
+        {
+          "id": "5105-28233-0004",
+          "seconds": 4.735,
+          "wall_ms": 89.25533294677734,
+          "text": "Once, in action, he was leading a detachment of infantry through an entrenchment,"
+        },
+        {
+          "id": "5142-33396-0000",
+          "seconds": 2.005,
+          "wall_ms": 59.711124980822206,
+          "text": "At another time Harold asked"
+        },
+        {
+          "id": "5142-33396-0001",
+          "seconds": 5.02,
+          "wall_ms": 99.60175002925098,
+          "text": "What is your country, Olaf? Have you always been a thrall? The thrall's eyes flashed."
+        },
+        {
+          "id": "5142-33396-0002",
+          "seconds": 3.67,
+          "wall_ms": 68.9675830071792,
+          "text": "Two hundred warriors feasted in his hall and followed him to battle."
+        },
+        {
+          "id": "5142-33396-0003",
+          "seconds": 3.47,
+          "wall_ms": 61.69220805168152,
+          "text": "The rest of you off a Viking. He had three ships."
+        },
+        {
+          "id": "5142-33396-0004",
+          "seconds": 2.215,
+          "wall_ms": 51.63574998732656,
+          "text": "These he gave to three of my brothers."
+        },
+        {
+          "id": "5639-40744-0000",
+          "seconds": 15.77,
+          "wall_ms": 197.059707948938,
+          "text": "Eleven o'clock had struck. It was a fine clear night. There were the only persons on the road, and they sauntered leisurely along, to avoid paying the price of fatigue for the recreation provided for the Toledans in the valley or on the banks of their river."
+        },
+        {
+          "id": "5639-40744-0001",
+          "seconds": 12.44,
+          "wall_ms": 172.6349579403177,
+          "text": "Secure, as he thought, in the careful administration of justice in that city, and the character of its well disposed inhabitants, the good Hidalgo was far from thinking that any disaster could befall his family."
+        },
+        {
+          "id": "5639-40744-0002",
+          "seconds": 8.91,
+          "wall_ms": 113.45479090232402,
+          "text": "Rodolfo and his companions, with their faces muffled in their cloaks, stared rudely and insolently at the mother, the daughter, and the servant maid."
+        },
+        {
+          "id": "5639-40744-0003",
+          "seconds": 27.12,
+          "wall_ms": 273.60650000628084,
+          "text": "In a moment he communicated his thoughts to his companions, and in the next moment they resolved to turn back and carry her off to please Rudolfo. For the rich who are open handed always find parasites ready to encourage their bad propensities, and thus to conceive this wicked design, to communicate it, approve it, resolve on ravishing Leocadia, and to carry that design into effect was the work of a moment."
+        },
+        {
+          "id": "5639-40744-0004",
+          "seconds": 12.475,
+          "wall_ms": 159.21612491365522,
+          "text": "They drew their swords, hid their faces in the flaps of their cloaks, turned back and soon came in front of the little party, who had not yet done giving thanks to God for their escape from those audacious men."
+        },
+        {
+          "id": "5683-32865-0000",
+          "seconds": 2.19,
+          "wall_ms": 46.422791900113225,
+          "text": "You know Captain Lake?"
+        },
+        {
+          "id": "5683-32865-0001",
+          "seconds": 2.58,
+          "wall_ms": 51.21662502642721,
+          "text": "said Lord Shelford, addressing me."
+        },
+        {
+          "id": "5683-32865-0002",
+          "seconds": 2.78,
+          "wall_ms": 48.629374941810966,
+          "text": "He had his hand upon Lake's shoulder."
+        },
+        {
+          "id": "5683-32865-0003",
+          "seconds": 3.51,
+          "wall_ms": 57.36520793288946,
+          "text": "They are cousins, you know. We are all cousins."
+        },
+        {
+          "id": "5683-32865-0004",
+          "seconds": 7.365,
+          "wall_ms": 89.87529203295708,
+          "text": "Whatever Lord Shelford said, Miss Brandon received it very graciously, and even with a momentary smile."
+        },
+        {
+          "id": "61-70968-0000",
+          "seconds": 4.905,
+          "wall_ms": 81.17087499704212,
+          "text": "he began a confused complaint against the wizard, who had vanished behind the curtain on the left."
+        },
+        {
+          "id": "61-70968-0001",
+          "seconds": 3.61,
+          "wall_ms": 62.99916701391339,
+          "text": "Give not so earnest a mind to these mummies, child,"
+        },
+        {
+          "id": "61-70968-0002",
+          "seconds": 2.97,
+          "wall_ms": 53.866959060542285,
+          "text": "a golden fortune, and a happy life?"
+        },
+        {
+          "id": "61-70968-0003",
+          "seconds": 4.315,
+          "wall_ms": 66.17891706991941,
+          "text": "he was like unto my father in a way, and yet was not my father."
+        },
+        {
+          "id": "61-70968-0004",
+          "seconds": 3.885,
+          "wall_ms": 62.114916974678636,
+          "text": "Also there was a stripling page who turned into a maid."
+        },
+        {
+          "id": "672-122797-0000",
+          "seconds": 4.07,
+          "wall_ms": 58.926334022544324,
+          "text": "Out in the woods stood a nice little fir tree."
+        },
+        {
+          "id": "672-122797-0001",
+          "seconds": 15.13,
+          "wall_ms": 141.07366593088955,
+          "text": "The place he had was a very good one. The sun shone on him. As to fresh air there was enough of that, and round him grew many large sized comrades, pines as well as firs."
+        },
+        {
+          "id": "672-122797-0002",
+          "seconds": 13.62,
+          "wall_ms": 143.17112497519702,
+          "text": "He did not think of the warm sun and of the fresh air. He did not care for the little cottage children that ran about and prattled when they were in the woods looking for wild strawberries."
+        },
+        {
+          "id": "672-122797-0003",
+          "seconds": 4.76,
+          "wall_ms": 59.88995800726116,
+          "text": "But this was what the tree could not bear to hear."
+        },
+        {
+          "id": "672-122797-0004",
+          "seconds": 10.25,
+          "wall_ms": 114.88383391406387,
+          "text": "In winter, when the snow lay glittering on the ground, a hare would often come leaping along, and jump right over the little tree,"
+        },
+        {
+          "id": "6829-68769-0000",
+          "seconds": 11.695,
+          "wall_ms": 176.32091604173183,
+          "text": "Kenneth and Beth refrained from telling the other girls or Uncle John of old Will Rogers' visit, but they got mister Watson in the library and questioned him closely about the penalty for forging a check."
+        },
+        {
+          "id": "6829-68769-0001",
+          "seconds": 9.315,
+          "wall_ms": 131.89820805564523,
+          "text": "It was a serious crime indeed, mister Watson told them, and Tom Gates bade fair to serve a lengthy term in the State's prison as a consequence of his rash act."
+        },
+        {
+          "id": "6829-68769-0002",
+          "seconds": 3.075,
+          "wall_ms": 59.60395897272974,
+          "text": "I can't see it in that light, said the old lawyer."
+        },
+        {
+          "id": "6829-68769-0003",
+          "seconds": 4.215,
+          "wall_ms": 75.16958296764642,
+          "text": "It was a deliberate theft from his employers to protect a girl he loved,"
+        },
+        {
+          "id": "6829-68769-0004",
+          "seconds": 7.145,
+          "wall_ms": 107.1587079204619,
+          "text": "but they could not have proven a case against Lucy, if she was innocent, and all their threats of arresting her were probably a mere bluff,"
+        },
+        {
+          "id": "6930-75918-0000",
+          "seconds": 3.505,
+          "wall_ms": 57.05045803915709,
+          "text": "Concord returned to its place amidst the tents."
+        },
+        {
+          "id": "6930-75918-0001",
+          "seconds": 14.225,
+          "wall_ms": 186.78574997466058,
+          "text": "the English forwarded to the French baskets of flowers, of which they had made a plentiful provision to greet the arrival of the young princess. The French, in return, invited the English to a supper, which was to be given the next day."
+        },
+        {
+          "id": "6930-75918-0002",
+          "seconds": 5.025,
+          "wall_ms": 76.10908302012831,
+          "text": "Congratulations were poured in upon the Princess everywhere during her journey."
+        },
+        {
+          "id": "6930-75918-0003",
+          "seconds": 23.315,
+          "wall_ms": 271.34962496347725,
+          "text": "from the respect paid her on all sides she seemed like a queen, and from the adoration with which she was treated by two or three, she appeared an object of worship. The Queen Mother gave the French the most affectionate reception. France was her native country, and she had suffered too much unhappiness in England for England to have made her forget France."
+        },
+        {
+          "id": "6930-75918-0004",
+          "seconds": 11.065,
+          "wall_ms": 134.14183305576444,
+          "text": "She taught her daughter, then, by her own affection for it, that love for a country where they had both been hospitably received, and where a brilliant future opened for them."
+        },
+        {
+          "id": "7021-79730-0000",
+          "seconds": 2.44,
+          "wall_ms": 44.26358302589506,
+          "text": "The three modes of management."
+        },
+        {
+          "id": "7021-79730-0001",
+          "seconds": 11.49,
+          "wall_ms": 107.65245801303536,
+          "text": "To suppose that the object of this work is to aid in effecting such a substitution as that, is entirely to mistake its nature and design."
+        },
+        {
+          "id": "7021-79730-0002",
+          "seconds": 2.69,
+          "wall_ms": 39.98258395586163,
+          "text": "by reason and affection."
+        },
+        {
+          "id": "7021-79730-0003",
+          "seconds": 32.88,
+          "wall_ms": 372.63012502808124,
+          "text": "As the chase drives away, Mary stands bewildered and perplexed on the doorstep, her mind in a tumult of excitement, in which hatred of the doctor, distrust, and suspicion of her mother, disappointment, vexation, and ill humor surge and swell among those delegate organizations on which the structure and development of the soul so closely depend, doing perhaps an irreparable injury"
+        },
+        {
+          "id": "7021-79730-0004",
+          "seconds": 17.945,
+          "wall_ms": 176.5295419609174,
+          "text": "The mother, as soon as the chase is so far turned that Mary can no longer watch the expression of her counce, goes away from the door with a smile of complacency and satisfaction on her face at the ingenuity and success of her little artifice."
+        },
+        {
+          "id": "7127-75946-0000",
+          "seconds": 19.475,
+          "wall_ms": 253.43666598200798,
+          "text": "At the conclusion of the banquet, which was served at five o'clock, the king entered his cabinet, where his tailors were awaiting him for the purpose of trying on the celebrated costume representing spring, which was the result of so much imagination, and had cost so many efforts of thought to the designers and ornament workers of the court."
+        },
+        {
+          "id": "7127-75946-0001",
+          "seconds": 2.17,
+          "wall_ms": 41.738291969522834,
+          "text": "Ah, very well."
+        },
+        {
+          "id": "7127-75946-0002",
+          "seconds": 13.19,
+          "wall_ms": 178.83533390704542,
+          "text": "Let him come in, then, said the king, and as if Colbert had been listening at the door for the purpose of keeping himself accurrent with the conversation, he entered as soon as the king had pronounced his name to the two courtiers."
+        },
+        {
+          "id": "7127-75946-0003",
+          "seconds": 4.81,
+          "wall_ms": 93.21012499276549,
+          "text": "Gentlemen, do your posts whereupon Saint Aignon and Villeroy took their leave."
+        },
+        {
+          "id": "7127-75946-0004",
+          "seconds": 4.49,
+          "wall_ms": 74.02316597290337,
+          "text": "Certainly, sire, but I must have money to do that. What?"
+        },
+        {
+          "id": "7176-88083-0000",
+          "seconds": 5.695,
+          "wall_ms": 94.30299990344793,
+          "text": "All about him was a tumult of bright and broken colour, scattered in broad splashes,"
+        },
+        {
+          "id": "7176-88083-0001",
+          "seconds": 16.575,
+          "wall_ms": 248.98399994708598,
+          "text": "The mergantser had a crested head of iridescent green black, a broad collar of lustrous white, black back, black and white wings, white belly, sides finely penciled in black and white, and a breast of rich chestnut red streaked with black."
+        },
+        {
+          "id": "7176-88083-0002",
+          "seconds": 7.51,
+          "wall_ms": 107.17104200739413,
+          "text": "His feet were red, his long, narrow beak, with its saw toothed edges and sharp hooked tip, was bright red."
+        },
+        {
+          "id": "7176-88083-0003",
+          "seconds": 7.6,
+          "wall_ms": 110.60175008606166,
+          "text": "but here he was at a terrible disadvantage as compared with the owls, hawks, and eagles. He had no rending claws,"
+        },
+        {
+          "id": "7176-88083-0004",
+          "seconds": 7.5,
+          "wall_ms": 111.73533299006522,
+          "text": "but suddenly, straight and swift as a diving cormorant, he shot down into the torrent and disappeared beneath the surface."
+        },
+        {
+          "id": "7729-102255-0000",
+          "seconds": 3.285,
+          "wall_ms": 65.36941602826118,
+          "text": "The bogus legislature numbered thirty-six members."
+        },
+        {
+          "id": "7729-102255-0001",
+          "seconds": 3.45,
+          "wall_ms": 71.39637495856732,
+          "text": "This was at the March election eighteen fifty five."
+        },
+        {
+          "id": "7729-102255-0002",
+          "seconds": 8.3,
+          "wall_ms": 122.69979098346084,
+          "text": "That summer's emigration, however, being mainly from the free states, greatly changed the relative strengths of the two parties."
+        },
+        {
+          "id": "7729-102255-0003",
+          "seconds": 19.8050625,
+          "wall_ms": 236.93133401684463,
+          "text": "For general service, therefore, requiring no special effort, the numerical strength of the factions was about equal, while on extraordinary occasions the two thousand border ruffian reserve lying a little farther back from the state line could at any time easily turn the scale."
+        },
+        {
+          "id": "7729-102255-0004",
+          "seconds": 20.155,
+          "wall_ms": 205.47133299987763,
+          "text": "The free state men had only their convictions, their intelligence, their courage, and the moral support of the North. The conspiracy had its secret combination, the territorial officials, the legislature, the bogus laws, the courts, the militia officers, the president, and the army."
+        },
+        {
+          "id": "8224-274381-0000",
+          "seconds": 17.74,
+          "wall_ms": 167.2009159810841,
+          "text": "Though thrown into prison for this enterprise and detained some time, he was not discouraged, but still continued by his countenance and protection to infuse spirit into the distressed royalists."
+        },
+        {
+          "id": "8224-274381-0001",
+          "seconds": 22.45,
+          "wall_ms": 205.47470799647272,
+          "text": "Among other persons of distinction who united themselves to him was Lord Napier of Murchiston, son of the famous inventor of the logarithms, the person to whom the title of a great man is more justly due than to any other whom his country ever produced."
+        },
+        {
+          "id": "8224-274381-0002",
+          "seconds": 24.54,
+          "wall_ms": 236.21354205533862,
+          "text": "While the former foretold that the Scottish Covenanters were secretly forming a union with the English Parliament and inculcated the necessity of preventing them by some vigorous undertaking, the latter still insisted that every such attempt would precipitate them into measures to which otherwise they were not perhaps inclined."
+        },
+        {
+          "id": "8224-274381-0003",
+          "seconds": 13.085,
+          "wall_ms": 148.10537500306964,
+          "text": "The king's ears were now open to Montrose's counsels, who proposed none but the boldest and most daring, agreeably to the desperate state of the royal cause in Scotland."
+        },
+        {
+          "id": "8224-274381-0004",
+          "seconds": 21.255,
+          "wall_ms": 248.3402080833912,
+          "text": "Five hundred men more, who had been levied by the covenanters, were persuaded to embrace the royal cause, and with this combined force, he hastened to attack Lord Elko, who lay at Perth with an army of six thousand men, assembled upon the first news of the Irish invasion."
+        },
+        {
+          "id": "8230-279154-0000",
+          "seconds": 8.805,
+          "wall_ms": 114.01570809539407,
+          "text": "The analysis of knowledge will occupy us until the end of the thirteenth lecture, and is the most difficult part of our whole enterprise."
+        },
+        {
+          "id": "8230-279154-0001",
+          "seconds": 17.38,
+          "wall_ms": 162.37658297177404,
+          "text": "What is called perception differs from sensation by the fact that the sensational ingredients bring up habitual associates, images and expectations of their usual correlates, all of which are subjectively indistinguishable from the sensation."
+        },
+        {
+          "id": "8230-279154-0002",
+          "seconds": 16.475,
+          "wall_ms": 185.01512508373708,
+          "text": "Whether or not this principle is liable to exceptions, everyone would agree that it has a broad measure of truth, though the word exactly might seem an overstatement, and it might seem more correct to say that ideas approximately represent impressions."
+        },
+        {
+          "id": "8230-279154-0003",
+          "seconds": 3.195,
+          "wall_ms": 54.90525008644909,
+          "text": "And what sort of evidence is logically possible?"
+        },
+        {
+          "id": "8230-279154-0004",
+          "seconds": 14.06,
+          "wall_ms": 163.20266702678055,
+          "text": "There is no logical impossibility in the hypothesis that the world sprang into being five minutes ago, exactly as it then was, with a population that remembered a wholly unreal past."
+        },
+        {
+          "id": "8455-210777-0000",
+          "seconds": 8.745,
+          "wall_ms": 135.3868329897523,
+          "text": "I remained there alone for many hours, but I must acknowledge that before I left the chambers I had gradually brought myself to look at the matter in another light."
+        },
+        {
+          "id": "8455-210777-0001",
+          "seconds": 18.125,
+          "wall_ms": 238.66316594649106,
+          "text": "Had Eva Cressweller not been good looking? Had Jack been still at college? Had Sir Kennington Oval remained in England? Had mister Bunnet and the barkeeper not succeeded in stopping my carriage on the hill? Should I have succeeded in arranging for the final departure of my old friend?"
+        },
+        {
+          "id": "8455-210777-0002",
+          "seconds": 6.24,
+          "wall_ms": 103.17904106341302,
+          "text": "On arriving at home at my own residence, I found that our salon was filled with a brilliant company,"
+        },
+        {
+          "id": "8455-210777-0003",
+          "seconds": 10.72,
+          "wall_ms": 135.3974579833448,
+          "text": "As I spoke, I made him a gracious bow, and I think I showed him by my mode of address that I did not bear any grudge as to my individual self."
+        },
+        {
+          "id": "8455-210777-0004",
+          "seconds": 7.84,
+          "wall_ms": 110.99929094780236,
+          "text": "I have come to your shores, mister President, with the purpose of seeing how things are progressing in this distant quarter of the world."
+        },
+        {
+          "id": "8463-287645-0000",
+          "seconds": 4.73,
+          "wall_ms": 69.48279193602502,
+          "text": "This was what did the mischief so far as the running away was concerned."
+        },
+        {
+          "id": "8463-287645-0001",
+          "seconds": 3.545,
+          "wall_ms": 54.76237507537007,
+          "text": "It is hardly necessary to say more of them here."
+        },
+        {
+          "id": "8463-287645-0002",
+          "seconds": 12.92,
+          "wall_ms": 183.24066698551178,
+          "text": "From the manner in which he expressed himself with regard to Robert Holland, no man in the whole range of his recollections will be longer remembered than he. His enthrallment while under Holland will hardly ever be forgotten."
+        },
+        {
+          "id": "8463-287645-0003",
+          "seconds": 7.905,
+          "wall_ms": 117.78820806648582,
+          "text": "Of this party Edward, a boy of seventeen, called forth much sympathy. He too was claimed by Holland."
+        },
+        {
+          "id": "8463-287645-0004",
+          "seconds": 6.1,
+          "wall_ms": 92.82258292660117,
+          "text": "John Wesley Combash, Jacob Taylor, and Thomas Edward Skinner."
+        },
+        {
+          "id": "8555-284447-0000",
+          "seconds": 9.605,
+          "wall_ms": 138.50054109934717,
+          "text": "Then he rushed downstairs into the courtyard, shouting loudly for his soldiers and threatening to patch everybody in his dominions if the sailorman was not recaptured."
+        },
+        {
+          "id": "8555-284447-0001",
+          "seconds": 8.61,
+          "wall_ms": 131.92845799494535,
+          "text": "Hold him fast, my men, and as soon as I've had my coffee and oatmeal, I'll take him to the room of the great knife and patch him."
+        },
+        {
+          "id": "8555-284447-0002",
+          "seconds": 8.025,
+          "wall_ms": 133.6060840403661,
+          "text": "I wouldn't mind a cup of coffee myself, said Campbell. I have had considerable exercise this morning, and I'm all ready for breakfast."
+        },
+        {
+          "id": "8555-284447-0003",
+          "seconds": 4.415,
+          "wall_ms": 71.7597909970209,
+          "text": "But Captain Bill made no such attempt, knowing it would be useless."
+        },
+        {
+          "id": "8555-284447-0004",
+          "seconds": 5.485,
+          "wall_ms": 93.51891605183482,
+          "text": "As soon as they entered the room of the great knife, the Booleroo gave a yell of disappointment."
+        },
+        {
+          "id": "908-157963-0000",
+          "seconds": 12.62,
+          "wall_ms": 152.11491601075977,
+          "text": "To fade away like morning beauty from her mortal day. Down by the river of Adonna her soft voice is heard, And thus her gentle lamentation falls like morning dew."
+        },
+        {
+          "id": "908-157963-0001",
+          "seconds": 2.885,
+          "wall_ms": 53.533207974396646,
+          "text": "O life of this our spring,"
+        },
+        {
+          "id": "908-157963-0002",
+          "seconds": 2.755,
+          "wall_ms": 52.170957904309034,
+          "text": "Why fades the lotus of the water?"
+        },
+        {
+          "id": "908-157963-0003",
+          "seconds": 3.08,
+          "wall_ms": 51.83145799674094,
+          "text": "Why fade these children of the spring"
+        },
+        {
+          "id": "908-157963-0004",
+          "seconds": 13.99,
+          "wall_ms": 161.49837500415742,
+          "text": "Thel is like a watery bow and like a parting cloud, like a reflection in a glass, like shadows in the water, like dreams of infants, like a smile upon an infant's face."
+        },
+        {
+          "id": "1089-134686-0000",
+          "seconds": 10.435,
+          "wall_ms": 134.0944159310311,
+          "text": "He hoped there would be stew for dinner, turnips and carrots and bruised potatoes, and fat mutton pieces to be ladled out in thick, peppered, flour fattened sauce,"
+        },
+        {
+          "id": "1089-134686-0001",
+          "seconds": 3.275,
+          "wall_ms": 51.4166250359267,
+          "text": "Stuff it into you, his belly counseled him."
+        },
+        {
+          "id": "1089-134686-0002",
+          "seconds": 6.625,
+          "wall_ms": 117.76404199190438,
+          "text": "After early nightfall the yellow lamps would light up here and there the squalid quarter of the brothels."
+        },
+        {
+          "id": "1089-134686-0003",
+          "seconds": 2.68,
+          "wall_ms": 63.26299998909235,
+          "text": "Hello, Bertie, any good in your mind?"
+        },
+        {
+          "id": "1089-134686-0004",
+          "seconds": 5.2150625,
+          "wall_ms": 94.13691703230143,
+          "text": "Number ten Fresh Nelly is waiting on you. Good night, husband."
+        },
+        {
+          "id": "1188-133604-0000",
+          "seconds": 10.725,
+          "wall_ms": 152.90162502788007,
+          "text": "You will find me continually speaking of four men Titian, Holbein, Turner, and Tinteret, in almost the same terms."
+        },
+        {
+          "id": "1188-133604-0001",
+          "seconds": 9.04,
+          "wall_ms": 123.51187504827976,
+          "text": "They unite every quality. And sometimes you will find me referring to them as colorists, sometimes as chiaroscurists."
+        },
+        {
+          "id": "1188-133604-0002",
+          "seconds": 17.96,
+          "wall_ms": 229.41516700666398,
+          "text": "By being studious of colour they are studious of division, and while the curoscurist devotes himself to the representation of degrees of force in one thing, unseparated light, the colourists have for their function the attainment of beauty by arrangement of the divisions of light."
+        },
+        {
+          "id": "1188-133604-0003",
+          "seconds": 12.61,
+          "wall_ms": 146.1362079717219,
+          "text": "my first and principal reason was that they enforced, beyond all resistance, on any student who might attempt to copy them, this method of laying portions of distinct hue side by side,"
+        },
+        {
+          "id": "1188-133604-0004",
+          "seconds": 10.65,
+          "wall_ms": 148.1577920494601,
+          "text": "Some of the touches indeed, when the tint has been mixed with much water, have been laid in little drops or ponds, so that the pigment might crystallize hard at the edge."
+        },
+        {
+          "id": "121-121726-0000",
+          "seconds": 8.46,
+          "wall_ms": 108.38558396790177,
+          "text": "also a popular contrivance whereby lovemaking may be suspended but not stopped during the picnic season."
+        },
+        {
+          "id": "121-121726-0001",
+          "seconds": 5.925,
+          "wall_ms": 79.14979197084904,
+          "text": "Harangue The tiresome product of a tireless tongue."
+        },
+        {
+          "id": "121-121726-0002",
+          "seconds": 4.41,
+          "wall_ms": 59.50920807663351,
+          "text": "anger, pain. Painful to hear."
+        },
+        {
+          "id": "121-121726-0003",
+          "seconds": 6.755,
+          "wall_ms": 89.31533293798566,
+          "text": "Hay fever, a heart trouble caused by falling in love with a grass widow."
+        },
+        {
+          "id": "121-121726-0004",
+          "seconds": 4.02,
+          "wall_ms": 65.78187504783273,
+          "text": "Heaven A good place to be raised to."
+        },
+        {
+          "id": "1221-135766-0000",
+          "seconds": 12.435,
+          "wall_ms": 206.46925002802163,
+          "text": "How strange it seemed to the sad woman, as she watched the growth and the beauty that became every day more brilliant, and the intelligence that threw its quivering sunshine over the tiny features of this child."
+        },
+        {
+          "id": "1221-135766-0001",
+          "seconds": 16.715,
+          "wall_ms": 197.42737500928342,
+          "text": "God, as a direct consequence of the sin which man thus punished, had given her a lovely child, whose place was on that same dishonored bosom, to connect her parent for ever with the race and descent of mortals, and to be finally a blessed soul in heaven."
+        },
+        {
+          "id": "1221-135766-0002",
+          "seconds": 4.825,
+          "wall_ms": 88.62879092339426,
+          "text": "Yet these thoughts affected Hester Prynne less with hope than apprehension."
+        },
+        {
+          "id": "1221-135766-0003",
+          "seconds": 13.72,
+          "wall_ms": 174.2384589742869,
+          "text": "The child had a native grace which does not invariably coexist with faultless beauty. Its attire, however simple, always impressed the beholder as if it were the very garb that precisely became it best."
+        },
+        {
+          "id": "1221-135766-0004",
+          "seconds": 7.44,
+          "wall_ms": 92.14304096531123,
+          "text": "This outward mutability indicated, and did not more than fairly express the various properties of her inner life."
+        },
+        {
+          "id": "1284-1180-0000",
+          "seconds": 8.12,
+          "wall_ms": 141.76866703201085,
+          "text": "He wore blue silk stockings, blue knee pants with gold buckles, a blue ruffled waist and a jacket of bright blue braided with gold."
+        },
+        {
+          "id": "1284-1180-0001",
+          "seconds": 7.755,
+          "wall_ms": 118.99412493221462,
+          "text": "His hat had a peaked crown and a flat brim, and around the brim was a row of tiny golden bells that tinkled when he moved."
+        },
+        {
+          "id": "1284-1180-0002",
+          "seconds": 7.68,
+          "wall_ms": 105.78087507747114,
+          "text": "Instead of shoes, the old man wore boots with turnover tops, and his blue coat had wide cuffs of gold braid."
+        },
+        {
+          "id": "1284-1180-0003",
+          "seconds": 4.835,
+          "wall_ms": 91.85262490063906,
+          "text": "For a long time he had wished to explore the beautiful land of Oz in which they lived,"
+        },
+        {
+          "id": "1284-1180-0004",
+          "seconds": 4.285,
+          "wall_ms": 78.95554101560265,
+          "text": "When they were outside, Unk simply latched the door and started up the path."
+        },
+        {
+          "id": "1320-122612-0000",
+          "seconds": 13.48,
+          "wall_ms": 180.39354193024337,
+          "text": "Since the period of our tale, the active spirit of the country has surrounded it with a belt of rich and thriving settlements, though none but the hunter or the savage is ever known even now to penetrate its wild recesses."
+        },
+        {
+          "id": "1320-122612-0001",
+          "seconds": 9.52,
+          "wall_ms": 132.3804169660434,
+          "text": "The dews were suffered to exhale, and the sun had dispersed the mists, and was shedding a strong and clear light in the forest when the travellers resumed their journey."
+        },
+        {
+          "id": "1320-122612-0002",
+          "seconds": 7.46,
+          "wall_ms": 108.25312498491257,
+          "text": "After proceeding a few miles, the progress of Hawkeye, who led the advance, became more deliberate and watchful."
+        },
+        {
+          "id": "1320-122612-0003",
+          "seconds": 9.865,
+          "wall_ms": 134.2251249589026,
+          "text": "He often stopped to examine the trees, nor did he cross a rivulet without attentively considering the quantity, the velocity, and the colour of its waters."
+        },
+        {
+          "id": "1320-122612-0004",
+          "seconds": 6.425,
+          "wall_ms": 104.72000006120652,
+          "text": "Distrusting his own judgment, his appeals to the opinion of Chingachkuk were frequent and earnest."
+        },
+        {
+          "id": "1580-141083-0000",
+          "seconds": 8.94,
+          "wall_ms": 106.45362501963973,
+          "text": "I will endeavor in my statement to avoid such terms as would serve to limit the events to any particular place, or give a clue as to the people concerned."
+        },
+        {
+          "id": "1580-141083-0001",
+          "seconds": 10.255,
+          "wall_ms": 101.0045000584796,
+          "text": "I had always known him to be restless in his manner, but on this particular occasion he was in such a state of uncontrollable agitation that it was clear something very unusual had occurred."
+        },
+        {
+          "id": "1580-141083-0002",
+          "seconds": 6.135,
+          "wall_ms": 64.67583298217505,
+          "text": "My friend's temper had not improved, since he had been deprived of the congenial surroundings of Baker Street."
+        },
+        {
+          "id": "1580-141083-0003",
+          "seconds": 6.55,
+          "wall_ms": 61.24770897440612,
+          "text": "Without his scrapbooks, his chemicals, and his homely untidiness, he was an uncomfortable man."
+        },
+        {
+          "id": "1580-141083-0004",
+          "seconds": 4.515,
+          "wall_ms": 50.23325001820922,
+          "text": "I had to read it over carefully, as the text must be absolutely correct."
+        },
+        {
+          "id": "1995-1826-0000",
+          "seconds": 9.485,
+          "wall_ms": 91.15512494463474,
+          "text": "In the debate between the senior societies, her defense of the fifteenth amendment had been not only a notable bit of reasoning, but delivered with real enthusiasm."
+        },
+        {
+          "id": "1995-1826-0001",
+          "seconds": 10.17,
+          "wall_ms": 82.19216600991786,
+          "text": "The South she had not thought of seriously, and yet, knowing of its delightful hospitality and mild climate, she was not averse to Charleston or New Orleans."
+        },
+        {
+          "id": "1995-1826-0002",
+          "seconds": 4.605,
+          "wall_ms": 47.78387502301484,
+          "text": "John Taylor, who had supported her through college, was interested in cotton."
+        },
+        {
+          "id": "1995-1826-0003",
+          "seconds": 3.09,
+          "wall_ms": 43.53066603653133,
+          "text": "Better go, he had counseled sententiously."
+        },
+        {
+          "id": "1995-1826-0004",
+          "seconds": 3.035,
+          "wall_ms": 33.92433293629438,
+          "text": "might learn something useful down there."
+        },
+        {
+          "id": "2094-142345-0000",
+          "seconds": 22.57,
+          "wall_ms": 148.9287499571219,
+          "text": "It is a very fine old place, of red brick, softened by a pale, powdery lichen, which has dispersed itself with happy irregularity, so as to bring the red brick into terms of friendly companionship with the limestone ornaments surrounding the three gables, the windows, and the doorplace."
+        },
+        {
+          "id": "2094-142345-0001",
+          "seconds": 8.03,
+          "wall_ms": 65.9010000526905,
+          "text": "But the windows are patched with wooden panes, and the door, I think, is like the gate. It is never opened."
+        },
+        {
+          "id": "2094-142345-0002",
+          "seconds": 15.52,
+          "wall_ms": 113.12137497588992,
+          "text": "for it is a solid, heavy, handsome door, and must once have been in the habit of shutting with a sonorous bang behind the liveried lackey, who had just seen his master and mistress off the grounds, in a carriage and pair."
+        },
+        {
+          "id": "2094-142345-0003",
+          "seconds": 14.675,
+          "wall_ms": 102.05416695680469,
+          "text": "a large open fireplace with rusty dogs in it, and a bare boarded floor. At the far end fleeces of wool stacked up. In the middle of the floor some empty corn bags."
+        },
+        {
+          "id": "2094-142345-0004",
+          "seconds": 2.64,
+          "wall_ms": 38.10704103671014,
+          "text": "And what through the left hand window?"
+        },
+        {
+          "id": "2300-131720-0000",
+          "seconds": 5.08,
+          "wall_ms": 56.130166980437934,
+          "text": "The Paris plant, like that at the Crystal Palace, was a temporary exhibit."
+        },
+        {
+          "id": "2300-131720-0001",
+          "seconds": 14.63,
+          "wall_ms": 102.47791698202491,
+          "text": "The London plant was less temporary but not permanent, supplying before it was torn out no fewer than three thousand lamps in hotels, churches, stores, and dwellings in the vicinity of Holborn Viaduct."
+        },
+        {
+          "id": "2300-131720-0002",
+          "seconds": 13.115,
+          "wall_ms": 88.15266704186797,
+          "text": "There, Messiers Johnson and Hammer put into practice many of the ideas now standard in the art, and secured much useful data for the work in New York, of which the story has just been told."
+        },
+        {
+          "id": "2300-131720-0003",
+          "seconds": 16.76,
+          "wall_ms": 107.21279098652303,
+          "text": "The dynamo electric machine, though small, was robust, for under all the varying speeds of water power and the vicissitudes of the plant to which it belonged, it continued in active use until eighteen ninety-nine, seventeen years."
+        },
+        {
+          "id": "2300-131720-0004",
+          "seconds": 19.91,
+          "wall_ms": 120.82770897541195,
+          "text": "owing to his insistence on low pressure, direct current for use in densely populated districts as the only safe and truly universal, profitable way of delivering electrical energy to the consumers, Edison has been frequently spoken of as an opponent of the alternating current."
+        },
+        {
+          "id": "237-126133-0000",
+          "seconds": 13.29,
+          "wall_ms": 107.78466705232859,
+          "text": "here she would stay, comforted and soothed among the lovely plants and rich exotics, rejoicing the heart of old Turner the gardener, who since Polly's first rapturous entrance had taken her into his good graces for all time."
+        },
+        {
+          "id": "237-126133-0001",
+          "seconds": 11.965,
+          "wall_ms": 91.05079201981425,
+          "text": "Every chance she could steal after practice hours were over, and after the clamorous demands of the boys upon her time were fully satisfied, was seized to fly on the wings of the wind to the flowers."
+        },
+        {
+          "id": "237-126133-0002",
+          "seconds": 8.92,
+          "wall_ms": 74.23287502024323,
+          "text": "Then, dear, said Mrs. Whitney, you must be kinder to her than ever. Think what it would be for one of you to be away from home, even among friends."
+        },
+        {
+          "id": "237-126133-0003",
+          "seconds": 6.56,
+          "wall_ms": 67.75283289607614,
+          "text": "somehow, of all the days when the home feeling was the strongest, this day it seemed as if she could bear it no longer."
+        },
+        {
+          "id": "237-126133-0004",
+          "seconds": 3.295,
+          "wall_ms": 37.48187504243106,
+          "text": "if she could only see Phronsie for just one moment."
+        },
+        {
+          "id": "260-123286-0000",
+          "seconds": 7.04,
+          "wall_ms": 59.34433394577354,
+          "text": "Saturday, august fifteenth. The sea unbroken all round. No land in sight."
+        },
+        {
+          "id": "260-123286-0001",
+          "seconds": 3.07,
+          "wall_ms": 36.87254199758172,
+          "text": "The horizon seems extremely distant."
+        },
+        {
+          "id": "260-123286-0002",
+          "seconds": 9.985,
+          "wall_ms": 75.69066702853888,
+          "text": "All my danger and sufferings were needed to strike a spark of human feeling out of him. But now that I am well, his nature has resumed its sway."
+        },
+        {
+          "id": "260-123286-0003",
+          "seconds": 7.37,
+          "wall_ms": 59.80079201981425,
+          "text": "You seem anxious, my uncle, I said, seeing him continually with his glass to his eye. Anxious"
+        },
+        {
+          "id": "260-123286-0004",
+          "seconds": 3.465,
+          "wall_ms": 41.81787499692291,
+          "text": "One might be, with less reason than now,"
+        },
+        {
+          "id": "2830-3979-0000",
+          "seconds": 6.12,
+          "wall_ms": 65.20058296155185,
+          "text": "We want you to help us publish some leading work of Luther's for the general American market. Will you do it?"
+        },
+        {
+          "id": "2830-3979-0001",
+          "seconds": 16.1250625,
+          "wall_ms": 141.73050003591925,
+          "text": "The condition is that I will be permitted to make Luther talk American streamline him, so to speak, because you will never get people, whether in or outside the Lutheran Church, actually to read Luther unless we make him talk as he would talk today to Americans."
+        },
+        {
+          "id": "2830-3979-0002",
+          "seconds": 4.315,
+          "wall_ms": 49.14795805234462,
+          "text": "Let us begin with that, his commentary on Galatians."
+        },
+        {
+          "id": "2830-3979-0003",
+          "seconds": 8.085,
+          "wall_ms": 77.28879200294614,
+          "text": "The undertaking, which seemed so attractive when viewed as a literary task, proved the most difficult one and at times became oppressive."
+        }
+      ]
+    }
+  ],
+  "boundary": "Warm Engine.transcribe on preverified public WAV files, sustained serial throughput; rootless mactop whole-system counters. Excludes model load, microphone, IPC, UI and insertion.",
+  "limitations": [
+    "One block per model, randomized fixed order, one shared Mac; no thermal or other-process isolation.",
+    "OS/private-API power estimates, not a calibrated wall meter or battery test; includes observer and all other system activity.",
+    "Interior sample means times phase duration estimate joules; collection is sparse and transitions are excluded by 3 seconds.",
+    "Idle-subtracted energy is signed and can be confounded by idle drift; do not rank products from this exploratory run.",
+    "Maximum-throughput repeated public read speech differs from human-paced dictation. No consumer app comparison."
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "status": "passed-research-helper-inventory-arguments-and-file-failure-isolation",
+  "binary_sha256": "26d5e6075591605779bc31d42784ca751d520ab5d62571f369f90a3d8f2e6359",
+  "helper_sha256": "995e3c8d1024d9d2ef728df5d5bf31b5cb3a01568e0250578ca6c65c151538cb",
+  "harness_sha256": "9104dcbc632ac97ab721d67c08d2e8aac27e0a721497bc357ac41c513df87682",
+  "subprocesses": 5,
+  "file_requests": 4,
+  "successful_recognitions": 2,
+  "file_failures_retained": 2,
+  "calls": [
+    {
+      "arguments": [
+        "inventory"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"available\":true,\"installed_locales\":[\"en_AU\",\"en_CA\",\"en_GB\",\"en_IE\",\"en_IN\",\"en_NZ\",\"en_SG\",\"en_US\",\"en_ZA\",\"zh_CN\",\"zh_TW\"],\"maximum_reserved_locales\":5,\"os\":\"Version 26.6.2 (Build 25G83)\",\"reserved_locales\":[\"en_US\"],\"supported_locales\":[\"de_AT\",\"de_CH\",\"de_DE\",\"en_AU\",\"en_CA\",\"en_GB\",\"en_IE\",\"en_IN\",\"en_NZ\",\"en_SG\",\"en_US\",\"en_ZA\",\"es_CL\",\"es_ES\",\"es_MX\",\"es_US\",\"fr_BE\",\"fr_CA\",\"fr_CH\",\"fr_FR\",\"it_CH\",\"it_IT\",\"ja_JP\",\"ko_KR\",\"pt_BR\",\"pt_PT\",\"yue_CN\",\"zh_CN\",\"zh_HK\",\"zh_TW\"]}\n",
+      "stderr": ""
+    },
+    {
+      "arguments": [],
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "Usage: apple-speech inventory | serve <locale>\n"
+    },
+    {
+      "arguments": [
+        "serve",
+        "zz_ZZ"
+      ],
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "Error Domain=OSprAppleSpeech Code=1 \"Device or requested locale is unsupported.\" UserInfo={NSLocalizedDescription=Device or requested locale is unsupported.}\n"
+    },
+    {
+      "arguments": [
+        "serve",
+        "en_US"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"boundary\":\"Research file API; final results only, process-lifetime retention. Assets managed by the system; compute units\\/model revision are not exposed. Preparation may download models; no microphone or insertion.\",\"event\":\"ready\",\"inventory\":{\"available\":true,\"installed_locales\":[\"en_AU\",\"en_CA\",\"en_GB\",\"en_IE\",\"en_IN\",\"en_NZ\",\"en_SG\",\"en_US\",\"en_ZA\",\"zh_CN\",\"zh_TW\"],\"maximum_reserved_locales\":5,\"os\":\"Version 26.6.2 (Build 25G83)\",\"reserved_locales\":[\"en_US\"],\"supported_locales\":[\"de_AT\",\"de_CH\",\"de_DE\",\"en_AU\",\"en_CA\",\"en_GB\",\"en_IE\",\"en_IN\",\"en_NZ\",\"en_SG\",\"en_US\",\"en_ZA\",\"es_CL\",\"es_ES\",\"es_MX\",\"es_US\",\"fr_BE\",\"fr_CA\",\"fr_CH\",\"fr_FR\",\"it_CH\",\"it_IT\",\"ja_JP\",\"ko_KR\",\"pt_BR\",\"pt_PT\",\"yue_CN\",\"zh_CN\",\"zh_HK\",\"zh_TW\"]},\"locale\":\"en_US\",\"preparation\":{\"asset_prepare_ms\":17.153625143691897,\"installation_request\":true,\"status_after\":\"installed\",\"status_before\":\"installed\"}}\n{\"analyzed_through\":5.8549375000000001,\"audio_seconds\":5.8550000000000004,\"id\":\"before\",\"native_wall_ms\":172.06933349370956,\"ok\":true,\"segments\":[{\"end\":5.8550000000000004,\"final\":true,\"start\":0,\"text\":\"Mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.\",\"timed_runs\":[{\"end\":0.78000000000000003,\"start\":0,\"text\":\"Mister\"},{\"end\":1.3799999999999999,\"start\":0.78000000000000003,\"text\":\" Quilter\"},{\"end\":1.5,\"start\":1.3799999999999999,\"text\":\" is\"},{\"end\":1.6200000000000001,\"start\":1.5,\"text\":\" the\"},{\"end\":2.1000000000000001,\"start\":1.6200000000000001,\"text\":\" apostle\"},{\"end\":2.2799999999999998,\"start\":2.1000000000000001,\"text\":\" of\"},{\"end\":2.3999999999999999,\"start\":2.2799999999999998,\"text\":\" the\"},{\"end\":2.5800000000000001,\"start\":2.3999999999999999,\"text\":\" middle\"},{\"end\":3.3599999999999999,\"start\":2.5800000000000001,\"text\":\" classes,\"},{\"end\":3.4199999999999999,\"start\":3.3599999999999999,\"text\":\" and\"},{\"end\":3.6000000000000001,\"start\":3.4199999999999999,\"text\":\" we\"},{\"end\":3.8999999999999999,\"start\":3.6000000000000001,\"text\":\" are\"},{\"end\":4.0800000000000001,\"start\":3.8999999999999999,\"text\":\" glad\"},{\"end\":4.2599999999999998,\"start\":4.0800000000000001,\"text\":\" to\"},{\"end\":4.4400000000000004,\"start\":4.2599999999999998,\"text\":\" welcome\"},{\"end\":4.7999999999999998,\"start\":4.4400000000000004,\"text\":\" his\"},{\"end\":5.8550000000000004,\"start\":4.7999999999999998,\"text\":\" gospel.\"}]}],\"source_frames\":93680,\"source_sample_rate\":16000,\"text\":\"Mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.\"}\n{\"error\":\"The operation couldn\u2019t be completed. (com.apple.coreaudio.avfaudio error 2003334207.)\",\"id\":\"missing\",\"ok\":false}\n{\"error\":\"The operation couldn\u2019t be completed. (com.apple.coreaudio.avfaudio error 1954115647.)\",\"id\":\"corrupt\",\"ok\":false}\n{\"analyzed_through\":5.8549375000000001,\"audio_seconds\":5.8550000000000004,\"id\":\"after\",\"native_wall_ms\":110.33016676083207,\"ok\":true,\"segments\":[{\"end\":5.8550000000000004,\"final\":true,\"start\":0,\"text\":\"Mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.\",\"timed_runs\":[{\"end\":0.78000000000000003,\"start\":0,\"text\":\"Mister\"},{\"end\":1.3799999999999999,\"start\":0.78000000000000003,\"text\":\" Quilter\"},{\"end\":1.5,\"start\":1.3799999999999999,\"text\":\" is\"},{\"end\":1.6200000000000001,\"start\":1.5,\"text\":\" the\"},{\"end\":2.1000000000000001,\"start\":1.6200000000000001,\"text\":\" apostle\"},{\"end\":2.2799999999999998,\"start\":2.1000000000000001,\"text\":\" of\"},{\"end\":2.3999999999999999,\"start\":2.2799999999999998,\"text\":\" the\"},{\"end\":2.5800000000000001,\"start\":2.3999999999999999,\"text\":\" middle\"},{\"end\":3.3599999999999999,\"start\":2.5800000000000001,\"text\":\" classes,\"},{\"end\":3.4199999999999999,\"start\":3.3599999999999999,\"text\":\" and\"},{\"end\":3.6000000000000001,\"start\":3.4199999999999999,\"text\":\" we\"},{\"end\":3.8999999999999999,\"start\":3.6000000000000001,\"text\":\" are\"},{\"end\":4.0800000000000001,\"start\":3.8999999999999999,\"text\":\" glad\"},{\"end\":4.2599999999999998,\"start\":4.0800000000000001,\"text\":\" to\"},{\"end\":4.4400000000000004,\"start\":4.2599999999999998,\"text\":\" welcome\"},{\"end\":4.7999999999999998,\"start\":4.4400000000000004,\"text\":\" his\"},{\"end\":5.8550000000000004,\"start\":4.7999999999999998,\"text\":\" gospel.\"}]}],\"source_frames\":93680,\"source_sample_rate\":16000,\"text\":\"Mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.\"}\n",
+      "stderr": ""
+    },
+    {
+      "arguments": [
+        "serve",
+        "en_US"
+      ],
+      "exit_code": 1,
+      "stdout": "{\"boundary\":\"Research file API; final results only, process-lifetime retention. Assets managed by the system; compute units\\/model revision are not exposed. Preparation may download models; no microphone or insertion.\",\"event\":\"ready\",\"inventory\":{\"available\":true,\"installed_locales\":[\"en_AU\",\"en_CA\",\"en_GB\",\"en_IE\",\"en_IN\",\"en_NZ\",\"en_SG\",\"en_US\",\"en_ZA\",\"zh_CN\",\"zh_TW\"],\"maximum_reserved_locales\":5,\"os\":\"Version 26.6.2 (Build 25G83)\",\"reserved_locales\":[\"en_US\"],\"supported_locales\":[\"de_AT\",\"de_CH\",\"de_DE\",\"en_AU\",\"en_CA\",\"en_GB\",\"en_IE\",\"en_IN\",\"en_NZ\",\"en_SG\",\"en_US\",\"en_ZA\",\"es_CL\",\"es_ES\",\"es_MX\",\"es_US\",\"fr_BE\",\"fr_CA\",\"fr_CH\",\"fr_FR\",\"it_CH\",\"it_IT\",\"ja_JP\",\"ko_KR\",\"pt_BR\",\"pt_PT\",\"yue_CN\",\"zh_CN\",\"zh_HK\",\"zh_TW\"]},\"locale\":\"en_US\",\"preparation\":{\"asset_prepare_ms\":11.988250073045492,\"installation_request\":true,\"status_after\":\"installed\",\"status_before\":\"installed\"}}\n",
+      "stderr": "DecodingError.dataCorrupted: Data was corrupted. Debug description: The given data was not valid JSON.. Underlying error: Error Domain=NSCocoaErrorDomain Code=3840 \"Unexpected character 'n' around line 1, column 3.\" UserInfo={NSDebugDescription=Unexpected character 'n' around line 1, column 3., NSJSONSerializationErrorIndex=2}\n"
+    }
+  ],
+  "boundary": "Inventory, usage, unsupported locale, missing/corrupt file isolation, same-process subsequent recognition and malformed protocol exit. Models prepared through the OS; no UI, microphone, hardware cancellation or app-route acceptance."
+}

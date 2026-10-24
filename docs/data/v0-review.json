@@ -1,0 +1,436 @@
+{
+  "audited_at": "2026-10-24T14:08:07.748399+00:00",
+  "status": "not-complete-development-preview",
+  "review_source_commit": "728ef7624a58db3fd7b95de90842f3668a5e8249",
+  "base": "main",
+  "component_prs": [
+    {
+      "baseRefName": "codex/gemini-refinement",
+      "headRefName": "codex/azure-refinement",
+      "headRefOid": "3e5b48935cfcb872850506a9227756c23706ad56",
+      "isDraft": true,
+      "number": 23,
+      "title": "Add Azure v1 BYOK text refinement and deployment-aware file CLI",
+      "url": "https://github.com/vibhusapra/OSpr/pull/23"
+    },
+    {
+      "baseRefName": "codex/insertion-delivery-guard",
+      "headRefName": "codex/gemini-refinement",
+      "headRefOid": "912585a6cb4308ae805c20585804fcb40453342c",
+      "isDraft": true,
+      "number": 22,
+      "title": "Add native Gemini BYOK text refinement and guarded file CLI",
+      "url": "https://github.com/vibhusapra/OSpr/pull/22"
+    },
+    {
+      "baseRefName": "codex/insertion-self-test",
+      "headRefName": "codex/insertion-delivery-guard",
+      "headRefOid": "aac426b053a21229180e520eae6ee0decc54f23a",
+      "isDraft": true,
+      "number": 21,
+      "title": "Avoid a second paste after unacknowledged Accessibility insertion",
+      "url": "https://github.com/vibhusapra/OSpr/pull/21"
+    },
+    {
+      "baseRefName": "codex/resampling-quality",
+      "headRefName": "codex/insertion-self-test",
+      "headRefOid": "5cbb12a83df6238759441d43aa09f7d2b95510c8",
+      "isDraft": true,
+      "number": 20,
+      "title": "Add an insertion setup self-test without microphone or model",
+      "url": "https://github.com/vibhusapra/OSpr/pull/20"
+    },
+    {
+      "baseRefName": "codex/meeting-live-preview",
+      "headRefName": "codex/resampling-quality",
+      "headRefOid": "d69932178821722021116b47af3ecae328857d2e",
+      "isDraft": true,
+      "number": 19,
+      "title": "Retain native conversion defaults after quality and cost evaluation",
+      "url": "https://github.com/vibhusapra/OSpr/pull/19"
+    },
+    {
+      "baseRefName": "codex/apple-speech-eval",
+      "headRefName": "codex/meeting-live-preview",
+      "headRefOid": "edf7fd33fb683a9ac77685b33a60caf39763f9e7",
+      "isDraft": true,
+      "number": 18,
+      "title": "Add opt-in live meeting drafts with complete final transcription",
+      "url": "https://github.com/vibhusapra/OSpr/pull/18"
+    },
+    {
+      "baseRefName": "codex/qwen-feature-reuse",
+      "headRefName": "codex/apple-speech-eval",
+      "headRefOid": "b6f59cd077f2625ef3ac130416dae76db2c35b55",
+      "isDraft": true,
+      "number": 17,
+      "title": "Benchmark Apple speech and record native TextEdit delivery",
+      "url": "https://github.com/vibhusapra/OSpr/pull/17"
+    },
+    {
+      "baseRefName": "codex/runtime-footprint",
+      "headRefName": "codex/qwen-feature-reuse",
+      "headRefOid": "7df9dd8fdd2754f919940ad49dafefaaaad23acd",
+      "isDraft": true,
+      "number": 16,
+      "title": "Keep Qwen prompt-count reuse opt-in after failed latency gates",
+      "url": "https://github.com/vibhusapra/OSpr/pull/16"
+    },
+    {
+      "baseRefName": "codex/stream-normalization",
+      "headRefName": "codex/runtime-footprint",
+      "headRefOid": "6c9d50c99f5e87ffa3d3e8351c3a073caec73277",
+      "isDraft": true,
+      "number": 15,
+      "title": "Measure runtime footprint and isolate Qwen frontend sensitivity",
+      "url": "https://github.com/vibhusapra/OSpr/pull/15"
+    },
+    {
+      "baseRefName": "codex/preview-cadence",
+      "headRefName": "codex/stream-normalization",
+      "headRefOid": "523d009ba42deb0decf8de43ca2928f848a41972",
+      "isDraft": true,
+      "number": 14,
+      "title": "Preserve native microphone PCM across streaming packets",
+      "url": "https://github.com/vibhusapra/OSpr/pull/14"
+    },
+    {
+      "baseRefName": "codex/voxtral-streaming-eval",
+      "headRefName": "codex/preview-cadence",
+      "headRefOid": "9e6dd19275081b6afc19960a8513928d699f7763",
+      "isDraft": true,
+      "number": 13,
+      "title": "Keep preview cadence steady and surface failed previews",
+      "url": "https://github.com/vibhusapra/OSpr/pull/13"
+    },
+    {
+      "baseRefName": "codex/full-audio-defaults",
+      "headRefName": "codex/voxtral-streaming-eval",
+      "headRefOid": "fc4db8a947f5f1b287d12acffc8e4f73ea6025bb",
+      "isDraft": true,
+      "number": 12,
+      "title": "Evaluate pinned Voxtral Realtime full-file and incremental paths",
+      "url": "https://github.com/vibhusapra/OSpr/pull/12"
+    },
+    {
+      "baseRefName": "codex/asr-timing-bounds",
+      "headRefName": "codex/full-audio-defaults",
+      "headRefOid": "fbc9114a49f747bfc1f53fa51fe656e22a40d754",
+      "isDraft": true,
+      "number": 11,
+      "title": "Preserve full audio by default and retain empty-result recovery",
+      "url": "https://github.com/vibhusapra/OSpr/pull/11"
+    },
+    {
+      "baseRefName": "codex/neural-edges",
+      "headRefName": "codex/asr-timing-bounds",
+      "headRefOid": "54d6b8cf325fc0019a41e46e3a992cbe3932c3ec",
+      "isDraft": true,
+      "number": 10,
+      "title": "Bound recognizer timestamps to the analyzed audio range",
+      "url": "https://github.com/vibhusapra/OSpr/pull/10"
+    },
+    {
+      "baseRefName": "codex/neural-capture",
+      "headRefName": "codex/neural-edges",
+      "headRefOid": "c4dc8a5ac1e0cc7a4059d08b05364c3471e33cb8",
+      "isDraft": true,
+      "number": 9,
+      "title": "Add neural edge trimming with sample verification and recovery",
+      "url": "https://github.com/vibhusapra/OSpr/pull/9"
+    },
+    {
+      "baseRefName": "codex/neural-endpointing",
+      "headRefName": "codex/neural-capture",
+      "headRefOid": "12361fd1d24b74aab35063e375934e280d93be9b",
+      "isDraft": true,
+      "number": 8,
+      "title": "Add opt-in neural auto finish and verified model preparation",
+      "url": "https://github.com/vibhusapra/OSpr/pull/8"
+    },
+    {
+      "baseRefName": "codex/context-profiles",
+      "headRefName": "codex/neural-endpointing",
+      "headRefOid": "8f9c27e9d1699ee012a6124a7e784cd85b1af7dd",
+      "isDraft": true,
+      "number": 7,
+      "title": "Evaluate native speech detection and preserve complete replay audio",
+      "url": "https://github.com/vibhusapra/OSpr/pull/7"
+    },
+    {
+      "baseRefName": "codex/refinement-fidelity",
+      "headRefName": "codex/context-profiles",
+      "headRefOid": "bac83046253aa10939adf6d63a48fb9645d706ce",
+      "isDraft": true,
+      "number": 6,
+      "title": "Add app and site profiles with per-take dictation settings",
+      "url": "https://github.com/vibhusapra/OSpr/pull/6"
+    },
+    {
+      "baseRefName": "codex/mouse-dictation",
+      "headRefName": "codex/refinement-fidelity",
+      "headRefOid": "d91410400d53537cac5ba50de1a28e967d4ae558",
+      "isDraft": true,
+      "number": 5,
+      "title": "Preserve dictated commands with explicit local refinement tasks",
+      "url": "https://github.com/vibhusapra/OSpr/pull/5"
+    },
+    {
+      "baseRefName": "codex/soniox-byok",
+      "headRefName": "codex/mouse-dictation",
+      "headRefOid": "3e964bd8e99ca95538ddcd90459c86b65bc2a277",
+      "isDraft": true,
+      "number": 4,
+      "title": "Add mouse-start dictation countdown with late destination capture",
+      "url": "https://github.com/vibhusapra/OSpr/pull/4"
+    },
+    {
+      "baseRefName": "codex/indexed-history",
+      "headRefName": "codex/soniox-byok",
+      "headRefOid": "96df6d8291bca275e3ee90b9dee22700586406c0",
+      "isDraft": true,
+      "number": 3,
+      "title": "Add native Soniox async BYOK with explicit job cleanup",
+      "url": "https://github.com/vibhusapra/OSpr/pull/3"
+    },
+    {
+      "baseRefName": "codex/ospr-v0",
+      "headRefName": "codex/indexed-history",
+      "headRefOid": "716968e1142c7a7537d6bbbbde759ab0ba2bb72e",
+      "isDraft": true,
+      "number": 2,
+      "title": "Add paged SQLite history, verified migration and session-only privacy",
+      "url": "https://github.com/vibhusapra/OSpr/pull/2"
+    },
+    {
+      "baseRefName": "main",
+      "headRefName": "codex/ospr-v0",
+      "headRefOid": "7bc26a77b55587f517b30be612173f067a05e9b9",
+      "isDraft": true,
+      "number": 1,
+      "title": "Build OSpr v0 native dictation, local MLX engines, and research benchmark suite",
+      "url": "https://github.com/vibhusapra/OSpr/pull/1"
+    }
+  ],
+  "component_head_ancestry_verified": true,
+  "component_count": 23,
+  "app_backend_dependency_sources_unchanged_since_candidate": true,
+  "application_commit": "728ef7624a58db3fd7b95de90842f3668a5e8249",
+  "application_source_sha256": "f01b7510aa4af61fc2ce86f8a7a5cd9a67bf4d325105c81d064aa54450d1a671",
+  "candidate_package_receipt": "benchmarks/results/v0-integration-package.json",
+  "candidate_archive_sha256": "9cbf06f32b858355f491234332b348018053a2694246dcbaf93ab12e791b9cd3",
+  "research": {
+    "as_of": "2026-10-22",
+    "offerings": 29,
+    "all_have_plans_features_differences_sources": true
+  },
+  "ledger": {
+    "items": 49,
+    "statuses": {
+      "implemented": 12,
+      "verified": 14,
+      "partial": 8,
+      "research only": 1,
+      "contract-tested": 5,
+      "experimental": 6,
+      "deferred": 2,
+      "unproven": 1
+    }
+  },
+  "optimization_tracks": [
+    {
+      "name": "Resident ASR + refiner",
+      "state": "Implemented",
+      "implementation": "Keep one ASR and one optional text model loaded; avoid process and model startup on each turn.",
+      "measurement": "Cold vs warm p50/p95 and RSS; separate first download/JIT.",
+      "evidence": "Native CLI, engine benchmark and paired fresh-process priming"
+    },
+    {
+      "name": "Continuous audio normalization",
+      "state": "Implemented / evaluated",
+      "implementation": "Retain native-rate state and normalize once per ASR path to float32 16 kHz. Native quality stays unchanged after five-setting tradeoff study.",
+      "measurement": "Exact PCM/tails, amplitude/alias response, WER/CER, first-output input position and packet cost.",
+      "evidence": "335 Swift tests; 870 native replay requests, 1,500 file ASR requests and 50 streams; no alternative passes every gate"
+    },
+    {
+      "name": "In-memory Parakeet front end",
+      "state": "Implemented",
+      "implementation": "Short utterances bypass temporary WAV encoding and FFmpeg spawning.",
+      "measurement": "Paired latency/text comparison against model.transcribe(file).",
+      "evidence": "Ablation harness"
+    },
+    {
+      "name": "Precision by stage",
+      "state": "Implemented",
+      "implementation": "Float32 acoustic front end; bfloat16 Parakeet weights, fp16 Whisper, quantized Qwen/Nemotron.",
+      "measurement": "WER/CER, p95 and actual peak memory; reject silent drift.",
+      "evidence": "Quantized model runs; dtype ablation remains"
+    },
+    {
+      "name": "No unnecessary second model",
+      "state": "Implemented",
+      "implementation": "Deterministic fillers/snippets by default; AI refinement is explicit.",
+      "measurement": "End-to-end latency and factual preservation with/without rewriting.",
+      "evidence": "Guard tests and rewrite evaluation"
+    },
+    {
+      "name": "Conservative endpointing",
+      "state": "Implemented / partial",
+      "implementation": "Full audio by default; optional RMS/neural edges and auto finish. Empty results retain completed audio for retry.",
+      "measurement": "Quiet speech deletion, silence hallucination, tail-cut rate and 150/300/500ms endpoint sweeps.",
+      "evidence": "Quiet/multilingual controls reject neural defaults; physical endpoint sweep pending"
+    },
+    {
+      "name": "Bound capture and preview work",
+      "state": "Implemented",
+      "implementation": "Preallocated asynchronous disk buffers, reusable mono scratch, 10 Hz UI telemetry, fixed 12s ring, one preview in flight.",
+      "measurement": "Dropped frames, render callback p99, preview contention and memory ceiling.",
+      "evidence": "Native frame/overflow tests; device profiling pending"
+    },
+    {
+      "name": "Chunked stdio and cancellation",
+      "state": "Implemented",
+      "implementation": "Buffered JSON replies, serial queue, request generations, watchdog and child recovery.",
+      "measurement": "IPC round trip, 30-way admission, timeout/restart and stale-output rate.",
+      "evidence": "Native IPC tests; no local server"
+    },
+    {
+      "name": "True cached streaming",
+      "state": "Experimental",
+      "implementation": "Nemotron incremental session avoids repeatedly decoding a growing prefix.",
+      "measurement": "320ms packet replay, first partial, stable-prefix revisions, final tail, WER vs offline.",
+      "evidence": "Replay harness; microphone acceptance pending"
+    },
+    {
+      "name": "Prime kernels before recording",
+      "state": "Implemented",
+      "implementation": "Explicit model loading decodes a one-second 48 kHz synthetic tone and discards the result, preparing resampling and first-use kernels before the next real turn.",
+      "measurement": "Three paired fresh processes per model; compare first-real latency, preparation cost and identical outputs. Work is shifted, not removed.",
+      "evidence": "Fresh-process warmup harness; 16/48 kHz controls and six-engine packaged preparation"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "research",
+      "request": "Deep dive into major offerings, features, plans and differences",
+      "status": "dated-research-snapshot",
+      "evidence": [
+        "docs/data/offerings.json",
+        "docs/research.html#field",
+        "docs/research.html#matrix"
+      ],
+      "limit": "29 offerings with vendor sources and explicit notes; checked 2026-10-22, not independent product acceptance or an exhaustive market guarantee."
+    },
+    {
+      "id": "feature-union",
+      "request": "Feature-complete sensible parity including bring your own key",
+      "status": "incomplete",
+      "evidence": [
+        "docs/data/parity.json",
+        "README.md"
+      ],
+      "limit": "49-item ledger includes partial/experimental/deferred work; no full-union claim. Paid provider streaming and fuller abstractive meeting summaries remain gaps alongside native acceptance."
+    },
+    {
+      "id": "performance",
+      "request": "Ten changes and all-axis low-latency optimized Mac inference",
+      "status": "ten-tracks-defined-partial-acceptance",
+      "evidence": [
+        "docs/research.html#performance",
+        "benchmarks/README.md",
+        "benchmarks/results/product-cli-after-startup.json",
+        "benchmarks/results/resampling-quality-checks.json"
+      ],
+      "limit": "Ten implementation/evaluation tracks, including rejected alternatives. Historical shared-Mac file/IPC results do not prove physical endpoint-to-insertion, energy, or all-axis leadership."
+    },
+    {
+      "id": "models",
+      "request": "Ideal off-the-shelf local GPU models and later pruning/distillation/training",
+      "status": "measured-portfolio-and-roadmap",
+      "evidence": [
+        "docs/research.html#models",
+        "docs/research.html#next",
+        "benchmarks/results/speaker-bootstrap.json",
+        "benchmarks/results/azure-refinement-portable.json"
+      ],
+      "limit": "Six local speech engines run on MLX/Metal. Optional native detector is CPU. Quality depends on language/task; custom training is future work as requested, not accomplished."
+    },
+    {
+      "id": "implementation",
+      "request": "Build v0 and make appropriate open-source PRs",
+      "status": "combined-source-and-development-candidate",
+      "evidence": [
+        "README.md",
+        "docs/PROGRESS.md",
+        "benchmarks/results/azure-refinement-package.json"
+      ],
+      "limit": "Combined source contains all 23 component PR heads plus an integration-specific remote rewrite completion fix. A new integration candidate is being built; the prior signed Azure candidate predates this fix. Distribution/native/full-union gates remain open."
+    },
+    {
+      "id": "validation",
+      "request": "Test throughout, track todos/WIP/features/progress",
+      "status": "source-and-artifact-pass-native-incomplete",
+      "evidence": [
+        "docs/PROGRESS.md",
+        "docs/data/parity.json",
+        "benchmarks/results/azure-refinement-source-validation.json",
+        "benchmarks/results/v0-existing-archive-upgrade.json",
+        "docs/architecture/rewrite-completion.md"
+      ],
+      "limit": "384 Swift/248 Python,12 Azure/8 Gemini CLI cases and portable/archive gates pass. Native field/device/physical-key/system-capture and broader fidelity acceptance remain. An isolated actual 8-record/2-audio archive copy passes current AppModel migration/search/edit/quit/restart with original bytes unchanged; this is not an original-profile/native upgrade. Twenty-one compatible/Anthropic CLI cases and six reproduced draft-delivery failures now rejected; new signed integration artifact pending."
+    },
+    {
+      "id": "comparison",
+      "request": "Benchmark OSpr against other offerings and reach top three",
+      "status": "unproven",
+      "evidence": [
+        "benchmarks/results/product-cli-after-startup.json",
+        "benchmarks/results/apple-speech-real.json",
+        "docs/data/parity.json"
+      ],
+      "limit": "Real Vibe CLI comparison on 20 public read-speech cases, two OSpr routes and Apple/native research; not equivalent consumer GUI/dictation, user correction cost, isolated energy or a top-three ranking."
+    },
+    {
+      "id": "design-setup",
+      "request": "Great Mac-native design and setup",
+      "status": "source-and-partial-ui-evidence",
+      "evidence": [
+        "docs/assets/azure-settings-layout.png",
+        "docs/architecture/insertion-self-test.md",
+        "docs/architecture/indexed-history.md"
+      ],
+      "limit": "SwiftUI app/setup and simulated light/dark layouts plus earlier isolated UI observations. Current integrated first-run/native/permissions/upgrade path remains incomplete."
+    }
+  ],
+  "acceptance_gates": {
+    "native_current_candidate": false,
+    "physical_shortcuts_devices": false,
+    "full_union_parity": false,
+    "representative_rewrite_fidelity": false,
+    "full_meeting_summary": false,
+    "consumer_top_three": false,
+    "isolated_energy": false,
+    "developer_id_notarized_distribution": false,
+    "existing_archive_copy_component_upgrade": true
+  },
+  "boundary": "Review manifest, not a release/completion certificate. All 23 component heads are contained; integration now adds a runtime fix for remote completion status plus file CLI coverage and review evidence. Prior signed Azure candidate predates this fix. New source728ef76 integration package passes offline relocated six-engine/neural/extras, all 41 bundled provider CLI cases and archive gates. Native/account/release acceptance remains pending. The isolated real archive probe is source-bound to 3e5b489; its storage/AppModel sources are unchanged. Native/user-task/full-union/ranking/distribution gates remain open.",
+  "baseline_combined_commit": "3e5b48935cfcb872850506a9227756c23706ad56",
+  "previous_application_commit": "3fb3c1da330b2e4f34ce8e95a101cc64ae84f9a2",
+  "previous_candidate_package_receipt": "benchmarks/results/azure-refinement-package.json",
+  "previous_candidate_archive_sha256": "0b38a8aa1ca76305771fc3f71e20a379b15888d756605addd74aaed2d38ca6bc",
+  "candidate_status": "passed-development-package-gates-native-release-pending",
+  "integration_runtime_changes": [
+    "strict compatible/Ollama/Anthropic completion acknowledgements; shared Azure chat parser",
+    "explicit rewrite-compatible/rewrite-anthropic file CLI and setup/header validation",
+    "empty chat refusal fields accepted; explicit nonempty refusal rejected"
+  ],
+  "runtime_dependency_locks_unchanged": true,
+  "history_probe_related_sources_unchanged": true,
+  "integration_pr": "https://github.com/vibhusapra/OSpr/pull/24",
+  "source_validation_receipt": "benchmarks/results/v0-integration-source-validation.json",
+  "ci": {
+    "run_id": 40100957889,
+    "conclusion": "success",
+    "source_commit": "728ef7624a58db3fd7b95de90842f3668a5e8249"
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "status": "passed-source-tests-and-native-rate-pcm-replay-device-acceptance-open",
+  "timestamp": "2026-10-24T05:16:08.728650+00:00",
+  "build": {
+    "version": "0.1.0",
+    "built_at": "2026-10-24T05:10:06.227919+00:00",
+    "git_commit": "c09742675c577b38d298c941c4263e138596e623",
+    "tracked_changes": false,
+    "application_source_sha256": "32d6af7e99aa6d993e34a67ed8d3a38aef725cb0accedb9b323c5c4a288e37c7",
+    "source_manifest_version": 2,
+    "signing_mode": "ad-hoc",
+    "boundary": "Development build; ad-hoc signature; not notarized; weights downloaded separately."
+  },
+  "checks": {
+    "swift_tests": 310,
+    "python_tests": 230,
+    "new_python_tests": 52,
+    "lint": true,
+    "release_app_build": true,
+    "signature": true
+  },
+  "actual_asr_sessions": 36,
+  "summary": [
+    {
+      "policy": "canonical",
+      "sessions": 12,
+      "errors": 8,
+      "words": 236,
+      "wer": 0.03389830508474576,
+      "pcm_matches": 12,
+      "samples_match": 12
+    },
+    {
+      "policy": "legacy",
+      "sessions": 12,
+      "errors": 8,
+      "words": 236,
+      "wer": 0.03389830508474576,
+      "pcm_matches": 0,
+      "samples_match": 0
+    },
+    {
+      "policy": "continuous",
+      "sessions": 12,
+      "errors": 8,
+      "words": 236,
+      "wer": 0.03389830508474576,
+      "pcm_matches": 12,
+      "samples_match": 12
+    }
+  ],
+  "continuous_text_matches": 12,
+  "synthetic_cases": 15,
+  "stress_seconds": 120,
+  "stress_retained_max_samples": {
+    "44100": 507,
+    "48000": 73
+  },
+  "executable_sha256": "08ef25722fafcaba5ee3b089df9fd6ac4e00834de6b41593138a2cdf9bc31b53",
+  "receipts_sha256": {
+    "stream-normalization-real.json": "14139db3f98173e35ea89f036269beb5c75171b48c80416536f9e5acbbedb536",
+    "stream-normalization-real.traces.json.gz": "eb55cc708dd21f152443cde56a4e5924ad2aba13b16507f764d89a13b9b0a285",
+    "stream-normalization-checks.json": "55e5e446786ed2105d6596455c59c4c3274d33c13b619b90c40ff2785b556ea6"
+  },
+  "log_sha256": {
+    "stream-normalization-swift.log": "29c9ad899e18a98757fcb7f84969a02eb220c73c4eaa2b3267004c755b932884",
+    "stream-normalization-python.log": "bf730b8bb67aa3d5235815a9bf41d4f79e5d81456e6fd1de289ee0a3f3867845",
+    "stream-normalization-lint.log": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "stream-normalization-app-build.log": "94d756931fb12957da924c8edd0883b5bc6f03490e2c5c3b289a212568b82b2e"
+  },
+  "boundary": "Production normalization is source-built and tested. Real cached ASR and synthetic PCM replay are unpaced; no native latency/energy/device, preview failure or stop-cancellation acceptance. The checked 9a51603 standalone ZIP predates this and cadence changes. No new ZIP promotion. Native insertion testing uses the separate earlier checked build, not this development build."
+}

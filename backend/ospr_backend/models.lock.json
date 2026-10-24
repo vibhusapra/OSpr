@@ -1,0 +1,153 @@
+{
+  "parakeet-v3": {
+    "repo": "mlx-community/parakeet-tdt-0.6b-v3",
+    "revision": "ed2b7e8c15f9aaa0b5772e2efb986255eaef7e15",
+    "license": "cc-by-4.0",
+    "safetensor_bytes": 2508288736,
+    "required_files": {
+      "config.json": 244093,
+      "model.safetensors": 2508288736,
+      "tokenizer.model": 360916,
+      "vocab.txt": 46772
+    },
+    "artifact_bytes": 2508940517
+  },
+  "whisper-turbo": {
+    "repo": "mlx-community/whisper-large-v3-turbo",
+    "revision": "a4aaeec0636e6fef84abdcbe3544cb2bf7e9f6fb",
+    "license": "mit (upstream weights; conversion card not explicitly tagged)",
+    "safetensor_bytes": 1613977612,
+    "required_files": {
+      "config.json": 268,
+      "weights.safetensors": 1613977612
+    },
+    "artifact_bytes": 1613977880
+  },
+  "whisper-small": {
+    "repo": "mlx-community/whisper-small-mlx",
+    "revision": "45f3915923c7a79a5a5b5a7d909d39aeb0e5630e",
+    "license": "mit (upstream weights; conversion card not explicitly tagged)",
+    "safetensor_bytes": 0,
+    "required_files": {
+      "config.json": 266,
+      "weights.npz": 481307592
+    },
+    "artifact_bytes": 481307858
+  },
+  "qwen3-asr": {
+    "repo": "mlx-community/Qwen3-ASR-1.7B-8bit",
+    "revision": "a8379a2e2f9e313c9292cdf1af4055ab56d50d55",
+    "license": "apache-2.0",
+    "safetensor_bytes": 2463307541,
+    "required_files": {
+      "chat_template.json": 1161,
+      "config.json": 7188,
+      "generation_config.json": 142,
+      "merges.txt": 1671853,
+      "model.safetensors": 2463307541,
+      "model.safetensors.index.json": 78968,
+      "preprocessor_config.json": 330,
+      "tokenizer_config.json": 12487,
+      "vocab.json": 2776833
+    },
+    "artifact_bytes": 2467856503
+  },
+  "rewrite": {
+    "repo": "mlx-community/Qwen3-1.7B-4bit",
+    "revision": "3b1b1768f8f8cf8351c712464f906e86c2b8269e",
+    "license": "apache-2.0",
+    "safetensor_bytes": 968080210,
+    "required_files": {
+      "added_tokens.json": 707,
+      "config.json": 937,
+      "merges.txt": 1671853,
+      "model.safetensors": 968080210,
+      "model.safetensors.index.json": 49731,
+      "special_tokens_map.json": 613,
+      "tokenizer.json": 11422654,
+      "tokenizer_config.json": 9706,
+      "vocab.json": 2776833
+    },
+    "artifact_bytes": 984013244
+  },
+  "cohere-transcribe": {
+    "repo": "beshkenadze/cohere-transcribe-03-2026-mlx-8bit",
+    "revision": "d1f843476f84846e6fe7aa58a6033f17882f0ec9",
+    "license": "apache-2.0",
+    "safetensor_bytes": 2418031831,
+    "required_files": {
+      "config.json": 4336,
+      "conversion_summary.json": 5237,
+      "key_map.json": 179652,
+      "model.safetensors": 2418031831,
+      "preprocessor_config.json": 420,
+      "special_tokens_map.json": 4091,
+      "tokenizer.model": 492827,
+      "tokenizer_config.json": 48141
+    },
+    "artifact_bytes": 2418766535
+  },
+  "nemotron-streaming": {
+    "repo": "mlx-community/nemotron-3.5-asr-streaming-0.6b-8bit",
+    "revision": "7279359e4481b5e9e185a318bd618e429c6d86cd",
+    "license": "other",
+    "safetensor_bytes": 755598923,
+    "required_files": {
+      "config.json": 159605,
+      "model.safetensors": 755598923,
+      "tokenizer.model": 406554,
+      "vocab.txt": 78294
+    },
+    "artifact_bytes": 756243376
+  },
+  "rewrite-quality": {
+    "repo": "mlx-community/Qwen3-4B-Instruct-2507-4bit",
+    "revision": "50d427756c6b1b2fe0c0a10f67fbda1fc8e82c1b",
+    "license": "apache-2.0",
+    "safetensor_bytes": 2263022417,
+    "required_files": {
+      "added_tokens.json": 707,
+      "chat_template.jinja": 4040,
+      "config.json": 938,
+      "generation_config.json": 238,
+      "merges.txt": 1671853,
+      "model.safetensors": 2263022417,
+      "model.safetensors.index.json": 63964,
+      "special_tokens_map.json": 613,
+      "tokenizer.json": 11422654,
+      "tokenizer_config.json": 5440,
+      "vocab.json": 2776833
+    },
+    "artifact_bytes": 2278969697
+  },
+  "diarization": {
+    "repo": "mlx-community/Nemotron-3-Diarization-8bit",
+    "revision": "dd8b8ce3d69a80540a7e50150e2beed1c34fee37",
+    "license": "openmdw-1.1",
+    "required_files": {
+      "config.json": 1694,
+      "model.safetensors": 106613900
+    },
+    "artifact_bytes": 106615594
+  },
+  "cohere-native8": {
+    "repo": "littoralai/cohere-transcribe-mlx-8bit",
+    "revision": "b3f1f6b5fb5ae1bd17c9be2bcd85806339890450",
+    "license": "apache-2.0",
+    "safetensor_bytes": 2420197751,
+    "required_files": {
+      "config.json": 4906,
+      "generation_config.json": 234,
+      "model.safetensors": 2420197751,
+      "model.safetensors.index.json": 243634,
+      "preprocessor_config.json": 420,
+      "processor_config.json": 131,
+      "special_tokens_map.json": 4091,
+      "tokenizer.json": 1816694,
+      "tokenizer.model": 492827,
+      "tokenizer_config.json": 48138
+    },
+    "artifact_bytes": 2422808826,
+    "safetensor_sha256": "aadaf8d3388975853385400c9bd8dee92a71e12a83860f35bebaac345aa8af93"
+  }
+}

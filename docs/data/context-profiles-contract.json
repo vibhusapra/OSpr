@@ -1,0 +1,30 @@
+{
+  "checked_at": "2026-10-23",
+  "scope": "Primary implementation references, not a browser compatibility or vendor-product test.",
+  "sources": [
+    {
+      "url": "https://developer.apple.com/documentation/applicationservices/1460337-axuielementgetpid",
+      "use": "Check ownership of an accessibility object."
+    },
+    {
+      "url": "https://developer.apple.com/documentation/applicationservices/1459345-axuielementsetmessagingtimeout",
+      "use": "Temporary per-object messaging timeouts, then return to the global default."
+    },
+    {
+      "url": "https://developer.apple.com/documentation/applicationservices/kaxurlattribute",
+      "use": "Document/application location metadata."
+    },
+    {
+      "url": "https://developer.apple.com/documentation/applicationservices/kaxdocumentattribute",
+      "use": "Open-document URL string metadata."
+    },
+    {
+      "url": "https://chromium.googlesource.com/chromium/src/+/HEAD/ui/accessibility/platform/ax_platform_node_cocoa.mm",
+      "use": "Current Chromium implementation exposes web-area tree URLs through accessibilityURL; native compatibility is still unverified."
+    },
+    {
+      "url": "https://superwhisper.com/changelog",
+      "use": "Official product reference for app/site activation and modes; no consumer-app parity or reliability comparison is inferred."
+    }
+  ]
+}

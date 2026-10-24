@@ -1,0 +1,361 @@
+{
+  "status": "completed-public-file-mixer-and-real-asr-not-native-capture",
+  "timestamp": "2026-10-24T09:59:43.978446+00:00",
+  "git_commit": "b90d92c97c95043c80b256af32803b81418bdcd3",
+  "cli_sha256": "ab8fb44b04479b0d782815cc821503daff0c8a11c712ecf4e5609d5499295e08",
+  "protocol_sha256": "b11121d29121da100bf4ab0f6dd20b1bd01bb377064f1e781ea2aac72a44d2e3",
+  "harness_sha256": "fd0910f382d8c31c87c9c621b95ae17c4f994b5e5f26b7878957b89b95659e92",
+  "mixer_sha256": "79a302928f6506a9203e01e837332e05ddf58ca67f2f75417e6eaa0e06d75848",
+  "expected_text": "MISTER QUILTER IS THE APOSTLE OF THE MIDDLE CLASSES AND WE ARE GLAD TO WELCOME HIS GOSPEL NOR IS MISTER QUILTER'S MANNER LESS INTERESTING THAN HIS MATTER NOR IS MISTER QUILTER'S MANNER LESS INTERESTING THAN HIS MATTER MISTER QUILTER IS THE APOSTLE OF THE MIDDLE CLASSES AND WE ARE GLAD TO WELCOME HIS GOSPEL",
+  "expected_samples": 962000,
+  "expected_pcm_sha256": "c5944ee9bf16c3ee7ec170f0b0c8878d2c11541aead836a191f3f344c12bf6e0",
+  "variants": [
+    {
+      "id": "regular-320ms",
+      "samples": 962000,
+      "full_pcm_sha256": "b20bd87baac04abb036fe03cc84dc0c281e74aa714e678f52759e71404a1f1ec",
+      "maximum_roundtrip_error": 0.11609746515750885,
+      "relative_rms_roundtrip_error": 0.1286424696445465,
+      "whole_track_reference_pcm_sha256": "b20bd87baac04abb036fe03cc84dc0c281e74aa714e678f52759e71404a1f1ec",
+      "maximum_whole_track_error": 0.0,
+      "final": {
+        "nemotron-streaming": {
+          "response": {
+            "model": "nemotron-streaming",
+            "audio_seconds": 60.125,
+            "speech_seconds": 60.125,
+            "segments": [
+              {
+                "start": 0,
+                "end": 60.125,
+                "text": "Mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel, nor is Mr.  Quilter's manner less interesting than his matter nor is Mr.  Quilter's manner less interesting than his matter Mr.  Quilter is the apostle of the middle classes and we are glad to welcome his gospel"
+              }
+            ],
+            "words": [],
+            "timestamp_granularity": "utterance",
+            "text": "Mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel, nor is Mr.  Quilter's manner less interesting than his matter nor is Mr.  Quilter's manner less interesting than his matter Mr.  Quilter is the apostle of the middle classes and we are glad to welcome his gospel",
+            "language": "en",
+            "silence": false,
+            "warm": true,
+            "load_ms": 0.0016249250620603561,
+            "preprocess_ms": 0.9202919900417328,
+            "decode_ms": 986.3939578644931,
+            "total_ms": 987.8955001477152,
+            "peak_gpu_bytes": 990799112,
+            "active_gpu_bytes": 797235808,
+            "vocabulary_applied": false
+          },
+          "errors": 3,
+          "substitutions": 3,
+          "deletions": 0,
+          "insertions": 0,
+          "words": 54,
+          "wer": 0.05555555555555555
+        },
+        "parakeet-v3": {
+          "response": {
+            "model": "parakeet-v3",
+            "audio_seconds": 60.125,
+            "speech_seconds": 60.125,
+            "decoder_chunks": 3,
+            "decoded_samples": 962000,
+            "segments": [
+              {
+                "start": 1.2,
+                "end": 1.6800000000000002,
+                "text": " Mr."
+              },
+              {
+                "start": 1.68,
+                "end": 7.04,
+                "text": " Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."
+              },
+              {
+                "start": 8.48,
+                "end": 9.36,
+                "text": " Nor is Mr."
+              },
+              {
+                "start": 9.36,
+                "end": 13.200000000000001,
+                "text": " Quilter's manner less interesting than his matter."
+              },
+              {
+                "start": 40.36,
+                "end": 41.239999999999995,
+                "text": " Nor is Mr."
+              },
+              {
+                "start": 41.24,
+                "end": 45.08,
+                "text": " Quilter's manner less interesting than his matter."
+              },
+              {
+                "start": 48.36,
+                "end": 48.84,
+                "text": " Mr."
+              },
+              {
+                "start": 48.84,
+                "end": 53.8,
+                "text": " Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."
+              }
+            ],
+            "words": [],
+            "timestamp_granularity": "segment",
+            "text": "Mr. Quilter is the apostle of the middle classes, and we are glad to welcome his gospel. Nor is Mr. Quilter's manner less interesting than his matter. Nor is Mr. Quilter's manner less interesting than his matter. Mr. Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+            "language": "en",
+            "silence": false,
+            "warm": false,
+            "load_ms": 83.33575003780425,
+            "preprocess_ms": 0.9998329915106297,
+            "decode_ms": 450.09529194794595,
+            "total_ms": 534.7114158794284,
+            "peak_gpu_bytes": 2653445592,
+            "active_gpu_bytes": 1296270688,
+            "vocabulary_applied": false
+          },
+          "errors": 4,
+          "substitutions": 4,
+          "deletions": 0,
+          "insertions": 0,
+          "words": 54,
+          "wer": 0.07407407407407407
+        }
+      }
+    },
+    {
+      "id": "varied-320ms",
+      "samples": 962000,
+      "full_pcm_sha256": "b20bd87baac04abb036fe03cc84dc0c281e74aa714e678f52759e71404a1f1ec",
+      "maximum_roundtrip_error": 0.11609746515750885,
+      "relative_rms_roundtrip_error": 0.1286424696445465,
+      "whole_track_reference_pcm_sha256": "b20bd87baac04abb036fe03cc84dc0c281e74aa714e678f52759e71404a1f1ec",
+      "maximum_whole_track_error": 0.0,
+      "final": {
+        "nemotron-streaming": {
+          "response": {
+            "model": "nemotron-streaming",
+            "audio_seconds": 60.125,
+            "speech_seconds": 60.125,
+            "segments": [
+              {
+                "start": 0,
+                "end": 60.125,
+                "text": "Mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel, nor is Mr.  Quilter's manner less interesting than his matter nor is Mr.  Quilter's manner less interesting than his matter Mr.  Quilter is the apostle of the middle classes and we are glad to welcome his gospel"
+              }
+            ],
+            "words": [],
+            "timestamp_granularity": "utterance",
+            "text": "Mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel, nor is Mr.  Quilter's manner less interesting than his matter nor is Mr.  Quilter's manner less interesting than his matter Mr.  Quilter is the apostle of the middle classes and we are glad to welcome his gospel",
+            "language": "en",
+            "silence": false,
+            "warm": true,
+            "load_ms": 0.0029578804969787598,
+            "preprocess_ms": 1.0411250405013561,
+            "decode_ms": 2134.8904168698937,
+            "total_ms": 2136.2269171513617,
+            "peak_gpu_bytes": 990865480,
+            "active_gpu_bytes": 797236640,
+            "vocabulary_applied": false
+          },
+          "errors": 3,
+          "substitutions": 3,
+          "deletions": 0,
+          "insertions": 0,
+          "words": 54,
+          "wer": 0.05555555555555555
+        },
+        "parakeet-v3": {
+          "response": {
+            "model": "parakeet-v3",
+            "audio_seconds": 60.125,
+            "speech_seconds": 60.125,
+            "decoder_chunks": 3,
+            "decoded_samples": 962000,
+            "segments": [
+              {
+                "start": 1.2,
+                "end": 1.6800000000000002,
+                "text": " Mr."
+              },
+              {
+                "start": 1.68,
+                "end": 7.04,
+                "text": " Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."
+              },
+              {
+                "start": 8.48,
+                "end": 9.36,
+                "text": " Nor is Mr."
+              },
+              {
+                "start": 9.36,
+                "end": 13.200000000000001,
+                "text": " Quilter's manner less interesting than his matter."
+              },
+              {
+                "start": 40.36,
+                "end": 41.239999999999995,
+                "text": " Nor is Mr."
+              },
+              {
+                "start": 41.24,
+                "end": 45.08,
+                "text": " Quilter's manner less interesting than his matter."
+              },
+              {
+                "start": 48.36,
+                "end": 48.84,
+                "text": " Mr."
+              },
+              {
+                "start": 48.84,
+                "end": 53.8,
+                "text": " Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."
+              }
+            ],
+            "words": [],
+            "timestamp_granularity": "segment",
+            "text": "Mr. Quilter is the apostle of the middle classes, and we are glad to welcome his gospel. Nor is Mr. Quilter's manner less interesting than his matter. Nor is Mr. Quilter's manner less interesting than his matter. Mr. Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+            "language": "en",
+            "silence": false,
+            "warm": false,
+            "load_ms": 119.16195787489414,
+            "preprocess_ms": 1.0955419857054949,
+            "decode_ms": 414.6646661683917,
+            "total_ms": 535.2418750990182,
+            "peak_gpu_bytes": 3742731914,
+            "active_gpu_bytes": 1296188768,
+            "vocabulary_applied": false
+          },
+          "errors": 4,
+          "substitutions": 4,
+          "deletions": 0,
+          "insertions": 0,
+          "words": 54,
+          "wer": 0.07407407407407407
+        }
+      }
+    },
+    {
+      "id": "varied-3s",
+      "samples": 962000,
+      "full_pcm_sha256": "b20bd87baac04abb036fe03cc84dc0c281e74aa714e678f52759e71404a1f1ec",
+      "maximum_roundtrip_error": 0.11609746515750885,
+      "relative_rms_roundtrip_error": 0.1286424696445465,
+      "whole_track_reference_pcm_sha256": "b20bd87baac04abb036fe03cc84dc0c281e74aa714e678f52759e71404a1f1ec",
+      "maximum_whole_track_error": 0.0,
+      "final": {
+        "nemotron-streaming": {
+          "response": {
+            "model": "nemotron-streaming",
+            "audio_seconds": 60.125,
+            "speech_seconds": 60.125,
+            "segments": [
+              {
+                "start": 0,
+                "end": 60.125,
+                "text": "Mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel, nor is Mr.  Quilter's manner less interesting than his matter nor is Mr.  Quilter's manner less interesting than his matter Mr.  Quilter is the apostle of the middle classes and we are glad to welcome his gospel"
+              }
+            ],
+            "words": [],
+            "timestamp_granularity": "utterance",
+            "text": "Mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel, nor is Mr.  Quilter's manner less interesting than his matter nor is Mr.  Quilter's manner less interesting than his matter Mr.  Quilter is the apostle of the middle classes and we are glad to welcome his gospel",
+            "language": "en",
+            "silence": false,
+            "warm": true,
+            "load_ms": 0.0013329554349184036,
+            "preprocess_ms": 0.9251248557120562,
+            "decode_ms": 1089.0284997876734,
+            "total_ms": 1090.2279999572784,
+            "peak_gpu_bytes": 990849096,
+            "active_gpu_bytes": 797236640,
+            "vocabulary_applied": false
+          },
+          "errors": 3,
+          "substitutions": 3,
+          "deletions": 0,
+          "insertions": 0,
+          "words": 54,
+          "wer": 0.05555555555555555
+        },
+        "parakeet-v3": {
+          "response": {
+            "model": "parakeet-v3",
+            "audio_seconds": 60.125,
+            "speech_seconds": 60.125,
+            "decoder_chunks": 3,
+            "decoded_samples": 962000,
+            "segments": [
+              {
+                "start": 1.2,
+                "end": 1.6800000000000002,
+                "text": " Mr."
+              },
+              {
+                "start": 1.68,
+                "end": 7.04,
+                "text": " Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."
+              },
+              {
+                "start": 8.48,
+                "end": 9.36,
+                "text": " Nor is Mr."
+              },
+              {
+                "start": 9.36,
+                "end": 13.200000000000001,
+                "text": " Quilter's manner less interesting than his matter."
+              },
+              {
+                "start": 40.36,
+                "end": 41.239999999999995,
+                "text": " Nor is Mr."
+              },
+              {
+                "start": 41.24,
+                "end": 45.08,
+                "text": " Quilter's manner less interesting than his matter."
+              },
+              {
+                "start": 48.36,
+                "end": 48.84,
+                "text": " Mr."
+              },
+              {
+                "start": 48.84,
+                "end": 53.8,
+                "text": " Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."
+              }
+            ],
+            "words": [],
+            "timestamp_granularity": "segment",
+            "text": "Mr. Quilter is the apostle of the middle classes, and we are glad to welcome his gospel. Nor is Mr. Quilter's manner less interesting than his matter. Nor is Mr. Quilter's manner less interesting than his matter. Mr. Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+            "language": "en",
+            "silence": false,
+            "warm": false,
+            "load_ms": 73.94158304668963,
+            "preprocess_ms": 0.9154169820249081,
+            "decode_ms": 394.0933330450207,
+            "total_ms": 469.2333750426769,
+            "peak_gpu_bytes": 4207828702,
+            "active_gpu_bytes": 1296156000,
+            "vocabulary_applied": false
+          },
+          "errors": 4,
+          "substitutions": 4,
+          "deletions": 0,
+          "insertions": 0,
+          "words": 54,
+          "wer": 0.07407407407407407
+        }
+      }
+    }
+  ],
+  "full_pcm_partition_invariant": true,
+  "full_final_text_partition_invariant": true,
+  "traces_file": "meeting-preview-real-v3.traces.json.gz",
+  "traces_sha256": "c955d48adef9c0b531a37939025f1beb0515ace279168bfb4ccaf4d527cf0ada",
+  "boundary": "Unpaced native production mix from two public read-English clips by one speaker, placed without speech overlap on simulated 44.1/48 kHz sources. Three partition/cadence/delivery schedules, half gain per source and 125 ms source offset. Cached Nemotron receives every draft packet; its final stream flush is diagnostic only. The app cancels provisional draft and independently recognizes the complete durable mix. No microphone, ScreenCaptureKit, UI, physical stop, latency, peak-memory, energy, diarization, echo or broad natural-meeting quality claim. Whole-track AVAudioConverter comparison checks packet preservation. SciPy-to-Apple roundtrip differences are reported without a threshold; ASR WER is descriptive, not an accuracy acceptance threshold. No candidate/default/distribution promotion from this replay."
+}

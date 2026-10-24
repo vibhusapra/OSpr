@@ -1,0 +1,39 @@
+{
+  "status": "passed-stored-evidence-checks",
+  "receipt_sha256": "42467cbc6c2c0bc862c5569b947c0f06ad1f7d8872b257537fbec6b659ea7c64",
+  "raw_archive_sha256": "45248376502ec45807500d4756409a6dcc02b5cca5dd8001f90ca903f4946427",
+  "cli_sha256": "363f6b143ff141a9ea6753e044f0373e8154ffb27c69705d98990a82b86a6350",
+  "model_files_checked": 12,
+  "input_audio_files_checked": 179,
+  "cases": 179,
+  "frame_counts": {
+    "coreml32-cpu": 89377,
+    "coreml256-cpu": 11244,
+    "mlx32-cpu": 89377,
+    "rms-default": 142903,
+    "rms-low": 142903
+  },
+  "native_event_traces_replayed": 537,
+  "asr_quality_records": 750,
+  "distinct_model_inferences": 520,
+  "swift_tests": 256,
+  "python_tests": 105,
+  "swift_log_sha256": "e73ed33546ea607138340e3b70b0b5ebd860a02a04b096d61933fdb035baaa57",
+  "python_log_sha256": "c5801679497e993915094cf487756cd8efbeb138eb15a987c09ede9ef82e59f3",
+  "hardware": {
+    "model": "Mac17,6",
+    "chip": "Apple M5 Max",
+    "memory_bytes": 137438953472,
+    "macos": "26.6.2"
+  },
+  "versions": {
+    "mlx": "0.32.4",
+    "mlx-audio": "0.6.1",
+    "parakeet-mlx": "0.5.3",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "jiwer": "4.0.0",
+    "soundfile": "0.14.0"
+  },
+  "boundary": "Recomputes stored trace integrity, probability/time domains, native event decisions and WER arithmetic; verifies model files remain unchanged. This does not rerun neural/ASR inference, establish semantic correctness, validate real-time capture, or resolve corpus/annotation limitations."
+}

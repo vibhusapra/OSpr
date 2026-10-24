@@ -1,0 +1,13 @@
+{
+  "status": "passed-schedule-source-and-metric-checks-not-native-latency",
+  "source_result_sha256": "6d4195d169f01bae6aeee30523fd5728de6765cb93ac2eb529219ec34e81317e",
+  "verifier_sha256": "411c580483c9ff84e2dd06f29b8ac67943c0a4ccda9a34ec735c30a5cb69e986",
+  "actual_sessions": 6,
+  "normalized_samples_each": 960000,
+  "identical_text_pairs": 3,
+  "first_partial_modeled_regressions": [
+    120,
+    600
+  ],
+  "boundary": "Closed-form fixed-cost schedules match the actual Core probe; source PCM and raw text/WER counts check. More frequent requests do not guarantee an earlier first partial: phase-dependent regressions are retained. No native/device, energy, actual latency or non-16k packet-normalization acceptance."
+}

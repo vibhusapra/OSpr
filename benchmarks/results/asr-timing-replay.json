@@ -1,0 +1,470 @@
+{
+  "status": "passed-stored-real-timing-replay",
+  "timestamp": "2026-10-24T02:15:39.624461+00:00",
+  "git_commit": "873411d36e04811cae0242d8ab20a7178318271a",
+  "tracked_changes": false,
+  "source_result_sha256": "d3a467ecdca892e22aa8b5768ab702350a00fa7a7378d032ef0748fefe516779",
+  "source_traces_sha256": "8587583ff260bd3ba0d8cd5d3949d4b5c87c1ffd5360824b7ea3d901315afbb4",
+  "timing_source_sha256": "aa4c9cdae37d4f4b40b453097a04017b12bf2da4a740a4c300f6d91b10a42a13",
+  "harness_sha256": "2fd27f15ab7fa266e8704dbfd4376709eeee64a0ef71a6f8d093f91a12d3c222",
+  "actual_model_responses_checked": 1010,
+  "abstentions_skipped": 30,
+  "corrected_responses": 12,
+  "all_returned_intervals_in_analyzed_range": true,
+  "unchanged_text_and_untimed_payload": true,
+  "changes": [
+    {
+      "model": "whisper-turbo",
+      "id": "fleurs-de_de-000-quiet40db",
+      "route": "neural_edges",
+      "analyzed_start": 4.608,
+      "analyzed_end": 5.408,
+      "original_segments": [
+        {
+          "end": 34.588,
+          "start": 4.608,
+          "text": "Das ist die beste Ausdruck."
+        }
+      ],
+      "fixed": {
+        "segments": [
+          {
+            "end": 5.408,
+            "start": 4.608,
+            "text": "Das ist die beste Ausdruck."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "timing_corrections": {
+          "clipped_intervals": 1,
+          "fallback_to_utterance": false
+        },
+        "timing_warning": "Some recognizer timings extended outside the analyzed audio and were bounded. Check alignment before using timed exports."
+      },
+      "text": "Das ist die beste Ausdruck."
+    },
+    {
+      "model": "whisper-turbo",
+      "id": "fleurs-ja_jp-005-quiet40db",
+      "route": "full",
+      "analyzed_start": 0,
+      "analyzed_end": 6.96,
+      "original_segments": [
+        {
+          "end": 7,
+          "start": 0,
+          "text": "このように、水道や湖では必ずしも良くは必要ありません。"
+        }
+      ],
+      "fixed": {
+        "segments": [
+          {
+            "end": 6.96,
+            "start": 0,
+            "text": "このように、水道や湖では必ずしも良くは必要ありません。"
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "timing_corrections": {
+          "clipped_intervals": 1,
+          "fallback_to_utterance": false
+        },
+        "timing_warning": "Some recognizer timings extended outside the analyzed audio and were bounded. Check alignment before using timed exports."
+      },
+      "text": "このように、水道や湖では必ずしも良くは必要ありません。"
+    },
+    {
+      "model": "whisper-small",
+      "id": "fleurs-es_419-001-quiet40db",
+      "route": "neural_edges",
+      "analyzed_start": 1.536,
+      "analyzed_end": 20.8,
+      "original_segments": [
+        {
+          "end": 6.336,
+          "start": 1.536,
+          "text": "El uso adecuado de los blogs pueden poderar a los alumnos para que sean más analíticos"
+        },
+        {
+          "end": 10.975999999999999,
+          "start": 6.336,
+          "text": "y críticos a través de la respuesta activa a los contenidos de internet."
+        },
+        {
+          "end": 15.656,
+          "start": 10.975999999999999,
+          "text": "Pueden definir sus posturas en el contexto de los escritos de otros, además de establecer"
+        },
+        {
+          "end": 18.836000000000002,
+          "start": 15.656,
+          "text": "sus perspectivas sobre temas específicos."
+        },
+        {
+          "end": 20.836000000000002,
+          "start": 18.836000000000002,
+          "text": "Horavec 2002."
+        }
+      ],
+      "fixed": {
+        "segments": [
+          {
+            "end": 6.336,
+            "start": 1.536,
+            "text": "El uso adecuado de los blogs pueden poderar a los alumnos para que sean más analíticos"
+          },
+          {
+            "end": 10.975999999999999,
+            "start": 6.336,
+            "text": "y críticos a través de la respuesta activa a los contenidos de internet."
+          },
+          {
+            "end": 15.656,
+            "start": 10.975999999999999,
+            "text": "Pueden definir sus posturas en el contexto de los escritos de otros, además de establecer"
+          },
+          {
+            "end": 18.836000000000002,
+            "start": 15.656,
+            "text": "sus perspectivas sobre temas específicos."
+          },
+          {
+            "end": 20.8,
+            "start": 18.836000000000002,
+            "text": "Horavec 2002."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "timing_corrections": {
+          "clipped_intervals": 1,
+          "fallback_to_utterance": false
+        },
+        "timing_warning": "Some recognizer timings extended outside the analyzed audio and were bounded. Check alignment before using timed exports."
+      },
+      "text": "El uso adecuado de los blogs pueden poderar a los alumnos para que sean más analíticos y críticos a través de la respuesta activa a los contenidos de internet. Pueden definir sus posturas en el contexto de los escritos de otros, además de establecer sus perspectivas sobre temas específicos. Horavec 2002."
+    },
+    {
+      "model": "whisper-small",
+      "id": "fleurs-de_de-005-quiet40db",
+      "route": "neural_edges",
+      "analyzed_start": 1.344,
+      "analyzed_end": 8.32,
+      "original_segments": [
+        {
+          "end": 8.344,
+          "start": 1.344,
+          "text": "Dieses Sediment war nötig, um Sandbänke und Schränke zu bilden, die als Lebensräume für Wildtiere dienten."
+        }
+      ],
+      "fixed": {
+        "segments": [
+          {
+            "end": 8.32,
+            "start": 1.344,
+            "text": "Dieses Sediment war nötig, um Sandbänke und Schränke zu bilden, die als Lebensräume für Wildtiere dienten."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "timing_corrections": {
+          "clipped_intervals": 1,
+          "fallback_to_utterance": false
+        },
+        "timing_warning": "Some recognizer timings extended outside the analyzed audio and were bounded. Check alignment before using timed exports."
+      },
+      "text": "Dieses Sediment war nötig, um Sandbänke und Schränke zu bilden, die als Lebensräume für Wildtiere dienten."
+    },
+    {
+      "model": "whisper-small",
+      "id": "fleurs-de_de-006-original",
+      "route": "full",
+      "analyzed_start": 0,
+      "analyzed_end": 12.96,
+      "original_segments": [
+        {
+          "end": 5,
+          "start": 0,
+          "text": "Blocks können auch dazu beitragen, die Schreibfertigkeiten von Schülern zu verbessern."
+        },
+        {
+          "end": 10,
+          "start": 5,
+          "text": "Zwar haben Schüler am Anfang ihre Blog-Erfahrung oft eine schlamppige Grammatik und Rechtschreibung,"
+        },
+        {
+          "end": 13,
+          "start": 10,
+          "text": "aber das ändert sich normalerweise, wenn es ein Publikum gibt."
+        }
+      ],
+      "fixed": {
+        "segments": [
+          {
+            "end": 5.0,
+            "start": 0,
+            "text": "Blocks können auch dazu beitragen, die Schreibfertigkeiten von Schülern zu verbessern."
+          },
+          {
+            "end": 10.0,
+            "start": 5.0,
+            "text": "Zwar haben Schüler am Anfang ihre Blog-Erfahrung oft eine schlamppige Grammatik und Rechtschreibung,"
+          },
+          {
+            "end": 12.96,
+            "start": 10.0,
+            "text": "aber das ändert sich normalerweise, wenn es ein Publikum gibt."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "timing_corrections": {
+          "clipped_intervals": 1,
+          "fallback_to_utterance": false
+        },
+        "timing_warning": "Some recognizer timings extended outside the analyzed audio and were bounded. Check alignment before using timed exports."
+      },
+      "text": "Blocks können auch dazu beitragen, die Schreibfertigkeiten von Schülern zu verbessern. Zwar haben Schüler am Anfang ihre Blog-Erfahrung oft eine schlamppige Grammatik und Rechtschreibung, aber das ändert sich normalerweise, wenn es ein Publikum gibt."
+    },
+    {
+      "model": "whisper-small",
+      "id": "fleurs-de_de-006-quiet40db",
+      "route": "full",
+      "analyzed_start": 0,
+      "analyzed_end": 12.96,
+      "original_segments": [
+        {
+          "end": 5,
+          "start": 0,
+          "text": "Blocks können auch dazu beitragen, die Schreibfertigkeiten von Schülern zu verbessern."
+        },
+        {
+          "end": 10,
+          "start": 5,
+          "text": "So haben Schüler am Anfang ihre Blockerfahrung auf eine schlampige Grammatik und Rechtschreibung,"
+        },
+        {
+          "end": 13,
+          "start": 10,
+          "text": "aber das ändert sich normalerweise, wenn es ein Publikum gibt."
+        }
+      ],
+      "fixed": {
+        "segments": [
+          {
+            "end": 5.0,
+            "start": 0,
+            "text": "Blocks können auch dazu beitragen, die Schreibfertigkeiten von Schülern zu verbessern."
+          },
+          {
+            "end": 10.0,
+            "start": 5.0,
+            "text": "So haben Schüler am Anfang ihre Blockerfahrung auf eine schlampige Grammatik und Rechtschreibung,"
+          },
+          {
+            "end": 12.96,
+            "start": 10.0,
+            "text": "aber das ändert sich normalerweise, wenn es ein Publikum gibt."
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "timing_corrections": {
+          "clipped_intervals": 1,
+          "fallback_to_utterance": false
+        },
+        "timing_warning": "Some recognizer timings extended outside the analyzed audio and were bounded. Check alignment before using timed exports."
+      },
+      "text": "Blocks können auch dazu beitragen, die Schreibfertigkeiten von Schülern zu verbessern. So haben Schüler am Anfang ihre Blockerfahrung auf eine schlampige Grammatik und Rechtschreibung, aber das ändert sich normalerweise, wenn es ein Publikum gibt."
+    },
+    {
+      "model": "whisper-small",
+      "id": "fleurs-ja_jp-001-quiet40db",
+      "route": "neural_edges",
+      "analyzed_start": 3.36,
+      "analyzed_end": 12.064,
+      "original_segments": [
+        {
+          "end": 13.08,
+          "start": 3.36,
+          "text": "また北側に行くなら世界的に有名なマリアゾーの聖地である ファティマの聖母の聖域神社を訪れましょう"
+        }
+      ],
+      "fixed": {
+        "segments": [
+          {
+            "end": 12.064,
+            "start": 3.36,
+            "text": "また北側に行くなら世界的に有名なマリアゾーの聖地である ファティマの聖母の聖域神社を訪れましょう"
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "timing_corrections": {
+          "clipped_intervals": 1,
+          "fallback_to_utterance": false
+        },
+        "timing_warning": "Some recognizer timings extended outside the analyzed audio and were bounded. Check alignment before using timed exports."
+      },
+      "text": "また北側に行くなら世界的に有名なマリアゾーの聖地である ファティマの聖母の聖域神社を訪れましょう"
+    },
+    {
+      "model": "whisper-small",
+      "id": "fleurs-ja_jp-005-original",
+      "route": "full",
+      "analyzed_start": 0,
+      "analyzed_end": 6.96,
+      "original_segments": [
+        {
+          "end": 7,
+          "start": 0,
+          "text": "軍頭や湖では必ずしもよっては必要ありません"
+        }
+      ],
+      "fixed": {
+        "segments": [
+          {
+            "end": 6.96,
+            "start": 0,
+            "text": "軍頭や湖では必ずしもよっては必要ありません"
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "timing_corrections": {
+          "clipped_intervals": 1,
+          "fallback_to_utterance": false
+        },
+        "timing_warning": "Some recognizer timings extended outside the analyzed audio and were bounded. Check alignment before using timed exports."
+      },
+      "text": "軍頭や湖では必ずしもよっては必要ありません"
+    },
+    {
+      "model": "whisper-small",
+      "id": "fleurs-ja_jp-005-original",
+      "route": "neural_edges",
+      "analyzed_start": 1.408,
+      "analyzed_end": 6.96,
+      "original_segments": [
+        {
+          "end": 8.248,
+          "start": 1.408,
+          "text": "軍頭や水海では必ずしもよっとは必要ありません"
+        }
+      ],
+      "fixed": {
+        "segments": [
+          {
+            "end": 6.96,
+            "start": 1.408,
+            "text": "軍頭や水海では必ずしもよっとは必要ありません"
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "timing_corrections": {
+          "clipped_intervals": 1,
+          "fallback_to_utterance": false
+        },
+        "timing_warning": "Some recognizer timings extended outside the analyzed audio and were bounded. Check alignment before using timed exports."
+      },
+      "text": "軍頭や水海では必ずしもよっとは必要ありません"
+    },
+    {
+      "model": "whisper-small",
+      "id": "fleurs-ja_jp-006-original",
+      "route": "neural_edges",
+      "analyzed_start": 1.728,
+      "analyzed_end": 7.424,
+      "original_segments": [
+        {
+          "end": 8.468,
+          "start": 1.728,
+          "text": "パリジャンは自己中心的な大平で失礼の人が多いと言われています"
+        }
+      ],
+      "fixed": {
+        "segments": [
+          {
+            "end": 7.424,
+            "start": 1.728,
+            "text": "パリジャンは自己中心的な大平で失礼の人が多いと言われています"
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "timing_corrections": {
+          "clipped_intervals": 1,
+          "fallback_to_utterance": false
+        },
+        "timing_warning": "Some recognizer timings extended outside the analyzed audio and were bounded. Check alignment before using timed exports."
+      },
+      "text": "パリジャンは自己中心的な大平で失礼の人が多いと言われています"
+    },
+    {
+      "model": "whisper-small",
+      "id": "fleurs-ja_jp-006-quiet40db",
+      "route": "neural_edges",
+      "analyzed_start": 1.728,
+      "analyzed_end": 7.296,
+      "original_segments": [
+        {
+          "end": 8.468,
+          "start": 1.728,
+          "text": "パリジャンは自己中心的な大平で失礼の人が多いと言われています"
+        }
+      ],
+      "fixed": {
+        "segments": [
+          {
+            "end": 7.296,
+            "start": 1.728,
+            "text": "パリジャンは自己中心的な大平で失礼の人が多いと言われています"
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "timing_corrections": {
+          "clipped_intervals": 1,
+          "fallback_to_utterance": false
+        },
+        "timing_warning": "Some recognizer timings extended outside the analyzed audio and were bounded. Check alignment before using timed exports."
+      },
+      "text": "パリジャンは自己中心的な大平で失礼の人が多いと言われています"
+    },
+    {
+      "model": "whisper-small",
+      "id": "fleurs-ja_jp-009-quiet40db",
+      "route": "neural_edges",
+      "analyzed_start": 1.408,
+      "analyzed_end": 8.32,
+      "original_segments": [
+        {
+          "end": 9.408,
+          "start": 1.408,
+          "text": "香港の最高の景色を見るには島から出て クーロンのウォーターフロントに向かいましょう"
+        }
+      ],
+      "fixed": {
+        "segments": [
+          {
+            "end": 8.32,
+            "start": 1.408,
+            "text": "香港の最高の景色を見るには島から出て クーロンのウォーターフロントに向かいましょう"
+          }
+        ],
+        "words": [],
+        "timestamp_granularity": "segment",
+        "timing_corrections": {
+          "clipped_intervals": 1,
+          "fallback_to_utterance": false
+        },
+        "timing_warning": "Some recognizer timings extended outside the analyzed audio and were bounded. Check alignment before using timed exports."
+      },
+      "text": "香港の最高の景色を見るには島から出て クーロンのウォーターフロントに向かいましょう"
+    }
+  ],
+  "boundary": "Replay frozen real recognizer timing failures through the source boundary fix.\n\nNo ASR is rerun here. Text/word payload preservation and every repaired interval\nare checked against the original selected waveform bounds. This is a replay of frozen model outputs, not new inference, improved recognition quality, manual alignment validation or native UI acceptance. The original multilingual study remains unchanged."
+}

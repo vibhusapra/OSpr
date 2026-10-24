@@ -1,0 +1,30 @@
+{
+  "status": "failed",
+  "verified_at": "2026-10-23T00:11:42.608153+00:00",
+  "rows": 100000,
+  "git_base_commit": "d407b00226e59f5ead8cfc05bb758649dae883f0",
+  "cli_sha256": "89daee4a59e225dfb08315450f99226717824ce22f48a3144888b2348b67882f",
+  "boundary": "One owned fresh session worker after successful migration; the parent returned exit 1 with Synthetic history benchmark case failed and no completed result. The original child helper enforced a 180-second deadline but did not retain the precise child exit reason. No completed latency or round-trip fidelity result is claimed.",
+  "child_watchdog_seconds": 180,
+  "observed_parent_exit": 1,
+  "completed_receipt": false,
+  "sample": {
+    "process_age_seconds_approximately": 104,
+    "duration_seconds": 1,
+    "interval_milliseconds": 1,
+    "observed_active_stack": [
+      "HistoryRepository.flushAsync",
+      "HistoryRepository.commitPending",
+      "HistoryDatabase.clear",
+      "sqlite3_exec",
+      "sqlite3Fts5StorageDelete",
+      "fts5FlushSecureDelete"
+    ],
+    "private_full_sample_sha256": "5bfa0a0aec59efb07d8b94c82bddd8403c6f1946c6787d3a22a439e829d525de"
+  },
+  "limitations": [
+    "One sampled failed control, not a completed latency baseline or a numeric speedup comparison.",
+    "Profiling perturbed the owned worker for one second; no thermal/cache isolation.",
+    "The exact terminal signal/reason was not retained by the original helper. Subsequent helper failures include status and reason."
+  ]
+}

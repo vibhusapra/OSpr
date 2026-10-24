@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "script_sha256": "b299a0efe251cfe774f64b3f1d6af8ff7e41bb471d5716922a7d09cafee919f9",
+  "cases": [
+    {
+      "case": "stale-build",
+      "rejected": true,
+      "reason": "Upload receipt is for a different build"
+    },
+    {
+      "case": "retained-resources",
+      "rejected": true,
+      "reason": "Soniox fixture resources were not removed"
+    },
+    {
+      "case": "missing-delete",
+      "rejected": true,
+      "reason": "Soniox owned create/delete events differ"
+    }
+  ],
+  "no_archive_created": true,
+  "boundary": "Black-box negative controls of the release packager using mutated copies of the real Soniox receipt. No provider call or live app interaction."
+}

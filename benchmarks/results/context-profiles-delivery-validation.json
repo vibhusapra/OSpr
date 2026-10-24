@@ -1,0 +1,40 @@
+{
+  "status": "passed-package-native-acceptance-open",
+  "verified_at": "2026-10-23T21:23:36.097269+00:00",
+  "build": {
+    "version": "0.1.0",
+    "built_at": "2026-10-23T21:16:32.808708+00:00",
+    "git_commit": "db0987a213a700f39f1b2ffd116a1fcbffc3aef0",
+    "tracked_changes": false,
+    "application_source_sha256": "1417167dba5c6b4f2e1dedf34c099b771b6bfe490d983703920b025f787093dd",
+    "source_manifest_version": 2,
+    "signing_mode": "configured-identity",
+    "boundary": "Development build; configured signing identity; not notarized; weights downloaded separately."
+  },
+  "application_sha256": "279539bc3bfbf7467be818a21e75c7f6a92b50359881f2eab4df88c9772efa97",
+  "cli_sha256": "607da6b304369b0b714bb72284fa391ece36f1a808433241675e2cb65cb8dfec",
+  "archive_sha256": "2d1ab59699891f28a97e8240860c6b61a415380ec688cc00c032a833915a096e",
+  "checks": {
+    "swift_tests": 244,
+    "python_tests": 105,
+    "bundled_profile_cli_cases": 17,
+    "bundled_rewrite_cli_cases": 3,
+    "metal_available": true,
+    "default_mlx_device": "Device(gpu, 0)",
+    "archive_entries": 66898,
+    "no_private_store_test_or_checkout_resources": true,
+    "deep_strict_signature_after_smokes": true
+  },
+  "receipt_sha256": {
+    "context-profiles-portable-app-smoke.json": "f4f4e942bca80012bbaed9f4320846d7f2d029551a534b7e7c400603886a76c5",
+    "context-profiles-native-long-files.json": "d58e9eda8c57a407abec02c3dc2153e22506e3692de5c9e1adfa599f52490bb2",
+    "context-profiles-package-compatible.json": "0da4fcc54a16d4fa3836a7cbc8f11ed5dca6958e18fba8abe957c5a6b026ee99",
+    "context-profiles-package-deepgram.json": "9edd1466de8d3d859d5e3043503c494441ceb33fe020d38fb7981674eb756d4a",
+    "context-profiles-package-soniox.json": "c266cc14eec940891fbe62ce168aa9930c233ceabcc55c0b8549069da0a99ce7",
+    "context-profiles-bundled-cli.json": "d84bf4e29a517597426f32aa8e8cdec1b81b7d6f4f7ae69e61322aff54c7f497",
+    "context-profiles-bundled-rewrite-smoke.json": "1585a443e7801b9797eb4506aaadbe6181d25ad430f49545df775b9ecb3cacaa",
+    "context-profiles-ci.json": "70ab3ed3552a5bef2047d826b7160a88fa3e420b058fecd71792397f3731740a",
+    "context-profiles-insertion-preflight.json": "3f84f61ddd857d089380c8ba0b3048c14a44e0ca301753233ffacf3da429f652"
+  },
+  "boundary": "Exact signed portable candidate and ZIP gates pass; normal app is restored and separate. The bundled report predates these final receipts. Profile sheet/save, live site metadata/model switching, physical hotkeys, successful native insertion, desktop capture, clean-Mac installation and Developer ID/notarization remain open. No full parity, provider quality, representative rewrite quality, latency ranking or battery claim."
+}

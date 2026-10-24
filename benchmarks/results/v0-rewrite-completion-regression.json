@@ -1,0 +1,29 @@
+{
+  "status": "reproduced-and-fixed-incomplete-remote-rewrite-delivery",
+  "before": {
+    "runtime_source_commit": "3e5b48935cfcb872850506a9227756c23706ad56",
+    "expected_failures": 6,
+    "providers": [
+      "compatible",
+      "anthropic"
+    ],
+    "responses": [
+      "truncated",
+      "refused",
+      "tool-turn"
+    ],
+    "unexpected_draft_text_returns": 6
+  },
+  "after": {
+    "focused_http_test_passed": true,
+    "unsafe_cases_rejected": 6,
+    "local_swift_tests": 384,
+    "local_python_tests": 248,
+    "compatible_anthropic_cli_cases": 21,
+    "azure_regression_cases": 12,
+    "gemini_regression_cases": 8
+  },
+  "application_source_sha256": "f01b7510aa4af61fc2ce86f8a7a5cd9a67bf4d325105c81d064aa54450d1a671",
+  "fixture_sha256": "2b115272e696185c3d1be4d9b98dab6a435671d7468a006a85a65f145c07b6a8",
+  "boundary": "Owned loopback/synthetic-key/public-text reproduction. Before parser ignores completion metadata; after parser rejects known incomplete/nontext turns before the existing fidelity guard. Core/native API protocol validation, not actual account/model semantics, UI/insertion or end-to-end latency. No real key/user transcript sent. Existing app raw-retention behavior is separate from provider completion acknowledgement."
+}

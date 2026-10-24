@@ -1,13 +1,18 @@
-# macOS
 .DS_Store
-
-# Local environment files and credentials
 .env
 .env.*
 !.env.example
-!.env.*.example
 *.pem
 *.key
-
-# Local logs
 *.log
+.build/
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+*.pyc
+dist/
+benchmarks/fixtures/audio/
+benchmarks/fixtures/*.parquet
+.local/
+.local-*

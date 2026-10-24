@@ -1,0 +1,2933 @@
+{
+  "status": "completed-isolated-compatibility-smoke-not-package-promotion",
+  "timestamp": "2026-10-24T06:23:08.637456+00:00",
+  "git_commit": "e349fa41cdd619db6556302d989262db11745c6f",
+  "build": {
+    "version": "0.1.0",
+    "built_at": "2026-10-24T05:42:59.924765+00:00",
+    "git_commit": "3feaf65bf771b3a67beceea7a3d74651bd8f2d1d",
+    "tracked_changes": false,
+    "application_source_sha256": "32d6af7e99aa6d993e34a67ed8d3a38aef725cb0accedb9b323c5c4a288e37c7",
+    "source_manifest_version": 2,
+    "signing_mode": "configured-identity",
+    "boundary": "Development build; configured signing identity; not notarized; weights downloaded separately."
+  },
+  "harness_sha256": "04f049307136aa8a7e91907035aea5f9842ea211b62e2bd677151576a23e9ffd",
+  "protocol_sha256": "7b6cb0df35f3bfa9ab52fff8fe07aa5f7119447ea073d8ac1b1f9dd3c7650987",
+  "excluded_top_level_entries": [
+    "functorch",
+    "torch",
+    "torch-2.14.1.dist-info",
+    "torchgen"
+  ],
+  "torch_version": "2.14.1",
+  "requests_each": 211,
+  "source_inputs": [
+    {
+      "id": "parakeet-v3:1089-134686-0000",
+      "file_sha256": "0b1785dba56f22af426ccb25d318f7e103558fd40e1c3ab064b455dba2afae12",
+      "normalized_samples": 166960,
+      "pcm_sha256": "29ff16924c9577f5e335fcc7d64dd5d9ee261db7e9ec9c8eb7f8129b31cc1643"
+    },
+    {
+      "id": "parakeet-v3:1089-134686-0001",
+      "file_sha256": "6b0b24796a1017a65007d392b9f8d6e64e030cdafbf82d8ffa4235fe4b371443",
+      "normalized_samples": 52400,
+      "pcm_sha256": "05072430dadd6e8ea297b3ad0d8f95c57e258dd7185cf068f739d36a9aadceda"
+    },
+    {
+      "id": "parakeet-v3:1089-134686-0002",
+      "file_sha256": "6bc58a4efdf20daac252b6b1502632601a71efe0308f6757dc1eda34891a7e4f",
+      "normalized_samples": 106000,
+      "pcm_sha256": "bbf9920ca49230e1dbe59aa87427028ce254bcb4d0110fec331778a6acdf27e7"
+    },
+    {
+      "id": "parakeet-v3:1089-134686-0003",
+      "file_sha256": "2db232f2d626af81adb8b224bdcc72d71ed94e9f7180194a6279e532a08c9115",
+      "normalized_samples": 42880,
+      "pcm_sha256": "8ab223f14b11c666745e05c22c886f5ec7f4f43193e47ad84b4e0997b1903c03"
+    },
+    {
+      "id": "parakeet-v3:1089-134686-0004",
+      "file_sha256": "62fa78c06e5a74d08d38ab3e899eb3115810a4f33769389a2c6b498f01d5deb1",
+      "normalized_samples": 83441,
+      "pcm_sha256": "209aeeb68e19a1327b5e0b3a02079f8df9a7b6ce0702ca07cae7dbac90a6b055"
+    },
+    {
+      "id": "parakeet-v3:1188-133604-0000",
+      "file_sha256": "7103ea9b2746ea371e053c5e44aa65e3d69fdc84194e4af12722cd72a721c822",
+      "normalized_samples": 171600,
+      "pcm_sha256": "7a516fb45c45c9d97c6aaf33e9998572544daac3de3a42acea3fef06fe776a8f"
+    },
+    {
+      "id": "parakeet-v3:1188-133604-0001",
+      "file_sha256": "4b89ed324dfced1b32da500fe3d3a4b063a1dfc0971d3a72146b1aca29b22ebd",
+      "normalized_samples": 144640,
+      "pcm_sha256": "ed6831a8e9d280b8f4a0e461de626b774ca00c7b2602809a49938c22f038e42b"
+    },
+    {
+      "id": "parakeet-v3:1188-133604-0002",
+      "file_sha256": "6c0e8d4545ddf2585782dbc521a1e93bf72035ea951ed653a111203542269b26",
+      "normalized_samples": 287360,
+      "pcm_sha256": "fc7e92b28c91d1069d001c3101135ff0cab7913957c9ab7d1a7e01c99f6707a9"
+    },
+    {
+      "id": "parakeet-v3:1188-133604-0003",
+      "file_sha256": "30b3d095e882780ac02bf1717f57609835abbb9012bb4ca3f7295fd322ca7da7",
+      "normalized_samples": 201760,
+      "pcm_sha256": "aacc2756d16879cb193b76d95069fd2abd1ae7a9252e28e0212448ce8af8a57f"
+    },
+    {
+      "id": "parakeet-v3:1188-133604-0004",
+      "file_sha256": "4c3d62ac2eb47034f14e258d66b22dbd9ca8e5f409a4a50d0929fc825f740e45",
+      "normalized_samples": 170400,
+      "pcm_sha256": "3ac2f448496c698b19b041d4fa9d7e417b14b6d99b1b00d812897b374376518d"
+    },
+    {
+      "id": "parakeet-v3:121-121726-0000",
+      "file_sha256": "3b046c957d3014ff744d589229e81112366a4912c59deaf00b8e816621db120f",
+      "normalized_samples": 135360,
+      "pcm_sha256": "9ebd39badd6b11933c662b70e126bd2ec5f76e9fb2262ab2daf954d6454283b6"
+    },
+    {
+      "id": "parakeet-v3:121-121726-0001",
+      "file_sha256": "b1657235d4fbcfb2d8468b738e3c77b8bf171dc90ad6c1ca7cd7f57fb994059b",
+      "normalized_samples": 94800,
+      "pcm_sha256": "9086d6e2711da70ed261640900ebc83b39ebbdf0580e969fe48f0be4282d8a33"
+    },
+    {
+      "id": "parakeet-v3:121-121726-0002",
+      "file_sha256": "21fe00a53765159be57386730f08972b29e3b6b07e93a2cc0ddd1e0bcde1abd5",
+      "normalized_samples": 70560,
+      "pcm_sha256": "9dd6045f112799c2d95a59ebc864f33157e0fbdd7ec4d8dead78387551588a25"
+    },
+    {
+      "id": "parakeet-v3:121-121726-0003",
+      "file_sha256": "7c78f1fa2b7a22ad3896e0c29dd0642a38983bbac29ab22f3261da7ebc36c4a8",
+      "normalized_samples": 108080,
+      "pcm_sha256": "f1b9119ef6cc296b4226cb3799e2d06fe01ffb17f7f3c47d1d677b003fb88f7f"
+    },
+    {
+      "id": "parakeet-v3:121-121726-0004",
+      "file_sha256": "4bbc737ca67241542d273abfc2344f1e79c73efac7b096a2fc4f1ec346aaa9eb",
+      "normalized_samples": 64320,
+      "pcm_sha256": "3ca32eeea988f1a899f84800ba248127eb135a19e564b5f05578e1b9c24267b0"
+    },
+    {
+      "id": "parakeet-v3:1221-135766-0000",
+      "file_sha256": "29c67807e2be8a661b38ac883f3197be8d0550b3940eb3c09e24b72c0d0dde48",
+      "normalized_samples": 198960,
+      "pcm_sha256": "588a84ecaadb118f5a09766aa8e20f36c2c373dd3fea106b4e6c53b7a3004422"
+    },
+    {
+      "id": "parakeet-v3:1221-135766-0001",
+      "file_sha256": "5143a6ba93c4b274e2c4ac22deb75c2c48936c853f0519add1de828b6c79cc5a",
+      "normalized_samples": 267440,
+      "pcm_sha256": "fd2d8f9a437199be38c410edd0304a185b0f935571a23f07caf01eac21ddad39"
+    },
+    {
+      "id": "parakeet-v3:1221-135766-0002",
+      "file_sha256": "65b222837919ccbb924a4e1077413ea7cc6af3e68b663b012a9539d5c05850f0",
+      "normalized_samples": 77200,
+      "pcm_sha256": "2bdfccbd89c0d00095bea2c936681da9d12f3ff801f1233fac5b8986d2b08da5"
+    },
+    {
+      "id": "parakeet-v3:1221-135766-0003",
+      "file_sha256": "4c6b7d55eef72c98e7e5408ed4b3f72598156dc4d928c310898ca0e85e39e41d",
+      "normalized_samples": 219520,
+      "pcm_sha256": "8d43794956e65cc7310964f686507bfb8564ac2207c85bdfb1a7956da1dde070"
+    },
+    {
+      "id": "parakeet-v3:1221-135766-0004",
+      "file_sha256": "8ff4aa5749ae2d6a649bd517c35aeea3ab111bdd825c476dadce1ec7567fc4bb",
+      "normalized_samples": 119040,
+      "pcm_sha256": "e8e6e94c8ff44dfb036ca600895bc481231021cefe70084c0579f8873d6c6ba5"
+    },
+    {
+      "id": "parakeet-v3:synthetic-silence",
+      "file_sha256": "754600f871902b78686a437542199c86f9ce21d65e7bdfed3e330311c5c0e24c",
+      "normalized_samples": 80000,
+      "pcm_sha256": "ac2878215ad33205d1732578c89f25ededaad1b676911c540825bcf4baa42d9b"
+    },
+    {
+      "id": "parakeet-v3:synthetic-gaussian",
+      "file_sha256": "6b34811b5d3990bf0f259ee818bb4f9b8058e91191a0d777ecc7cde1444d3f93",
+      "normalized_samples": 80000,
+      "pcm_sha256": "d29daf3126f125ddb6bcfb688c44988be7e4994137d6fae11fdce6d808751648"
+    },
+    {
+      "id": "parakeet-v3:synthetic-hum60hz",
+      "file_sha256": "73a714dcd4913f4bf482554421c5ad4138fbf8cfda2feedd6243d9292cf69ac7",
+      "normalized_samples": 80000,
+      "pcm_sha256": "a8e0d71b5b03b0801297dbfaf9f6f8ee90fee0bca2afe457024346d8d9eb7748"
+    },
+    {
+      "id": "parakeet-v3:synthetic-tone440hz",
+      "file_sha256": "97bcfd1c79e067d58a4fbafad752263d2dfa05068b081cfc71facb263e0b7e7f",
+      "normalized_samples": 80000,
+      "pcm_sha256": "fcedbbbbb16a09842f25de9973e91f6ce4739e9cb9059d3efc418086f5829d28"
+    },
+    {
+      "id": "parakeet-v3:synthetic-clicks",
+      "file_sha256": "66f52ecdb7cbb0558748fb50370538ee886d13914005875f312d9f0d62464bd2",
+      "normalized_samples": 80000,
+      "pcm_sha256": "06e6695f012a76cdc8ea3ed5d985121cd0bf6f153b934fc7bfa8ce5245e208bf"
+    },
+    {
+      "id": "parakeet-v3:fleurs-es_419-000-original",
+      "file_sha256": "518e4998d7fc4cb32bf9cb6c479b4cfe632bc68c6a2db376eeff98b68fea2bd1",
+      "normalized_samples": 205440,
+      "pcm_sha256": "4e08e350cb7eae260082784031643646eaa79fb46a236e7a876497f9ad429100"
+    },
+    {
+      "id": "parakeet-v3:fleurs-es_419-000-quiet40db",
+      "file_sha256": "3000b64bfb096f333c6ffa5659a46316dfbd189b7cfa4ddd41a951c4da798ff4",
+      "normalized_samples": 205440,
+      "pcm_sha256": "71be4b2ee2a6ce7bc522895227675cbb1b3e8a9ce3f7f51bbbbbe08321dd775a"
+    },
+    {
+      "id": "parakeet-v3:fleurs-de_de-000-original",
+      "file_sha256": "7131c007c5c5c7b72c2fae333c9bccf5e2c02a4abb32b740f314e58b1488f149",
+      "normalized_samples": 287040,
+      "pcm_sha256": "2bc82d9c2d75aa89b91c374d7b4edb05b3b1f15c852baf7ed1ce0b9ee7e25554"
+    },
+    {
+      "id": "parakeet-v3:fleurs-de_de-000-quiet40db",
+      "file_sha256": "2b1a2df511a71daf482ab623ac77e0bf869020ba8b4db3c4d708168fd5838f4c",
+      "normalized_samples": 287040,
+      "pcm_sha256": "02d1804a1a3f3609e7b14bc6a830bf4c883911f7b76abebd6ddda52873327e44"
+    },
+    {
+      "id": "whisper-turbo:1089-134686-0000",
+      "file_sha256": "0b1785dba56f22af426ccb25d318f7e103558fd40e1c3ab064b455dba2afae12",
+      "normalized_samples": 166960,
+      "pcm_sha256": "29ff16924c9577f5e335fcc7d64dd5d9ee261db7e9ec9c8eb7f8129b31cc1643"
+    },
+    {
+      "id": "whisper-turbo:1089-134686-0001",
+      "file_sha256": "6b0b24796a1017a65007d392b9f8d6e64e030cdafbf82d8ffa4235fe4b371443",
+      "normalized_samples": 52400,
+      "pcm_sha256": "05072430dadd6e8ea297b3ad0d8f95c57e258dd7185cf068f739d36a9aadceda"
+    },
+    {
+      "id": "whisper-turbo:1089-134686-0002",
+      "file_sha256": "6bc58a4efdf20daac252b6b1502632601a71efe0308f6757dc1eda34891a7e4f",
+      "normalized_samples": 106000,
+      "pcm_sha256": "bbf9920ca49230e1dbe59aa87427028ce254bcb4d0110fec331778a6acdf27e7"
+    },
+    {
+      "id": "whisper-turbo:1089-134686-0003",
+      "file_sha256": "2db232f2d626af81adb8b224bdcc72d71ed94e9f7180194a6279e532a08c9115",
+      "normalized_samples": 42880,
+      "pcm_sha256": "8ab223f14b11c666745e05c22c886f5ec7f4f43193e47ad84b4e0997b1903c03"
+    },
+    {
+      "id": "whisper-turbo:1089-134686-0004",
+      "file_sha256": "62fa78c06e5a74d08d38ab3e899eb3115810a4f33769389a2c6b498f01d5deb1",
+      "normalized_samples": 83441,
+      "pcm_sha256": "209aeeb68e19a1327b5e0b3a02079f8df9a7b6ce0702ca07cae7dbac90a6b055"
+    },
+    {
+      "id": "whisper-turbo:1188-133604-0000",
+      "file_sha256": "7103ea9b2746ea371e053c5e44aa65e3d69fdc84194e4af12722cd72a721c822",
+      "normalized_samples": 171600,
+      "pcm_sha256": "7a516fb45c45c9d97c6aaf33e9998572544daac3de3a42acea3fef06fe776a8f"
+    },
+    {
+      "id": "whisper-turbo:1188-133604-0001",
+      "file_sha256": "4b89ed324dfced1b32da500fe3d3a4b063a1dfc0971d3a72146b1aca29b22ebd",
+      "normalized_samples": 144640,
+      "pcm_sha256": "ed6831a8e9d280b8f4a0e461de626b774ca00c7b2602809a49938c22f038e42b"
+    },
+    {
+      "id": "whisper-turbo:1188-133604-0002",
+      "file_sha256": "6c0e8d4545ddf2585782dbc521a1e93bf72035ea951ed653a111203542269b26",
+      "normalized_samples": 287360,
+      "pcm_sha256": "fc7e92b28c91d1069d001c3101135ff0cab7913957c9ab7d1a7e01c99f6707a9"
+    },
+    {
+      "id": "whisper-turbo:1188-133604-0003",
+      "file_sha256": "30b3d095e882780ac02bf1717f57609835abbb9012bb4ca3f7295fd322ca7da7",
+      "normalized_samples": 201760,
+      "pcm_sha256": "aacc2756d16879cb193b76d95069fd2abd1ae7a9252e28e0212448ce8af8a57f"
+    },
+    {
+      "id": "whisper-turbo:1188-133604-0004",
+      "file_sha256": "4c3d62ac2eb47034f14e258d66b22dbd9ca8e5f409a4a50d0929fc825f740e45",
+      "normalized_samples": 170400,
+      "pcm_sha256": "3ac2f448496c698b19b041d4fa9d7e417b14b6d99b1b00d812897b374376518d"
+    },
+    {
+      "id": "whisper-turbo:121-121726-0000",
+      "file_sha256": "3b046c957d3014ff744d589229e81112366a4912c59deaf00b8e816621db120f",
+      "normalized_samples": 135360,
+      "pcm_sha256": "9ebd39badd6b11933c662b70e126bd2ec5f76e9fb2262ab2daf954d6454283b6"
+    },
+    {
+      "id": "whisper-turbo:121-121726-0001",
+      "file_sha256": "b1657235d4fbcfb2d8468b738e3c77b8bf171dc90ad6c1ca7cd7f57fb994059b",
+      "normalized_samples": 94800,
+      "pcm_sha256": "9086d6e2711da70ed261640900ebc83b39ebbdf0580e969fe48f0be4282d8a33"
+    },
+    {
+      "id": "whisper-turbo:121-121726-0002",
+      "file_sha256": "21fe00a53765159be57386730f08972b29e3b6b07e93a2cc0ddd1e0bcde1abd5",
+      "normalized_samples": 70560,
+      "pcm_sha256": "9dd6045f112799c2d95a59ebc864f33157e0fbdd7ec4d8dead78387551588a25"
+    },
+    {
+      "id": "whisper-turbo:121-121726-0003",
+      "file_sha256": "7c78f1fa2b7a22ad3896e0c29dd0642a38983bbac29ab22f3261da7ebc36c4a8",
+      "normalized_samples": 108080,
+      "pcm_sha256": "f1b9119ef6cc296b4226cb3799e2d06fe01ffb17f7f3c47d1d677b003fb88f7f"
+    },
+    {
+      "id": "whisper-turbo:121-121726-0004",
+      "file_sha256": "4bbc737ca67241542d273abfc2344f1e79c73efac7b096a2fc4f1ec346aaa9eb",
+      "normalized_samples": 64320,
+      "pcm_sha256": "3ca32eeea988f1a899f84800ba248127eb135a19e564b5f05578e1b9c24267b0"
+    },
+    {
+      "id": "whisper-turbo:1221-135766-0000",
+      "file_sha256": "29c67807e2be8a661b38ac883f3197be8d0550b3940eb3c09e24b72c0d0dde48",
+      "normalized_samples": 198960,
+      "pcm_sha256": "588a84ecaadb118f5a09766aa8e20f36c2c373dd3fea106b4e6c53b7a3004422"
+    },
+    {
+      "id": "whisper-turbo:1221-135766-0001",
+      "file_sha256": "5143a6ba93c4b274e2c4ac22deb75c2c48936c853f0519add1de828b6c79cc5a",
+      "normalized_samples": 267440,
+      "pcm_sha256": "fd2d8f9a437199be38c410edd0304a185b0f935571a23f07caf01eac21ddad39"
+    },
+    {
+      "id": "whisper-turbo:1221-135766-0002",
+      "file_sha256": "65b222837919ccbb924a4e1077413ea7cc6af3e68b663b012a9539d5c05850f0",
+      "normalized_samples": 77200,
+      "pcm_sha256": "2bdfccbd89c0d00095bea2c936681da9d12f3ff801f1233fac5b8986d2b08da5"
+    },
+    {
+      "id": "whisper-turbo:1221-135766-0003",
+      "file_sha256": "4c6b7d55eef72c98e7e5408ed4b3f72598156dc4d928c310898ca0e85e39e41d",
+      "normalized_samples": 219520,
+      "pcm_sha256": "8d43794956e65cc7310964f686507bfb8564ac2207c85bdfb1a7956da1dde070"
+    },
+    {
+      "id": "whisper-turbo:1221-135766-0004",
+      "file_sha256": "8ff4aa5749ae2d6a649bd517c35aeea3ab111bdd825c476dadce1ec7567fc4bb",
+      "normalized_samples": 119040,
+      "pcm_sha256": "e8e6e94c8ff44dfb036ca600895bc481231021cefe70084c0579f8873d6c6ba5"
+    },
+    {
+      "id": "whisper-turbo:synthetic-silence",
+      "file_sha256": "754600f871902b78686a437542199c86f9ce21d65e7bdfed3e330311c5c0e24c",
+      "normalized_samples": 80000,
+      "pcm_sha256": "ac2878215ad33205d1732578c89f25ededaad1b676911c540825bcf4baa42d9b"
+    },
+    {
+      "id": "whisper-turbo:synthetic-gaussian",
+      "file_sha256": "6b34811b5d3990bf0f259ee818bb4f9b8058e91191a0d777ecc7cde1444d3f93",
+      "normalized_samples": 80000,
+      "pcm_sha256": "d29daf3126f125ddb6bcfb688c44988be7e4994137d6fae11fdce6d808751648"
+    },
+    {
+      "id": "whisper-turbo:synthetic-hum60hz",
+      "file_sha256": "73a714dcd4913f4bf482554421c5ad4138fbf8cfda2feedd6243d9292cf69ac7",
+      "normalized_samples": 80000,
+      "pcm_sha256": "a8e0d71b5b03b0801297dbfaf9f6f8ee90fee0bca2afe457024346d8d9eb7748"
+    },
+    {
+      "id": "whisper-turbo:synthetic-tone440hz",
+      "file_sha256": "97bcfd1c79e067d58a4fbafad752263d2dfa05068b081cfc71facb263e0b7e7f",
+      "normalized_samples": 80000,
+      "pcm_sha256": "fcedbbbbb16a09842f25de9973e91f6ce4739e9cb9059d3efc418086f5829d28"
+    },
+    {
+      "id": "whisper-turbo:synthetic-clicks",
+      "file_sha256": "66f52ecdb7cbb0558748fb50370538ee886d13914005875f312d9f0d62464bd2",
+      "normalized_samples": 80000,
+      "pcm_sha256": "06e6695f012a76cdc8ea3ed5d985121cd0bf6f153b934fc7bfa8ce5245e208bf"
+    },
+    {
+      "id": "whisper-turbo:fleurs-es_419-000-original",
+      "file_sha256": "518e4998d7fc4cb32bf9cb6c479b4cfe632bc68c6a2db376eeff98b68fea2bd1",
+      "normalized_samples": 205440,
+      "pcm_sha256": "4e08e350cb7eae260082784031643646eaa79fb46a236e7a876497f9ad429100"
+    },
+    {
+      "id": "whisper-turbo:fleurs-es_419-000-quiet40db",
+      "file_sha256": "3000b64bfb096f333c6ffa5659a46316dfbd189b7cfa4ddd41a951c4da798ff4",
+      "normalized_samples": 205440,
+      "pcm_sha256": "71be4b2ee2a6ce7bc522895227675cbb1b3e8a9ce3f7f51bbbbbe08321dd775a"
+    },
+    {
+      "id": "whisper-turbo:fleurs-de_de-000-original",
+      "file_sha256": "7131c007c5c5c7b72c2fae333c9bccf5e2c02a4abb32b740f314e58b1488f149",
+      "normalized_samples": 287040,
+      "pcm_sha256": "2bc82d9c2d75aa89b91c374d7b4edb05b3b1f15c852baf7ed1ce0b9ee7e25554"
+    },
+    {
+      "id": "whisper-turbo:fleurs-de_de-000-quiet40db",
+      "file_sha256": "2b1a2df511a71daf482ab623ac77e0bf869020ba8b4db3c4d708168fd5838f4c",
+      "normalized_samples": 287040,
+      "pcm_sha256": "02d1804a1a3f3609e7b14bc6a830bf4c883911f7b76abebd6ddda52873327e44"
+    },
+    {
+      "id": "whisper-turbo:fleurs-hi_in-000-original",
+      "file_sha256": "38cf0e883d64ae257288bce89cf41a9c4a693b218c3381d5bd462d90bf7b7ed6",
+      "normalized_samples": 145920,
+      "pcm_sha256": "bd57586f5375324ad3bc07c06f6cb2ac0becde0f3a417a1bb23e4d780c27e268"
+    },
+    {
+      "id": "whisper-turbo:fleurs-hi_in-000-quiet40db",
+      "file_sha256": "933a2bbaab55cc52e0519b8f3d2b983aa3a353e94d330f4982f700381014cd3a",
+      "normalized_samples": 145920,
+      "pcm_sha256": "f70a3be1da81ddda8d0235af04f4bb3394304f1dd24ca39c44f87e404248c64d"
+    },
+    {
+      "id": "whisper-turbo:fleurs-ja_jp-000-original",
+      "file_sha256": "26b6cd491b5d52cf05d89207cb88499cdaba89749aebc29c8f216e834e3d9071",
+      "normalized_samples": 167040,
+      "pcm_sha256": "f73d4fe07096f59d1f5ce13fec7f9c2d2164685904d73540e0f784bfcaf26208"
+    },
+    {
+      "id": "whisper-turbo:fleurs-ja_jp-000-quiet40db",
+      "file_sha256": "8dc6bf0364274e39c0beb4124dacb54559aeb8f4505749eb078c62da67835345",
+      "normalized_samples": 167040,
+      "pcm_sha256": "ae11c1d022fdebc3dd2bb72fbd39edef39e0e12ec3968423602ba6ddbca647d1"
+    },
+    {
+      "id": "whisper-turbo:fleurs-cmn_hans_cn-000-original",
+      "file_sha256": "5214e16584b6498ddbd22f321738c0f62b19117ab1880b21e405fba983986b6a",
+      "normalized_samples": 166080,
+      "pcm_sha256": "3c784155f4f21a00372503208c33d8590817a07cf196c38aa549ff315b0be867"
+    },
+    {
+      "id": "whisper-turbo:fleurs-cmn_hans_cn-000-quiet40db",
+      "file_sha256": "baee0d5ad3a52e9adcb3b3f1302575329d4914902091cbd9eb6adc2ec3e79ae3",
+      "normalized_samples": 166080,
+      "pcm_sha256": "502bbdc98927f312f5231c5b5323f561d9975b0fcbb11ef30e41a87c62bc10a1"
+    },
+    {
+      "id": "whisper-small:1089-134686-0000",
+      "file_sha256": "0b1785dba56f22af426ccb25d318f7e103558fd40e1c3ab064b455dba2afae12",
+      "normalized_samples": 166960,
+      "pcm_sha256": "29ff16924c9577f5e335fcc7d64dd5d9ee261db7e9ec9c8eb7f8129b31cc1643"
+    },
+    {
+      "id": "whisper-small:1089-134686-0001",
+      "file_sha256": "6b0b24796a1017a65007d392b9f8d6e64e030cdafbf82d8ffa4235fe4b371443",
+      "normalized_samples": 52400,
+      "pcm_sha256": "05072430dadd6e8ea297b3ad0d8f95c57e258dd7185cf068f739d36a9aadceda"
+    },
+    {
+      "id": "whisper-small:1089-134686-0002",
+      "file_sha256": "6bc58a4efdf20daac252b6b1502632601a71efe0308f6757dc1eda34891a7e4f",
+      "normalized_samples": 106000,
+      "pcm_sha256": "bbf9920ca49230e1dbe59aa87427028ce254bcb4d0110fec331778a6acdf27e7"
+    },
+    {
+      "id": "whisper-small:1089-134686-0003",
+      "file_sha256": "2db232f2d626af81adb8b224bdcc72d71ed94e9f7180194a6279e532a08c9115",
+      "normalized_samples": 42880,
+      "pcm_sha256": "8ab223f14b11c666745e05c22c886f5ec7f4f43193e47ad84b4e0997b1903c03"
+    },
+    {
+      "id": "whisper-small:1089-134686-0004",
+      "file_sha256": "62fa78c06e5a74d08d38ab3e899eb3115810a4f33769389a2c6b498f01d5deb1",
+      "normalized_samples": 83441,
+      "pcm_sha256": "209aeeb68e19a1327b5e0b3a02079f8df9a7b6ce0702ca07cae7dbac90a6b055"
+    },
+    {
+      "id": "whisper-small:1188-133604-0000",
+      "file_sha256": "7103ea9b2746ea371e053c5e44aa65e3d69fdc84194e4af12722cd72a721c822",
+      "normalized_samples": 171600,
+      "pcm_sha256": "7a516fb45c45c9d97c6aaf33e9998572544daac3de3a42acea3fef06fe776a8f"
+    },
+    {
+      "id": "whisper-small:1188-133604-0001",
+      "file_sha256": "4b89ed324dfced1b32da500fe3d3a4b063a1dfc0971d3a72146b1aca29b22ebd",
+      "normalized_samples": 144640,
+      "pcm_sha256": "ed6831a8e9d280b8f4a0e461de626b774ca00c7b2602809a49938c22f038e42b"
+    },
+    {
+      "id": "whisper-small:1188-133604-0002",
+      "file_sha256": "6c0e8d4545ddf2585782dbc521a1e93bf72035ea951ed653a111203542269b26",
+      "normalized_samples": 287360,
+      "pcm_sha256": "fc7e92b28c91d1069d001c3101135ff0cab7913957c9ab7d1a7e01c99f6707a9"
+    },
+    {
+      "id": "whisper-small:1188-133604-0003",
+      "file_sha256": "30b3d095e882780ac02bf1717f57609835abbb9012bb4ca3f7295fd322ca7da7",
+      "normalized_samples": 201760,
+      "pcm_sha256": "aacc2756d16879cb193b76d95069fd2abd1ae7a9252e28e0212448ce8af8a57f"
+    },
+    {
+      "id": "whisper-small:1188-133604-0004",
+      "file_sha256": "4c3d62ac2eb47034f14e258d66b22dbd9ca8e5f409a4a50d0929fc825f740e45",
+      "normalized_samples": 170400,
+      "pcm_sha256": "3ac2f448496c698b19b041d4fa9d7e417b14b6d99b1b00d812897b374376518d"
+    },
+    {
+      "id": "whisper-small:121-121726-0000",
+      "file_sha256": "3b046c957d3014ff744d589229e81112366a4912c59deaf00b8e816621db120f",
+      "normalized_samples": 135360,
+      "pcm_sha256": "9ebd39badd6b11933c662b70e126bd2ec5f76e9fb2262ab2daf954d6454283b6"
+    },
+    {
+      "id": "whisper-small:121-121726-0001",
+      "file_sha256": "b1657235d4fbcfb2d8468b738e3c77b8bf171dc90ad6c1ca7cd7f57fb994059b",
+      "normalized_samples": 94800,
+      "pcm_sha256": "9086d6e2711da70ed261640900ebc83b39ebbdf0580e969fe48f0be4282d8a33"
+    },
+    {
+      "id": "whisper-small:121-121726-0002",
+      "file_sha256": "21fe00a53765159be57386730f08972b29e3b6b07e93a2cc0ddd1e0bcde1abd5",
+      "normalized_samples": 70560,
+      "pcm_sha256": "9dd6045f112799c2d95a59ebc864f33157e0fbdd7ec4d8dead78387551588a25"
+    },
+    {
+      "id": "whisper-small:121-121726-0003",
+      "file_sha256": "7c78f1fa2b7a22ad3896e0c29dd0642a38983bbac29ab22f3261da7ebc36c4a8",
+      "normalized_samples": 108080,
+      "pcm_sha256": "f1b9119ef6cc296b4226cb3799e2d06fe01ffb17f7f3c47d1d677b003fb88f7f"
+    },
+    {
+      "id": "whisper-small:121-121726-0004",
+      "file_sha256": "4bbc737ca67241542d273abfc2344f1e79c73efac7b096a2fc4f1ec346aaa9eb",
+      "normalized_samples": 64320,
+      "pcm_sha256": "3ca32eeea988f1a899f84800ba248127eb135a19e564b5f05578e1b9c24267b0"
+    },
+    {
+      "id": "whisper-small:1221-135766-0000",
+      "file_sha256": "29c67807e2be8a661b38ac883f3197be8d0550b3940eb3c09e24b72c0d0dde48",
+      "normalized_samples": 198960,
+      "pcm_sha256": "588a84ecaadb118f5a09766aa8e20f36c2c373dd3fea106b4e6c53b7a3004422"
+    },
+    {
+      "id": "whisper-small:1221-135766-0001",
+      "file_sha256": "5143a6ba93c4b274e2c4ac22deb75c2c48936c853f0519add1de828b6c79cc5a",
+      "normalized_samples": 267440,
+      "pcm_sha256": "fd2d8f9a437199be38c410edd0304a185b0f935571a23f07caf01eac21ddad39"
+    },
+    {
+      "id": "whisper-small:1221-135766-0002",
+      "file_sha256": "65b222837919ccbb924a4e1077413ea7cc6af3e68b663b012a9539d5c05850f0",
+      "normalized_samples": 77200,
+      "pcm_sha256": "2bdfccbd89c0d00095bea2c936681da9d12f3ff801f1233fac5b8986d2b08da5"
+    },
+    {
+      "id": "whisper-small:1221-135766-0003",
+      "file_sha256": "4c6b7d55eef72c98e7e5408ed4b3f72598156dc4d928c310898ca0e85e39e41d",
+      "normalized_samples": 219520,
+      "pcm_sha256": "8d43794956e65cc7310964f686507bfb8564ac2207c85bdfb1a7956da1dde070"
+    },
+    {
+      "id": "whisper-small:1221-135766-0004",
+      "file_sha256": "8ff4aa5749ae2d6a649bd517c35aeea3ab111bdd825c476dadce1ec7567fc4bb",
+      "normalized_samples": 119040,
+      "pcm_sha256": "e8e6e94c8ff44dfb036ca600895bc481231021cefe70084c0579f8873d6c6ba5"
+    },
+    {
+      "id": "whisper-small:synthetic-silence",
+      "file_sha256": "754600f871902b78686a437542199c86f9ce21d65e7bdfed3e330311c5c0e24c",
+      "normalized_samples": 80000,
+      "pcm_sha256": "ac2878215ad33205d1732578c89f25ededaad1b676911c540825bcf4baa42d9b"
+    },
+    {
+      "id": "whisper-small:synthetic-gaussian",
+      "file_sha256": "6b34811b5d3990bf0f259ee818bb4f9b8058e91191a0d777ecc7cde1444d3f93",
+      "normalized_samples": 80000,
+      "pcm_sha256": "d29daf3126f125ddb6bcfb688c44988be7e4994137d6fae11fdce6d808751648"
+    },
+    {
+      "id": "whisper-small:synthetic-hum60hz",
+      "file_sha256": "73a714dcd4913f4bf482554421c5ad4138fbf8cfda2feedd6243d9292cf69ac7",
+      "normalized_samples": 80000,
+      "pcm_sha256": "a8e0d71b5b03b0801297dbfaf9f6f8ee90fee0bca2afe457024346d8d9eb7748"
+    },
+    {
+      "id": "whisper-small:synthetic-tone440hz",
+      "file_sha256": "97bcfd1c79e067d58a4fbafad752263d2dfa05068b081cfc71facb263e0b7e7f",
+      "normalized_samples": 80000,
+      "pcm_sha256": "fcedbbbbb16a09842f25de9973e91f6ce4739e9cb9059d3efc418086f5829d28"
+    },
+    {
+      "id": "whisper-small:synthetic-clicks",
+      "file_sha256": "66f52ecdb7cbb0558748fb50370538ee886d13914005875f312d9f0d62464bd2",
+      "normalized_samples": 80000,
+      "pcm_sha256": "06e6695f012a76cdc8ea3ed5d985121cd0bf6f153b934fc7bfa8ce5245e208bf"
+    },
+    {
+      "id": "whisper-small:fleurs-es_419-000-original",
+      "file_sha256": "518e4998d7fc4cb32bf9cb6c479b4cfe632bc68c6a2db376eeff98b68fea2bd1",
+      "normalized_samples": 205440,
+      "pcm_sha256": "4e08e350cb7eae260082784031643646eaa79fb46a236e7a876497f9ad429100"
+    },
+    {
+      "id": "whisper-small:fleurs-es_419-000-quiet40db",
+      "file_sha256": "3000b64bfb096f333c6ffa5659a46316dfbd189b7cfa4ddd41a951c4da798ff4",
+      "normalized_samples": 205440,
+      "pcm_sha256": "71be4b2ee2a6ce7bc522895227675cbb1b3e8a9ce3f7f51bbbbbe08321dd775a"
+    },
+    {
+      "id": "whisper-small:fleurs-de_de-000-original",
+      "file_sha256": "7131c007c5c5c7b72c2fae333c9bccf5e2c02a4abb32b740f314e58b1488f149",
+      "normalized_samples": 287040,
+      "pcm_sha256": "2bc82d9c2d75aa89b91c374d7b4edb05b3b1f15c852baf7ed1ce0b9ee7e25554"
+    },
+    {
+      "id": "whisper-small:fleurs-de_de-000-quiet40db",
+      "file_sha256": "2b1a2df511a71daf482ab623ac77e0bf869020ba8b4db3c4d708168fd5838f4c",
+      "normalized_samples": 287040,
+      "pcm_sha256": "02d1804a1a3f3609e7b14bc6a830bf4c883911f7b76abebd6ddda52873327e44"
+    },
+    {
+      "id": "whisper-small:fleurs-hi_in-000-original",
+      "file_sha256": "38cf0e883d64ae257288bce89cf41a9c4a693b218c3381d5bd462d90bf7b7ed6",
+      "normalized_samples": 145920,
+      "pcm_sha256": "bd57586f5375324ad3bc07c06f6cb2ac0becde0f3a417a1bb23e4d780c27e268"
+    },
+    {
+      "id": "whisper-small:fleurs-hi_in-000-quiet40db",
+      "file_sha256": "933a2bbaab55cc52e0519b8f3d2b983aa3a353e94d330f4982f700381014cd3a",
+      "normalized_samples": 145920,
+      "pcm_sha256": "f70a3be1da81ddda8d0235af04f4bb3394304f1dd24ca39c44f87e404248c64d"
+    },
+    {
+      "id": "whisper-small:fleurs-ja_jp-000-original",
+      "file_sha256": "26b6cd491b5d52cf05d89207cb88499cdaba89749aebc29c8f216e834e3d9071",
+      "normalized_samples": 167040,
+      "pcm_sha256": "f73d4fe07096f59d1f5ce13fec7f9c2d2164685904d73540e0f784bfcaf26208"
+    },
+    {
+      "id": "whisper-small:fleurs-ja_jp-000-quiet40db",
+      "file_sha256": "8dc6bf0364274e39c0beb4124dacb54559aeb8f4505749eb078c62da67835345",
+      "normalized_samples": 167040,
+      "pcm_sha256": "ae11c1d022fdebc3dd2bb72fbd39edef39e0e12ec3968423602ba6ddbca647d1"
+    },
+    {
+      "id": "whisper-small:fleurs-cmn_hans_cn-000-original",
+      "file_sha256": "5214e16584b6498ddbd22f321738c0f62b19117ab1880b21e405fba983986b6a",
+      "normalized_samples": 166080,
+      "pcm_sha256": "3c784155f4f21a00372503208c33d8590817a07cf196c38aa549ff315b0be867"
+    },
+    {
+      "id": "whisper-small:fleurs-cmn_hans_cn-000-quiet40db",
+      "file_sha256": "baee0d5ad3a52e9adcb3b3f1302575329d4914902091cbd9eb6adc2ec3e79ae3",
+      "normalized_samples": 166080,
+      "pcm_sha256": "502bbdc98927f312f5231c5b5323f561d9975b0fcbb11ef30e41a87c62bc10a1"
+    },
+    {
+      "id": "qwen3-asr:1089-134686-0000",
+      "file_sha256": "0b1785dba56f22af426ccb25d318f7e103558fd40e1c3ab064b455dba2afae12",
+      "normalized_samples": 166960,
+      "pcm_sha256": "29ff16924c9577f5e335fcc7d64dd5d9ee261db7e9ec9c8eb7f8129b31cc1643"
+    },
+    {
+      "id": "qwen3-asr:1089-134686-0001",
+      "file_sha256": "6b0b24796a1017a65007d392b9f8d6e64e030cdafbf82d8ffa4235fe4b371443",
+      "normalized_samples": 52400,
+      "pcm_sha256": "05072430dadd6e8ea297b3ad0d8f95c57e258dd7185cf068f739d36a9aadceda"
+    },
+    {
+      "id": "qwen3-asr:1089-134686-0002",
+      "file_sha256": "6bc58a4efdf20daac252b6b1502632601a71efe0308f6757dc1eda34891a7e4f",
+      "normalized_samples": 106000,
+      "pcm_sha256": "bbf9920ca49230e1dbe59aa87427028ce254bcb4d0110fec331778a6acdf27e7"
+    },
+    {
+      "id": "qwen3-asr:1089-134686-0003",
+      "file_sha256": "2db232f2d626af81adb8b224bdcc72d71ed94e9f7180194a6279e532a08c9115",
+      "normalized_samples": 42880,
+      "pcm_sha256": "8ab223f14b11c666745e05c22c886f5ec7f4f43193e47ad84b4e0997b1903c03"
+    },
+    {
+      "id": "qwen3-asr:1089-134686-0004",
+      "file_sha256": "62fa78c06e5a74d08d38ab3e899eb3115810a4f33769389a2c6b498f01d5deb1",
+      "normalized_samples": 83441,
+      "pcm_sha256": "209aeeb68e19a1327b5e0b3a02079f8df9a7b6ce0702ca07cae7dbac90a6b055"
+    },
+    {
+      "id": "qwen3-asr:1188-133604-0000",
+      "file_sha256": "7103ea9b2746ea371e053c5e44aa65e3d69fdc84194e4af12722cd72a721c822",
+      "normalized_samples": 171600,
+      "pcm_sha256": "7a516fb45c45c9d97c6aaf33e9998572544daac3de3a42acea3fef06fe776a8f"
+    },
+    {
+      "id": "qwen3-asr:1188-133604-0001",
+      "file_sha256": "4b89ed324dfced1b32da500fe3d3a4b063a1dfc0971d3a72146b1aca29b22ebd",
+      "normalized_samples": 144640,
+      "pcm_sha256": "ed6831a8e9d280b8f4a0e461de626b774ca00c7b2602809a49938c22f038e42b"
+    },
+    {
+      "id": "qwen3-asr:1188-133604-0002",
+      "file_sha256": "6c0e8d4545ddf2585782dbc521a1e93bf72035ea951ed653a111203542269b26",
+      "normalized_samples": 287360,
+      "pcm_sha256": "fc7e92b28c91d1069d001c3101135ff0cab7913957c9ab7d1a7e01c99f6707a9"
+    },
+    {
+      "id": "qwen3-asr:1188-133604-0003",
+      "file_sha256": "30b3d095e882780ac02bf1717f57609835abbb9012bb4ca3f7295fd322ca7da7",
+      "normalized_samples": 201760,
+      "pcm_sha256": "aacc2756d16879cb193b76d95069fd2abd1ae7a9252e28e0212448ce8af8a57f"
+    },
+    {
+      "id": "qwen3-asr:1188-133604-0004",
+      "file_sha256": "4c3d62ac2eb47034f14e258d66b22dbd9ca8e5f409a4a50d0929fc825f740e45",
+      "normalized_samples": 170400,
+      "pcm_sha256": "3ac2f448496c698b19b041d4fa9d7e417b14b6d99b1b00d812897b374376518d"
+    },
+    {
+      "id": "qwen3-asr:121-121726-0000",
+      "file_sha256": "3b046c957d3014ff744d589229e81112366a4912c59deaf00b8e816621db120f",
+      "normalized_samples": 135360,
+      "pcm_sha256": "9ebd39badd6b11933c662b70e126bd2ec5f76e9fb2262ab2daf954d6454283b6"
+    },
+    {
+      "id": "qwen3-asr:121-121726-0001",
+      "file_sha256": "b1657235d4fbcfb2d8468b738e3c77b8bf171dc90ad6c1ca7cd7f57fb994059b",
+      "normalized_samples": 94800,
+      "pcm_sha256": "9086d6e2711da70ed261640900ebc83b39ebbdf0580e969fe48f0be4282d8a33"
+    },
+    {
+      "id": "qwen3-asr:121-121726-0002",
+      "file_sha256": "21fe00a53765159be57386730f08972b29e3b6b07e93a2cc0ddd1e0bcde1abd5",
+      "normalized_samples": 70560,
+      "pcm_sha256": "9dd6045f112799c2d95a59ebc864f33157e0fbdd7ec4d8dead78387551588a25"
+    },
+    {
+      "id": "qwen3-asr:121-121726-0003",
+      "file_sha256": "7c78f1fa2b7a22ad3896e0c29dd0642a38983bbac29ab22f3261da7ebc36c4a8",
+      "normalized_samples": 108080,
+      "pcm_sha256": "f1b9119ef6cc296b4226cb3799e2d06fe01ffb17f7f3c47d1d677b003fb88f7f"
+    },
+    {
+      "id": "qwen3-asr:121-121726-0004",
+      "file_sha256": "4bbc737ca67241542d273abfc2344f1e79c73efac7b096a2fc4f1ec346aaa9eb",
+      "normalized_samples": 64320,
+      "pcm_sha256": "3ca32eeea988f1a899f84800ba248127eb135a19e564b5f05578e1b9c24267b0"
+    },
+    {
+      "id": "qwen3-asr:1221-135766-0000",
+      "file_sha256": "29c67807e2be8a661b38ac883f3197be8d0550b3940eb3c09e24b72c0d0dde48",
+      "normalized_samples": 198960,
+      "pcm_sha256": "588a84ecaadb118f5a09766aa8e20f36c2c373dd3fea106b4e6c53b7a3004422"
+    },
+    {
+      "id": "qwen3-asr:1221-135766-0001",
+      "file_sha256": "5143a6ba93c4b274e2c4ac22deb75c2c48936c853f0519add1de828b6c79cc5a",
+      "normalized_samples": 267440,
+      "pcm_sha256": "fd2d8f9a437199be38c410edd0304a185b0f935571a23f07caf01eac21ddad39"
+    },
+    {
+      "id": "qwen3-asr:1221-135766-0002",
+      "file_sha256": "65b222837919ccbb924a4e1077413ea7cc6af3e68b663b012a9539d5c05850f0",
+      "normalized_samples": 77200,
+      "pcm_sha256": "2bdfccbd89c0d00095bea2c936681da9d12f3ff801f1233fac5b8986d2b08da5"
+    },
+    {
+      "id": "qwen3-asr:1221-135766-0003",
+      "file_sha256": "4c6b7d55eef72c98e7e5408ed4b3f72598156dc4d928c310898ca0e85e39e41d",
+      "normalized_samples": 219520,
+      "pcm_sha256": "8d43794956e65cc7310964f686507bfb8564ac2207c85bdfb1a7956da1dde070"
+    },
+    {
+      "id": "qwen3-asr:1221-135766-0004",
+      "file_sha256": "8ff4aa5749ae2d6a649bd517c35aeea3ab111bdd825c476dadce1ec7567fc4bb",
+      "normalized_samples": 119040,
+      "pcm_sha256": "e8e6e94c8ff44dfb036ca600895bc481231021cefe70084c0579f8873d6c6ba5"
+    },
+    {
+      "id": "qwen3-asr:synthetic-silence",
+      "file_sha256": "754600f871902b78686a437542199c86f9ce21d65e7bdfed3e330311c5c0e24c",
+      "normalized_samples": 80000,
+      "pcm_sha256": "ac2878215ad33205d1732578c89f25ededaad1b676911c540825bcf4baa42d9b"
+    },
+    {
+      "id": "qwen3-asr:synthetic-gaussian",
+      "file_sha256": "6b34811b5d3990bf0f259ee818bb4f9b8058e91191a0d777ecc7cde1444d3f93",
+      "normalized_samples": 80000,
+      "pcm_sha256": "d29daf3126f125ddb6bcfb688c44988be7e4994137d6fae11fdce6d808751648"
+    },
+    {
+      "id": "qwen3-asr:synthetic-hum60hz",
+      "file_sha256": "73a714dcd4913f4bf482554421c5ad4138fbf8cfda2feedd6243d9292cf69ac7",
+      "normalized_samples": 80000,
+      "pcm_sha256": "a8e0d71b5b03b0801297dbfaf9f6f8ee90fee0bca2afe457024346d8d9eb7748"
+    },
+    {
+      "id": "qwen3-asr:synthetic-tone440hz",
+      "file_sha256": "97bcfd1c79e067d58a4fbafad752263d2dfa05068b081cfc71facb263e0b7e7f",
+      "normalized_samples": 80000,
+      "pcm_sha256": "fcedbbbbb16a09842f25de9973e91f6ce4739e9cb9059d3efc418086f5829d28"
+    },
+    {
+      "id": "qwen3-asr:synthetic-clicks",
+      "file_sha256": "66f52ecdb7cbb0558748fb50370538ee886d13914005875f312d9f0d62464bd2",
+      "normalized_samples": 80000,
+      "pcm_sha256": "06e6695f012a76cdc8ea3ed5d985121cd0bf6f153b934fc7bfa8ce5245e208bf"
+    },
+    {
+      "id": "qwen3-asr:fleurs-es_419-000-original",
+      "file_sha256": "518e4998d7fc4cb32bf9cb6c479b4cfe632bc68c6a2db376eeff98b68fea2bd1",
+      "normalized_samples": 205440,
+      "pcm_sha256": "4e08e350cb7eae260082784031643646eaa79fb46a236e7a876497f9ad429100"
+    },
+    {
+      "id": "qwen3-asr:fleurs-es_419-000-quiet40db",
+      "file_sha256": "3000b64bfb096f333c6ffa5659a46316dfbd189b7cfa4ddd41a951c4da798ff4",
+      "normalized_samples": 205440,
+      "pcm_sha256": "71be4b2ee2a6ce7bc522895227675cbb1b3e8a9ce3f7f51bbbbbe08321dd775a"
+    },
+    {
+      "id": "qwen3-asr:fleurs-de_de-000-original",
+      "file_sha256": "7131c007c5c5c7b72c2fae333c9bccf5e2c02a4abb32b740f314e58b1488f149",
+      "normalized_samples": 287040,
+      "pcm_sha256": "2bc82d9c2d75aa89b91c374d7b4edb05b3b1f15c852baf7ed1ce0b9ee7e25554"
+    },
+    {
+      "id": "qwen3-asr:fleurs-de_de-000-quiet40db",
+      "file_sha256": "2b1a2df511a71daf482ab623ac77e0bf869020ba8b4db3c4d708168fd5838f4c",
+      "normalized_samples": 287040,
+      "pcm_sha256": "02d1804a1a3f3609e7b14bc6a830bf4c883911f7b76abebd6ddda52873327e44"
+    },
+    {
+      "id": "qwen3-asr:fleurs-hi_in-000-original",
+      "file_sha256": "38cf0e883d64ae257288bce89cf41a9c4a693b218c3381d5bd462d90bf7b7ed6",
+      "normalized_samples": 145920,
+      "pcm_sha256": "bd57586f5375324ad3bc07c06f6cb2ac0becde0f3a417a1bb23e4d780c27e268"
+    },
+    {
+      "id": "qwen3-asr:fleurs-hi_in-000-quiet40db",
+      "file_sha256": "933a2bbaab55cc52e0519b8f3d2b983aa3a353e94d330f4982f700381014cd3a",
+      "normalized_samples": 145920,
+      "pcm_sha256": "f70a3be1da81ddda8d0235af04f4bb3394304f1dd24ca39c44f87e404248c64d"
+    },
+    {
+      "id": "qwen3-asr:fleurs-ja_jp-000-original",
+      "file_sha256": "26b6cd491b5d52cf05d89207cb88499cdaba89749aebc29c8f216e834e3d9071",
+      "normalized_samples": 167040,
+      "pcm_sha256": "f73d4fe07096f59d1f5ce13fec7f9c2d2164685904d73540e0f784bfcaf26208"
+    },
+    {
+      "id": "qwen3-asr:fleurs-ja_jp-000-quiet40db",
+      "file_sha256": "8dc6bf0364274e39c0beb4124dacb54559aeb8f4505749eb078c62da67835345",
+      "normalized_samples": 167040,
+      "pcm_sha256": "ae11c1d022fdebc3dd2bb72fbd39edef39e0e12ec3968423602ba6ddbca647d1"
+    },
+    {
+      "id": "qwen3-asr:fleurs-cmn_hans_cn-000-original",
+      "file_sha256": "5214e16584b6498ddbd22f321738c0f62b19117ab1880b21e405fba983986b6a",
+      "normalized_samples": 166080,
+      "pcm_sha256": "3c784155f4f21a00372503208c33d8590817a07cf196c38aa549ff315b0be867"
+    },
+    {
+      "id": "qwen3-asr:fleurs-cmn_hans_cn-000-quiet40db",
+      "file_sha256": "baee0d5ad3a52e9adcb3b3f1302575329d4914902091cbd9eb6adc2ec3e79ae3",
+      "normalized_samples": 166080,
+      "pcm_sha256": "502bbdc98927f312f5231c5b5323f561d9975b0fcbb11ef30e41a87c62bc10a1"
+    },
+    {
+      "id": "nemotron-streaming:1089-134686-0000",
+      "file_sha256": "0b1785dba56f22af426ccb25d318f7e103558fd40e1c3ab064b455dba2afae12",
+      "normalized_samples": 166960,
+      "pcm_sha256": "29ff16924c9577f5e335fcc7d64dd5d9ee261db7e9ec9c8eb7f8129b31cc1643"
+    },
+    {
+      "id": "nemotron-streaming:1089-134686-0001",
+      "file_sha256": "6b0b24796a1017a65007d392b9f8d6e64e030cdafbf82d8ffa4235fe4b371443",
+      "normalized_samples": 52400,
+      "pcm_sha256": "05072430dadd6e8ea297b3ad0d8f95c57e258dd7185cf068f739d36a9aadceda"
+    },
+    {
+      "id": "nemotron-streaming:1089-134686-0002",
+      "file_sha256": "6bc58a4efdf20daac252b6b1502632601a71efe0308f6757dc1eda34891a7e4f",
+      "normalized_samples": 106000,
+      "pcm_sha256": "bbf9920ca49230e1dbe59aa87427028ce254bcb4d0110fec331778a6acdf27e7"
+    },
+    {
+      "id": "nemotron-streaming:1089-134686-0003",
+      "file_sha256": "2db232f2d626af81adb8b224bdcc72d71ed94e9f7180194a6279e532a08c9115",
+      "normalized_samples": 42880,
+      "pcm_sha256": "8ab223f14b11c666745e05c22c886f5ec7f4f43193e47ad84b4e0997b1903c03"
+    },
+    {
+      "id": "nemotron-streaming:1089-134686-0004",
+      "file_sha256": "62fa78c06e5a74d08d38ab3e899eb3115810a4f33769389a2c6b498f01d5deb1",
+      "normalized_samples": 83441,
+      "pcm_sha256": "209aeeb68e19a1327b5e0b3a02079f8df9a7b6ce0702ca07cae7dbac90a6b055"
+    },
+    {
+      "id": "nemotron-streaming:1188-133604-0000",
+      "file_sha256": "7103ea9b2746ea371e053c5e44aa65e3d69fdc84194e4af12722cd72a721c822",
+      "normalized_samples": 171600,
+      "pcm_sha256": "7a516fb45c45c9d97c6aaf33e9998572544daac3de3a42acea3fef06fe776a8f"
+    },
+    {
+      "id": "nemotron-streaming:1188-133604-0001",
+      "file_sha256": "4b89ed324dfced1b32da500fe3d3a4b063a1dfc0971d3a72146b1aca29b22ebd",
+      "normalized_samples": 144640,
+      "pcm_sha256": "ed6831a8e9d280b8f4a0e461de626b774ca00c7b2602809a49938c22f038e42b"
+    },
+    {
+      "id": "nemotron-streaming:1188-133604-0002",
+      "file_sha256": "6c0e8d4545ddf2585782dbc521a1e93bf72035ea951ed653a111203542269b26",
+      "normalized_samples": 287360,
+      "pcm_sha256": "fc7e92b28c91d1069d001c3101135ff0cab7913957c9ab7d1a7e01c99f6707a9"
+    },
+    {
+      "id": "nemotron-streaming:1188-133604-0003",
+      "file_sha256": "30b3d095e882780ac02bf1717f57609835abbb9012bb4ca3f7295fd322ca7da7",
+      "normalized_samples": 201760,
+      "pcm_sha256": "aacc2756d16879cb193b76d95069fd2abd1ae7a9252e28e0212448ce8af8a57f"
+    },
+    {
+      "id": "nemotron-streaming:1188-133604-0004",
+      "file_sha256": "4c3d62ac2eb47034f14e258d66b22dbd9ca8e5f409a4a50d0929fc825f740e45",
+      "normalized_samples": 170400,
+      "pcm_sha256": "3ac2f448496c698b19b041d4fa9d7e417b14b6d99b1b00d812897b374376518d"
+    },
+    {
+      "id": "nemotron-streaming:121-121726-0000",
+      "file_sha256": "3b046c957d3014ff744d589229e81112366a4912c59deaf00b8e816621db120f",
+      "normalized_samples": 135360,
+      "pcm_sha256": "9ebd39badd6b11933c662b70e126bd2ec5f76e9fb2262ab2daf954d6454283b6"
+    },
+    {
+      "id": "nemotron-streaming:121-121726-0001",
+      "file_sha256": "b1657235d4fbcfb2d8468b738e3c77b8bf171dc90ad6c1ca7cd7f57fb994059b",
+      "normalized_samples": 94800,
+      "pcm_sha256": "9086d6e2711da70ed261640900ebc83b39ebbdf0580e969fe48f0be4282d8a33"
+    },
+    {
+      "id": "nemotron-streaming:121-121726-0002",
+      "file_sha256": "21fe00a53765159be57386730f08972b29e3b6b07e93a2cc0ddd1e0bcde1abd5",
+      "normalized_samples": 70560,
+      "pcm_sha256": "9dd6045f112799c2d95a59ebc864f33157e0fbdd7ec4d8dead78387551588a25"
+    },
+    {
+      "id": "nemotron-streaming:121-121726-0003",
+      "file_sha256": "7c78f1fa2b7a22ad3896e0c29dd0642a38983bbac29ab22f3261da7ebc36c4a8",
+      "normalized_samples": 108080,
+      "pcm_sha256": "f1b9119ef6cc296b4226cb3799e2d06fe01ffb17f7f3c47d1d677b003fb88f7f"
+    },
+    {
+      "id": "nemotron-streaming:121-121726-0004",
+      "file_sha256": "4bbc737ca67241542d273abfc2344f1e79c73efac7b096a2fc4f1ec346aaa9eb",
+      "normalized_samples": 64320,
+      "pcm_sha256": "3ca32eeea988f1a899f84800ba248127eb135a19e564b5f05578e1b9c24267b0"
+    },
+    {
+      "id": "nemotron-streaming:1221-135766-0000",
+      "file_sha256": "29c67807e2be8a661b38ac883f3197be8d0550b3940eb3c09e24b72c0d0dde48",
+      "normalized_samples": 198960,
+      "pcm_sha256": "588a84ecaadb118f5a09766aa8e20f36c2c373dd3fea106b4e6c53b7a3004422"
+    },
+    {
+      "id": "nemotron-streaming:1221-135766-0001",
+      "file_sha256": "5143a6ba93c4b274e2c4ac22deb75c2c48936c853f0519add1de828b6c79cc5a",
+      "normalized_samples": 267440,
+      "pcm_sha256": "fd2d8f9a437199be38c410edd0304a185b0f935571a23f07caf01eac21ddad39"
+    },
+    {
+      "id": "nemotron-streaming:1221-135766-0002",
+      "file_sha256": "65b222837919ccbb924a4e1077413ea7cc6af3e68b663b012a9539d5c05850f0",
+      "normalized_samples": 77200,
+      "pcm_sha256": "2bdfccbd89c0d00095bea2c936681da9d12f3ff801f1233fac5b8986d2b08da5"
+    },
+    {
+      "id": "nemotron-streaming:1221-135766-0003",
+      "file_sha256": "4c6b7d55eef72c98e7e5408ed4b3f72598156dc4d928c310898ca0e85e39e41d",
+      "normalized_samples": 219520,
+      "pcm_sha256": "8d43794956e65cc7310964f686507bfb8564ac2207c85bdfb1a7956da1dde070"
+    },
+    {
+      "id": "nemotron-streaming:1221-135766-0004",
+      "file_sha256": "8ff4aa5749ae2d6a649bd517c35aeea3ab111bdd825c476dadce1ec7567fc4bb",
+      "normalized_samples": 119040,
+      "pcm_sha256": "e8e6e94c8ff44dfb036ca600895bc481231021cefe70084c0579f8873d6c6ba5"
+    },
+    {
+      "id": "nemotron-streaming:synthetic-silence",
+      "file_sha256": "754600f871902b78686a437542199c86f9ce21d65e7bdfed3e330311c5c0e24c",
+      "normalized_samples": 80000,
+      "pcm_sha256": "ac2878215ad33205d1732578c89f25ededaad1b676911c540825bcf4baa42d9b"
+    },
+    {
+      "id": "nemotron-streaming:synthetic-gaussian",
+      "file_sha256": "6b34811b5d3990bf0f259ee818bb4f9b8058e91191a0d777ecc7cde1444d3f93",
+      "normalized_samples": 80000,
+      "pcm_sha256": "d29daf3126f125ddb6bcfb688c44988be7e4994137d6fae11fdce6d808751648"
+    },
+    {
+      "id": "nemotron-streaming:synthetic-hum60hz",
+      "file_sha256": "73a714dcd4913f4bf482554421c5ad4138fbf8cfda2feedd6243d9292cf69ac7",
+      "normalized_samples": 80000,
+      "pcm_sha256": "a8e0d71b5b03b0801297dbfaf9f6f8ee90fee0bca2afe457024346d8d9eb7748"
+    },
+    {
+      "id": "nemotron-streaming:synthetic-tone440hz",
+      "file_sha256": "97bcfd1c79e067d58a4fbafad752263d2dfa05068b081cfc71facb263e0b7e7f",
+      "normalized_samples": 80000,
+      "pcm_sha256": "fcedbbbbb16a09842f25de9973e91f6ce4739e9cb9059d3efc418086f5829d28"
+    },
+    {
+      "id": "nemotron-streaming:synthetic-clicks",
+      "file_sha256": "66f52ecdb7cbb0558748fb50370538ee886d13914005875f312d9f0d62464bd2",
+      "normalized_samples": 80000,
+      "pcm_sha256": "06e6695f012a76cdc8ea3ed5d985121cd0bf6f153b934fc7bfa8ce5245e208bf"
+    },
+    {
+      "id": "nemotron-streaming:fleurs-es_419-000-original",
+      "file_sha256": "518e4998d7fc4cb32bf9cb6c479b4cfe632bc68c6a2db376eeff98b68fea2bd1",
+      "normalized_samples": 205440,
+      "pcm_sha256": "4e08e350cb7eae260082784031643646eaa79fb46a236e7a876497f9ad429100"
+    },
+    {
+      "id": "nemotron-streaming:fleurs-es_419-000-quiet40db",
+      "file_sha256": "3000b64bfb096f333c6ffa5659a46316dfbd189b7cfa4ddd41a951c4da798ff4",
+      "normalized_samples": 205440,
+      "pcm_sha256": "71be4b2ee2a6ce7bc522895227675cbb1b3e8a9ce3f7f51bbbbbe08321dd775a"
+    },
+    {
+      "id": "nemotron-streaming:fleurs-de_de-000-original",
+      "file_sha256": "7131c007c5c5c7b72c2fae333c9bccf5e2c02a4abb32b740f314e58b1488f149",
+      "normalized_samples": 287040,
+      "pcm_sha256": "2bc82d9c2d75aa89b91c374d7b4edb05b3b1f15c852baf7ed1ce0b9ee7e25554"
+    },
+    {
+      "id": "nemotron-streaming:fleurs-de_de-000-quiet40db",
+      "file_sha256": "2b1a2df511a71daf482ab623ac77e0bf869020ba8b4db3c4d708168fd5838f4c",
+      "normalized_samples": 287040,
+      "pcm_sha256": "02d1804a1a3f3609e7b14bc6a830bf4c883911f7b76abebd6ddda52873327e44"
+    },
+    {
+      "id": "nemotron-streaming:fleurs-hi_in-000-original",
+      "file_sha256": "38cf0e883d64ae257288bce89cf41a9c4a693b218c3381d5bd462d90bf7b7ed6",
+      "normalized_samples": 145920,
+      "pcm_sha256": "bd57586f5375324ad3bc07c06f6cb2ac0becde0f3a417a1bb23e4d780c27e268"
+    },
+    {
+      "id": "nemotron-streaming:fleurs-hi_in-000-quiet40db",
+      "file_sha256": "933a2bbaab55cc52e0519b8f3d2b983aa3a353e94d330f4982f700381014cd3a",
+      "normalized_samples": 145920,
+      "pcm_sha256": "f70a3be1da81ddda8d0235af04f4bb3394304f1dd24ca39c44f87e404248c64d"
+    },
+    {
+      "id": "nemotron-streaming:fleurs-ja_jp-000-original",
+      "file_sha256": "26b6cd491b5d52cf05d89207cb88499cdaba89749aebc29c8f216e834e3d9071",
+      "normalized_samples": 167040,
+      "pcm_sha256": "f73d4fe07096f59d1f5ce13fec7f9c2d2164685904d73540e0f784bfcaf26208"
+    },
+    {
+      "id": "nemotron-streaming:fleurs-ja_jp-000-quiet40db",
+      "file_sha256": "8dc6bf0364274e39c0beb4124dacb54559aeb8f4505749eb078c62da67835345",
+      "normalized_samples": 167040,
+      "pcm_sha256": "ae11c1d022fdebc3dd2bb72fbd39edef39e0e12ec3968423602ba6ddbca647d1"
+    },
+    {
+      "id": "nemotron-streaming:fleurs-cmn_hans_cn-000-original",
+      "file_sha256": "5214e16584b6498ddbd22f321738c0f62b19117ab1880b21e405fba983986b6a",
+      "normalized_samples": 166080,
+      "pcm_sha256": "3c784155f4f21a00372503208c33d8590817a07cf196c38aa549ff315b0be867"
+    },
+    {
+      "id": "nemotron-streaming:fleurs-cmn_hans_cn-000-quiet40db",
+      "file_sha256": "baee0d5ad3a52e9adcb3b3f1302575329d4914902091cbd9eb6adc2ec3e79ae3",
+      "normalized_samples": 166080,
+      "pcm_sha256": "502bbdc98927f312f5231c5b5323f561d9975b0fcbb11ef30e41a87c62bc10a1"
+    },
+    {
+      "id": "cohere-native8:1089-134686-0000",
+      "file_sha256": "0b1785dba56f22af426ccb25d318f7e103558fd40e1c3ab064b455dba2afae12",
+      "normalized_samples": 166960,
+      "pcm_sha256": "29ff16924c9577f5e335fcc7d64dd5d9ee261db7e9ec9c8eb7f8129b31cc1643"
+    },
+    {
+      "id": "cohere-native8:1089-134686-0001",
+      "file_sha256": "6b0b24796a1017a65007d392b9f8d6e64e030cdafbf82d8ffa4235fe4b371443",
+      "normalized_samples": 52400,
+      "pcm_sha256": "05072430dadd6e8ea297b3ad0d8f95c57e258dd7185cf068f739d36a9aadceda"
+    },
+    {
+      "id": "cohere-native8:1089-134686-0002",
+      "file_sha256": "6bc58a4efdf20daac252b6b1502632601a71efe0308f6757dc1eda34891a7e4f",
+      "normalized_samples": 106000,
+      "pcm_sha256": "bbf9920ca49230e1dbe59aa87427028ce254bcb4d0110fec331778a6acdf27e7"
+    },
+    {
+      "id": "cohere-native8:1089-134686-0003",
+      "file_sha256": "2db232f2d626af81adb8b224bdcc72d71ed94e9f7180194a6279e532a08c9115",
+      "normalized_samples": 42880,
+      "pcm_sha256": "8ab223f14b11c666745e05c22c886f5ec7f4f43193e47ad84b4e0997b1903c03"
+    },
+    {
+      "id": "cohere-native8:1089-134686-0004",
+      "file_sha256": "62fa78c06e5a74d08d38ab3e899eb3115810a4f33769389a2c6b498f01d5deb1",
+      "normalized_samples": 83441,
+      "pcm_sha256": "209aeeb68e19a1327b5e0b3a02079f8df9a7b6ce0702ca07cae7dbac90a6b055"
+    },
+    {
+      "id": "cohere-native8:1188-133604-0000",
+      "file_sha256": "7103ea9b2746ea371e053c5e44aa65e3d69fdc84194e4af12722cd72a721c822",
+      "normalized_samples": 171600,
+      "pcm_sha256": "7a516fb45c45c9d97c6aaf33e9998572544daac3de3a42acea3fef06fe776a8f"
+    },
+    {
+      "id": "cohere-native8:1188-133604-0001",
+      "file_sha256": "4b89ed324dfced1b32da500fe3d3a4b063a1dfc0971d3a72146b1aca29b22ebd",
+      "normalized_samples": 144640,
+      "pcm_sha256": "ed6831a8e9d280b8f4a0e461de626b774ca00c7b2602809a49938c22f038e42b"
+    },
+    {
+      "id": "cohere-native8:1188-133604-0002",
+      "file_sha256": "6c0e8d4545ddf2585782dbc521a1e93bf72035ea951ed653a111203542269b26",
+      "normalized_samples": 287360,
+      "pcm_sha256": "fc7e92b28c91d1069d001c3101135ff0cab7913957c9ab7d1a7e01c99f6707a9"
+    },
+    {
+      "id": "cohere-native8:1188-133604-0003",
+      "file_sha256": "30b3d095e882780ac02bf1717f57609835abbb9012bb4ca3f7295fd322ca7da7",
+      "normalized_samples": 201760,
+      "pcm_sha256": "aacc2756d16879cb193b76d95069fd2abd1ae7a9252e28e0212448ce8af8a57f"
+    },
+    {
+      "id": "cohere-native8:1188-133604-0004",
+      "file_sha256": "4c3d62ac2eb47034f14e258d66b22dbd9ca8e5f409a4a50d0929fc825f740e45",
+      "normalized_samples": 170400,
+      "pcm_sha256": "3ac2f448496c698b19b041d4fa9d7e417b14b6d99b1b00d812897b374376518d"
+    },
+    {
+      "id": "cohere-native8:121-121726-0000",
+      "file_sha256": "3b046c957d3014ff744d589229e81112366a4912c59deaf00b8e816621db120f",
+      "normalized_samples": 135360,
+      "pcm_sha256": "9ebd39badd6b11933c662b70e126bd2ec5f76e9fb2262ab2daf954d6454283b6"
+    },
+    {
+      "id": "cohere-native8:121-121726-0001",
+      "file_sha256": "b1657235d4fbcfb2d8468b738e3c77b8bf171dc90ad6c1ca7cd7f57fb994059b",
+      "normalized_samples": 94800,
+      "pcm_sha256": "9086d6e2711da70ed261640900ebc83b39ebbdf0580e969fe48f0be4282d8a33"
+    },
+    {
+      "id": "cohere-native8:121-121726-0002",
+      "file_sha256": "21fe00a53765159be57386730f08972b29e3b6b07e93a2cc0ddd1e0bcde1abd5",
+      "normalized_samples": 70560,
+      "pcm_sha256": "9dd6045f112799c2d95a59ebc864f33157e0fbdd7ec4d8dead78387551588a25"
+    },
+    {
+      "id": "cohere-native8:121-121726-0003",
+      "file_sha256": "7c78f1fa2b7a22ad3896e0c29dd0642a38983bbac29ab22f3261da7ebc36c4a8",
+      "normalized_samples": 108080,
+      "pcm_sha256": "f1b9119ef6cc296b4226cb3799e2d06fe01ffb17f7f3c47d1d677b003fb88f7f"
+    },
+    {
+      "id": "cohere-native8:121-121726-0004",
+      "file_sha256": "4bbc737ca67241542d273abfc2344f1e79c73efac7b096a2fc4f1ec346aaa9eb",
+      "normalized_samples": 64320,
+      "pcm_sha256": "3ca32eeea988f1a899f84800ba248127eb135a19e564b5f05578e1b9c24267b0"
+    },
+    {
+      "id": "cohere-native8:1221-135766-0000",
+      "file_sha256": "29c67807e2be8a661b38ac883f3197be8d0550b3940eb3c09e24b72c0d0dde48",
+      "normalized_samples": 198960,
+      "pcm_sha256": "588a84ecaadb118f5a09766aa8e20f36c2c373dd3fea106b4e6c53b7a3004422"
+    },
+    {
+      "id": "cohere-native8:1221-135766-0001",
+      "file_sha256": "5143a6ba93c4b274e2c4ac22deb75c2c48936c853f0519add1de828b6c79cc5a",
+      "normalized_samples": 267440,
+      "pcm_sha256": "fd2d8f9a437199be38c410edd0304a185b0f935571a23f07caf01eac21ddad39"
+    },
+    {
+      "id": "cohere-native8:1221-135766-0002",
+      "file_sha256": "65b222837919ccbb924a4e1077413ea7cc6af3e68b663b012a9539d5c05850f0",
+      "normalized_samples": 77200,
+      "pcm_sha256": "2bdfccbd89c0d00095bea2c936681da9d12f3ff801f1233fac5b8986d2b08da5"
+    },
+    {
+      "id": "cohere-native8:1221-135766-0003",
+      "file_sha256": "4c6b7d55eef72c98e7e5408ed4b3f72598156dc4d928c310898ca0e85e39e41d",
+      "normalized_samples": 219520,
+      "pcm_sha256": "8d43794956e65cc7310964f686507bfb8564ac2207c85bdfb1a7956da1dde070"
+    },
+    {
+      "id": "cohere-native8:1221-135766-0004",
+      "file_sha256": "8ff4aa5749ae2d6a649bd517c35aeea3ab111bdd825c476dadce1ec7567fc4bb",
+      "normalized_samples": 119040,
+      "pcm_sha256": "e8e6e94c8ff44dfb036ca600895bc481231021cefe70084c0579f8873d6c6ba5"
+    },
+    {
+      "id": "cohere-native8:synthetic-silence",
+      "file_sha256": "754600f871902b78686a437542199c86f9ce21d65e7bdfed3e330311c5c0e24c",
+      "normalized_samples": 80000,
+      "pcm_sha256": "ac2878215ad33205d1732578c89f25ededaad1b676911c540825bcf4baa42d9b"
+    },
+    {
+      "id": "cohere-native8:synthetic-gaussian",
+      "file_sha256": "6b34811b5d3990bf0f259ee818bb4f9b8058e91191a0d777ecc7cde1444d3f93",
+      "normalized_samples": 80000,
+      "pcm_sha256": "d29daf3126f125ddb6bcfb688c44988be7e4994137d6fae11fdce6d808751648"
+    },
+    {
+      "id": "cohere-native8:synthetic-hum60hz",
+      "file_sha256": "73a714dcd4913f4bf482554421c5ad4138fbf8cfda2feedd6243d9292cf69ac7",
+      "normalized_samples": 80000,
+      "pcm_sha256": "a8e0d71b5b03b0801297dbfaf9f6f8ee90fee0bca2afe457024346d8d9eb7748"
+    },
+    {
+      "id": "cohere-native8:synthetic-tone440hz",
+      "file_sha256": "97bcfd1c79e067d58a4fbafad752263d2dfa05068b081cfc71facb263e0b7e7f",
+      "normalized_samples": 80000,
+      "pcm_sha256": "fcedbbbbb16a09842f25de9973e91f6ce4739e9cb9059d3efc418086f5829d28"
+    },
+    {
+      "id": "cohere-native8:synthetic-clicks",
+      "file_sha256": "66f52ecdb7cbb0558748fb50370538ee886d13914005875f312d9f0d62464bd2",
+      "normalized_samples": 80000,
+      "pcm_sha256": "06e6695f012a76cdc8ea3ed5d985121cd0bf6f153b934fc7bfa8ce5245e208bf"
+    },
+    {
+      "id": "cohere-native8:fleurs-es_419-000-original",
+      "file_sha256": "518e4998d7fc4cb32bf9cb6c479b4cfe632bc68c6a2db376eeff98b68fea2bd1",
+      "normalized_samples": 205440,
+      "pcm_sha256": "4e08e350cb7eae260082784031643646eaa79fb46a236e7a876497f9ad429100"
+    },
+    {
+      "id": "cohere-native8:fleurs-es_419-000-quiet40db",
+      "file_sha256": "3000b64bfb096f333c6ffa5659a46316dfbd189b7cfa4ddd41a951c4da798ff4",
+      "normalized_samples": 205440,
+      "pcm_sha256": "71be4b2ee2a6ce7bc522895227675cbb1b3e8a9ce3f7f51bbbbbe08321dd775a"
+    },
+    {
+      "id": "cohere-native8:fleurs-de_de-000-original",
+      "file_sha256": "7131c007c5c5c7b72c2fae333c9bccf5e2c02a4abb32b740f314e58b1488f149",
+      "normalized_samples": 287040,
+      "pcm_sha256": "2bc82d9c2d75aa89b91c374d7b4edb05b3b1f15c852baf7ed1ce0b9ee7e25554"
+    },
+    {
+      "id": "cohere-native8:fleurs-de_de-000-quiet40db",
+      "file_sha256": "2b1a2df511a71daf482ab623ac77e0bf869020ba8b4db3c4d708168fd5838f4c",
+      "normalized_samples": 287040,
+      "pcm_sha256": "02d1804a1a3f3609e7b14bc6a830bf4c883911f7b76abebd6ddda52873327e44"
+    },
+    {
+      "id": "cohere-native8:fleurs-ja_jp-000-original",
+      "file_sha256": "26b6cd491b5d52cf05d89207cb88499cdaba89749aebc29c8f216e834e3d9071",
+      "normalized_samples": 167040,
+      "pcm_sha256": "f73d4fe07096f59d1f5ce13fec7f9c2d2164685904d73540e0f784bfcaf26208"
+    },
+    {
+      "id": "cohere-native8:fleurs-ja_jp-000-quiet40db",
+      "file_sha256": "8dc6bf0364274e39c0beb4124dacb54559aeb8f4505749eb078c62da67835345",
+      "normalized_samples": 167040,
+      "pcm_sha256": "ae11c1d022fdebc3dd2bb72fbd39edef39e0e12ec3968423602ba6ddbca647d1"
+    },
+    {
+      "id": "cohere-native8:fleurs-cmn_hans_cn-000-original",
+      "file_sha256": "5214e16584b6498ddbd22f321738c0f62b19117ab1880b21e405fba983986b6a",
+      "normalized_samples": 166080,
+      "pcm_sha256": "3c784155f4f21a00372503208c33d8590817a07cf196c38aa549ff315b0be867"
+    },
+    {
+      "id": "cohere-native8:fleurs-cmn_hans_cn-000-quiet40db",
+      "file_sha256": "baee0d5ad3a52e9adcb3b3f1302575329d4914902091cbd9eb6adc2ec3e79ae3",
+      "normalized_samples": 166080,
+      "pcm_sha256": "502bbdc98927f312f5231c5b5323f561d9975b0fcbb11ef30e41a87c62bc10a1"
+    }
+  ],
+  "summary": [
+    {
+      "id": "warm-parakeet-v3",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": null,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "parakeet-v3:1089-134686-0000",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "parakeet-v3:1089-134686-0001",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "parakeet-v3:1089-134686-0002",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "parakeet-v3:1089-134686-0003",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "parakeet-v3:1089-134686-0004",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "parakeet-v3:1188-133604-0000",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "parakeet-v3:1188-133604-0001",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "parakeet-v3:1188-133604-0002",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "parakeet-v3:1188-133604-0003",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "parakeet-v3:1188-133604-0004",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "parakeet-v3:121-121726-0000",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "parakeet-v3:121-121726-0001",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "parakeet-v3:121-121726-0002",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "parakeet-v3:121-121726-0003",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "parakeet-v3:121-121726-0004",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "parakeet-v3:1221-135766-0000",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "parakeet-v3:1221-135766-0001",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "parakeet-v3:1221-135766-0002",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "parakeet-v3:1221-135766-0003",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "parakeet-v3:1221-135766-0004",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "parakeet-v3:synthetic-silence",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "parakeet-v3:synthetic-gaussian",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "parakeet-v3:synthetic-hum60hz",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "parakeet-v3:synthetic-tone440hz",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "parakeet-v3:synthetic-clicks",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "parakeet-v3:fleurs-es_419-000-original",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "parakeet-v3:fleurs-es_419-000-quiet40db",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "parakeet-v3:fleurs-de_de-000-original",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "parakeet-v3:fleurs-de_de-000-quiet40db",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "warm-whisper-turbo",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": null,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-turbo:1089-134686-0000",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-turbo:1089-134686-0001",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-turbo:1089-134686-0002",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-turbo:1089-134686-0003",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-turbo:1089-134686-0004",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-turbo:1188-133604-0000",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-turbo:1188-133604-0001",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-turbo:1188-133604-0002",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-turbo:1188-133604-0003",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-turbo:1188-133604-0004",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-turbo:121-121726-0000",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-turbo:121-121726-0001",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-turbo:121-121726-0002",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-turbo:121-121726-0003",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-turbo:121-121726-0004",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-turbo:1221-135766-0000",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-turbo:1221-135766-0001",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-turbo:1221-135766-0002",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-turbo:1221-135766-0003",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-turbo:1221-135766-0004",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-turbo:synthetic-silence",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-turbo:synthetic-gaussian",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-turbo:synthetic-hum60hz",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-turbo:synthetic-tone440hz",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-turbo:synthetic-clicks",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-turbo:fleurs-es_419-000-original",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-turbo:fleurs-es_419-000-quiet40db",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-turbo:fleurs-de_de-000-original",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-turbo:fleurs-de_de-000-quiet40db",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-turbo:fleurs-hi_in-000-original",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-turbo:fleurs-hi_in-000-quiet40db",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-turbo:fleurs-ja_jp-000-original",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-turbo:fleurs-ja_jp-000-quiet40db",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-turbo:fleurs-cmn_hans_cn-000-original",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-turbo:fleurs-cmn_hans_cn-000-quiet40db",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "warm-whisper-small",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": null,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-small:1089-134686-0000",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-small:1089-134686-0001",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-small:1089-134686-0002",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-small:1089-134686-0003",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-small:1089-134686-0004",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-small:1188-133604-0000",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-small:1188-133604-0001",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-small:1188-133604-0002",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-small:1188-133604-0003",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-small:1188-133604-0004",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-small:121-121726-0000",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-small:121-121726-0001",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-small:121-121726-0002",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-small:121-121726-0003",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-small:121-121726-0004",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-small:1221-135766-0000",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-small:1221-135766-0001",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-small:1221-135766-0002",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-small:1221-135766-0003",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-small:1221-135766-0004",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-small:synthetic-silence",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-small:synthetic-gaussian",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-small:synthetic-hum60hz",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-small:synthetic-tone440hz",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-small:synthetic-clicks",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-small:fleurs-es_419-000-original",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-small:fleurs-es_419-000-quiet40db",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-small:fleurs-de_de-000-original",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-small:fleurs-de_de-000-quiet40db",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-small:fleurs-hi_in-000-original",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-small:fleurs-hi_in-000-quiet40db",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-small:fleurs-ja_jp-000-original",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-small:fleurs-ja_jp-000-quiet40db",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-small:fleurs-cmn_hans_cn-000-original",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "whisper-small:fleurs-cmn_hans_cn-000-quiet40db",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "warm-qwen3-asr",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": null,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "qwen3-asr:1089-134686-0000",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "qwen3-asr:1089-134686-0001",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "qwen3-asr:1089-134686-0002",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "qwen3-asr:1089-134686-0003",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "qwen3-asr:1089-134686-0004",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": false,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "qwen3-asr:1188-133604-0000",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "qwen3-asr:1188-133604-0001",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "qwen3-asr:1188-133604-0002",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "qwen3-asr:1188-133604-0003",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "qwen3-asr:1188-133604-0004",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "qwen3-asr:121-121726-0000",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "qwen3-asr:121-121726-0001",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "qwen3-asr:121-121726-0002",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "qwen3-asr:121-121726-0003",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "qwen3-asr:121-121726-0004",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "qwen3-asr:1221-135766-0000",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "qwen3-asr:1221-135766-0001",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "qwen3-asr:1221-135766-0002",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "qwen3-asr:1221-135766-0003",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "qwen3-asr:1221-135766-0004",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "qwen3-asr:synthetic-silence",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "qwen3-asr:synthetic-gaussian",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "qwen3-asr:synthetic-hum60hz",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "qwen3-asr:synthetic-tone440hz",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "qwen3-asr:synthetic-clicks",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "qwen3-asr:fleurs-es_419-000-original",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "qwen3-asr:fleurs-es_419-000-quiet40db",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "qwen3-asr:fleurs-de_de-000-original",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "qwen3-asr:fleurs-de_de-000-quiet40db",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "qwen3-asr:fleurs-hi_in-000-original",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "qwen3-asr:fleurs-hi_in-000-quiet40db",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "qwen3-asr:fleurs-ja_jp-000-original",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "qwen3-asr:fleurs-ja_jp-000-quiet40db",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "qwen3-asr:fleurs-cmn_hans_cn-000-original",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "qwen3-asr:fleurs-cmn_hans_cn-000-quiet40db",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "warm-nemotron-streaming",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": null,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "nemotron-streaming:1089-134686-0000",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "nemotron-streaming:1089-134686-0001",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "nemotron-streaming:1089-134686-0002",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "nemotron-streaming:1089-134686-0003",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "nemotron-streaming:1089-134686-0004",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "nemotron-streaming:1188-133604-0000",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "nemotron-streaming:1188-133604-0001",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "nemotron-streaming:1188-133604-0002",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "nemotron-streaming:1188-133604-0003",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "nemotron-streaming:1188-133604-0004",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "nemotron-streaming:121-121726-0000",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "nemotron-streaming:121-121726-0001",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "nemotron-streaming:121-121726-0002",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "nemotron-streaming:121-121726-0003",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "nemotron-streaming:121-121726-0004",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "nemotron-streaming:1221-135766-0000",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "nemotron-streaming:1221-135766-0001",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "nemotron-streaming:1221-135766-0002",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "nemotron-streaming:1221-135766-0003",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "nemotron-streaming:1221-135766-0004",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "nemotron-streaming:synthetic-silence",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "nemotron-streaming:synthetic-gaussian",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "nemotron-streaming:synthetic-hum60hz",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "nemotron-streaming:synthetic-tone440hz",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "nemotron-streaming:synthetic-clicks",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "nemotron-streaming:fleurs-es_419-000-original",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "nemotron-streaming:fleurs-es_419-000-quiet40db",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "nemotron-streaming:fleurs-de_de-000-original",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "nemotron-streaming:fleurs-de_de-000-quiet40db",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "nemotron-streaming:fleurs-hi_in-000-original",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "nemotron-streaming:fleurs-hi_in-000-quiet40db",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "nemotron-streaming:fleurs-ja_jp-000-original",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "nemotron-streaming:fleurs-ja_jp-000-quiet40db",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "nemotron-streaming:fleurs-cmn_hans_cn-000-original",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "nemotron-streaming:fleurs-cmn_hans_cn-000-quiet40db",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "warm-cohere-native8",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": null,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "cohere-native8:1089-134686-0000",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "cohere-native8:1089-134686-0001",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "cohere-native8:1089-134686-0002",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "cohere-native8:1089-134686-0003",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "cohere-native8:1089-134686-0004",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "cohere-native8:1188-133604-0000",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "cohere-native8:1188-133604-0001",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "cohere-native8:1188-133604-0002",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "cohere-native8:1188-133604-0003",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "cohere-native8:1188-133604-0004",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "cohere-native8:121-121726-0000",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "cohere-native8:121-121726-0001",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "cohere-native8:121-121726-0002",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "cohere-native8:121-121726-0003",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "cohere-native8:121-121726-0004",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "cohere-native8:1221-135766-0000",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "cohere-native8:1221-135766-0001",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "cohere-native8:1221-135766-0002",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "cohere-native8:1221-135766-0003",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "cohere-native8:1221-135766-0004",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "cohere-native8:synthetic-silence",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "cohere-native8:synthetic-gaussian",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "cohere-native8:synthetic-hum60hz",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "cohere-native8:synthetic-tone440hz",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "cohere-native8:synthetic-clicks",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "cohere-native8:fleurs-es_419-000-original",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "cohere-native8:fleurs-es_419-000-quiet40db",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "cohere-native8:fleurs-de_de-000-original",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "cohere-native8:fleurs-de_de-000-quiet40db",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "cohere-native8:fleurs-ja_jp-000-original",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "cohere-native8:fleurs-ja_jp-000-quiet40db",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "cohere-native8:fleurs-cmn_hans_cn-000-original",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "cohere-native8:fleurs-cmn_hans_cn-000-quiet40db",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "notes",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": null,
+      "excerpts_identical": true,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "meeting",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    },
+    {
+      "id": "stream",
+      "baseline_error": null,
+      "candidate_error": null,
+      "text_identical": true,
+      "excerpts_identical": null,
+      "candidate_torch_imported": false
+    }
+  ],
+  "traces_file": "runtime-footprint-full.traces.json.gz",
+  "traces_sha256": "3698fa6f97c4edf5e7f766d483371bcd7ddf07a2dd2d7987f6a04767618e8d1d",
+  "checked_app_signature_unchanged": true,
+  "boundary": "Frozen broader compatibility replay: 202 transcription cases per variant (20 known English clips per model, 52 original/quiet multilingual controls, 5 prior nonspeech controls per model) plus six warms, notes, diarization and streaming. Candidate-first then baseline, one pass; no latency/energy/general-accuracy or distributable promotion. Torch absence is real, via RECORD-filtered symlink runtime; checked app and development environment remain intact. No model/feature may be dropped. Every error and text difference remains reported."
+}

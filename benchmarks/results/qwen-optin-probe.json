@@ -1,0 +1,76 @@
+{
+  "boundary" : "Swift CLI → owned Python worker → model → deterministic text rules; excludes microphone, UI and insertion.",
+  "cold_ms" : 2704.863875,
+  "model" : "qwen3-asr",
+  "p50_ms" : 180.84700000000001,
+  "p95_ms" : 180.84700000000001,
+  "runs" : [
+    {
+      "active_gpu_bytes" : 2481249106,
+      "audio_seconds" : 5.2150625000000002,
+      "cold" : true,
+      "decode_ms" : 233.15916699357331,
+      "frontend_cache_hits" : 1,
+      "frontend_evaluations" : 1,
+      "language" : "English",
+      "load_ms" : 2414.5606248639524,
+      "model" : "qwen3-asr",
+      "native_wall_ms" : 2704.863875,
+      "peak_gpu_bytes" : 3499242792,
+      "preprocess_ms" : 0.45412499457597733,
+      "processed_text" : "Number ten, fresh Nelly is waiting on you. Good night, husband.",
+      "segments" : [
+        {
+          "end" : 5.2150625000000002,
+          "start" : 0,
+          "text" : "Number ten, fresh Nelly is waiting on you. Good night, husband."
+        }
+      ],
+      "silence" : false,
+      "speech_seconds" : 5.2150625000000002,
+      "text" : "Number ten, fresh Nelly is waiting on you. Good night, husband.",
+      "timestamp_granularity" : "utterance",
+      "total_ms" : 2648.6415830440819,
+      "trial" : 0,
+      "vocabulary_applied" : false,
+      "warm" : false,
+      "words" : [
+
+      ]
+    },
+    {
+      "active_gpu_bytes" : 2492275618,
+      "audio_seconds" : 5.2150625000000002,
+      "cold" : false,
+      "decode_ms" : 179.02391613461077,
+      "frontend_cache_hits" : 1,
+      "frontend_evaluations" : 1,
+      "language" : "English",
+      "load_ms" : 0.005124835297465324,
+      "model" : "qwen3-asr",
+      "native_wall_ms" : 180.84700000000001,
+      "peak_gpu_bytes" : 3499243012,
+      "preprocess_ms" : 1.0812499094754457,
+      "processed_text" : "Number ten, fresh Nelly is waiting on you. Good night, husband.",
+      "segments" : [
+        {
+          "end" : 5.2150625000000002,
+          "start" : 0,
+          "text" : "Number ten, fresh Nelly is waiting on you. Good night, husband."
+        }
+      ],
+      "silence" : false,
+      "speech_seconds" : 5.2150625000000002,
+      "text" : "Number ten, fresh Nelly is waiting on you. Good night, husband.",
+      "timestamp_granularity" : "utterance",
+      "total_ms" : 180.16466707922518,
+      "trial" : 1,
+      "vocabulary_applied" : false,
+      "warm" : true,
+      "words" : [
+
+      ]
+    }
+  ],
+  "warm_trials" : 1
+}

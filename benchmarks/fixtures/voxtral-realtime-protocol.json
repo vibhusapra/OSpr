@@ -1,0 +1,893 @@
+{
+  "schema": 1,
+  "model": {
+    "repo": "mlx-community/Voxtral-Mini-4B-Realtime-2602-4bit",
+    "revision": "fdebf7b2af834a1db4b8a3c99ab7480b333adf9e",
+    "required_files": {
+      "config.json": {
+        "bytes": 1513,
+        "sha256": "02060864a4f33df5e4944684fc17f3026af4011830cac4def6e9e025315b10c5"
+      },
+      "model.safetensors.index.json": {
+        "bytes": 118632,
+        "sha256": "80f68b80cf4b1638d864d1504061a266f59e37a8d90d7b20f2e1f30c2d034c2e"
+      },
+      "tekken.json": {
+        "bytes": 14910348,
+        "sha256": "8434af1d39eba99f0ef46cf1450bf1a63fa941a26933a1ef5dbbf4adf0d00e44"
+      },
+      "README.md": {
+        "bytes": 3135,
+        "sha256": "022af0f470bbb2036d1d8fea62118d1d14f64b9cbb38415004544990e653f99e"
+      },
+      "model.safetensors": {
+        "bytes": 3133798126,
+        "sha256": "6f59b425d8a1ceb2de795454558be63937cf75b59f9c9bc77accd85aaf32af05"
+      }
+    },
+    "license": "Apache-2.0",
+    "research_only": true
+  },
+  "runtime": {
+    "mlx_audio": "0.6.1",
+    "uv_lock_sha256": "8e306569ebe63c886e9938d06c2e0a6e39d661de20e116a1998321dbfd14a6d2"
+  },
+  "sources": [
+    "https://huggingface.co/mistralai/Voxtral-Mini-4B-Realtime-2602",
+    "https://huggingface.co/mlx-community/Voxtral-Mini-4B-Realtime-2602-4bit"
+  ],
+  "source_check_date": "2026-10-23",
+  "options": {
+    "transcription_delay_ms": 480,
+    "temperature": 0.0,
+    "max_tokens": 4096,
+    "packet_samples": 5120,
+    "step_max_decode_tokens": 256,
+    "final_timeout_seconds": 60
+  },
+  "routes": [
+    "offline",
+    "stream"
+  ],
+  "dataset_manifests": {
+    "benchmarks/fixtures/test-clean.json": "91b33742ba81809c5e4739cb2beea34b17294de738185d31d2e45b87a2057569",
+    "benchmarks/fixtures/fleurs.json": "c510080d128d13d5253427bce81ba84f1d88274a2b08b24c5a6a0881086433d6"
+  },
+  "negative_traces_sha256": "31e96a6a421ba5f80ea2ad0eb8bcfd57c5866e7398bf457529e93ae178c1025d",
+  "smoke": [
+    {
+      "id": "1272-128104-0000",
+      "path": "fixtures/audio/1272-128104-0000.wav",
+      "reference": "MISTER QUILTER IS THE APOSTLE OF THE MIDDLE CLASSES AND WE ARE GLAD TO WELCOME HIS GOSPEL",
+      "suite": "human-clean",
+      "source_id": "1272-128104-0000",
+      "sha256": "799f78ed4beb4de7ceae3a809262d4ce242394342ccd1d58cef7d49dbc2def46",
+      "seconds": 5.855,
+      "language": "en",
+      "expected_speech": true
+    }
+  ],
+  "items": [
+    {
+      "id": "1089-134686-0000",
+      "path": "fixtures/audio/test-clean/1089-134686-0000.wav",
+      "reference": "HE HOPED THERE WOULD BE STEW FOR DINNER TURNIPS AND CARROTS AND BRUISED POTATOES AND FAT MUTTON PIECES TO BE LADLED OUT IN THICK PEPPERED FLOUR FATTENED SAUCE",
+      "language": "en",
+      "suite": "librispeech-test-clean",
+      "speaker_id": "1089",
+      "sha256": "0b1785dba56f22af426ccb25d318f7e103558fd40e1c3ab064b455dba2afae12",
+      "seconds": 10.435,
+      "expected_speech": true
+    },
+    {
+      "id": "1089-134686-0001",
+      "path": "fixtures/audio/test-clean/1089-134686-0001.wav",
+      "reference": "STUFF IT INTO YOU HIS BELLY COUNSELLED HIM",
+      "language": "en",
+      "suite": "librispeech-test-clean",
+      "speaker_id": "1089",
+      "sha256": "6b0b24796a1017a65007d392b9f8d6e64e030cdafbf82d8ffa4235fe4b371443",
+      "seconds": 3.275,
+      "expected_speech": true
+    },
+    {
+      "id": "1089-134686-0002",
+      "path": "fixtures/audio/test-clean/1089-134686-0002.wav",
+      "reference": "AFTER EARLY NIGHTFALL THE YELLOW LAMPS WOULD LIGHT UP HERE AND THERE THE SQUALID QUARTER OF THE BROTHELS",
+      "language": "en",
+      "suite": "librispeech-test-clean",
+      "speaker_id": "1089",
+      "sha256": "6bc58a4efdf20daac252b6b1502632601a71efe0308f6757dc1eda34891a7e4f",
+      "seconds": 6.625,
+      "expected_speech": true
+    },
+    {
+      "id": "1089-134686-0003",
+      "path": "fixtures/audio/test-clean/1089-134686-0003.wav",
+      "reference": "HELLO BERTIE ANY GOOD IN YOUR MIND",
+      "language": "en",
+      "suite": "librispeech-test-clean",
+      "speaker_id": "1089",
+      "sha256": "2db232f2d626af81adb8b224bdcc72d71ed94e9f7180194a6279e532a08c9115",
+      "seconds": 2.68,
+      "expected_speech": true
+    },
+    {
+      "id": "1089-134686-0004",
+      "path": "fixtures/audio/test-clean/1089-134686-0004.wav",
+      "reference": "NUMBER TEN FRESH NELLY IS WAITING ON YOU GOOD NIGHT HUSBAND",
+      "language": "en",
+      "suite": "librispeech-test-clean",
+      "speaker_id": "1089",
+      "sha256": "62fa78c06e5a74d08d38ab3e899eb3115810a4f33769389a2c6b498f01d5deb1",
+      "seconds": 5.2150625,
+      "expected_speech": true
+    },
+    {
+      "id": "1188-133604-0000",
+      "path": "fixtures/audio/test-clean/1188-133604-0000.wav",
+      "reference": "YOU WILL FIND ME CONTINUALLY SPEAKING OF FOUR MEN TITIAN HOLBEIN TURNER AND TINTORET IN ALMOST THE SAME TERMS",
+      "language": "en",
+      "suite": "librispeech-test-clean",
+      "speaker_id": "1188",
+      "sha256": "7103ea9b2746ea371e053c5e44aa65e3d69fdc84194e4af12722cd72a721c822",
+      "seconds": 10.725,
+      "expected_speech": true
+    },
+    {
+      "id": "1188-133604-0001",
+      "path": "fixtures/audio/test-clean/1188-133604-0001.wav",
+      "reference": "THEY UNITE EVERY QUALITY AND SOMETIMES YOU WILL FIND ME REFERRING TO THEM AS COLORISTS SOMETIMES AS CHIAROSCURISTS",
+      "language": "en",
+      "suite": "librispeech-test-clean",
+      "speaker_id": "1188",
+      "sha256": "4b89ed324dfced1b32da500fe3d3a4b063a1dfc0971d3a72146b1aca29b22ebd",
+      "seconds": 9.04,
+      "expected_speech": true
+    },
+    {
+      "id": "1188-133604-0002",
+      "path": "fixtures/audio/test-clean/1188-133604-0002.wav",
+      "reference": "BY BEING STUDIOUS OF COLOR THEY ARE STUDIOUS OF DIVISION AND WHILE THE CHIAROSCURIST DEVOTES HIMSELF TO THE REPRESENTATION OF DEGREES OF FORCE IN ONE THING UNSEPARATED LIGHT THE COLORISTS HAVE FOR THEIR FUNCTION THE ATTAINMENT OF BEAUTY BY ARRANGEMENT OF THE DIVISIONS OF LIGHT",
+      "language": "en",
+      "suite": "librispeech-test-clean",
+      "speaker_id": "1188",
+      "sha256": "6c0e8d4545ddf2585782dbc521a1e93bf72035ea951ed653a111203542269b26",
+      "seconds": 17.96,
+      "expected_speech": true
+    },
+    {
+      "id": "1188-133604-0003",
+      "path": "fixtures/audio/test-clean/1188-133604-0003.wav",
+      "reference": "MY FIRST AND PRINCIPAL REASON WAS THAT THEY ENFORCED BEYOND ALL RESISTANCE ON ANY STUDENT WHO MIGHT ATTEMPT TO COPY THEM THIS METHOD OF LAYING PORTIONS OF DISTINCT HUE SIDE BY SIDE",
+      "language": "en",
+      "suite": "librispeech-test-clean",
+      "speaker_id": "1188",
+      "sha256": "30b3d095e882780ac02bf1717f57609835abbb9012bb4ca3f7295fd322ca7da7",
+      "seconds": 12.61,
+      "expected_speech": true
+    },
+    {
+      "id": "1188-133604-0004",
+      "path": "fixtures/audio/test-clean/1188-133604-0004.wav",
+      "reference": "SOME OF THE TOUCHES INDEED WHEN THE TINT HAS BEEN MIXED WITH MUCH WATER HAVE BEEN LAID IN LITTLE DROPS OR PONDS SO THAT THE PIGMENT MIGHT CRYSTALLIZE HARD AT THE EDGE",
+      "language": "en",
+      "suite": "librispeech-test-clean",
+      "speaker_id": "1188",
+      "sha256": "4c3d62ac2eb47034f14e258d66b22dbd9ca8e5f409a4a50d0929fc825f740e45",
+      "seconds": 10.65,
+      "expected_speech": true
+    },
+    {
+      "id": "121-121726-0000",
+      "path": "fixtures/audio/test-clean/121-121726-0000.wav",
+      "reference": "ALSO A POPULAR CONTRIVANCE WHEREBY LOVE MAKING MAY BE SUSPENDED BUT NOT STOPPED DURING THE PICNIC SEASON",
+      "language": "en",
+      "suite": "librispeech-test-clean",
+      "speaker_id": "121",
+      "sha256": "3b046c957d3014ff744d589229e81112366a4912c59deaf00b8e816621db120f",
+      "seconds": 8.46,
+      "expected_speech": true
+    },
+    {
+      "id": "121-121726-0001",
+      "path": "fixtures/audio/test-clean/121-121726-0001.wav",
+      "reference": "HARANGUE THE TIRESOME PRODUCT OF A TIRELESS TONGUE",
+      "language": "en",
+      "suite": "librispeech-test-clean",
+      "speaker_id": "121",
+      "sha256": "b1657235d4fbcfb2d8468b738e3c77b8bf171dc90ad6c1ca7cd7f57fb994059b",
+      "seconds": 5.925,
+      "expected_speech": true
+    },
+    {
+      "id": "121-121726-0002",
+      "path": "fixtures/audio/test-clean/121-121726-0002.wav",
+      "reference": "ANGOR PAIN PAINFUL TO HEAR",
+      "language": "en",
+      "suite": "librispeech-test-clean",
+      "speaker_id": "121",
+      "sha256": "21fe00a53765159be57386730f08972b29e3b6b07e93a2cc0ddd1e0bcde1abd5",
+      "seconds": 4.41,
+      "expected_speech": true
+    },
+    {
+      "id": "121-121726-0003",
+      "path": "fixtures/audio/test-clean/121-121726-0003.wav",
+      "reference": "HAY FEVER A HEART TROUBLE CAUSED BY FALLING IN LOVE WITH A GRASS WIDOW",
+      "language": "en",
+      "suite": "librispeech-test-clean",
+      "speaker_id": "121",
+      "sha256": "7c78f1fa2b7a22ad3896e0c29dd0642a38983bbac29ab22f3261da7ebc36c4a8",
+      "seconds": 6.755,
+      "expected_speech": true
+    },
+    {
+      "id": "121-121726-0004",
+      "path": "fixtures/audio/test-clean/121-121726-0004.wav",
+      "reference": "HEAVEN A GOOD PLACE TO BE RAISED TO",
+      "language": "en",
+      "suite": "librispeech-test-clean",
+      "speaker_id": "121",
+      "sha256": "4bbc737ca67241542d273abfc2344f1e79c73efac7b096a2fc4f1ec346aaa9eb",
+      "seconds": 4.02,
+      "expected_speech": true
+    },
+    {
+      "id": "1221-135766-0000",
+      "path": "fixtures/audio/test-clean/1221-135766-0000.wav",
+      "reference": "HOW STRANGE IT SEEMED TO THE SAD WOMAN AS SHE WATCHED THE GROWTH AND THE BEAUTY THAT BECAME EVERY DAY MORE BRILLIANT AND THE INTELLIGENCE THAT THREW ITS QUIVERING SUNSHINE OVER THE TINY FEATURES OF THIS CHILD",
+      "language": "en",
+      "suite": "librispeech-test-clean",
+      "speaker_id": "1221",
+      "sha256": "29c67807e2be8a661b38ac883f3197be8d0550b3940eb3c09e24b72c0d0dde48",
+      "seconds": 12.435,
+      "expected_speech": true
+    },
+    {
+      "id": "1221-135766-0001",
+      "path": "fixtures/audio/test-clean/1221-135766-0001.wav",
+      "reference": "GOD AS A DIRECT CONSEQUENCE OF THE SIN WHICH MAN THUS PUNISHED HAD GIVEN HER A LOVELY CHILD WHOSE PLACE WAS ON THAT SAME DISHONOURED BOSOM TO CONNECT HER PARENT FOR EVER WITH THE RACE AND DESCENT OF MORTALS AND TO BE FINALLY A BLESSED SOUL IN HEAVEN",
+      "language": "en",
+      "suite": "librispeech-test-clean",
+      "speaker_id": "1221",
+      "sha256": "5143a6ba93c4b274e2c4ac22deb75c2c48936c853f0519add1de828b6c79cc5a",
+      "seconds": 16.715,
+      "expected_speech": true
+    },
+    {
+      "id": "1221-135766-0002",
+      "path": "fixtures/audio/test-clean/1221-135766-0002.wav",
+      "reference": "YET THESE THOUGHTS AFFECTED HESTER PRYNNE LESS WITH HOPE THAN APPREHENSION",
+      "language": "en",
+      "suite": "librispeech-test-clean",
+      "speaker_id": "1221",
+      "sha256": "65b222837919ccbb924a4e1077413ea7cc6af3e68b663b012a9539d5c05850f0",
+      "seconds": 4.825,
+      "expected_speech": true
+    },
+    {
+      "id": "1221-135766-0003",
+      "path": "fixtures/audio/test-clean/1221-135766-0003.wav",
+      "reference": "THE CHILD HAD A NATIVE GRACE WHICH DOES NOT INVARIABLY CO EXIST WITH FAULTLESS BEAUTY ITS ATTIRE HOWEVER SIMPLE ALWAYS IMPRESSED THE BEHOLDER AS IF IT WERE THE VERY GARB THAT PRECISELY BECAME IT BEST",
+      "language": "en",
+      "suite": "librispeech-test-clean",
+      "speaker_id": "1221",
+      "sha256": "4c6b7d55eef72c98e7e5408ed4b3f72598156dc4d928c310898ca0e85e39e41d",
+      "seconds": 13.72,
+      "expected_speech": true
+    },
+    {
+      "id": "1221-135766-0004",
+      "path": "fixtures/audio/test-clean/1221-135766-0004.wav",
+      "reference": "THIS OUTWARD MUTABILITY INDICATED AND DID NOT MORE THAN FAIRLY EXPRESS THE VARIOUS PROPERTIES OF HER INNER LIFE",
+      "language": "en",
+      "suite": "librispeech-test-clean",
+      "speaker_id": "1221",
+      "sha256": "8ff4aa5749ae2d6a649bd517c35aeea3ab111bdd825c476dadce1ec7567fc4bb",
+      "seconds": 7.44,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-es_419-000",
+      "path": "fixtures/audio/fleurs/es_419/000.wav",
+      "reference": "se recomienda enfáticamente a los viajeros que se informen sobre cualquier riesgo de clima extremo en el área que visitan dado que ello puede afectar sus planes de viaje",
+      "language": "es",
+      "suite": "fleurs-es_419",
+      "source_id": 2001,
+      "sha256": "518e4998d7fc4cb32bf9cb6c479b4cfe632bc68c6a2db376eeff98b68fea2bd1",
+      "seconds": 12.84,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-es_419-001",
+      "path": "fixtures/audio/fleurs/es_419/001.wav",
+      "reference": "el uso adecuado de los blogs «puede empoderar a los alumnos para que sean más analíticos y críticos a través de la respuesta activa a los contenidos de internet pueden definir sus posturas en el contexto de los escritos de otros además de establecer sus perspectivas sobre temas específicos» oravec 2002",
+      "language": "es",
+      "suite": "fleurs-es_419",
+      "source_id": 1852,
+      "sha256": "2c87d0b144fb5cd37b91058c4e7cbb92a2e423216c56f1f4cd7a39189bbd5e63",
+      "seconds": 21.36,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-es_419-002",
+      "path": "fixtures/audio/fleurs/es_419/002.wav",
+      "reference": "fue tanta la cantidad de gente que se concentró que no todos pudieron acceder al funeral en la plaza de san pedro",
+      "language": "es",
+      "suite": "fleurs-es_419",
+      "source_id": 1764,
+      "sha256": "24624100418fb70f3947df1912c4b64c6a7ae67a84936c98e3eb9e0162055a6f",
+      "seconds": 9.72,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-es_419-003",
+      "path": "fixtures/audio/fleurs/es_419/003.wav",
+      "reference": "esto parece tener sentido ya que en la tierra no se percibe su movimiento ¿cierto?",
+      "language": "es",
+      "suite": "fleurs-es_419",
+      "source_id": 1770,
+      "sha256": "54f941743dbd5d484a3f4b2b72a5621d4ebb00c0e2c65d8a896bc05adc95a205",
+      "seconds": 8.58,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-es_419-004",
+      "path": "fixtures/audio/fleurs/es_419/004.wav",
+      "reference": "carpanedo participó en dos carreras individuales del campeonato aparte de la competencia del miércoles",
+      "language": "es",
+      "suite": "fleurs-es_419",
+      "source_id": 1799,
+      "sha256": "5bfbd4442ae4495351febcb516663c779438444e562d4a959efd6dd6e454c38c",
+      "seconds": 10.62,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-es_419-005",
+      "path": "fixtures/audio/fleurs/es_419/005.wav",
+      "reference": "hoy en día las personas escriben mensajes en las pantallas de sus computadoras no tienen la necesidad de siquiera aproximarse a un sacapuntas",
+      "language": "es",
+      "suite": "fleurs-es_419",
+      "source_id": 1820,
+      "sha256": "0ad471471e9af79e91856bd07ff1e31594ad703356f6eb67251d867958975a2c",
+      "seconds": 9.78,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-es_419-006",
+      "path": "fixtures/audio/fleurs/es_419/006.wav",
+      "reference": "los luchadores compañeros de luna también le rindieron homenaje",
+      "language": "es",
+      "suite": "fleurs-es_419",
+      "source_id": 1747,
+      "sha256": "26b7d441771ca7af5679f154631351081ac224cb7ae257dda34d43799854c54b",
+      "seconds": 5.64,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-es_419-007",
+      "path": "fixtures/audio/fleurs/es_419/007.wav",
+      "reference": "duvall que está casado y tiene dos hijos adultos no causó una buena impresión a miller que fue a quien le relató la historia",
+      "language": "es",
+      "suite": "fleurs-es_419",
+      "source_id": 1816,
+      "sha256": "425b17fb98176ba058dc0345f4a8d54c343c8d51db0daa6b337f8bf9f2d97479",
+      "seconds": 10.26,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-es_419-008",
+      "path": "fixtures/audio/fleurs/es_419/008.wav",
+      "reference": "entre los fenómenos climáticos regionales y estacionales extremos encontramos los ventarrones las tormentas de nieve hielo o polvo",
+      "language": "es",
+      "suite": "fleurs-es_419",
+      "source_id": 1783,
+      "sha256": "97256089ff27aef9a3ee609ba3bf4e6ba4ca20d060081155b8a4455f298df437",
+      "seconds": 10.68,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-es_419-009",
+      "path": "fixtures/audio/fleurs/es_419/009.wav",
+      "reference": "se puede definir a una civilización como una cultura específica de la que forma parte un extenso grupo de personas que viven y trabajan en conjunto es decir una sociedad",
+      "language": "es",
+      "suite": "fleurs-es_419",
+      "source_id": 1794,
+      "sha256": "920432a55b7e8eb606c8fea177ad4bb61f871e2dd49462e1de231c3d9a8274ef",
+      "seconds": 12.12,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-de_de-000",
+      "path": "fixtures/audio/fleurs/de_de/000.wav",
+      "reference": "für die besten aussichten auf hongkong sollten sie die insel verlassen und zum gegenüberliegenden ufer von kowloon fahren",
+      "language": "de",
+      "suite": "fleurs-de_de",
+      "source_id": 2003,
+      "sha256": "7131c007c5c5c7b72c2fae333c9bccf5e2c02a4abb32b740f314e58b1488f149",
+      "seconds": 17.94,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-de_de-001",
+      "path": "fixtures/audio/fleurs/de_de/001.wav",
+      "reference": "er griff auch alles an was ins wasser kam selbst ein großer dinosaurier wie der t rex war ihm nicht gewachsen",
+      "language": "de",
+      "suite": "fleurs-de_de",
+      "source_id": 1738,
+      "sha256": "5ced4640ec223bd9f59601722534acbb2f47087c71167529c513741a86cdae01",
+      "seconds": 11.16,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-de_de-002",
+      "path": "fixtures/audio/fleurs/de_de/002.wav",
+      "reference": "wenn sie den film das vermächtnis der tempelritter gesehen haben denken sie vielleicht dass auf die rückseite der unabhängigkeitserklärung eine schatzkarte gezeichnet wurde",
+      "language": "de",
+      "suite": "fleurs-de_de",
+      "source_id": 1849,
+      "sha256": "d0859482db2b8461ba8726bce55e00f54760b3aae48aba674e67c893804d8d51",
+      "seconds": 12.42,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-de_de-003",
+      "path": "fixtures/audio/fleurs/de_de/003.wav",
+      "reference": "es leben noch viele männer und frauen die ihre zeit hier überlebt haben und viele weitere mit angehörigen die dort ermordet wurden oder sich zu tode arbeiteten juden und nichtjuden gleichermaßen",
+      "language": "de",
+      "suite": "fleurs-de_de",
+      "source_id": 1683,
+      "sha256": "bd345ef2d18cd274fb955cf510cb7f223c9ac6bb52c62fc4280eade47f9a56ee",
+      "seconds": 10.68,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-de_de-004",
+      "path": "fixtures/audio/fleurs/de_de/004.wav",
+      "reference": "die höhle befindet sich auf der spitze eines der berge nördlich von mekka und ist vom rest der welt völlig isoliert",
+      "language": "de",
+      "suite": "fleurs-de_de",
+      "source_id": 1739,
+      "sha256": "8bd38645c6abbb987e601e98b8c7ead49a81d849972fa26e658fe7345fab019f",
+      "seconds": 9.9,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-de_de-005",
+      "path": "fixtures/audio/fleurs/de_de/005.wav",
+      "reference": "dieses sediment war nötig um sandbänke und strände zu bilden die als lebensräume für wildtiere dienten",
+      "language": "de",
+      "suite": "fleurs-de_de",
+      "source_id": 1796,
+      "sha256": "88988cc0b268d4a2fdef8163fcbaec565a3e7eccf2a81bef8b3afb03c2ba0eba",
+      "seconds": 8.4,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-de_de-006",
+      "path": "fixtures/audio/fleurs/de_de/006.wav",
+      "reference": "blogs können auch dazu beitragen die schreibfertigkeiten von schülern zu verbessern zwar haben schüler am anfang ihrer blogerfahrung oft eine schlampige grammatik und rechtschreibung aber das ändert sich normalerweise wenn es ein publikum gibt",
+      "language": "de",
+      "suite": "fleurs-de_de",
+      "source_id": 1990,
+      "sha256": "68799b17c059180cbc70ca8e3b67034db9c99439881c5f34f67b3ba681868e61",
+      "seconds": 12.96,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-de_de-007",
+      "path": "fixtures/audio/fleurs/de_de/007.wav",
+      "reference": "nachdem der damm 1963 erbaut worden war kamen die jahreszeitlichen überflutungen die sedimente im fluss verteilen zum stillstand",
+      "language": "de",
+      "suite": "fleurs-de_de",
+      "source_id": 1721,
+      "sha256": "3c20827a16e7c24fecbb22cf6e4518b9a14f1f1f3cad0339d15e3bd9047a5544",
+      "seconds": 19.68,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-de_de-008",
+      "path": "fixtures/audio/fleurs/de_de/008.wav",
+      "reference": "insbesondere wird behauptet dass man erkennen kann ob jemand lügt indem man minimale veränderungen des gesichtsausdrucks richtig deutet.x",
+      "language": "de",
+      "suite": "fleurs-de_de",
+      "source_id": 1884,
+      "sha256": "7b72181c650b318e1a0894c49a7cb2a2bcbef46aaa65274b1481e9b74e82b448",
+      "seconds": 11.04,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-de_de-009",
+      "path": "fixtures/audio/fleurs/de_de/009.wav",
+      "reference": "die angemessene nutzung von blogs kann schülerinnen und schüler befähigen analytischer und kritischer zu werden; durch die aktive reaktion auf internetmaterialien können die schülerinnen und schüler ihre positionen im kontext der texte anderer definieren und ihre eigenen perspektiven zu bestimmten themen darlegen  oravec 2002",
+      "language": "de",
+      "suite": "fleurs-de_de",
+      "source_id": 1852,
+      "sha256": "0b1cf28352386d0918258af21bfc0e4853b0c6a7357637a239fe2a221677325c",
+      "seconds": 43.38,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-hi_in-000",
+      "path": "fixtures/audio/fleurs/hi_in/000.wav",
+      "reference": "कुछ अणुओं में अस्थिर केंद्रक होता है जिसका मतलब यह है कि उनमें थोड़े या बिना किसी झटके से टूटने की प्रवृत्ति होती है",
+      "language": "hi",
+      "suite": "fleurs-hi_in",
+      "source_id": 1766,
+      "sha256": "38cf0e883d64ae257288bce89cf41a9c4a693b218c3381d5bd462d90bf7b7ed6",
+      "seconds": 9.12,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-hi_in-001",
+      "path": "fixtures/audio/fleurs/hi_in/001.wav",
+      "reference": "ग्रीनलैंड को बहुत कम जगह बसाया गया था नॉर्स सगास में वे कहते हैं कि एरिक रेड हत्या के लिए आइसलैंड से निर्वासित किया गया था और आगे पश्चिम की यात्रा करते समय ग्रीनलैंड मिला जिसे ग्रीनलैंड नाम दिया गया",
+      "language": "hi",
+      "suite": "fleurs-hi_in",
+      "source_id": 1784,
+      "sha256": "39f91e5112c883518169024a6853921d2f4bea402f1e6a3bd3c05d99f9a5fae9",
+      "seconds": 13.8,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-hi_in-002",
+      "path": "fixtures/audio/fleurs/hi_in/002.wav",
+      "reference": "ऐसी कोई वैश्विक परिभाषा नहीं है जिसके लिए निर्मित सामान एंटीक होते हैं कुछ कर एजेंसियां 100 साल से पुराने सामान को एंटीक के तौर पर परिभाषित करती हैं",
+      "language": "hi",
+      "suite": "fleurs-hi_in",
+      "source_id": 1718,
+      "sha256": "3423fa5ade955d770be244a88158ae875d0b30d84b5fda63a682aa2042ccccf3",
+      "seconds": 15.0,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-hi_in-003",
+      "path": "fixtures/audio/fleurs/hi_in/003.wav",
+      "reference": "टेलीविजन रिपोर्टों में प्लांट से निकलने वाला सफेद धुआं दिखाया गया है",
+      "language": "hi",
+      "suite": "fleurs-hi_in",
+      "source_id": 1778,
+      "sha256": "82c6f2f156f1e2a2bfbc2c88e228c102e304e92ba228ef7f7171ecceb359af01",
+      "seconds": 5.1,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-hi_in-004",
+      "path": "fixtures/audio/fleurs/hi_in/004.wav",
+      "reference": "इंटरनेट पर यह खोज शत्रुतापूर्ण पर्यावरण पाठ्यक्रम के लिए अक्सर आपको एक स्थानीय कंपनी का पता प्रदान करेगी",
+      "language": "hi",
+      "suite": "fleurs-hi_in",
+      "source_id": 1828,
+      "sha256": "4641aae648169bbdd1be72e8c940a2773390a3753d6aac04febb9ff05afd42a4",
+      "seconds": 13.2,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-hi_in-005",
+      "path": "fixtures/audio/fleurs/hi_in/005.wav",
+      "reference": "अपनी सरकार के अलावा आप अन्य देशों की सरकारों की सलाह ले सकते हैं हालांकि उनकी सलाह उनके नागरिकों को ध्यान में रखकर दी जाती हैं",
+      "language": "hi",
+      "suite": "fleurs-hi_in",
+      "source_id": 1666,
+      "sha256": "3a0e7c20df4f601e65045bd80b376fb4190ac70dc43dcb8d8cd1b8e2a9d3d3b1",
+      "seconds": 10.62,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-hi_in-006",
+      "path": "fixtures/audio/fleurs/hi_in/006.wav",
+      "reference": "प्राचीनकाल से ही लोग सोने चांदी और तांबे जैसे रासायनिक तत्वों के बारे में ही जानकारी रखते हैं क्योंकि इन्हें प्रकृति में मूल स्वरूप में ढूंढा जा सकता है और इन्हें प्राथमिक उपकरणों के ज़रिए ढूंढना अपेक्षाकृत आसान है",
+      "language": "hi",
+      "suite": "fleurs-hi_in",
+      "source_id": 1836,
+      "sha256": "16222cd2193f43b92242a375ab66c7ace5c15ff77d780a02d5b3f2326f5da5e5",
+      "seconds": 17.1,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-hi_in-007",
+      "path": "fixtures/audio/fleurs/hi_in/007.wav",
+      "reference": "इसे केमिकल का ph कहा जाता है आप लाल गोभी के जूस का इस्तेमाल करके एक संकेतक बना सकते हैं",
+      "language": "hi",
+      "suite": "fleurs-hi_in",
+      "source_id": 1792,
+      "sha256": "69e66f2b7ad1ebaa1a5ecb5d16b726d28f23cc39f833e99f0811db609c2f54bc",
+      "seconds": 8.22,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-hi_in-008",
+      "path": "fixtures/audio/fleurs/hi_in/008.wav",
+      "reference": "सबसे नज़दीकी सिरे पर क्रस्ट की मोटाई करीब 70 किलोमीटर है और सबसे दूर के सिरे पर यह 100 किलोमीटर है",
+      "language": "hi",
+      "suite": "fleurs-hi_in",
+      "source_id": 1827,
+      "sha256": "bc5230a5dd011fce5c2aa6a13648a461270d2b74370df31e8890cc15d72c1076",
+      "seconds": 7.8,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-hi_in-009",
+      "path": "fixtures/audio/fleurs/hi_in/009.wav",
+      "reference": "यह संबंधित है लेकिन आम तौर पर इसमें अल्पाइन शैली की स्की टूरिंग या माउंटेनीयरिंग शामिल नहीं होती है जिसे खड़े इलाकों में किया जाता है और जिसके लिए बहुत कड़ी स्की और बूट की ज़रूरत होती है",
+      "language": "hi",
+      "suite": "fleurs-hi_in",
+      "source_id": 1985,
+      "sha256": "0f8f18c712c651660c73fd84e05ad2e0bd3102aecaaf988d9cfdd7aa1a8208d3",
+      "seconds": 13.68,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-ja_jp-000",
+      "path": "fixtures/audio/fleurs/ja_jp/000.wav",
+      "reference": "インターネットで 敵対的環境コース について検索すると おそらく現地企業の住所が出てくるでしょう",
+      "language": "ja",
+      "suite": "fleurs-ja_jp",
+      "source_id": 1828,
+      "sha256": "26b6cd491b5d52cf05d89207cb88499cdaba89749aebc29c8f216e834e3d9071",
+      "seconds": 10.44,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-ja_jp-001",
+      "path": "fixtures/audio/fleurs/ja_jp/001.wav",
+      "reference": "また 北側に行くなら世界的に有名なマリア像の聖地であるファティマの聖母の聖域神社を訪れましょう",
+      "language": "ja",
+      "suite": "fleurs-ja_jp",
+      "source_id": 1834,
+      "sha256": "258fe8b9954d74c44bcfeb93317fff647f0a0f9135c472f4af32f6db5b02281e",
+      "seconds": 14.22,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-ja_jp-002",
+      "path": "fixtures/audio/fleurs/ja_jp/002.wav",
+      "reference": "バルセロナの公用語はカタルーニャ語とスペイン語です 約半数がカタルーニャ語を好み 大多数がカタルーニャ語を理解し ほぼ全員がスペイン語を知っています",
+      "language": "ja",
+      "suite": "fleurs-ja_jp",
+      "source_id": 1813,
+      "sha256": "bc4947522ebee189fa5f375e24b5f4cb84a66f264a39bfff241c5bfee01b0a34",
+      "seconds": 12.84,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-ja_jp-003",
+      "path": "fixtures/audio/fleurs/ja_jp/003.wav",
+      "reference": "その長い顎には70本以上の鋭い歯が並び 口蓋には別の歯列があり つまりここを通ったら逃げ道はないということになります",
+      "language": "ja",
+      "suite": "fleurs-ja_jp",
+      "source_id": 1869,
+      "sha256": "b97654c603f2e4e66984fcca51c064be8054ed3b97a81a8890d71579bfdc8a00",
+      "seconds": 12.54,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-ja_jp-004",
+      "path": "fixtures/audio/fleurs/ja_jp/004.wav",
+      "reference": "ロスビー数が小さいほど磁気反転に関して星の活性が低下するわけです",
+      "language": "ja",
+      "suite": "fleurs-ja_jp",
+      "source_id": 1744,
+      "sha256": "d57545db2234856ae80dea142adfbcacf23fd7a351183f56431734f93ec3e58d",
+      "seconds": 12.06,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-ja_jp-005",
+      "path": "fixtures/audio/fleurs/ja_jp/005.wav",
+      "reference": "群島や湖では 必ずしもヨットは必要ありません",
+      "language": "ja",
+      "suite": "fleurs-ja_jp",
+      "source_id": 1731,
+      "sha256": "00b5efdbd751c1f133a964db6086bd8294fc64a4d729165bdc6f267cb9b2c618",
+      "seconds": 6.96,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-ja_jp-006",
+      "path": "fixtures/audio/fleurs/ja_jp/006.wav",
+      "reference": "パリジャンは 自己中心的で横柄で失礼な人が多いと言われています",
+      "language": "ja",
+      "suite": "fleurs-ja_jp",
+      "source_id": 1910,
+      "sha256": "959077418140484e2bcb2b708480127392272eb179121e7e2ceb1903b6be519e",
+      "seconds": 8.88,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-ja_jp-007",
+      "path": "fixtures/audio/fleurs/ja_jp/007.wav",
+      "reference": "メインステージの音楽が終わっても フェスティバルには夜遅くまで演奏を流し続けるセクションがあるかもしれないことを覚えておいてください",
+      "language": "ja",
+      "suite": "fleurs-ja_jp",
+      "source_id": 1771,
+      "sha256": "a744212bc2eb19672f31cb39a4ead66c58854bcb898097c1a573eef103724def",
+      "seconds": 12.96,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-ja_jp-008",
+      "path": "fixtures/audio/fleurs/ja_jp/008.wav",
+      "reference": "参列者の数が多すぎて 全員がサンピエトロ広場での葬儀に参加することは不可能でした",
+      "language": "ja",
+      "suite": "fleurs-ja_jp",
+      "source_id": 1764,
+      "sha256": "5150ec65463847f16459396ed1fd4cdec683c0429cdc6e8d521a659e891636ea",
+      "seconds": 9.48,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-ja_jp-009",
+      "path": "fixtures/audio/fleurs/ja_jp/009.wav",
+      "reference": "香港の最高の景色を見るには 島から出て九龍のウォーターフロントに向かいましょう",
+      "language": "ja",
+      "suite": "fleurs-ja_jp",
+      "source_id": 2003,
+      "sha256": "65618a629d07f06e3ed564f2970789cc122c54b04232362674d9ca2a50daf4bc",
+      "seconds": 9.66,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-000",
+      "path": "fixtures/audio/fleurs/cmn_hans_cn/000.wav",
+      "reference": "这 并 不 是 告 别 这 是 一 个 篇 章 的 结 束 也 是 新 篇 章 的 开 始",
+      "language": "zh",
+      "suite": "fleurs-cmn_hans_cn",
+      "source_id": 1906,
+      "sha256": "5214e16584b6498ddbd22f321738c0f62b19117ab1880b21e405fba983986b6a",
+      "seconds": 10.38,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-001",
+      "path": "fixtures/audio/fleurs/cmn_hans_cn/001.wav",
+      "reference": "钙 钾 等 元 素 属 于 金 属 银 和 金 等 元 素 当 然 也 是 金 属",
+      "language": "zh",
+      "suite": "fleurs-cmn_hans_cn",
+      "source_id": 2006,
+      "sha256": "d2ff70aa3a9b965bd2cab664852f2b5eb90d02dca4ed9066686d926152ade514",
+      "seconds": 8.28,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-002",
+      "path": "fixtures/audio/fleurs/cmn_hans_cn/002.wav",
+      "reference": "桥 下 垂 直 净 空 15 米 该 项 目 于 2011 年 8 月 完 工 但 直 到 2017 年 3 月 才 开 始 通 车",
+      "language": "zh",
+      "suite": "fleurs-cmn_hans_cn",
+      "source_id": 1883,
+      "sha256": "a50269a834d0efd270df29173bbe5f53a1a17184fe3998dabb1a73cbd223fd6a",
+      "seconds": 13.86,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-003",
+      "path": "fixtures/audio/fleurs/cmn_hans_cn/003.wav",
+      "reference": "适 当 使 用 博 客 可 以 使 学 生 变 得 更 善 于 分 析 和 进 行 思 辨 通 过 积 极 回 应 网 络 材 料 学 生 们 可 以 在 他 人 文 章 的 上 下 文 语 境 中 找 到 自 己 的 立 场 并 能 够 针 对 特 定 问 题 提 出 自 己 的 观 点 oravec 2002",
+      "language": "zh",
+      "suite": "fleurs-cmn_hans_cn",
+      "source_id": 1852,
+      "sha256": "63b40619cf2947db1fd13f0ab63bc502326eb40d73d87b3dbd969df426940536",
+      "seconds": 15.42,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-004",
+      "path": "fixtures/audio/fleurs/cmn_hans_cn/004.wav",
+      "reference": "科 学 家 们 可 以 得 出 结 论 暗 物 质 对 其 他 暗 物 质 的 影 响 方 式 与 普 通 物 质 相 同",
+      "language": "zh",
+      "suite": "fleurs-cmn_hans_cn",
+      "source_id": 1734,
+      "sha256": "e98bd3a78fa3eb617164375180940917a8c8a87ce90b0dbffbfff156a009bf17",
+      "seconds": 12.9,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-005",
+      "path": "fixtures/audio/fleurs/cmn_hans_cn/005.wav",
+      "reference": "大 多 数 现 代 科 研 望 远 镜 都 是 巨 型 设 施 位 于 大 气 条 件 优 良 的 偏 远 地 区",
+      "language": "zh",
+      "suite": "fleurs-cmn_hans_cn",
+      "source_id": 1890,
+      "sha256": "6f0cc2a1a2a1f24736b9dd7a2e0109a64e4d1a2c88a0257ca1a83a734f700d09",
+      "seconds": 13.74,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-006",
+      "path": "fixtures/audio/fleurs/cmn_hans_cn/006.wav",
+      "reference": "1963 年 大 坝 建 成 后 季 节 性 洪 水 被 控 制 住 了 沉 积 物 不 再 冲 散 到 河 流 里",
+      "language": "zh",
+      "suite": "fleurs-cmn_hans_cn",
+      "source_id": 1721,
+      "sha256": "81969af9e5b4592eb1a92d37b36943c07aa696d1665abac8b142d1579f423028",
+      "seconds": 15.18,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-007",
+      "path": "fixtures/audio/fleurs/cmn_hans_cn/007.wav",
+      "reference": "它 的 长 下 颚 上 布 满 了 70 多 颗 剃 刀 般 锋 利 的 牙 齿 上 颚 上 还 有 一 排 这 意 味 着 任 何 与 它 相 遇 的 东 西 都 无 路 可 逃",
+      "language": "zh",
+      "suite": "fleurs-cmn_hans_cn",
+      "source_id": 1869,
+      "sha256": "086e972a47a47ae056531d43e38acee2173307afc8c87c656b31aab12452aff3",
+      "seconds": 15.46,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-008",
+      "path": "fixtures/audio/fleurs/cmn_hans_cn/008.wav",
+      "reference": "scotturb 403 路 公 共 汽 车 定 期 发 车 前 往 辛 特 拉 sintra 在 罗 卡 角 停 靠",
+      "language": "zh",
+      "suite": "fleurs-cmn_hans_cn",
+      "source_id": 1805,
+      "sha256": "5a61b505a5e00041724676529bb876a149ad10af288804f39c1c70252d900bff",
+      "seconds": 7.62,
+      "expected_speech": true
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-009",
+      "path": "fixtures/audio/fleurs/cmn_hans_cn/009.wav",
+      "reference": "这 里 几 乎 都 是 沙 滩 游 泳 很 安 全 大 部 分 地 方 都 有 新 西 兰 圣 诞 树 的 树 荫",
+      "language": "zh",
+      "suite": "fleurs-cmn_hans_cn",
+      "source_id": 1965,
+      "sha256": "e86c5fd3203f2de1bb5140b9606ed11e4596eee00e658d6ed7dc178a562869df",
+      "seconds": 6.84,
+      "expected_speech": true
+    },
+    {
+      "id": "synthetic-silence",
+      "path": "fixtures/audio/vad-candidate/synthetic-silence.wav",
+      "sha256": "754600f871902b78686a437542199c86f9ce21d65e7bdfed3e330311c5c0e24c",
+      "language": "en",
+      "reference": "",
+      "suite": "synthetic-negative",
+      "expected_speech": false,
+      "seconds": 5.0
+    },
+    {
+      "id": "synthetic-gaussian",
+      "path": "fixtures/audio/vad-candidate/synthetic-gaussian.wav",
+      "sha256": "6b34811b5d3990bf0f259ee818bb4f9b8058e91191a0d777ecc7cde1444d3f93",
+      "language": "en",
+      "reference": "",
+      "suite": "synthetic-negative",
+      "expected_speech": false,
+      "seconds": 5.0
+    },
+    {
+      "id": "synthetic-hum60hz",
+      "path": "fixtures/audio/vad-candidate/synthetic-hum60hz.wav",
+      "sha256": "73a714dcd4913f4bf482554421c5ad4138fbf8cfda2feedd6243d9292cf69ac7",
+      "language": "en",
+      "reference": "",
+      "suite": "synthetic-negative",
+      "expected_speech": false,
+      "seconds": 5.0
+    },
+    {
+      "id": "synthetic-tone440hz",
+      "path": "fixtures/audio/vad-candidate/synthetic-tone440hz.wav",
+      "sha256": "97bcfd1c79e067d58a4fbafad752263d2dfa05068b081cfc71facb263e0b7e7f",
+      "language": "en",
+      "reference": "",
+      "suite": "synthetic-negative",
+      "expected_speech": false,
+      "seconds": 5.0
+    },
+    {
+      "id": "synthetic-clicks",
+      "path": "fixtures/audio/vad-candidate/synthetic-clicks.wav",
+      "sha256": "66f52ecdb7cbb0558748fb50370538ee886d13914005875f312d9f0d62464bd2",
+      "language": "en",
+      "reference": "",
+      "suite": "synthetic-negative",
+      "expected_speech": false,
+      "seconds": 5.0
+    }
+  ],
+  "boundary": "Fixed known-input research replay: first twenty previously used test-clean clips, all fifty existing FLEURS clips in five supported languages, five prior synthetic nonspeech controls. No model selection or held-out quality claim. No speech filtering or language hints. Streaming packets are unpaced; first partial audio position is separate from compute time and is not microphone or word-relative latency. No shipping model/default change."
+}

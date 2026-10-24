@@ -1,0 +1,3911 @@
+{
+  "timestamp": "2026-10-22T12:25:04.846317+00:00",
+  "model": "whisper-small",
+  "model_spec": {
+    "repo": "mlx-community/whisper-small-mlx",
+    "engine": "whisper",
+    "name": "Whisper Small \u00b7 lower memory",
+    "languages": "99 languages",
+    "license": "MIT"
+  },
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "machine": "arm64",
+  "hardware": "Apple M5 Max",
+  "memory_bytes": 137438953472,
+  "source_sha256": "5ffc8c3fc32ca6b8286bec9a3fd868639ab853642a87715bbf31c0f71502d06f",
+  "git_commit": "82ea4a1eca6c68f410221a402b74272928b181b1",
+  "working_tree_dirty": true,
+  "versions": {
+    "mlx": "0.32.4",
+    "mlx-whisper": "0.4.3",
+    "parakeet-mlx": "0.5.3",
+    "mlx-audio": "0.6.1",
+    "numpy": "2.5.4"
+  },
+  "options": {
+    "model": "whisper-small",
+    "limit": 0,
+    "suite": "",
+    "no_trim": false,
+    "repeat": 1,
+    "manifest": "fixtures/manifest.json"
+  },
+  "cold": {
+    "model": "whisper-small",
+    "audio_seconds": 5.855,
+    "speech_seconds": 5.2,
+    "text": "Mr. Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+    "segments": [
+      {
+        "start": 0.38,
+        "end": 5.98,
+        "text": "Mr. Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."
+      }
+    ],
+    "words": [],
+    "language": "en",
+    "silence": false,
+    "warm": false,
+    "load_ms": 221.57066699583083,
+    "preprocess_ms": 0.5997499683871865,
+    "decode_ms": 166.3476669928059,
+    "total_ms": 388.5280420072377,
+    "peak_gpu_bytes": 1447293762,
+    "active_gpu_bytes": 483971822,
+    "vocabulary_applied": false,
+    "timestamp_granularity": "segment",
+    "wall_ms": 388.5396249825135
+  },
+  "summary": {
+    "human-clean": {
+      "cases": 73,
+      "errors": 0,
+      "wer": 0.08434782608695653,
+      "cer": 0.04080839486980179,
+      "substitutions": 79,
+      "deletions": 11,
+      "insertions": 7,
+      "p50_ms": 60.54529105313122,
+      "p95_ms": 112.84070021938527,
+      "aggregate_rtf": 0.010083909982467,
+      "hallucinated_silence": 0
+    },
+    "human-long": {
+      "cases": 1,
+      "errors": 0,
+      "wer": 0.09448818897637795,
+      "cer": 0.04918032786885246,
+      "substitutions": 19,
+      "deletions": 3,
+      "insertions": 2,
+      "p50_ms": 820.5394999822602,
+      "p95_ms": 820.5394999822602,
+      "aggregate_rtf": 0.007342306831750348,
+      "hallucinated_silence": 0
+    },
+    "human-noise10db": {
+      "cases": 12,
+      "errors": 0,
+      "wer": 0.1551155115511551,
+      "cer": 0.07570295602018745,
+      "substitutions": 36,
+      "deletions": 7,
+      "insertions": 4,
+      "p50_ms": 75.04904147936031,
+      "p95_ms": 194.29494577343567,
+      "aggregate_rtf": 0.008783241977642917,
+      "hallucinated_silence": 0
+    },
+    "human-quiet": {
+      "cases": 12,
+      "errors": 0,
+      "wer": 0.0858085808580858,
+      "cer": 0.04542177361211247,
+      "substitutions": 22,
+      "deletions": 3,
+      "insertions": 1,
+      "p50_ms": 69.92356257978827,
+      "p95_ms": 186.93704373436043,
+      "aggregate_rtf": 0.008493873751560596,
+      "hallucinated_silence": 0
+    },
+    "silence": {
+      "cases": 2,
+      "errors": 0,
+      "wer": null,
+      "cer": null,
+      "substitutions": null,
+      "deletions": null,
+      "insertions": null,
+      "p50_ms": 0.39697944885119796,
+      "p95_ms": 0.44676067191176116,
+      "aggregate_rtf": 7.939588977023959e-05,
+      "hallucinated_silence": 0
+    }
+  },
+  "process_peak_rss_bytes": 941424640,
+  "corpus": {
+    "dataset": "hf-internal-testing/librispeech_asr_dummy",
+    "revision": "5be91486e11a2d616f4ec5db8d3fd248585ac07a",
+    "source_sha256": "4e69a06fa5edc90921e5e7e39a7084881f8b3ed9c805c574f4f39c6fde27c603",
+    "license": "LibriSpeech CC BY 4.0; retain attribution to Vassil Panayotov et al. and LibriVox readers.",
+    "caveats": "Small single-speaker read-English subset; no accents, spontaneous dictation or multilingual coverage.",
+    "noise_seed": 20261022
+  },
+  "records": [
+    {
+      "id": "1272-128104-0000",
+      "path": "fixtures/audio/1272-128104-0000.wav",
+      "reference": "MISTER QUILTER IS THE APOSTLE OF THE MIDDLE CLASSES AND WE ARE GLAD TO WELCOME HIS GOSPEL",
+      "suite": "human-clean",
+      "source_id": "1272-128104-0000",
+      "sha256": "799f78ed4beb4de7ceae3a809262d4ce242394342ccd1d58cef7d49dbc2def46",
+      "seconds": 5.855,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 5.855,
+      "speech_seconds": 5.2,
+      "text": "Mr. Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+      "segments": [
+        {
+          "start": 0.38,
+          "end": 5.98,
+          "text": "Mr. Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0031659146770834923,
+      "preprocess_ms": 0.6277080392464995,
+      "decode_ms": 66.09095796011388,
+      "total_ms": 66.72587501816452,
+      "peak_gpu_bytes": 1436145098,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 66.73629092983902
+    },
+    {
+      "id": "1272-128104-0001",
+      "path": "fixtures/audio/1272-128104-0001.wav",
+      "reference": "NOR IS MISTER QUILTER'S MANNER LESS INTERESTING THAN HIS MATTER",
+      "suite": "human-clean",
+      "source_id": "1272-128104-0001",
+      "sha256": "473b1bb573e8f7cdcd639c6e318036236190107b66bfe6892286121a92d464c1",
+      "seconds": 4.815,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 4.815,
+      "speech_seconds": 4.2,
+      "text": "Nor is Mr. Quilter's manner less interesting than his matter.",
+      "segments": [
+        {
+          "start": 0.38,
+          "end": 4.38,
+          "text": "Nor is Mr. Quilter's manner less interesting than his matter."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001750071533024311,
+      "preprocess_ms": 0.46970893163233995,
+      "decode_ms": 52.79916594736278,
+      "total_ms": 53.273041965439916,
+      "peak_gpu_bytes": 1435489738,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 53.27991698868573
+    },
+    {
+      "id": "1272-128104-0002",
+      "path": "fixtures/audio/1272-128104-0002.wav",
+      "reference": "HE TELLS US THAT AT THIS FESTIVE SEASON OF THE YEAR WITH CHRISTMAS AND ROAST BEEF LOOMING BEFORE US SIMILES DRAWN FROM EATING AND ITS RESULTS OCCUR MOST READILY TO THE MIND",
+      "suite": "human-clean",
+      "source_id": "1272-128104-0002",
+      "sha256": "5f4d8f7331acffc3d2efbe0f764b9eb3447911dc17f9843e38e1083eb1685b9c",
+      "seconds": 12.485,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 12.485,
+      "speech_seconds": 12.06,
+      "text": "He tells us that at this festive season of the year, with Christmas and roast beef looming before us, symbolies drawn from eating and its results occur most readily to the mind.",
+      "segments": [
+        {
+          "start": 0.08,
+          "end": 6.180000000000001,
+          "text": "He tells us that at this festive season of the year, with Christmas and roast beef looming"
+        },
+        {
+          "start": 6.180000000000001,
+          "end": 11.96,
+          "text": "before us, symbolies drawn from eating and its results occur most readily to the mind."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001249951310455799,
+      "preprocess_ms": 0.9585000807419419,
+      "decode_ms": 101.07483295723796,
+      "total_ms": 102.03800001181662,
+      "peak_gpu_bytes": 1440699850,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 102.04337490722537
+    },
+    {
+      "id": "1272-128104-0003",
+      "path": "fixtures/audio/1272-128104-0003.wav",
+      "reference": "HE HAS GRAVE DOUBTS WHETHER SIR FREDERICK LEIGHTON'S WORK IS REALLY GREEK AFTER ALL AND CAN DISCOVER IN IT BUT LITTLE OF ROCKY ITHACA",
+      "suite": "human-clean",
+      "source_id": "1272-128104-0003",
+      "sha256": "fc23353b884061a5c5784b0cf6b5c539680c50cfae993882822ebdd4a06ddf8c",
+      "seconds": 9.9,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 9.9,
+      "speech_seconds": 9.62,
+      "text": "He has grave doubts whether Sir Frederick Layton's work is really Greek after all and can discover in it but little of rocky Ithaca.",
+      "segments": [
+        {
+          "start": 0.02,
+          "end": 6.22,
+          "text": "He has grave doubts whether Sir Frederick Layton's work is really Greek after all and"
+        },
+        {
+          "start": 6.22,
+          "end": 9.42,
+          "text": "can discover in it but little of rocky Ithaca."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001374981366097927,
+      "preprocess_ms": 0.6763340206816792,
+      "decode_ms": 85.7548339990899,
+      "total_ms": 86.4355000667274,
+      "peak_gpu_bytes": 1439061450,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 86.44275006372482
+    },
+    {
+      "id": "1272-128104-0004",
+      "path": "fixtures/audio/1272-128104-0004.wav",
+      "reference": "LINNELL'S PICTURES ARE A SORT OF UP GUARDS AND AT EM PAINTINGS AND MASON'S EXQUISITE IDYLLS ARE AS NATIONAL AS A JINGO POEM MISTER BIRKET FOSTER'S LANDSCAPES SMILE AT ONE MUCH IN THE SAME WAY THAT MISTER CARKER USED TO FLASH HIS TEETH AND MISTER JOHN COLLIER GIVES HIS SITTER A CHEERFUL SLAP ON THE BACK BEFORE HE SAYS LIKE A SHAMPOOER IN A TURKISH BATH NEXT MAN",
+      "suite": "human-clean",
+      "source_id": "1272-128104-0004",
+      "sha256": "4798e34d9a323ed835ae6055172236f8965dd5ccf146c25758711023ecc8b2e6",
+      "seconds": 29.4,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 29.4,
+      "speech_seconds": 29.2,
+      "text": "Linnell's pictures are a sort of Up Guards and Adam paintings, and Mason's exquisite idles are as national as a jingle poem. Mr. Birkut Foster's landscapes smile at one much in the same way that Mr. Carker used to flash his teeth. And Mr. John Collier gives his sitter a cheerful slap on the back, before he says, like a shampoo We're in a Turkish bath. Next man!",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 6.76,
+          "text": "Linnell's pictures are a sort of Up Guards and Adam paintings, and Mason's exquisite"
+        },
+        {
+          "start": 6.76,
+          "end": 11.64,
+          "text": "idles are as national as a jingle poem."
+        },
+        {
+          "start": 11.64,
+          "end": 17.28,
+          "text": "Mr. Birkut Foster's landscapes smile at one much in the same way that Mr. Carker used"
+        },
+        {
+          "start": 17.28,
+          "end": 19.86,
+          "text": "to flash his teeth."
+        },
+        {
+          "start": 19.86,
+          "end": 26.44,
+          "text": "And Mr. John Collier gives his sitter a cheerful slap on the back, before he says, like a shampoo"
+        },
+        {
+          "start": 26.44,
+          "end": 28.520000000000003,
+          "text": "We're in a Turkish bath."
+        },
+        {
+          "start": 28.520000000000003,
+          "end": 28.96,
+          "text": "Next man!"
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0015830155462026596,
+      "preprocess_ms": 1.7661659512668848,
+      "decode_ms": 260.4153339052573,
+      "total_ms": 262.18750001862645,
+      "peak_gpu_bytes": 1451955658,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 262.20900006592274
+    },
+    {
+      "id": "1272-128104-0005",
+      "path": "fixtures/audio/1272-128104-0005.wav",
+      "reference": "IT IS OBVIOUSLY UNNECESSARY FOR US TO POINT OUT HOW LUMINOUS THESE CRITICISMS ARE HOW DELICATE IN EXPRESSION",
+      "suite": "human-clean",
+      "source_id": "1272-128104-0005",
+      "sha256": "abd89d9a5108f87f03d03875272e1f3f18bef61ea4c271a0ec5bbc3a5bfc223a",
+      "seconds": 9.01,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 9.01,
+      "speech_seconds": 8.68,
+      "text": "It is obviously unnecessary for us to point out how luminous these criticisms are, how delicate an expression.",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 6.84,
+          "text": "It is obviously unnecessary for us to point out how luminous these criticisms are, how"
+        },
+        {
+          "start": 6.84,
+          "end": 8.52,
+          "text": "delicate an expression."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0010830117389559746,
+      "preprocess_ms": 0.6457919953390956,
+      "decode_ms": 67.95199995394796,
+      "total_ms": 68.60174995381385,
+      "peak_gpu_bytes": 1438438858,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 68.60795896500349
+    },
+    {
+      "id": "1272-128104-0006",
+      "path": "fixtures/audio/1272-128104-0006.wav",
+      "reference": "ON THE GENERAL PRINCIPLES OF ART MISTER QUILTER WRITES WITH EQUAL LUCIDITY",
+      "suite": "human-clean",
+      "source_id": "1272-128104-0006",
+      "sha256": "acbc588a1ba63290a48aeb9b37c815475627ba58a815ff095042fa61729fe3a0",
+      "seconds": 5.64,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 5.64,
+      "speech_seconds": 5.26,
+      "text": "Under general principles of art, Mr. Krilter writes with equal lucidity.",
+      "segments": [
+        {
+          "start": 0.38,
+          "end": 5.66,
+          "text": "Under general principles of art, Mr. Krilter writes with equal lucidity."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0012079253792762756,
+      "preprocess_ms": 0.49050000961869955,
+      "decode_ms": 55.45695801265538,
+      "total_ms": 55.951207992620766,
+      "peak_gpu_bytes": 1436210634,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 55.95679196994752
+    },
+    {
+      "id": "1272-128104-0007",
+      "path": "fixtures/audio/1272-128104-0007.wav",
+      "reference": "PAINTING HE TELLS US IS OF A DIFFERENT QUALITY TO MATHEMATICS AND FINISH IN ART IS ADDING MORE FACT",
+      "suite": "human-clean",
+      "source_id": "1272-128104-0007",
+      "sha256": "66ea55755fe31a7af9bb121ad33fd2037dbc8e2fc66d4cfb3f50cb8fa1e63561",
+      "seconds": 9.24,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 9.24,
+      "speech_seconds": 8.52,
+      "text": "Painting, he tells us, is of a different quality to mathematics, and finish in art is adding more factor.",
+      "segments": [
+        {
+          "start": 0.4,
+          "end": 7.760000000000001,
+          "text": "Painting, he tells us, is of a different quality to mathematics, and finish in art is adding"
+        },
+        {
+          "start": 7.760000000000001,
+          "end": 8.72,
+          "text": "more factor."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0013329554349184036,
+      "preprocess_ms": 0.6180829368531704,
+      "decode_ms": 74.11899999715388,
+      "total_ms": 74.7414999641478,
+      "peak_gpu_bytes": 1444648394,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 74.74720804020762
+    },
+    {
+      "id": "1272-128104-0008",
+      "path": "fixtures/audio/1272-128104-0008.wav",
+      "reference": "AS FOR ETCHINGS THEY ARE OF TWO KINDS BRITISH AND FOREIGN",
+      "suite": "human-clean",
+      "source_id": "1272-128104-0008",
+      "sha256": "9514dcfa2f52cd7540c686c555213ca539b7ec8913b93913d14bfed151bdb72e",
+      "seconds": 5.12,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 5.12,
+      "speech_seconds": 4.76,
+      "text": "As for etchings, they are of two kinds, British and foreign.",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 4.6000000000000005,
+          "text": "As for etchings, they are of two kinds, British and foreign."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001249951310455799,
+      "preprocess_ms": 0.46741694677621126,
+      "decode_ms": 54.47770899627358,
+      "total_ms": 54.94950001593679,
+      "peak_gpu_bytes": 1438111178,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 54.95554197113961
+    },
+    {
+      "id": "1272-128104-0009",
+      "path": "fixtures/audio/1272-128104-0009.wav",
+      "reference": "HE LAMENTS MOST BITTERLY THE DIVORCE THAT HAS BEEN MADE BETWEEN DECORATIVE ART AND WHAT WE USUALLY CALL PICTURES MAKES THE CUSTOMARY APPEAL TO THE LAST JUDGMENT AND REMINDS US THAT IN THE GREAT DAYS OF ART MICHAEL ANGELO WAS THE FURNISHING UPHOLSTERER",
+      "suite": "human-clean",
+      "source_id": "1272-128104-0009",
+      "sha256": "f91fae94e75d6e831eede05bff930beab5300cfc484a806ea196df2d6f219e19",
+      "seconds": 18.29,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 18.29,
+      "speech_seconds": 17.98,
+      "text": "He laments most bitterly the divorce that has been made between decorative art and what we usually call pictures. Makes a customary appeal to the last judgment and reminds us that in the great days of art Michelangelo was the furnishing upholsterer.",
+      "segments": [
+        {
+          "start": 0.02,
+          "end": 6.46,
+          "text": "He laments most bitterly the divorce that has been made between decorative art and what"
+        },
+        {
+          "start": 6.46,
+          "end": 9.06,
+          "text": "we usually call pictures."
+        },
+        {
+          "start": 9.06,
+          "end": 14.5,
+          "text": "Makes a customary appeal to the last judgment and reminds us that in the great days of art"
+        },
+        {
+          "start": 14.5,
+          "end": 17.86,
+          "text": "Michelangelo was the furnishing upholsterer."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001291045919060707,
+      "preprocess_ms": 1.0538749629631639,
+      "decode_ms": 140.3000419959426,
+      "total_ms": 141.35866705328226,
+      "peak_gpu_bytes": 1444550090,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 141.36591693386436
+    },
+    {
+      "id": "1272-128104-0010",
+      "path": "fixtures/audio/1272-128104-0010.wav",
+      "reference": "NEAR THE FIRE AND THE ORNAMENTS FRED BROUGHT HOME FROM INDIA ON THE MANTEL BOARD",
+      "suite": "human-clean",
+      "source_id": "1272-128104-0010",
+      "sha256": "f656fbff06c64a890bda6e03f259257ad62d37f4804d2d3b46801d8ec8a0ee8d",
+      "seconds": 5.6,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 5.6,
+      "speech_seconds": 5.22,
+      "text": "near the fire, and the ornaments Fred brought home from India on the mental board.",
+      "segments": [
+        {
+          "start": 0.02,
+          "end": 5.06,
+          "text": "near the fire, and the ornaments Fred brought home from India on the mental board."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0010830117389559746,
+      "preprocess_ms": 0.49966596998274326,
+      "decode_ms": 59.45404095109552,
+      "total_ms": 59.95758296921849,
+      "peak_gpu_bytes": 1441863114,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 59.96337498072535
+    },
+    {
+      "id": "1272-128104-0011",
+      "path": "fixtures/audio/1272-128104-0011.wav",
+      "reference": "IN FACT HE IS QUITE SEVERE ON MISTER RUSKIN FOR NOT RECOGNISING THAT A PICTURE SHOULD DENOTE THE FRAILTY OF MAN AND REMARKS WITH PLEASING COURTESY AND FELICITOUS GRACE THAT MANY PHASES OF FEELING",
+      "suite": "human-clean",
+      "source_id": "1272-128104-0011",
+      "sha256": "71bdb47d0bd378adab517958ddd96b4567e676a3d9b0f3787b36c35449124b81",
+      "seconds": 15.115,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 15.115,
+      "speech_seconds": 14.92,
+      "text": "In fact, he is quite severe on Mr. Ruskin for not recognizing that a picture should denote the frailty of man, and remarks with pleasing courtesy and felicitous grace that, many phases of feeling",
+      "segments": [
+        {
+          "start": 0.06,
+          "end": 6.58,
+          "text": "In fact, he is quite severe on Mr. Ruskin for not recognizing that a picture should denote"
+        },
+        {
+          "start": 6.58,
+          "end": 14.06,
+          "text": "the frailty of man, and remarks with pleasing courtesy and felicitous grace that, many phases"
+        },
+        {
+          "start": 14.06,
+          "end": 14.82,
+          "text": "of feeling"
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001250067725777626,
+      "preprocess_ms": 0.8923750137910247,
+      "decode_ms": 115.43216707650572,
+      "total_ms": 116.32837494835258,
+      "peak_gpu_bytes": 1442534858,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 116.33387499023229
+    },
+    {
+      "id": "1272-128104-0012",
+      "path": "fixtures/audio/1272-128104-0012.wav",
+      "reference": "ONLY UNFORTUNATELY HIS OWN WORK NEVER DOES GET GOOD",
+      "suite": "human-clean",
+      "source_id": "1272-128104-0012",
+      "sha256": "a89a64858c6f8d899dc6661d59a126cfe32b0cc2dadb7a1e9f4f6090a95e39cc",
+      "seconds": 5.38,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 5.38,
+      "speech_seconds": 5.16,
+      "text": "Only, unfortunately, his own work never does get good.",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 4.9,
+          "text": "Only, unfortunately, his own work never does get good."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001208973117172718,
+      "preprocess_ms": 0.4827079828828573,
+      "decode_ms": 47.134249936789274,
+      "total_ms": 47.620791010558605,
+      "peak_gpu_bytes": 1436145098,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 47.626083018258214
+    },
+    {
+      "id": "1272-128104-0013",
+      "path": "fixtures/audio/1272-128104-0013.wav",
+      "reference": "MISTER QUILTER HAS MISSED HIS CHANCE FOR HE HAS FAILED EVEN TO MAKE HIMSELF THE TUPPER OF PAINTING",
+      "suite": "human-clean",
+      "source_id": "1272-128104-0013",
+      "sha256": "61713e92f641a903dbe93f2db0f8a10710b9b441d0d3ea7164cad0ee3e00f405",
+      "seconds": 7.1,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 7.1,
+      "speech_seconds": 6.7,
+      "text": "Mr. Quilter has missed his chance, for he has failed even to make himself the tupper of painting.",
+      "segments": [
+        {
+          "start": 0.04,
+          "end": 5.84,
+          "text": "Mr. Quilter has missed his chance, for he has failed even to make himself the tupper"
+        },
+        {
+          "start": 5.84,
+          "end": 6.6000000000000005,
+          "text": "of painting."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0013330718502402306,
+      "preprocess_ms": 0.5385829135775566,
+      "decode_ms": 73.86799994856119,
+      "total_ms": 74.4104579789564,
+      "peak_gpu_bytes": 1437160906,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 74.41612507682294
+    },
+    {
+      "id": "1272-128104-0014",
+      "path": "fixtures/audio/1272-128104-0014.wav",
+      "reference": "BY HARRY QUILTER M A",
+      "suite": "human-clean",
+      "source_id": "1272-128104-0014",
+      "sha256": "b664cff5f3c9da7e2f3e37b3e0c1940aaf2db490fb68402f7e8afed8d75cceb1",
+      "seconds": 2.245,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 2.245,
+      "speech_seconds": 1.96,
+      "text": "by Harry Quilter, M.A.",
+      "segments": [
+        {
+          "start": 0.18,
+          "end": 2.18,
+          "text": "by Harry Quilter, M.A."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0011670636013150215,
+      "preprocess_ms": 0.33708394039422274,
+      "decode_ms": 42.625749949365854,
+      "total_ms": 42.966458946466446,
+      "peak_gpu_bytes": 1434015178,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 42.972334078513086
+    },
+    {
+      "id": "1272-135031-0000",
+      "path": "fixtures/audio/1272-135031-0000.wav",
+      "reference": "BECAUSE YOU WERE SLEEPING INSTEAD OF CONQUERING THE LOVELY ROSE PRINCESS HAS BECOME A FIDDLE WITHOUT A BOW WHILE POOR SHAGGY SITS THERE A COOING DOVE",
+      "suite": "human-clean",
+      "source_id": "1272-135031-0000",
+      "sha256": "d1e0294eba40bd907d1aa493f296c4bfd78f5b9bc9f81a9b2b396046a5fed2e2",
+      "seconds": 10.885,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 10.885,
+      "speech_seconds": 10.72,
+      "text": "Because you were sleeping instead of conquering, the lovely rose princess has become a fiddle without a bow. All poor shaggy sits there, a-cooing dove.",
+      "segments": [
+        {
+          "start": 0.08,
+          "end": 5.8,
+          "text": "Because you were sleeping instead of conquering, the lovely rose princess has become a fiddle"
+        },
+        {
+          "start": 5.8,
+          "end": 7.44,
+          "text": "without a bow."
+        },
+        {
+          "start": 7.44,
+          "end": 10.280000000000001,
+          "text": "All poor shaggy sits there, a-cooing dove."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001249951310455799,
+      "preprocess_ms": 0.7087920093908906,
+      "decode_ms": 104.81008398346603,
+      "total_ms": 105.52320792339742,
+      "peak_gpu_bytes": 1439782346,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 105.53012497257441
+    },
+    {
+      "id": "1272-135031-0001",
+      "path": "fixtures/audio/1272-135031-0001.wav",
+      "reference": "HE HAS GONE AND GONE FOR GOOD ANSWERED POLYCHROME WHO HAD MANAGED TO SQUEEZE INTO THE ROOM BESIDE THE DRAGON AND HAD WITNESSED THE OCCURRENCES WITH MUCH INTEREST",
+      "suite": "human-clean",
+      "source_id": "1272-135031-0001",
+      "sha256": "f7b291643bbd4c319830bf6cb12bcc8511c8b52af2842cc7d33bde571aa3e1d6",
+      "seconds": 11.13,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 11.13,
+      "speech_seconds": 11.1,
+      "text": "He has gone, and gone for good,\" answered Polychrome, who had managed to squeeze into the room beside the dragon, and had witnessed the occurrences with much interest.",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 5.5200000000000005,
+          "text": "He has gone, and gone for good,\" answered Polychrome, who had managed to squeeze into"
+        },
+        {
+          "start": 5.5200000000000005,
+          "end": 10.56,
+          "text": "the room beside the dragon, and had witnessed the occurrences with much interest."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0010830117389559746,
+      "preprocess_ms": 0.7597090443596244,
+      "decode_ms": 100.15008295886219,
+      "total_ms": 100.91383405961096,
+      "peak_gpu_bytes": 1440044490,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 100.92008300125599
+    },
+    {
+      "id": "1272-135031-0002",
+      "path": "fixtures/audio/1272-135031-0002.wav",
+      "reference": "I HAVE REMAINED A PRISONER ONLY BECAUSE I WISHED TO BE ONE AND WITH THIS HE STEPPED FORWARD AND BURST THE STOUT CHAINS AS EASILY AS IF THEY HAD BEEN THREADS",
+      "suite": "human-clean",
+      "source_id": "1272-135031-0002",
+      "sha256": "60128c0970ce9304219eea64a7bf0f6e0b9c9ad09a2710aeebe162687977f8e3",
+      "seconds": 11.475,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 11.475,
+      "speech_seconds": 11.26,
+      "text": "I have remained a prisoner only because I wished to be one.\" And with this he stepped forward and burst the stout chains as easily as if they had been threads.",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 5.86,
+          "text": "I have remained a prisoner only because I wished to be one.\""
+        },
+        {
+          "start": 5.86,
+          "end": 10.1,
+          "text": "And with this he stepped forward and burst the stout chains as easily as if they had"
+        },
+        {
+          "start": 10.1,
+          "end": 10.94,
+          "text": "been threads."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001374981366097927,
+      "preprocess_ms": 0.7217919919639826,
+      "decode_ms": 98.26516709290445,
+      "total_ms": 98.99116703309119,
+      "peak_gpu_bytes": 1446794698,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 98.99716696236283
+    },
+    {
+      "id": "1272-135031-0003",
+      "path": "fixtures/audio/1272-135031-0003.wav",
+      "reference": "THE LITTLE GIRL HAD BEEN ASLEEP BUT SHE HEARD THE RAPS AND OPENED THE DOOR",
+      "suite": "human-clean",
+      "source_id": "1272-135031-0003",
+      "sha256": "97d4e34f22051bbb0d356a9edfb520c7ea97680a711d27f1588097fe01882fd0",
+      "seconds": 4.755,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 4.755,
+      "speech_seconds": 4.755,
+      "text": "The little girl had been asleep, but she heard the wraps and opened the door.",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 4.26,
+          "text": "The little girl had been asleep, but she heard the wraps and opened the door."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001125037670135498,
+      "preprocess_ms": 0.4611250478774309,
+      "decode_ms": 56.29574996419251,
+      "total_ms": 56.761000072583556,
+      "peak_gpu_bytes": 1435850186,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 56.76649999804795
+    },
+    {
+      "id": "1272-135031-0004",
+      "path": "fixtures/audio/1272-135031-0004.wav",
+      "reference": "THE KING HAS FLED IN DISGRACE AND YOUR FRIENDS ARE ASKING FOR YOU",
+      "suite": "human-clean",
+      "source_id": "1272-135031-0004",
+      "sha256": "f178932ba2b1c850182b15ee8a74132edb9ffa30112682d7b38c55e194045f7d",
+      "seconds": 4.225,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 4.225,
+      "speech_seconds": 4.225,
+      "text": "The king has flooded this grace and your friends are asking for you.",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 3.72,
+          "text": "The king has flooded this grace and your friends are asking for you."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0012919772416353226,
+      "preprocess_ms": 0.4238330293446779,
+      "decode_ms": 50.17929105088115,
+      "total_ms": 50.60704203788191,
+      "peak_gpu_bytes": 1435489738,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 50.613041035830975
+    },
+    {
+      "id": "1272-135031-0005",
+      "path": "fixtures/audio/1272-135031-0005.wav",
+      "reference": "I BEGGED RUGGEDO LONG AGO TO SEND HIM AWAY BUT HE WOULD NOT DO SO",
+      "suite": "human-clean",
+      "source_id": "1272-135031-0005",
+      "sha256": "66c19badf25f61516313b43999052b7631d1e8a8b2ee3a57cef20cb7f813021a",
+      "seconds": 4.625,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 4.625,
+      "speech_seconds": 4.44,
+      "text": "I begged Ruggedo a long ago to send him away, but he would not do so.",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 4.32,
+          "text": "I begged Ruggedo a long ago to send him away, but he would not do so."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0012919772416353226,
+      "preprocess_ms": 0.45483303256332874,
+      "decode_ms": 62.14749999344349,
+      "total_ms": 62.60637508239597,
+      "peak_gpu_bytes": 1444107722,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 62.61183298192918
+    },
+    {
+      "id": "1272-135031-0006",
+      "path": "fixtures/audio/1272-135031-0006.wav",
+      "reference": "I ALSO OFFERED TO HELP YOUR BROTHER TO ESCAPE BUT HE WOULD NOT GO",
+      "suite": "human-clean",
+      "source_id": "1272-135031-0006",
+      "sha256": "c8fb7623ba9230c658833581f9e2fcdbbcea3a10738ad21066205a0bf40bfc5f",
+      "seconds": 4.09,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 4.09,
+      "speech_seconds": 4.09,
+      "text": "I also offered to help your brother to escape, but he would not go.",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 3.6,
+          "text": "I also offered to help your brother to escape, but he would not go."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0012920936569571495,
+      "preprocess_ms": 0.3979590255767107,
+      "decode_ms": 61.59570801537484,
+      "total_ms": 61.99845904484391,
+      "peak_gpu_bytes": 1440978378,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 62.01083410996944
+    },
+    {
+      "id": "1272-135031-0007",
+      "path": "fixtures/audio/1272-135031-0007.wav",
+      "reference": "HE EATS AND SLEEPS VERY STEADILY REPLIED THE NEW KING",
+      "suite": "human-clean",
+      "source_id": "1272-135031-0007",
+      "sha256": "be046b1ca20292a992dca5f69ddc4d9f295c2512b05b6caf4181190f7c28571c",
+      "seconds": 4.055,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 4.055,
+      "speech_seconds": 4.02,
+      "text": "He eats and sleeps very steadily, replied the new king.",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 3.6,
+          "text": "He eats and sleeps very steadily, replied the new king."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001500011421740055,
+      "preprocess_ms": 0.4794580163434148,
+      "decode_ms": 47.35716606955975,
+      "total_ms": 47.84162505529821,
+      "peak_gpu_bytes": 1443665354,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 47.84783301874995
+    },
+    {
+      "id": "1272-135031-0008",
+      "path": "fixtures/audio/1272-135031-0008.wav",
+      "reference": "I HOPE HE DOESN'T WORK TOO HARD SAID SHAGGY",
+      "suite": "human-clean",
+      "source_id": "1272-135031-0008",
+      "sha256": "5d9983f61b0aaba008a793f922309056d2325d25162ec48c4cae72a7295bc13b",
+      "seconds": 3.67,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 3.67,
+      "speech_seconds": 3.44,
+      "text": "I hope it doesn't work too hard, since shaggy.",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 3.16,
+          "text": "I hope it doesn't work too hard, since shaggy."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001125037670135498,
+      "preprocess_ms": 0.3862919984385371,
+      "decode_ms": 50.535709015093744,
+      "total_ms": 50.925750052556396,
+      "peak_gpu_bytes": 1437210058,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 50.9318329859525
+    },
+    {
+      "id": "1272-135031-0009",
+      "path": "fixtures/audio/1272-135031-0009.wav",
+      "reference": "HE DOESN'T WORK AT ALL",
+      "suite": "human-clean",
+      "source_id": "1272-135031-0009",
+      "sha256": "11d6953d2a8ba28594088deee728160db098904fc3a539fafb49293ae3182af0",
+      "seconds": 1.91,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 1.91,
+      "speech_seconds": 1.91,
+      "text": "he doesn't work at all.",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 2.0,
+          "text": "he doesn't work at all."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001458916813135147,
+      "preprocess_ms": 0.3581671044230461,
+      "decode_ms": 36.040290957316756,
+      "total_ms": 36.4027920877561,
+      "peak_gpu_bytes": 1434015178,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 36.4088750211522
+    },
+    {
+      "id": "1272-135031-0010",
+      "path": "fixtures/audio/1272-135031-0010.wav",
+      "reference": "IN FACT THERE IS NOTHING HE CAN DO IN THESE DOMINIONS AS WELL AS OUR NOMES WHOSE NUMBERS ARE SO GREAT THAT IT WORRIES US TO KEEP THEM ALL BUSY",
+      "suite": "human-clean",
+      "source_id": "1272-135031-0010",
+      "sha256": "8cb7d3b0dbeff35186f810c9ef675bd4529455f21f47f4d20e71274054c528d3",
+      "seconds": 8.995,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 8.995,
+      "speech_seconds": 8.795,
+      "text": "In fact, there's nothing he can do in these dominions as well as our gnomes, whose numbers are so great that it worries us to keep them all busy.",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 5.760000000000001,
+          "text": "In fact, there's nothing he can do in these dominions as well as our gnomes, whose numbers"
+        },
+        {
+          "start": 5.760000000000001,
+          "end": 8.559999999999999,
+          "text": "are so great that it worries us to keep them all busy."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0012919772416353226,
+      "preprocess_ms": 0.6010420620441437,
+      "decode_ms": 97.5698329275474,
+      "total_ms": 98.17483299411833,
+      "peak_gpu_bytes": 1438504394,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 98.18091697525233
+    },
+    {
+      "id": "1272-135031-0011",
+      "path": "fixtures/audio/1272-135031-0011.wav",
+      "reference": "NOT EXACTLY RETURNED KALIKO",
+      "suite": "human-clean",
+      "source_id": "1272-135031-0011",
+      "sha256": "824bd0b7c14c6af394fa0fcb7d79a0aa6e41419833dc070d53046d0e6685b1ff",
+      "seconds": 3.18,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 3.18,
+      "speech_seconds": 3.18,
+      "text": "Not exactly, we've turned calico.",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 2.8000000000000003,
+          "text": "Not exactly, we've turned calico."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0015419209375977516,
+      "preprocess_ms": 0.3757909871637821,
+      "decode_ms": 40.433083078823984,
+      "total_ms": 40.81304103601724,
+      "peak_gpu_bytes": 1442371018,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 40.818459005095065
+    },
+    {
+      "id": "1272-135031-0012",
+      "path": "fixtures/audio/1272-135031-0012.wav",
+      "reference": "WHERE IS MY BROTHER NOW",
+      "suite": "human-clean",
+      "source_id": "1272-135031-0012",
+      "sha256": "1816a4ffaad7968769724e7be1aa12bd47b5f6d320d183a449f7063a638a859a",
+      "seconds": 2.04,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 2.04,
+      "speech_seconds": 2.04,
+      "text": "Where is my brother now?",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 1.92,
+          "text": "Where is my brother now?"
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001166015863418579,
+      "preprocess_ms": 0.319667044095695,
+      "decode_ms": 34.56445806659758,
+      "total_ms": 34.88820907659829,
+      "peak_gpu_bytes": 1434080714,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 34.89512496162206
+    },
+    {
+      "id": "1272-135031-0013",
+      "path": "fixtures/audio/1272-135031-0013.wav",
+      "reference": "INQUIRED SHAGGY IN THE METAL FOREST",
+      "suite": "human-clean",
+      "source_id": "1272-135031-0013",
+      "sha256": "1297682dd3faeb7c9e3c936eb707aaeb6c344c20ce468d4c752002035955a543",
+      "seconds": 3.7,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 3.7,
+      "speech_seconds": 3.56,
+      "text": "inquired Shaggy in the metal forest.",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 3.2800000000000002,
+          "text": "inquired Shaggy in the metal forest."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001125037670135498,
+      "preprocess_ms": 0.4019159823656082,
+      "decode_ms": 42.35054203309119,
+      "total_ms": 42.756250011734664,
+      "peak_gpu_bytes": 1435096522,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 42.761833989061415
+    },
+    {
+      "id": "1272-135031-0014",
+      "path": "fixtures/audio/1272-135031-0014.wav",
+      "reference": "WHERE IS THAT",
+      "suite": "human-clean",
+      "source_id": "1272-135031-0014",
+      "sha256": "3f2d957a489d4ef52b7005e7291a49b8dc16260909228b9604d895fc8e642f2d",
+      "seconds": 1.74,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 1.74,
+      "speech_seconds": 1.0,
+      "text": "Where is that?",
+      "segments": [
+        {
+          "start": 0.38,
+          "end": 2.38,
+          "text": "Where is that?"
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.00100000761449337,
+      "preprocess_ms": 0.3060830058529973,
+      "decode_ms": 30.338166980072856,
+      "total_ms": 30.648207990452647,
+      "peak_gpu_bytes": 1433408970,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 30.654708039946854
+    },
+    {
+      "id": "1272-135031-0015",
+      "path": "fixtures/audio/1272-135031-0015.wav",
+      "reference": "THE METAL FOREST IS IN THE GREAT DOMED CAVERN THE LARGEST IN ALL OUR DOMINIONS REPLIED KALIKO",
+      "suite": "human-clean",
+      "source_id": "1272-135031-0015",
+      "sha256": "0292f762769a555c7f5b529ed6d1c1805a4a5644d8898e2e3cd04fccb6da0f20",
+      "seconds": 7.375,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 7.375,
+      "speech_seconds": 7.375,
+      "text": "The middle forest is in the great domed cavern, the largest in all our dominions,\" replied Calico.",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 6.34,
+          "text": "The middle forest is in the great domed cavern, the largest in all our dominions,\" replied"
+        },
+        {
+          "start": 6.34,
+          "end": 7.04,
+          "text": "Calico."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0010420335456728935,
+      "preprocess_ms": 0.5350420251488686,
+      "decode_ms": 74.0150409983471,
+      "total_ms": 74.5539580238983,
+      "peak_gpu_bytes": 1437586890,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 74.56012500915676
+    },
+    {
+      "id": "1272-135031-0016",
+      "path": "fixtures/audio/1272-135031-0016.wav",
+      "reference": "KALIKO HESITATED",
+      "suite": "human-clean",
+      "source_id": "1272-135031-0016",
+      "sha256": "20377fb00d282c4636bbfbb133235c46758a7e65584ccacc1e1e6629093fc219",
+      "seconds": 2.28,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 2.28,
+      "speech_seconds": 1.54,
+      "text": "Calico hesitated.",
+      "segments": [
+        {
+          "start": 0.38,
+          "end": 2.38,
+          "text": "Calico hesitated."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001125037670135498,
+      "preprocess_ms": 0.31887495424598455,
+      "decode_ms": 32.59379102382809,
+      "total_ms": 32.916707918047905,
+      "peak_gpu_bytes": 1435866570,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 32.92299993336201
+    },
+    {
+      "id": "1272-135031-0017",
+      "path": "fixtures/audio/1272-135031-0017.wav",
+      "reference": "HOWEVER IF WE LOOK SHARP WE MAY BE ABLE TO DISCOVER ONE OF THESE SECRET WAYS",
+      "suite": "human-clean",
+      "source_id": "1272-135031-0017",
+      "sha256": "540631c98a3da933f8d34fb60cee39af541c1f0809694818e0994adc4c43c43a",
+      "seconds": 6.86,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 6.86,
+      "speech_seconds": 6.84,
+      "text": "However, if we look sharp, we may be able to discover one of these secret ways.",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 6.36,
+          "text": "However, if we look sharp, we may be able to discover one of these secret ways."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0015420373529195786,
+      "preprocess_ms": 0.5423750262707472,
+      "decode_ms": 60.52412500139326,
+      "total_ms": 61.071209027431905,
+      "peak_gpu_bytes": 1437242826,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 61.07866601087153
+    },
+    {
+      "id": "1272-135031-0018",
+      "path": "fixtures/audio/1272-135031-0018.wav",
+      "reference": "OH NO I'M QUITE SURE HE DIDN'T",
+      "suite": "human-clean",
+      "source_id": "1272-135031-0018",
+      "sha256": "43f9d0d754b72676c8066a2e5652d5cf951f4b97dbfbca87a4320e650de09f0d",
+      "seconds": 2.4449375,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 2.4449375,
+      "speech_seconds": 2.2,
+      "text": "Oh no, I'm quite sure he didn't.",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 2.0,
+          "text": "Oh no, I'm quite sure he didn't."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001125037670135498,
+      "preprocess_ms": 0.3441249718889594,
+      "decode_ms": 44.97604095377028,
+      "total_ms": 45.32391601242125,
+      "peak_gpu_bytes": 1436816842,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 45.32904096413404
+    },
+    {
+      "id": "1272-135031-0019",
+      "path": "fixtures/audio/1272-135031-0019.wav",
+      "reference": "THAT'S FUNNY REMARKED BETSY THOUGHTFULLY",
+      "suite": "human-clean",
+      "source_id": "1272-135031-0019",
+      "sha256": "47e6515ad138c9221753f3663e20a627c62ce2aa473751b7c5dd23d21400857e",
+      "seconds": 3.525,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 3.525,
+      "speech_seconds": 3.285,
+      "text": "That's funny, remarked Betsy thoughtfully.",
+      "segments": [
+        {
+          "start": 0.24,
+          "end": 3.04,
+          "text": "That's funny, remarked Betsy thoughtfully."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001250067725777626,
+      "preprocess_ms": 0.37699996028095484,
+      "decode_ms": 44.96620793361217,
+      "total_ms": 45.34720897208899,
+      "peak_gpu_bytes": 1437619658,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 45.35299993585795
+    },
+    {
+      "id": "1272-135031-0020",
+      "path": "fixtures/audio/1272-135031-0020.wav",
+      "reference": "I DON'T BELIEVE ANN KNEW ANY MAGIC OR SHE'D HAVE WORKED IT BEFORE",
+      "suite": "human-clean",
+      "source_id": "1272-135031-0020",
+      "sha256": "48ded90d750e6d86af39f17730126efdc7dc2d9d8c7f10af10638b3f7d2d0e9c",
+      "seconds": 4.65,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 4.65,
+      "speech_seconds": 4.29,
+      "text": "I don't believe Ann knew any magic or she'd have worked it before.",
+      "segments": [
+        {
+          "start": 0.36,
+          "end": 4.5200000000000005,
+          "text": "I don't believe Ann knew any magic or she'd have worked it before."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001125037670135498,
+      "preprocess_ms": 0.4169170279055834,
+      "decode_ms": 53.98475006222725,
+      "total_ms": 54.40549994818866,
+      "peak_gpu_bytes": 1438340554,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 54.41083398181945
+    },
+    {
+      "id": "1272-135031-0021",
+      "path": "fixtures/audio/1272-135031-0021.wav",
+      "reference": "I DO NOT KNOW CONFESSED SHAGGY",
+      "suite": "human-clean",
+      "source_id": "1272-135031-0021",
+      "sha256": "f07b05ad50ee2542e0b41da54ac47887ce83f0fa2312b52f4ee7a57223421800",
+      "seconds": 2.595,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 2.595,
+      "speech_seconds": 2.595,
+      "text": "I do not know, confessed Shaggy.",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 2.4,
+          "text": "I do not know, confessed Shaggy."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0010830117389559746,
+      "preprocess_ms": 0.3290420863777399,
+      "decode_ms": 42.14929195586592,
+      "total_ms": 42.48204198665917,
+      "peak_gpu_bytes": 1436571082,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 42.4875000026077
+    },
+    {
+      "id": "1272-135031-0022",
+      "path": "fixtures/audio/1272-135031-0022.wav",
+      "reference": "TRUE AGREED KALIKO",
+      "suite": "human-clean",
+      "source_id": "1272-135031-0022",
+      "sha256": "1c1c5bc936c7ad5e09481db5d7c0f432ec5c7b1d9166ff778a7485c29b0e7552",
+      "seconds": 2.695,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 2.695,
+      "speech_seconds": 2.695,
+      "text": "True, agreed Calico.",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 2.48,
+          "text": "True, agreed Calico."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0012919772416353226,
+      "preprocess_ms": 0.3432920202612877,
+      "decode_ms": 34.40958296414465,
+      "total_ms": 34.756666980683804,
+      "peak_gpu_bytes": 1434490314,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 34.76324991788715
+    },
+    {
+      "id": "1272-135031-0023",
+      "path": "fixtures/audio/1272-135031-0023.wav",
+      "reference": "KALIKO WENT TO THE BIG GONG AND POUNDED ON IT JUST AS RUGGEDO USED TO DO BUT NO ONE ANSWERED THE SUMMONS",
+      "suite": "human-clean",
+      "source_id": "1272-135031-0023",
+      "sha256": "01588e098b21a8e2f61a488c72fdd3620724e0c4b71129b0ba6078afa9eda4c8",
+      "seconds": 7.52,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 7.52,
+      "speech_seconds": 7.52,
+      "text": "Calico went to the big gong and pounded on it just as Virgato used to do, but no one answered the summons.",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 6.08,
+          "text": "Calico went to the big gong and pounded on it just as Virgato used to do, but no one answered"
+        },
+        {
+          "start": 6.08,
+          "end": 6.88,
+          "text": "the summons."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0015409896150231361,
+      "preprocess_ms": 0.5585419712588191,
+      "decode_ms": 86.96895802859217,
+      "total_ms": 87.53199991770089,
+      "peak_gpu_bytes": 1437701578,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 87.53775001969188
+    },
+    {
+      "id": "1272-135031-0024",
+      "path": "fixtures/audio/1272-135031-0024.wav",
+      "reference": "HAVING RETURNED TO THE ROYAL CAVERN KALIKO FIRST POUNDED THE GONG AND THEN SAT IN THE THRONE WEARING RUGGEDO'S DISCARDED RUBY CROWN AND HOLDING IN HIS HAND THE SCEPTRE WHICH RUGGEDO HAD SO OFTEN THROWN AT HIS HEAD",
+      "suite": "human-clean",
+      "source_id": "1272-135031-0024",
+      "sha256": "cde8e39408c5ede394eb122cf95a2a5d0d24da1c5ca01336af5341c3526cde43",
+      "seconds": 14.47,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 14.47,
+      "speech_seconds": 14.24,
+      "text": "Having returned to the Royal Cavern, Calico first pounded the gong and then sat into the throne, wearing Regato's discarded ruby crown and holding in his hand the scepter which Regato had so often thrown at his head.",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 5.88,
+          "text": "Having returned to the Royal Cavern, Calico first pounded the gong and then sat into the"
+        },
+        {
+          "start": 5.88,
+          "end": 11.22,
+          "text": "throne, wearing Regato's discarded ruby crown and holding in his hand the scepter which"
+        },
+        {
+          "start": 11.22,
+          "end": 14.0,
+          "text": "Regato had so often thrown at his head."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0014170072972774506,
+      "preprocess_ms": 0.8165410254150629,
+      "decode_ms": 135.23420901037753,
+      "total_ms": 136.0552500700578,
+      "peak_gpu_bytes": 1445008842,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 136.0611249692738
+    },
+    {
+      "id": "1272-141231-0000",
+      "path": "fixtures/audio/1272-141231-0000.wav",
+      "reference": "A MAN SAID TO THE UNIVERSE SIR I EXIST",
+      "suite": "human-clean",
+      "source_id": "1272-141231-0000",
+      "sha256": "7c205d4d1e9446847b15425be3180b139455ed18cc221461127e69792813bcac",
+      "seconds": 4.65,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 4.65,
+      "speech_seconds": 4.06,
+      "text": "A man said to the universe, Sir, I exist.",
+      "segments": [
+        {
+          "start": 0.38,
+          "end": 4.38,
+          "text": "A man said to the universe, Sir, I exist."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001334003172814846,
+      "preprocess_ms": 0.43474999256432056,
+      "decode_ms": 47.16637497767806,
+      "total_ms": 47.605250030756,
+      "peak_gpu_bytes": 1435440586,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 47.61083307676017
+    },
+    {
+      "id": "1272-141231-0001",
+      "path": "fixtures/audio/1272-141231-0001.wav",
+      "reference": "SWEAT COVERED BRION'S BODY TRICKLING INTO THE TIGHT LOINCLOTH THAT WAS THE ONLY GARMENT HE WORE",
+      "suite": "human-clean",
+      "source_id": "1272-141231-0001",
+      "sha256": "832a6319c3c02569e404b9c91e820af543572bd6714931db124c8cd40bf5160d",
+      "seconds": 6.535,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 6.535,
+      "speech_seconds": 5.86,
+      "text": "Sweat covered Brion's body, trickling into the tight-loin cloth that was the only garment he wore.",
+      "segments": [
+        {
+          "start": 0.4,
+          "end": 5.920000000000001,
+          "text": "Sweat covered Brion's body, trickling into the tight-loin cloth that was the only garment he wore."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001334003172814846,
+      "preprocess_ms": 0.5036250222474337,
+      "decode_ms": 73.72970797587186,
+      "total_ms": 74.23737505450845,
+      "peak_gpu_bytes": 1444746698,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 74.24308301415294
+    },
+    {
+      "id": "1272-141231-0002",
+      "path": "fixtures/audio/1272-141231-0002.wav",
+      "reference": "THE CUT ON HIS CHEST STILL DRIPPING BLOOD THE ACHE OF HIS OVERSTRAINED EYES EVEN THE SOARING ARENA AROUND HIM WITH THE THOUSANDS OF SPECTATORS WERE TRIVIALITIES NOT WORTH THINKING ABOUT",
+      "suite": "human-clean",
+      "source_id": "1272-141231-0002",
+      "sha256": "88df13096bc40a18968891623efdb6ce08a58df7db24008e4fd9b6a017c62bf4",
+      "seconds": 13.335,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 13.335,
+      "speech_seconds": 12.72,
+      "text": "the cut on his chest still dripping blood, the ache of his over-strained eyes, even the soaring arena around him with the thousands of spectators, retrievalities not worth thinking about.",
+      "segments": [
+        {
+          "start": 0.32,
+          "end": 6.5600000000000005,
+          "text": "the cut on his chest still dripping blood, the ache of his over-strained eyes, even the"
+        },
+        {
+          "start": 6.5600000000000005,
+          "end": 13.120000000000001,
+          "text": "soaring arena around him with the thousands of spectators, retrievalities not worth thinking about."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001334003172814846,
+      "preprocess_ms": 0.8056249935179949,
+      "decode_ms": 109.69558404758573,
+      "total_ms": 110.50512501969934,
+      "peak_gpu_bytes": 1441109450,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 110.51191703882068
+    },
+    {
+      "id": "1272-141231-0003",
+      "path": "fixtures/audio/1272-141231-0003.wav",
+      "reference": "HIS INSTANT OF PANIC WAS FOLLOWED BY A SMALL SHARP BLOW HIGH ON HIS CHEST",
+      "suite": "human-clean",
+      "source_id": "1272-141231-0003",
+      "sha256": "b16ad8caf71e3fa7233e303caa273ad8e655edd431b137446a51c9e064c81269",
+      "seconds": 5.42,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 5.42,
+      "speech_seconds": 4.8,
+      "text": "His instant panic was followed by a small sharp blow high on his chest.",
+      "segments": [
+        {
+          "start": 0.24,
+          "end": 5.04,
+          "text": "His instant panic was followed by a small sharp blow high on his chest."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001374981366097927,
+      "preprocess_ms": 0.5520000122487545,
+      "decode_ms": 54.10141695756465,
+      "total_ms": 54.65845903381705,
+      "peak_gpu_bytes": 1435882954,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 54.66408398933709
+    },
+    {
+      "id": "1272-141231-0004",
+      "path": "fixtures/audio/1272-141231-0004.wav",
+      "reference": "ONE MINUTE A VOICE SAID AND THE TIME BUZZER SOUNDED",
+      "suite": "human-clean",
+      "source_id": "1272-141231-0004",
+      "sha256": "9ead8c47b0e8f785f43cc3b4cfc2ca4bb5a2838501385862e2adaa348341d5c6",
+      "seconds": 5.09,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 5.09,
+      "speech_seconds": 4.4,
+      "text": "One minute, a voice said, and a time buzzer sounded.",
+      "segments": [
+        {
+          "start": 0.4,
+          "end": 4.720000000000001,
+          "text": "One minute, a voice said, and a time buzzer sounded."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0012919772416353226,
+      "preprocess_ms": 0.44012500438839197,
+      "decode_ms": 51.19187501259148,
+      "total_ms": 51.636042073369026,
+      "peak_gpu_bytes": 1441256906,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 51.6414160374552
+    },
+    {
+      "id": "1272-141231-0005",
+      "path": "fixtures/audio/1272-141231-0005.wav",
+      "reference": "A MINUTE IS NOT A VERY LARGE MEASURE OF TIME AND HIS BODY NEEDED EVERY FRACTION OF IT",
+      "suite": "human-clean",
+      "source_id": "1272-141231-0005",
+      "sha256": "f14a898eb7ac833f5becdd01a4f128a5754a9ff86160c323ac46c0b1599ae8cf",
+      "seconds": 5.81,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 5.81,
+      "speech_seconds": 5.26,
+      "text": "A minute is not a very large measure of time, and his body needed every fraction of it.",
+      "segments": [
+        {
+          "start": 0.22,
+          "end": 5.5,
+          "text": "A minute is not a very large measure of time, and his body needed every fraction of it."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0012919772416353226,
+      "preprocess_ms": 0.4812499973922968,
+      "decode_ms": 69.54808300361037,
+      "total_ms": 70.03358309157193,
+      "peak_gpu_bytes": 1436210634,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 70.04020805470645
+    },
+    {
+      "id": "1272-141231-0006",
+      "path": "fixtures/audio/1272-141231-0006.wav",
+      "reference": "THE BUZZER'S WHIRR TRIGGERED HIS MUSCLES INTO COMPLETE RELAXATION",
+      "suite": "human-clean",
+      "source_id": "1272-141231-0006",
+      "sha256": "67b89253e6607a0a1ee53f5db5517922621c3bf524f5270a1dfe6890a61161e8",
+      "seconds": 4.93,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 4.93,
+      "speech_seconds": 4.58,
+      "text": "The buzzers were triggered his muscles into complete relaxation.",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 4.32,
+          "text": "The buzzers were triggered his muscles into complete relaxation."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.00100000761449337,
+      "preprocess_ms": 0.5092500941827893,
+      "decode_ms": 44.996207929216325,
+      "total_ms": 45.50912498962134,
+      "peak_gpu_bytes": 1435768266,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 45.51450000144541
+    },
+    {
+      "id": "1272-141231-0007",
+      "path": "fixtures/audio/1272-141231-0007.wav",
+      "reference": "ONLY HIS HEART AND LUNGS WORKED ON AT A STRONG MEASURED RATE",
+      "suite": "human-clean",
+      "source_id": "1272-141231-0007",
+      "sha256": "8705c9bda6d723362d9e4e8f80aa261e34ca1aab74f5205ddf357c3ab9c3090c",
+      "seconds": 4.735,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 4.735,
+      "speech_seconds": 4.22,
+      "text": "Only his heart and lungs worked on at a strong measured rate.",
+      "segments": [
+        {
+          "start": 0.16,
+          "end": 4.24,
+          "text": "Only his heart and lungs worked on at a strong measured rate."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001208973117172718,
+      "preprocess_ms": 0.43837493285536766,
+      "decode_ms": 49.51766598969698,
+      "total_ms": 49.96029194444418,
+      "peak_gpu_bytes": 1435489738,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 49.96624996419996
+    },
+    {
+      "id": "1272-141231-0008",
+      "path": "fixtures/audio/1272-141231-0008.wav",
+      "reference": "HE WAS IN REVERIE SLIDING ALONG THE BORDERS OF CONSCIOUSNESS",
+      "suite": "human-clean",
+      "source_id": "1272-141231-0008",
+      "sha256": "c6af31f1c30c6b835cc763f6161bb395c36d3959eccfcf5dab8faebef7fac993",
+      "seconds": 4.595,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 4.595,
+      "speech_seconds": 3.94,
+      "text": "he was in the riverry, sliding along the borders of consciousness.",
+      "segments": [
+        {
+          "start": 0.42,
+          "end": 4.42,
+          "text": "he was in the riverry, sliding along the borders of consciousness."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.00100000761449337,
+      "preprocess_ms": 0.4330420633777976,
+      "decode_ms": 50.92483398038894,
+      "total_ms": 51.36174999643117,
+      "peak_gpu_bytes": 1440912842,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 51.3683749595657
+    },
+    {
+      "id": "1272-141231-0009",
+      "path": "fixtures/audio/1272-141231-0009.wav",
+      "reference": "THE CONTESTANTS IN THE TWENTIES NEEDED UNDISTURBED REST THEREFORE NIGHTS IN THE DORMITORIES WERE AS QUIET AS DEATH",
+      "suite": "human-clean",
+      "source_id": "1272-141231-0009",
+      "sha256": "36909417c38ab5a05f65663fcb90273c559a35b82f5ed26e19b4d58fbd5d2bcb",
+      "seconds": 8.62,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 8.62,
+      "speech_seconds": 7.86,
+      "text": "The contestants in the 20s needed undisturbed rest. Therefore, knights in the dormitories were as quiet as death.",
+      "segments": [
+        {
+          "start": 0.38,
+          "end": 8.38,
+          "text": "The contestants in the 20s needed undisturbed rest. Therefore, knights in the dormitories were as quiet as death."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001125037670135498,
+      "preprocess_ms": 0.5814579781144857,
+      "decode_ms": 77.50629202928394,
+      "total_ms": 78.09129101224244,
+      "peak_gpu_bytes": 1437865418,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 78.09695904143155
+    },
+    {
+      "id": "1272-141231-0010",
+      "path": "fixtures/audio/1272-141231-0010.wav",
+      "reference": "PARTICULARLY SO ON THIS LAST NIGHT WHEN ONLY TWO OF THE LITTLE CUBICLES WERE OCCUPIED THE THOUSANDS OF OTHERS STANDING WITH DARK EMPTY DOORS",
+      "suite": "human-clean",
+      "source_id": "1272-141231-0010",
+      "sha256": "f90875d5dc061dd45eef7549244494e8b024465f432c382ece4963c631cbfadd",
+      "seconds": 10.76,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 10.76,
+      "speech_seconds": 9.98,
+      "text": "particularly so on its last night, when only two of the little cubicles were occupied, the thousands of others standing with dark, empty doors.",
+      "segments": [
+        {
+          "start": 0.4,
+          "end": 5.840000000000001,
+          "text": "particularly so on its last night, when only two of the little cubicles were occupied,"
+        },
+        {
+          "start": 6.5600000000000005,
+          "end": 10.56,
+          "text": "the thousands of others standing with dark, empty doors."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001334003172814846,
+      "preprocess_ms": 0.687708961777389,
+      "decode_ms": 83.99108401499689,
+      "total_ms": 84.68258392531425,
+      "peak_gpu_bytes": 1441961418,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 84.68808408360928
+    },
+    {
+      "id": "1272-141231-0011",
+      "path": "fixtures/audio/1272-141231-0011.wav",
+      "reference": "THE OTHER VOICE SNAPPED WITH A HARSH URGENCY CLEARLY USED TO COMMAND",
+      "suite": "human-clean",
+      "source_id": "1272-141231-0011",
+      "sha256": "5fe345e051f4ee7a00c6e9291a3ab9d6352ad802b3ec76e566dc39f236f9eb0d",
+      "seconds": 5.015,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 5.015,
+      "speech_seconds": 4.56,
+      "text": "The other voice snapped with a harsh urgency, clearly used to command.",
+      "segments": [
+        {
+          "start": 0.12,
+          "end": 4.92,
+          "text": "The other voice snapped with a harsh urgency, clearly used to command."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001125037670135498,
+      "preprocess_ms": 0.4378330195322633,
+      "decode_ms": 49.97795796953142,
+      "total_ms": 50.419250037521124,
+      "peak_gpu_bytes": 1435768266,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 50.42458395473659
+    },
+    {
+      "id": "1272-141231-0012",
+      "path": "fixtures/audio/1272-141231-0012.wav",
+      "reference": "I'M HERE BECAUSE THE MATTER IS OF UTMOST IMPORTANCE AND BRANDD IS THE ONE I MUST SEE NOW STAND ASIDE",
+      "suite": "human-clean",
+      "source_id": "1272-141231-0012",
+      "sha256": "f62b01de78e084ede6e5de6480f79cb783b3fc77827833795d5004d7711b7051",
+      "seconds": 7.74,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 7.74,
+      "speech_seconds": 7.02,
+      "text": "I'm here because the matter is of utmost importance, and brand is the one I must see. Now stand aside.",
+      "segments": [
+        {
+          "start": 0.4,
+          "end": 6.08,
+          "text": "I'm here because the matter is of utmost importance, and brand is the one I must see."
+        },
+        {
+          "start": 6.08,
+          "end": 7.28,
+          "text": "Now stand aside."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0010830117389559746,
+      "preprocess_ms": 0.5395000334829092,
+      "decode_ms": 74.14058409631252,
+      "total_ms": 74.6840420179069,
+      "peak_gpu_bytes": 1437373898,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 74.69141704495996
+    },
+    {
+      "id": "1272-141231-0013",
+      "path": "fixtures/audio/1272-141231-0013.wav",
+      "reference": "THE TWENTIES",
+      "suite": "human-clean",
+      "source_id": "1272-141231-0013",
+      "sha256": "c667674a25acacf6a120ec4234dfdb95015f3711d6f713946fa48da76068a6f6",
+      "seconds": 1.6399375,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 1.6399375,
+      "speech_seconds": 1.16,
+      "text": "to 20s.",
+      "segments": [
+        {
+          "start": 0.4,
+          "end": 1.44,
+          "text": "to 20s."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0014170072972774506,
+      "preprocess_ms": 0.3304999554529786,
+      "decode_ms": 30.71183292195201,
+      "total_ms": 31.046541989780962,
+      "peak_gpu_bytes": 1433474506,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 31.052334001287818
+    },
+    {
+      "id": "1272-141231-0014",
+      "path": "fixtures/audio/1272-141231-0014.wav",
+      "reference": "HE MUST HAVE DRAWN HIS GUN BECAUSE THE INTRUDER SAID QUICKLY PUT THAT AWAY YOU'RE BEING A FOOL OUT",
+      "suite": "human-clean",
+      "source_id": "1272-141231-0014",
+      "sha256": "7d2b6c7f117bd0b3822d30a13ba796e1b4111c928569a9709327b393167d442b",
+      "seconds": 7.305,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 7.305,
+      "speech_seconds": 6.905,
+      "text": "He must have drawn his gun because the intruder said quickly, but that away you're being a fool. Out.",
+      "segments": [
+        {
+          "start": 0.4,
+          "end": 3.84,
+          "text": "He must have drawn his gun because the intruder said quickly,"
+        },
+        {
+          "start": 3.84,
+          "end": 7.680000000000001,
+          "text": "but that away you're being a fool. Out."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001374981366097927,
+      "preprocess_ms": 0.5477920640259981,
+      "decode_ms": 73.71595804579556,
+      "total_ms": 74.26791707985103,
+      "peak_gpu_bytes": 1443288522,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 74.27504193037748
+    },
+    {
+      "id": "1272-141231-0015",
+      "path": "fixtures/audio/1272-141231-0015.wav",
+      "reference": "THERE WAS SILENCE THEN AND STILL WONDERING BRION WAS ONCE MORE ASLEEP",
+      "suite": "human-clean",
+      "source_id": "1272-141231-0015",
+      "sha256": "0d7d320363b26b50799090b0c76364c2081e1ab3d7bc288a7d85f2afc2de762c",
+      "seconds": 5.68,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 5.68,
+      "speech_seconds": 5.1,
+      "text": "There was silence then, and, still wondering, Brienne was once more asleep.",
+      "segments": [
+        {
+          "start": 0.26,
+          "end": 5.3,
+          "text": "There was silence then, and, still wondering, Brienne was once more asleep."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0012079253792762756,
+      "preprocess_ms": 0.48387504648417234,
+      "decode_ms": 56.499707978218794,
+      "total_ms": 56.988249998539686,
+      "peak_gpu_bytes": 1441813962,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 56.9954999955371
+    },
+    {
+      "id": "1272-141231-0016",
+      "path": "fixtures/audio/1272-141231-0016.wav",
+      "reference": "TEN SECONDS",
+      "suite": "human-clean",
+      "source_id": "1272-141231-0016",
+      "sha256": "1a75673943ef4b7ed38985fe1355b00683c89fd69cf32207ad913f900247a313",
+      "seconds": 1.85,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 1.85,
+      "speech_seconds": 1.06,
+      "text": "10 seconds.",
+      "segments": [
+        {
+          "start": 0.38,
+          "end": 1.38,
+          "text": "10 seconds."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001374981366097927,
+      "preprocess_ms": 0.3481250023469329,
+      "decode_ms": 28.223417000845075,
+      "total_ms": 28.575625037774444,
+      "peak_gpu_bytes": 1438471626,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 28.58145791105926
+    },
+    {
+      "id": "1272-141231-0017",
+      "path": "fixtures/audio/1272-141231-0017.wav",
+      "reference": "HE ASKED THE HANDLER WHO WAS KNEADING HIS ACHING MUSCLES",
+      "suite": "human-clean",
+      "source_id": "1272-141231-0017",
+      "sha256": "eeb8c9b35a5e02400ff48c21403923f5a0b0d0a60306a101e7c27791cd5a869e",
+      "seconds": 3.735,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 3.735,
+      "speech_seconds": 3.38,
+      "text": "He asked the handler who was kneading his aching muscles.",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 3.2800000000000002,
+          "text": "He asked the handler who was kneading his aching muscles."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001500011421740055,
+      "preprocess_ms": 0.3922500181943178,
+      "decode_ms": 48.65029198117554,
+      "total_ms": 49.04629196971655,
+      "peak_gpu_bytes": 1443091914,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 49.05233404133469
+    },
+    {
+      "id": "1272-141231-0018",
+      "path": "fixtures/audio/1272-141231-0018.wav",
+      "reference": "A RED HAIRED MOUNTAIN OF A MAN WITH AN APPARENTLY INEXHAUSTIBLE STORE OF ENERGY",
+      "suite": "human-clean",
+      "source_id": "1272-141231-0018",
+      "sha256": "919dbd0116500e82713f83d1b80b803df9f0dafb94aa8cb676db53d2efa73f98",
+      "seconds": 6.0,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 6.0,
+      "speech_seconds": 5.2,
+      "text": "a red-haired mountain of a man with an apparently inexhaustible store of energy.",
+      "segments": [
+        {
+          "start": 0.36,
+          "end": 5.960000000000001,
+          "text": "a red-haired mountain of a man with an apparently inexhaustible store of energy."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0013329554349184036,
+      "preprocess_ms": 0.4825829528272152,
+      "decode_ms": 62.283707899041474,
+      "total_ms": 62.77024990413338,
+      "peak_gpu_bytes": 1436145098,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 62.77629092801362
+    },
+    {
+      "id": "1272-141231-0019",
+      "path": "fixtures/audio/1272-141231-0019.wav",
+      "reference": "THERE COULD BE LITTLE ART IN THIS LAST AND FINAL ROUND OF FENCING",
+      "suite": "human-clean",
+      "source_id": "1272-141231-0019",
+      "sha256": "f19cfd5a58ac84ac762689499d9d0e2e24634c1a5816dcd22a68d9c9ed968db8",
+      "seconds": 4.7,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 4.7,
+      "speech_seconds": 4.48,
+      "text": "There could be little art in this last and final round of fencing.",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 4.32,
+          "text": "There could be little art in this last and final round of fencing."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0014579854905605316,
+      "preprocess_ms": 0.4467910621315241,
+      "decode_ms": 51.620917045511305,
+      "total_ms": 52.071958081796765,
+      "peak_gpu_bytes": 1435735498,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 52.07716592121869
+    },
+    {
+      "id": "1272-141231-0020",
+      "path": "fixtures/audio/1272-141231-0020.wav",
+      "reference": "JUST THRUST AND PARRY AND VICTORY TO THE STRONGER",
+      "suite": "human-clean",
+      "source_id": "1272-141231-0020",
+      "sha256": "272794eb23ef53aa7848a30391956a1b169e5ef423441e9e2b6a4d1b1e18a3e5",
+      "seconds": 4.32,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 4.32,
+      "speech_seconds": 3.68,
+      "text": "just thrust and parry and victory to the stronger.",
+      "segments": [
+        {
+          "start": 0.26,
+          "end": 3.8600000000000003,
+          "text": "just thrust and parry and victory to the stronger."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0012080417945981026,
+      "preprocess_ms": 0.4263750743120909,
+      "decode_ms": 44.60849997121841,
+      "total_ms": 45.03841605037451,
+      "peak_gpu_bytes": 1437898186,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 45.04366696346551
+    },
+    {
+      "id": "1272-141231-0021",
+      "path": "fixtures/audio/1272-141231-0021.wav",
+      "reference": "EVERY MAN WHO ENTERED THE TWENTIES HAD HIS OWN TRAINING TRICKS",
+      "suite": "human-clean",
+      "source_id": "1272-141231-0021",
+      "sha256": "4fda601e1d8ed809d128c0fde40df65dc7595694574e023b0d906d1ed1283d40",
+      "seconds": 4.65,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 4.65,
+      "speech_seconds": 3.94,
+      "text": "Every man who entered the 20s had his own training tricks.",
+      "segments": [
+        {
+          "start": 0.38,
+          "end": 4.38,
+          "text": "Every man who entered the 20s had his own training tricks."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001250067725777626,
+      "preprocess_ms": 0.43866701889783144,
+      "decode_ms": 48.06483304128051,
+      "total_ms": 48.50720800459385,
+      "peak_gpu_bytes": 1440912842,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 48.5126250423491
+    },
+    {
+      "id": "1272-141231-0022",
+      "path": "fixtures/audio/1272-141231-0022.wav",
+      "reference": "THERE APPEARED TO BE AN IMMEDIATE ASSOCIATION WITH THE DEATH TRAUMA AS IF THE TWO WERE INEXTRICABLY LINKED INTO ONE",
+      "suite": "human-clean",
+      "source_id": "1272-141231-0022",
+      "sha256": "44367a22506ceb74c0689e2222f642248b60b162e4610841a6794ee150949c6d",
+      "seconds": 8.35,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 8.35,
+      "speech_seconds": 7.6,
+      "text": "there appeared to be an immediate association with the death trauma, as if the two were inextricably linked into one.",
+      "segments": [
+        {
+          "start": 0.42,
+          "end": 4.74,
+          "text": "there appeared to be an immediate association with the death trauma,"
+        },
+        {
+          "start": 4.74,
+          "end": 8.34,
+          "text": "as if the two were inextricably linked into one."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001374981366097927,
+      "preprocess_ms": 0.5904579302296042,
+      "decode_ms": 76.29258406814188,
+      "total_ms": 76.88700000289828,
+      "peak_gpu_bytes": 1437750730,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 76.89337502233684
+    },
+    {
+      "id": "1272-141231-0023",
+      "path": "fixtures/audio/1272-141231-0023.wav",
+      "reference": "THE STRENGTH THAT ENABLES SOMEONE IN A TRANCE TO HOLD HIS BODY STIFF AND UNSUPPORTED EXCEPT AT TWO POINTS THE HEAD AND HEELS",
+      "suite": "human-clean",
+      "source_id": "1272-141231-0023",
+      "sha256": "8a87cc385a32a9d43ca793f3724ac7b7a22f7dca03fe7880d03827a1f9ea5e89",
+      "seconds": 8.66,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 8.66,
+      "speech_seconds": 7.86,
+      "text": "The strength that enables someone in a trance to hold his body stiff and unsupported except at two points, the head and heels.",
+      "segments": [
+        {
+          "start": 0.4,
+          "end": 8.4,
+          "text": "The strength that enables someone in a trance to hold his body stiff and unsupported except at two points, the head and heels."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0014998950064182281,
+      "preprocess_ms": 0.6028329953551292,
+      "decode_ms": 78.36908393073827,
+      "total_ms": 78.97616690024734,
+      "peak_gpu_bytes": 1437865418,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 78.98191595450044
+    },
+    {
+      "id": "1272-141231-0024",
+      "path": "fixtures/audio/1272-141231-0024.wav",
+      "reference": "THIS IS PHYSICALLY IMPOSSIBLE WHEN CONSCIOUS",
+      "suite": "human-clean",
+      "source_id": "1272-141231-0024",
+      "sha256": "7438e49d7ec883b8a9f50173e887ce662d67c49186c53647a79bc13ee5b7db0e",
+      "seconds": 3.64,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 3.64,
+      "speech_seconds": 2.84,
+      "text": "This is physically impossible when conscious.",
+      "segments": [
+        {
+          "start": 0.38,
+          "end": 3.18,
+          "text": "This is physically impossible when conscious."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0011670636013150215,
+      "preprocess_ms": 0.4019159823656082,
+      "decode_ms": 36.50141600519419,
+      "total_ms": 36.9066660059616,
+      "peak_gpu_bytes": 1434654154,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 36.91229200921953
+    },
+    {
+      "id": "1272-141231-0025",
+      "path": "fixtures/audio/1272-141231-0025.wav",
+      "reference": "OTHERS HAD DIED BEFORE DURING THE TWENTIES AND DEATH DURING THE LAST ROUND WAS IN SOME WAYS EASIER THAN DEFEAT",
+      "suite": "human-clean",
+      "source_id": "1272-141231-0025",
+      "sha256": "661715442514552155fa494bcb7bda1af3b11f1699e38191b2257370c4b1c788",
+      "seconds": 8.725,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 8.725,
+      "speech_seconds": 8.04,
+      "text": "Others had died before during the 20s, and death during the last round was in some ways easier than defeat.",
+      "segments": [
+        {
+          "start": 0.26,
+          "end": 6.9399999999999995,
+          "text": "Others had died before during the 20s, and death during the last round was in some ways"
+        },
+        {
+          "start": 6.9399999999999995,
+          "end": 8.1,
+          "text": "easier than defeat."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001250067725777626,
+      "preprocess_ms": 0.5855000345036387,
+      "decode_ms": 72.50145799480379,
+      "total_ms": 73.09029099997133,
+      "peak_gpu_bytes": 1443616202,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 73.09633400291204
+    },
+    {
+      "id": "1272-141231-0026",
+      "path": "fixtures/audio/1272-141231-0026.wav",
+      "reference": "BREATHING DEEPLY BRION SOFTLY SPOKE THE AUTO HYPNOTIC PHRASES THAT TRIGGERED THE PROCESS",
+      "suite": "human-clean",
+      "source_id": "1272-141231-0026",
+      "sha256": "4a2ddfdfd71a7d3acbb0e520a9d5c6f0f55bc6bff814ffe147ae9175a98fb625",
+      "seconds": 6.635,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 6.635,
+      "speech_seconds": 5.94,
+      "text": "Breathing deeply, Breon softly spoke the auto-hypnotic phrases that triggered the process.",
+      "segments": [
+        {
+          "start": 0.4,
+          "end": 6.4,
+          "text": "Breathing deeply, Breon softly spoke the auto-hypnotic phrases that triggered the process."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0012919772416353226,
+      "preprocess_ms": 0.5146670155227184,
+      "decode_ms": 65.6832919921726,
+      "total_ms": 66.20200001634657,
+      "peak_gpu_bytes": 1436669386,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 66.208083066158
+    },
+    {
+      "id": "1272-141231-0027",
+      "path": "fixtures/audio/1272-141231-0027.wav",
+      "reference": "WHEN THE BUZZER SOUNDED HE PULLED HIS FOIL FROM HIS SECOND'S STARTLED GRASP AND RAN FORWARD",
+      "suite": "human-clean",
+      "source_id": "1272-141231-0027",
+      "sha256": "9f43668e78db67ae1f4458f61ab4e163c9b246379003996ff76e17aa11ddc36a",
+      "seconds": 6.57,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 6.57,
+      "speech_seconds": 5.82,
+      "text": "When the buzzer sounded, he pulled his foil from his second startled grasp and ran forward.",
+      "segments": [
+        {
+          "start": 0.4,
+          "end": 6.4,
+          "text": "When the buzzer sounded, he pulled his foil from his second startled grasp and ran forward."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0012920936569571495,
+      "preprocess_ms": 0.5152920493856072,
+      "decode_ms": 60.48733298666775,
+      "total_ms": 61.006917036138475,
+      "peak_gpu_bytes": 1438897610,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 61.013791942968965
+    },
+    {
+      "id": "1272-141231-0028",
+      "path": "fixtures/audio/1272-141231-0028.wav",
+      "reference": "IROLG LOOKED AMAZED AT THE SUDDEN FURY OF THE ATTACK THEN SMILED",
+      "suite": "human-clean",
+      "source_id": "1272-141231-0028",
+      "sha256": "4831c4c31b0b4b53feddbed1be9dfa8246e523342bb68048b078bf0c8f29fcce",
+      "seconds": 5.65,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 5.65,
+      "speech_seconds": 5.04,
+      "text": "I rolled, clicked the maze at the sudden fury of the attack, then smiled.",
+      "segments": [
+        {
+          "start": 0.32,
+          "end": 5.6000000000000005,
+          "text": "I rolled, clicked the maze at the sudden fury of the attack, then smiled."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0014170072972774506,
+      "preprocess_ms": 0.4790419479832053,
+      "decode_ms": 60.055125039070845,
+      "total_ms": 60.53845793940127,
+      "peak_gpu_bytes": 1438930378,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 60.54529105313122
+    },
+    {
+      "id": "1272-141231-0029",
+      "path": "fixtures/audio/1272-141231-0029.wav",
+      "reference": "HE THOUGHT IT WAS A LAST BURST OF ENERGY HE KNEW HOW CLOSE THEY BOTH WERE TO EXHAUSTION",
+      "suite": "human-clean",
+      "source_id": "1272-141231-0029",
+      "sha256": "753918968277f15e4a92f02b8745526c7cedf51b09c97174381b0be07d65e51a",
+      "seconds": 6.88,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 6.88,
+      "speech_seconds": 6.56,
+      "text": "He thought it was the last burst of energy. He knew how close they both were to exhaustion.",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 3.6,
+          "text": "He thought it was the last burst of energy."
+        },
+        {
+          "start": 3.6,
+          "end": 6.4,
+          "text": "He knew how close they both were to exhaustion."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001374981366097927,
+      "preprocess_ms": 0.874584075063467,
+      "decode_ms": 68.49441688973457,
+      "total_ms": 69.373834063299,
+      "peak_gpu_bytes": 1440077258,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 69.38025006093085
+    },
+    {
+      "id": "1272-141231-0030",
+      "path": "fixtures/audio/1272-141231-0030.wav",
+      "reference": "BRION SAW SOMETHING CLOSE TO PANIC ON HIS OPPONENT'S FACE WHEN THE MAN FINALLY RECOGNIZED HIS ERROR",
+      "suite": "human-clean",
+      "source_id": "1272-141231-0030",
+      "sha256": "d977095474b119378acfed8ad799ec411ba61e47ba1e144e914d265c7a20f532",
+      "seconds": 7.13,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 7.13,
+      "speech_seconds": 6.34,
+      "text": "Brienne saw something close to panic on his opponent's face when the man finally recognized his error.",
+      "segments": [
+        {
+          "start": 0.42,
+          "end": 6.82,
+          "text": "Brienne saw something close to panic on his opponent's face when the man finally recognized his error."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0013329554349184036,
+      "preprocess_ms": 0.534667051397264,
+      "decode_ms": 62.132125021889806,
+      "total_ms": 62.67079198732972,
+      "peak_gpu_bytes": 1439847882,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 62.67616699915379
+    },
+    {
+      "id": "1272-141231-0031",
+      "path": "fixtures/audio/1272-141231-0031.wav",
+      "reference": "A WAVE OF DESPAIR ROLLED OUT FROM IROLG BRION SENSED IT AND KNEW THE FIFTH POINT WAS HIS",
+      "suite": "human-clean",
+      "source_id": "1272-141231-0031",
+      "sha256": "89a61aad65f13005c0e1337bcfb07359fe69cb2162e8579df09a9576ce2fcd21",
+      "seconds": 7.115,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 7.115,
+      "speech_seconds": 6.44,
+      "text": "A wave of despair rolled out from Irogg, re-insensed it and knew the fifth point was his.",
+      "segments": [
+        {
+          "start": 0.38,
+          "end": 6.94,
+          "text": "A wave of despair rolled out from Irogg, re-insensed it and knew the fifth point was his."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001416075974702835,
+      "preprocess_ms": 0.5484590074047446,
+      "decode_ms": 69.32045798748732,
+      "total_ms": 69.87308396492153,
+      "peak_gpu_bytes": 1442944458,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 69.87883301917464
+    },
+    {
+      "id": "1272-141231-0032",
+      "path": "fixtures/audio/1272-141231-0032.wav",
+      "reference": "THEN THE POWERFUL TWIST THAT THRUST IT ASIDE IN AND UNDER THE GUARD",
+      "suite": "human-clean",
+      "source_id": "1272-141231-0032",
+      "sha256": "202a6c1b07f83831254a24be988dd86c9e512674a00554e410c2370671657a3b",
+      "seconds": 4.48,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 4.48,
+      "speech_seconds": 4.04,
+      "text": "Then the powerful twist that's rest of the side. In and under the guard.",
+      "segments": [
+        {
+          "start": 0.4,
+          "end": 3.34,
+          "text": "Then the powerful twist that's rest of the side."
+        },
+        {
+          "start": 3.34,
+          "end": 4.28,
+          "text": "In and under the guard."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0013329554349184036,
+      "preprocess_ms": 0.423541059717536,
+      "decode_ms": 60.754750040359795,
+      "total_ms": 61.1822500359267,
+      "peak_gpu_bytes": 1435440586,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 61.18791701737791
+    },
+    {
+      "id": "1272-128104-0000-noise10",
+      "path": "fixtures/audio/1272-128104-0000-noise10.wav",
+      "reference": "MISTER QUILTER IS THE APOSTLE OF THE MIDDLE CLASSES AND WE ARE GLAD TO WELCOME HIS GOSPEL",
+      "suite": "human-noise10db",
+      "source_id": "1272-128104-0000",
+      "sha256": "12502a2ab8a15d53f6026805a7434b6ba99f868e24ebbe0670e3aa694d394ce8",
+      "seconds": 5.855,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 5.855,
+      "speech_seconds": 5.855,
+      "text": "Mr. Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 5.4,
+          "text": "Mr. Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001249951310455799,
+      "preprocess_ms": 0.48150005750358105,
+      "decode_ms": 66.27170799765736,
+      "total_ms": 66.75695802550763,
+      "peak_gpu_bytes": 1436603850,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 66.7624999769032
+    },
+    {
+      "id": "1272-128104-0000-quiet",
+      "path": "fixtures/audio/1272-128104-0000-quiet.wav",
+      "reference": "MISTER QUILTER IS THE APOSTLE OF THE MIDDLE CLASSES AND WE ARE GLAD TO WELCOME HIS GOSPEL",
+      "suite": "human-quiet",
+      "source_id": "1272-128104-0000",
+      "sha256": "3ce0867f861c4efabb8fdec5664327915477d376ef6000bc9424a8a8d189ee3e",
+      "seconds": 5.855,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 5.855,
+      "speech_seconds": 5.14,
+      "text": "Mr. Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+      "segments": [
+        {
+          "start": 0.4,
+          "end": 5.680000000000001,
+          "text": "Mr. Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0012919772416353226,
+      "preprocess_ms": 0.4798340378329158,
+      "decode_ms": 66.34624989237636,
+      "total_ms": 66.83012505527586,
+      "peak_gpu_bytes": 1441813962,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 66.83700007852167
+    },
+    {
+      "id": "1272-128104-0001-noise10",
+      "path": "fixtures/audio/1272-128104-0001-noise10.wav",
+      "reference": "NOR IS MISTER QUILTER'S MANNER LESS INTERESTING THAN HIS MATTER",
+      "suite": "human-noise10db",
+      "source_id": "1272-128104-0001",
+      "sha256": "917129713405db624ae221d507406d1ae6dc5a463996c083ba4c8770dfa9880e",
+      "seconds": 4.815,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 4.815,
+      "speech_seconds": 4.815,
+      "text": "Nor is Mr. Clotter's matter less interesting than his matter.",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 5.0,
+          "text": "Nor is Mr. Clotter's matter less interesting than his matter."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0010830117389559746,
+      "preprocess_ms": 0.4282919690012932,
+      "decode_ms": 52.201917045749724,
+      "total_ms": 52.63379204552621,
+      "peak_gpu_bytes": 1435915722,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 52.63945797923952
+    },
+    {
+      "id": "1272-128104-0001-quiet",
+      "path": "fixtures/audio/1272-128104-0001-quiet.wav",
+      "reference": "NOR IS MISTER QUILTER'S MANNER LESS INTERESTING THAN HIS MATTER",
+      "suite": "human-quiet",
+      "source_id": "1272-128104-0001",
+      "sha256": "71af78801144f19d3c3b8a65ab7fef9bd6ab54dd1ab000c864114722bcb9c526",
+      "seconds": 4.815,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 4.815,
+      "speech_seconds": 4.04,
+      "text": "Nor is Mr. Quilter's manner less interesting than his matter.",
+      "segments": [
+        {
+          "start": 0.4,
+          "end": 4.4,
+          "text": "Nor is Mr. Quilter's manner less interesting than his matter."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.00108394306153059,
+      "preprocess_ms": 0.44362503103911877,
+      "decode_ms": 51.97929195128381,
+      "total_ms": 52.426707930862904,
+      "peak_gpu_bytes": 1435440586,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 52.43191705085337
+    },
+    {
+      "id": "1272-128104-0002-noise10",
+      "path": "fixtures/audio/1272-128104-0002-noise10.wav",
+      "reference": "HE TELLS US THAT AT THIS FESTIVE SEASON OF THE YEAR WITH CHRISTMAS AND ROAST BEEF LOOMING BEFORE US SIMILES DRAWN FROM EATING AND ITS RESULTS OCCUR MOST READILY TO THE MIND",
+      "suite": "human-noise10db",
+      "source_id": "1272-128104-0002",
+      "sha256": "e68b55b67b1334c9c97abbe9d205b2d47b849f040744e50340a1ddc81e1b7aba",
+      "seconds": 12.485,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 12.485,
+      "speech_seconds": 12.485,
+      "text": "He tells us that at this festive season of the year, with Christmas and roast beef looming before us, symbolies drawn from eating and its results occur most readily to the mind.",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 6.16,
+          "text": "He tells us that at this festive season of the year, with Christmas and roast beef looming"
+        },
+        {
+          "start": 6.16,
+          "end": 11.84,
+          "text": "before us, symbolies drawn from eating and its results occur most readily to the mind."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001249951310455799,
+      "preprocess_ms": 0.7813749834895134,
+      "decode_ms": 99.61212507914752,
+      "total_ms": 100.39833397604525,
+      "peak_gpu_bytes": 1451201994,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 100.40429199580103
+    },
+    {
+      "id": "1272-128104-0002-quiet",
+      "path": "fixtures/audio/1272-128104-0002-quiet.wav",
+      "reference": "HE TELLS US THAT AT THIS FESTIVE SEASON OF THE YEAR WITH CHRISTMAS AND ROAST BEEF LOOMING BEFORE US SIMILES DRAWN FROM EATING AND ITS RESULTS OCCUR MOST READILY TO THE MIND",
+      "suite": "human-quiet",
+      "source_id": "1272-128104-0002",
+      "sha256": "a152f1bb2182164550fbdaca2edd6b25fc641aa6cb67753e71aa58ec329d4f0a",
+      "seconds": 12.485,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 12.485,
+      "speech_seconds": 11.54,
+      "text": "He tells us that at this festive season of the year, with Christmas and roast beef looming before us, symbolies drawn from eating and its results occur most readily to the mind.",
+      "segments": [
+        {
+          "start": 0.46,
+          "end": 6.18,
+          "text": "He tells us that at this festive season of the year, with Christmas and roast beef looming"
+        },
+        {
+          "start": 6.18,
+          "end": 11.98,
+          "text": "before us, symbolies drawn from eating and its results occur most readily to the mind."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001374981366097927,
+      "preprocess_ms": 0.7532089948654175,
+      "decode_ms": 99.40108400769532,
+      "total_ms": 100.1585420453921,
+      "peak_gpu_bytes": 1443059146,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 100.16570810694247
+    },
+    {
+      "id": "1272-128104-0003-noise10",
+      "path": "fixtures/audio/1272-128104-0003-noise10.wav",
+      "reference": "HE HAS GRAVE DOUBTS WHETHER SIR FREDERICK LEIGHTON'S WORK IS REALLY GREEK AFTER ALL AND CAN DISCOVER IN IT BUT LITTLE OF ROCKY ITHACA",
+      "suite": "human-noise10db",
+      "source_id": "1272-128104-0003",
+      "sha256": "7e2cbe0579fc43aa4d0fd1bd3af5d378425e8179e14bd5715caedfae4558323c",
+      "seconds": 9.9,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 9.9,
+      "speech_seconds": 9.9,
+      "text": "He has graved doubts whether Sir Frederick Layton's work is really great after all and can discover in it but little of lucky Ithaca.",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 6.24,
+          "text": "He has graved doubts whether Sir Frederick Layton's work is really great after all and"
+        },
+        {
+          "start": 6.24,
+          "end": 9.4,
+          "text": "can discover in it but little of lucky Ithaca."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001208973117172718,
+      "preprocess_ms": 0.6559169851243496,
+      "decode_ms": 86.58062492031604,
+      "total_ms": 87.24070899188519,
+      "peak_gpu_bytes": 1448908234,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 87.2475829673931
+    },
+    {
+      "id": "1272-128104-0003-quiet",
+      "path": "fixtures/audio/1272-128104-0003-quiet.wav",
+      "reference": "HE HAS GRAVE DOUBTS WHETHER SIR FREDERICK LEIGHTON'S WORK IS REALLY GREEK AFTER ALL AND CAN DISCOVER IN IT BUT LITTLE OF ROCKY ITHACA",
+      "suite": "human-quiet",
+      "source_id": "1272-128104-0003",
+      "sha256": "234bd3d1d9f957df243580148f81379c358babbc567b151e6d9b6f5201ef0e65",
+      "seconds": 9.9,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 9.9,
+      "speech_seconds": 9.08,
+      "text": "He has grave doubts whether Sir Frederick Layton's work is really Greek after all and can discover in it but little of rocky Ithaca.",
+      "segments": [
+        {
+          "start": 0.46,
+          "end": 6.22,
+          "text": "He has grave doubts whether Sir Frederick Layton's work is really Greek after all and"
+        },
+        {
+          "start": 6.22,
+          "end": 9.420000000000002,
+          "text": "can discover in it but little of rocky Ithaca."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001334003172814846,
+      "preprocess_ms": 0.6683339597657323,
+      "decode_ms": 85.7262919889763,
+      "total_ms": 86.39900002162904,
+      "peak_gpu_bytes": 1441256906,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 86.4053750410676
+    },
+    {
+      "id": "1272-128104-0004-noise10",
+      "path": "fixtures/audio/1272-128104-0004-noise10.wav",
+      "reference": "LINNELL'S PICTURES ARE A SORT OF UP GUARDS AND AT EM PAINTINGS AND MASON'S EXQUISITE IDYLLS ARE AS NATIONAL AS A JINGO POEM MISTER BIRKET FOSTER'S LANDSCAPES SMILE AT ONE MUCH IN THE SAME WAY THAT MISTER CARKER USED TO FLASH HIS TEETH AND MISTER JOHN COLLIER GIVES HIS SITTER A CHEERFUL SLAP ON THE BACK BEFORE HE SAYS LIKE A SHAMPOOER IN A TURKISH BATH NEXT MAN",
+      "suite": "human-noise10db",
+      "source_id": "1272-128104-0004",
+      "sha256": "67b5841923122cda8d1bbbd20f3f3de846b3e73d27cfa8a4757ad79b5144a235",
+      "seconds": 29.4,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 29.4,
+      "speech_seconds": 29.4,
+      "text": "Linnell's pictures are a sort of up-guards-and-adam paintings, and Mason's exquisite idles are as national as a djingo poem. Mr. Birkett Foster's landscapes smile at one much in the same way as at Mr. Carco's Mr. Flash's teeth. And Mr. John Collier gives his sitter a cheerful slap on the back, before he says, like a shampoo and I took a stab. Next man!",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 7.0,
+          "text": "Linnell's pictures are a sort of up-guards-and-adam paintings, and Mason's exquisite idles are"
+        },
+        {
+          "start": 7.0,
+          "end": 11.64,
+          "text": "as national as a djingo poem."
+        },
+        {
+          "start": 11.64,
+          "end": 17.72,
+          "text": "Mr. Birkett Foster's landscapes smile at one much in the same way as at Mr. Carco's Mr."
+        },
+        {
+          "start": 17.72,
+          "end": 19.84,
+          "text": "Flash's teeth."
+        },
+        {
+          "start": 19.84,
+          "end": 26.44,
+          "text": "And Mr. John Collier gives his sitter a cheerful slap on the back, before he says, like a shampoo"
+        },
+        {
+          "start": 26.44,
+          "end": 30.68,
+          "text": "and I took a stab. Next man!"
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001375097781419754,
+      "preprocess_ms": 1.4687919756397605,
+      "decode_ms": 256.0095830122009,
+      "total_ms": 257.4824169278145,
+      "peak_gpu_bytes": 1461671370,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 257.49604194425046
+    },
+    {
+      "id": "1272-128104-0004-quiet",
+      "path": "fixtures/audio/1272-128104-0004-quiet.wav",
+      "reference": "LINNELL'S PICTURES ARE A SORT OF UP GUARDS AND AT EM PAINTINGS AND MASON'S EXQUISITE IDYLLS ARE AS NATIONAL AS A JINGO POEM MISTER BIRKET FOSTER'S LANDSCAPES SMILE AT ONE MUCH IN THE SAME WAY THAT MISTER CARKER USED TO FLASH HIS TEETH AND MISTER JOHN COLLIER GIVES HIS SITTER A CHEERFUL SLAP ON THE BACK BEFORE HE SAYS LIKE A SHAMPOOER IN A TURKISH BATH NEXT MAN",
+      "suite": "human-quiet",
+      "source_id": "1272-128104-0004",
+      "sha256": "c24337c28c2cf2d745cbc34a1a2dc42ffe9733858c8d2bf446edf87e8f7ff0eb",
+      "seconds": 29.4,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 29.4,
+      "speech_seconds": 28.68,
+      "text": "Linnell's pictures are a sort of up guards and atom paintings, and Mason's exquisite idles are as national as a jingle poem. Mr. Birkitt Foster's landscapes smile at one much in the same way that Mr. Carker used to flash his teeth, and Mr. John Collier gives his sitter a cheerful slap on the back, before he says like a shampoo and a Turkish bath. Next man.",
+      "segments": [
+        {
+          "start": 0.4,
+          "end": 6.720000000000001,
+          "text": "Linnell's pictures are a sort of up guards and atom paintings, and Mason's exquisite"
+        },
+        {
+          "start": 6.720000000000001,
+          "end": 11.68,
+          "text": "idles are as national as a jingle poem."
+        },
+        {
+          "start": 11.68,
+          "end": 17.279999999999998,
+          "text": "Mr. Birkitt Foster's landscapes smile at one much in the same way that Mr. Carker used"
+        },
+        {
+          "start": 17.279999999999998,
+          "end": 24.8,
+          "text": "to flash his teeth, and Mr. John Collier gives his sitter a cheerful slap on the back, before"
+        },
+        {
+          "start": 24.799999999999997,
+          "end": 28.519999999999996,
+          "text": "he says like a shampoo and a Turkish bath."
+        },
+        {
+          "start": 28.519999999999996,
+          "end": 28.959999999999997,
+          "text": "Next man."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0013329554349184036,
+      "preprocess_ms": 1.5704999677836895,
+      "decode_ms": 234.5558749511838,
+      "total_ms": 236.13199999090284,
+      "peak_gpu_bytes": 1464849866,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 236.14575003739446
+    },
+    {
+      "id": "1272-128104-0005-noise10",
+      "path": "fixtures/audio/1272-128104-0005-noise10.wav",
+      "reference": "IT IS OBVIOUSLY UNNECESSARY FOR US TO POINT OUT HOW LUMINOUS THESE CRITICISMS ARE HOW DELICATE IN EXPRESSION",
+      "suite": "human-noise10db",
+      "source_id": "1272-128104-0005",
+      "sha256": "2246ed6d624473a3a0d3e57d60914b93484c246916529717d8530168522888ae",
+      "seconds": 9.01,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 9.01,
+      "speech_seconds": 9.01,
+      "text": "It is obviously unnecessary for us to point out how luminous these criticisms are, how delicate an expression.",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 6.84,
+          "text": "It is obviously unnecessary for us to point out how luminous these criticisms are, how"
+        },
+        {
+          "start": 6.84,
+          "end": 8.28,
+          "text": "delicate an expression."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0014168908819556236,
+      "preprocess_ms": 1.2589999241754413,
+      "decode_ms": 74.24916699528694,
+      "total_ms": 75.5152499768883,
+      "peak_gpu_bytes": 1444976074,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 75.52437495905906
+    },
+    {
+      "id": "1272-128104-0005-quiet",
+      "path": "fixtures/audio/1272-128104-0005-quiet.wav",
+      "reference": "IT IS OBVIOUSLY UNNECESSARY FOR US TO POINT OUT HOW LUMINOUS THESE CRITICISMS ARE HOW DELICATE IN EXPRESSION",
+      "suite": "human-quiet",
+      "source_id": "1272-128104-0005",
+      "sha256": "76b4567fa15b6f0d632af52179d042b9fba0b90974e91ef4b56baa73b66f1059",
+      "seconds": 9.01,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 9.01,
+      "speech_seconds": 8.18,
+      "text": "It is obviously unnecessary for us to point out how luminous these criticisms are, how delicate an expression.",
+      "segments": [
+        {
+          "start": 0.44,
+          "end": 8.44,
+          "text": "It is obviously unnecessary for us to point out how luminous these criticisms are, how delicate an expression."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001249951310455799,
+      "preprocess_ms": 0.622584018856287,
+      "decode_ms": 64.50862507335842,
+      "total_ms": 65.1351670967415,
+      "peak_gpu_bytes": 1438127562,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 65.14049996621907
+    },
+    {
+      "id": "1272-128104-0006-noise10",
+      "path": "fixtures/audio/1272-128104-0006-noise10.wav",
+      "reference": "ON THE GENERAL PRINCIPLES OF ART MISTER QUILTER WRITES WITH EQUAL LUCIDITY",
+      "suite": "human-noise10db",
+      "source_id": "1272-128104-0006",
+      "sha256": "d0f62c105d85419f2116efea6eb191c2549a13d9c3c731f397df5326e2dfdf2c",
+      "seconds": 5.64,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 5.64,
+      "speech_seconds": 5.64,
+      "text": "On the general principles of art, Mr. Krilter writes with equal lucidity.",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 5.0,
+          "text": "On the general principles of art, Mr. Krilter writes with equal lucidity."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001249951310455799,
+      "preprocess_ms": 0.47970807645469904,
+      "decode_ms": 58.21658298373222,
+      "total_ms": 58.70016699191183,
+      "peak_gpu_bytes": 1445139914,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 58.705665986053646
+    },
+    {
+      "id": "1272-128104-0006-quiet",
+      "path": "fixtures/audio/1272-128104-0006-quiet.wav",
+      "reference": "ON THE GENERAL PRINCIPLES OF ART MISTER QUILTER WRITES WITH EQUAL LUCIDITY",
+      "suite": "human-quiet",
+      "source_id": "1272-128104-0006",
+      "sha256": "fb755a2d8b4d3ca85b32e0f4189c3e6da955c3b84d07c609cf1621c109c9c347",
+      "seconds": 5.64,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 5.64,
+      "speech_seconds": 4.7,
+      "text": "Under general principles of art, Mr. Quilter writes with equal lucidity.",
+      "segments": [
+        {
+          "start": 0.4,
+          "end": 5.2,
+          "text": "Under general principles of art, Mr. Quilter writes with equal lucidity."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001249951310455799,
+      "preprocess_ms": 0.46504102647304535,
+      "decode_ms": 56.07312510255724,
+      "total_ms": 56.5424159867689,
+      "peak_gpu_bytes": 1441437130,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 56.548082968220115
+    },
+    {
+      "id": "1272-128104-0007-noise10",
+      "path": "fixtures/audio/1272-128104-0007-noise10.wav",
+      "reference": "PAINTING HE TELLS US IS OF A DIFFERENT QUALITY TO MATHEMATICS AND FINISH IN ART IS ADDING MORE FACT",
+      "suite": "human-noise10db",
+      "source_id": "1272-128104-0007",
+      "sha256": "a193f0346dc4b19b623582b0d54b62e9b1fbc9c729c571cfbf8684088a24f910",
+      "seconds": 9.24,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 9.24,
+      "speech_seconds": 9.24,
+      "text": "Painting, he tells us, is of a different quality to mathematics, and finish in art is adding more fact.",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 7.84,
+          "text": "Painting, he tells us, is of a different quality to mathematics, and finish in art is adding"
+        },
+        {
+          "start": 7.84,
+          "end": 8.68,
+          "text": "more fact."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0014159595593810081,
+      "preprocess_ms": 0.6360000697895885,
+      "decode_ms": 73.92812508624047,
+      "total_ms": 74.56804206594825,
+      "peak_gpu_bytes": 1438881226,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 74.57370799966156
+    },
+    {
+      "id": "1272-128104-0007-quiet",
+      "path": "fixtures/audio/1272-128104-0007-quiet.wav",
+      "reference": "PAINTING HE TELLS US IS OF A DIFFERENT QUALITY TO MATHEMATICS AND FINISH IN ART IS ADDING MORE FACT",
+      "suite": "human-quiet",
+      "source_id": "1272-128104-0007",
+      "sha256": "89a067a3930d5a96abf7fc65626824f0573ce22816c152f6f9bc49417caca639",
+      "seconds": 9.24,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 9.24,
+      "speech_seconds": 8.32,
+      "text": "painting, he tells us, is of a different quality to mathematics, and finish in art is adding more factor.",
+      "segments": [
+        {
+          "start": 0.44,
+          "end": 8.36,
+          "text": "painting, he tells us, is of a different quality to mathematics, and finish in art is adding more"
+        },
+        {
+          "start": 8.36,
+          "end": 16.36,
+          "text": "factor."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0012080417945981026,
+      "preprocess_ms": 0.6091670366004109,
+      "decode_ms": 72.39204098004848,
+      "total_ms": 73.00470897462219,
+      "peak_gpu_bytes": 1447531978,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 73.01012508105487
+    },
+    {
+      "id": "1272-128104-0008-noise10",
+      "path": "fixtures/audio/1272-128104-0008-noise10.wav",
+      "reference": "AS FOR ETCHINGS THEY ARE OF TWO KINDS BRITISH AND FOREIGN",
+      "suite": "human-noise10db",
+      "source_id": "1272-128104-0008",
+      "sha256": "948c581c2f7dccb38c0cb324e6268d44c441966658c30d959f33884a8ea26a66",
+      "seconds": 5.12,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 5.12,
+      "speech_seconds": 5.12,
+      "text": "As for etchings, there are of two kinds, British and foreign.",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 5.0,
+          "text": "As for etchings, there are of two kinds, British and foreign."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001125037670135498,
+      "preprocess_ms": 0.4391659749671817,
+      "decode_ms": 54.44158404134214,
+      "total_ms": 54.88437507301569,
+      "peak_gpu_bytes": 1441813962,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 54.89054101053625
+    },
+    {
+      "id": "1272-128104-0008-quiet",
+      "path": "fixtures/audio/1272-128104-0008-quiet.wav",
+      "reference": "AS FOR ETCHINGS THEY ARE OF TWO KINDS BRITISH AND FOREIGN",
+      "suite": "human-quiet",
+      "source_id": "1272-128104-0008",
+      "sha256": "a835db5fc87b24083a1f06ec8a47e5bf8dfce9848a4071a86278df66ed79dc79",
+      "seconds": 5.12,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 5.12,
+      "speech_seconds": 4.22,
+      "text": "As for etchings, they are of two kinds, British and foreign.",
+      "segments": [
+        {
+          "start": 0.42,
+          "end": 4.58,
+          "text": "As for etchings, they are of two kinds, British and foreign."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0011670636013150215,
+      "preprocess_ms": 0.4897499457001686,
+      "decode_ms": 55.24200003128499,
+      "total_ms": 55.73591694701463,
+      "peak_gpu_bytes": 1435489738,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 55.74237508699298
+    },
+    {
+      "id": "1272-128104-0009-noise10",
+      "path": "fixtures/audio/1272-128104-0009-noise10.wav",
+      "reference": "HE LAMENTS MOST BITTERLY THE DIVORCE THAT HAS BEEN MADE BETWEEN DECORATIVE ART AND WHAT WE USUALLY CALL PICTURES MAKES THE CUSTOMARY APPEAL TO THE LAST JUDGMENT AND REMINDS US THAT IN THE GREAT DAYS OF ART MICHAEL ANGELO WAS THE FURNISHING UPHOLSTERER",
+      "suite": "human-noise10db",
+      "source_id": "1272-128104-0009",
+      "sha256": "82087bfccabc40b25adde7b7202354f61754c59f87f50998470236347358ad2f",
+      "seconds": 18.29,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 18.29,
+      "speech_seconds": 18.29,
+      "text": "He laments most bitterly the divorce that has been made between decorative art and what we usually call pictures. Makes a customary appeal to the last judgment and reminds us that in the great days of art, Michelangelo was the furnishing upholsterer.",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 6.46,
+          "text": "He laments most bitterly the divorce that has been made between decorative art and what"
+        },
+        {
+          "start": 6.46,
+          "end": 9.06,
+          "text": "we usually call pictures."
+        },
+        {
+          "start": 9.06,
+          "end": 14.66,
+          "text": "Makes a customary appeal to the last judgment and reminds us that in the great days of art,"
+        },
+        {
+          "start": 14.66,
+          "end": 17.78,
+          "text": "Michelangelo was the furnishing upholsterer."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001374981366097927,
+      "preprocess_ms": 1.0954160243272781,
+      "decode_ms": 141.47245895583183,
+      "total_ms": 142.57254102267325,
+      "peak_gpu_bytes": 1452545482,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 142.58495799731463
+    },
+    {
+      "id": "1272-128104-0009-quiet",
+      "path": "fixtures/audio/1272-128104-0009-quiet.wav",
+      "reference": "HE LAMENTS MOST BITTERLY THE DIVORCE THAT HAS BEEN MADE BETWEEN DECORATIVE ART AND WHAT WE USUALLY CALL PICTURES MAKES THE CUSTOMARY APPEAL TO THE LAST JUDGMENT AND REMINDS US THAT IN THE GREAT DAYS OF ART MICHAEL ANGELO WAS THE FURNISHING UPHOLSTERER",
+      "suite": "human-quiet",
+      "source_id": "1272-128104-0009",
+      "sha256": "cc87c9cb5633df6505691168f4bebff9636154d0729a6b27ba706d62e470fce7",
+      "seconds": 18.29,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 18.29,
+      "speech_seconds": 17.4,
+      "text": "He laments most bitterly the divorce that has been made between decorative art and what we usually call pictures. It makes a customary appeal to the last judgment and reminds us that in the great days of art, Michelangelo was the furnishing upholsterer.",
+      "segments": [
+        {
+          "start": 0.52,
+          "end": 6.4399999999999995,
+          "text": "He laments most bitterly the divorce that has been made between decorative art and what"
+        },
+        {
+          "start": 6.4399999999999995,
+          "end": 8.44,
+          "text": "we usually call pictures."
+        },
+        {
+          "start": 8.44,
+          "end": 14.64,
+          "text": "It makes a customary appeal to the last judgment and reminds us that in the great days of art,"
+        },
+        {
+          "start": 14.64,
+          "end": 17.84,
+          "text": "Michelangelo was the furnishing upholsterer."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0014579854905605316,
+      "preprocess_ms": 1.0076669277623296,
+      "decode_ms": 145.6578749930486,
+      "total_ms": 146.66962495539337,
+      "peak_gpu_bytes": 1447253450,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 146.67537494096905
+    },
+    {
+      "id": "1272-128104-0010-noise10",
+      "path": "fixtures/audio/1272-128104-0010-noise10.wav",
+      "reference": "NEAR THE FIRE AND THE ORNAMENTS FRED BROUGHT HOME FROM INDIA ON THE MANTEL BOARD",
+      "suite": "human-noise10db",
+      "source_id": "1272-128104-0010",
+      "sha256": "4307be617c8848d2f6f7c2d3146b15ce4a8819ff6d974a9e4541e5406b8fa9a8",
+      "seconds": 5.6,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 5.6,
+      "speech_seconds": 5.6,
+      "text": "near the fire, and the ornaments Fred brought home from India on the mental board.",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 5.44,
+          "text": "near the fire, and the ornaments Fred brought home from India on the mental board."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001250067725777626,
+      "preprocess_ms": 0.47229102347046137,
+      "decode_ms": 57.00050003360957,
+      "total_ms": 57.477041031233966,
+      "peak_gpu_bytes": 1439389130,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 57.48479091562331
+    },
+    {
+      "id": "1272-128104-0010-quiet",
+      "path": "fixtures/audio/1272-128104-0010-quiet.wav",
+      "reference": "NEAR THE FIRE AND THE ORNAMENTS FRED BROUGHT HOME FROM INDIA ON THE MANTEL BOARD",
+      "suite": "human-quiet",
+      "source_id": "1272-128104-0010",
+      "sha256": "d122bb7e95fecd547339a0cb1469475ed44cc0daac86403a6cb2aba989eb536e",
+      "seconds": 5.6,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 5.6,
+      "speech_seconds": 5.04,
+      "text": "near the fire, and the ornaments Fred brought home from India on the mental board.",
+      "segments": [
+        {
+          "start": 0.06,
+          "end": 5.1,
+          "text": "near the fire, and the ornaments Fred brought home from India on the mental board."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0012919772416353226,
+      "preprocess_ms": 0.48141705337911844,
+      "decode_ms": 57.69637506455183,
+      "total_ms": 58.18166700191796,
+      "peak_gpu_bytes": 1436095946,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 58.187250047922134
+    },
+    {
+      "id": "1272-128104-0011-noise10",
+      "path": "fixtures/audio/1272-128104-0011-noise10.wav",
+      "reference": "IN FACT HE IS QUITE SEVERE ON MISTER RUSKIN FOR NOT RECOGNISING THAT A PICTURE SHOULD DENOTE THE FRAILTY OF MAN AND REMARKS WITH PLEASING COURTESY AND FELICITOUS GRACE THAT MANY PHASES OF FEELING",
+      "suite": "human-noise10db",
+      "source_id": "1272-128104-0011",
+      "sha256": "257d3b2df2aa0bca15b594a454faea81faa71809ce88e3843439861bbce9ac85",
+      "seconds": 15.115,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 15.115,
+      "speech_seconds": 15.115,
+      "text": "In fact, he is quite severe on Mr. Ruskin, for not recognizing that a picture should denote the failure of man, and remarks with pleasing courtesy and close of his grace that many faces of feeling.",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 6.2,
+          "text": "In fact, he is quite severe on Mr. Ruskin, for not recognizing that a picture should"
+        },
+        {
+          "start": 6.2,
+          "end": 12.64,
+          "text": "denote the failure of man, and remarks with pleasing courtesy and close of his grace that"
+        },
+        {
+          "start": 12.64,
+          "end": 14.8,
+          "text": "many faces of feeling."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0012919772416353226,
+      "preprocess_ms": 0.8565839380025864,
+      "decode_ms": 116.76933395210654,
+      "total_ms": 117.62966692913324,
+      "peak_gpu_bytes": 1442715082,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 117.63566709123552
+    },
+    {
+      "id": "1272-128104-0011-quiet",
+      "path": "fixtures/audio/1272-128104-0011-quiet.wav",
+      "reference": "IN FACT HE IS QUITE SEVERE ON MISTER RUSKIN FOR NOT RECOGNISING THAT A PICTURE SHOULD DENOTE THE FRAILTY OF MAN AND REMARKS WITH PLEASING COURTESY AND FELICITOUS GRACE THAT MANY PHASES OF FEELING",
+      "suite": "human-quiet",
+      "source_id": "1272-128104-0011",
+      "sha256": "289ce2a2d0bf904e806b8508866f36a40766fee6e465dde333313c8b45cf45a9",
+      "seconds": 15.115,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 15.115,
+      "speech_seconds": 14.52,
+      "text": "In fact, he is quite severe on Mr. Ruskin for not recognizing that a picture should denote the frailty of man, and remarks with pleasing courtesy and felicitous grace that many phases of feeling",
+      "segments": [
+        {
+          "start": 0.42,
+          "end": 6.58,
+          "text": "In fact, he is quite severe on Mr. Ruskin for not recognizing that a picture should denote"
+        },
+        {
+          "start": 6.58,
+          "end": 14.82,
+          "text": "the frailty of man, and remarks with pleasing courtesy and felicitous grace that many phases of feeling"
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0014170072972774506,
+      "preprocess_ms": 0.8852080209180713,
+      "decode_ms": 110.01125001348555,
+      "total_ms": 110.9006250044331,
+      "peak_gpu_bytes": 1449465290,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 110.90624995995313
+    },
+    {
+      "id": "silence-5",
+      "path": "fixtures/audio/silence-5.wav",
+      "reference": "",
+      "suite": "silence",
+      "source_id": "generated",
+      "sha256": "262d1f34f300560a4c82ba8127ddea9e1d72946f187fdbd3e8f70ee096077aec",
+      "seconds": 5.0,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 5.0,
+      "speech_seconds": 0.0,
+      "text": "",
+      "segments": [],
+      "language": "en",
+      "silence": true,
+      "warm": true,
+      "load_ms": 0,
+      "decode_ms": 0,
+      "preprocess_ms": 0.44895801693201065,
+      "total_ms": 0.44895801693201065,
+      "wall_ms": 0.4522919189184904
+    },
+    {
+      "id": "low-noise-5",
+      "path": "fixtures/audio/low-noise-5.wav",
+      "reference": "",
+      "suite": "silence",
+      "source_id": "generated",
+      "sha256": "e5dcff845f2481436a35760372fdb5e6622a8cad4789927d68dbdd0de0390b69",
+      "seconds": 5.0,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 5.0,
+      "speech_seconds": 0.0,
+      "text": "",
+      "segments": [],
+      "language": "en",
+      "silence": true,
+      "warm": true,
+      "load_ms": 0,
+      "decode_ms": 0,
+      "preprocess_ms": 0.3394169034436345,
+      "total_ms": 0.3394169034436345,
+      "wall_ms": 0.3416669787839055
+    },
+    {
+      "id": "long-concat",
+      "path": "fixtures/audio/long-concat.wav",
+      "reference": "MISTER QUILTER IS THE APOSTLE OF THE MIDDLE CLASSES AND WE ARE GLAD TO WELCOME HIS GOSPEL NOR IS MISTER QUILTER'S MANNER LESS INTERESTING THAN HIS MATTER HE TELLS US THAT AT THIS FESTIVE SEASON OF THE YEAR WITH CHRISTMAS AND ROAST BEEF LOOMING BEFORE US SIMILES DRAWN FROM EATING AND ITS RESULTS OCCUR MOST READILY TO THE MIND HE HAS GRAVE DOUBTS WHETHER SIR FREDERICK LEIGHTON'S WORK IS REALLY GREEK AFTER ALL AND CAN DISCOVER IN IT BUT LITTLE OF ROCKY ITHACA LINNELL'S PICTURES ARE A SORT OF UP GUARDS AND AT EM PAINTINGS AND MASON'S EXQUISITE IDYLLS ARE AS NATIONAL AS A JINGO POEM MISTER BIRKET FOSTER'S LANDSCAPES SMILE AT ONE MUCH IN THE SAME WAY THAT MISTER CARKER USED TO FLASH HIS TEETH AND MISTER JOHN COLLIER GIVES HIS SITTER A CHEERFUL SLAP ON THE BACK BEFORE HE SAYS LIKE A SHAMPOOER IN A TURKISH BATH NEXT MAN IT IS OBVIOUSLY UNNECESSARY FOR US TO POINT OUT HOW LUMINOUS THESE CRITICISMS ARE HOW DELICATE IN EXPRESSION ON THE GENERAL PRINCIPLES OF ART MISTER QUILTER WRITES WITH EQUAL LUCIDITY PAINTING HE TELLS US IS OF A DIFFERENT QUALITY TO MATHEMATICS AND FINISH IN ART IS ADDING MORE FACT AS FOR ETCHINGS THEY ARE OF TWO KINDS BRITISH AND FOREIGN HE LAMENTS MOST BITTERLY THE DIVORCE THAT HAS BEEN MADE BETWEEN DECORATIVE ART AND WHAT WE USUALLY CALL PICTURES MAKES THE CUSTOMARY APPEAL TO THE LAST JUDGMENT AND REMINDS US THAT IN THE GREAT DAYS OF ART MICHAEL ANGELO WAS THE FURNISHING UPHOLSTERER",
+      "suite": "human-long",
+      "source_id": "first-10-concatenated",
+      "sha256": "ce5c2912ba63f07c2433a759c73fea1a7061d659db9853c8446caf41b38ada4f",
+      "seconds": 111.755,
+      "repeat": 0,
+      "model": "whisper-small",
+      "audio_seconds": 111.755,
+      "speech_seconds": 110.88,
+      "text": "Mr. Quilter is the apostle of the middle classes, and we are glad to welcome his gospel. Nor is Mr. Quilter's manner less interesting than his matter. He tells us that at this festive season of the year, with Christmas and roast beef looming before us, symbolies drawn from eating and its results occur most readily to the mind. He has grave doubts whether Sir Frederick Layton's work is really Greek after all, and can discover in it but little of rocky Ithaca. Linnell's pictures are a sort of Up Guards and Adam paintings, and Mason's exquisite idles are as national as a jingle poem. Mr. Birkitt Foster's landscapes smile at one much in the same way that Mr. Carker used to flash his teeth. And Mr. John Collier gives his sitter a cheerful slap on the back, before he says, like a a shampoo or a Turkish bath. Next man. It is obviously unnecessary for us to point out how luminous these criticisms are, how delicate an expression. Under general principles of art, Mr. Quilter writes with equal lucidity. Painting, he tells us, is of a different quality to mathematics, and finish in art is adding more factor. As As for etchings, they are of two kinds, British and foreign. He laments most bitterly the divorce that has been made between decorative art and what we usually call pictures, makes a customary appeal to the last judgment and reminds us that in the great days of art Michelangelo was the furnishing upholsterer.",
+      "segments": [
+        {
+          "start": 0.38,
+          "end": 6.62,
+          "text": "Mr. Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."
+        },
+        {
+          "start": 6.62,
+          "end": 11.700000000000001,
+          "text": "Nor is Mr. Quilter's manner less interesting than his matter."
+        },
+        {
+          "start": 11.700000000000001,
+          "end": 17.259999999999998,
+          "text": "He tells us that at this festive season of the year, with Christmas and roast beef looming"
+        },
+        {
+          "start": 17.259999999999998,
+          "end": 24.38,
+          "text": "before us, symbolies drawn from eating and its results occur most readily to the mind."
+        },
+        {
+          "start": 24.38,
+          "end": 30.18,
+          "text": "He has grave doubts whether Sir Frederick Layton's work is really Greek after all, and can"
+        },
+        {
+          "start": 30.18,
+          "end": 34.34,
+          "text": "discover in it but little of rocky Ithaca."
+        },
+        {
+          "start": 34.34,
+          "end": 40.580000000000005,
+          "text": "Linnell's pictures are a sort of Up Guards and Adam paintings, and Mason's exquisite"
+        },
+        {
+          "start": 40.580000000000005,
+          "end": 45.50000000000001,
+          "text": "idles are as national as a jingle poem."
+        },
+        {
+          "start": 45.50000000000001,
+          "end": 51.14000000000001,
+          "text": "Mr. Birkitt Foster's landscapes smile at one much in the same way that Mr. Carker used"
+        },
+        {
+          "start": 51.14000000000001,
+          "end": 53.7,
+          "text": "to flash his teeth."
+        },
+        {
+          "start": 53.7,
+          "end": 59.7,
+          "text": "And Mr. John Collier gives his sitter a cheerful slap on the back, before he says, like a"
+        },
+        {
+          "start": 59.7,
+          "end": 66.86,
+          "text": "a shampoo or a Turkish bath. Next man. It is obviously unnecessary for us to point out"
+        },
+        {
+          "start": 66.86,
+          "end": 73.3,
+          "text": "how luminous these criticisms are, how delicate an expression."
+        },
+        {
+          "start": 73.3,
+          "end": 79.89999999999999,
+          "text": "Under general principles of art, Mr. Quilter writes with equal lucidity. Painting, he tells"
+        },
+        {
+          "start": 79.89999999999999,
+          "end": 88.62,
+          "text": "us, is of a different quality to mathematics, and finish in art is adding more factor. As"
+        },
+        {
+          "start": 88.61999999999999,
+          "end": 93.94,
+          "text": "As for etchings, they are of two kinds, British and foreign."
+        },
+        {
+          "start": 93.94,
+          "end": 99.69999999999999,
+          "text": "He laments most bitterly the divorce that has been made between decorative art and what"
+        },
+        {
+          "start": 99.69999999999999,
+          "end": 105.82,
+          "text": "we usually call pictures, makes a customary appeal to the last judgment and reminds us"
+        },
+        {
+          "start": 105.82,
+          "end": 111.1,
+          "text": "that in the great days of art Michelangelo was the furnishing upholsterer."
+        }
+      ],
+      "words": [],
+      "language": "en",
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001625041477382183,
+      "preprocess_ms": 5.86541707161814,
+      "decode_ms": 814.6563330665231,
+      "total_ms": 820.528291980736,
+      "peak_gpu_bytes": 1486214598,
+      "active_gpu_bytes": 483971822,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 820.5394999822602
+    }
+  ],
+  "limitations": [
+    "Fixed public read-speech slices, not full corpora, spontaneous dictation or a multilingual leaderboard.",
+    "Same host and power environment; no controlled thermal isolation or energy measurement.",
+    "In-process audio-to-transcript timing excludes hotkey, capture, IPC, rewrite and text insertion.",
+    "Shared model backends are not equivalent to testing competing app products."
+  ]
+}

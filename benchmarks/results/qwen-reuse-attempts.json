@@ -1,0 +1,27 @@
+{
+  "completed_candidates": [
+    "qwen-feature-cache.json",
+    "qwen-prompt-accounting.json"
+  ],
+  "incomplete_attempts": [
+    {
+      "commit": "027ea7d",
+      "status": "rejected-incomplete-producer-no-completed-receipt",
+      "reason": "Required counters were zero: hook patched a neighboring model view, not the actual generate owner.",
+      "traces_file": "qwen-feature-reuse-inactive.traces.json.gz",
+      "traces_sha256": "f8d8f4c573a62db067446ce01fd3572a740129d2deaa27e22e996d8210611231",
+      "direct_pairs_recorded": 105,
+      "native_blocks_recorded": 1
+    },
+    {
+      "commit": "cacf16e",
+      "status": "rejected-incomplete-producer-no-completed-receipt",
+      "reason": "Required reuse counters failed: dedented docstring representation differed from the frozen AST hash; safe original-loop fallback.",
+      "traces_file": "qwen-prompt-accounting-guard-fallback.traces.json.gz",
+      "traces_sha256": "42a8e896d0c5ce15d07df2582693aa98e39da975df0a036e01f12863d8c27926",
+      "direct_pairs_recorded": 105,
+      "native_blocks_recorded": 2
+    }
+  ],
+  "decision": "Both completed candidates fail the predeclared native p50 gate. Integer-only prompt accounting remains opt-in; the normal default uses unwrapped upstream generation. Checked streaming-v0 package unchanged."
+}

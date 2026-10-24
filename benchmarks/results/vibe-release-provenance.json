@@ -1,0 +1,36 @@
+{
+  "verified_at": "2026-10-22T21:49:31.235271+00:00",
+  "status": "verified",
+  "product": "Vibe",
+  "version": "3.2.2",
+  "bundle_id": "github.com.thewh1teagle.vibe",
+  "release_url": "https://github.com/thewh1teagle/vibe/releases/tag/v3.2.2",
+  "release_published_at": "2026-09-05T13:24:57Z",
+  "asset": "vibe_aarch64.app.tar.gz",
+  "asset_sha256": "0a0c1b2dad167f76b86ab43dadf487b01c5418ef4116df0fbc9974715232be11",
+  "source_commit": "23eae78b864088202e4e3b9987d269fe4da5ebb3",
+  "codesign_deep_strict": true,
+  "notarized_developer_id": true,
+  "executable_sha256": "fcbb823d040f6f7487c94fab052e967e3c43e6a1eb90d9b7122dedd1011847ca",
+  "server_sha256": "36cd03ad4cd570f9659db60debbb1d02183992ebb6847e1d8fdb0d7656227c43",
+  "source_sha256": {
+    "desktop/src-tauri/src/cli.rs": "e21aff845e2107aa25a9345af4715168a42cb48a4ac7051373279c127881da43",
+    "desktop/src-tauri/src/analytics.rs": "acf173e1b38bf8e9e2098c8e5346dd31972fa606fec344b025196a0ca91b0eb2",
+    "desktop/src-tauri/src/setup.rs": "9cb8ac8a1d4688d41a00b888fa639d2fe18aa0d73620b59be934d22bb22bedc6",
+    "LICENSE": "30d26b5b70187611accccc4afddb8eb13ee32d85cdc85b4f77103b86a2dfc056"
+  },
+  "gpu_probe": {
+    "source": "Official CLI verbose run on public 1272-128104-0000, without the network sandbox",
+    "device": "Apple M5 Max",
+    "metal": true,
+    "tensor_api": false,
+    "fusion": true,
+    "concurrency": true
+  },
+  "analytics": {
+    "preexisting_profile": false,
+    "benchmark_enabled": false,
+    "source_default_enabled": true
+  },
+  "boundary": "Official signed/notarized release archive, pinned source tag, executable hashes and actual Metal probe. Only its file-command CLI is exercised; no GUI, microphone, phone handoff, product energy or battery ranking claim."
+}

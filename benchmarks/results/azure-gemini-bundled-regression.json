@@ -1,0 +1,81 @@
+{
+  "status": "passed-loopback-gemini-cli-contracts",
+  "cli_sha256": "c8fa745ab967d5eeaa2fd93cd6362086bcd63f28f10b3d13eb42a3c2ebee79d1",
+  "build": {
+    "version": "0.1.0",
+    "built_at": "2026-10-24T12:45:16.016826+00:00",
+    "git_commit": "3fb3c1da330b2e4f34ce8e95a101cc64ae84f9a2",
+    "tracked_changes": false,
+    "application_source_sha256": "e26312a47602795a5b57abe2b82dbc5a4ef1e39c1886b5e50f2f38770c2096e4",
+    "source_manifest_version": 2,
+    "signing_mode": "configured-identity",
+    "boundary": "Development build; configured signing identity; not notarized; weights downloaded separately."
+  },
+  "cases": [
+    {
+      "case": "v1beta",
+      "expected": "accepted",
+      "exit_code": 0,
+      "input_unchanged": true,
+      "stdout_text_delivered": true,
+      "private_fixture_and_key_not_exposed": true
+    },
+    {
+      "case": "gemini-negation",
+      "expected": "original-retained",
+      "exit_code": 0,
+      "input_unchanged": true,
+      "stdout_text_delivered": true,
+      "private_fixture_and_key_not_exposed": true
+    },
+    {
+      "case": "gemini-truncated",
+      "expected": "incomplete",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "stdout_text_delivered": false,
+      "private_fixture_and_key_not_exposed": true
+    },
+    {
+      "case": "gemini-blocked",
+      "expected": "incomplete",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "stdout_text_delivered": false,
+      "private_fixture_and_key_not_exposed": true
+    },
+    {
+      "case": "error",
+      "expected": "HTTP 401",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "stdout_text_delivered": false,
+      "private_fixture_and_key_not_exposed": true
+    },
+    {
+      "case": "redirect",
+      "expected": "HTTP 307",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "stdout_text_delivered": false,
+      "private_fixture_and_key_not_exposed": true
+    },
+    {
+      "case": "missing-key",
+      "expected": "key",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "stdout_text_delivered": false,
+      "private_fixture_and_key_not_exposed": true
+    },
+    {
+      "case": "invalid-model",
+      "expected": "model ID",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "stdout_text_delivered": false,
+      "private_fixture_and_key_not_exposed": true
+    }
+  ],
+  "boundary": "Owned loopback fixture, synthetic key and public text only. Actual Swift CLI checks wire headers/body, parser, explicit incomplete/blocked errors, no redirect following, missing key/model rejection, input preservation and one native fidelity tripwire. No Gemini account call, model quality, semantic fidelity, native Settings/Keychain interaction, latency or consumer ranking acceptance."
+}

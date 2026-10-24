@@ -1,0 +1,39 @@
+OSpr
+Copyright 2026 OSpr contributors.
+
+OSpr application and adapter code is licensed under Apache License 2.0.
+Model weights, third-party runtimes, benchmark datasets and optional providers
+have independent licenses and terms. They are not relicensed by OSpr.
+
+Parakeet TDT 0.6B v3: NVIDIA, CC BY 4.0.
+Qwen3 ASR and Qwen3 text models: Qwen / Alibaba, Apache 2.0.
+Whisper models: OpenAI, MIT.
+Nemotron 3.5 ASR and Nemotron 3 Diarization: NVIDIA, OpenMDW 1.1 (review pinned licenses).
+Cohere Transcribe: Cohere Labs, Apache 2.0; native-layout 8-bit shipping route,
+legacy Swift-layout conversion and full-precision controls are research-only.
+Voxtral Mini 4B Realtime: Mistral AI, Apache 2.0; research-only MLX conversion.
+Silero VAD: Silero Team, MIT; optional speech-detection research.
+Core ML conversions: FluidInference, MIT. https://huggingface.co/FluidInference/silero-vad-coreml
+MLX conversion: MLX Community, MIT. https://huggingface.co/mlx-community/silero-vad-v6
+VAD weights are downloaded separately. The native adapter does not vendor
+FluidAudio implementation source; optional MLX evaluation uses installed mlx-audio (MIT).
+
+LibriSpeech: Vassil Panayotov, Guoguo Chen, Daniel Povey and Sanjeev Khudanpur;
+LibriVox readers, CC BY 4.0. https://www.openslr.org/12/
+FLEURS: Google and FLoRes contributors, CC BY 4.0.
+https://huggingface.co/datasets/google/fleurs
+
+Benchmark audio and model weights are downloaded separately and are not bundled
+in this repository. Fixture manifests retain source revisions and checksums.
+
+AMI Meeting Corpus: AMI Consortium / University of Edinburgh, CC BY 4.0.
+J. Carletta et al., The AMI Meeting Corpus: A Pre-announcement (2006).
+https://groups.inf.ed.ac.uk/ami/corpus/
+AMI only_words diarization reference: BUT Speech@FIT / pyannote setup.
+F. Landini, J. Profant, M. Diez, L. Burget, VBx (2022).
+https://github.com/pyannote/AMI-diarization-setup
+Audio mirrored by FluidInference; manifest pins source checksums and revisions.
+
+Qwen single-chunk prompt-accounting loop adapted from MLX Audio 0.6.1.
+Copyright 2025 Prince Canuma and contributors; MIT license.
+See licenses/mlx-audio-MIT.txt. Encoding and sampling use the installed runtime.

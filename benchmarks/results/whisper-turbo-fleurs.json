@@ -1,0 +1,1999 @@
+{
+  "timestamp": "2026-10-22T12:26:33.968745+00:00",
+  "model": "whisper-turbo",
+  "model_spec": {
+    "repo": "mlx-community/whisper-large-v3-turbo",
+    "engine": "whisper",
+    "name": "Whisper Turbo \u00b7 broad language coverage",
+    "languages": "99 languages",
+    "license": "MIT"
+  },
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "machine": "arm64",
+  "hardware": "Apple M5 Max",
+  "memory_bytes": 137438953472,
+  "source_sha256": "5ffc8c3fc32ca6b8286bec9a3fd868639ab853642a87715bbf31c0f71502d06f",
+  "git_commit": "82ea4a1eca6c68f410221a402b74272928b181b1",
+  "working_tree_dirty": true,
+  "versions": {
+    "mlx": "0.32.4",
+    "mlx-whisper": "0.4.3",
+    "parakeet-mlx": "0.5.3",
+    "mlx-audio": "0.6.1",
+    "numpy": "2.5.4"
+  },
+  "options": {
+    "model": "whisper-turbo",
+    "limit": 0,
+    "suite": "",
+    "no_trim": false,
+    "repeat": 1,
+    "manifest": "fixtures/fleurs.json"
+  },
+  "cold": {
+    "model": "whisper-turbo",
+    "audio_seconds": 12.84,
+    "speech_seconds": 12.68,
+    "text": "Se recomienda enf\u00e1ticamente a los viajeros que se informen sobre cualquier riesgo del clima extremo en el \u00e1rea que visitan, dado que ello puede afectar sus planes de viaje.",
+    "segments": [
+      {
+        "start": 0.16,
+        "end": 6.66,
+        "text": "Se recomienda enf\u00e1ticamente a los viajeros que se informen sobre cualquier riesgo del"
+      },
+      {
+        "start": 6.66,
+        "end": 11.94,
+        "text": "clima extremo en el \u00e1rea que visitan, dado que ello puede afectar sus planes de viaje."
+      }
+    ],
+    "words": [],
+    "language": "es",
+    "silence": false,
+    "warm": false,
+    "load_ms": 209.21483298297971,
+    "preprocess_ms": 1.0429589310660958,
+    "decode_ms": 235.25175009854138,
+    "total_ms": 445.523208938539,
+    "peak_gpu_bytes": 2561871762,
+    "active_gpu_bytes": 1618307758,
+    "vocabulary_applied": false,
+    "timestamp_granularity": "segment",
+    "wall_ms": 445.53645804990083
+  },
+  "summary": {
+    "fleurs-cmn_hans_cn": {
+      "cases": 10,
+      "errors": 0,
+      "wer": 1.0,
+      "cer": 0.08719346049046321,
+      "substitutions": 10,
+      "deletions": 324,
+      "insertions": 0,
+      "p50_ms": 144.3520204629749,
+      "p95_ms": 206.62562082870858,
+      "aggregate_rtf": 0.01279959022329733,
+      "hallucinated_silence": 0
+    },
+    "fleurs-de_de": {
+      "cases": 10,
+      "errors": 0,
+      "wer": 0.03278688524590164,
+      "cer": 0.004961020552799433,
+      "substitutions": 6,
+      "deletions": 2,
+      "insertions": 0,
+      "p50_ms": 143.29864602768794,
+      "p95_ms": 244.61447511566791,
+      "aggregate_rtf": 0.01045266380540669,
+      "hallucinated_silence": 0
+    },
+    "fleurs-es_419": {
+      "cases": 10,
+      "errors": 0,
+      "wer": 0.01702127659574468,
+      "cer": 0.004284490145672665,
+      "substitutions": 3,
+      "deletions": 1,
+      "insertions": 0,
+      "p50_ms": 130.9020834742114,
+      "p95_ms": 169.48539164150128,
+      "aggregate_rtf": 0.01198850843953603,
+      "hallucinated_silence": 0
+    },
+    "fleurs-hi_in": {
+      "cases": 10,
+      "errors": 0,
+      "wer": 0.29213483146067415,
+      "cer": 0.09650735294117647,
+      "substitutions": 67,
+      "deletions": 0,
+      "insertions": 11,
+      "p50_ms": 247.2009999328293,
+      "p95_ms": 383.68739566067234,
+      "aggregate_rtf": 0.02388662039737464,
+      "hallucinated_silence": 0
+    },
+    "fleurs-ja_jp": {
+      "cases": 10,
+      "errors": 0,
+      "wer": 1.0,
+      "cer": 0.11738148984198646,
+      "substitutions": 10,
+      "deletions": 14,
+      "insertions": 0,
+      "p50_ms": 145.51527053117752,
+      "p95_ms": 176.61419202340764,
+      "aggregate_rtf": 0.012979989467716498,
+      "hallucinated_silence": 0
+    }
+  },
+  "process_peak_rss_bytes": 1876721664,
+  "corpus": {
+    "dataset": "google/fleurs",
+    "revision": "70bb2e84b976b7e960aa89f1c648e09c59f894dd",
+    "license": "CC BY 4.0 \u00b7 Google FLEURS / FLoRes multilingual evaluation corpus",
+    "selection": "First 10 test rows per language. Not selected by model output.",
+    "sources": [
+      {
+        "language": "es_419",
+        "sha256": "f1e8b7f6eecb91d16b79d91bc1838d8b0e5ebc0b37b317e2b58eb8694c64d3c0"
+      },
+      {
+        "language": "de_de",
+        "sha256": "3b40c214cabd603f1ddbf3da0499f7780975d6c56b75240f07a8990dbb7a6c07"
+      },
+      {
+        "language": "hi_in",
+        "sha256": "8a0be26c5584c1478233a6f47fb90275c713f72565327ea1da76c9f1cd5dd38b"
+      },
+      {
+        "language": "ja_jp",
+        "sha256": "e954b67e934b9a31d7a74a070a75225379660d50c8d1aacdb755852c57f23e6b"
+      },
+      {
+        "language": "cmn_hans_cn",
+        "sha256": "87c0aebbe183f3a36ac87b5c3421b6ab57036824744ff695029a3f858e7622fd"
+      }
+    ],
+    "caveats": "Tiny multilingual read-speech slices. Not a representative language ranking. Japanese/Chinese use CER; whitespace WER is not meaningful."
+  },
+  "records": [
+    {
+      "id": "fleurs-es_419-000",
+      "path": "fixtures/audio/fleurs/es_419/000.wav",
+      "reference": "se recomienda enf\u00e1ticamente a los viajeros que se informen sobre cualquier riesgo de clima extremo en el \u00e1rea que visitan dado que ello puede afectar sus planes de viaje",
+      "language": "es",
+      "suite": "fleurs-es_419",
+      "source_id": 2001,
+      "sha256": "518e4998d7fc4cb32bf9cb6c479b4cfe632bc68c6a2db376eeff98b68fea2bd1",
+      "seconds": 12.84,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 12.84,
+      "speech_seconds": 12.68,
+      "text": "Se recomienda enf\u00e1ticamente a los viajeros que se informen sobre cualquier riesgo del clima extremo en el \u00e1rea que visitan, dado que ello puede afectar sus planes de viaje.",
+      "segments": [
+        {
+          "start": 0.16,
+          "end": 6.66,
+          "text": "Se recomienda enf\u00e1ticamente a los viajeros que se informen sobre cualquier riesgo del"
+        },
+        {
+          "start": 6.66,
+          "end": 11.94,
+          "text": "clima extremo en el \u00e1rea que visitan, dado que ello puede afectar sus planes de viaje."
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0015420373529195786,
+      "preprocess_ms": 0.9380839765071869,
+      "decode_ms": 141.16474997717887,
+      "total_ms": 142.1084590256214,
+      "peak_gpu_bytes": 2550475638,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 142.11787504609674
+    },
+    {
+      "id": "fleurs-es_419-001",
+      "path": "fixtures/audio/fleurs/es_419/001.wav",
+      "reference": "el uso adecuado de los blogs \u00abpuede empoderar a los alumnos para que sean m\u00e1s anal\u00edticos y cr\u00edticos a trav\u00e9s de la respuesta activa a los contenidos de internet pueden definir sus posturas en el contexto de los escritos de otros adem\u00e1s de establecer sus perspectivas sobre temas espec\u00edficos\u00bb oravec 2002",
+      "language": "es",
+      "suite": "fleurs-es_419",
+      "source_id": 1852,
+      "sha256": "2c87d0b144fb5cd37b91058c4e7cbb92a2e423216c56f1f4cd7a39189bbd5e63",
+      "seconds": 21.36,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 21.36,
+      "speech_seconds": 21.2,
+      "text": "El uso adecuado de los blogs puede empoderar a los alumnos para que sean m\u00e1s anal\u00edticos y cr\u00edticos a trav\u00e9s de la respuesta activa a los contenidos de Internet. Pueden definir sus posturas en el contexto de los escritos de otros, adem\u00e1s de establecer sus perspectivas sobre temas espec\u00edficos. ORAVEC 2002",
+      "segments": [
+        {
+          "start": 1.1400000000000001,
+          "end": 10.260000000000002,
+          "text": "El uso adecuado de los blogs puede empoderar a los alumnos para que sean m\u00e1s anal\u00edticos y cr\u00edticos a trav\u00e9s de la respuesta activa a los contenidos de Internet."
+        },
+        {
+          "start": 10.96,
+          "end": 18.28,
+          "text": "Pueden definir sus posturas en el contexto de los escritos de otros, adem\u00e1s de establecer sus perspectivas sobre temas espec\u00edficos."
+        },
+        {
+          "start": 18.86,
+          "end": 19.86,
+          "text": "ORAVEC 2002"
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0016670674085617065,
+      "preprocess_ms": 1.3560409424826503,
+      "decode_ms": 188.6504580033943,
+      "total_ms": 190.01104100607336,
+      "peak_gpu_bytes": 2550901622,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 190.01791696064174
+    },
+    {
+      "id": "fleurs-es_419-002",
+      "path": "fixtures/audio/fleurs/es_419/002.wav",
+      "reference": "fue tanta la cantidad de gente que se concentr\u00f3 que no todos pudieron acceder al funeral en la plaza de san pedro",
+      "language": "es",
+      "suite": "fleurs-es_419",
+      "source_id": 1764,
+      "sha256": "24624100418fb70f3947df1912c4b64c6a7ae67a84936c98e3eb9e0162055a6f",
+      "seconds": 9.72,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 9.72,
+      "speech_seconds": 8.88,
+      "text": "Fue tanta la cantidad de gente que se concentr\u00f3 que no todos pudieron acceder al funeral en la plaza de San Pedro.",
+      "segments": [
+        {
+          "start": 0.18,
+          "end": 8.78,
+          "text": "Fue tanta la cantidad de gente que se concentr\u00f3 que no todos pudieron acceder al funeral en la plaza de San Pedro."
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0010828953236341476,
+      "preprocess_ms": 0.6606669630855322,
+      "decode_ms": 117.40125005599111,
+      "total_ms": 118.06600005365908,
+      "peak_gpu_bytes": 2550279030,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 118.07233304716647
+    },
+    {
+      "id": "fleurs-es_419-003",
+      "path": "fixtures/audio/fleurs/es_419/003.wav",
+      "reference": "esto parece tener sentido ya que en la tierra no se percibe su movimiento \u00bfcierto?",
+      "language": "es",
+      "suite": "fleurs-es_419",
+      "source_id": 1770,
+      "sha256": "54f941743dbd5d484a3f4b2b72a5621d4ebb00c0e2c65d8a896bc05adc95a205",
+      "seconds": 8.58,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 8.58,
+      "speech_seconds": 8.24,
+      "text": "Esto parece tener sentido, ya que en la Tierra no se percibe su movimiento, \u00bfcierto?",
+      "segments": [
+        {
+          "start": 0.34,
+          "end": 6.4,
+          "text": "Esto parece tener sentido, ya que en la Tierra no se percibe su movimiento, \u00bfcierto?"
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0010420335456728935,
+      "preprocess_ms": 0.7172499317675829,
+      "decode_ms": 109.64700009208173,
+      "total_ms": 110.36841699387878,
+      "peak_gpu_bytes": 2550246262,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 110.37483299151063
+    },
+    {
+      "id": "fleurs-es_419-004",
+      "path": "fixtures/audio/fleurs/es_419/004.wav",
+      "reference": "carpanedo particip\u00f3 en dos carreras individuales del campeonato aparte de la competencia del mi\u00e9rcoles",
+      "language": "es",
+      "suite": "fleurs-es_419",
+      "source_id": 1799,
+      "sha256": "5bfbd4442ae4495351febcb516663c779438444e562d4a959efd6dd6e454c38c",
+      "seconds": 10.62,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 10.62,
+      "speech_seconds": 10.3,
+      "text": "Carpaneo particip\u00f3 en dos carreras individuales del campeonato aparte de la competencia del mi\u00e9rcoles.",
+      "segments": [
+        {
+          "start": 0.32,
+          "end": 7.98,
+          "text": "Carpaneo particip\u00f3 en dos carreras individuales del campeonato aparte de la competencia del mi\u00e9rcoles."
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0010830117389559746,
+      "preprocess_ms": 0.7041669450700283,
+      "decode_ms": 123.49166709464043,
+      "total_ms": 124.20004198793322,
+      "peak_gpu_bytes": 2550344566,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 124.20629197731614
+    },
+    {
+      "id": "fleurs-es_419-005",
+      "path": "fixtures/audio/fleurs/es_419/005.wav",
+      "reference": "hoy en d\u00eda las personas escriben mensajes en las pantallas de sus computadoras no tienen la necesidad de siquiera aproximarse a un sacapuntas",
+      "language": "es",
+      "suite": "fleurs-es_419",
+      "source_id": 1820,
+      "sha256": "0ad471471e9af79e91856bd07ff1e31594ad703356f6eb67251d867958975a2c",
+      "seconds": 9.78,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 9.78,
+      "speech_seconds": 9.56,
+      "text": "Hoy en d\u00eda las personas escriben mensajes en las pantallas de sus computadoras, no tienen la necesidad de siquiera aproximarse a un sacapuntas.",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 8.82,
+          "text": "Hoy en d\u00eda las personas escriben mensajes en las pantallas de sus computadoras, no tienen la necesidad de siquiera aproximarse a un sacapuntas."
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001374981366097927,
+      "preprocess_ms": 0.6534160347655416,
+      "decode_ms": 128.29079199582338,
+      "total_ms": 128.9483750006184,
+      "peak_gpu_bytes": 2550311798,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 128.9540829602629
+    },
+    {
+      "id": "fleurs-es_419-006",
+      "path": "fixtures/audio/fleurs/es_419/006.wav",
+      "reference": "los luchadores compa\u00f1eros de luna tambi\u00e9n le rindieron homenaje",
+      "language": "es",
+      "suite": "fleurs-es_419",
+      "source_id": 1747,
+      "sha256": "26b7d441771ca7af5679f154631351081ac224cb7ae257dda34d43799854c54b",
+      "seconds": 5.64,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 5.64,
+      "speech_seconds": 4.66,
+      "text": "Los luchadores compa\u00f1eros de Luna tambi\u00e9n le rindieron homenaje.",
+      "segments": [
+        {
+          "start": 0.54,
+          "end": 4.140000000000001,
+          "text": "Los luchadores compa\u00f1eros de Luna tambi\u00e9n le rindieron homenaje."
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.00100000761449337,
+      "preprocess_ms": 0.48762501683086157,
+      "decode_ms": 105.62041599769145,
+      "total_ms": 106.11162497662008,
+      "peak_gpu_bytes": 2550066038,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 106.11791699193418
+    },
+    {
+      "id": "fleurs-es_419-007",
+      "path": "fixtures/audio/fleurs/es_419/007.wav",
+      "reference": "duvall que est\u00e1 casado y tiene dos hijos adultos no caus\u00f3 una buena impresi\u00f3n a miller que fue a quien le relat\u00f3 la historia",
+      "language": "es",
+      "suite": "fleurs-es_419",
+      "source_id": 1816,
+      "sha256": "425b17fb98176ba058dc0345f4a8d54c343c8d51db0daa6b337f8bf9f2d97479",
+      "seconds": 10.26,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 10.26,
+      "speech_seconds": 8.24,
+      "text": "Duval, que est\u00e1 casado y tiene dos hijos adultos, no caus\u00f3 una buena impresi\u00f3n a Miller, que fue a quien le relat\u00f3 la historia.",
+      "segments": [
+        {
+          "start": 0.22,
+          "end": 8.200000000000001,
+          "text": "Duval, que est\u00e1 casado y tiene dos hijos adultos, no caus\u00f3 una buena impresi\u00f3n a Miller, que fue a quien le relat\u00f3 la historia."
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0014579854905605316,
+      "preprocess_ms": 0.6778329843655229,
+      "decode_ms": 132.1623750263825,
+      "total_ms": 132.8443749807775,
+      "peak_gpu_bytes": 2550246262,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 132.8500839881599
+    },
+    {
+      "id": "fleurs-es_419-008",
+      "path": "fixtures/audio/fleurs/es_419/008.wav",
+      "reference": "entre los fen\u00f3menos clim\u00e1ticos regionales y estacionales extremos encontramos los ventarrones las tormentas de nieve hielo o polvo",
+      "language": "es",
+      "suite": "fleurs-es_419",
+      "source_id": 1783,
+      "sha256": "97256089ff27aef9a3ee609ba3bf4e6ba4ca20d060081155b8a4455f298df437",
+      "seconds": 10.68,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 10.68,
+      "speech_seconds": 10.68,
+      "text": "Entre los fen\u00f3menos clim\u00e1ticos regionales y estacionales extremos encontramos los ventarrones, las tormentas de nieve, hielo o polvo.",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 9.0,
+          "text": "Entre los fen\u00f3menos clim\u00e1ticos regionales y estacionales extremos encontramos los ventarrones, las tormentas de nieve, hielo o polvo."
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0013329554349184036,
+      "preprocess_ms": 0.7202079286798835,
+      "decode_ms": 140.08458296302706,
+      "total_ms": 140.81004192121327,
+      "peak_gpu_bytes": 2550377334,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 140.8161249710247
+    },
+    {
+      "id": "fleurs-es_419-009",
+      "path": "fixtures/audio/fleurs/es_419/009.wav",
+      "reference": "se puede definir a una civilizaci\u00f3n como una cultura espec\u00edfica de la que forma parte un extenso grupo de personas que viven y trabajan en conjunto es decir una sociedad",
+      "language": "es",
+      "suite": "fleurs-es_419",
+      "source_id": 1794,
+      "sha256": "920432a55b7e8eb606c8fea177ad4bb61f871e2dd49462e1de231c3d9a8274ef",
+      "seconds": 12.12,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 12.12,
+      "speech_seconds": 11.56,
+      "text": "Se puede definir a una civilizaci\u00f3n como una cultura espec\u00edfica de que forma parte un extenso grupo de personas que viven y trabajan en conjunto, es decir, una sociedad.",
+      "segments": [
+        {
+          "start": 0.56,
+          "end": 11.92,
+          "text": "Se puede definir a una civilizaci\u00f3n como una cultura espec\u00edfica de que forma parte un extenso grupo de personas que viven y trabajan en conjunto, es decir, una sociedad."
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001208973117172718,
+      "preprocess_ms": 0.7603330304846168,
+      "decode_ms": 143.61937495414168,
+      "total_ms": 144.38395795878023,
+      "peak_gpu_bytes": 2550410102,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 144.3900829181075
+    },
+    {
+      "id": "fleurs-de_de-000",
+      "path": "fixtures/audio/fleurs/de_de/000.wav",
+      "reference": "f\u00fcr die besten aussichten auf hongkong sollten sie die insel verlassen und zum gegen\u00fcberliegenden ufer von kowloon fahren",
+      "language": "de",
+      "suite": "fleurs-de_de",
+      "source_id": 2003,
+      "sha256": "7131c007c5c5c7b72c2fae333c9bccf5e2c02a4abb32b740f314e58b1488f149",
+      "seconds": 17.94,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 17.94,
+      "speech_seconds": 9.88,
+      "text": "F\u00fcr die besten Aussichten auf Hongkong sollten sie die Insel verlassen und zum gegen\u00fcberliegenden Ufer von Kowloon fahren.",
+      "segments": [
+        {
+          "start": 4.14,
+          "end": 13.620000000000001,
+          "text": "F\u00fcr die besten Aussichten auf Hongkong sollten sie die Insel verlassen und zum gegen\u00fcberliegenden Ufer von Kowloon fahren."
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0014159595593810081,
+      "preprocess_ms": 0.9925420163199306,
+      "decode_ms": 138.510667020455,
+      "total_ms": 139.5078330533579,
+      "peak_gpu_bytes": 2550328182,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 139.5160829415545
+    },
+    {
+      "id": "fleurs-de_de-001",
+      "path": "fixtures/audio/fleurs/de_de/001.wav",
+      "reference": "er griff auch alles an was ins wasser kam selbst ein gro\u00dfer dinosaurier wie der t rex war ihm nicht gewachsen",
+      "language": "de",
+      "suite": "fleurs-de_de",
+      "source_id": 1738,
+      "sha256": "5ced4640ec223bd9f59601722534acbb2f47087c71167529c513741a86cdae01",
+      "seconds": 11.16,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 11.16,
+      "speech_seconds": 8.86,
+      "text": "Er griff auch alles an, was ins Wasser kam. Selbst ein gro\u00dfer Dinosaurier wie der T-Rex war ihm nicht gewachsen.",
+      "segments": [
+        {
+          "start": 0.14,
+          "end": 8.72,
+          "text": "Er griff auch alles an, was ins Wasser kam. Selbst ein gro\u00dfer Dinosaurier wie der T-Rex war ihm nicht gewachsen."
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0010419171303510666,
+      "preprocess_ms": 0.7403339259326458,
+      "decode_ms": 136.69895892962813,
+      "total_ms": 137.44341698475182,
+      "peak_gpu_bytes": 2550279030,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 137.45025009848177
+    },
+    {
+      "id": "fleurs-de_de-002",
+      "path": "fixtures/audio/fleurs/de_de/002.wav",
+      "reference": "wenn sie den film das verm\u00e4chtnis der tempelritter gesehen haben denken sie vielleicht dass auf die r\u00fcckseite der unabh\u00e4ngigkeitserkl\u00e4rung eine schatzkarte gezeichnet wurde",
+      "language": "de",
+      "suite": "fleurs-de_de",
+      "source_id": 1849,
+      "sha256": "d0859482db2b8461ba8726bce55e00f54760b3aae48aba674e67c893804d8d51",
+      "seconds": 12.42,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 12.42,
+      "speech_seconds": 12.04,
+      "text": "Wenn Sie den Film Das Verm\u00e4chtnis der Tempelritter gesehen haben, denken Sie vielleicht, dass auf der R\u00fcckseite der Unabh\u00e4ngigkeitserkl\u00e4rung eine Schatzkarte gezeichnet wurde.",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 11.78,
+          "text": "Wenn Sie den Film Das Verm\u00e4chtnis der Tempelritter gesehen haben, denken Sie vielleicht, dass auf der R\u00fcckseite der Unabh\u00e4ngigkeitserkl\u00e4rung eine Schatzkarte gezeichnet wurde."
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0011249212548136711,
+      "preprocess_ms": 0.7835830328986049,
+      "decode_ms": 161.03220905642956,
+      "total_ms": 161.82012495119125,
+      "peak_gpu_bytes": 2550442870,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 161.82716703042388
+    },
+    {
+      "id": "fleurs-de_de-003",
+      "path": "fixtures/audio/fleurs/de_de/003.wav",
+      "reference": "es leben noch viele m\u00e4nner und frauen die ihre zeit hier \u00fcberlebt haben und viele weitere mit angeh\u00f6rigen die dort ermordet wurden oder sich zu tode arbeiteten juden und nichtjuden gleicherma\u00dfen",
+      "language": "de",
+      "suite": "fleurs-de_de",
+      "source_id": 1683,
+      "sha256": "bd345ef2d18cd274fb955cf510cb7f223c9ac6bb52c62fc4280eade47f9a56ee",
+      "seconds": 10.68,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 10.68,
+      "speech_seconds": 10.24,
+      "text": "Es leben noch viele M\u00e4nner und Frauen, die ihre Zeit hier \u00fcberlebt haben und viele weitere Mitangeh\u00f6rigen, die dort ermordet wurden oder sich zu Tode arbeiteten, Juden und Nichtjuden gleicherma\u00dfen.",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 10.040000000000001,
+          "text": "Es leben noch viele M\u00e4nner und Frauen, die ihre Zeit hier \u00fcberlebt haben und viele weitere Mitangeh\u00f6rigen, die dort ermordet wurden oder sich zu Tode arbeiteten, Juden und Nichtjuden gleicherma\u00dfen."
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0014159595593810081,
+      "preprocess_ms": 0.7223329739645123,
+      "decode_ms": 162.00670797843486,
+      "total_ms": 162.73395798634738,
+      "peak_gpu_bytes": 2550344566,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 162.7402079757303
+    },
+    {
+      "id": "fleurs-de_de-004",
+      "path": "fixtures/audio/fleurs/de_de/004.wav",
+      "reference": "die h\u00f6hle befindet sich auf der spitze eines der berge n\u00f6rdlich von mekka und ist vom rest der welt v\u00f6llig isoliert",
+      "language": "de",
+      "suite": "fleurs-de_de",
+      "source_id": 1739,
+      "sha256": "8bd38645c6abbb987e601e98b8c7ead49a81d849972fa26e658fe7345fab019f",
+      "seconds": 9.9,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 9.9,
+      "speech_seconds": 8.28,
+      "text": "Die H\u00f6hle befindet sich auf der Spitze eines der Berge n\u00f6rdlich von Mekka und ist vom Rest der Welt v\u00f6llig isoliert.",
+      "segments": [
+        {
+          "start": 0.14,
+          "end": 8.24,
+          "text": "Die H\u00f6hle befindet sich auf der Spitze eines der Berge n\u00f6rdlich von Mekka und ist vom Rest der Welt v\u00f6llig isoliert."
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0013329554349184036,
+      "preprocess_ms": 0.7064159726724029,
+      "decode_ms": 142.44412502739578,
+      "total_ms": 143.1543749058619,
+      "peak_gpu_bytes": 2550246262,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 143.16045900341123
+    },
+    {
+      "id": "fleurs-de_de-005",
+      "path": "fixtures/audio/fleurs/de_de/005.wav",
+      "reference": "dieses sediment war n\u00f6tig um sandb\u00e4nke und str\u00e4nde zu bilden die als lebensr\u00e4ume f\u00fcr wildtiere dienten",
+      "language": "de",
+      "suite": "fleurs-de_de",
+      "source_id": 1796,
+      "sha256": "88988cc0b268d4a2fdef8163fcbaec565a3e7eccf2a81bef8b3afb03c2ba0eba",
+      "seconds": 8.4,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 8.4,
+      "speech_seconds": 7.58,
+      "text": "Dieses Sediment war n\u00f6tig, um Sandb\u00e4nke und Str\u00e4nde zu bilden, die als Lebensr\u00e4ume f\u00fcr Wildtiere dienten.",
+      "segments": [
+        {
+          "start": 0.16,
+          "end": 7.74,
+          "text": "Dieses Sediment war n\u00f6tig, um Sandb\u00e4nke und Str\u00e4nde zu bilden, die als Lebensr\u00e4ume f\u00fcr Wildtiere dienten."
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001291045919060707,
+      "preprocess_ms": 0.6137089803814888,
+      "decode_ms": 136.45116705447435,
+      "total_ms": 137.0696669910103,
+      "peak_gpu_bytes": 2550213494,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 137.0757920667529
+    },
+    {
+      "id": "fleurs-de_de-006",
+      "path": "fixtures/audio/fleurs/de_de/006.wav",
+      "reference": "blogs k\u00f6nnen auch dazu beitragen die schreibfertigkeiten von sch\u00fclern zu verbessern zwar haben sch\u00fcler am anfang ihrer blogerfahrung oft eine schlampige grammatik und rechtschreibung aber das \u00e4ndert sich normalerweise wenn es ein publikum gibt",
+      "language": "de",
+      "suite": "fleurs-de_de",
+      "source_id": 1990,
+      "sha256": "68799b17c059180cbc70ca8e3b67034db9c99439881c5f34f67b3ba681868e61",
+      "seconds": 12.96,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 12.96,
+      "speech_seconds": 12.84,
+      "text": "Blogs k\u00f6nnen auch dazu beitragen, die Schreibfertigkeiten von Sch\u00fclern zu verbessern. Zwar haben Sch\u00fcler am Anfang ihrer Blog-Erfahrung oft eine schlampige Grammatik- und Rechtschreibung, aber das \u00e4ndert sich normalerweise, wenn es ein Publikum gibt.",
+      "segments": [
+        {
+          "start": 0.58,
+          "end": 4.76,
+          "text": "Blogs k\u00f6nnen auch dazu beitragen, die Schreibfertigkeiten von Sch\u00fclern zu verbessern."
+        },
+        {
+          "start": 5.32,
+          "end": 9.46,
+          "text": "Zwar haben Sch\u00fcler am Anfang ihrer Blog-Erfahrung oft eine schlampige Grammatik- und Rechtschreibung,"
+        },
+        {
+          "start": 9.82,
+          "end": 12.4,
+          "text": "aber das \u00e4ndert sich normalerweise, wenn es ein Publikum gibt."
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0012080417945981026,
+      "preprocess_ms": 0.8003340335562825,
+      "decode_ms": 191.3714159745723,
+      "total_ms": 192.17616703826934,
+      "peak_gpu_bytes": 2550475638,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 192.18416698276997
+    },
+    {
+      "id": "fleurs-de_de-007",
+      "path": "fixtures/audio/fleurs/de_de/007.wav",
+      "reference": "nachdem der damm 1963 erbaut worden war kamen die jahreszeitlichen \u00fcberflutungen die sedimente im fluss verteilen zum stillstand",
+      "language": "de",
+      "suite": "fleurs-de_de",
+      "source_id": 1721,
+      "sha256": "3c20827a16e7c24fecbb22cf6e4518b9a14f1f1f3cad0339d15e3bd9047a5544",
+      "seconds": 19.68,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 19.68,
+      "speech_seconds": 12.88,
+      "text": "Nachdem der Darm 1963 erbaut worden war, kamen die jahreszeitlichen \u00dcberflutungen, die Sedimente im Fluss verteilen, zum Stillstand.",
+      "segments": [
+        {
+          "start": 3.58,
+          "end": 16.3,
+          "text": "Nachdem der Darm 1963 erbaut worden war, kamen die jahreszeitlichen \u00dcberflutungen, die Sedimente im Fluss verteilen, zum Stillstand."
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0011670636013150215,
+      "preprocess_ms": 1.0495840106159449,
+      "decode_ms": 142.37483404576778,
+      "total_ms": 143.42929201666266,
+      "peak_gpu_bytes": 2550475638,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 143.43683305196464
+    },
+    {
+      "id": "fleurs-de_de-008",
+      "path": "fixtures/audio/fleurs/de_de/008.wav",
+      "reference": "insbesondere wird behauptet dass man erkennen kann ob jemand l\u00fcgt indem man minimale ver\u00e4nderungen des gesichtsausdrucks richtig deutet.x",
+      "language": "de",
+      "suite": "fleurs-de_de",
+      "source_id": 1884,
+      "sha256": "7b72181c650b318e1a0894c49a7cb2a2bcbef46aaa65274b1481e9b74e82b448",
+      "seconds": 11.04,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 11.04,
+      "speech_seconds": 9.5,
+      "text": "Insbesondere wird behauptet, dass man erkennen kann, ob jemand l\u00fcgt, indem man minimale Ver\u00e4nderungen des Gesichtsausdrucks richtig deutet.",
+      "segments": [
+        {
+          "start": 0.14,
+          "end": 9.64,
+          "text": "Insbesondere wird behauptet, dass man erkennen kann, ob jemand l\u00fcgt, indem man minimale Ver\u00e4nderungen des Gesichtsausdrucks richtig deutet."
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001125037670135498,
+      "preprocess_ms": 0.7178749656304717,
+      "decode_ms": 141.2907080957666,
+      "total_ms": 142.0126250013709,
+      "peak_gpu_bytes": 2550427042,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 142.0187500771135
+    },
+    {
+      "id": "fleurs-de_de-009",
+      "path": "fixtures/audio/fleurs/de_de/009.wav",
+      "reference": "die angemessene nutzung von blogs kann sch\u00fclerinnen und sch\u00fcler bef\u00e4higen analytischer und kritischer zu werden; durch die aktive reaktion auf internetmaterialien k\u00f6nnen die sch\u00fclerinnen und sch\u00fcler ihre positionen im kontext der texte anderer definieren und ihre eigenen perspektiven zu bestimmten themen darlegen  oravec 2002",
+      "language": "de",
+      "suite": "fleurs-de_de",
+      "source_id": 1852,
+      "sha256": "0b1cf28352386d0918258af21bfc0e4853b0c6a7357637a239fe2a221677325c",
+      "seconds": 43.38,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 43.38,
+      "speech_seconds": 34.88,
+      "text": "Die angemessene Nutzung von Blogs kann Sch\u00fclerinnen und Sch\u00fcler bef\u00e4higen, analytischer und kritischer zu werden. Durch die aktive Reaktion auf Internetmaterialien k\u00f6nnen die Sch\u00fclerinnen und Sch\u00fcler ihre Positionen im Kontext der Texte anderer definieren und ihre eigenen Perspektiven zu bestimmten Themen darlegen. Orawetz 2002",
+      "segments": [
+        {
+          "start": 3.82,
+          "end": 13.74,
+          "text": "Die angemessene Nutzung von Blogs kann Sch\u00fclerinnen und Sch\u00fcler bef\u00e4higen, analytischer und kritischer zu werden."
+        },
+        {
+          "start": 13.74,
+          "end": 33.9,
+          "text": "Durch die aktive Reaktion auf Internetmaterialien k\u00f6nnen die Sch\u00fclerinnen und Sch\u00fcler ihre Positionen im Kontext der Texte anderer definieren und ihre eigenen Perspektiven zu bestimmten Themen darlegen."
+        },
+        {
+          "start": 35.12,
+          "end": 38.22,
+          "text": "Orawetz 2002"
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001374981366097927,
+      "preprocess_ms": 2.7347919531166553,
+      "decode_ms": 284.76266690995544,
+      "total_ms": 287.50350000336766,
+      "peak_gpu_bytes": 2560290206,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 287.51199995167553
+    },
+    {
+      "id": "fleurs-hi_in-000",
+      "path": "fixtures/audio/fleurs/hi_in/000.wav",
+      "reference": "\u0915\u0941\u091b \u0905\u0923\u0941\u0913\u0902 \u092e\u0947\u0902 \u0905\u0938\u094d\u0925\u093f\u0930 \u0915\u0947\u0902\u0926\u094d\u0930\u0915 \u0939\u094b\u0924\u093e \u0939\u0948 \u091c\u093f\u0938\u0915\u093e \u092e\u0924\u0932\u092c \u092f\u0939 \u0939\u0948 \u0915\u093f \u0909\u0928\u092e\u0947\u0902 \u0925\u094b\u0921\u093c\u0947 \u092f\u093e \u092c\u093f\u0928\u093e \u0915\u093f\u0938\u0940 \u091d\u091f\u0915\u0947 \u0938\u0947 \u091f\u0942\u091f\u0928\u0947 \u0915\u0940 \u092a\u094d\u0930\u0935\u0943\u0924\u094d\u0924\u093f \u0939\u094b\u0924\u0940 \u0939\u0948",
+      "language": "hi",
+      "suite": "fleurs-hi_in",
+      "source_id": 1766,
+      "sha256": "38cf0e883d64ae257288bce89cf41a9c4a693b218c3381d5bd462d90bf7b7ed6",
+      "seconds": 9.12,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 9.12,
+      "speech_seconds": 8.42,
+      "text": "\u0915\u0941\u091b \u0905\u0923\u094b\u0902 \u092e\u0947\u0902 \u0906\u0938\u094d\u0924\u0930 \u0915\u0947\u0902\u0926\u094d\u0930\u0915 \u0939\u094b\u0924\u093e \u0939\u0948 \u091c\u093f\u0938\u0915\u093e \u092e\u0924\u0932\u092c \u092f\u0939\u093e\u0902 \u0915\u093f \u0909\u0928 \u092e\u0947\u0902 \u0925\u094b\u0921\u093c\u0947 \u092f\u093e \u092c\u093f\u0928\u093e \u0915\u093f\u0938\u0940 \u091c\u091f\u0915\u0947 \u0938\u0947 \u0924\u0942\u091f\u0928\u0947 \u0915\u0940 \u092a\u094d\u0930\u0935\u0924\u094d\u0924\u0940 \u0939\u094b\u0924\u0940 \u0939\u0948",
+      "segments": [
+        {
+          "start": 0.56,
+          "end": 8.26,
+          "text": "\u0915\u0941\u091b \u0905\u0923\u094b\u0902 \u092e\u0947\u0902 \u0906\u0938\u094d\u0924\u0930 \u0915\u0947\u0902\u0926\u094d\u0930\u0915 \u0939\u094b\u0924\u093e \u0939\u0948 \u091c\u093f\u0938\u0915\u093e \u092e\u0924\u0932\u092c \u092f\u0939\u093e\u0902 \u0915\u093f \u0909\u0928 \u092e\u0947\u0902 \u0925\u094b\u0921\u093c\u0947 \u092f\u093e \u092c\u093f\u0928\u093e \u0915\u093f\u0938\u0940 \u091c\u091f\u0915\u0947 \u0938\u0947 \u0924\u0942\u091f\u0928\u0947 \u0915\u0940 \u092a\u094d\u0930\u0935\u0924\u094d\u0924\u0940 \u0939\u094b\u0924\u0940 \u0939\u0948"
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001249951310455799,
+      "preprocess_ms": 0.7445421069860458,
+      "decode_ms": 249.5829169638455,
+      "total_ms": 250.3328750608489,
+      "peak_gpu_bytes": 2550262646,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 250.34220796078444
+    },
+    {
+      "id": "fleurs-hi_in-001",
+      "path": "fixtures/audio/fleurs/hi_in/001.wav",
+      "reference": "\u0917\u094d\u0930\u0940\u0928\u0932\u0948\u0902\u0921 \u0915\u094b \u092c\u0939\u0941\u0924 \u0915\u092e \u091c\u0917\u0939 \u092c\u0938\u093e\u092f\u093e \u0917\u092f\u093e \u0925\u093e \u0928\u0949\u0930\u094d\u0938 \u0938\u0917\u093e\u0938 \u092e\u0947\u0902 \u0935\u0947 \u0915\u0939\u0924\u0947 \u0939\u0948\u0902 \u0915\u093f \u090f\u0930\u093f\u0915 \u0930\u0947\u0921 \u0939\u0924\u094d\u092f\u093e \u0915\u0947 \u0932\u093f\u090f \u0906\u0907\u0938\u0932\u0948\u0902\u0921 \u0938\u0947 \u0928\u093f\u0930\u094d\u0935\u093e\u0938\u093f\u0924 \u0915\u093f\u092f\u093e \u0917\u092f\u093e \u0925\u093e \u0914\u0930 \u0906\u0917\u0947 \u092a\u0936\u094d\u091a\u093f\u092e \u0915\u0940 \u092f\u093e\u0924\u094d\u0930\u093e \u0915\u0930\u0924\u0947 \u0938\u092e\u092f \u0917\u094d\u0930\u0940\u0928\u0932\u0948\u0902\u0921 \u092e\u093f\u0932\u093e \u091c\u093f\u0938\u0947 \u0917\u094d\u0930\u0940\u0928\u0932\u0948\u0902\u0921 \u0928\u093e\u092e \u0926\u093f\u092f\u093e \u0917\u092f\u093e",
+      "language": "hi",
+      "suite": "fleurs-hi_in",
+      "source_id": 1784,
+      "sha256": "39f91e5112c883518169024a6853921d2f4bea402f1e6a3bd3c05d99f9a5fae9",
+      "seconds": 13.8,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 13.8,
+      "speech_seconds": 12.5,
+      "text": "\u0917\u094d\u0930\u0940\u0928 \u0932\u0947\u0902\u0921 \u0915\u094b \u092c\u0939\u0941\u0924 \u0915\u092e \u091c\u0917\u0935 \u092c\u0938\u093e\u092f\u093e \u0917\u092f\u093e \u0925\u093e \u0928\u094c\u0930\u094d\u0938 \u0938\u0917\u093e\u0938 \u092e\u0947\u0902 \u0935\u0947 \u0915\u0939\u0924\u0947 \u0939\u0948\u0902 \u0915\u093f \u090f\u0930\u093f\u0915 \u0930\u0947\u0921 \u0939\u0924\u094d\u092f\u093e \u0915\u0947 \u0932\u093f\u090f \u0906\u0907\u0938\u0932\u0947\u0902\u0921 \u0938\u0947 \u0928\u093f\u0930\u094d\u0935\u093e\u0938\u093f\u0924 \u0915\u093f\u092f\u093e \u0917\u092f\u093e \u0925\u093e \u0914\u0930 \u0906\u0917\u0947 \u092a\u0936\u094d\u091a\u094d\u091a\u092e \u0915\u0940 \u092f\u093e\u0924\u094d\u0930\u093e \u0915\u0930\u0924\u0947 \u0938\u092e\u092f \u0917\u094d\u0930\u0940\u0928 \u0932\u0947\u0902\u0921 \u092e\u093f\u0932\u093e \u091c\u093f\u0938\u0947 \u0917\u094d\u0930\u0940\u0928 \u0932\u0947\u0902\u0921 \u0928\u093e\u092e \u0926\u093f\u092f\u093e \u0917\u092f\u093e",
+      "segments": [
+        {
+          "start": 0.66,
+          "end": 12.92,
+          "text": "\u0917\u094d\u0930\u0940\u0928 \u0932\u0947\u0902\u0921 \u0915\u094b \u092c\u0939\u0941\u0924 \u0915\u092e \u091c\u0917\u0935 \u092c\u0938\u093e\u092f\u093e \u0917\u092f\u093e \u0925\u093e \u0928\u094c\u0930\u094d\u0938 \u0938\u0917\u093e\u0938 \u092e\u0947\u0902 \u0935\u0947 \u0915\u0939\u0924\u0947 \u0939\u0948\u0902 \u0915\u093f \u090f\u0930\u093f\u0915 \u0930\u0947\u0921 \u0939\u0924\u094d\u092f\u093e \u0915\u0947 \u0932\u093f\u090f \u0906\u0907\u0938\u0932\u0947\u0902\u0921 \u0938\u0947 \u0928\u093f\u0930\u094d\u0935\u093e\u0938\u093f\u0924 \u0915\u093f\u092f\u093e \u0917\u092f\u093e \u0925\u093e \u0914\u0930 \u0906\u0917\u0947 \u092a\u0936\u094d\u091a\u094d\u091a\u092e \u0915\u0940 \u092f\u093e\u0924\u094d\u0930\u093e \u0915\u0930\u0924\u0947 \u0938\u092e\u092f \u0917\u094d\u0930\u0940\u0928 \u0932\u0947\u0902\u0921 \u092e\u093f\u0932\u093e \u091c\u093f\u0938\u0947 \u0917\u094d\u0930\u0940\u0928 \u0932\u0947\u0902\u0921 \u0928\u093e\u092e \u0926\u093f\u092f\u093e \u0917\u092f\u093e"
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001500011421740055,
+      "preprocess_ms": 0.8457909571006894,
+      "decode_ms": 380.7830420555547,
+      "total_ms": 381.6328749526292,
+      "peak_gpu_bytes": 2557668770,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 381.64024997968227
+    },
+    {
+      "id": "fleurs-hi_in-002",
+      "path": "fixtures/audio/fleurs/hi_in/002.wav",
+      "reference": "\u0910\u0938\u0940 \u0915\u094b\u0908 \u0935\u0948\u0936\u094d\u0935\u093f\u0915 \u092a\u0930\u093f\u092d\u093e\u0937\u093e \u0928\u0939\u0940\u0902 \u0939\u0948 \u091c\u093f\u0938\u0915\u0947 \u0932\u093f\u090f \u0928\u093f\u0930\u094d\u092e\u093f\u0924 \u0938\u093e\u092e\u093e\u0928 \u090f\u0902\u091f\u0940\u0915 \u0939\u094b\u0924\u0947 \u0939\u0948\u0902 \u0915\u0941\u091b \u0915\u0930 \u090f\u091c\u0947\u0902\u0938\u093f\u092f\u093e\u0902 100 \u0938\u093e\u0932 \u0938\u0947 \u092a\u0941\u0930\u093e\u0928\u0947 \u0938\u093e\u092e\u093e\u0928 \u0915\u094b \u090f\u0902\u091f\u0940\u0915 \u0915\u0947 \u0924\u094c\u0930 \u092a\u0930 \u092a\u0930\u093f\u092d\u093e\u0937\u093f\u0924 \u0915\u0930\u0924\u0940 \u0939\u0948\u0902",
+      "language": "hi",
+      "suite": "fleurs-hi_in",
+      "source_id": 1718,
+      "sha256": "3423fa5ade955d770be244a88158ae875d0b30d84b5fda63a682aa2042ccccf3",
+      "seconds": 15.0,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 15.0,
+      "speech_seconds": 15.0,
+      "text": "\u0906\u0908\u0938\u0940 \u0915\u094b\u0908 \u0935\u0948\u0938\u094d\u092a\u093f\u0915 \u092a\u0930\u093f\u0935\u093e\u0936\u093e \u0928\u0939\u0940\u0902 \u0939\u0948, \u091c\u093f\u0938\u0915\u0947 \u0932\u093f\u090f \u0928\u093f\u0930\u094d\u092e\u093f\u0924 \u0938\u092e\u093e\u0928 \u090f\u0902\u091f\u093f\u0915 \u0939\u094b\u0924\u0947 \u0939\u0948\u0902, \u0915\u0941\u091b \u0915\u0930 \u090f\u091c\u0947\u0902\u0936\u093f\u092f\u093e \u0936\u0935 \u0938\u093e\u0932 \u0938\u0947 \u092a\u0941\u0930\u093e\u0928\u0947 \u0938\u092e\u093e\u0928 \u0915\u094b \u090f\u0902\u091f\u093f\u0915 \u0915\u0947 \u0924\u094c\u0930 \u092a\u0930 \u092a\u0930\u093f\u0935\u093e\u0936\u093f\u0924 \u0915\u0930\u0924\u0940 \u0939\u0948",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 14.14,
+          "text": "\u0906\u0908\u0938\u0940 \u0915\u094b\u0908 \u0935\u0948\u0938\u094d\u092a\u093f\u0915 \u092a\u0930\u093f\u0935\u093e\u0936\u093e \u0928\u0939\u0940\u0902 \u0939\u0948, \u091c\u093f\u0938\u0915\u0947 \u0932\u093f\u090f \u0928\u093f\u0930\u094d\u092e\u093f\u0924 \u0938\u092e\u093e\u0928 \u090f\u0902\u091f\u093f\u0915 \u0939\u094b\u0924\u0947 \u0939\u0948\u0902, \u0915\u0941\u091b \u0915\u0930 \u090f\u091c\u0947\u0902\u0936\u093f\u092f\u093e \u0936\u0935 \u0938\u093e\u0932 \u0938\u0947 \u092a\u0941\u0930\u093e\u0928\u0947 \u0938\u092e\u093e\u0928 \u0915\u094b \u090f\u0902\u091f\u093f\u0915 \u0915\u0947 \u0924\u094c\u0930 \u092a\u0930 \u092a\u0930\u093f\u0935\u093e\u0936\u093f\u0924 \u0915\u0930\u0924\u0940 \u0939\u0948"
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001250067725777626,
+      "preprocess_ms": 0.9498330764472485,
+      "decode_ms": 284.80641602072865,
+      "total_ms": 285.76695802621543,
+      "peak_gpu_bytes": 2550590326,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 285.7748749665916
+    },
+    {
+      "id": "fleurs-hi_in-003",
+      "path": "fixtures/audio/fleurs/hi_in/003.wav",
+      "reference": "\u091f\u0947\u0932\u0940\u0935\u093f\u091c\u0928 \u0930\u093f\u092a\u094b\u0930\u094d\u091f\u094b\u0902 \u092e\u0947\u0902 \u092a\u094d\u0932\u093e\u0902\u091f \u0938\u0947 \u0928\u093f\u0915\u0932\u0928\u0947 \u0935\u093e\u0932\u093e \u0938\u092b\u0947\u0926 \u0927\u0941\u0906\u0902 \u0926\u093f\u0916\u093e\u092f\u093e \u0917\u092f\u093e \u0939\u0948",
+      "language": "hi",
+      "suite": "fleurs-hi_in",
+      "source_id": 1778,
+      "sha256": "82c6f2f156f1e2a2bfbc2c88e228c102e304e92ba228ef7f7171ecceb359af01",
+      "seconds": 5.1,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 5.1,
+      "speech_seconds": 4.58,
+      "text": "\u091f\u0947\u0932\u0947\u0935\u093f\u091c\u0928 \u0930\u093f\u092a\u094b\u0930\u094d\u091f\u094b\u0902 \u092e\u0947\u0902 \u092a\u094d\u0932\u093e\u0902\u091f \u0938\u0947 \u0928\u093f\u0915\u0932\u0928\u0947 \u0935\u093e\u0932\u093e \u0938\u092b\u0947\u0926 \u0927\u0941\u0906 \u0926\u093f\u0916\u093e\u092f\u093e \u0917\u092f\u093e \u0939\u0948\u0964",
+      "segments": [
+        {
+          "start": 0.22,
+          "end": 4.8,
+          "text": "\u091f\u0947\u0932\u0947\u0935\u093f\u091c\u0928 \u0930\u093f\u092a\u094b\u0930\u094d\u091f\u094b\u0902 \u092e\u0947\u0902 \u092a\u094d\u0932\u093e\u0902\u091f \u0938\u0947 \u0928\u093f\u0915\u0932\u0928\u0947 \u0935\u093e\u0932\u093e \u0938\u092b\u0947\u0926 \u0927\u0941\u0906 \u0926\u093f\u0916\u093e\u092f\u093e \u0917\u092f\u093e \u0939\u0948\u0964"
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.00100000761449337,
+      "preprocess_ms": 0.48816693015396595,
+      "decode_ms": 182.31491604819894,
+      "total_ms": 182.8072089701891,
+      "peak_gpu_bytes": 2550066038,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 182.820999994874
+    },
+    {
+      "id": "fleurs-hi_in-004",
+      "path": "fixtures/audio/fleurs/hi_in/004.wav",
+      "reference": "\u0907\u0902\u091f\u0930\u0928\u0947\u091f \u092a\u0930 \u092f\u0939 \u0916\u094b\u091c \u0936\u0924\u094d\u0930\u0941\u0924\u093e\u092a\u0942\u0930\u094d\u0923 \u092a\u0930\u094d\u092f\u093e\u0935\u0930\u0923 \u092a\u093e\u0920\u094d\u092f\u0915\u094d\u0930\u092e \u0915\u0947 \u0932\u093f\u090f \u0905\u0915\u094d\u0938\u0930 \u0906\u092a\u0915\u094b \u090f\u0915 \u0938\u094d\u0925\u093e\u0928\u0940\u092f \u0915\u0902\u092a\u0928\u0940 \u0915\u093e \u092a\u0924\u093e \u092a\u094d\u0930\u0926\u093e\u0928 \u0915\u0930\u0947\u0917\u0940",
+      "language": "hi",
+      "suite": "fleurs-hi_in",
+      "source_id": 1828,
+      "sha256": "4641aae648169bbdd1be72e8c940a2773390a3753d6aac04febb9ff05afd42a4",
+      "seconds": 13.2,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 13.2,
+      "speech_seconds": 13.2,
+      "text": "\u0907\u0902\u091f\u0930\u0928\u0947\u091f \u092a\u0930 \u092f\u0947 \u0916\u094b\u091c \u0938\u0924\u094d\u0930\u0941\u0924\u093e\u092a\u0941\u0930\u094d\u0923 \u092a\u0930\u093f\u092f\u093e\u0935\u0930\u0902\u0917 \u092a\u093e\u0920\u093f\u0915\u0930\u092e \u0915\u0947 \u0932\u093f\u090f \u0905\u0915\u094d\u0938\u0930 \u0906\u092a\u0915\u094b \u090f\u0915 \u0907\u0938\u094d\u0925\u093e\u0928\u0947 \u0915\u092e\u092a\u0928\u0940 \u0915\u093e \u092a\u0924\u093e \u092a\u094d\u0930\u0926\u093e\u0928 \u0915\u0930\u0947\u0917\u0940",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 11.540000000000001,
+          "text": "\u0907\u0902\u091f\u0930\u0928\u0947\u091f \u092a\u0930 \u092f\u0947 \u0916\u094b\u091c \u0938\u0924\u094d\u0930\u0941\u0924\u093e\u092a\u0941\u0930\u094d\u0923 \u092a\u0930\u093f\u092f\u093e\u0935\u0930\u0902\u0917 \u092a\u093e\u0920\u093f\u0915\u0930\u092e \u0915\u0947 \u0932\u093f\u090f \u0905\u0915\u094d\u0938\u0930 \u0906\u092a\u0915\u094b \u090f\u0915 \u0907\u0938\u094d\u0925\u093e\u0928\u0947 \u0915\u092e\u092a\u0928\u0940 \u0915\u093e \u092a\u0924\u093e \u092a\u094d\u0930\u0926\u093e\u0928 \u0915\u0930\u0947\u0917\u0940"
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001374981366097927,
+      "preprocess_ms": 0.8427089778706431,
+      "decode_ms": 234.39908400177956,
+      "total_ms": 235.24666693992913,
+      "peak_gpu_bytes": 2550508406,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 235.25479203090072
+    },
+    {
+      "id": "fleurs-hi_in-005",
+      "path": "fixtures/audio/fleurs/hi_in/005.wav",
+      "reference": "\u0905\u092a\u0928\u0940 \u0938\u0930\u0915\u093e\u0930 \u0915\u0947 \u0905\u0932\u093e\u0935\u093e \u0906\u092a \u0905\u0928\u094d\u092f \u0926\u0947\u0936\u094b\u0902 \u0915\u0940 \u0938\u0930\u0915\u093e\u0930\u094b\u0902 \u0915\u0940 \u0938\u0932\u093e\u0939 \u0932\u0947 \u0938\u0915\u0924\u0947 \u0939\u0948\u0902 \u0939\u093e\u0932\u093e\u0902\u0915\u093f \u0909\u0928\u0915\u0940 \u0938\u0932\u093e\u0939 \u0909\u0928\u0915\u0947 \u0928\u093e\u0917\u0930\u093f\u0915\u094b\u0902 \u0915\u094b \u0927\u094d\u092f\u093e\u0928 \u092e\u0947\u0902 \u0930\u0916\u0915\u0930 \u0926\u0940 \u091c\u093e\u0924\u0940 \u0939\u0948\u0902",
+      "language": "hi",
+      "suite": "fleurs-hi_in",
+      "source_id": 1666,
+      "sha256": "3a0e7c20df4f601e65045bd80b376fb4190ac70dc43dcb8d8cd1b8e2a9d3d3b1",
+      "seconds": 10.62,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 10.62,
+      "speech_seconds": 10.62,
+      "text": "\u0905\u092a\u0928\u0940 \u0938\u0930\u0915\u093e\u0930 \u0915\u0947 \u0905\u0932\u093e\u0935\u093e \u0906\u092a \u0905\u0928\u094d\u092f \u0926\u0947\u0936\u094b\u0902 \u0915\u0940 \u0938\u0930\u0915\u093e\u0930\u094b\u0902 \u0915\u0940 \u0938\u0932\u093e \u0932\u0947 \u0938\u0915\u0924\u0947 \u0939\u0948\u0902, \u0939\u093e\u0932\u093e\u0915\u093f \u0909\u0928\u0915\u0940 \u0938\u0932\u093e \u0909\u0928\u0915\u0947 \u0928\u093e\u0917\u0930\u093f\u0915\u094b\u0902 \u0915\u094b \u0927\u094d\u092f\u093e\u0928 \u092e\u0947\u0902 \u0930\u0916\u0915\u0930 \u0926\u0940 \u091c\u093e\u0924\u0940 \u0939\u0948\u0964",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 10.0,
+          "text": "\u0905\u092a\u0928\u0940 \u0938\u0930\u0915\u093e\u0930 \u0915\u0947 \u0905\u0932\u093e\u0935\u093e \u0906\u092a \u0905\u0928\u094d\u092f \u0926\u0947\u0936\u094b\u0902 \u0915\u0940 \u0938\u0930\u0915\u093e\u0930\u094b\u0902 \u0915\u0940 \u0938\u0932\u093e \u0932\u0947 \u0938\u0915\u0924\u0947 \u0939\u0948\u0902, \u0939\u093e\u0932\u093e\u0915\u093f \u0909\u0928\u0915\u0940 \u0938\u0932\u093e \u0909\u0928\u0915\u0947 \u0928\u093e\u0917\u0930\u093f\u0915\u094b\u0902 \u0915\u094b \u0927\u094d\u092f\u093e\u0928 \u092e\u0947\u0902 \u0930\u0916\u0915\u0930 \u0926\u0940 \u091c\u093e\u0924\u0940 \u0939\u0948\u0964"
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0013329554349184036,
+      "preprocess_ms": 0.7304160390049219,
+      "decode_ms": 243.31737507600337,
+      "total_ms": 244.05254097655416,
+      "peak_gpu_bytes": 2552393122,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 244.05979190487415
+    },
+    {
+      "id": "fleurs-hi_in-006",
+      "path": "fixtures/audio/fleurs/hi_in/006.wav",
+      "reference": "\u092a\u094d\u0930\u093e\u091a\u0940\u0928\u0915\u093e\u0932 \u0938\u0947 \u0939\u0940 \u0932\u094b\u0917 \u0938\u094b\u0928\u0947 \u091a\u093e\u0902\u0926\u0940 \u0914\u0930 \u0924\u093e\u0902\u092c\u0947 \u091c\u0948\u0938\u0947 \u0930\u093e\u0938\u093e\u092f\u0928\u093f\u0915 \u0924\u0924\u094d\u0935\u094b\u0902 \u0915\u0947 \u092c\u093e\u0930\u0947 \u092e\u0947\u0902 \u0939\u0940 \u091c\u093e\u0928\u0915\u093e\u0930\u0940 \u0930\u0916\u0924\u0947 \u0939\u0948\u0902 \u0915\u094d\u092f\u094b\u0902\u0915\u093f \u0907\u0928\u094d\u0939\u0947\u0902 \u092a\u094d\u0930\u0915\u0943\u0924\u093f \u092e\u0947\u0902 \u092e\u0942\u0932 \u0938\u094d\u0935\u0930\u0942\u092a \u092e\u0947\u0902 \u0922\u0942\u0902\u0922\u093e \u091c\u093e \u0938\u0915\u0924\u093e \u0939\u0948 \u0914\u0930 \u0907\u0928\u094d\u0939\u0947\u0902 \u092a\u094d\u0930\u093e\u0925\u092e\u093f\u0915 \u0909\u092a\u0915\u0930\u0923\u094b\u0902 \u0915\u0947 \u091c\u093c\u0930\u093f\u090f \u0922\u0942\u0902\u0922\u0928\u093e \u0905\u092a\u0947\u0915\u094d\u0937\u093e\u0915\u0943\u0924 \u0906\u0938\u093e\u0928 \u0939\u0948",
+      "language": "hi",
+      "suite": "fleurs-hi_in",
+      "source_id": 1836,
+      "sha256": "16222cd2193f43b92242a375ab66c7ace5c15ff77d780a02d5b3f2326f5da5e5",
+      "seconds": 17.1,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 17.1,
+      "speech_seconds": 16.44,
+      "text": "\u092a\u094d\u0930\u093e\u091a\u0940\u0928 \u0915\u093e\u0932 \u0938\u0947 \u0939\u0940 \u0932\u094b\u0917 \u0938\u094b\u0928\u0947 \u091a\u093e\u0926\u0940 \u0914\u0930 \u0924\u093e\u092e\u092c\u0947 \u091c\u0948\u0938\u0947 \u0930\u093e\u0938\u093e\u0907\u0928 \u090f\u0915 \u0924\u0924\u094d\u0935\u094b\u0902 \u0915\u0947 \u092c\u093e\u0930\u0947 \u092e\u0947\u0902 \u0939\u0940 \u091c\u093e\u0928\u0915\u093e\u0930\u0940 \u0930\u0916\u0924\u0947 \u0939\u0948\u0902 \u0915\u094d\u092f\u094b\u0902\u0915\u093f \u0907\u0928\u094d\u0939\u0947\u0902 \u092a\u094d\u0930\u0915\u0943\u0924\u093f \u092e\u0947\u0902 \u092e\u0942\u0932 \u0938\u094d\u0935\u0930\u0940 \u092e\u0947\u0902 \u0927\u0942\u0928\u093e \u091a\u093e \u0938\u0915\u0924\u093e \u0939\u0948 \u0914\u0930 \u0907\u0928\u094d\u0939\u0947\u0902 \u092a\u094d\u0930\u093e\u0924\u094d\u092e\u093f\u0915 \u0909\u092a\u0915\u0930\u0923\u094b\u0902 \u0915\u0947 \u091c\u0930\u094d\u0926\u093f\u092f\u0947 \u0927\u0942\u0928\u093e \u0905\u092a\u0947\u0915\u094d\u0937\u093e\u0915\u094d\u0930\u093f\u0924 \u0906\u0938\u093e\u0928 \u0939\u0948",
+      "segments": [
+        {
+          "start": 0.66,
+          "end": 16.3,
+          "text": "\u092a\u094d\u0930\u093e\u091a\u0940\u0928 \u0915\u093e\u0932 \u0938\u0947 \u0939\u0940 \u0932\u094b\u0917 \u0938\u094b\u0928\u0947 \u091a\u093e\u0926\u0940 \u0914\u0930 \u0924\u093e\u092e\u092c\u0947 \u091c\u0948\u0938\u0947 \u0930\u093e\u0938\u093e\u0907\u0928 \u090f\u0915 \u0924\u0924\u094d\u0935\u094b\u0902 \u0915\u0947 \u092c\u093e\u0930\u0947 \u092e\u0947\u0902 \u0939\u0940 \u091c\u093e\u0928\u0915\u093e\u0930\u0940 \u0930\u0916\u0924\u0947 \u0939\u0948\u0902 \u0915\u094d\u092f\u094b\u0902\u0915\u093f \u0907\u0928\u094d\u0939\u0947\u0902 \u092a\u094d\u0930\u0915\u0943\u0924\u093f \u092e\u0947\u0902 \u092e\u0942\u0932 \u0938\u094d\u0935\u0930\u0940 \u092e\u0947\u0902 \u0927\u0942\u0928\u093e \u091a\u093e \u0938\u0915\u0924\u093e \u0939\u0948 \u0914\u0930 \u0907\u0928\u094d\u0939\u0947\u0902 \u092a\u094d\u0930\u093e\u0924\u094d\u092e\u093f\u0915 \u0909\u092a\u0915\u0930\u0923\u094b\u0902 \u0915\u0947 \u091c\u0930\u094d\u0926\u093f\u092f\u0947 \u0927\u0942\u0928\u093e \u0905\u092a\u0947\u0915\u094d\u0937\u093e\u0915\u094d\u0930\u093f\u0924 \u0906\u0938\u093e\u0928 \u0939\u0948"
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0017080456018447876,
+      "preprocess_ms": 1.003999961540103,
+      "decode_ms": 384.3395420117304,
+      "total_ms": 385.34933293703943,
+      "peak_gpu_bytes": 2550672246,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 385.36233303602785
+    },
+    {
+      "id": "fleurs-hi_in-007",
+      "path": "fixtures/audio/fleurs/hi_in/007.wav",
+      "reference": "\u0907\u0938\u0947 \u0915\u0947\u092e\u093f\u0915\u0932 \u0915\u093e ph \u0915\u0939\u093e \u091c\u093e\u0924\u093e \u0939\u0948 \u0906\u092a \u0932\u093e\u0932 \u0917\u094b\u092d\u0940 \u0915\u0947 \u091c\u0942\u0938 \u0915\u093e \u0907\u0938\u094d\u0924\u0947\u092e\u093e\u0932 \u0915\u0930\u0915\u0947 \u090f\u0915 \u0938\u0902\u0915\u0947\u0924\u0915 \u092c\u0928\u093e \u0938\u0915\u0924\u0947 \u0939\u0948\u0902",
+      "language": "hi",
+      "suite": "fleurs-hi_in",
+      "source_id": 1792,
+      "sha256": "69e66f2b7ad1ebaa1a5ecb5d16b726d28f23cc39f833e99f0811db609c2f54bc",
+      "seconds": 8.22,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 8.22,
+      "speech_seconds": 6.74,
+      "text": "\u0907\u0938\u0947 \u0915\u0947\u092e\u093f\u0915\u0932 \u0915\u093e \u092a\u0940-\u090f\u091a \u0915\u0939\u093e \u091c\u093e\u0924\u093e \u0939\u0948 \u0906\u092a \u0932\u093e\u0932 \u0917\u094b\u092d\u0940 \u0915\u0947 \u091c\u0942\u0938 \u0915\u094b \u0907\u0938\u094d\u0924\u092e\u093e\u0932 \u0915\u0930\u0915\u0947 \u090f\u0915 \u0938\u0902\u0915\u0947\u0924 \u0924\u0915 \u092c\u0928\u093e \u0938\u0915\u0924\u0947 \u0939\u0948\u0902",
+      "segments": [
+        {
+          "start": 0.82,
+          "end": 7.44,
+          "text": "\u0907\u0938\u0947 \u0915\u0947\u092e\u093f\u0915\u0932 \u0915\u093e \u092a\u0940-\u090f\u091a \u0915\u0939\u093e \u091c\u093e\u0924\u093e \u0939\u0948 \u0906\u092a \u0932\u093e\u0932 \u0917\u094b\u092d\u0940 \u0915\u0947 \u091c\u0942\u0938 \u0915\u094b \u0907\u0938\u094d\u0924\u092e\u093e\u0932 \u0915\u0930\u0915\u0947 \u090f\u0915 \u0938\u0902\u0915\u0947\u0924 \u0924\u0915 \u092c\u0928\u093e \u0938\u0915\u0924\u0947 \u0939\u0948\u0902"
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.00100000761449337,
+      "preprocess_ms": 0.5990839563310146,
+      "decode_ms": 198.54833302088082,
+      "total_ms": 199.151459033601,
+      "peak_gpu_bytes": 2550164342,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 199.15795896667987
+    },
+    {
+      "id": "fleurs-hi_in-008",
+      "path": "fixtures/audio/fleurs/hi_in/008.wav",
+      "reference": "\u0938\u092c\u0938\u0947 \u0928\u091c\u093c\u0926\u0940\u0915\u0940 \u0938\u093f\u0930\u0947 \u092a\u0930 \u0915\u094d\u0930\u0938\u094d\u091f \u0915\u0940 \u092e\u094b\u091f\u093e\u0908 \u0915\u0930\u0940\u092c 70 \u0915\u093f\u0932\u094b\u092e\u0940\u091f\u0930 \u0939\u0948 \u0914\u0930 \u0938\u092c\u0938\u0947 \u0926\u0942\u0930 \u0915\u0947 \u0938\u093f\u0930\u0947 \u092a\u0930 \u092f\u0939 100 \u0915\u093f\u0932\u094b\u092e\u0940\u091f\u0930 \u0939\u0948",
+      "language": "hi",
+      "suite": "fleurs-hi_in",
+      "source_id": 1827,
+      "sha256": "bc5230a5dd011fce5c2aa6a13648a461270d2b74370df31e8890cc15d72c1076",
+      "seconds": 7.8,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 7.8,
+      "speech_seconds": 6.28,
+      "text": "\u0938\u092c\u0938\u0947 \u0928\u091c\u0926\u0940 \u0915\u0940 \u0938\u093f\u0930\u0947 \u092a\u0930 \u0915\u094d\u0930\u093f\u0938\u094d\u091f \u0915\u0940 \u092e\u094b\u091f\u093e\u0908 \u0915\u0930\u093f\u0935 70 \u0915\u093f\u0932\u094b \u092e\u0940\u091f\u0930 \u0939\u0948 \u0914\u0930 \u0938\u092c\u0938\u0947 \u0926\u0942\u0930 \u0915\u0947 \u0938\u093f\u0930\u0947 \u092a\u0930 \u092f\u0939 100 \u0915\u093f\u0932\u094b \u092e\u0940\u091f\u0930 \u0939\u0948",
+      "segments": [
+        {
+          "start": 0.8,
+          "end": 6.88,
+          "text": "\u0938\u092c\u0938\u0947 \u0928\u091c\u0926\u0940 \u0915\u0940 \u0938\u093f\u0930\u0947 \u092a\u0930 \u0915\u094d\u0930\u093f\u0938\u094d\u091f \u0915\u0940 \u092e\u094b\u091f\u093e\u0908 \u0915\u0930\u093f\u0935 70 \u0915\u093f\u0932\u094b \u092e\u0940\u091f\u0930 \u0939\u0948 \u0914\u0930 \u0938\u092c\u0938\u0947 \u0926\u0942\u0930 \u0915\u0947 \u0938\u093f\u0930\u0947 \u092a\u0930 \u092f\u0939 100 \u0915\u093f\u0932\u094b \u092e\u0940\u091f\u0930 \u0939\u0948"
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001208973117172718,
+      "preprocess_ms": 0.612459029071033,
+      "decode_ms": 202.9403339838609,
+      "total_ms": 203.55716708581895,
+      "peak_gpu_bytes": 2550147958,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 203.56429205276072
+    },
+    {
+      "id": "fleurs-hi_in-009",
+      "path": "fixtures/audio/fleurs/hi_in/009.wav",
+      "reference": "\u092f\u0939 \u0938\u0902\u092c\u0902\u0927\u093f\u0924 \u0939\u0948 \u0932\u0947\u0915\u093f\u0928 \u0906\u092e \u0924\u094c\u0930 \u092a\u0930 \u0907\u0938\u092e\u0947\u0902 \u0905\u0932\u094d\u092a\u093e\u0907\u0928 \u0936\u0948\u0932\u0940 \u0915\u0940 \u0938\u094d\u0915\u0940 \u091f\u0942\u0930\u093f\u0902\u0917 \u092f\u093e \u092e\u093e\u0909\u0902\u091f\u0947\u0928\u0940\u092f\u0930\u093f\u0902\u0917 \u0936\u093e\u092e\u093f\u0932 \u0928\u0939\u0940\u0902 \u0939\u094b\u0924\u0940 \u0939\u0948 \u091c\u093f\u0938\u0947 \u0916\u0921\u093c\u0947 \u0907\u0932\u093e\u0915\u094b\u0902 \u092e\u0947\u0902 \u0915\u093f\u092f\u093e \u091c\u093e\u0924\u093e \u0939\u0948 \u0914\u0930 \u091c\u093f\u0938\u0915\u0947 \u0932\u093f\u090f \u092c\u0939\u0941\u0924 \u0915\u0921\u093c\u0940 \u0938\u094d\u0915\u0940 \u0914\u0930 \u092c\u0942\u091f \u0915\u0940 \u091c\u093c\u0930\u0942\u0930\u0924 \u0939\u094b\u0924\u0940 \u0939\u0948",
+      "language": "hi",
+      "suite": "fleurs-hi_in",
+      "source_id": 1985,
+      "sha256": "0f8f18c712c651660c73fd84e05ad2e0bd3102aecaaf988d9cfdd7aa1a8208d3",
+      "seconds": 13.68,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 13.68,
+      "speech_seconds": 12.16,
+      "text": "\u092f\u0939 \u0938\u092e\u094d\u092e\u0902\u0926\u093f\u0924 \u0939\u0948 \u0932\u0947\u0915\u093f\u0928 \u0906\u092e \u0924\u094b\u0930 \u092a\u0930 \u0907\u0938\u092e\u0947\u0902 \u0905\u0932\u092a\u093e\u0907\u0928 \u0938\u0947\u0932\u0940 \u0915\u0940 \u0938\u094d\u0915\u0940, \u091f\u0942\u0930\u093f\u0902\u0917 \u092f\u093e \u092e\u093e\u0909\u0902\u091f\u0947\u0928 \u092f\u0947 \u0930\u0902\u0917 \u0938\u093e\u092e\u093f\u0932 \u0928\u0939\u0940\u0902 \u0939\u094b\u0924\u0940 \u0939\u0948 \u091c\u093f\u0938\u0947 \u0916\u0921\u093c\u0947 \u0907\u0932\u093e\u0915\u094b\u0902 \u092e\u0947\u0902 \u0915\u093f\u092f\u093e \u091c\u093e\u0924\u093e \u0939\u0948 \u0914\u0930 \u091c\u093f\u0938\u0915\u0947 \u0932\u093f\u090f \u092c\u0939\u0941\u0924 \u0915\u0921\u093c\u0947 \u0938\u094d\u0915\u0940 \u0914\u0930 \u092c\u0942\u091f \u0915\u0940 \u091c\u0930\u0941\u0930\u0924 \u0939\u094b\u0924\u0940 \u0939\u0948",
+      "segments": [
+        {
+          "start": 0.84,
+          "end": 7.06,
+          "text": "\u092f\u0939 \u0938\u092e\u094d\u092e\u0902\u0926\u093f\u0924 \u0939\u0948 \u0932\u0947\u0915\u093f\u0928 \u0906\u092e \u0924\u094b\u0930 \u092a\u0930 \u0907\u0938\u092e\u0947\u0902 \u0905\u0932\u092a\u093e\u0907\u0928 \u0938\u0947\u0932\u0940 \u0915\u0940 \u0938\u094d\u0915\u0940, \u091f\u0942\u0930\u093f\u0902\u0917 \u092f\u093e \u092e\u093e\u0909\u0902\u091f\u0947\u0928 \u092f\u0947 \u0930\u0902\u0917 \u0938\u093e\u092e\u093f\u0932 \u0928\u0939\u0940\u0902 \u0939\u094b\u0924\u0940 \u0939\u0948"
+        },
+        {
+          "start": 7.06,
+          "end": 12.78,
+          "text": "\u091c\u093f\u0938\u0947 \u0916\u0921\u093c\u0947 \u0907\u0932\u093e\u0915\u094b\u0902 \u092e\u0947\u0902 \u0915\u093f\u092f\u093e \u091c\u093e\u0924\u093e \u0939\u0948 \u0914\u0930 \u091c\u093f\u0938\u0915\u0947 \u0932\u093f\u090f \u092c\u0939\u0941\u0924 \u0915\u0921\u093c\u0947 \u0938\u094d\u0915\u0940 \u0914\u0930 \u092c\u0942\u091f \u0915\u0940 \u091c\u0930\u0941\u0930\u0924 \u0939\u094b\u0924\u0940 \u0939\u0948"
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001249951310455799,
+      "preprocess_ms": 0.8920830441638827,
+      "decode_ms": 345.5881249392405,
+      "total_ms": 346.48487507365644,
+      "peak_gpu_bytes": 2550442870,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 346.49804106447846
+    },
+    {
+      "id": "fleurs-ja_jp-000",
+      "path": "fixtures/audio/fleurs/ja_jp/000.wav",
+      "reference": "\u30a4\u30f3\u30bf\u30fc\u30cd\u30c3\u30c8\u3067 \u6575\u5bfe\u7684\u74b0\u5883\u30b3\u30fc\u30b9 \u306b\u3064\u3044\u3066\u691c\u7d22\u3059\u308b\u3068 \u304a\u305d\u3089\u304f\u73fe\u5730\u4f01\u696d\u306e\u4f4f\u6240\u304c\u51fa\u3066\u304f\u308b\u3067\u3057\u3087\u3046",
+      "language": "ja",
+      "suite": "fleurs-ja_jp",
+      "source_id": 1828,
+      "sha256": "26b6cd491b5d52cf05d89207cb88499cdaba89749aebc29c8f216e834e3d9071",
+      "seconds": 10.44,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 10.44,
+      "speech_seconds": 10.44,
+      "text": "\u30a4\u30f3\u30bf\u30fc\u30cd\u30c3\u30c8\u3067\u6575\u5bfe\u7684\u74b0\u5883\u30b3\u30fc\u30b9\u306b\u3064\u3044\u3066\u691c\u7d22\u3059\u308b\u3068\u3001\u304a\u305d\u3089\u304f\u73fe\u5730\u4f01\u696d\u306e\u4f4f\u6240\u304c\u51fa\u3066\u304f\u308b\u3067\u3057\u3087\u3046",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 8.2,
+          "text": "\u30a4\u30f3\u30bf\u30fc\u30cd\u30c3\u30c8\u3067\u6575\u5bfe\u7684\u74b0\u5883\u30b3\u30fc\u30b9\u306b\u3064\u3044\u3066\u691c\u7d22\u3059\u308b\u3068\u3001\u304a\u305d\u3089\u304f\u73fe\u5730\u4f01\u696d\u306e\u4f4f\u6240\u304c\u51fa\u3066\u304f\u308b\u3067\u3057\u3087\u3046"
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.00100000761449337,
+      "preprocess_ms": 0.6949170492589474,
+      "decode_ms": 140.99787501618266,
+      "total_ms": 141.69645903166384,
+      "peak_gpu_bytes": 2551311778,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 141.7028340511024
+    },
+    {
+      "id": "fleurs-ja_jp-001",
+      "path": "fixtures/audio/fleurs/ja_jp/001.wav",
+      "reference": "\u307e\u305f \u5317\u5074\u306b\u884c\u304f\u306a\u3089\u4e16\u754c\u7684\u306b\u6709\u540d\u306a\u30de\u30ea\u30a2\u50cf\u306e\u8056\u5730\u3067\u3042\u308b\u30d5\u30a1\u30c6\u30a3\u30de\u306e\u8056\u6bcd\u306e\u8056\u57df\u795e\u793e\u3092\u8a2a\u308c\u307e\u3057\u3087\u3046",
+      "language": "ja",
+      "suite": "fleurs-ja_jp",
+      "source_id": 1834,
+      "sha256": "258fe8b9954d74c44bcfeb93317fff647f0a0f9135c472f4af32f6db5b02281e",
+      "seconds": 14.22,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 14.22,
+      "speech_seconds": 14.22,
+      "text": "\u307e\u305f\u5317\u5074\u306b\u884c\u304f\u306a\u3089\u4e16\u754c\u7684\u306b\u6709\u540d\u306a\u30de\u30ea\u30a2\u50cf\u306e\u8056\u5730\u3067\u3042\u308b\u30d5\u30a1\u30c6\u30a3\u30de\u306e\u8056\u6bcd\u306e\u8056\u57df\u795e\u793e\u3092\u8a2a\u308c\u307e\u3057\u3087\u3046",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 11.200000000000001,
+          "text": "\u307e\u305f\u5317\u5074\u306b\u884c\u304f\u306a\u3089\u4e16\u754c\u7684\u306b\u6709\u540d\u306a\u30de\u30ea\u30a2\u50cf\u306e\u8056\u5730\u3067\u3042\u308b\u30d5\u30a1\u30c6\u30a3\u30de\u306e\u8056\u6bcd\u306e\u8056\u57df\u795e\u793e\u3092\u8a2a\u308c\u307e\u3057\u3087\u3046"
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001416075974702835,
+      "preprocess_ms": 0.8478329982608557,
+      "decode_ms": 144.79475002735853,
+      "total_ms": 145.64737491309643,
+      "peak_gpu_bytes": 2551229858,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 145.65449999645352
+    },
+    {
+      "id": "fleurs-ja_jp-002",
+      "path": "fixtures/audio/fleurs/ja_jp/002.wav",
+      "reference": "\u30d0\u30eb\u30bb\u30ed\u30ca\u306e\u516c\u7528\u8a9e\u306f\u30ab\u30bf\u30eb\u30fc\u30cb\u30e3\u8a9e\u3068\u30b9\u30da\u30a4\u30f3\u8a9e\u3067\u3059 \u7d04\u534a\u6570\u304c\u30ab\u30bf\u30eb\u30fc\u30cb\u30e3\u8a9e\u3092\u597d\u307f \u5927\u591a\u6570\u304c\u30ab\u30bf\u30eb\u30fc\u30cb\u30e3\u8a9e\u3092\u7406\u89e3\u3057 \u307b\u307c\u5168\u54e1\u304c\u30b9\u30da\u30a4\u30f3\u8a9e\u3092\u77e5\u3063\u3066\u3044\u307e\u3059",
+      "language": "ja",
+      "suite": "fleurs-ja_jp",
+      "source_id": 1813,
+      "sha256": "bc4947522ebee189fa5f375e24b5f4cb84a66f264a39bfff241c5bfee01b0a34",
+      "seconds": 12.84,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 12.84,
+      "speech_seconds": 12.84,
+      "text": "\u30d0\u30eb\u30bb\u30a2\u30ca\u306e\u516c\u7528\u8a9e\u306f\u30ab\u30bf\u30eb\u30fc\u30cd\u8a9e\u3068\u30b9\u30da\u30a4\u30f3\u8a9e\u3067\u3059\u7d04\u534a\u6570\u304c\u30ab\u30bf\u30eb\u30fc\u30cd\u8a9e\u3092\u597d\u307f\u5927\u591a\u6570\u304c\u30ab\u30bf\u30eb\u30fc\u30cd\u8a9e\u3092\u7406\u89e3\u3057\u307b\u307c\u5168\u54e1\u304c\u30b9\u30da\u30a4\u30f3\u8a9e\u3092\u77e5\u3063\u3066\u3044\u307e\u3059",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 4.78,
+          "text": "\u30d0\u30eb\u30bb\u30a2\u30ca\u306e\u516c\u7528\u8a9e\u306f\u30ab\u30bf\u30eb\u30fc\u30cd\u8a9e\u3068\u30b9\u30da\u30a4\u30f3\u8a9e\u3067\u3059"
+        },
+        {
+          "start": 4.78,
+          "end": 8.72,
+          "text": "\u7d04\u534a\u6570\u304c\u30ab\u30bf\u30eb\u30fc\u30cd\u8a9e\u3092\u597d\u307f\u5927\u591a\u6570\u304c\u30ab\u30bf\u30eb\u30fc\u30cd\u8a9e\u3092\u7406\u89e3\u3057"
+        },
+        {
+          "start": 8.72,
+          "end": 10.66,
+          "text": "\u307b\u307c\u5168\u54e1\u304c\u30b9\u30da\u30a4\u30f3\u8a9e\u3092\u77e5\u3063\u3066\u3044\u307e\u3059"
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001374981366097927,
+      "preprocess_ms": 0.8102500578388572,
+      "decode_ms": 186.27812492195517,
+      "total_ms": 187.092375010252,
+      "peak_gpu_bytes": 2550475638,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 187.0994169730693
+    },
+    {
+      "id": "fleurs-ja_jp-003",
+      "path": "fixtures/audio/fleurs/ja_jp/003.wav",
+      "reference": "\u305d\u306e\u9577\u3044\u984e\u306b\u306f70\u672c\u4ee5\u4e0a\u306e\u92ed\u3044\u6b6f\u304c\u4e26\u3073 \u53e3\u84cb\u306b\u306f\u5225\u306e\u6b6f\u5217\u304c\u3042\u308a \u3064\u307e\u308a\u3053\u3053\u3092\u901a\u3063\u305f\u3089\u9003\u3052\u9053\u306f\u306a\u3044\u3068\u3044\u3046\u3053\u3068\u306b\u306a\u308a\u307e\u3059",
+      "language": "ja",
+      "suite": "fleurs-ja_jp",
+      "source_id": 1869,
+      "sha256": "b97654c603f2e4e66984fcca51c064be8054ed3b97a81a8890d71579bfdc8a00",
+      "seconds": 12.54,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 12.54,
+      "speech_seconds": 12.54,
+      "text": "\u305d\u306e\u9577\u3044\u984e\u306b\u306f70\u672c\u4ee5\u4e0a\u306e\u92ed\u3044\u6b6f\u304c\u4e26\u3073\u53e3\u5916\u306b\u306f\u5225\u306e\u5b50\u5f8b\u304c\u3042\u308a\u3064\u307e\u308a\u3053\u3053\u3092\u901a\u3063\u305f\u3089\u306d\u304e\u3081\u3061\u3083\u308f\u306a\u3044\u3068\u3044\u3046\u3053\u3068\u306b\u306a\u308a\u307e\u3059",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 5.14,
+          "text": "\u305d\u306e\u9577\u3044\u984e\u306b\u306f70\u672c\u4ee5\u4e0a\u306e\u92ed\u3044\u6b6f\u304c\u4e26\u3073"
+        },
+        {
+          "start": 5.14,
+          "end": 6.8,
+          "text": "\u53e3\u5916\u306b\u306f\u5225\u306e\u5b50\u5f8b\u304c\u3042\u308a"
+        },
+        {
+          "start": 6.8,
+          "end": 8.22,
+          "text": "\u3064\u307e\u308a\u3053\u3053\u3092\u901a\u3063\u305f\u3089"
+        },
+        {
+          "start": 8.22,
+          "end": 9.92,
+          "text": "\u306d\u304e\u3081\u3061\u3083\u308f\u306a\u3044\u3068\u3044\u3046\u3053\u3068\u306b\u306a\u308a\u307e\u3059"
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0012079253792762756,
+      "preprocess_ms": 0.821166904643178,
+      "decode_ms": 153.10500003397465,
+      "total_ms": 153.93079188652337,
+      "peak_gpu_bytes": 2550459254,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 153.93820800818503
+    },
+    {
+      "id": "fleurs-ja_jp-004",
+      "path": "fixtures/audio/fleurs/ja_jp/004.wav",
+      "reference": "\u30ed\u30b9\u30d3\u30fc\u6570\u304c\u5c0f\u3055\u3044\u307b\u3069\u78c1\u6c17\u53cd\u8ee2\u306b\u95a2\u3057\u3066\u661f\u306e\u6d3b\u6027\u304c\u4f4e\u4e0b\u3059\u308b\u308f\u3051\u3067\u3059",
+      "language": "ja",
+      "suite": "fleurs-ja_jp",
+      "source_id": 1744,
+      "sha256": "d57545db2234856ae80dea142adfbcacf23fd7a351183f56431734f93ec3e58d",
+      "seconds": 12.06,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 12.06,
+      "speech_seconds": 12.06,
+      "text": "\u30ed\u30b9\u30d3\u30fc\u6570\u304c\u5c0f\u3055\u3044\u307b\u3069\u6642\u671f\u5224\u5b9a\u306b\u95a2\u3057\u3066\u661f\u306e\u6d3b\u6027\u304c\u4f4e\u4e0b\u3059\u308b\u308f\u3051\u3067\u3059",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 8.620000000000001,
+          "text": "\u30ed\u30b9\u30d3\u30fc\u6570\u304c\u5c0f\u3055\u3044\u307b\u3069\u6642\u671f\u5224\u5b9a\u306b\u95a2\u3057\u3066\u661f\u306e\u6d3b\u6027\u304c\u4f4e\u4e0b\u3059\u308b\u308f\u3051\u3067\u3059"
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0011670636013150215,
+      "preprocess_ms": 0.7649590261280537,
+      "decode_ms": 124.26554202102125,
+      "total_ms": 125.03454193938524,
+      "peak_gpu_bytes": 2550442870,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 125.04062498919666
+    },
+    {
+      "id": "fleurs-ja_jp-005",
+      "path": "fixtures/audio/fleurs/ja_jp/005.wav",
+      "reference": "\u7fa4\u5cf6\u3084\u6e56\u3067\u306f \u5fc5\u305a\u3057\u3082\u30e8\u30c3\u30c8\u306f\u5fc5\u8981\u3042\u308a\u307e\u305b\u3093",
+      "language": "ja",
+      "suite": "fleurs-ja_jp",
+      "source_id": 1731,
+      "sha256": "00b5efdbd751c1f133a964db6086bd8294fc64a4d729165bdc6f267cb9b2c618",
+      "seconds": 6.96,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 6.96,
+      "speech_seconds": 0.36,
+      "text": "\u3054\u8996\u8074\u3042\u308a\u304c\u3068\u3046\u3054\u3056\u3044\u307e\u3057\u305f",
+      "segments": [
+        {
+          "start": 2.18,
+          "end": 32.160000000000004,
+          "text": "\u3054\u8996\u8074\u3042\u308a\u304c\u3068\u3046\u3054\u3056\u3044\u307e\u3057\u305f"
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0011669471859931946,
+      "preprocess_ms": 0.5597500130534172,
+      "decode_ms": 92.17787499073893,
+      "total_ms": 92.74187497794628,
+      "peak_gpu_bytes": 2549836662,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 92.75016596075147
+    },
+    {
+      "id": "fleurs-ja_jp-006",
+      "path": "fixtures/audio/fleurs/ja_jp/006.wav",
+      "reference": "\u30d1\u30ea\u30b8\u30e3\u30f3\u306f \u81ea\u5df1\u4e2d\u5fc3\u7684\u3067\u6a2a\u67c4\u3067\u5931\u793c\u306a\u4eba\u304c\u591a\u3044\u3068\u8a00\u308f\u308c\u3066\u3044\u307e\u3059",
+      "language": "ja",
+      "suite": "fleurs-ja_jp",
+      "source_id": 1910,
+      "sha256": "959077418140484e2bcb2b708480127392272eb179121e7e2ceb1903b6be519e",
+      "seconds": 8.88,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 8.88,
+      "speech_seconds": 8.88,
+      "text": "\u30d1\u30ea\u30b8\u30e3\u30f3\u306f\u81ea\u5df1\u4e2d\u5fc3\u7684\u306a\u738b\u5175\u3067\u5931\u793c\u306e\u4eba\u304c\u591a\u3044\u3068\u8a00\u308f\u308c\u3066\u3044\u307e\u3059",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 6.5,
+          "text": "\u30d1\u30ea\u30b8\u30e3\u30f3\u306f\u81ea\u5df1\u4e2d\u5fc3\u7684\u306a\u738b\u5175\u3067\u5931\u793c\u306e\u4eba\u304c\u591a\u3044\u3068\u8a00\u308f\u308c\u3066\u3044\u307e\u3059"
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0009160721674561501,
+      "preprocess_ms": 0.6432919763028622,
+      "decode_ms": 126.0924170492217,
+      "total_ms": 126.73966703005135,
+      "peak_gpu_bytes": 2550279030,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 126.74583296757191
+    },
+    {
+      "id": "fleurs-ja_jp-007",
+      "path": "fixtures/audio/fleurs/ja_jp/007.wav",
+      "reference": "\u30e1\u30a4\u30f3\u30b9\u30c6\u30fc\u30b8\u306e\u97f3\u697d\u304c\u7d42\u308f\u3063\u3066\u3082 \u30d5\u30a7\u30b9\u30c6\u30a3\u30d0\u30eb\u306b\u306f\u591c\u9045\u304f\u307e\u3067\u6f14\u594f\u3092\u6d41\u3057\u7d9a\u3051\u308b\u30bb\u30af\u30b7\u30e7\u30f3\u304c\u3042\u308b\u304b\u3082\u3057\u308c\u306a\u3044\u3053\u3068\u3092\u899a\u3048\u3066\u304a\u3044\u3066\u304f\u3060\u3055\u3044",
+      "language": "ja",
+      "suite": "fleurs-ja_jp",
+      "source_id": 1771,
+      "sha256": "a744212bc2eb19672f31cb39a4ead66c58854bcb898097c1a573eef103724def",
+      "seconds": 12.96,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 12.96,
+      "speech_seconds": 12.96,
+      "text": "\u30e1\u30a4\u30f3\u30b9\u30c6\u30fc\u30b8\u306e\u97f3\u697d\u304c\u7d42\u308f\u3063\u3066\u3082\u30d5\u30a7\u30b9\u30c6\u30a3\u30d0\u30eb\u306b\u306f\u559c\u3076\u305d\u304f\u307e\u3067\u6f14\u594f\u3092\u6d41\u3057\u7d9a\u3051\u308b\u30bb\u30af\u30b7\u30e7\u30f3\u304c\u3042\u308b\u304b\u3082\u3057\u308c\u306a\u3044\u3053\u3068\u3092\u899a\u3048\u3066\u304a\u3044\u3066\u304f\u3060\u3055\u3044",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 10.540000000000001,
+          "text": "\u30e1\u30a4\u30f3\u30b9\u30c6\u30fc\u30b8\u306e\u97f3\u697d\u304c\u7d42\u308f\u3063\u3066\u3082\u30d5\u30a7\u30b9\u30c6\u30a3\u30d0\u30eb\u306b\u306f\u559c\u3076\u305d\u304f\u307e\u3067\u6f14\u594f\u3092\u6d41\u3057\u7d9a\u3051\u308b\u30bb\u30af\u30b7\u30e7\u30f3\u304c\u3042\u308b\u304b\u3082\u3057\u308c\u306a\u3044\u3053\u3068\u3092\u899a\u3048\u3066\u304a\u3044\u3066\u304f\u3060\u3055\u3044"
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001125037670135498,
+      "preprocess_ms": 0.7928749546408653,
+      "decode_ms": 162.9956669639796,
+      "total_ms": 163.79266697913408,
+      "peak_gpu_bytes": 2550492022,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 163.79891708493233
+    },
+    {
+      "id": "fleurs-ja_jp-008",
+      "path": "fixtures/audio/fleurs/ja_jp/008.wav",
+      "reference": "\u53c2\u5217\u8005\u306e\u6570\u304c\u591a\u3059\u304e\u3066 \u5168\u54e1\u304c\u30b5\u30f3\u30d4\u30a8\u30c8\u30ed\u5e83\u5834\u3067\u306e\u846c\u5100\u306b\u53c2\u52a0\u3059\u308b\u3053\u3068\u306f\u4e0d\u53ef\u80fd\u3067\u3057\u305f",
+      "language": "ja",
+      "suite": "fleurs-ja_jp",
+      "source_id": 1764,
+      "sha256": "5150ec65463847f16459396ed1fd4cdec683c0429cdc6e8d521a659e891636ea",
+      "seconds": 9.48,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 9.48,
+      "speech_seconds": 9.48,
+      "text": "\u53c2\u5217\u8005\u306e\u6570\u304c\u591a\u3059\u304e\u3066\u5168\u54e1\u304c\u30b5\u30f3\u30d4\u30a8\u30c8\u30eb\u5e83\u5834\u3067\u306e\u846c\u5100\u306b\u53c2\u52a0\u3059\u308b\u3053\u3068\u306f\u4e0d\u53ef\u80fd\u3067\u3057\u305f",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 7.46,
+          "text": "\u53c2\u5217\u8005\u306e\u6570\u304c\u591a\u3059\u304e\u3066\u5168\u54e1\u304c\u30b5\u30f3\u30d4\u30a8\u30c8\u30eb\u5e83\u5834\u3067\u306e\u846c\u5100\u306b\u53c2\u52a0\u3059\u308b\u3053\u3068\u306f\u4e0d\u53ef\u80fd\u3067\u3057\u305f"
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0008329516276717186,
+      "preprocess_ms": 0.6630420684814453,
+      "decode_ms": 145.44312504585832,
+      "total_ms": 146.10937505494803,
+      "peak_gpu_bytes": 2550311798,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 146.21149993035942
+    },
+    {
+      "id": "fleurs-ja_jp-009",
+      "path": "fixtures/audio/fleurs/ja_jp/009.wav",
+      "reference": "\u9999\u6e2f\u306e\u6700\u9ad8\u306e\u666f\u8272\u3092\u898b\u308b\u306b\u306f \u5cf6\u304b\u3089\u51fa\u3066\u4e5d\u9f8d\u306e\u30a6\u30a9\u30fc\u30bf\u30fc\u30d5\u30ed\u30f3\u30c8\u306b\u5411\u304b\u3044\u307e\u3057\u3087\u3046",
+      "language": "ja",
+      "suite": "fleurs-ja_jp",
+      "source_id": 2003,
+      "sha256": "65618a629d07f06e3ed564f2970789cc122c54b04232362674d9ca2a50daf4bc",
+      "seconds": 9.66,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 9.66,
+      "speech_seconds": 9.66,
+      "text": "\u9999\u6e2f\u306e\u6700\u9ad8\u306e\u666f\u8272\u3092\u898b\u308b\u306b\u306f\u3001\u5cf6\u304b\u3089\u51fa\u3066\u3001\u30af\u30fc\u30ed\u30f3\u306e\u30a6\u30a9\u30fc\u30bf\u30fc\u30d5\u30ed\u30f3\u30c8\u306b\u5411\u304b\u3044\u307e\u3057\u3087\u3046\u3002",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 7.42,
+          "text": "\u9999\u6e2f\u306e\u6700\u9ad8\u306e\u666f\u8272\u3092\u898b\u308b\u306b\u306f\u3001\u5cf6\u304b\u3089\u51fa\u3066\u3001\u30af\u30fc\u30ed\u30f3\u306e\u30a6\u30a9\u30fc\u30bf\u30fc\u30d5\u30ed\u30f3\u30c8\u306b\u5411\u304b\u3044\u307e\u3057\u3087\u3046\u3002"
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.000959029421210289,
+      "preprocess_ms": 0.6768329767510295,
+      "decode_ms": 144.68883397057652,
+      "total_ms": 145.37000004202127,
+      "peak_gpu_bytes": 2550311798,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 145.37604106590152
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-000",
+      "path": "fixtures/audio/fleurs/cmn_hans_cn/000.wav",
+      "reference": "\u8fd9 \u5e76 \u4e0d \u662f \u544a \u522b \u8fd9 \u662f \u4e00 \u4e2a \u7bc7 \u7ae0 \u7684 \u7ed3 \u675f \u4e5f \u662f \u65b0 \u7bc7 \u7ae0 \u7684 \u5f00 \u59cb",
+      "language": "zh",
+      "suite": "fleurs-cmn_hans_cn",
+      "source_id": 1906,
+      "sha256": "5214e16584b6498ddbd22f321738c0f62b19117ab1880b21e405fba983986b6a",
+      "seconds": 10.38,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 10.38,
+      "speech_seconds": 5.56,
+      "text": "\u8fd9\u5e76\u4e0d\u662f\u544a\u522b\u8fd9\u662f\u4e00\u4e2a\u7bc7\u7ae0\u7684\u7ed3\u675f\u4e5f\u662f\u65b0\u7bc7\u7ae0\u7684\u5f00\u59cb",
+      "segments": [
+        {
+          "start": 1.82,
+          "end": 3.16,
+          "text": "\u8fd9\u5e76\u4e0d\u662f\u544a\u522b"
+        },
+        {
+          "start": 3.16,
+          "end": 5.6000000000000005,
+          "text": "\u8fd9\u662f\u4e00\u4e2a\u7bc7\u7ae0\u7684\u7ed3\u675f"
+        },
+        {
+          "start": 5.6000000000000005,
+          "end": 7.260000000000001,
+          "text": "\u4e5f\u662f\u65b0\u7bc7\u7ae0\u7684\u5f00\u59cb"
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0009579816833138466,
+      "preprocess_ms": 0.7310829823836684,
+      "decode_ms": 132.96016701497138,
+      "total_ms": 133.69516597595066,
+      "peak_gpu_bytes": 2550115190,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 133.70154204312712
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-001",
+      "path": "fixtures/audio/fleurs/cmn_hans_cn/001.wav",
+      "reference": "\u9499 \u94be \u7b49 \u5143 \u7d20 \u5c5e \u4e8e \u91d1 \u5c5e \u94f6 \u548c \u91d1 \u7b49 \u5143 \u7d20 \u5f53 \u7136 \u4e5f \u662f \u91d1 \u5c5e",
+      "language": "zh",
+      "suite": "fleurs-cmn_hans_cn",
+      "source_id": 2006,
+      "sha256": "d2ff70aa3a9b965bd2cab664852f2b5eb90d02dca4ed9066686d926152ade514",
+      "seconds": 8.28,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 8.28,
+      "speech_seconds": 5.54,
+      "text": "\u9499\u7532\u7b49\u5143\u7d20\u5c5e\u4e8e\u91d1\u5c5e\u94f6\u548c\u91d1\u7b49\u5143\u7d20\u5f53\u7136\u4e5f\u662f\u91d1\u5c5e",
+      "segments": [
+        {
+          "start": 1.02,
+          "end": 3.22,
+          "text": "\u9499\u7532\u7b49\u5143\u7d20\u5c5e\u4e8e\u91d1\u5c5e"
+        },
+        {
+          "start": 3.22,
+          "end": 6.5600000000000005,
+          "text": "\u94f6\u548c\u91d1\u7b49\u5143\u7d20\u5f53\u7136\u4e5f\u662f\u91d1\u5c5e"
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001249951310455799,
+      "preprocess_ms": 0.6034589605405927,
+      "decode_ms": 131.4115000423044,
+      "total_ms": 132.0192499551922,
+      "peak_gpu_bytes": 2550115190,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 132.02766701579094
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-002",
+      "path": "fixtures/audio/fleurs/cmn_hans_cn/002.wav",
+      "reference": "\u6865 \u4e0b \u5782 \u76f4 \u51c0 \u7a7a 15 \u7c73 \u8be5 \u9879 \u76ee \u4e8e 2011 \u5e74 8 \u6708 \u5b8c \u5de5 \u4f46 \u76f4 \u5230 2017 \u5e74 3 \u6708 \u624d \u5f00 \u59cb \u901a \u8f66",
+      "language": "zh",
+      "suite": "fleurs-cmn_hans_cn",
+      "source_id": 1883,
+      "sha256": "a50269a834d0efd270df29173bbe5f53a1a17184fe3998dabb1a73cbd223fd6a",
+      "seconds": 13.86,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 13.86,
+      "speech_seconds": 10.48,
+      "text": "\u6865\u4e0b\u5782\u76f4\u8fd1\u7a7a15\u7c73,\u8be5\u9879\u76ee\u4e8e2011\u5e748\u6708\u5b8c\u5de5,\u4f46\u76f4\u52302017\u5e743\u6708\u624d\u5f00\u59cb\u901a\u8f66\u3002",
+      "segments": [
+        {
+          "start": 2.62,
+          "end": 11.240000000000002,
+          "text": "\u6865\u4e0b\u5782\u76f4\u8fd1\u7a7a15\u7c73,\u8be5\u9879\u76ee\u4e8e2011\u5e748\u6708\u5b8c\u5de5,\u4f46\u76f4\u52302017\u5e743\u6708\u624d\u5f00\u59cb\u901a\u8f66\u3002"
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0009580980986356735,
+      "preprocess_ms": 0.8316249586641788,
+      "decode_ms": 145.67137497942895,
+      "total_ms": 146.50695794261992,
+      "peak_gpu_bytes": 2550360950,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 146.51420793961734
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-003",
+      "path": "fixtures/audio/fleurs/cmn_hans_cn/003.wav",
+      "reference": "\u9002 \u5f53 \u4f7f \u7528 \u535a \u5ba2 \u53ef \u4ee5 \u4f7f \u5b66 \u751f \u53d8 \u5f97 \u66f4 \u5584 \u4e8e \u5206 \u6790 \u548c \u8fdb \u884c \u601d \u8fa8 \u901a \u8fc7 \u79ef \u6781 \u56de \u5e94 \u7f51 \u7edc \u6750 \u6599 \u5b66 \u751f \u4eec \u53ef \u4ee5 \u5728 \u4ed6 \u4eba \u6587 \u7ae0 \u7684 \u4e0a \u4e0b \u6587 \u8bed \u5883 \u4e2d \u627e \u5230 \u81ea \u5df1 \u7684 \u7acb \u573a \u5e76 \u80fd \u591f \u9488 \u5bf9 \u7279 \u5b9a \u95ee \u9898 \u63d0 \u51fa \u81ea \u5df1 \u7684 \u89c2 \u70b9 oravec 2002",
+      "language": "zh",
+      "suite": "fleurs-cmn_hans_cn",
+      "source_id": 1852,
+      "sha256": "63b40619cf2947db1fd13f0ab63bc502326eb40d73d87b3dbd969df426940536",
+      "seconds": 15.42,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 15.42,
+      "speech_seconds": 14.3,
+      "text": "\u9002\u5f53\u4f7f\u7528\u535a\u5ba2\u53ef\u4ee5\u4f7f\u5b66\u751f\u53d8\u5f97\u66f4\u5584\u4e8e\u5206\u6790\u548c\u8fdb\u884c\u601d\u8fa8\u901a\u8fc7\u79ef\u6781\u56de\u5fc6\u7f51\u7edc\u6750\u6599\u5b66\u751f\u4eec\u53ef\u4ee5\u5728\u4ed6\u4eba\u7684\u6587\u7ae0\u7684\u4e0a\u4e0b\u6587\u8bed\u7ecf\u4e2d\u627e\u5230\u81ea\u5df1\u7684\u7acb\u573a\u5e76\u80fd\u591f\u9488\u5bf9\u7279\u5b9a\u95ee\u9898\u63d0\u51fa\u81ea\u5df1\u7684\u89c2\u70b9Work2002",
+      "segments": [
+        {
+          "start": 0.62,
+          "end": 5.04,
+          "text": "\u9002\u5f53\u4f7f\u7528\u535a\u5ba2\u53ef\u4ee5\u4f7f\u5b66\u751f\u53d8\u5f97\u66f4\u5584\u4e8e\u5206\u6790\u548c\u8fdb\u884c\u601d\u8fa8"
+        },
+        {
+          "start": 5.04,
+          "end": 6.720000000000001,
+          "text": "\u901a\u8fc7\u79ef\u6781\u56de\u5fc6\u7f51\u7edc\u6750\u6599"
+        },
+        {
+          "start": 6.720000000000001,
+          "end": 10.66,
+          "text": "\u5b66\u751f\u4eec\u53ef\u4ee5\u5728\u4ed6\u4eba\u7684\u6587\u7ae0\u7684\u4e0a\u4e0b\u6587\u8bed\u7ecf\u4e2d\u627e\u5230\u81ea\u5df1\u7684\u7acb\u573a"
+        },
+        {
+          "start": 10.66,
+          "end": 13.44,
+          "text": "\u5e76\u80fd\u591f\u9488\u5bf9\u7279\u5b9a\u95ee\u9898\u63d0\u51fa\u81ea\u5df1\u7684\u89c2\u70b9"
+        },
+        {
+          "start": 13.44,
+          "end": 14.54,
+          "text": "Work2002"
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0010830117389559746,
+      "preprocess_ms": 0.8945829467847943,
+      "decode_ms": 229.20887498185039,
+      "total_ms": 230.1077499287203,
+      "peak_gpu_bytes": 2550557558,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 230.12345808092505
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-004",
+      "path": "fixtures/audio/fleurs/cmn_hans_cn/004.wav",
+      "reference": "\u79d1 \u5b66 \u5bb6 \u4eec \u53ef \u4ee5 \u5f97 \u51fa \u7ed3 \u8bba \u6697 \u7269 \u8d28 \u5bf9 \u5176 \u4ed6 \u6697 \u7269 \u8d28 \u7684 \u5f71 \u54cd \u65b9 \u5f0f \u4e0e \u666e \u901a \u7269 \u8d28 \u76f8 \u540c",
+      "language": "zh",
+      "suite": "fleurs-cmn_hans_cn",
+      "source_id": 1734,
+      "sha256": "e98bd3a78fa3eb617164375180940917a8c8a87ce90b0dbffbfff156a009bf17",
+      "seconds": 12.9,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 12.9,
+      "speech_seconds": 9.02,
+      "text": "\u79d1\u5b66\u5b66\u5bb6\u4eec\u53ef\u4ee5\u5f97\u51fa\u7ed3\u8bba\u6697\u7269\u8d28\u5bf9\u5176\u4ed6\u6697\u7269\u8d28\u7684\u5f71\u54cd\u65b9\u5f0f\u4e0e\u666e\u901a\u7269\u8d28\u76f8\u540c",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 4.58,
+          "text": "\u79d1\u5b66\u5b66\u5bb6\u4eec\u53ef\u4ee5\u5f97\u51fa\u7ed3\u8bba"
+        },
+        {
+          "start": 4.58,
+          "end": 9.0,
+          "text": "\u6697\u7269\u8d28\u5bf9\u5176\u4ed6\u6697\u7269\u8d28\u7684\u5f71\u54cd\u65b9\u5f0f\u4e0e\u666e\u901a\u7269\u8d28\u76f8\u540c"
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001125037670135498,
+      "preprocess_ms": 0.7915419992059469,
+      "decode_ms": 145.20279201678932,
+      "total_ms": 145.99804196041077,
+      "peak_gpu_bytes": 2550279030,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 146.00462501402944
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-005",
+      "path": "fixtures/audio/fleurs/cmn_hans_cn/005.wav",
+      "reference": "\u5927 \u591a \u6570 \u73b0 \u4ee3 \u79d1 \u7814 \u671b \u8fdc \u955c \u90fd \u662f \u5de8 \u578b \u8bbe \u65bd \u4f4d \u4e8e \u5927 \u6c14 \u6761 \u4ef6 \u4f18 \u826f \u7684 \u504f \u8fdc \u5730 \u533a",
+      "language": "zh",
+      "suite": "fleurs-cmn_hans_cn",
+      "source_id": 1890,
+      "sha256": "6f0cc2a1a2a1f24736b9dd7a2e0109a64e4d1a2c88a0257ca1a83a734f700d09",
+      "seconds": 13.74,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 13.74,
+      "speech_seconds": 12.6,
+      "text": "\u5927\u591a\u6570\u73b0\u4ee3\u79d1\u7814\u671b\u8fdc\u955c\u90fd\u662f\u5de8\u578b\u8bbe\u65bd\u4f4d\u4e8e\u5927\u68af\u6761\u4ef6\u53f3\u6881\u7684\u504f\u8fdc\u5730\u533a",
+      "segments": [
+        {
+          "start": 0.04,
+          "end": 6.84,
+          "text": "\u5927\u591a\u6570\u73b0\u4ee3\u79d1\u7814\u671b\u8fdc\u955c\u90fd\u662f\u5de8\u578b\u8bbe\u65bd"
+        },
+        {
+          "start": 6.84,
+          "end": 10.959999999999999,
+          "text": "\u4f4d\u4e8e\u5927\u68af\u6761\u4ef6\u53f3\u6881\u7684\u504f\u8fdc\u5730\u533a"
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0014170072972774506,
+      "preprocess_ms": 0.819041975773871,
+      "decode_ms": 147.75779098272324,
+      "total_ms": 148.5811669845134,
+      "peak_gpu_bytes": 2550475638,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 148.5878750681877
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-006",
+      "path": "fixtures/audio/fleurs/cmn_hans_cn/006.wav",
+      "reference": "1963 \u5e74 \u5927 \u575d \u5efa \u6210 \u540e \u5b63 \u8282 \u6027 \u6d2a \u6c34 \u88ab \u63a7 \u5236 \u4f4f \u4e86 \u6c89 \u79ef \u7269 \u4e0d \u518d \u51b2 \u6563 \u5230 \u6cb3 \u6d41 \u91cc",
+      "language": "zh",
+      "suite": "fleurs-cmn_hans_cn",
+      "source_id": 1721,
+      "sha256": "81969af9e5b4592eb1a92d37b36943c07aa696d1665abac8b142d1579f423028",
+      "seconds": 15.18,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 15.18,
+      "speech_seconds": 9.84,
+      "text": "1963\u5e74\u5927\u575d\u5efa\u6210\u540e,\u5b63\u8282\u6027\u6d2a\u6c34\u88ab\u63a7\u5236\u4f4f\u4e86,\u6c89\u79ef\u7269\u4e0d\u518d\u51b2\u6563\u5230\u6cb3\u6d41\u91cc",
+      "segments": [
+        {
+          "start": 0.1,
+          "end": 9.78,
+          "text": "1963\u5e74\u5927\u575d\u5efa\u6210\u540e,\u5b63\u8282\u6027\u6d2a\u6c34\u88ab\u63a7\u5236\u4f4f\u4e86,\u6c89\u79ef\u7269\u4e0d\u518d\u51b2\u6563\u5230\u6cb3\u6d41\u91cc"
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001208973117172718,
+      "preprocess_ms": 0.8837500354275107,
+      "decode_ms": 141.80462493095547,
+      "total_ms": 142.69216707907617,
+      "peak_gpu_bytes": 2550328182,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 142.69941591192037
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-007",
+      "path": "fixtures/audio/fleurs/cmn_hans_cn/007.wav",
+      "reference": "\u5b83 \u7684 \u957f \u4e0b \u989a \u4e0a \u5e03 \u6ee1 \u4e86 70 \u591a \u9897 \u5243 \u5200 \u822c \u950b \u5229 \u7684 \u7259 \u9f7f \u4e0a \u989a \u4e0a \u8fd8 \u6709 \u4e00 \u6392 \u8fd9 \u610f \u5473 \u7740 \u4efb \u4f55 \u4e0e \u5b83 \u76f8 \u9047 \u7684 \u4e1c \u897f \u90fd \u65e0 \u8def \u53ef \u9003",
+      "language": "zh",
+      "suite": "fleurs-cmn_hans_cn",
+      "source_id": 1869,
+      "sha256": "086e972a47a47ae056531d43e38acee2173307afc8c87c656b31aab12452aff3",
+      "seconds": 15.46,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 15.46,
+      "speech_seconds": 11.7,
+      "text": "\u4ed6\u7684\u80a0\u4e0b\u989d\u4e0a\u94fa\u6ee1\u4e86\u51e0\u5341\u591a\u9897\u5243\u5200\u822c\u950b\u5229\u7684\u7259\u9f7f\u4e0a\u989d\u4e0a\u8fd8\u6709\u4e00\u6392\u8fd9\u610f\u5473\u7740\u4efb\u4f55\u4e0e\u4ed6\u76f8\u9047\u7684\u4e1c\u897f\u90fd\u65e0\u8def\u53ef\u9003",
+      "segments": [
+        {
+          "start": 0.24,
+          "end": 6.5200000000000005,
+          "text": "\u4ed6\u7684\u80a0\u4e0b\u989d\u4e0a\u94fa\u6ee1\u4e86\u51e0\u5341\u591a\u9897\u5243\u5200\u822c\u950b\u5229\u7684\u7259\u9f7f"
+        },
+        {
+          "start": 6.5200000000000005,
+          "end": 8.34,
+          "text": "\u4e0a\u989d\u4e0a\u8fd8\u6709\u4e00\u6392"
+        },
+        {
+          "start": 8.34,
+          "end": 11.8,
+          "text": "\u8fd9\u610f\u5473\u7740\u4efb\u4f55\u4e0e\u4ed6\u76f8\u9047\u7684\u4e1c\u897f\u90fd\u65e0\u8def\u53ef\u9003"
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0012080417945981026,
+      "preprocess_ms": 0.9112500119954348,
+      "decode_ms": 176.9832909340039,
+      "total_ms": 177.89862502831966,
+      "peak_gpu_bytes": 2553441698,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 177.90604196488857
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-008",
+      "path": "fixtures/audio/fleurs/cmn_hans_cn/008.wav",
+      "reference": "scotturb 403 \u8def \u516c \u5171 \u6c7d \u8f66 \u5b9a \u671f \u53d1 \u8f66 \u524d \u5f80 \u8f9b \u7279 \u62c9 sintra \u5728 \u7f57 \u5361 \u89d2 \u505c \u9760",
+      "language": "zh",
+      "suite": "fleurs-cmn_hans_cn",
+      "source_id": 1805,
+      "sha256": "5a61b505a5e00041724676529bb876a149ad10af288804f39c1c70252d900bff",
+      "seconds": 7.62,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 7.62,
+      "speech_seconds": 7.5,
+      "text": "Skoturb403\u8def\u516c\u4ea4\u6c7d\u8f66\u5b9a\u671f\u53d1\u8f66\u524d\u5f80\u65b0\u7279\u62c9\u5728\u7f57\u5361\u89d2\u505c\u9760",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 5.24,
+          "text": "Skoturb403\u8def\u516c\u4ea4\u6c7d\u8f66\u5b9a\u671f\u53d1\u8f66\u524d\u5f80\u65b0\u7279\u62c9"
+        },
+        {
+          "start": 5.24,
+          "end": 6.72,
+          "text": "\u5728\u7f57\u5361\u89d2\u505c\u9760"
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.000959029421210289,
+      "preprocess_ms": 0.5858329823240638,
+      "decode_ms": 133.74966592527926,
+      "total_ms": 134.33920801617205,
+      "peak_gpu_bytes": 2550213494,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 134.34633298311383
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-009",
+      "path": "fixtures/audio/fleurs/cmn_hans_cn/009.wav",
+      "reference": "\u8fd9 \u91cc \u51e0 \u4e4e \u90fd \u662f \u6c99 \u6ee9 \u6e38 \u6cf3 \u5f88 \u5b89 \u5168 \u5927 \u90e8 \u5206 \u5730 \u65b9 \u90fd \u6709 \u65b0 \u897f \u5170 \u5723 \u8bde \u6811 \u7684 \u6811 \u836b",
+      "language": "zh",
+      "suite": "fleurs-cmn_hans_cn",
+      "source_id": 1965,
+      "sha256": "e86c5fd3203f2de1bb5140b9606ed11e4596eee00e658d6ed7dc178a562869df",
+      "seconds": 6.84,
+      "repeat": 0,
+      "model": "whisper-turbo",
+      "audio_seconds": 6.84,
+      "speech_seconds": 5.4,
+      "text": "\u8fd9\u91cc\u51e0\u4e4e\u90fd\u662f\u6c99\u6ee9\u6e38\u6cf3\u5f88\u5b89\u5168\u5927\u90e8\u5206\u5730\u65b9\u90fd\u6709\u65b0\u897f\u5170\u5723\u8bde\u6811\u7684\u6811\u836b",
+      "segments": [
+        {
+          "start": 0.74,
+          "end": 3.16,
+          "text": "\u8fd9\u91cc\u51e0\u4e4e\u90fd\u662f\u6c99\u6ee9\u6e38\u6cf3\u5f88\u5b89\u5168"
+        },
+        {
+          "start": 3.16,
+          "end": 5.94,
+          "text": "\u5927\u90e8\u5206\u5730\u65b9\u90fd\u6709\u65b0\u897f\u5170\u5723\u8bde\u6811\u7684\u6811\u836b"
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001250067725777626,
+      "preprocess_ms": 0.6590409902855754,
+      "decode_ms": 139.27283301018178,
+      "total_ms": 139.93716600816697,
+      "peak_gpu_bytes": 2550098806,
+      "active_gpu_bytes": 1618307758,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 139.94379190262407
+    }
+  ],
+  "limitations": [
+    "Fixed public read-speech slices, not full corpora, spontaneous dictation or a multilingual leaderboard.",
+    "Same host and power environment; no controlled thermal isolation or energy measurement.",
+    "In-process audio-to-transcript timing excludes hotkey, capture, IPC, rewrite and text insertion.",
+    "Shared model backends are not equivalent to testing competing app products."
+  ]
+}

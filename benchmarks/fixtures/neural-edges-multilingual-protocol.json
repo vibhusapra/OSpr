@@ -1,0 +1,102 @@
+{
+  "version": 1,
+  "selection": "All first ten test utterances per language from the existing pinned FLEURS manifest, original and a fixed float32 0.01 gain. No selection by recognizer or detector result; same known public clips used in previous ASR/VAD work.",
+  "dataset_manifest": "fixtures/fleurs.json",
+  "dataset_manifest_sha256": "c510080d128d13d5253427bce81ba84f1d88274a2b08b24c5a6a0881086433d6",
+  "sample_rate": 16000,
+  "variants": {
+    "original": 1.0,
+    "quiet40db": 0.01
+  },
+  "languages": {
+    "es": {
+      "label": "Spanish",
+      "metric": "wer"
+    },
+    "de": {
+      "label": "German",
+      "metric": "wer"
+    },
+    "hi": {
+      "label": "Hindi",
+      "metric": "wer"
+    },
+    "ja": {
+      "label": "Japanese",
+      "metric": "cer"
+    },
+    "zh": {
+      "label": "Mandarin",
+      "metric": "cer"
+    }
+  },
+  "model_languages": {
+    "parakeet-v3": [
+      "es",
+      "de"
+    ],
+    "whisper-turbo": [
+      "es",
+      "de",
+      "hi",
+      "ja",
+      "zh"
+    ],
+    "whisper-small": [
+      "es",
+      "de",
+      "hi",
+      "ja",
+      "zh"
+    ],
+    "qwen3-asr": [
+      "es",
+      "de",
+      "hi",
+      "ja",
+      "zh"
+    ],
+    "cohere-native8": [
+      "es",
+      "de",
+      "ja",
+      "zh"
+    ],
+    "nemotron-streaming": [
+      "es",
+      "de",
+      "hi",
+      "ja",
+      "zh"
+    ]
+  },
+  "config_pins": {
+    "qwen3-asr": {
+      "repo": "mlx-community/Qwen3-ASR-1.7B-8bit",
+      "revision": "a8379a2e2f9e313c9292cdf1af4055ab56d50d55",
+      "config_sha256": "1b76b3b6c655fc54595da025f7a96474ad9fa86363303fbdd61a7d8483ccfaf7",
+      "config_url": "https://huggingface.co/mlx-community/Qwen3-ASR-1.7B-8bit/blob/a8379a2e2f9e313c9292cdf1af4055ab56d50d55/config.json"
+    },
+    "cohere-native8": {
+      "repo": "littoralai/cohere-transcribe-mlx-8bit",
+      "revision": "b3f1f6b5fb5ae1bd17c9be2bcd85806339890450",
+      "config_sha256": "a3fa8fd0611695505892a293fd195ce6940fb2151489ff0650279dd0c1917acc",
+      "config_url": "https://huggingface.co/littoralai/cohere-transcribe-mlx-8bit/blob/b3f1f6b5fb5ae1bd17c9be2bcd85806339890450/config.json"
+    },
+    "nemotron-streaming": {
+      "repo": "mlx-community/nemotron-3.5-asr-streaming-0.6b-8bit",
+      "revision": "7279359e4481b5e9e185a318bd618e429c6d86cd",
+      "config_sha256": "f30c7bc469fc01fd5483172b4d7c75075030ddb60f347589c44e216b0a5ea9b6",
+      "config_url": "https://huggingface.co/mlx-community/nemotron-3.5-asr-streaming-0.6b-8bit/blob/7279359e4481b5e9e185a318bd618e429c6d86cd/config.json"
+    }
+  },
+  "coverage_sources": {
+    "parakeet-v3": "https://huggingface.co/nvidia/parakeet-tdt-0.6b-v3",
+    "cohere-native8": "https://huggingface.co/CohereLabs/cohere-transcribe-03-2026"
+  },
+  "coverage_checked": "2026-10-23",
+  "skipped": "Parakeet: Hindi/Japanese/Mandarin; Cohere: Hindi. These are outside documented language coverage and are excluded before seeing outputs.",
+  "policy": "Pinned Core ML 32ms CPU detector, causal trailing noisy-OR of eight outputs, first >=0.5 / last >=0.35, 2560 sample outer padding; no internal cut or RMS pass. Original sample count and full little-endian float32 SHA must match.",
+  "controls": "Every normalized input is replayed through the preserved earlier raw-probability CLI; Python causal aggregation and bounds are compared to the production scanner. No detector retuning.",
+  "boundary": "Small known multilingual read-speech slices, not held-out spontaneous dictation, real whispering or comparative latency. CER removes whitespace and the same punctuation as WER; no language-specific transcript normalization."
+}

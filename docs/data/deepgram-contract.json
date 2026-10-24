@@ -1,0 +1,62 @@
+{
+  "checked_at": "2026-10-22T21:16:24.515649+00:00",
+  "provider": "Deepgram prerecorded Listen",
+  "sources": [
+    "https://developers.deepgram.com/reference/speech-to-text/listen-pre-recorded",
+    "https://developers.deepgram.com/docs/keyterm",
+    "https://developers.deepgram.com/docs/language-detection"
+  ],
+  "request": {
+    "method": "POST",
+    "path": "/v1/listen",
+    "auth": "Authorization: Token <user API key>",
+    "body": "Local mono 16 kHz PCM16 WAV; contiguous parts at most ten minutes; serial requests",
+    "fields": {
+      "model": "nova-3 preset; explicit editable model ID",
+      "language": "explicit hint, or detect_language=true when blank",
+      "keyterm": "repeated query item per comma/newline-separated phrase; literal plus and Unicode preserved",
+      "punctuate": true,
+      "smart_format": false,
+      "numerals": false,
+      "filler_words": true,
+      "utterances": true,
+      "multichannel": false
+    },
+    "unrequested": [
+      "summarization",
+      "cloud diarization",
+      "callback",
+      "remote URL fetch",
+      "cloud streaming"
+    ]
+  },
+  "response": {
+    "text": "first alternative from exactly one channel",
+    "language": "detected language or configured hint",
+    "duration": "validated finite metadata.duration",
+    "segments": "validated utterances, word bounds, or explicitly coarse part boundary",
+    "words": "validated start/end plus punctuated_word/word; omitted if invalid",
+    "assembly": "sample-based offsets; preserve repetitions; no completed partial text after failure/cancel; no cross-part speaker identity"
+  },
+  "limits": {
+    "ospr_request_bytes": 25000000,
+    "ospr_max_phrases": 100,
+    "provider_keyterm_tokens": 500
+  },
+  "verification": {
+    "loopback_contract_tests": true,
+    "real_cli_worker_80_minutes": true,
+    "paid_api": false,
+    "native_gui_pending": false,
+    "provider_quality_or_latency_measured": false,
+    "native_80_minute_file_import": true,
+    "native_keychain_restart": true,
+    "live_preferences_restored": false,
+    "saved_local_defaults_restored": true
+  },
+  "limitations": [
+    "Automatic language detection may select another supported Deepgram model, per provider documentation.",
+    "Independent jobs lose boundary context; real model quality, quotas and account behavior are untested.",
+    "The Keychain binding is by origin and speech purpose; keys are not inferred from a URL or shared with text providers."
+  ]
+}

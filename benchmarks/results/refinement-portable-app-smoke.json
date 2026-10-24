@@ -1,0 +1,842 @@
+{
+  "timestamp": "2026-10-23T20:07:19.909589+00:00",
+  "status": "passed",
+  "bundled_help_relative_links": 61,
+  "boundary": "Copied app path with spaces, hostile PYTHONPATH, foreign cwd, offline bundled interpreter/worker, all six ASR engines, source-excerpt notes, speaker word attribution, clocked track mix, local upload preparation, pinned model inventory/download-only/warm progress and MCP tool listing. Native microphone, permissions and UI not exercised.",
+  "fixture_id": "1272-128104-0000",
+  "fixture_sha256": "799f78ed4beb4de7ceae3a809262d4ce242394342ccd1d58cef7d49dbc2def46",
+  "executable_sha256": "4d08e432ff9e4e5d465af4b59da0c99db19106d92a56eb504ce3824182099903",
+  "build": {
+    "version": "0.1.0",
+    "built_at": "2026-10-23T20:06:03.240337+00:00",
+    "git_commit": "3b7ddb0be9b0efdc20ef967cd8b5f66ababf6924",
+    "tracked_changes": false,
+    "application_source_sha256": "7402e042fa3e53fdc65621825dd540f86cd5ba054e51d47af753d4d05b333001",
+    "source_manifest_version": 2,
+    "signing_mode": "configured-identity",
+    "boundary": "Development build; configured signing identity; not notarized; weights downloaded separately."
+  },
+  "interpreter_and_mlx_inside_bundle": true,
+  "bundled_cli_foreign_cwd": true,
+  "signature_valid_after_inference": true,
+  "poisoned_pythonpath_and_cwd_ignored": true,
+  "mcp_tools": [
+    "list_models",
+    "rewrite_text",
+    "transcribe_file"
+  ],
+  "model_progress_events": [
+    {
+      "id": "download-cached",
+      "event": "progress",
+      "progress": {
+        "phase": "checking",
+        "model": "whisper-small"
+      }
+    },
+    {
+      "id": "warm-progress",
+      "event": "progress",
+      "progress": {
+        "phase": "priming",
+        "model": "parakeet-v3"
+      }
+    },
+    {
+      "id": "prime-whisper-turbo",
+      "event": "progress",
+      "progress": {
+        "phase": "checking",
+        "model": "whisper-turbo"
+      }
+    },
+    {
+      "id": "prime-whisper-turbo",
+      "event": "progress",
+      "progress": {
+        "phase": "loading",
+        "model": "whisper-turbo"
+      }
+    },
+    {
+      "id": "prime-whisper-turbo",
+      "event": "progress",
+      "progress": {
+        "phase": "priming",
+        "model": "whisper-turbo"
+      }
+    },
+    {
+      "id": "prime-whisper-small",
+      "event": "progress",
+      "progress": {
+        "phase": "checking",
+        "model": "whisper-small"
+      }
+    },
+    {
+      "id": "prime-whisper-small",
+      "event": "progress",
+      "progress": {
+        "phase": "loading",
+        "model": "whisper-small"
+      }
+    },
+    {
+      "id": "prime-whisper-small",
+      "event": "progress",
+      "progress": {
+        "phase": "priming",
+        "model": "whisper-small"
+      }
+    },
+    {
+      "id": "prime-qwen3-asr",
+      "event": "progress",
+      "progress": {
+        "phase": "checking",
+        "model": "qwen3-asr"
+      }
+    },
+    {
+      "id": "prime-qwen3-asr",
+      "event": "progress",
+      "progress": {
+        "phase": "loading",
+        "model": "qwen3-asr"
+      }
+    },
+    {
+      "id": "prime-qwen3-asr",
+      "event": "progress",
+      "progress": {
+        "phase": "priming",
+        "model": "qwen3-asr"
+      }
+    },
+    {
+      "id": "prime-nemotron-streaming",
+      "event": "progress",
+      "progress": {
+        "phase": "checking",
+        "model": "nemotron-streaming"
+      }
+    },
+    {
+      "id": "prime-nemotron-streaming",
+      "event": "progress",
+      "progress": {
+        "phase": "loading",
+        "model": "nemotron-streaming"
+      }
+    },
+    {
+      "id": "prime-nemotron-streaming",
+      "event": "progress",
+      "progress": {
+        "phase": "priming",
+        "model": "nemotron-streaming"
+      }
+    },
+    {
+      "id": "prime-cohere-native8",
+      "event": "progress",
+      "progress": {
+        "phase": "checking",
+        "model": "cohere-native8"
+      }
+    },
+    {
+      "id": "prime-cohere-native8",
+      "event": "progress",
+      "progress": {
+        "phase": "loading",
+        "model": "cohere-native8"
+      }
+    },
+    {
+      "id": "prime-cohere-native8",
+      "event": "progress",
+      "progress": {
+        "phase": "priming",
+        "model": "cohere-native8"
+      }
+    }
+  ],
+  "native_audio_review": {
+    "audio_only_deletion_kept_text": true,
+    "audio_seconds": 5.855,
+    "avfoundation_audio_tracks": 1,
+    "avfoundation_video_tracks": 0,
+    "boundary": "Swift CLI and Core audio archive/history → owned Python worker normalization and actual local Metal ASR → store restart → AVFoundation duration/tracks. No playback sound, microphone, permissions or SwiftUI interaction.",
+    "history_and_archive_restart": true,
+    "model": "parakeet-v3",
+    "normalized_asr_matches_original": true,
+    "normalized_bytes": 374800,
+    "reprocess_copy_survived_original_deletion": true,
+    "source_sha256": "799f78ed4beb4de7ceae3a809262d4ce242394342ccd1d58cef7d49dbc2def46",
+    "status": "passed",
+    "text": "mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+    "timestamp": "2026-10-23T20:07:15Z",
+    "warm_worker_survived_budget_rejection": true
+  },
+  "results": [
+    {
+      "id": "parakeet-v3",
+      "ok": true,
+      "result": {
+        "model": "parakeet-v3",
+        "audio_seconds": 5.855,
+        "speech_seconds": 5.2,
+        "text": "mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+        "segments": [
+          {
+            "start": 0.38,
+            "end": 5.5,
+            "text": " mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."
+          }
+        ],
+        "words": [],
+        "language": "en",
+        "silence": false,
+        "warm": false,
+        "load_ms": 465.1522079948336,
+        "preprocess_ms": 0.7922081276774406,
+        "decode_ms": 274.2059580050409,
+        "total_ms": 740.1597080752254,
+        "peak_gpu_bytes": 2061298036,
+        "active_gpu_bytes": 1296197836,
+        "vocabulary_applied": false,
+        "timestamp_granularity": "segment"
+      }
+    },
+    {
+      "id": "whisper-turbo",
+      "ok": true,
+      "result": {
+        "model": "whisper-turbo",
+        "audio_seconds": 5.855,
+        "speech_seconds": 5.2,
+        "text": "Mr. Quilter is the apostle of the middle classes and we are glad to welcome his gospel.",
+        "segments": [
+          {
+            "start": 0.38,
+            "end": 5.34,
+            "text": "Mr. Quilter is the apostle of the middle classes and we are glad to welcome his gospel."
+          }
+        ],
+        "words": [],
+        "language": "en",
+        "silence": false,
+        "warm": false,
+        "load_ms": 1676.550667034462,
+        "preprocess_ms": 0.7237920071929693,
+        "decode_ms": 240.0642081629485,
+        "total_ms": 1917.3462078906596,
+        "peak_gpu_bytes": 2556663702,
+        "active_gpu_bytes": 1618309810,
+        "vocabulary_applied": false,
+        "timestamp_granularity": "segment"
+      }
+    },
+    {
+      "id": "whisper-small",
+      "ok": true,
+      "result": {
+        "model": "whisper-small",
+        "audio_seconds": 5.855,
+        "speech_seconds": 5.2,
+        "text": "Mr. Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+        "segments": [
+          {
+            "start": 0.38,
+            "end": 5.98,
+            "text": "Mr. Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."
+          }
+        ],
+        "words": [],
+        "language": "en",
+        "silence": false,
+        "warm": false,
+        "load_ms": 183.19149990566075,
+        "preprocess_ms": 0.6924159824848175,
+        "decode_ms": 148.9132500719279,
+        "total_ms": 332.8050831332803,
+        "peak_gpu_bytes": 1447410502,
+        "active_gpu_bytes": 484088562,
+        "vocabulary_applied": false,
+        "timestamp_granularity": "segment"
+      }
+    },
+    {
+      "id": "qwen3-asr",
+      "ok": true,
+      "result": {
+        "model": "qwen3-asr",
+        "audio_seconds": 5.855,
+        "speech_seconds": 5.2,
+        "text": "Mr. Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+        "segments": [
+          {
+            "start": 0.38,
+            "end": 5.58,
+            "text": "Mr. Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."
+          }
+        ],
+        "words": [],
+        "language": "en",
+        "silence": false,
+        "warm": false,
+        "load_ms": 4881.504165939987,
+        "preprocess_ms": 0.5657500587403774,
+        "decode_ms": 240.75650004670024,
+        "total_ms": 5122.832750203088,
+        "peak_gpu_bytes": 3499426694,
+        "active_gpu_bytes": 2486946244,
+        "vocabulary_applied": false,
+        "timestamp_granularity": "utterance"
+      }
+    },
+    {
+      "id": "nemotron-streaming",
+      "ok": true,
+      "result": {
+        "model": "nemotron-streaming",
+        "audio_seconds": 5.855,
+        "speech_seconds": 5.2,
+        "text": "Mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+        "segments": [
+          {
+            "start": 0.38,
+            "end": 5.58,
+            "text": "Mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."
+          }
+        ],
+        "words": [],
+        "language": "en",
+        "silence": false,
+        "warm": false,
+        "load_ms": 215.80837504006922,
+        "preprocess_ms": 0.802834052592516,
+        "decode_ms": 129.04387502931058,
+        "total_ms": 345.66304204054177,
+        "peak_gpu_bytes": 986009154,
+        "active_gpu_bytes": 797418506,
+        "vocabulary_applied": false,
+        "timestamp_granularity": "utterance"
+      }
+    },
+    {
+      "id": "cohere-native8",
+      "ok": true,
+      "result": {
+        "model": "cohere-native8",
+        "audio_seconds": 5.855,
+        "speech_seconds": 5.2,
+        "text": "mister Quilter is the apostle of the middle classes and we are glad to welcome his gospel",
+        "segments": [
+          {
+            "start": 0.38,
+            "end": 5.58,
+            "text": "mister Quilter is the apostle of the middle classes and we are glad to welcome his gospel"
+          }
+        ],
+        "words": [],
+        "language": "en",
+        "silence": false,
+        "warm": false,
+        "load_ms": 388.6885419487953,
+        "preprocess_ms": 0.697416951879859,
+        "decode_ms": 113.88829187490046,
+        "total_ms": 503.2811248674989,
+        "peak_gpu_bytes": 2615828762,
+        "active_gpu_bytes": 2482087246,
+        "vocabulary_applied": false,
+        "timestamp_granularity": "utterance"
+      }
+    },
+    {
+      "id": "notes",
+      "ok": true,
+      "result": {
+        "excerpts": [
+          {
+            "id": 0,
+            "text": "Do not ship on Friday.",
+            "start": 0,
+            "end": 22
+          },
+          {
+            "id": 1,
+            "text": "Priya will send the review on Monday.",
+            "start": 23,
+            "end": 60
+          },
+          {
+            "id": 2,
+            "text": "The proposed price is $12.50.",
+            "start": 61,
+            "end": 90
+          }
+        ],
+        "source_characters": 90,
+        "chunks": 1,
+        "limitations": "Exact excerpts, selected by a model. May miss context, decisions or commitments; review the full transcript.",
+        "model": "mlx-community/Qwen3-4B-Instruct-2507-4bit",
+        "total_ms": 892.0492499601096
+      }
+    },
+    {
+      "id": "speakers",
+      "ok": true,
+      "result": {
+        "model": "parakeet-v3",
+        "audio_seconds": 5.855,
+        "speech_seconds": 5.855,
+        "text": "Speaker 1: mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+        "segments": [
+          {
+            "start": 0.24,
+            "end": 5.84,
+            "text": "mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+            "overlapSpeakers": [],
+            "speaker": 0
+          }
+        ],
+        "words": [
+          {
+            "start": 0.24,
+            "end": 0.64,
+            "text": "mister",
+            "overlapSpeakers": [],
+            "speaker": 0
+          },
+          {
+            "start": 0.64,
+            "end": 1.3599999999999999,
+            "text": "Quilter",
+            "overlapSpeakers": [],
+            "speaker": 0
+          },
+          {
+            "start": 1.36,
+            "end": 1.52,
+            "text": "is",
+            "overlapSpeakers": [],
+            "speaker": 0
+          },
+          {
+            "start": 1.52,
+            "end": 1.6,
+            "text": "the",
+            "overlapSpeakers": [],
+            "speaker": 0
+          },
+          {
+            "start": 1.6,
+            "end": 2.16,
+            "text": "apostle",
+            "overlapSpeakers": [],
+            "speaker": 0
+          },
+          {
+            "start": 2.16,
+            "end": 2.24,
+            "text": "of",
+            "overlapSpeakers": [],
+            "speaker": 0
+          },
+          {
+            "start": 2.24,
+            "end": 2.4000000000000004,
+            "text": "the",
+            "overlapSpeakers": [],
+            "speaker": 0
+          },
+          {
+            "start": 2.4,
+            "end": 2.64,
+            "text": "middle",
+            "overlapSpeakers": [],
+            "speaker": 0
+          },
+          {
+            "start": 2.72,
+            "end": 3.2800000000000002,
+            "text": "classes,",
+            "overlapSpeakers": [],
+            "speaker": 0
+          },
+          {
+            "start": 3.2800000000000002,
+            "end": 3.4400000000000004,
+            "text": "and",
+            "overlapSpeakers": [],
+            "speaker": 0
+          },
+          {
+            "start": 3.44,
+            "end": 3.6,
+            "text": "we",
+            "overlapSpeakers": [],
+            "speaker": 0
+          },
+          {
+            "start": 3.6,
+            "end": 3.7600000000000002,
+            "text": "are",
+            "overlapSpeakers": [],
+            "speaker": 0
+          },
+          {
+            "start": 3.7600000000000002,
+            "end": 4.08,
+            "text": "glad",
+            "overlapSpeakers": [],
+            "speaker": 0
+          },
+          {
+            "start": 4.08,
+            "end": 4.24,
+            "text": "to",
+            "overlapSpeakers": [],
+            "speaker": 0
+          },
+          {
+            "start": 4.24,
+            "end": 4.720000000000001,
+            "text": "welcome",
+            "overlapSpeakers": [],
+            "speaker": 0
+          },
+          {
+            "start": 4.72,
+            "end": 4.96,
+            "text": "his",
+            "overlapSpeakers": [],
+            "speaker": 0
+          },
+          {
+            "start": 4.96,
+            "end": 5.84,
+            "text": "gospel.",
+            "overlapSpeakers": [],
+            "speaker": 0
+          }
+        ],
+        "language": "en",
+        "silence": false,
+        "warm": false,
+        "load_ms": 127.93299998156726,
+        "preprocess_ms": 0.4996669013053179,
+        "decode_ms": 150.92887496575713,
+        "total_ms": 350.86629120633006,
+        "peak_gpu_bytes": 4720111974,
+        "active_gpu_bytes": 3668586522,
+        "vocabulary_applied": false,
+        "timestamp_granularity": "recognizer-word",
+        "raw_text": "mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+        "speaker_turns": [
+          {
+            "start": 0.5,
+            "end": 5.51,
+            "speaker": 0
+          }
+        ],
+        "num_speakers": 1,
+        "diarization_ms": 20.334041910246015,
+        "limitations": [
+          "Anonymous within-recording labels, not identity recognition.",
+          "Overlapping speech is flagged, not separated; ASR can omit simultaneous words.",
+          "Word timing is recognizer alignment, not a manually verified reference."
+        ]
+      }
+    },
+    {
+      "id": "mix",
+      "ok": true,
+      "result": {
+        "path": "/private/var/folders/p0/pvbw136x5yj_6yybdln6w60c0000gn/T/ospr-portable-4v1bbi42/mixed.wav",
+        "audio_seconds": 6.105,
+        "tracks": 2,
+        "description": "Presentation-clock aligned local tracks; equal-weight mix, no echo cancellation."
+      }
+    },
+    {
+      "id": "prepare-upload",
+      "ok": true,
+      "result": {
+        "path": "/private/var/folders/p0/pvbw136x5yj_6yybdln6w60c0000gn/T/ospr-portable-4v1bbi42/upload.wav",
+        "audio_seconds": 5.855,
+        "bytes": 187404,
+        "format": "16 kHz mono PCM16 WAV",
+        "source_unchanged": true
+      }
+    },
+    {
+      "id": "status-before",
+      "ok": true,
+      "result": {
+        "models": [
+          {
+            "id": "parakeet-v3",
+            "repo": "mlx-community/parakeet-tdt-0.6b-v3",
+            "revision": "ed2b7e8c15f9aaa0b5772e2efb986255eaef7e15",
+            "required_bytes": 2508940517,
+            "verified_bytes": 2508940517,
+            "complete": true,
+            "path": "/Users/vibhusapra/.cache/huggingface/hub/models--mlx-community--parakeet-tdt-0.6b-v3/snapshots/ed2b7e8c15f9aaa0b5772e2efb986255eaef7e15"
+          },
+          {
+            "id": "whisper-turbo",
+            "repo": "mlx-community/whisper-large-v3-turbo",
+            "revision": "a4aaeec0636e6fef84abdcbe3544cb2bf7e9f6fb",
+            "required_bytes": 1613977880,
+            "verified_bytes": 1613977880,
+            "complete": true,
+            "path": "/Users/vibhusapra/.cache/huggingface/hub/models--mlx-community--whisper-large-v3-turbo/snapshots/a4aaeec0636e6fef84abdcbe3544cb2bf7e9f6fb"
+          },
+          {
+            "id": "whisper-small",
+            "repo": "mlx-community/whisper-small-mlx",
+            "revision": "45f3915923c7a79a5a5b5a7d909d39aeb0e5630e",
+            "required_bytes": 481307858,
+            "verified_bytes": 481307858,
+            "complete": true,
+            "path": "/Users/vibhusapra/.cache/huggingface/hub/models--mlx-community--whisper-small-mlx/snapshots/45f3915923c7a79a5a5b5a7d909d39aeb0e5630e"
+          },
+          {
+            "id": "qwen3-asr",
+            "repo": "mlx-community/Qwen3-ASR-1.7B-8bit",
+            "revision": "a8379a2e2f9e313c9292cdf1af4055ab56d50d55",
+            "required_bytes": 2467856503,
+            "verified_bytes": 2467856503,
+            "complete": true,
+            "path": "/Users/vibhusapra/.cache/huggingface/hub/models--mlx-community--Qwen3-ASR-1.7B-8bit/snapshots/a8379a2e2f9e313c9292cdf1af4055ab56d50d55"
+          },
+          {
+            "id": "cohere-native8",
+            "repo": "littoralai/cohere-transcribe-mlx-8bit",
+            "revision": "b3f1f6b5fb5ae1bd17c9be2bcd85806339890450",
+            "required_bytes": 2422808826,
+            "verified_bytes": 2422808826,
+            "complete": true,
+            "path": "/Users/vibhusapra/.cache/huggingface/hub/models--littoralai--cohere-transcribe-mlx-8bit/snapshots/b3f1f6b5fb5ae1bd17c9be2bcd85806339890450"
+          },
+          {
+            "id": "nemotron-streaming",
+            "repo": "mlx-community/nemotron-3.5-asr-streaming-0.6b-8bit",
+            "revision": "7279359e4481b5e9e185a318bd618e429c6d86cd",
+            "required_bytes": 756243376,
+            "verified_bytes": 756243376,
+            "complete": true,
+            "path": "/Users/vibhusapra/.cache/huggingface/hub/models--mlx-community--nemotron-3.5-asr-streaming-0.6b-8bit/snapshots/7279359e4481b5e9e185a318bd618e429c6d86cd"
+          },
+          {
+            "id": "rewrite-quality",
+            "repo": "mlx-community/Qwen3-4B-Instruct-2507-4bit",
+            "revision": "50d427756c6b1b2fe0c0a10f67fbda1fc8e82c1b",
+            "required_bytes": 2278969697,
+            "verified_bytes": 2278969697,
+            "complete": true,
+            "path": "/Users/vibhusapra/.cache/huggingface/hub/models--mlx-community--Qwen3-4B-Instruct-2507-4bit/snapshots/50d427756c6b1b2fe0c0a10f67fbda1fc8e82c1b"
+          },
+          {
+            "id": "diarization",
+            "repo": "mlx-community/Nemotron-3-Diarization-8bit",
+            "revision": "dd8b8ce3d69a80540a7e50150e2beed1c34fee37",
+            "required_bytes": 106615594,
+            "verified_bytes": 106615594,
+            "complete": true,
+            "path": "/Users/vibhusapra/.cache/huggingface/hub/models--mlx-community--Nemotron-3-Diarization-8bit/snapshots/dd8b8ce3d69a80540a7e50150e2beed1c34fee37"
+          }
+        ],
+        "resident": [
+          "parakeet-v3"
+        ],
+        "rewrite_resident": "rewrite-quality",
+        "diarizer_resident": true
+      }
+    },
+    {
+      "id": "download-cached",
+      "ok": true,
+      "result": {
+        "model": "whisper-small",
+        "complete": true
+      }
+    },
+    {
+      "id": "status-after",
+      "ok": true,
+      "result": {
+        "models": [
+          {
+            "id": "parakeet-v3",
+            "repo": "mlx-community/parakeet-tdt-0.6b-v3",
+            "revision": "ed2b7e8c15f9aaa0b5772e2efb986255eaef7e15",
+            "required_bytes": 2508940517,
+            "verified_bytes": 2508940517,
+            "complete": true,
+            "path": "/Users/vibhusapra/.cache/huggingface/hub/models--mlx-community--parakeet-tdt-0.6b-v3/snapshots/ed2b7e8c15f9aaa0b5772e2efb986255eaef7e15"
+          },
+          {
+            "id": "whisper-turbo",
+            "repo": "mlx-community/whisper-large-v3-turbo",
+            "revision": "a4aaeec0636e6fef84abdcbe3544cb2bf7e9f6fb",
+            "required_bytes": 1613977880,
+            "verified_bytes": 1613977880,
+            "complete": true,
+            "path": "/Users/vibhusapra/.cache/huggingface/hub/models--mlx-community--whisper-large-v3-turbo/snapshots/a4aaeec0636e6fef84abdcbe3544cb2bf7e9f6fb"
+          },
+          {
+            "id": "whisper-small",
+            "repo": "mlx-community/whisper-small-mlx",
+            "revision": "45f3915923c7a79a5a5b5a7d909d39aeb0e5630e",
+            "required_bytes": 481307858,
+            "verified_bytes": 481307858,
+            "complete": true,
+            "path": "/Users/vibhusapra/.cache/huggingface/hub/models--mlx-community--whisper-small-mlx/snapshots/45f3915923c7a79a5a5b5a7d909d39aeb0e5630e"
+          },
+          {
+            "id": "qwen3-asr",
+            "repo": "mlx-community/Qwen3-ASR-1.7B-8bit",
+            "revision": "a8379a2e2f9e313c9292cdf1af4055ab56d50d55",
+            "required_bytes": 2467856503,
+            "verified_bytes": 2467856503,
+            "complete": true,
+            "path": "/Users/vibhusapra/.cache/huggingface/hub/models--mlx-community--Qwen3-ASR-1.7B-8bit/snapshots/a8379a2e2f9e313c9292cdf1af4055ab56d50d55"
+          },
+          {
+            "id": "cohere-native8",
+            "repo": "littoralai/cohere-transcribe-mlx-8bit",
+            "revision": "b3f1f6b5fb5ae1bd17c9be2bcd85806339890450",
+            "required_bytes": 2422808826,
+            "verified_bytes": 2422808826,
+            "complete": true,
+            "path": "/Users/vibhusapra/.cache/huggingface/hub/models--littoralai--cohere-transcribe-mlx-8bit/snapshots/b3f1f6b5fb5ae1bd17c9be2bcd85806339890450"
+          },
+          {
+            "id": "nemotron-streaming",
+            "repo": "mlx-community/nemotron-3.5-asr-streaming-0.6b-8bit",
+            "revision": "7279359e4481b5e9e185a318bd618e429c6d86cd",
+            "required_bytes": 756243376,
+            "verified_bytes": 756243376,
+            "complete": true,
+            "path": "/Users/vibhusapra/.cache/huggingface/hub/models--mlx-community--nemotron-3.5-asr-streaming-0.6b-8bit/snapshots/7279359e4481b5e9e185a318bd618e429c6d86cd"
+          },
+          {
+            "id": "rewrite-quality",
+            "repo": "mlx-community/Qwen3-4B-Instruct-2507-4bit",
+            "revision": "50d427756c6b1b2fe0c0a10f67fbda1fc8e82c1b",
+            "required_bytes": 2278969697,
+            "verified_bytes": 2278969697,
+            "complete": true,
+            "path": "/Users/vibhusapra/.cache/huggingface/hub/models--mlx-community--Qwen3-4B-Instruct-2507-4bit/snapshots/50d427756c6b1b2fe0c0a10f67fbda1fc8e82c1b"
+          },
+          {
+            "id": "diarization",
+            "repo": "mlx-community/Nemotron-3-Diarization-8bit",
+            "revision": "dd8b8ce3d69a80540a7e50150e2beed1c34fee37",
+            "required_bytes": 106615594,
+            "verified_bytes": 106615594,
+            "complete": true,
+            "path": "/Users/vibhusapra/.cache/huggingface/hub/models--mlx-community--Nemotron-3-Diarization-8bit/snapshots/dd8b8ce3d69a80540a7e50150e2beed1c34fee37"
+          }
+        ],
+        "resident": [
+          "parakeet-v3"
+        ],
+        "rewrite_resident": "rewrite-quality",
+        "diarizer_resident": true
+      }
+    },
+    {
+      "id": "warm-progress",
+      "ok": true,
+      "result": {
+        "model": "parakeet-v3",
+        "load_ms": 0.0024170149117708206,
+        "prime_ms": 34.27866590209305,
+        "primed_sample_rate": 48000,
+        "total_ms": 34.29741691797972
+      }
+    },
+    {
+      "id": "prepare-review",
+      "ok": true,
+      "result": {
+        "audio_seconds": 5.855,
+        "bytes": 374800,
+        "format": "16 kHz mono float32 WAV",
+        "source_unchanged": true
+      }
+    },
+    {
+      "id": "prime-parakeet-v3",
+      "ok": true,
+      "result": {
+        "model": "parakeet-v3",
+        "load_ms": 0.0012919772416353226,
+        "prime_ms": 0,
+        "primed_sample_rate": 48000,
+        "total_ms": 0.0019168946892023087
+      }
+    },
+    {
+      "id": "prime-whisper-turbo",
+      "ok": true,
+      "result": {
+        "model": "whisper-turbo",
+        "load_ms": 175.24220794439316,
+        "prime_ms": 112.49400000087917,
+        "primed_sample_rate": 48000,
+        "total_ms": 287.77162497863173
+      }
+    },
+    {
+      "id": "prime-whisper-small",
+      "ok": true,
+      "result": {
+        "model": "whisper-small",
+        "load_ms": 193.6865421012044,
+        "prime_ms": 55.21729215979576,
+        "primed_sample_rate": 48000,
+        "total_ms": 248.93687502481043
+      }
+    },
+    {
+      "id": "prime-qwen3-asr",
+      "ok": true,
+      "result": {
+        "model": "qwen3-asr",
+        "load_ms": 289.6403749473393,
+        "prime_ms": 99.77670782245696,
+        "primed_sample_rate": 48000,
+        "total_ms": 389.4371250644326
+      }
+    },
+    {
+      "id": "prime-nemotron-streaming",
+      "ok": true,
+      "result": {
+        "model": "nemotron-streaming",
+        "load_ms": 167.91500011458993,
+        "prime_ms": 30.105957994237542,
+        "primed_sample_rate": 48000,
+        "total_ms": 198.05366615764797
+      }
+    },
+    {
+      "id": "prime-cohere-native8",
+      "ok": true,
+      "result": {
+        "model": "cohere-native8",
+        "load_ms": 241.63495795801282,
+        "prime_ms": 76.00508304312825,
+        "primed_sample_rate": 48000,
+        "total_ms": 317.67920800484717
+      }
+    }
+  ]
+}

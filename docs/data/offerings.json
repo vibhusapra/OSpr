@@ -1,0 +1,1077 @@
+{
+  "as_of": "2026-10-22",
+  "currency": "USD unless marked €; taxes/store/regional pricing may differ",
+  "method": "Official product/pricing pages and current upstream READMEs, browsed and/or fetched directly. Features are vendor/project claims unless separately measured. Unknown means not established, not absent.",
+  "products": [
+    {
+      "name": "Wispr Flow",
+      "kind": "commercial",
+      "platforms": "Mac, Windows, iOS, Android",
+      "license": "Proprietary",
+      "plans": [
+        [
+          "Free",
+          "$0",
+          "Limited dictation; dictionary/snippets; limited Notetaker."
+        ],
+        [
+          "Pro",
+          "$15/user/month or $144/year",
+          "Unlimited dictation; longer meeting history; shared vocabulary, workspace, billing and analytics."
+        ],
+        [
+          "Growth",
+          "$23/user/month; page also shows $33 with unlimited Notetaker",
+          "SAML, multiple domains, organization privacy policies. Annual comparison shows $18/user/month; confirm add-on selection."
+        ],
+        [
+          "Enterprise",
+          "Custom annual",
+          "SCIM, audit logs, MDM, domain capture, IT-admin seats, contract and support."
+        ],
+        [
+          "Student",
+          "Eligible students: $0/year per official help page",
+          "Eligibility and availability need verification."
+        ]
+      ],
+      "routing": "Managed service; checked sources do not establish a general local/BYOK mode.",
+      "difference": "Strong integrated writing/meeting workflow and organization controls. Current official pages disagree on some free limits and plan labels.",
+      "features": [
+        "dictation",
+        "dictionary",
+        "snippets",
+        "meetings",
+        "speakers",
+        "mcp",
+        "sync",
+        "teams",
+        "sso",
+        "scim",
+        "privacy_controls"
+      ],
+      "sources": [
+        "https://wisprflow.ai/pricing",
+        "https://docs.wisprflow.ai/articles/9559327591"
+      ],
+      "notes": "Pricing page still lists 2,000 desktop / 1,000 mobile words per week in its comparison; plan language is changing. Recheck checkout. Security certifications are vendor claims, not an OSpr audit."
+    },
+    {
+      "name": "Superwhisper",
+      "kind": "commercial",
+      "platforms": "Mac, Windows, iOS, Android",
+      "license": "Proprietary",
+      "plans": [
+        [
+          "Free",
+          "$0",
+          "Unlimited local Whisper dictation; vocabulary and text replacements; two modes without AI processing. 3,000-word Pro trial."
+        ],
+        [
+          "Pro monthly",
+          "$8.49/month",
+          "Cloud/local Pro models, AI modes, context awareness, real-time transcription, system audio, speaker separation, file imports and BYOK."
+        ],
+        [
+          "Pro annual",
+          "$84.99/year",
+          "Same Pro features; one license across unlimited Macs/Windows PCs and iOS/Android devices."
+        ],
+        [
+          "Pro lifetime",
+          "$249.99 once",
+          "Same Pro feature set with one-time billing."
+        ],
+        [
+          "Enterprise",
+          "Custom",
+          "Centralized authentication/billing, model policies and enterprise hosting; verify contract."
+        ]
+      ],
+      "routing": "Local and hosted ASR/LLM choices; BYOK in Pro.",
+      "difference": "Configurable modes and app context make it a close dictation-workflow reference.",
+      "features": [
+        "dictation",
+        "local_asr",
+        "local_llm",
+        "byok_asr",
+        "byok_llm",
+        "dictionary",
+        "modes",
+        "app_profiles",
+        "screen_context",
+        "selection_edit",
+        "file_import",
+        "meetings",
+        "snippets",
+        "live_partials",
+        "speakers",
+        "history",
+        "cli",
+        "mcp",
+        "audio_review"
+      ],
+      "sources": [
+        "https://superwhisper.com/",
+        "https://superwhisper.com/models",
+        "https://superwhisper.com/docs/billing/plans",
+        "https://superwhisper.com/docs/get-started/cli",
+        "https://superwhisper.com/docs/meetings/overview",
+        "https://superwhisper.com/changelog"
+      ],
+      "notes": "Official billing docs explicitly list all three Pro prices. Verified students/educators and nonprofits can request 40% off before purchase. Website and App Store pricing can differ. Official changelog documents segmented history playback and word timestamps."
+    },
+    {
+      "name": "VoiceInk (Beingpax)",
+      "kind": "open-commercial",
+      "platforms": "Apple Silicon Mac; iOS companion",
+      "license": "GPL-3.0 source; paid distribution",
+      "plans": [
+        [
+          "Build from source",
+          "$0",
+          "Source available; commercial purchase supports distribution/updates."
+        ],
+        [
+          "Solo",
+          "$25 once",
+          "1 Mac."
+        ],
+        [
+          "Personal",
+          "$39 once",
+          "2 Macs."
+        ],
+        [
+          "Extended",
+          "$49 once",
+          "3 Macs."
+        ],
+        [
+          "Team",
+          "Quote / dynamic selection",
+          "Team toggle exists; current team total not established."
+        ]
+      ],
+      "routing": "Local recognition; optional text enhancement through chosen provider.",
+      "difference": "Native local dictation with app/URL modes, custom words, replacements, selection edits and journaling.",
+      "features": [
+        "dictation",
+        "local_asr",
+        "byok_llm",
+        "dictionary",
+        "snippets",
+        "modes",
+        "app_profiles",
+        "screen_context",
+        "selection_edit",
+        "history"
+      ],
+      "sources": [
+        "https://tryvoiceink.com/",
+        "https://github.com/Beingpax/VoiceInk"
+      ],
+      "notes": "Distinct from similarly named voice-ink.com and unrelated VoiceInk repositories. Requires macOS 14.4+ per current vendor page. The current repository README requires macOS 15.0+, differing from the checked vendor minimum; confirm the selected build."
+    },
+    {
+      "name": "MacWhisper",
+      "kind": "commercial",
+      "platforms": "macOS; related iOS product",
+      "license": "Proprietary",
+      "plans": [
+        [
+          "Free",
+          "€0",
+          "Basic local transcription and limited export."
+        ],
+        [
+          "Pro",
+          "€64/license on current website",
+          "One-time, lifetime updates; premium transcription and workflow features."
+        ],
+        [
+          "Assistant / store variants",
+          "Separate terms",
+          "Hosted Assistant, App Store and iOS purchases can differ; not inferred from desktop Pro."
+        ]
+      ],
+      "routing": "Local models, BYOK cloud providers, custom compatible endpoints, Ollama/LM Studio.",
+      "difference": "Broad media-workflow reference: speaker recognition, app audio, watched folders, subtitle/video editing, CLI and automation.",
+      "features": [
+        "dictation",
+        "local_asr",
+        "local_llm",
+        "byok_asr",
+        "byok_llm",
+        "custom_endpoints",
+        "modes",
+        "app_profiles",
+        "file_import",
+        "batch",
+        "subtitles",
+        "history",
+        "meetings",
+        "speakers",
+        "cli",
+        "watch_folders",
+        "webhooks",
+        "audio_review"
+      ],
+      "sources": [
+        "https://www.macwhisper.com/",
+        "https://docs.macwhisper.com/article/58-setting-up-ai-providers-in-macwhisper",
+        "https://docs.macwhisper.com/article/28-keyboard-shortcuts"
+      ],
+      "notes": "Some web tables lose checkmark alignment in text extraction; exact Free/Pro gating should be confirmed in the native product. UI was not benchmarked. Official shortcuts document audio playback and playback-speed control."
+    },
+    {
+      "name": "Aqua Voice",
+      "kind": "commercial",
+      "platforms": "Mac, Windows, iOS, Android",
+      "license": "Proprietary",
+      "plans": [
+        [
+          "Free",
+          "$0",
+          "1,000 words total; Avalon."
+        ],
+        [
+          "Pro",
+          "$10/month or $96/year",
+          "Unlimited words, custom instructions and expanded dictionary."
+        ],
+        [
+          "Max",
+          "$30/month or $288/year",
+          "Realtime Mode and “Send it” command."
+        ],
+        [
+          "Business",
+          "$24/seat/month or $228/seat/year; minimum 2",
+          "Max plus SSO/SAML, SCIM, reporting, ZDR and team dictionaries."
+        ],
+        [
+          "Student",
+          "70% off Pro/Max",
+          "Academic verification required."
+        ]
+      ],
+      "routing": "Cloud dictation; offline availability varies by platform/version/mode per FAQ.",
+      "difference": "Context-aware technical dictation and a distinct realtime tier. Computer-action and agent integration broaden the scope beyond text entry.",
+      "features": [
+        "dictation",
+        "dictionary",
+        "modes",
+        "screen_context",
+        "selection_edit",
+        "live_partials",
+        "mcp",
+        "cli",
+        "teams",
+        "sso",
+        "scim",
+        "privacy_controls"
+      ],
+      "sources": [
+        "https://aquavoice.com/pricing",
+        "https://aquavoice.com/info/faq"
+      ],
+      "notes": "Direct fetch of current pricing was used because web search also surfaced older Team/Business structures. No independent latency claim."
+    },
+    {
+      "name": "Willow",
+      "kind": "commercial",
+      "platforms": "Mac, Windows, iOS; Android marked coming soon",
+      "license": "Proprietary",
+      "plans": [
+        [
+          "Basic",
+          "$0",
+          "Unlimited Frontier Mini; limited personalization; 20 Scribe uses/week."
+        ],
+        [
+          "Pro",
+          "$15/month or $144/year",
+          "Frontier Pro, personal writing memory, unlimited Scribe, longer turns."
+        ],
+        [
+          "Business",
+          "$35/month or $336/year",
+          "Enforced privacy, HIPAA controls, admin features."
+        ],
+        [
+          "Enterprise",
+          "Custom",
+          "SSO/SAML, contracts, dashboards/API and support."
+        ]
+      ],
+      "routing": "Managed transcription and writing service.",
+      "difference": "Personalized style memory plus intent-to-writing Scribe. The current free tier differs from older 2,000-word reviews.",
+      "features": [
+        "dictation",
+        "dictionary",
+        "modes",
+        "app_profiles",
+        "sync",
+        "teams",
+        "sso",
+        "privacy_controls"
+      ],
+      "sources": [
+        "https://willowvoice.com/pricing"
+      ],
+      "notes": "Plan security language is vendor-provided. Source does not establish a bring-your-own-key or general offline mode."
+    },
+    {
+      "name": "Spokenly",
+      "kind": "commercial",
+      "platforms": "Mac, Windows, Linux, iOS",
+      "license": "Proprietary",
+      "plans": [
+        [
+          "Free",
+          "$0",
+          "Unlimited offline Whisper/Parakeet; BYOK cloud and realtime."
+        ],
+        [
+          "Local+",
+          "$29 once",
+          "Recording styles, settings sync, priority support; hosted usage excluded."
+        ],
+        [
+          "Pro",
+          "$99.99/year ($8.33/month equivalent)",
+          "Managed cloud ASR and AI cleanup; monthly switch exists but monthly total not resolved."
+        ],
+        [
+          "Team",
+          "30% multi-seat discount",
+          "See current team terms."
+        ],
+        [
+          "Student",
+          "50% off Pro",
+          "Verified students."
+        ]
+      ],
+      "routing": "Local-only mode, free BYOK or managed hosted models.",
+      "difference": "Aggressive free local/BYOK offering; realtime engines and agent workflows raise the baseline OSpr must meet.",
+      "features": [
+        "dictation",
+        "local_asr",
+        "byok_asr",
+        "byok_llm",
+        "live_partials",
+        "dictionary",
+        "modes",
+        "history",
+        "mcp",
+        "sync",
+        "teams"
+      ],
+      "sources": [
+        "https://spokenly.app/",
+        "https://spokenly.app/pricing"
+      ],
+      "notes": "Local+ purchase availability differs for the direct Mac build versus the App Store version."
+    },
+    {
+      "name": "Typeless",
+      "kind": "commercial",
+      "platforms": "Mac, Windows and mobile; check platform matrix",
+      "license": "Proprietary",
+      "plans": [
+        [
+          "Free",
+          "$0",
+          "Limited words; writing cleanup, translation, dictionary and app-specific tone."
+        ],
+        [
+          "Pro",
+          "$30/month or $144/year",
+          "Unlimited words, enhanced accuracy/priority, sync and team management."
+        ],
+        [
+          "Enterprise",
+          "Custom",
+          "SSO, SCIM, audit/retention, domain controls and agreements."
+        ]
+      ],
+      "routing": "Managed service; local history does not itself establish local ASR.",
+      "difference": "Personalization, intent cleanup, translation and whisper-style input bundled into one writing flow.",
+      "features": [
+        "dictation",
+        "dictionary",
+        "modes",
+        "app_profiles",
+        "history",
+        "sync",
+        "teams",
+        "sso",
+        "scim",
+        "privacy_controls"
+      ],
+      "sources": [
+        "https://www.typeless.com/pricing"
+      ],
+      "notes": "Do not equate “on-device history” with on-device inference. Exact free quota is not specified in the checked page."
+    },
+    {
+      "name": "SpeechPulse",
+      "kind": "commercial",
+      "platforms": "Windows and macOS",
+      "license": "Proprietary",
+      "plans": [
+        [
+          "Trial",
+          "30 days",
+          "Full evaluation."
+        ],
+        [
+          "Mac or Windows",
+          "$99 + tax once",
+          "Current and future updates; up to six personal computers on the purchased platform."
+        ],
+        [
+          "Bundle",
+          "$159 + tax once",
+          "Up to six Macs and six Windows PCs for one named user."
+        ]
+      ],
+      "routing": "Offline speech and optional local/API LLM templates.",
+      "difference": "Hands-free endpointing, spoken punctuation, word training, file diarization and subtitles make it a useful power-user reference.",
+      "features": [
+        "dictation",
+        "local_asr",
+        "local_llm",
+        "byok_llm",
+        "dictionary",
+        "modes",
+        "auto_stop",
+        "file_import",
+        "subtitles",
+        "speakers"
+      ],
+      "sources": [
+        "https://speechpulse.com/",
+        "https://speechpulse.com/buy/"
+      ],
+      "notes": ""
+    },
+    {
+      "name": "Voibe",
+      "kind": "commercial",
+      "platforms": "Mac and Windows",
+      "license": "Proprietary",
+      "plans": [
+        [
+          "Free",
+          "$0",
+          "Limited words, one device, punctuation, vocabulary and history; 7-day full trial."
+        ],
+        [
+          "Dictation",
+          "$9.90/month; $99/year; $199 once per seat",
+          "Unlimited dictation; local or cloud mode; developer features."
+        ],
+        [
+          "Work",
+          "$19/month; $149/year; $399 once per seat",
+          "Meetings, summaries, chat and PDF export."
+        ],
+        [
+          "Enterprise",
+          "Quote for >10 seats",
+          "Admin, billing and custom terms."
+        ]
+      ],
+      "routing": "On-device dictation or ZDR cloud; meeting audio uses cloud processing per pricing FAQ.",
+      "difference": "Separates dictation from a broader meeting workspace. Local transcript storage and cloud meeting processing are distinct.",
+      "features": [
+        "dictation",
+        "local_asr",
+        "dictionary",
+        "modes",
+        "history",
+        "meetings",
+        "teams",
+        "privacy_controls"
+      ],
+      "sources": [
+        "https://www.getvoibe.com/pricing/"
+      ],
+      "notes": "Earlier $198 lifetime references are stale relative to this checked page. BAA availability is vendor-provided, not verified by OSpr."
+    },
+    {
+      "name": "Voicetypr",
+      "kind": "open-commercial",
+      "platforms": "Mac and Windows",
+      "license": "Public source; consult current repository license",
+      "plans": [
+        [
+          "Trial",
+          "3 days",
+          "No card to start."
+        ],
+        [
+          "Lifetime",
+          "Current default: $69 once for 2 devices",
+          "1/2/4 activation choices; other totals require checkout."
+        ],
+        [
+          "Teams",
+          "Contact for 5+ seats",
+          "Custom terms."
+        ]
+      ],
+      "routing": "Offline Whisper/Parakeet; optional cloud ASR and BYOK text cleanup.",
+      "difference": "LAN offload to a stronger machine, per-app rules, CLI/API and file workflows are useful adjacent features.",
+      "features": [
+        "dictation",
+        "local_asr",
+        "byok_asr",
+        "byok_llm",
+        "dictionary",
+        "modes",
+        "app_profiles",
+        "file_import",
+        "history",
+        "cli",
+        "lan_offload"
+      ],
+      "sources": [
+        "https://voicetypr.com/",
+        "https://github.com/ideaplexa/voicetypr"
+      ],
+      "notes": "Public source is not treated as proof of the current binary license or unrestricted free distribution."
+    },
+    {
+      "name": "Monologue",
+      "kind": "commercial",
+      "platforms": "Mac, iPhone, iPad, Apple Watch",
+      "license": "Proprietary",
+      "plans": [
+        [
+          "Trial",
+          "$0",
+          "1,000 words and 10 recorded notes, including offline/context features."
+        ],
+        [
+          "Pro",
+          "$15/month or $144/year",
+          "Unlimited dictation, notes and bot-free meeting notes."
+        ],
+        [
+          "Every bundle",
+          "Included; separate bundle terms",
+          "Other Every products/newsletter included in bundle."
+        ]
+      ],
+      "routing": "Vendor advertises offline transcription.",
+      "difference": "Apple-device continuity and integrated notes/meetings; a polished setup and context flow matter as much as the ASR model.",
+      "features": [
+        "dictation",
+        "local_asr",
+        "modes",
+        "screen_context",
+        "meetings",
+        "mcp",
+        "sync"
+      ],
+      "sources": [
+        "https://www.monologue.to/pricing"
+      ],
+      "notes": ""
+    },
+    {
+      "name": "Handy",
+      "kind": "open-source",
+      "platforms": "Mac, Windows, Linux",
+      "license": "MIT",
+      "plans": [
+        [
+          "All core local features",
+          "$0",
+          "No subscription or word cap."
+        ]
+      ],
+      "routing": "Fully local ASR; optional post-processing is configured separately.",
+      "difference": "Tauri/Rust app with hold/toggle shortcuts, history, paste methods and a broad model catalog. Current docs recommend Cohere for quality and Parakeet for speed.",
+      "features": [
+        "dictation",
+        "local_asr",
+        "byok_llm",
+        "dictionary",
+        "history",
+        "cli"
+      ],
+      "sources": [
+        "https://handy.computer/",
+        "https://handy.computer/docs/models",
+        "https://github.com/cjpais/Handy"
+      ],
+      "notes": ""
+    },
+    {
+      "name": "OpenWhispr",
+      "kind": "open-source",
+      "platforms": "Mac, Windows, Linux; mobile companion",
+      "license": "MIT",
+      "plans": [
+        [
+          "Free",
+          "$0",
+          "Unlimited local/BYOK; hosted 2,000 words/week and 5 meeting hours/month."
+        ],
+        [
+          "Pro",
+          "$80/user/year",
+          "Unlimited hosted dictation, 20 meeting hours, agent mode, sync, API/MCP."
+        ],
+        [
+          "Business",
+          "$160/user/year",
+          "Unlimited meetings and data chat."
+        ],
+        [
+          "Enterprise",
+          "Custom",
+          "SSO/SAML/SCIM, audits and retention."
+        ]
+      ],
+      "routing": "Local or hosted inference, including self-hosted endpoints.",
+      "difference": "Broadest open-source product reference in this sample: meetings, local diarization, notes/search, sharing, agent actions and enterprise controls.",
+      "features": [
+        "dictation",
+        "local_asr",
+        "local_llm",
+        "byok_asr",
+        "byok_llm",
+        "custom_endpoints",
+        "dictionary",
+        "modes",
+        "screen_context",
+        "selection_edit",
+        "file_import",
+        "batch",
+        "history",
+        "meetings",
+        "speakers",
+        "mcp",
+        "cli",
+        "sync",
+        "teams",
+        "sso",
+        "scim"
+      ],
+      "sources": [
+        "https://openwhispr.com/pricing",
+        "https://github.com/OpenWhispr/openwhispr"
+      ],
+      "notes": ""
+    },
+    {
+      "name": "TypeWhisper",
+      "kind": "open-source",
+      "platforms": "macOS 14+",
+      "license": "GPL-3.0",
+      "plans": [
+        [
+          "Open-source app",
+          "Build/use under GPL",
+          "Check binary distribution and plugin terms separately."
+        ]
+      ],
+      "routing": "Swappable local engines and cloud APIs.",
+      "difference": "Native Swift reference with reusable workflows, dictionary/snippets, recovery, raw restore, undo, file inbox and sync. Stable 1.7 differs from development 1.8.",
+      "features": [
+        "dictation",
+        "local_asr",
+        "byok_asr",
+        "byok_llm",
+        "dictionary",
+        "snippets",
+        "modes",
+        "file_import",
+        "history",
+        "sync"
+      ],
+      "sources": [
+        "https://github.com/TypeWhisper/typewhisper-mac"
+      ],
+      "notes": ""
+    },
+    {
+      "name": "OpenWhisp",
+      "kind": "open-source",
+      "platforms": "Apple Silicon macOS 15+",
+      "license": "MIT",
+      "plans": [
+        [
+          "App",
+          "$0",
+          "No account/subscription; optional cloud text processing."
+        ]
+      ],
+      "routing": "On-device Parakeet/Whisper and local rewrite.",
+      "difference": "Streaming-oriented native dictation and a private-socket agent bridge with separate voice/history/rewrite capabilities. Its ~0.3s delay is a project claim, not an OSpr measurement.",
+      "features": [
+        "dictation",
+        "local_asr",
+        "local_llm",
+        "live_partials",
+        "dictionary",
+        "modes",
+        "history",
+        "mcp"
+      ],
+      "sources": [
+        "https://openwhisp.app/",
+        "https://github.com/initcore0/openwhisp"
+      ],
+      "notes": ""
+    },
+    {
+      "name": "Muesli",
+      "kind": "open-source",
+      "platforms": "Apple Silicon macOS 14.2+; some engines need 26+",
+      "license": "MIT",
+      "plans": [
+        [
+          "App",
+          "$0",
+          "Optional hosted providers billed separately."
+        ]
+      ],
+      "routing": "Local by default, optional hosted transcription/cleanup.",
+      "difference": "Native meeting-plus-dictation app with many Core ML/MLX engines, including Nemotron, Cohere, Qwen and Indic models. Notes, summaries, calendar and experimental computer control extend its scope.",
+      "features": [
+        "dictation",
+        "local_asr",
+        "local_llm",
+        "byok_asr",
+        "byok_llm",
+        "dictionary",
+        "modes",
+        "meetings",
+        "speakers",
+        "cli",
+        "mcp",
+        "sync"
+      ],
+      "sources": [
+        "https://github.com/Muesli-HQ/muesli"
+      ],
+      "notes": ""
+    },
+    {
+      "name": "FluidVoice",
+      "kind": "open-source",
+      "platforms": "Apple Silicon macOS",
+      "license": "MIT",
+      "plans": [
+        [
+          "App",
+          "$0",
+          "Source/build workflow."
+        ]
+      ],
+      "routing": "Resident local Parakeet via MLX.",
+      "difference": "Focused hold/toggle dictation with a warm daemon and deterministic vocabulary correction. It claims very low latency; OSpr did not reproduce the app timing.",
+      "features": [
+        "dictation",
+        "local_asr",
+        "dictionary",
+        "snippets"
+      ],
+      "sources": [
+        "https://github.com/jonathanglasmeyer/FluidVoice"
+      ],
+      "notes": ""
+    },
+    {
+      "name": "Whispering / Epicenter",
+      "kind": "open-source",
+      "platforms": "Desktop/browser; current source milestone varies",
+      "license": "Consult current monorepo license",
+      "plans": [
+        [
+          "Source",
+          "Free subject to license",
+          "BYOK usage charged by provider."
+        ]
+      ],
+      "routing": "Chosen compatible endpoint; local hosted endpoints possible.",
+      "difference": "File-owned voice notes and prompt transformations. Current main README calls itself a development milestone and explicitly excludes dictation into other apps; older search results describe a different host architecture.",
+      "features": [
+        "byok_asr",
+        "byok_llm",
+        "custom_endpoints",
+        "file_import",
+        "history"
+      ],
+      "sources": [
+        "https://github.com/EpicenterHQ/epicenter/tree/main/apps/whispering"
+      ],
+      "notes": ""
+    },
+    {
+      "name": "Whispo",
+      "kind": "open-source",
+      "platforms": "Apple Silicon Mac and Windows x64",
+      "license": "AGPL-3.0",
+      "plans": [
+        [
+          "Source/app",
+          "No listed subscription in README",
+          "Cloud usage paid to provider."
+        ]
+      ],
+      "routing": "BYOK OpenAI/Groq ASR; custom endpoint and LLM post-processing.",
+      "difference": "Small hold-to-talk and automatic-paste reference. Local storage is documented; general on-device recognition is not established by the checked README.",
+      "features": [
+        "dictation",
+        "byok_asr",
+        "byok_llm",
+        "custom_endpoints"
+      ],
+      "sources": [
+        "https://github.com/egoist/whispo"
+      ],
+      "notes": ""
+    },
+    {
+      "name": "Vibe",
+      "kind": "open-source",
+      "platforms": "Mac, Windows, Linux",
+      "license": "MIT application source; model and bundled dependency licenses are separate",
+      "plans": [
+        [
+          "Open-source app",
+          "$0",
+          "Local file transcription."
+        ]
+      ],
+      "routing": "Local Whisper, Parakeet and Nemotron recognition. Optional Claude API or local Ollama text analysis. Usage analytics default on in v3.2.2 source; disabled in the OSpr comparison profile.",
+      "difference": "Media and meeting workspace: batch audio/video, live preview, system/microphone capture, editable playback/transcripts, speaker labeling, many export formats, translation, local/cloud summaries, model controls, CLI and local HTTP API. The official arm64 v3.2.2 app passed signature/notarization assessment and 60 paired fresh-process CLI trials across 20 preselected speakers. Browser-based phone capture/handoff is documented with QR pairing; it is not tested here.",
+      "features": [
+        "local_asr",
+        "local_llm",
+        "byok_llm",
+        "live_partials",
+        "file_import",
+        "batch",
+        "subtitles",
+        "cli",
+        "meetings",
+        "speakers",
+        "audio_review",
+        "history"
+      ],
+      "sources": [
+        "https://github.com/thewh1teagle/vibe/tree/v3.2.2",
+        "https://github.com/thewh1teagle/vibe/releases/tag/v3.2.2",
+        "https://github.com/thewh1teagle/vibe/blob/v3.2.2/desktop/src-tauri/src/analytics.rs",
+        "https://github.com/thewh1teagle/vibe/blob/v3.2.2/server/README.md",
+        "https://github.com/thewh1teagle/vibe/blob/v3.2.2/desktop/src/pages/main/components/player-bar.tsx",
+        "https://github.com/thewh1teagle/vibe/blob/v3.2.2/handoff/README.md"
+      ],
+      "notes": "Vendor/project capabilities from the pinned release source; GUI workflows are not benchmarked here. Local ASR capability is distinct from optional cloud summaries and event analytics. The benchmark disables analytics. Stable subtitle timing/VAD is a quality-focused option; default file-command measurements do not enable it."
+    },
+    {
+      "name": "Buzz",
+      "kind": "open-source",
+      "platforms": "Mac, Windows, Linux",
+      "license": "MIT",
+      "plans": [
+        [
+          "Open-source app",
+          "$0",
+          "Optional cloud providers have their own charges."
+        ]
+      ],
+      "routing": "Offline Whisper-family engines with multiple backends.",
+      "difference": "Desktop file/live recording, translation, subtitles and watched-folder workflows. Engine availability and acceleration vary by platform.",
+      "features": [
+        "local_asr",
+        "file_import",
+        "batch",
+        "subtitles",
+        "watch_folders"
+      ],
+      "sources": [
+        "https://github.com/chidiwilliams/buzz"
+      ],
+      "notes": ""
+    },
+    {
+      "name": "aTrain",
+      "kind": "open-source",
+      "platforms": "Primarily desktop research workflow; verify current Mac support",
+      "license": "Consult repository license",
+      "plans": [
+        [
+          "Open-source app",
+          "$0",
+          "Research transcription workflow."
+        ]
+      ],
+      "routing": "Offline ASR and diarization.",
+      "difference": "Interview transcription, speaker segmentation and qualitative-research exports. Adjacent meeting/media reference, not a system-wide dictation product.",
+      "features": [
+        "local_asr",
+        "file_import",
+        "speakers"
+      ],
+      "sources": [
+        "https://github.com/aTrainTranscription/aTrain"
+      ],
+      "notes": ""
+    },
+    {
+      "name": "Apple Dictation",
+      "kind": "built-in",
+      "platforms": "macOS",
+      "license": "OS component",
+      "plans": [
+        [
+          "Included",
+          "With macOS",
+          "Languages/features vary."
+        ]
+      ],
+      "routing": "On-device support depends on language, hardware and settings; check Keyboard settings.",
+      "difference": "Zero-install input baseline with native keyboard integration. General dictation is separate from full Voice Control and newer SpeechAnalyzer APIs.",
+      "features": [
+        "dictation",
+        "local_asr"
+      ],
+      "sources": [
+        "https://support.apple.com/en-gb/guide/mac-help/mh40584/26/mac/26"
+      ],
+      "notes": ""
+    },
+    {
+      "name": "whisper.cpp",
+      "kind": "framework",
+      "platforms": "Cross-platform",
+      "license": "MIT",
+      "plans": [
+        [
+          "Library/CLI",
+          "$0",
+          "Separate model-weight licenses."
+        ]
+      ],
+      "routing": "Metal/Core ML/CPU/Vulkan and other hardware backends.",
+      "difference": "Deployment/runtime baseline with quantization, VAD and persistent-server options. OSpr directly benchmarks the Metal server, not every app built on it.",
+      "features": [
+        "local_asr",
+        "cli"
+      ],
+      "sources": [
+        "https://github.com/ggml-org/whisper.cpp"
+      ],
+      "notes": ""
+    },
+    {
+      "name": "WhisperKit / Argmax OSS",
+      "kind": "framework",
+      "platforms": "Apple platforms",
+      "license": "Consult current SDK license",
+      "plans": [
+        [
+          "OSS SDK",
+          "Source available",
+          "Argmax Pro SDK is a separate commercial product."
+        ]
+      ],
+      "routing": "Core ML-based on-device inference.",
+      "difference": "Swift-native Whisper plus SpeakerKit diarization. Pro-only capabilities and models must not be counted as open-source WhisperKit features.",
+      "features": [
+        "local_asr",
+        "speakers"
+      ],
+      "sources": [
+        "https://github.com/argmaxinc/argmax-oss-swift"
+      ],
+      "notes": ""
+    },
+    {
+      "name": "MLX Audio / Swift",
+      "kind": "framework",
+      "platforms": "Apple Silicon",
+      "license": "MIT",
+      "plans": [
+        [
+          "Library",
+          "$0",
+          "Model licenses apply independently."
+        ]
+      ],
+      "routing": "MLX GPU inference with a broad speech-model catalog.",
+      "difference": "Useful model-adapter base for Qwen, Nemotron, Voxtral, Cohere and more. A conversion must match its runtime; a model repository name alone does not prove compatibility.",
+      "features": [
+        "local_asr",
+        "local_llm",
+        "speakers"
+      ],
+      "sources": [
+        "https://github.com/Blaizzy/mlx-audio",
+        "https://github.com/Blaizzy/mlx-audio-swift"
+      ],
+      "notes": ""
+    },
+    {
+      "name": "Apple SpeechAnalyzer / SpeechTranscriber",
+      "kind": "framework",
+      "platforms": "macOS 26+ and other supported Apple platforms; hardware/locale availability varies",
+      "license": "Proprietary system framework and system-managed models",
+      "plans": [
+        [
+          "System API",
+          "Included with a compatible OS",
+          "Locale assets download through AssetInventory; app locale reservations are limited. No separate per-minute API plan is exposed."
+        ]
+      ],
+      "routing": "On-device transcription per Apple. Assets may require a download; OS-managed model revisions and compute-unit selection are opaque.",
+      "difference": "Swift-native file/stream analysis, final or volatile results, timed text runs and model retention. This is an API framework, separate from keyboard Dictation.",
+      "features": [
+        "local_asr",
+        "live_partials",
+        "file_import"
+      ],
+      "sources": [
+        "https://developer.apple.com/documentation/speech/speechanalyzer",
+        "https://developer.apple.com/documentation/speech/assetinventory",
+        "https://developer.apple.com/videos/play/wwdc2025/277/"
+      ],
+      "notes": "Added October 24, 2026. OSpr ran 365 English clips and five nonspeech controls against three resident MLX models: 1,484 requests including preparation trials, zero API errors. Apple aggregate conservative WER 3.67%; Parakeet 3.12%, native-layout Cohere 1.84%, Whisper Turbo 3.81%. Distinct file-runtime paths; no consumer GUI, microphone, memory/energy or GPU-unit ranking. No app/default promotion."
+    },
+    {
+      "name": "Moonshine Voice",
+      "kind": "framework",
+      "platforms": "macOS, iOS, Android, Linux, Windows, Python, JavaScript/WASM and embedded targets per project",
+      "license": "MIT code and models by default; legacy non-streaming non-English weights have noncommercial exceptions",
+      "plans": [
+        [
+          "OSS runtime",
+          "No paid hosted transcription plan required",
+          "Download local model assets; model architecture, language and license must be checked."
+        ]
+      ],
+      "routing": "On-device according to the project; no account/API key required. Reviewed browser demo uses CPU/WASM; Mac GPU acceleration is not established here.",
+      "difference": "Streaming-first ASR and a cross-platform native library, with official Swift packaging and small-to-medium model choices. Vendor accuracy/latency claims are not OSpr measurements.",
+      "features": [
+        "local_asr",
+        "live_partials"
+      ],
+      "sources": [
+        "https://github.com/moonshine-ai/moonshine",
+        "https://moonshine-voice.readthedocs.io/en/latest/using/downloading-models/",
+        "https://github.com/moonshine-ai/moonshine-swift/blob/main/Package.swift"
+      ],
+      "notes": "Added October 24, 2026 from official repository/docs. The project reports MIT-by-default weights, with explicitly listed legacy non-English non-streaming exceptions. Not installed, benchmarked or integrated into OSpr; no inference-quality or Mac GPU claim is made."
+    }
+  ]
+}

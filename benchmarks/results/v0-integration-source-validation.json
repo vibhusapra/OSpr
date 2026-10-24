@@ -1,0 +1,43 @@
+{
+  "status": "passed-v0-integration-source-cli-and-development-package-native-release-pending",
+  "verified_at": "2026-10-24T14:10:11.034699+00:00",
+  "application_commit": "728ef7624a58db3fd7b95de90842f3668a5e8249",
+  "application_source_sha256": "f01b7510aa4af61fc2ce86f8a7a5cd9a67bf4d325105c81d064aa54450d1a671",
+  "local": {
+    "swift_tests": 384,
+    "python_tests": 248,
+    "ruff": true,
+    "rewrite_cli_loopback_cases": 21,
+    "azure_cli_loopback_cases": 12,
+    "gemini_cli_loopback_cases": 8
+  },
+  "ci": {
+    "run_id": 40100957889,
+    "job_id": 120892817145,
+    "conclusion": "success",
+    "url": "https://github.com/vibhusapra/OSpr/actions/runs/40100957889",
+    "swift_tests": 384,
+    "python_tests": 248,
+    "rewrite_cli_cases": 21,
+    "azure_cli_cases": 12,
+    "gemini_cli_cases": 8,
+    "bundled_help_links": 248,
+    "clean_runner_bundle_imports": true
+  },
+  "package_manifest_sha256": "eb95c1a65aa5821f35c114ea7fc1adb60ed9a55a228924a9a46dfe7af57247f9",
+  "portable_receipt_sha256": "cc7ea2259893ad518fa96da506efc8b0eea3d5249f6e59a0c82a24d7ebeb14d4",
+  "bundled_cli_receipt_sha256": {
+    "rewrite": "42f1fbb3e108268dd763f3977e8d9d8a645d6da7e77aa85cf8940b8144d86e42",
+    "azure": "2040dd92e7f4a8bc428e36e73e7885103765480168436f2755136d1f0ef7bb7a",
+    "gemini": "24caf8f2d9303080100ff182c8f701d8008921943c0553afb7bfae10328c9a95"
+  },
+  "native": {
+    "status": "pending-manual-unlock",
+    "qa_candidate_launched": false,
+    "no_real_provider_key_used": true,
+    "no_recording_or_playback": true,
+    "no_sound_setting_changed": true,
+    "normal_persisted_data_unchanged": true
+  },
+  "boundary": "Source/loopback/portable/archive checks. CI imports bundled inference libraries on CPU; separate local portable replay runs all six cached engines offline on this Mac. No real account/provider semantics, native Settings/Keychain/insertion/physical shortcut/device/system audio, broad fidelity, consumer correction-cost/energy/top-three or Developer ID/notarized/installer/update/older-OS acceptance. Archive-copy probe remains separately source-bound to unchanged storage/AppModel code. Existing unlock and bounded-unmute questions remain pending, not repeated."
+}

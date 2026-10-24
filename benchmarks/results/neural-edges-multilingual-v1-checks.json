@@ -1,0 +1,142 @@
+{
+  "status": "passed-stored-evidence-with-quality-and-timing-failures",
+  "result_sha256": "d3a467ecdca892e22aa8b5768ab702350a00fa7a7378d032ef0748fefe516779",
+  "checker_sha256": "e9fff1f94251592629d722cd0b8a6134a711aadadb632eddcdc25efc57e0693a",
+  "traces_sha256": "8587583ff260bd3ba0d8cd5d3949d4b5c87c1ffd5360824b7ea3d901315afbb4",
+  "waveforms_checked": 100,
+  "manifests_checked": 520,
+  "reference_control_frames": 38326,
+  "actual_asr": 1010,
+  "detector_abstentions": 30,
+  "new_empty_by_model": {
+    "parakeet-v3": 1,
+    "whisper-turbo": 6,
+    "whisper-small": 7,
+    "qwen3-asr": 6,
+    "cohere-native8": 5,
+    "nemotron-streaming": 7
+  },
+  "timing_issues": [
+    {
+      "model": "whisper-turbo",
+      "id": "fleurs-de_de-000-quiet40db",
+      "route": "neural_edges",
+      "start": 4.608,
+      "end": 34.588,
+      "analyzed_start": 4.608,
+      "analyzed_end": 5.408,
+      "past_original_end": true
+    },
+    {
+      "model": "whisper-turbo",
+      "id": "fleurs-ja_jp-005-quiet40db",
+      "route": "full",
+      "start": 0,
+      "end": 7,
+      "analyzed_start": 0,
+      "analyzed_end": 6.96,
+      "past_original_end": true
+    },
+    {
+      "model": "whisper-small",
+      "id": "fleurs-es_419-001-quiet40db",
+      "route": "neural_edges",
+      "start": 18.836000000000002,
+      "end": 20.836000000000002,
+      "analyzed_start": 1.536,
+      "analyzed_end": 20.8,
+      "past_original_end": false
+    },
+    {
+      "model": "whisper-small",
+      "id": "fleurs-de_de-005-quiet40db",
+      "route": "neural_edges",
+      "start": 1.344,
+      "end": 8.344,
+      "analyzed_start": 1.344,
+      "analyzed_end": 8.32,
+      "past_original_end": false
+    },
+    {
+      "model": "whisper-small",
+      "id": "fleurs-de_de-006-original",
+      "route": "full",
+      "start": 10,
+      "end": 13,
+      "analyzed_start": 0,
+      "analyzed_end": 12.96,
+      "past_original_end": true
+    },
+    {
+      "model": "whisper-small",
+      "id": "fleurs-de_de-006-quiet40db",
+      "route": "full",
+      "start": 10,
+      "end": 13,
+      "analyzed_start": 0,
+      "analyzed_end": 12.96,
+      "past_original_end": true
+    },
+    {
+      "model": "whisper-small",
+      "id": "fleurs-ja_jp-001-quiet40db",
+      "route": "neural_edges",
+      "start": 3.36,
+      "end": 13.08,
+      "analyzed_start": 3.36,
+      "analyzed_end": 12.064,
+      "past_original_end": false
+    },
+    {
+      "model": "whisper-small",
+      "id": "fleurs-ja_jp-005-original",
+      "route": "full",
+      "start": 0,
+      "end": 7,
+      "analyzed_start": 0,
+      "analyzed_end": 6.96,
+      "past_original_end": true
+    },
+    {
+      "model": "whisper-small",
+      "id": "fleurs-ja_jp-005-original",
+      "route": "neural_edges",
+      "start": 1.408,
+      "end": 8.248,
+      "analyzed_start": 1.408,
+      "analyzed_end": 6.96,
+      "past_original_end": true
+    },
+    {
+      "model": "whisper-small",
+      "id": "fleurs-ja_jp-006-original",
+      "route": "neural_edges",
+      "start": 1.728,
+      "end": 8.468,
+      "analyzed_start": 1.728,
+      "analyzed_end": 7.424,
+      "past_original_end": false
+    },
+    {
+      "model": "whisper-small",
+      "id": "fleurs-ja_jp-006-quiet40db",
+      "route": "neural_edges",
+      "start": 1.728,
+      "end": 8.468,
+      "analyzed_start": 1.728,
+      "analyzed_end": 7.296,
+      "past_original_end": false
+    },
+    {
+      "model": "whisper-small",
+      "id": "fleurs-ja_jp-009-quiet40db",
+      "route": "neural_edges",
+      "start": 1.408,
+      "end": 9.408,
+      "analyzed_start": 1.408,
+      "analyzed_end": 8.32,
+      "past_original_end": false
+    }
+  ],
+  "boundary": "Rehashes sources/derived arrays, exact PCM ranges, old-CLI probabilities, score aggregation and corpus metrics; this does not rerun ASR or establish semantic truth. Passing arithmetic checks do not mean the detector passed quality acceptance. New empty outputs and source-range timestamp overruns remain visible."
+}

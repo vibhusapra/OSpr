@@ -1,0 +1,36 @@
+{
+  "status": "incomplete-foreground-handoff",
+  "verified_at": "2026-10-23T21:20:59.784993+00:00",
+  "source_build_info": {
+    "version": "0.1.0",
+    "built_at": "2026-10-23T21:16:32.808708+00:00",
+    "git_commit": "db0987a213a700f39f1b2ffd116a1fcbffc3aef0",
+    "tracked_changes": false,
+    "application_source_sha256": "1417167dba5c6b4f2e1dedf34c099b771b6bfe490d983703920b025f787093dd",
+    "source_manifest_version": 2,
+    "signing_mode": "configured-identity",
+    "boundary": "Development build; configured signing identity; not notarized; weights downloaded separately."
+  },
+  "qa_adjustments": {
+    "data_directory_isolated": true,
+    "same_identity_development_resign": true
+  },
+  "application_sha256": "7916bb88024f5225da3e2822d27be04f8bc8fa327041dd9a7f76e8bcbe4725b0",
+  "checks": {
+    "microphone_and_accessibility_ready": true,
+    "countdown_started": true,
+    "textedit_target_bound_and_clicked": true,
+    "microphone_started": true,
+    "expected_foreground_destination": false,
+    "unexpected_destination_observed": true,
+    "recording_discarded_before_recognition": true,
+    "public_audio_played": false,
+    "insertion_attempted": false,
+    "history_records": 0,
+    "audio_retained": 0,
+    "recovery_files": 0,
+    "normal_app_restored": true,
+    "normal_settings_and_history_unchanged": true
+  },
+  "boundary": "A disposable same-identity copy of the new portable candidate started its countdown/microphone. TextEdit showed the owned target focused, but OSpr captured another foreground app. The take was discarded before recognition; no public fixture was played, no insertion attempted, and no transcript/audio/recovery remains. Normal OSpr was restored and its settings/history match the private pre-test backup. This is not a microphone-to-insertion acceptance pass. The unrelated app name and any ambient audio are not retained in this public receipt."
+}

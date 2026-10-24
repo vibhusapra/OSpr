@@ -1,0 +1,40 @@
+{
+  "schema": 1,
+  "source": {
+    "id": "1272-128104-0002",
+    "path": "fixtures/audio/1272-128104-0002.wav",
+    "reference": "HE TELLS US THAT AT THIS FESTIVE SEASON OF THE YEAR WITH CHRISTMAS AND ROAST BEEF LOOMING BEFORE US SIMILES DRAWN FROM EATING AND ITS RESULTS OCCUR MOST READILY TO THE MIND",
+    "suite": "human-clean",
+    "source_id": "1272-128104-0002",
+    "sha256": "5f4d8f7331acffc3d2efbe0f764b9eb3447911dc17f9843e38e1083eb1685b9c",
+    "seconds": 12.485
+  },
+  "replacement_source": {
+    "id": "1272-128104-0000",
+    "path": "fixtures/audio/1272-128104-0000.wav",
+    "reference": "MISTER QUILTER IS THE APOSTLE OF THE MIDDLE CLASSES AND WE ARE GLAD TO WELCOME HIS GOSPEL",
+    "suite": "human-clean",
+    "source_id": "1272-128104-0000",
+    "sha256": "799f78ed4beb4de7ceae3a809262d4ce242394342ccd1d58cef7d49dbc2def46",
+    "seconds": 5.855
+  },
+  "source_manifest_sha256": "ea0df37dc8f5a7b519b115d44fcd71f16413e04f1bac48b15eec9399f4e43c2b",
+  "native_rates": [
+    44100,
+    48000
+  ],
+  "first_packet_seconds": 12,
+  "cancel_after_ms": 5,
+  "policies": [
+    "normal",
+    "already-cancelled",
+    "cancel-while-awaiting",
+    "replacement-and-stale-cancel",
+    "rate-error-full-file-fallback"
+  ],
+  "model": "nemotron-streaming",
+  "language": "en",
+  "model_lock_sha256": "9d523253c866ef3a021e51c0a542e65878a658b8539140a3043518c4c759dffa",
+  "dependency_lock_sha256": "8e306569ebe63c886e9938d06c2e0a6e39d661de20e116a1998321dbfd14a6d2",
+  "boundary": "Frozen native Swift IPC regression: unchanged WorkerClient compiled with a standalone harness, real cached Nemotron, public source 0002 and replacement 0000, two native rates. Caller cancellation must preserve the submitted capture packet before tail/final drain. Timer cancellation reports actual caller request/return ordering, not active GPU-kernel state. No microphone, actual Capture/AppModel/UI, physical stop/device or insertion acceptance. Error fallback calls full-file transcription explicitly, rather than claiming native UI fallback acceptance."
+}

@@ -1,0 +1,3287 @@
+{
+  "status": "derived-development-diagnostic-not-independent-validation",
+  "source_receipt_sha256": "42467cbc6c2c0bc862c5569b947c0f06ad1f7d8872b257537fbec6b659ea7c64",
+  "source_archive_sha256": "45248376502ec45807500d4756409a6dcc02b5cca5dd8001f90ca903f4946427",
+  "cli_sha256": "363f6b143ff141a9ea6753e044f0373e8154ffb27c69705d98990a82b86a6350",
+  "protocol_sha256": "58aaba1c87e8884e3a219bd27c1706561ba188e9c70171f31b91f8a2de3b89e6",
+  "method": "s[t] = 1 - product(1 - p[j]) for j=max(0,t-7)..t; trailing causal eight-frame window; no future samples",
+  "window_frames": 8,
+  "input_hop_samples": 512,
+  "sample_rate": 16000,
+  "neural_inference_rerun": false,
+  "asr_evaluated": false,
+  "smoothing_cost_measured": false,
+  "summary": {
+    "groups": {
+      "ami": {
+        "cases": 4,
+        "speech_started": 4,
+        "no_high_probability": 0,
+        "edge_empty": 0,
+        "finished": 4
+      },
+      "fleurs": {
+        "cases": 50,
+        "speech_started": 50,
+        "no_high_probability": 0,
+        "edge_empty": 0,
+        "finished": 23
+      },
+      "noise10db": {
+        "cases": 40,
+        "speech_started": 40,
+        "no_high_probability": 0,
+        "edge_empty": 0,
+        "finished": 40,
+        "finished_before_source_clip_end": 0
+      },
+      "original": {
+        "cases": 40,
+        "speech_started": 40,
+        "no_high_probability": 0,
+        "edge_empty": 0,
+        "finished": 40,
+        "finished_before_source_clip_end": 0
+      },
+      "quiet40db": {
+        "cases": 40,
+        "speech_started": 39,
+        "no_high_probability": 0,
+        "edge_empty": 0,
+        "finished": 39,
+        "finished_before_source_clip_end": 0
+      },
+      "synthetic-negative": {
+        "cases": 5,
+        "speech_started": 0,
+        "no_high_probability": 5,
+        "edge_empty": 5,
+        "finished": 0
+      }
+    },
+    "ami_10ms_annotation_proxy": {
+      "only_words": {
+        "tp": 44261,
+        "fp": 1667,
+        "fn": 6560,
+        "tn": 19512,
+        "precision": 0.9637040585263892,
+        "recall": 0.8709195017807599,
+        "f1": 0.9149655293594766
+      },
+      "manual_segments": {
+        "tp": 45036,
+        "fp": 892,
+        "fn": 8047,
+        "tn": 18025,
+        "precision": 0.9805782964640306,
+        "recall": 0.8484072113482659,
+        "f1": 0.9097171021401662
+      }
+    },
+    "prediction_ms": null
+  },
+  "records": [
+    {
+      "id": "test-clean-1089-134686-0000-original",
+      "bounds": [
+        20480,
+        189440
+      ],
+      "events": [
+        {
+          "boundarySample": 23040,
+          "kind": "speechStarted",
+          "observedThroughSample": 24576
+        },
+        {
+          "boundarySample": 186880,
+          "kind": "finished",
+          "observedThroughSample": 206336
+        }
+      ]
+    },
+    {
+      "id": "test-clean-1089-134686-0000-quiet40db",
+      "bounds": [
+        23040,
+        193536
+      ],
+      "events": [
+        {
+          "boundarySample": 25600,
+          "kind": "speechStarted",
+          "observedThroughSample": 27136
+        },
+        {
+          "boundarySample": 190976,
+          "kind": "finished",
+          "observedThroughSample": 210432
+        }
+      ]
+    },
+    {
+      "id": "test-clean-1089-134686-0000-noise10db",
+      "bounds": [
+        22528,
+        190976
+      ],
+      "events": [
+        {
+          "boundarySample": 25088,
+          "kind": "speechStarted",
+          "observedThroughSample": 26624
+        },
+        {
+          "boundarySample": 188416,
+          "kind": "finished",
+          "observedThroughSample": 207872
+        }
+      ]
+    },
+    {
+      "id": "test-clean-1188-133604-0000-original",
+      "bounds": [
+        22528,
+        185856
+      ],
+      "events": [
+        {
+          "boundarySample": 25088,
+          "kind": "speechStarted",
+          "observedThroughSample": 26624
+        },
+        {
+          "boundarySample": 183296,
+          "kind": "finished",
+          "observedThroughSample": 202752
+        }
+      ]
+    },
+    {
+      "id": "test-clean-1188-133604-0000-quiet40db",
+      "bounds": [
+        23552,
+        192000
+      ],
+      "events": [
+        {
+          "boundarySample": 26112,
+          "kind": "speechStarted",
+          "observedThroughSample": 27648
+        },
+        {
+          "boundarySample": 189440,
+          "kind": "finished",
+          "observedThroughSample": 208896
+        }
+      ]
+    },
+    {
+      "id": "test-clean-1188-133604-0000-noise10db",
+      "bounds": [
+        23040,
+        192000
+      ],
+      "events": [
+        {
+          "boundarySample": 25600,
+          "kind": "speechStarted",
+          "observedThroughSample": 27136
+        },
+        {
+          "boundarySample": 189440,
+          "kind": "finished",
+          "observedThroughSample": 208896
+        }
+      ]
+    },
+    {
+      "id": "test-clean-121-121726-0000-original",
+      "bounds": [
+        17408,
+        150016
+      ],
+      "events": [
+        {
+          "boundarySample": 19968,
+          "kind": "speechStarted",
+          "observedThroughSample": 21504
+        },
+        {
+          "boundarySample": 147456,
+          "kind": "finished",
+          "observedThroughSample": 166912
+        }
+      ]
+    },
+    {
+      "id": "test-clean-121-121726-0000-quiet40db",
+      "bounds": [
+        18432,
+        156160
+      ],
+      "events": [
+        {
+          "boundarySample": 20992,
+          "kind": "speechStarted",
+          "observedThroughSample": 22528
+        },
+        {
+          "boundarySample": 153600,
+          "kind": "finished",
+          "observedThroughSample": 173056
+        }
+      ]
+    },
+    {
+      "id": "test-clean-121-121726-0000-noise10db",
+      "bounds": [
+        17408,
+        157696
+      ],
+      "events": [
+        {
+          "boundarySample": 19968,
+          "kind": "speechStarted",
+          "observedThroughSample": 21504
+        },
+        {
+          "boundarySample": 155136,
+          "kind": "finished",
+          "observedThroughSample": 174592
+        }
+      ]
+    },
+    {
+      "id": "test-clean-1221-135766-0000-original",
+      "bounds": [
+        19456,
+        221184
+      ],
+      "events": [
+        {
+          "boundarySample": 22016,
+          "kind": "speechStarted",
+          "observedThroughSample": 23552
+        },
+        {
+          "boundarySample": 218624,
+          "kind": "finished",
+          "observedThroughSample": 238080
+        }
+      ]
+    },
+    {
+      "id": "test-clean-1221-135766-0000-quiet40db",
+      "bounds": [
+        21504,
+        221184
+      ],
+      "events": [
+        {
+          "boundarySample": 24064,
+          "kind": "speechStarted",
+          "observedThroughSample": 25600
+        },
+        {
+          "boundarySample": 218624,
+          "kind": "finished",
+          "observedThroughSample": 238080
+        }
+      ]
+    },
+    {
+      "id": "test-clean-1221-135766-0000-noise10db",
+      "bounds": [
+        19456,
+        225280
+      ],
+      "events": [
+        {
+          "boundarySample": 22016,
+          "kind": "speechStarted",
+          "observedThroughSample": 23552
+        },
+        {
+          "boundarySample": 222720,
+          "kind": "finished",
+          "observedThroughSample": 242176
+        }
+      ]
+    },
+    {
+      "id": "test-clean-1284-1180-0000-original",
+      "bounds": [
+        17920,
+        150016
+      ],
+      "events": [
+        {
+          "boundarySample": 20480,
+          "kind": "speechStarted",
+          "observedThroughSample": 22016
+        },
+        {
+          "boundarySample": 147456,
+          "kind": "finished",
+          "observedThroughSample": 166912
+        }
+      ]
+    },
+    {
+      "id": "test-clean-1284-1180-0000-quiet40db",
+      "bounds": [
+        18432,
+        155136
+      ],
+      "events": [
+        {
+          "boundarySample": 20992,
+          "kind": "speechStarted",
+          "observedThroughSample": 22528
+        },
+        {
+          "boundarySample": 152576,
+          "kind": "finished",
+          "observedThroughSample": 172032
+        }
+      ]
+    },
+    {
+      "id": "test-clean-1284-1180-0000-noise10db",
+      "bounds": [
+        17920,
+        155648
+      ],
+      "events": [
+        {
+          "boundarySample": 20480,
+          "kind": "speechStarted",
+          "observedThroughSample": 22016
+        },
+        {
+          "boundarySample": 153088,
+          "kind": "finished",
+          "observedThroughSample": 172544
+        }
+      ]
+    },
+    {
+      "id": "test-clean-1320-122612-0000-original",
+      "bounds": [
+        14848,
+        229888
+      ],
+      "events": [
+        {
+          "boundarySample": 17408,
+          "kind": "speechStarted",
+          "observedThroughSample": 18944
+        },
+        {
+          "boundarySample": 227328,
+          "kind": "finished",
+          "observedThroughSample": 246784
+        }
+      ]
+    },
+    {
+      "id": "test-clean-1320-122612-0000-quiet40db",
+      "bounds": [
+        22016,
+        235520
+      ],
+      "events": [
+        {
+          "boundarySample": 24576,
+          "kind": "speechStarted",
+          "observedThroughSample": 26112
+        },
+        {
+          "boundarySample": 232960,
+          "kind": "finished",
+          "observedThroughSample": 252416
+        }
+      ]
+    },
+    {
+      "id": "test-clean-1320-122612-0000-noise10db",
+      "bounds": [
+        20480,
+        240128
+      ],
+      "events": [
+        {
+          "boundarySample": 23040,
+          "kind": "speechStarted",
+          "observedThroughSample": 24576
+        },
+        {
+          "boundarySample": 237568,
+          "kind": "finished",
+          "observedThroughSample": 257024
+        }
+      ]
+    },
+    {
+      "id": "test-clean-1580-141083-0000-original",
+      "bounds": [
+        17408,
+        159232
+      ],
+      "events": [
+        {
+          "boundarySample": 19968,
+          "kind": "speechStarted",
+          "observedThroughSample": 21504
+        },
+        {
+          "boundarySample": 156672,
+          "kind": "finished",
+          "observedThroughSample": 176128
+        }
+      ]
+    },
+    {
+      "id": "test-clean-1580-141083-0000-quiet40db",
+      "bounds": [
+        23040,
+        162304
+      ],
+      "events": [
+        {
+          "boundarySample": 25600,
+          "kind": "speechStarted",
+          "observedThroughSample": 27136
+        },
+        {
+          "boundarySample": 159744,
+          "kind": "finished",
+          "observedThroughSample": 179200
+        }
+      ]
+    },
+    {
+      "id": "test-clean-1580-141083-0000-noise10db",
+      "bounds": [
+        22016,
+        165376
+      ],
+      "events": [
+        {
+          "boundarySample": 24576,
+          "kind": "speechStarted",
+          "observedThroughSample": 26112
+        },
+        {
+          "boundarySample": 162816,
+          "kind": "finished",
+          "observedThroughSample": 182272
+        }
+      ]
+    },
+    {
+      "id": "test-clean-1995-1826-0000-original",
+      "bounds": [
+        17920,
+        167424
+      ],
+      "events": [
+        {
+          "boundarySample": 20480,
+          "kind": "speechStarted",
+          "observedThroughSample": 22016
+        },
+        {
+          "boundarySample": 164864,
+          "kind": "finished",
+          "observedThroughSample": 184320
+        }
+      ]
+    },
+    {
+      "id": "test-clean-1995-1826-0000-quiet40db",
+      "bounds": [
+        18432,
+        172544
+      ],
+      "events": [
+        {
+          "boundarySample": 20992,
+          "kind": "speechStarted",
+          "observedThroughSample": 22528
+        },
+        {
+          "boundarySample": 169984,
+          "kind": "finished",
+          "observedThroughSample": 189440
+        }
+      ]
+    },
+    {
+      "id": "test-clean-1995-1826-0000-noise10db",
+      "bounds": [
+        17920,
+        174080
+      ],
+      "events": [
+        {
+          "boundarySample": 20480,
+          "kind": "speechStarted",
+          "observedThroughSample": 22016
+        },
+        {
+          "boundarySample": 171520,
+          "kind": "finished",
+          "observedThroughSample": 190976
+        }
+      ]
+    },
+    {
+      "id": "test-clean-2094-142345-0000-original",
+      "bounds": [
+        22016,
+        376320
+      ],
+      "events": [
+        {
+          "boundarySample": 24576,
+          "kind": "speechStarted",
+          "observedThroughSample": 26112
+        },
+        {
+          "boundarySample": 373760,
+          "kind": "finished",
+          "observedThroughSample": 393216
+        }
+      ]
+    },
+    {
+      "id": "test-clean-2094-142345-0000-quiet40db",
+      "bounds": [
+        22528,
+        382464
+      ],
+      "events": [
+        {
+          "boundarySample": 25088,
+          "kind": "speechStarted",
+          "observedThroughSample": 26624
+        },
+        {
+          "boundarySample": 379904,
+          "kind": "finished",
+          "observedThroughSample": 399360
+        }
+      ]
+    },
+    {
+      "id": "test-clean-2094-142345-0000-noise10db",
+      "bounds": [
+        22016,
+        378880
+      ],
+      "events": [
+        {
+          "boundarySample": 24576,
+          "kind": "speechStarted",
+          "observedThroughSample": 26112
+        },
+        {
+          "boundarySample": 376320,
+          "kind": "finished",
+          "observedThroughSample": 395776
+        }
+      ]
+    },
+    {
+      "id": "test-clean-2300-131720-0000-original",
+      "bounds": [
+        16896,
+        97792
+      ],
+      "events": [
+        {
+          "boundarySample": 19456,
+          "kind": "speechStarted",
+          "observedThroughSample": 20992
+        },
+        {
+          "boundarySample": 95232,
+          "kind": "finished",
+          "observedThroughSample": 114688
+        }
+      ]
+    },
+    {
+      "id": "test-clean-2300-131720-0000-quiet40db",
+      "bounds": [
+        16896,
+        101888
+      ],
+      "events": [
+        {
+          "boundarySample": 19456,
+          "kind": "speechStarted",
+          "observedThroughSample": 20992
+        },
+        {
+          "boundarySample": 99328,
+          "kind": "finished",
+          "observedThroughSample": 118784
+        }
+      ]
+    },
+    {
+      "id": "test-clean-2300-131720-0000-noise10db",
+      "bounds": [
+        16384,
+        103936
+      ],
+      "events": [
+        {
+          "boundarySample": 18944,
+          "kind": "speechStarted",
+          "observedThroughSample": 20480
+        },
+        {
+          "boundarySample": 101376,
+          "kind": "finished",
+          "observedThroughSample": 120832
+        }
+      ]
+    },
+    {
+      "id": "test-clean-237-126133-0000-original",
+      "bounds": [
+        15360,
+        229376
+      ],
+      "events": [
+        {
+          "boundarySample": 17920,
+          "kind": "speechStarted",
+          "observedThroughSample": 19456
+        },
+        {
+          "boundarySample": 226816,
+          "kind": "finished",
+          "observedThroughSample": 246272
+        }
+      ]
+    },
+    {
+      "id": "test-clean-237-126133-0000-quiet40db",
+      "bounds": [
+        19456,
+        233472
+      ],
+      "events": [
+        {
+          "boundarySample": 22016,
+          "kind": "speechStarted",
+          "observedThroughSample": 23552
+        },
+        {
+          "boundarySample": 230912,
+          "kind": "finished",
+          "observedThroughSample": 250368
+        }
+      ]
+    },
+    {
+      "id": "test-clean-237-126133-0000-noise10db",
+      "bounds": [
+        18944,
+        239104
+      ],
+      "events": [
+        {
+          "boundarySample": 21504,
+          "kind": "speechStarted",
+          "observedThroughSample": 23040
+        },
+        {
+          "boundarySample": 236544,
+          "kind": "finished",
+          "observedThroughSample": 256000
+        }
+      ]
+    },
+    {
+      "id": "test-clean-260-123286-0000-original",
+      "bounds": [
+        23040,
+        131072
+      ],
+      "events": [
+        {
+          "boundarySample": 25600,
+          "kind": "speechStarted",
+          "observedThroughSample": 27136
+        },
+        {
+          "boundarySample": 128512,
+          "kind": "finished",
+          "observedThroughSample": 147968
+        }
+      ]
+    },
+    {
+      "id": "test-clean-260-123286-0000-quiet40db",
+      "bounds": [
+        24576,
+        134144
+      ],
+      "events": [
+        {
+          "boundarySample": 27136,
+          "kind": "speechStarted",
+          "observedThroughSample": 28672
+        },
+        {
+          "boundarySample": 131584,
+          "kind": "finished",
+          "observedThroughSample": 151040
+        }
+      ]
+    },
+    {
+      "id": "test-clean-260-123286-0000-noise10db",
+      "bounds": [
+        22528,
+        134656
+      ],
+      "events": [
+        {
+          "boundarySample": 25088,
+          "kind": "speechStarted",
+          "observedThroughSample": 26624
+        },
+        {
+          "boundarySample": 132096,
+          "kind": "finished",
+          "observedThroughSample": 151552
+        }
+      ]
+    },
+    {
+      "id": "test-clean-2830-3979-0000-original",
+      "bounds": [
+        16896,
+        113664
+      ],
+      "events": [
+        {
+          "boundarySample": 19456,
+          "kind": "speechStarted",
+          "observedThroughSample": 20992
+        },
+        {
+          "boundarySample": 111104,
+          "kind": "finished",
+          "observedThroughSample": 130560
+        }
+      ]
+    },
+    {
+      "id": "test-clean-2830-3979-0000-quiet40db",
+      "bounds": [
+        17408,
+        117248
+      ],
+      "events": [
+        {
+          "boundarySample": 19968,
+          "kind": "speechStarted",
+          "observedThroughSample": 21504
+        },
+        {
+          "boundarySample": 114688,
+          "kind": "finished",
+          "observedThroughSample": 134144
+        }
+      ]
+    },
+    {
+      "id": "test-clean-2830-3979-0000-noise10db",
+      "bounds": [
+        16896,
+        117248
+      ],
+      "events": [
+        {
+          "boundarySample": 19456,
+          "kind": "speechStarted",
+          "observedThroughSample": 20992
+        },
+        {
+          "boundarySample": 114688,
+          "kind": "finished",
+          "observedThroughSample": 134144
+        }
+      ]
+    },
+    {
+      "id": "test-clean-2961-960-0000-original",
+      "bounds": [
+        23040,
+        455680
+      ],
+      "events": [
+        {
+          "boundarySample": 25600,
+          "kind": "speechStarted",
+          "observedThroughSample": 27136
+        },
+        {
+          "boundarySample": 453120,
+          "kind": "finished",
+          "observedThroughSample": 472576
+        }
+      ]
+    },
+    {
+      "id": "test-clean-2961-960-0000-quiet40db",
+      "bounds": [
+        25600,
+        457216
+      ],
+      "events": [
+        {
+          "boundarySample": 28160,
+          "kind": "speechStarted",
+          "observedThroughSample": 29696
+        },
+        {
+          "boundarySample": 454656,
+          "kind": "finished",
+          "observedThroughSample": 474112
+        }
+      ]
+    },
+    {
+      "id": "test-clean-2961-960-0000-noise10db",
+      "bounds": [
+        23040,
+        456704
+      ],
+      "events": [
+        {
+          "boundarySample": 25600,
+          "kind": "speechStarted",
+          "observedThroughSample": 27136
+        },
+        {
+          "boundarySample": 454144,
+          "kind": "finished",
+          "observedThroughSample": 473600
+        }
+      ]
+    },
+    {
+      "id": "test-clean-3570-5694-0000-original",
+      "bounds": [
+        20480,
+        216064
+      ],
+      "events": [
+        {
+          "boundarySample": 23040,
+          "kind": "speechStarted",
+          "observedThroughSample": 24576
+        },
+        {
+          "boundarySample": 213504,
+          "kind": "finished",
+          "observedThroughSample": 232960
+        }
+      ]
+    },
+    {
+      "id": "test-clean-3570-5694-0000-quiet40db",
+      "bounds": [
+        20992,
+        218624
+      ],
+      "events": [
+        {
+          "boundarySample": 23552,
+          "kind": "speechStarted",
+          "observedThroughSample": 25088
+        },
+        {
+          "boundarySample": 216064,
+          "kind": "finished",
+          "observedThroughSample": 235520
+        }
+      ]
+    },
+    {
+      "id": "test-clean-3570-5694-0000-noise10db",
+      "bounds": [
+        20480,
+        218624
+      ],
+      "events": [
+        {
+          "boundarySample": 23040,
+          "kind": "speechStarted",
+          "observedThroughSample": 24576
+        },
+        {
+          "boundarySample": 216064,
+          "kind": "finished",
+          "observedThroughSample": 235520
+        }
+      ]
+    },
+    {
+      "id": "test-clean-3575-170457-0000-original",
+      "bounds": [
+        20480,
+        148480
+      ],
+      "events": [
+        {
+          "boundarySample": 23040,
+          "kind": "speechStarted",
+          "observedThroughSample": 24576
+        },
+        {
+          "boundarySample": 145920,
+          "kind": "finished",
+          "observedThroughSample": 165376
+        }
+      ]
+    },
+    {
+      "id": "test-clean-3575-170457-0000-quiet40db",
+      "bounds": [
+        20992,
+        153088
+      ],
+      "events": [
+        {
+          "boundarySample": 23552,
+          "kind": "speechStarted",
+          "observedThroughSample": 25088
+        },
+        {
+          "boundarySample": 150528,
+          "kind": "finished",
+          "observedThroughSample": 169984
+        }
+      ]
+    },
+    {
+      "id": "test-clean-3575-170457-0000-noise10db",
+      "bounds": [
+        19456,
+        155648
+      ],
+      "events": [
+        {
+          "boundarySample": 22016,
+          "kind": "speechStarted",
+          "observedThroughSample": 23552
+        },
+        {
+          "boundarySample": 153088,
+          "kind": "finished",
+          "observedThroughSample": 172544
+        }
+      ]
+    },
+    {
+      "id": "test-clean-3729-6852-0000-original",
+      "bounds": [
+        23040,
+        198144
+      ],
+      "events": [
+        {
+          "boundarySample": 25600,
+          "kind": "speechStarted",
+          "observedThroughSample": 27136
+        },
+        {
+          "boundarySample": 195584,
+          "kind": "finished",
+          "observedThroughSample": 215040
+        }
+      ]
+    },
+    {
+      "id": "test-clean-3729-6852-0000-quiet40db",
+      "bounds": [
+        24064,
+        196608
+      ],
+      "events": [
+        {
+          "boundarySample": 26624,
+          "kind": "speechStarted",
+          "observedThroughSample": 28160
+        },
+        {
+          "boundarySample": 194048,
+          "kind": "finished",
+          "observedThroughSample": 213504
+        }
+      ]
+    },
+    {
+      "id": "test-clean-3729-6852-0000-noise10db",
+      "bounds": [
+        22528,
+        201216
+      ],
+      "events": [
+        {
+          "boundarySample": 25088,
+          "kind": "speechStarted",
+          "observedThroughSample": 26624
+        },
+        {
+          "boundarySample": 198656,
+          "kind": "finished",
+          "observedThroughSample": 218112
+        }
+      ]
+    },
+    {
+      "id": "test-clean-4077-13751-0000-original",
+      "bounds": [
+        18432,
+        172032
+      ],
+      "events": [
+        {
+          "boundarySample": 20992,
+          "kind": "speechStarted",
+          "observedThroughSample": 22528
+        },
+        {
+          "boundarySample": 169472,
+          "kind": "finished",
+          "observedThroughSample": 188928
+        }
+      ]
+    },
+    {
+      "id": "test-clean-4077-13751-0000-quiet40db",
+      "bounds": [
+        18944,
+        175104
+      ],
+      "events": [
+        {
+          "boundarySample": 21504,
+          "kind": "speechStarted",
+          "observedThroughSample": 23040
+        },
+        {
+          "boundarySample": 172544,
+          "kind": "finished",
+          "observedThroughSample": 192000
+        }
+      ]
+    },
+    {
+      "id": "test-clean-4077-13751-0000-noise10db",
+      "bounds": [
+        18432,
+        177664
+      ],
+      "events": [
+        {
+          "boundarySample": 20992,
+          "kind": "speechStarted",
+          "observedThroughSample": 22528
+        },
+        {
+          "boundarySample": 175104,
+          "kind": "finished",
+          "observedThroughSample": 194560
+        }
+      ]
+    },
+    {
+      "id": "test-clean-4446-2271-0000-original",
+      "bounds": [
+        22016,
+        75264
+      ],
+      "events": [
+        {
+          "boundarySample": 24576,
+          "kind": "speechStarted",
+          "observedThroughSample": 26112
+        },
+        {
+          "boundarySample": 72704,
+          "kind": "finished",
+          "observedThroughSample": 92160
+        }
+      ]
+    },
+    {
+      "id": "test-clean-4446-2271-0000-quiet40db",
+      "bounds": [
+        22528,
+        80384
+      ],
+      "events": [
+        {
+          "boundarySample": 25088,
+          "kind": "speechStarted",
+          "observedThroughSample": 26624
+        },
+        {
+          "boundarySample": 77824,
+          "kind": "finished",
+          "observedThroughSample": 97280
+        }
+      ]
+    },
+    {
+      "id": "test-clean-4446-2271-0000-noise10db",
+      "bounds": [
+        22016,
+        79872
+      ],
+      "events": [
+        {
+          "boundarySample": 24576,
+          "kind": "speechStarted",
+          "observedThroughSample": 26112
+        },
+        {
+          "boundarySample": 77312,
+          "kind": "finished",
+          "observedThroughSample": 96768
+        }
+      ]
+    },
+    {
+      "id": "test-clean-4507-16021-0000-original",
+      "bounds": [
+        18432,
+        56832
+      ],
+      "events": [
+        {
+          "boundarySample": 20992,
+          "kind": "speechStarted",
+          "observedThroughSample": 22528
+        },
+        {
+          "boundarySample": 54272,
+          "kind": "finished",
+          "observedThroughSample": 73728
+        }
+      ]
+    },
+    {
+      "id": "test-clean-4507-16021-0000-quiet40db",
+      "bounds": [
+        18944,
+        66048
+      ],
+      "events": [
+        {
+          "boundarySample": 21504,
+          "kind": "speechStarted",
+          "observedThroughSample": 23040
+        },
+        {
+          "boundarySample": 63488,
+          "kind": "finished",
+          "observedThroughSample": 82944
+        }
+      ]
+    },
+    {
+      "id": "test-clean-4507-16021-0000-noise10db",
+      "bounds": [
+        18432,
+        64000
+      ],
+      "events": [
+        {
+          "boundarySample": 20992,
+          "kind": "speechStarted",
+          "observedThroughSample": 22528
+        },
+        {
+          "boundarySample": 61440,
+          "kind": "finished",
+          "observedThroughSample": 80896
+        }
+      ]
+    },
+    {
+      "id": "test-other-1688-142285-0000-original",
+      "bounds": [
+        17408,
+        256000
+      ],
+      "events": [
+        {
+          "boundarySample": 19968,
+          "kind": "speechStarted",
+          "observedThroughSample": 21504
+        },
+        {
+          "boundarySample": 253440,
+          "kind": "finished",
+          "observedThroughSample": 272896
+        }
+      ]
+    },
+    {
+      "id": "test-other-1688-142285-0000-quiet40db",
+      "bounds": [
+        23040,
+        262144
+      ],
+      "events": [
+        {
+          "boundarySample": 25600,
+          "kind": "speechStarted",
+          "observedThroughSample": 27136
+        },
+        {
+          "boundarySample": 259584,
+          "kind": "finished",
+          "observedThroughSample": 279040
+        }
+      ]
+    },
+    {
+      "id": "test-other-1688-142285-0000-noise10db",
+      "bounds": [
+        22528,
+        261120
+      ],
+      "events": [
+        {
+          "boundarySample": 25088,
+          "kind": "speechStarted",
+          "observedThroughSample": 26624
+        },
+        {
+          "boundarySample": 258560,
+          "kind": "finished",
+          "observedThroughSample": 278016
+        }
+      ]
+    },
+    {
+      "id": "test-other-1998-15444-0000-original",
+      "bounds": [
+        22016,
+        234496
+      ],
+      "events": [
+        {
+          "boundarySample": 24576,
+          "kind": "speechStarted",
+          "observedThroughSample": 26112
+        },
+        {
+          "boundarySample": 231936,
+          "kind": "finished",
+          "observedThroughSample": 251392
+        }
+      ]
+    },
+    {
+      "id": "test-other-1998-15444-0000-quiet40db",
+      "bounds": [
+        22016,
+        235008
+      ],
+      "events": [
+        {
+          "boundarySample": 24576,
+          "kind": "speechStarted",
+          "observedThroughSample": 26112
+        },
+        {
+          "boundarySample": 232448,
+          "kind": "finished",
+          "observedThroughSample": 251904
+        }
+      ]
+    },
+    {
+      "id": "test-other-1998-15444-0000-noise10db",
+      "bounds": [
+        22016,
+        237056
+      ],
+      "events": [
+        {
+          "boundarySample": 24576,
+          "kind": "speechStarted",
+          "observedThroughSample": 26112
+        },
+        {
+          "boundarySample": 234496,
+          "kind": "finished",
+          "observedThroughSample": 253952
+        }
+      ]
+    },
+    {
+      "id": "test-other-2033-164914-0000-original",
+      "bounds": [
+        22016,
+        161280
+      ],
+      "events": [
+        {
+          "boundarySample": 24576,
+          "kind": "speechStarted",
+          "observedThroughSample": 26112
+        },
+        {
+          "boundarySample": 158720,
+          "kind": "finished",
+          "observedThroughSample": 178176
+        }
+      ]
+    },
+    {
+      "id": "test-other-2033-164914-0000-quiet40db",
+      "bounds": [
+        22528,
+        167936
+      ],
+      "events": [
+        {
+          "boundarySample": 25088,
+          "kind": "speechStarted",
+          "observedThroughSample": 26624
+        },
+        {
+          "boundarySample": 165376,
+          "kind": "finished",
+          "observedThroughSample": 184832
+        }
+      ]
+    },
+    {
+      "id": "test-other-2033-164914-0000-noise10db",
+      "bounds": [
+        22016,
+        168448
+      ],
+      "events": [
+        {
+          "boundarySample": 24576,
+          "kind": "speechStarted",
+          "observedThroughSample": 26112
+        },
+        {
+          "boundarySample": 165888,
+          "kind": "finished",
+          "observedThroughSample": 185344
+        }
+      ]
+    },
+    {
+      "id": "test-other-2414-128291-0000-original",
+      "bounds": [
+        22528,
+        65024
+      ],
+      "events": [
+        {
+          "boundarySample": 25088,
+          "kind": "speechStarted",
+          "observedThroughSample": 26624
+        },
+        {
+          "boundarySample": 62464,
+          "kind": "finished",
+          "observedThroughSample": 81920
+        }
+      ]
+    },
+    {
+      "id": "test-other-2414-128291-0000-quiet40db",
+      "bounds": [
+        28672,
+        50176
+      ],
+      "events": []
+    },
+    {
+      "id": "test-other-2414-128291-0000-noise10db",
+      "bounds": [
+        22016,
+        70656
+      ],
+      "events": [
+        {
+          "boundarySample": 24576,
+          "kind": "speechStarted",
+          "observedThroughSample": 26112
+        },
+        {
+          "boundarySample": 68096,
+          "kind": "finished",
+          "observedThroughSample": 87552
+        }
+      ]
+    },
+    {
+      "id": "test-other-2609-156975-0000-original",
+      "bounds": [
+        20992,
+        91648
+      ],
+      "events": [
+        {
+          "boundarySample": 23552,
+          "kind": "speechStarted",
+          "observedThroughSample": 25088
+        },
+        {
+          "boundarySample": 89088,
+          "kind": "finished",
+          "observedThroughSample": 108544
+        }
+      ]
+    },
+    {
+      "id": "test-other-2609-156975-0000-quiet40db",
+      "bounds": [
+        22016,
+        94720
+      ],
+      "events": [
+        {
+          "boundarySample": 24576,
+          "kind": "speechStarted",
+          "observedThroughSample": 26112
+        },
+        {
+          "boundarySample": 92160,
+          "kind": "finished",
+          "observedThroughSample": 111616
+        }
+      ]
+    },
+    {
+      "id": "test-other-2609-156975-0000-noise10db",
+      "bounds": [
+        20992,
+        96768
+      ],
+      "events": [
+        {
+          "boundarySample": 23552,
+          "kind": "speechStarted",
+          "observedThroughSample": 25088
+        },
+        {
+          "boundarySample": 94208,
+          "kind": "finished",
+          "observedThroughSample": 113664
+        }
+      ]
+    },
+    {
+      "id": "test-other-3005-163389-0000-original",
+      "bounds": [
+        22016,
+        151552
+      ],
+      "events": [
+        {
+          "boundarySample": 24576,
+          "kind": "speechStarted",
+          "observedThroughSample": 26112
+        },
+        {
+          "boundarySample": 148992,
+          "kind": "finished",
+          "observedThroughSample": 168448
+        }
+      ]
+    },
+    {
+      "id": "test-other-3005-163389-0000-quiet40db",
+      "bounds": [
+        23040,
+        155136
+      ],
+      "events": [
+        {
+          "boundarySample": 25600,
+          "kind": "speechStarted",
+          "observedThroughSample": 27136
+        },
+        {
+          "boundarySample": 152576,
+          "kind": "finished",
+          "observedThroughSample": 172032
+        }
+      ]
+    },
+    {
+      "id": "test-other-3005-163389-0000-noise10db",
+      "bounds": [
+        21504,
+        156160
+      ],
+      "events": [
+        {
+          "boundarySample": 24064,
+          "kind": "speechStarted",
+          "observedThroughSample": 25600
+        },
+        {
+          "boundarySample": 153600,
+          "kind": "finished",
+          "observedThroughSample": 173056
+        }
+      ]
+    },
+    {
+      "id": "test-other-3080-5032-0000-original",
+      "bounds": [
+        22528,
+        89088
+      ],
+      "events": [
+        {
+          "boundarySample": 25088,
+          "kind": "speechStarted",
+          "observedThroughSample": 26624
+        },
+        {
+          "boundarySample": 86528,
+          "kind": "finished",
+          "observedThroughSample": 105984
+        }
+      ]
+    },
+    {
+      "id": "test-other-3080-5032-0000-quiet40db",
+      "bounds": [
+        23040,
+        93696
+      ],
+      "events": [
+        {
+          "boundarySample": 25600,
+          "kind": "speechStarted",
+          "observedThroughSample": 27136
+        },
+        {
+          "boundarySample": 91136,
+          "kind": "finished",
+          "observedThroughSample": 110592
+        }
+      ]
+    },
+    {
+      "id": "test-other-3080-5032-0000-noise10db",
+      "bounds": [
+        22528,
+        96256
+      ],
+      "events": [
+        {
+          "boundarySample": 25088,
+          "kind": "speechStarted",
+          "observedThroughSample": 26624
+        },
+        {
+          "boundarySample": 93696,
+          "kind": "finished",
+          "observedThroughSample": 113152
+        }
+      ]
+    },
+    {
+      "id": "test-other-3331-159605-0000-original",
+      "bounds": [
+        13824,
+        232960
+      ],
+      "events": [
+        {
+          "boundarySample": 16384,
+          "kind": "speechStarted",
+          "observedThroughSample": 17920
+        },
+        {
+          "boundarySample": 230400,
+          "kind": "finished",
+          "observedThroughSample": 249856
+        }
+      ]
+    },
+    {
+      "id": "test-other-3331-159605-0000-quiet40db",
+      "bounds": [
+        17920,
+        235520
+      ],
+      "events": [
+        {
+          "boundarySample": 20480,
+          "kind": "speechStarted",
+          "observedThroughSample": 22016
+        },
+        {
+          "boundarySample": 232960,
+          "kind": "finished",
+          "observedThroughSample": 252416
+        }
+      ]
+    },
+    {
+      "id": "test-other-3331-159605-0000-noise10db",
+      "bounds": [
+        16896,
+        236544
+      ],
+      "events": [
+        {
+          "boundarySample": 19456,
+          "kind": "speechStarted",
+          "observedThroughSample": 20992
+        },
+        {
+          "boundarySample": 233984,
+          "kind": "finished",
+          "observedThroughSample": 253440
+        }
+      ]
+    },
+    {
+      "id": "test-other-3528-168656-0000-original",
+      "bounds": [
+        15872,
+        71680
+      ],
+      "events": [
+        {
+          "boundarySample": 18432,
+          "kind": "speechStarted",
+          "observedThroughSample": 19968
+        },
+        {
+          "boundarySample": 69120,
+          "kind": "finished",
+          "observedThroughSample": 88576
+        }
+      ]
+    },
+    {
+      "id": "test-other-3528-168656-0000-quiet40db",
+      "bounds": [
+        24064,
+        75264
+      ],
+      "events": [
+        {
+          "boundarySample": 26624,
+          "kind": "speechStarted",
+          "observedThroughSample": 28160
+        },
+        {
+          "boundarySample": 72704,
+          "kind": "finished",
+          "observedThroughSample": 92160
+        }
+      ]
+    },
+    {
+      "id": "test-other-3528-168656-0000-noise10db",
+      "bounds": [
+        22016,
+        75776
+      ],
+      "events": [
+        {
+          "boundarySample": 24576,
+          "kind": "speechStarted",
+          "observedThroughSample": 26112
+        },
+        {
+          "boundarySample": 73216,
+          "kind": "finished",
+          "observedThroughSample": 92672
+        }
+      ]
+    },
+    {
+      "id": "test-other-3538-142836-0000-original",
+      "bounds": [
+        17920,
+        99840
+      ],
+      "events": [
+        {
+          "boundarySample": 20480,
+          "kind": "speechStarted",
+          "observedThroughSample": 22016
+        },
+        {
+          "boundarySample": 97280,
+          "kind": "finished",
+          "observedThroughSample": 116736
+        }
+      ]
+    },
+    {
+      "id": "test-other-3538-142836-0000-quiet40db",
+      "bounds": [
+        18432,
+        101376
+      ],
+      "events": [
+        {
+          "boundarySample": 20992,
+          "kind": "speechStarted",
+          "observedThroughSample": 22528
+        },
+        {
+          "boundarySample": 98816,
+          "kind": "finished",
+          "observedThroughSample": 118272
+        }
+      ]
+    },
+    {
+      "id": "test-other-3538-142836-0000-noise10db",
+      "bounds": [
+        17920,
+        104448
+      ],
+      "events": [
+        {
+          "boundarySample": 20480,
+          "kind": "speechStarted",
+          "observedThroughSample": 22016
+        },
+        {
+          "boundarySample": 101888,
+          "kind": "finished",
+          "observedThroughSample": 121344
+        }
+      ]
+    },
+    {
+      "id": "test-other-367-130732-0000-original",
+      "bounds": [
+        20992,
+        56832
+      ],
+      "events": [
+        {
+          "boundarySample": 23552,
+          "kind": "speechStarted",
+          "observedThroughSample": 25088
+        },
+        {
+          "boundarySample": 54272,
+          "kind": "finished",
+          "observedThroughSample": 73728
+        }
+      ]
+    },
+    {
+      "id": "test-other-367-130732-0000-quiet40db",
+      "bounds": [
+        31744,
+        41472
+      ],
+      "events": [
+        {
+          "boundarySample": 34304,
+          "kind": "speechStarted",
+          "observedThroughSample": 35840
+        },
+        {
+          "boundarySample": 38912,
+          "kind": "finished",
+          "observedThroughSample": 58368
+        }
+      ]
+    },
+    {
+      "id": "test-other-367-130732-0000-noise10db",
+      "bounds": [
+        21504,
+        60928
+      ],
+      "events": [
+        {
+          "boundarySample": 24064,
+          "kind": "speechStarted",
+          "observedThroughSample": 25600
+        },
+        {
+          "boundarySample": 58368,
+          "kind": "finished",
+          "observedThroughSample": 77824
+        }
+      ]
+    },
+    {
+      "id": "test-other-3764-168670-0000-original",
+      "bounds": [
+        22528,
+        157696
+      ],
+      "events": [
+        {
+          "boundarySample": 25088,
+          "kind": "speechStarted",
+          "observedThroughSample": 26624
+        },
+        {
+          "boundarySample": 155136,
+          "kind": "finished",
+          "observedThroughSample": 174592
+        }
+      ]
+    },
+    {
+      "id": "test-other-3764-168670-0000-quiet40db",
+      "bounds": [
+        24064,
+        159232
+      ],
+      "events": [
+        {
+          "boundarySample": 26624,
+          "kind": "speechStarted",
+          "observedThroughSample": 28160
+        },
+        {
+          "boundarySample": 156672,
+          "kind": "finished",
+          "observedThroughSample": 176128
+        }
+      ]
+    },
+    {
+      "id": "test-other-3764-168670-0000-noise10db",
+      "bounds": [
+        22528,
+        157696
+      ],
+      "events": [
+        {
+          "boundarySample": 25088,
+          "kind": "speechStarted",
+          "observedThroughSample": 26624
+        },
+        {
+          "boundarySample": 155136,
+          "kind": "finished",
+          "observedThroughSample": 174592
+        }
+      ]
+    },
+    {
+      "id": "test-other-3997-180294-0000-original",
+      "bounds": [
+        17408,
+        148480
+      ],
+      "events": [
+        {
+          "boundarySample": 19968,
+          "kind": "speechStarted",
+          "observedThroughSample": 21504
+        },
+        {
+          "boundarySample": 145920,
+          "kind": "finished",
+          "observedThroughSample": 165376
+        }
+      ]
+    },
+    {
+      "id": "test-other-3997-180294-0000-quiet40db",
+      "bounds": [
+        19456,
+        153600
+      ],
+      "events": [
+        {
+          "boundarySample": 22016,
+          "kind": "speechStarted",
+          "observedThroughSample": 23552
+        },
+        {
+          "boundarySample": 151040,
+          "kind": "finished",
+          "observedThroughSample": 170496
+        }
+      ]
+    },
+    {
+      "id": "test-other-3997-180294-0000-noise10db",
+      "bounds": [
+        17408,
+        154112
+      ],
+      "events": [
+        {
+          "boundarySample": 19968,
+          "kind": "speechStarted",
+          "observedThroughSample": 21504
+        },
+        {
+          "boundarySample": 151552,
+          "kind": "finished",
+          "observedThroughSample": 171008
+        }
+      ]
+    },
+    {
+      "id": "test-other-4198-12259-0000-original",
+      "bounds": [
+        19968,
+        110080
+      ],
+      "events": [
+        {
+          "boundarySample": 22528,
+          "kind": "speechStarted",
+          "observedThroughSample": 24064
+        },
+        {
+          "boundarySample": 107520,
+          "kind": "finished",
+          "observedThroughSample": 126976
+        }
+      ]
+    },
+    {
+      "id": "test-other-4198-12259-0000-quiet40db",
+      "bounds": [
+        21504,
+        116224
+      ],
+      "events": [
+        {
+          "boundarySample": 24064,
+          "kind": "speechStarted",
+          "observedThroughSample": 25600
+        },
+        {
+          "boundarySample": 113664,
+          "kind": "finished",
+          "observedThroughSample": 133120
+        }
+      ]
+    },
+    {
+      "id": "test-other-4198-12259-0000-noise10db",
+      "bounds": [
+        19968,
+        113664
+      ],
+      "events": [
+        {
+          "boundarySample": 22528,
+          "kind": "speechStarted",
+          "observedThroughSample": 24064
+        },
+        {
+          "boundarySample": 111104,
+          "kind": "finished",
+          "observedThroughSample": 130560
+        }
+      ]
+    },
+    {
+      "id": "test-other-4294-14317-0000-original",
+      "bounds": [
+        20992,
+        142848
+      ],
+      "events": [
+        {
+          "boundarySample": 23552,
+          "kind": "speechStarted",
+          "observedThroughSample": 25088
+        },
+        {
+          "boundarySample": 140288,
+          "kind": "finished",
+          "observedThroughSample": 159744
+        }
+      ]
+    },
+    {
+      "id": "test-other-4294-14317-0000-quiet40db",
+      "bounds": [
+        22016,
+        141824
+      ],
+      "events": [
+        {
+          "boundarySample": 24576,
+          "kind": "speechStarted",
+          "observedThroughSample": 26112
+        },
+        {
+          "boundarySample": 139264,
+          "kind": "finished",
+          "observedThroughSample": 158720
+        }
+      ]
+    },
+    {
+      "id": "test-other-4294-14317-0000-noise10db",
+      "bounds": [
+        21504,
+        140800
+      ],
+      "events": [
+        {
+          "boundarySample": 24064,
+          "kind": "speechStarted",
+          "observedThroughSample": 25600
+        },
+        {
+          "boundarySample": 138240,
+          "kind": "finished",
+          "observedThroughSample": 157696
+        }
+      ]
+    },
+    {
+      "id": "test-other-4350-10919-0000-original",
+      "bounds": [
+        17920,
+        102912
+      ],
+      "events": [
+        {
+          "boundarySample": 20480,
+          "kind": "speechStarted",
+          "observedThroughSample": 22016
+        },
+        {
+          "boundarySample": 100352,
+          "kind": "finished",
+          "observedThroughSample": 119808
+        }
+      ]
+    },
+    {
+      "id": "test-other-4350-10919-0000-quiet40db",
+      "bounds": [
+        18944,
+        106496
+      ],
+      "events": [
+        {
+          "boundarySample": 21504,
+          "kind": "speechStarted",
+          "observedThroughSample": 23040
+        },
+        {
+          "boundarySample": 103936,
+          "kind": "finished",
+          "observedThroughSample": 123392
+        }
+      ]
+    },
+    {
+      "id": "test-other-4350-10919-0000-noise10db",
+      "bounds": [
+        17920,
+        105472
+      ],
+      "events": [
+        {
+          "boundarySample": 20480,
+          "kind": "speechStarted",
+          "observedThroughSample": 22016
+        },
+        {
+          "boundarySample": 102912,
+          "kind": "finished",
+          "observedThroughSample": 122368
+        }
+      ]
+    },
+    {
+      "id": "test-other-4852-28311-0000-original",
+      "bounds": [
+        22016,
+        49664
+      ],
+      "events": [
+        {
+          "boundarySample": 24576,
+          "kind": "speechStarted",
+          "observedThroughSample": 26112
+        },
+        {
+          "boundarySample": 47104,
+          "kind": "finished",
+          "observedThroughSample": 66560
+        }
+      ]
+    },
+    {
+      "id": "test-other-4852-28311-0000-quiet40db",
+      "bounds": [
+        25088,
+        60928
+      ],
+      "events": [
+        {
+          "boundarySample": 27648,
+          "kind": "speechStarted",
+          "observedThroughSample": 29184
+        },
+        {
+          "boundarySample": 58368,
+          "kind": "finished",
+          "observedThroughSample": 77824
+        }
+      ]
+    },
+    {
+      "id": "test-other-4852-28311-0000-noise10db",
+      "bounds": [
+        24576,
+        55296
+      ],
+      "events": [
+        {
+          "boundarySample": 27136,
+          "kind": "speechStarted",
+          "observedThroughSample": 28672
+        },
+        {
+          "boundarySample": 52736,
+          "kind": "finished",
+          "observedThroughSample": 72192
+        }
+      ]
+    },
+    {
+      "id": "test-other-533-1066-0000-original",
+      "bounds": [
+        18432,
+        58880
+      ],
+      "events": [
+        {
+          "boundarySample": 20992,
+          "kind": "speechStarted",
+          "observedThroughSample": 22528
+        },
+        {
+          "boundarySample": 56320,
+          "kind": "finished",
+          "observedThroughSample": 75776
+        }
+      ]
+    },
+    {
+      "id": "test-other-533-1066-0000-quiet40db",
+      "bounds": [
+        19968,
+        67072
+      ],
+      "events": [
+        {
+          "boundarySample": 22528,
+          "kind": "speechStarted",
+          "observedThroughSample": 24064
+        },
+        {
+          "boundarySample": 64512,
+          "kind": "finished",
+          "observedThroughSample": 83968
+        }
+      ]
+    },
+    {
+      "id": "test-other-533-1066-0000-noise10db",
+      "bounds": [
+        18432,
+        63488
+      ],
+      "events": [
+        {
+          "boundarySample": 20992,
+          "kind": "speechStarted",
+          "observedThroughSample": 22528
+        },
+        {
+          "boundarySample": 60928,
+          "kind": "finished",
+          "observedThroughSample": 80384
+        }
+      ]
+    },
+    {
+      "id": "test-other-5442-32873-0000-original",
+      "bounds": [
+        20992,
+        80384
+      ],
+      "events": [
+        {
+          "boundarySample": 23552,
+          "kind": "speechStarted",
+          "observedThroughSample": 25088
+        },
+        {
+          "boundarySample": 77824,
+          "kind": "finished",
+          "observedThroughSample": 97280
+        }
+      ]
+    },
+    {
+      "id": "test-other-5442-32873-0000-quiet40db",
+      "bounds": [
+        22016,
+        85504
+      ],
+      "events": [
+        {
+          "boundarySample": 24576,
+          "kind": "speechStarted",
+          "observedThroughSample": 26112
+        },
+        {
+          "boundarySample": 82944,
+          "kind": "finished",
+          "observedThroughSample": 102400
+        }
+      ]
+    },
+    {
+      "id": "test-other-5442-32873-0000-noise10db",
+      "bounds": [
+        21504,
+        84992
+      ],
+      "events": [
+        {
+          "boundarySample": 24064,
+          "kind": "speechStarted",
+          "observedThroughSample": 25600
+        },
+        {
+          "boundarySample": 82432,
+          "kind": "finished",
+          "observedThroughSample": 101888
+        }
+      ]
+    },
+    {
+      "id": "test-other-5484-24317-0000-original",
+      "bounds": [
+        21504,
+        76800
+      ],
+      "events": [
+        {
+          "boundarySample": 24064,
+          "kind": "speechStarted",
+          "observedThroughSample": 25600
+        },
+        {
+          "boundarySample": 74240,
+          "kind": "finished",
+          "observedThroughSample": 93696
+        }
+      ]
+    },
+    {
+      "id": "test-other-5484-24317-0000-quiet40db",
+      "bounds": [
+        23040,
+        88576
+      ],
+      "events": [
+        {
+          "boundarySample": 25600,
+          "kind": "speechStarted",
+          "observedThroughSample": 27136
+        },
+        {
+          "boundarySample": 86016,
+          "kind": "finished",
+          "observedThroughSample": 105472
+        }
+      ]
+    },
+    {
+      "id": "test-other-5484-24317-0000-noise10db",
+      "bounds": [
+        22016,
+        80896
+      ],
+      "events": [
+        {
+          "boundarySample": 24576,
+          "kind": "speechStarted",
+          "observedThroughSample": 26112
+        },
+        {
+          "boundarySample": 78336,
+          "kind": "finished",
+          "observedThroughSample": 97792
+        }
+      ]
+    },
+    {
+      "id": "synthetic-silence",
+      "bounds": [
+        0,
+        0
+      ],
+      "events": []
+    },
+    {
+      "id": "synthetic-gaussian",
+      "bounds": [
+        0,
+        0
+      ],
+      "events": []
+    },
+    {
+      "id": "synthetic-hum60hz",
+      "bounds": [
+        0,
+        0
+      ],
+      "events": []
+    },
+    {
+      "id": "synthetic-tone440hz",
+      "bounds": [
+        0,
+        0
+      ],
+      "events": []
+    },
+    {
+      "id": "synthetic-clicks",
+      "bounds": [
+        0,
+        0
+      ],
+      "events": []
+    },
+    {
+      "id": "ami-ES2004a-180s",
+      "bounds": [
+        175104,
+        2880000
+      ],
+      "events": [
+        {
+          "boundarySample": 177664,
+          "kind": "speechStarted",
+          "observedThroughSample": 179200
+        },
+        {
+          "boundarySample": 246784,
+          "kind": "finished",
+          "observedThroughSample": 266240
+        }
+      ]
+    },
+    {
+      "id": "ami-EN2002a-180s",
+      "bounds": [
+        6656,
+        2880000
+      ],
+      "events": [
+        {
+          "boundarySample": 9216,
+          "kind": "speechStarted",
+          "observedThroughSample": 10752
+        },
+        {
+          "boundarySample": 635392,
+          "kind": "finished",
+          "observedThroughSample": 654848
+        }
+      ]
+    },
+    {
+      "id": "ami-IS1009a-180s",
+      "bounds": [
+        411648,
+        2679808
+      ],
+      "events": [
+        {
+          "boundarySample": 414208,
+          "kind": "speechStarted",
+          "observedThroughSample": 415744
+        },
+        {
+          "boundarySample": 420352,
+          "kind": "finished",
+          "observedThroughSample": 439808
+        }
+      ]
+    },
+    {
+      "id": "ami-TS3003a-180s",
+      "bounds": [
+        215552,
+        2880000
+      ],
+      "events": [
+        {
+          "boundarySample": 218112,
+          "kind": "speechStarted",
+          "observedThroughSample": 219648
+        },
+        {
+          "boundarySample": 357376,
+          "kind": "finished",
+          "observedThroughSample": 376832
+        }
+      ]
+    },
+    {
+      "id": "fleurs-es_419-000",
+      "bounds": [
+        29184,
+        205440
+      ],
+      "events": [
+        {
+          "boundarySample": 31744,
+          "kind": "speechStarted",
+          "observedThroughSample": 33280
+        }
+      ]
+    },
+    {
+      "id": "fleurs-es_419-001",
+      "bounds": [
+        24064,
+        331776
+      ],
+      "events": [
+        {
+          "boundarySample": 26624,
+          "kind": "speechStarted",
+          "observedThroughSample": 28160
+        }
+      ]
+    },
+    {
+      "id": "fleurs-es_419-002",
+      "bounds": [
+        35328,
+        151040
+      ],
+      "events": [
+        {
+          "boundarySample": 37888,
+          "kind": "speechStarted",
+          "observedThroughSample": 39424
+        }
+      ]
+    },
+    {
+      "id": "fleurs-es_419-003",
+      "bounds": [
+        27648,
+        114688
+      ],
+      "events": [
+        {
+          "boundarySample": 30208,
+          "kind": "speechStarted",
+          "observedThroughSample": 31744
+        },
+        {
+          "boundarySample": 112128,
+          "kind": "finished",
+          "observedThroughSample": 131584
+        }
+      ]
+    },
+    {
+      "id": "fleurs-es_419-004",
+      "bounds": [
+        38912,
+        137728
+      ],
+      "events": [
+        {
+          "boundarySample": 41472,
+          "kind": "speechStarted",
+          "observedThroughSample": 43008
+        },
+        {
+          "boundarySample": 135168,
+          "kind": "finished",
+          "observedThroughSample": 154624
+        }
+      ]
+    },
+    {
+      "id": "fleurs-es_419-005",
+      "bounds": [
+        20992,
+        156480
+      ],
+      "events": [
+        {
+          "boundarySample": 23552,
+          "kind": "speechStarted",
+          "observedThroughSample": 25088
+        }
+      ]
+    },
+    {
+      "id": "fleurs-es_419-006",
+      "bounds": [
+        8704,
+        75776
+      ],
+      "events": [
+        {
+          "boundarySample": 11264,
+          "kind": "speechStarted",
+          "observedThroughSample": 12800
+        }
+      ]
+    },
+    {
+      "id": "fleurs-es_419-007",
+      "bounds": [
+        23040,
+        143360
+      ],
+      "events": [
+        {
+          "boundarySample": 25600,
+          "kind": "speechStarted",
+          "observedThroughSample": 27136
+        },
+        {
+          "boundarySample": 140800,
+          "kind": "finished",
+          "observedThroughSample": 160256
+        }
+      ]
+    },
+    {
+      "id": "fleurs-es_419-008",
+      "bounds": [
+        17408,
+        155648
+      ],
+      "events": [
+        {
+          "boundarySample": 19968,
+          "kind": "speechStarted",
+          "observedThroughSample": 21504
+        }
+      ]
+    },
+    {
+      "id": "fleurs-es_419-009",
+      "bounds": [
+        19968,
+        193920
+      ],
+      "events": [
+        {
+          "boundarySample": 22528,
+          "kind": "speechStarted",
+          "observedThroughSample": 24064
+        }
+      ]
+    },
+    {
+      "id": "fleurs-de_de-000",
+      "bounds": [
+        66048,
+        235520
+      ],
+      "events": [
+        {
+          "boundarySample": 68608,
+          "kind": "speechStarted",
+          "observedThroughSample": 70144
+        },
+        {
+          "boundarySample": 232960,
+          "kind": "finished",
+          "observedThroughSample": 252416
+        }
+      ]
+    },
+    {
+      "id": "fleurs-de_de-001",
+      "bounds": [
+        33792,
+        150016
+      ],
+      "events": [
+        {
+          "boundarySample": 36352,
+          "kind": "speechStarted",
+          "observedThroughSample": 37888
+        },
+        {
+          "boundarySample": 147456,
+          "kind": "finished",
+          "observedThroughSample": 166912
+        }
+      ]
+    },
+    {
+      "id": "fleurs-de_de-002",
+      "bounds": [
+        16384,
+        198720
+      ],
+      "events": [
+        {
+          "boundarySample": 18944,
+          "kind": "speechStarted",
+          "observedThroughSample": 20480
+        }
+      ]
+    },
+    {
+      "id": "fleurs-de_de-003",
+      "bounds": [
+        7680,
+        170880
+      ],
+      "events": [
+        {
+          "boundarySample": 10240,
+          "kind": "speechStarted",
+          "observedThroughSample": 11776
+        }
+      ]
+    },
+    {
+      "id": "fleurs-de_de-004",
+      "bounds": [
+        23040,
+        141312
+      ],
+      "events": [
+        {
+          "boundarySample": 25600,
+          "kind": "speechStarted",
+          "observedThroughSample": 27136
+        },
+        {
+          "boundarySample": 138752,
+          "kind": "finished",
+          "observedThroughSample": 158208
+        }
+      ]
+    },
+    {
+      "id": "fleurs-de_de-005",
+      "bounds": [
+        20992,
+        128000
+      ],
+      "events": [
+        {
+          "boundarySample": 23552,
+          "kind": "speechStarted",
+          "observedThroughSample": 25088
+        }
+      ]
+    },
+    {
+      "id": "fleurs-de_de-006",
+      "bounds": [
+        10240,
+        207360
+      ],
+      "events": [
+        {
+          "boundarySample": 12800,
+          "kind": "speechStarted",
+          "observedThroughSample": 14336
+        }
+      ]
+    },
+    {
+      "id": "fleurs-de_de-007",
+      "bounds": [
+        57856,
+        274944
+      ],
+      "events": [
+        {
+          "boundarySample": 60416,
+          "kind": "speechStarted",
+          "observedThroughSample": 61952
+        },
+        {
+          "boundarySample": 272384,
+          "kind": "finished",
+          "observedThroughSample": 291840
+        }
+      ]
+    },
+    {
+      "id": "fleurs-de_de-008",
+      "bounds": [
+        26112,
+        160768
+      ],
+      "events": [
+        {
+          "boundarySample": 28672,
+          "kind": "speechStarted",
+          "observedThroughSample": 30208
+        }
+      ]
+    },
+    {
+      "id": "fleurs-de_de-009",
+      "bounds": [
+        62464,
+        629248
+      ],
+      "events": [
+        {
+          "boundarySample": 65024,
+          "kind": "speechStarted",
+          "observedThroughSample": 66560
+        },
+        {
+          "boundarySample": 626688,
+          "kind": "finished",
+          "observedThroughSample": 646144
+        }
+      ]
+    },
+    {
+      "id": "fleurs-hi_in-000",
+      "bounds": [
+        7168,
+        145920
+      ],
+      "events": [
+        {
+          "boundarySample": 9728,
+          "kind": "speechStarted",
+          "observedThroughSample": 11264
+        }
+      ]
+    },
+    {
+      "id": "fleurs-hi_in-001",
+      "bounds": [
+        12288,
+        215552
+      ],
+      "events": [
+        {
+          "boundarySample": 14848,
+          "kind": "speechStarted",
+          "observedThroughSample": 16384
+        }
+      ]
+    },
+    {
+      "id": "fleurs-hi_in-002",
+      "bounds": [
+        19456,
+        239104
+      ],
+      "events": [
+        {
+          "boundarySample": 22016,
+          "kind": "speechStarted",
+          "observedThroughSample": 23552
+        }
+      ]
+    },
+    {
+      "id": "fleurs-hi_in-003",
+      "bounds": [
+        3584,
+        81600
+      ],
+      "events": [
+        {
+          "boundarySample": 6144,
+          "kind": "speechStarted",
+          "observedThroughSample": 7680
+        }
+      ]
+    },
+    {
+      "id": "fleurs-hi_in-004",
+      "bounds": [
+        25088,
+        195584
+      ],
+      "events": [
+        {
+          "boundarySample": 27648,
+          "kind": "speechStarted",
+          "observedThroughSample": 29184
+        }
+      ]
+    },
+    {
+      "id": "fleurs-hi_in-005",
+      "bounds": [
+        6656,
+        169472
+      ],
+      "events": [
+        {
+          "boundarySample": 9216,
+          "kind": "speechStarted",
+          "observedThroughSample": 10752
+        }
+      ]
+    },
+    {
+      "id": "fleurs-hi_in-006",
+      "bounds": [
+        10752,
+        273600
+      ],
+      "events": [
+        {
+          "boundarySample": 13312,
+          "kind": "speechStarted",
+          "observedThroughSample": 14848
+        }
+      ]
+    },
+    {
+      "id": "fleurs-hi_in-007",
+      "bounds": [
+        7680,
+        128000
+      ],
+      "events": [
+        {
+          "boundarySample": 10240,
+          "kind": "speechStarted",
+          "observedThroughSample": 11776
+        }
+      ]
+    },
+    {
+      "id": "fleurs-hi_in-008",
+      "bounds": [
+        12800,
+        119296
+      ],
+      "events": [
+        {
+          "boundarySample": 15360,
+          "kind": "speechStarted",
+          "observedThroughSample": 16896
+        }
+      ]
+    },
+    {
+      "id": "fleurs-hi_in-009",
+      "bounds": [
+        13824,
+        214528
+      ],
+      "events": [
+        {
+          "boundarySample": 16384,
+          "kind": "speechStarted",
+          "observedThroughSample": 17920
+        }
+      ]
+    },
+    {
+      "id": "fleurs-ja_jp-000",
+      "bounds": [
+        27648,
+        146944
+      ],
+      "events": [
+        {
+          "boundarySample": 30208,
+          "kind": "speechStarted",
+          "observedThroughSample": 31744
+        },
+        {
+          "boundarySample": 144384,
+          "kind": "finished",
+          "observedThroughSample": 163840
+        }
+      ]
+    },
+    {
+      "id": "fleurs-ja_jp-001",
+      "bounds": [
+        44032,
+        198656
+      ],
+      "events": [
+        {
+          "boundarySample": 46592,
+          "kind": "speechStarted",
+          "observedThroughSample": 48128
+        },
+        {
+          "boundarySample": 196096,
+          "kind": "finished",
+          "observedThroughSample": 215552
+        }
+      ]
+    },
+    {
+      "id": "fleurs-ja_jp-002",
+      "bounds": [
+        31744,
+        182272
+      ],
+      "events": [
+        {
+          "boundarySample": 34304,
+          "kind": "speechStarted",
+          "observedThroughSample": 35840
+        },
+        {
+          "boundarySample": 179712,
+          "kind": "finished",
+          "observedThroughSample": 199168
+        }
+      ]
+    },
+    {
+      "id": "fleurs-ja_jp-003",
+      "bounds": [
+        32256,
+        172032
+      ],
+      "events": [
+        {
+          "boundarySample": 34816,
+          "kind": "speechStarted",
+          "observedThroughSample": 36352
+        },
+        {
+          "boundarySample": 169472,
+          "kind": "finished",
+          "observedThroughSample": 188928
+        }
+      ]
+    },
+    {
+      "id": "fleurs-ja_jp-004",
+      "bounds": [
+        55808,
+        146944
+      ],
+      "events": [
+        {
+          "boundarySample": 58368,
+          "kind": "speechStarted",
+          "observedThroughSample": 59904
+        },
+        {
+          "boundarySample": 144384,
+          "kind": "finished",
+          "observedThroughSample": 163840
+        }
+      ]
+    },
+    {
+      "id": "fleurs-ja_jp-005",
+      "bounds": [
+        22528,
+        111360
+      ],
+      "events": [
+        {
+          "boundarySample": 25088,
+          "kind": "speechStarted",
+          "observedThroughSample": 26624
+        }
+      ]
+    },
+    {
+      "id": "fleurs-ja_jp-006",
+      "bounds": [
+        27648,
+        118784
+      ],
+      "events": [
+        {
+          "boundarySample": 30208,
+          "kind": "speechStarted",
+          "observedThroughSample": 31744
+        },
+        {
+          "boundarySample": 116224,
+          "kind": "finished",
+          "observedThroughSample": 135680
+        }
+      ]
+    },
+    {
+      "id": "fleurs-ja_jp-007",
+      "bounds": [
+        33792,
+        181760
+      ],
+      "events": [
+        {
+          "boundarySample": 36352,
+          "kind": "speechStarted",
+          "observedThroughSample": 37888
+        },
+        {
+          "boundarySample": 179200,
+          "kind": "finished",
+          "observedThroughSample": 198656
+        }
+      ]
+    },
+    {
+      "id": "fleurs-ja_jp-008",
+      "bounds": [
+        22528,
+        132608
+      ],
+      "events": [
+        {
+          "boundarySample": 25088,
+          "kind": "speechStarted",
+          "observedThroughSample": 26624
+        },
+        {
+          "boundarySample": 130048,
+          "kind": "finished",
+          "observedThroughSample": 149504
+        }
+      ]
+    },
+    {
+      "id": "fleurs-ja_jp-009",
+      "bounds": [
+        22016,
+        132096
+      ],
+      "events": [
+        {
+          "boundarySample": 24576,
+          "kind": "speechStarted",
+          "observedThroughSample": 26112
+        },
+        {
+          "boundarySample": 129536,
+          "kind": "finished",
+          "observedThroughSample": 148992
+        }
+      ]
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-000",
+      "bounds": [
+        28672,
+        125952
+      ],
+      "events": [
+        {
+          "boundarySample": 31232,
+          "kind": "speechStarted",
+          "observedThroughSample": 32768
+        },
+        {
+          "boundarySample": 123392,
+          "kind": "finished",
+          "observedThroughSample": 142848
+        }
+      ]
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-001",
+      "bounds": [
+        16896,
+        115200
+      ],
+      "events": [
+        {
+          "boundarySample": 19456,
+          "kind": "speechStarted",
+          "observedThroughSample": 20992
+        },
+        {
+          "boundarySample": 112640,
+          "kind": "finished",
+          "observedThroughSample": 132096
+        }
+      ]
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-002",
+      "bounds": [
+        6144,
+        212480
+      ],
+      "events": [
+        {
+          "boundarySample": 43008,
+          "kind": "speechStarted",
+          "observedThroughSample": 44544
+        }
+      ]
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-003",
+      "bounds": [
+        11264,
+        240128
+      ],
+      "events": [
+        {
+          "boundarySample": 13824,
+          "kind": "speechStarted",
+          "observedThroughSample": 15360
+        }
+      ]
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-004",
+      "bounds": [
+        41472,
+        155648
+      ],
+      "events": [
+        {
+          "boundarySample": 44032,
+          "kind": "speechStarted",
+          "observedThroughSample": 45568
+        },
+        {
+          "boundarySample": 153088,
+          "kind": "finished",
+          "observedThroughSample": 172544
+        }
+      ]
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-005",
+      "bounds": [
+        44032,
+        198144
+      ],
+      "events": [
+        {
+          "boundarySample": 46592,
+          "kind": "speechStarted",
+          "observedThroughSample": 48128
+        },
+        {
+          "boundarySample": 195584,
+          "kind": "finished",
+          "observedThroughSample": 215040
+        }
+      ]
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-006",
+      "bounds": [
+        53248,
+        175616
+      ],
+      "events": [
+        {
+          "boundarySample": 55808,
+          "kind": "speechStarted",
+          "observedThroughSample": 57344
+        },
+        {
+          "boundarySample": 173056,
+          "kind": "finished",
+          "observedThroughSample": 192512
+        }
+      ]
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-007",
+      "bounds": [
+        33792,
+        197632
+      ],
+      "events": [
+        {
+          "boundarySample": 36352,
+          "kind": "speechStarted",
+          "observedThroughSample": 37888
+        },
+        {
+          "boundarySample": 195072,
+          "kind": "finished",
+          "observedThroughSample": 214528
+        }
+      ]
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-008",
+      "bounds": [
+        8704,
+        121920
+      ],
+      "events": [
+        {
+          "boundarySample": 11264,
+          "kind": "speechStarted",
+          "observedThroughSample": 12800
+        }
+      ]
+    },
+    {
+      "id": "fleurs-cmn_hans_cn-009",
+      "bounds": [
+        13824,
+        105984
+      ],
+      "events": [
+        {
+          "boundarySample": 16384,
+          "kind": "speechStarted",
+          "observedThroughSample": 17920
+        }
+      ]
+    }
+  ],
+  "boundary": "Same development inputs and fixed raw model probabilities used to choose this follow-up. Overlapping probabilities are correlated: noisy-OR is an aggregation score, not a calibrated speech probability. Each input remains in history for seven extra hops (224ms); continuing weak evidence may sustain activity longer. A raw-threshold 1.424s silence control accounts only for that fixed history span; actual finish coverage/delay must also be measured. The GUI/defaults and delivered preview are unchanged; new speakers, actual ASR outputs, live capture and scheduling remain open."
+}

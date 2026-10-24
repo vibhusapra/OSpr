@@ -1,0 +1,479 @@
+{
+  "timestamp": "2026-10-22T17:03:11.279766+00:00",
+  "model": "parakeet-v3",
+  "model_spec": {
+    "repo": "mlx-community/parakeet-tdt-0.6b-v3",
+    "engine": "parakeet",
+    "name": "Parakeet v3 \u00b7 fast multilingual",
+    "languages": "25 European languages",
+    "license": "CC-BY-4.0 (weights); Apache-2.0 (runtime)"
+  },
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "machine": "arm64",
+  "hardware": "Apple M5 Max",
+  "memory_bytes": 137438953472,
+  "source_sha256": "f718d7a9c4dc59b146e5cd87241c3a6b4ba43560ca9e9fce2fc96fdb88505124",
+  "git_commit": "6ce7abc2728797df3d0cc61f5d899b3f17cb2cd1",
+  "working_tree_dirty": true,
+  "versions": {
+    "mlx": "0.32.4",
+    "mlx-whisper": "0.4.3",
+    "parakeet-mlx": "0.5.3",
+    "mlx-audio": "0.6.1",
+    "numpy": "2.5.4"
+  },
+  "options": {
+    "model": "parakeet-v3",
+    "limit": 0,
+    "suite": "fleurs-de_de",
+    "no_trim": false,
+    "repeat": 1,
+    "manifest": "fixtures/fleurs.json"
+  },
+  "cold": {
+    "model": "parakeet-v3",
+    "audio_seconds": 17.94,
+    "speech_seconds": 9.88,
+    "text": "F\u00fcr die besten Aussichten auf Hongkong sollten Sie die Insel verlassen und zum gegen\u00fcberliegenden Ufer von Kowloon fahren.",
+    "segments": [
+      {
+        "start": 4.14,
+        "end": 13.899999999999999,
+        "text": " F\u00fcr die besten Aussichten auf Hongkong sollten Sie die Insel verlassen und zum gegen\u00fcberliegenden Ufer von Kowloon fahren."
+      }
+    ],
+    "words": [],
+    "language": "de",
+    "silence": false,
+    "warm": false,
+    "load_ms": 223.45699998550117,
+    "preprocess_ms": 8.277082932181656,
+    "decode_ms": 149.73370905499905,
+    "total_ms": 381.4733329927549,
+    "peak_gpu_bytes": 3274578412,
+    "active_gpu_bytes": 1296345292,
+    "vocabulary_applied": false,
+    "timestamp_granularity": "segment",
+    "wall_ms": 381.4908340573311
+  },
+  "summary": {
+    "fleurs-de_de": {
+      "cases": 10,
+      "errors": 0,
+      "wer": 0.036885245901639344,
+      "cer": 0.03543586109142452,
+      "substitutions": 8,
+      "deletions": 1,
+      "insertions": 0,
+      "p50_ms": 78.72852048603818,
+      "p95_ms": 159.30382498772806,
+      "aggregate_rtf": 0.005741624352552931,
+      "hallucinated_silence": 0
+    }
+  },
+  "process_peak_rss_bytes": 1634598912,
+  "corpus": {
+    "dataset": "google/fleurs",
+    "revision": "70bb2e84b976b7e960aa89f1c648e09c59f894dd",
+    "license": "CC BY 4.0 \u00b7 Google FLEURS / FLoRes multilingual evaluation corpus",
+    "selection": "First 10 test rows per language. Not selected by model output.",
+    "sources": [
+      {
+        "language": "es_419",
+        "sha256": "f1e8b7f6eecb91d16b79d91bc1838d8b0e5ebc0b37b317e2b58eb8694c64d3c0"
+      },
+      {
+        "language": "de_de",
+        "sha256": "3b40c214cabd603f1ddbf3da0499f7780975d6c56b75240f07a8990dbb7a6c07"
+      },
+      {
+        "language": "hi_in",
+        "sha256": "8a0be26c5584c1478233a6f47fb90275c713f72565327ea1da76c9f1cd5dd38b"
+      },
+      {
+        "language": "ja_jp",
+        "sha256": "e954b67e934b9a31d7a74a070a75225379660d50c8d1aacdb755852c57f23e6b"
+      },
+      {
+        "language": "cmn_hans_cn",
+        "sha256": "87c0aebbe183f3a36ac87b5c3421b6ab57036824744ff695029a3f858e7622fd"
+      }
+    ],
+    "caveats": "Tiny multilingual read-speech slices. Not a representative language ranking. Japanese/Chinese use CER; whitespace WER is not meaningful."
+  },
+  "records": [
+    {
+      "id": "fleurs-de_de-000",
+      "path": "fixtures/audio/fleurs/de_de/000.wav",
+      "reference": "f\u00fcr die besten aussichten auf hongkong sollten sie die insel verlassen und zum gegen\u00fcberliegenden ufer von kowloon fahren",
+      "language": "de",
+      "suite": "fleurs-de_de",
+      "source_id": 2003,
+      "sha256": "7131c007c5c5c7b72c2fae333c9bccf5e2c02a4abb32b740f314e58b1488f149",
+      "seconds": 17.94,
+      "repeat": 0,
+      "model": "parakeet-v3",
+      "audio_seconds": 17.94,
+      "speech_seconds": 9.88,
+      "text": "F\u00fcr die besten Aussichten auf Hongkong sollten Sie die Insel verlassen und zum gegen\u00fcberliegenden Ufer von Kowloon fahren.",
+      "segments": [
+        {
+          "start": 4.14,
+          "end": 13.899999999999999,
+          "text": " F\u00fcr die besten Aussichten auf Hongkong sollten Sie die Insel verlassen und zum gegen\u00fcberliegenden Ufer von Kowloon fahren."
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001625041477382183,
+      "preprocess_ms": 1.1754579609259963,
+      "decode_ms": 60.84787496365607,
+      "total_ms": 62.029500026255846,
+      "peak_gpu_bytes": 2251538928,
+      "active_gpu_bytes": 1296345292,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 62.046334031037986
+    },
+    {
+      "id": "fleurs-de_de-001",
+      "path": "fixtures/audio/fleurs/de_de/001.wav",
+      "reference": "er griff auch alles an was ins wasser kam selbst ein gro\u00dfer dinosaurier wie der t rex war ihm nicht gewachsen",
+      "language": "de",
+      "suite": "fleurs-de_de",
+      "source_id": 1738,
+      "sha256": "5ced4640ec223bd9f59601722534acbb2f47087c71167529c513741a86cdae01",
+      "seconds": 11.16,
+      "repeat": 0,
+      "model": "parakeet-v3",
+      "audio_seconds": 11.16,
+      "speech_seconds": 8.86,
+      "text": "Er griff auch alles an, was ins Wasser kam. Selbst ein gro\u00dfer Dinosaurier wie der T-Rex war ihm nicht gewachsen.",
+      "segments": [
+        {
+          "start": 1.98,
+          "end": 5.18,
+          "text": " Er griff auch alles an, was ins Wasser kam."
+        },
+        {
+          "start": 5.18,
+          "end": 8.940000000000001,
+          "text": " Selbst ein gro\u00dfer Dinosaurier wie der T-Rex war ihm nicht gewachsen."
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0015830155462026596,
+      "preprocess_ms": 1.0972080053761601,
+      "decode_ms": 66.74758298322558,
+      "total_ms": 67.85045797005296,
+      "peak_gpu_bytes": 2234532336,
+      "active_gpu_bytes": 1296296140,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 67.86574993748218
+    },
+    {
+      "id": "fleurs-de_de-002",
+      "path": "fixtures/audio/fleurs/de_de/002.wav",
+      "reference": "wenn sie den film das verm\u00e4chtnis der tempelritter gesehen haben denken sie vielleicht dass auf die r\u00fcckseite der unabh\u00e4ngigkeitserkl\u00e4rung eine schatzkarte gezeichnet wurde",
+      "language": "de",
+      "suite": "fleurs-de_de",
+      "source_id": 1849,
+      "sha256": "d0859482db2b8461ba8726bce55e00f54760b3aae48aba674e67c893804d8d51",
+      "seconds": 12.42,
+      "repeat": 0,
+      "model": "parakeet-v3",
+      "audio_seconds": 12.42,
+      "speech_seconds": 12.04,
+      "text": "Wenn Sie den Film Das Verm\u00e4chtnis der Tempelritter gesehen haben, denken Sie vielleicht, dass auf der R\u00fcckseite der Unabh\u00e4ngigkeitserkl\u00e4rung eine Schatzkarte gezeichnet wurde.",
+      "segments": [
+        {
+          "start": 0.96,
+          "end": 11.92,
+          "text": " Wenn Sie den Film Das Verm\u00e4chtnis der Tempelritter gesehen haben, denken Sie vielleicht, dass auf der R\u00fcckseite der Unabh\u00e4ngigkeitserkl\u00e4rung eine Schatzkarte gezeichnet wurde."
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0014170072972774506,
+      "preprocess_ms": 0.8600000292062759,
+      "decode_ms": 81.50249999016523,
+      "total_ms": 82.3678340530023,
+      "peak_gpu_bytes": 2290319856,
+      "active_gpu_bytes": 1296459980,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 82.38687494304031
+    },
+    {
+      "id": "fleurs-de_de-003",
+      "path": "fixtures/audio/fleurs/de_de/003.wav",
+      "reference": "es leben noch viele m\u00e4nner und frauen die ihre zeit hier \u00fcberlebt haben und viele weitere mit angeh\u00f6rigen die dort ermordet wurden oder sich zu tode arbeiteten juden und nichtjuden gleicherma\u00dfen",
+      "language": "de",
+      "suite": "fleurs-de_de",
+      "source_id": 1683,
+      "sha256": "bd345ef2d18cd274fb955cf510cb7f223c9ac6bb52c62fc4280eade47f9a56ee",
+      "seconds": 10.68,
+      "repeat": 0,
+      "model": "parakeet-v3",
+      "audio_seconds": 10.68,
+      "speech_seconds": 10.24,
+      "text": "Es leben noch viele M\u00e4nner und Frauen, die ihre Zeit hier \u00fcberlebt haben und viele weitere mit Angeh\u00f6rigen, die dort ermordet wurden oder sich zu Tode arbeiteten Juden und Nichtjuden gleicherma\u00dfen.",
+      "segments": [
+        {
+          "start": 0.32,
+          "end": 10.16,
+          "text": " Es leben noch viele M\u00e4nner und Frauen, die ihre Zeit hier \u00fcberlebt haben und viele weitere mit Angeh\u00f6rigen, die dort ermordet wurden oder sich zu Tode arbeiteten Juden und Nichtjuden gleicherma\u00dfen."
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0015409896150231361,
+      "preprocess_ms": 0.8014170452952385,
+      "decode_ms": 94.29199993610382,
+      "total_ms": 95.09941702708602,
+      "peak_gpu_bytes": 2260419056,
+      "active_gpu_bytes": 1296378060,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 95.11541610118002
+    },
+    {
+      "id": "fleurs-de_de-004",
+      "path": "fixtures/audio/fleurs/de_de/004.wav",
+      "reference": "die h\u00f6hle befindet sich auf der spitze eines der berge n\u00f6rdlich von mekka und ist vom rest der welt v\u00f6llig isoliert",
+      "language": "de",
+      "suite": "fleurs-de_de",
+      "source_id": 1739,
+      "sha256": "8bd38645c6abbb987e601e98b8c7ead49a81d849972fa26e658fe7345fab019f",
+      "seconds": 9.9,
+      "repeat": 0,
+      "model": "parakeet-v3",
+      "audio_seconds": 9.9,
+      "speech_seconds": 8.28,
+      "text": "Die H\u00f6hle befindet sich auf der Spitze eines der Berge n\u00f6rdlich von Mekka und ist vom Rest der Welt v\u00f6llig isoliert.",
+      "segments": [
+        {
+          "start": 1.1,
+          "end": 8.3,
+          "text": " Die H\u00f6hle befindet sich auf der Spitze eines der Berge n\u00f6rdlich von Mekka und ist vom Rest der Welt v\u00f6llig isoliert."
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0010830117389559746,
+      "preprocess_ms": 0.6996250012889504,
+      "decode_ms": 62.90212494786829,
+      "total_ms": 63.605875009670854,
+      "peak_gpu_bytes": 2224243184,
+      "active_gpu_bytes": 1296263372,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 63.617250067181885
+    },
+    {
+      "id": "fleurs-de_de-005",
+      "path": "fixtures/audio/fleurs/de_de/005.wav",
+      "reference": "dieses sediment war n\u00f6tig um sandb\u00e4nke und str\u00e4nde zu bilden die als lebensr\u00e4ume f\u00fcr wildtiere dienten",
+      "language": "de",
+      "suite": "fleurs-de_de",
+      "source_id": 1796,
+      "sha256": "88988cc0b268d4a2fdef8163fcbaec565a3e7eccf2a81bef8b3afb03c2ba0eba",
+      "seconds": 8.4,
+      "repeat": 0,
+      "model": "parakeet-v3",
+      "audio_seconds": 8.4,
+      "speech_seconds": 7.58,
+      "text": "Dieses Sediment war n\u00f6tig, um Sandb\u00e4nke und Str\u00e4nde zu bilden, die als Lebensr\u00e4ume f\u00fcr Wildtiere dienten.",
+      "segments": [
+        {
+          "start": 1.1199999999999999,
+          "end": 7.680000000000001,
+          "text": " Dieses Sediment war n\u00f6tig, um Sandb\u00e4nke und Str\u00e4nde zu bilden, die als Lebensr\u00e4ume f\u00fcr Wildtiere dienten."
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001249951310455799,
+      "preprocess_ms": 0.7098749047145247,
+      "decode_ms": 62.34670802950859,
+      "total_ms": 63.06224991567433,
+      "peak_gpu_bytes": 2214838768,
+      "active_gpu_bytes": 1296246988,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 63.07724991347641
+    },
+    {
+      "id": "fleurs-de_de-006",
+      "path": "fixtures/audio/fleurs/de_de/006.wav",
+      "reference": "blogs k\u00f6nnen auch dazu beitragen die schreibfertigkeiten von sch\u00fclern zu verbessern zwar haben sch\u00fcler am anfang ihrer blogerfahrung oft eine schlampige grammatik und rechtschreibung aber das \u00e4ndert sich normalerweise wenn es ein publikum gibt",
+      "language": "de",
+      "suite": "fleurs-de_de",
+      "source_id": 1990,
+      "sha256": "68799b17c059180cbc70ca8e3b67034db9c99439881c5f34f67b3ba681868e61",
+      "seconds": 12.96,
+      "repeat": 0,
+      "model": "parakeet-v3",
+      "audio_seconds": 12.96,
+      "speech_seconds": 12.84,
+      "text": "Blogs k\u00f6nnen auch dazu beitragen, die Schreibfertigkeiten von Sch\u00fclern zu verbessern. Zwar haben Sch\u00fcler am Anfang ihrer Bloggerfahrung oft eine schlampige Grammatik und Rechtschreibung, aber das \u00e4ndert sich normalerweise, wenn es ein Publikum gibt.",
+      "segments": [
+        {
+          "start": 0.48,
+          "end": 5.12,
+          "text": " Blogs k\u00f6nnen auch dazu beitragen, die Schreibfertigkeiten von Sch\u00fclern zu verbessern."
+        },
+        {
+          "start": 5.12,
+          "end": 12.72,
+          "text": " Zwar haben Sch\u00fcler am Anfang ihrer Bloggerfahrung oft eine schlampige Grammatik und Rechtschreibung, aber das \u00e4ndert sich normalerweise, wenn es ein Publikum gibt."
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.001374981366097927,
+      "preprocess_ms": 0.8962079882621765,
+      "decode_ms": 111.23804200906307,
+      "total_ms": 112.1400409610942,
+      "peak_gpu_bytes": 2304147952,
+      "active_gpu_bytes": 1296509132,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 112.15699999593198
+    },
+    {
+      "id": "fleurs-de_de-007",
+      "path": "fixtures/audio/fleurs/de_de/007.wav",
+      "reference": "nachdem der damm 1963 erbaut worden war kamen die jahreszeitlichen \u00fcberflutungen die sedimente im fluss verteilen zum stillstand",
+      "language": "de",
+      "suite": "fleurs-de_de",
+      "source_id": 1721,
+      "sha256": "3c20827a16e7c24fecbb22cf6e4518b9a14f1f1f3cad0339d15e3bd9047a5544",
+      "seconds": 19.68,
+      "repeat": 0,
+      "model": "parakeet-v3",
+      "audio_seconds": 19.68,
+      "speech_seconds": 12.88,
+      "text": "Nachdem der Darm neunzehnhundertdreiundsechzig erbaut worden war, kamen die jahreszeitlichen \u00dcberflutungen, die Sedimente im Fluss verteilen, zum Stillstand.",
+      "segments": [
+        {
+          "start": 3.58,
+          "end": 16.380000000000003,
+          "text": " Nachdem der Darm neunzehnhundertdreiundsechzig erbaut worden war, kamen die jahreszeitlichen \u00dcberflutungen, die Sedimente im Fluss verteilen, zum Stillstand."
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0010419171303510666,
+      "preprocess_ms": 1.3556670164689422,
+      "decode_ms": 84.05675005633384,
+      "total_ms": 85.41795797646046,
+      "peak_gpu_bytes": 2305065456,
+      "active_gpu_bytes": 1296509132,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 85.43579198885709
+    },
+    {
+      "id": "fleurs-de_de-008",
+      "path": "fixtures/audio/fleurs/de_de/008.wav",
+      "reference": "insbesondere wird behauptet dass man erkennen kann ob jemand l\u00fcgt indem man minimale ver\u00e4nderungen des gesichtsausdrucks richtig deutet.x",
+      "language": "de",
+      "suite": "fleurs-de_de",
+      "source_id": 1884,
+      "sha256": "7b72181c650b318e1a0894c49a7cb2a2bcbef46aaa65274b1481e9b74e82b448",
+      "seconds": 11.04,
+      "repeat": 0,
+      "model": "parakeet-v3",
+      "audio_seconds": 11.04,
+      "speech_seconds": 9.5,
+      "text": "Insbesondere wird behauptet, dass man erkennen kann, ob jemand l\u00fcgt, indem man minimale Ver\u00e4nderungen des Gesichtsausdrucks richtig deutet.",
+      "segments": [
+        {
+          "start": 1.42,
+          "end": 9.58,
+          "text": " Insbesondere wird behauptet, dass man erkennen kann, ob jemand l\u00fcgt, indem man minimale Ver\u00e4nderungen des Gesichtsausdrucks richtig deutet."
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0013329554349184036,
+      "preprocess_ms": 0.7484579691663384,
+      "decode_ms": 74.30029194802046,
+      "total_ms": 75.0535000115633,
+      "peak_gpu_bytes": 2277147120,
+      "active_gpu_bytes": 1296345292,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 75.07016602903605
+    },
+    {
+      "id": "fleurs-de_de-009",
+      "path": "fixtures/audio/fleurs/de_de/009.wav",
+      "reference": "die angemessene nutzung von blogs kann sch\u00fclerinnen und sch\u00fcler bef\u00e4higen analytischer und kritischer zu werden; durch die aktive reaktion auf internetmaterialien k\u00f6nnen die sch\u00fclerinnen und sch\u00fcler ihre positionen im kontext der texte anderer definieren und ihre eigenen perspektiven zu bestimmten themen darlegen  oravec 2002",
+      "language": "de",
+      "suite": "fleurs-de_de",
+      "source_id": 1852,
+      "sha256": "0b1cf28352386d0918258af21bfc0e4853b0c6a7357637a239fe2a221677325c",
+      "seconds": 43.38,
+      "repeat": 0,
+      "model": "parakeet-v3",
+      "audio_seconds": 43.38,
+      "speech_seconds": 34.88,
+      "decoder_chunks": 2,
+      "decoded_samples": 558080,
+      "text": "Die angemessene Nutzung von Blogs kann Sch\u00fclerinnen und Sch\u00fcler bef\u00e4higen, analytischer und kritischer zu werden. Durch die aktive Reaktion auf Internetmaterialien k\u00f6nnen die Sch\u00fclerinnen und Sch\u00fcler ihre Positionen im Kontext der Texte anderer definieren und ihre eigenen Perspektiven. Zu bestimmten Themen darlegen. Orawetz zweitausendwe.",
+      "segments": [
+        {
+          "start": 4.14,
+          "end": 14.620000000000001,
+          "text": " Die angemessene Nutzung von Blogs kann Sch\u00fclerinnen und Sch\u00fcler bef\u00e4higen, analytischer und kritischer zu werden."
+        },
+        {
+          "start": 14.620000000000001,
+          "end": 30.7,
+          "text": " Durch die aktive Reaktion auf Internetmaterialien k\u00f6nnen die Sch\u00fclerinnen und Sch\u00fcler ihre Positionen im Kontext der Texte anderer definieren und ihre eigenen Perspektiven."
+        },
+        {
+          "start": 31.0500625,
+          "end": 35.0500625,
+          "text": " Zu bestimmten Themen darlegen."
+        },
+        {
+          "start": 35.0500625,
+          "end": 38.5700625,
+          "text": " Orawetz zweitausendwe."
+        }
+      ],
+      "words": [],
+      "silence": false,
+      "warm": true,
+      "load_ms": 0.0015409896150231361,
+      "preprocess_ms": 2.6174160884693265,
+      "decode_ms": 195.24108397308737,
+      "total_ms": 197.8657910367474,
+      "peak_gpu_bytes": 2597388612,
+      "active_gpu_bytes": 1295837388,
+      "vocabulary_applied": false,
+      "timestamp_granularity": "segment",
+      "wall_ms": 197.87849998101592
+    }
+  ],
+  "limitations": [
+    "Fixed public read-speech slices, not full corpora, spontaneous dictation or a multilingual leaderboard.",
+    "Same host and power environment; no controlled thermal isolation or energy measurement.",
+    "In-process audio-to-transcript timing excludes hotkey, capture, IPC, rewrite and text insertion.",
+    "Shared model backends are not equivalent to testing competing app products."
+  ]
+}

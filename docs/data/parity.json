@@ -1,0 +1,349 @@
+{
+  "as_of": "2026-10-24",
+  "release": "Developer preview; not full union parity",
+  "items": [
+    {
+      "feature": "Native Mac app, sidebar, studio and menu bar",
+      "status": "implemented",
+      "evidence": "Packaged public-file/review/export flows exercised. Latest setup card, microphone permission state, restart/edit persistence and owner-only TXT/SRT exports retested. Brief microphone start/cancel and empty-result recovery/retry exercised. Public-speech microphone recognition, recording target label, app-switch insertion rejection and native Keychain/BYOK restart/import now exercised. Later 9a51603 native warning/JSON/SRT checks pass on isolated public speech. The wrong-destination countdown take is discarded before ASR/playback. Normal app is visibly restored with original eight sessions/265 words and unchanged settings/history; owned TextEdit test space is removed and saved.",
+      "gap": "Physical Fn/PTT, speech/route/interruption, insertion and system-capture acceptance remain open.",
+      "priority": "P0"
+    },
+    {
+      "feature": "Local Metal inference: Parakeet v3",
+      "status": "verified",
+      "evidence": "485 regression/English/supported-language cases rerun after direct long-file decoding; 482 outputs identical. Synthetic hour WER 12.38% → 2.72%. Four natural AMI controls retained bounded word timing with mixed WER and unchanged speaker DER. Startup loader preserves all 697 weight arrays and all 515 public-suite texts/segments/words exactly. Repeated real-product pilot: fresh CLI p50 1.866 → 0.757 s; prepared 16/48 kHz worker requests remain about 55 ms.",
+      "gap": "Synthetic joins are not natural long conversation; shared-system timings and power are not isolated.",
+      "priority": "P0"
+    },
+    {
+      "feature": "Local Metal inference: Whisper Turbo",
+      "status": "verified",
+      "evidence": "Same English suites plus 50 multilingual clips.",
+      "gap": "",
+      "priority": "P0"
+    },
+    {
+      "feature": "Mouse-start dictation countdown",
+      "status": "partial",
+      "evidence": "Explicit three-second Studio start with a nonactivating HUD. The focused destination is captured at completion, not at button click. Cancellable timer generation prevents a late start after replacement, owner teardown or cancellation; four dedicated tests and the full 219-test Swift suite pass. Source 643b631 passes macOS 15 CI 39915171803 with 219 Swift/94 Python tests, app/report build and clean-runner standalone runtime. A same-identity native candidate retained both permissions, expired into real local microphone capture and discarded three starts through its Cancel button; no history or retained audio was admitted. Normal local-only settings/history were restored unchanged. Later, Finder Open Finder item activates TextEdit during countdown and the HUD captures the correct target. One focus-only take is discarded; a second local Parakeet take inserts its actual recognizer output into the owned TextEdit field on isolated source 9a51603. The public reference is not recognized because speaker output is muted; this is delivery evidence only. Target file and normal app/data are restored exactly.",
+      "gap": "Audible public-reference recognition, early ticks/HUD cancellation before expiry, auto-stop, current checked-build native acceptance and broader destinations remain open. A single bounded speaker-unmute confirmation is pending; no sound setting has changed.",
+      "priority": "P1"
+    },
+    {
+      "feature": "Local Metal inference: Qwen3 ASR",
+      "status": "verified",
+      "evidence": "365 English clips, 100 regression cases and 50 multilingual clips rerun after bounding long-file chunks; 512/515 outputs identical. Hour-long WER 26.85% → 2.36% in a synthetic completeness fixture; ten-minute case worsened slightly.",
+      "gap": "Coarse utterance/chunk timestamps, no word alignment; shared-system exploratory long-file timings.",
+      "priority": "P0"
+    },
+    {
+      "feature": "Nemotron 3.5 ASR",
+      "status": "verified",
+      "evidence": "365 stratified English clips and multilingual smoke run.",
+      "gap": "Native streaming integration is a separate acceptance item.",
+      "priority": "P1"
+    },
+    {
+      "feature": "Whisper Small",
+      "status": "verified",
+      "evidence": "Native adapter smoke plus 365 stratified English test clips.",
+      "gap": "Accuracy trails larger models in the measured slices.",
+      "priority": "P1"
+    },
+    {
+      "feature": "Cohere Transcribe native-layout 8-bit",
+      "status": "verified",
+      "evidence": "365 English test clips, 100 regression/stress cases and 40 supported-language FLEURS clips; no errors. Full-precision control and exact pinned native-layout weights.",
+      "gap": "14 supported languages require a hint; blank uses English. No automatic detection or word alignment. One long concatenation is weaker than its short-read-speech results; see raw data. Native UI acceptance pending with the rest of the app.",
+      "priority": "P0"
+    },
+    {
+      "feature": "Legacy Swift-layout Cohere conversion",
+      "status": "research only",
+      "evidence": "Strict key-layout coverage passed, but two utterances disappeared in the early diagnostic. Native-layout full-precision and 8-bit controls recovered them.",
+      "gap": "This particular conversion/adapter remains excluded. The separately pinned native-layout 8-bit engine passed its larger quality gate.",
+      "priority": "P1"
+    },
+    {
+      "feature": "Persistent model worker and serialized IPC",
+      "status": "verified",
+      "evidence": "30 concurrent native IPC requests; timeout/startup/restart/ignored-termination tests. Explicit model loading also primes Metal using a synthetic tone; output discarded.",
+      "gap": "No local HTTP listener.",
+      "priority": "P0"
+    },
+    {
+      "feature": "Model cache manager and download progress",
+      "status": "contract-tested",
+      "evidence": "Offline pinned eight-model inventory, required artifact size checks, download-only with no GPU load, request-scoped byte progress and explicit engine memory release. Real pinned 266-byte fresh-cache download passed; cached inventory/download native CLI checks passed. Native cached inventories, release-to-zero and model reload passed. Current source includes a ninth optional native speech-detector asset with full size/SHA checks. Real empty-cache preparation, same-size corruption rejection, versioned repair and native CPU model probes pass. Verified repairs leave shared Hub snapshots/immutable blobs and prior reader versions untouched; relative cache overrides return absolute IPC paths. Source-bound CI passes 292 Swift/117 Python tests and 17 CLI profile cases.",
+      "gap": "Fresh/large interrupted-download visual walkthrough remains untested. Shared cache deletion stays external and explicit. Native detector download/refresh and restart UI remain unverified after the Mac locked; Settings toggle/pause/Save passed in an isolated profile. Superseded OSpr-owned detector copies are retained.",
+      "priority": "P0"
+    },
+    {
+      "feature": "Microphone capture and device selection",
+      "status": "implemented",
+      "evidence": "Native AVAudioEngine, selected CoreAudio UID, RMS meter. Brief native start/cancel and empty-result finish/retry exercised with microphone authorization. Development-signed build retained authorization across restart; a public speech playback was recognized through the microphone and saved.",
+      "gap": "Selected-device/loss/interruption and sustained-session acceptance remain open. One public playback take does not measure route quality or end-to-end latency.",
+      "priority": "P0"
+    },
+    {
+      "feature": "Recording writes off audio callback",
+      "status": "verified",
+      "evidence": "Preallocated bounded pool; native stereo frame integrity, overflow, format change, closed-admission, long silence and final-tail tests. Tap telemetry uses a reusable mono buffer; UI polls at 10 Hz.",
+      "gap": "Device-level stress profiling pending.",
+      "priority": "P0"
+    },
+    {
+      "feature": "Toggle and hold-to-talk shortcuts",
+      "status": "implemented",
+      "evidence": "Modified Carbon binding plus opt-in Globe/Fn local/global observers, 80ms arming, chord/lost-release cancellation, registration edge IDs and owned capture releases. Pure state tests include 10,000 randomized events; legacy preferences retain the default modified key.",
+      "gap": "Fn needs Accessibility and the macOS Globe/Fn system action set to Do Nothing. Physical Fn, PTT and target interaction acceptance remain pending.",
+      "priority": "P0"
+    },
+    {
+      "feature": "Floating recording HUD",
+      "status": "implemented",
+      "evidence": "Nonactivating duration/level panel. On isolated 9a51603 QA, the HUD visibly captures TextEdit as destination after Finder activation; the subsequent take delivers actual recognizer output to the owned field.",
+      "gap": "Current-candidate live levels, timing, preview failure and physical device/shortcut acceptance remain. The earlier observation is not an audible public-reference or broad cross-app test.",
+      "priority": "P1"
+    },
+    {
+      "feature": "Insertion into original field",
+      "status": "implemented",
+      "evidence": "AX selected-text insertion plus guarded clipboard fallback with app/field/cursor checks. One native take on isolated 9a51603 QA visibly inserts its recognizer output into the owned TextEdit field after Finder activation. File and normal app/data are restored. Source 7e85e12 adds explicit capability checks and permits clipboard fallback only after read-only/unsupported results. Unacknowledged writes stop without a second paste; native request completion revalidates destination/access/selection/cancellation. Nine new transport tests include an applied write with a lost acknowledgement. 356 Swift/248 Python, Ruff, source CI 40092596085 and a separate signed six-engine portable/archive candidate pass.",
+      "gap": "The fixture was muted, so public-reference recognition is not accepted. Current-candidate end-to-end, browser/editor, selection, clipboard restoration/fallback and secure fields remain open; the one older-build delivery is not broad compatibility evidence. Current guard native TextEdit/browser/slow-app compatibility and added IPC latency remain unmeasured while macOS is locked. Checks are not atomic external transactions.",
+      "priority": "P0"
+    },
+    {
+      "feature": "Insertion setup self-test",
+      "status": "contract-tested",
+      "priority": "P0",
+      "evidence": "Studio test needs no microphone/model: countdown captures app/field at expiry, non-key panel shows destination and fixed phrase, separate confirmation sends through actual InsertionTarget, then explicit visual acknowledgement. Optional clipboard observer reports captured-data restoration/newer-copy/supersession/opt-out/failure without revealing content. Eight controller/AppModel and four new named-pasteboard tests pass; local total347Swift/248Python. Light/dark/long-caption layouts inspected.",
+      "gap": "Native TextEdit/browser/secure-field/cursor-change checks await manual Mac unlock. The current combined signed source728ef76 candidate includes the self-test and delivery guard; earlier isolated source0aff573 and public targets are retained. Mocks/renders are not native delivery proof, and this is separate from microphone/ASR-to-insertion, physical shortcuts and broad compatibility."
+    },
+    {
+      "feature": "Clipboard restoration and secure-field handling",
+      "status": "partial",
+      "evidence": "Private-pasteboard tests preserve multiple rich items, overlapping paste leases and user-copy changes. Secure-field rejection; strict app/field/cursor/selected-text checks. On isolated source 9a51603, a Finder-activated TextEdit target receives the actual raw local recognizer output. The insertion method is not separately identified, and the expected acoustic reference was not heard because speaker output was muted.",
+      "gap": "Native clipboard/paste-fallback restoration, browser/editor and secure-field verification remain. The one observed TextEdit delivery is not a general microphone accuracy or current-build acceptance result. Explicit unverified-field compatibility option reduces field checks.",
+      "priority": "P0"
+    },
+    {
+      "feature": "Live local preview",
+      "status": "experimental",
+      "evidence": "Cached Nemotron streaming plus rolling tail preview for other models. Source cadence uses monotonic deadlines, fences a stale generation before snapshot and reports preview failure while retaining final fallback. Five scheduler tests/310 Swift tests pass; six real 16k packet replays preserve PCM and final text. Modeled first-partial regressions and increased request counts are published. Continuous native-rate normalization now retains a bounded phase-aligned FIR halo, flushes the final tail and rejects sample-rate changes. All 12 corrected real-session PCM hashes/texts match whole-normalized controls across 44.1/48 kHz and two partitions; WER remains 3.39% on three known clips. Fifteen synthetic cases and two 120-second streams also match exact bytes. 230 Python tests pass. A frozen native IPC follow-up compiles the unchanged shipping WorkerClient and passes ten real worker scenarios across both rates: canceled packet admission/awaiting, replacement/stale cancel and restart/full-file fallback. All text controls match; actual Capture/AppModel/UI and physical shortcuts remain separate.",
+      "gap": "Native microphone cadence/failure/stop/device and energy acceptance remains; this is unpaced replay. The checked streaming-v0 preview at 3feaf65 includes cadence and continuous normalization. No broad accuracy or physical native-latency improvement established.",
+      "priority": "P1"
+    },
+    {
+      "feature": "Silence gate, edge trim, auto finish",
+      "status": "partial",
+      "evidence": "RMS bounds, quiet/noise/silence fixtures; optional auto-stop and 5-minute cap. A separate native Core ML detector/CLI and audio-time endpoint policy pass twelve new native contracts; a WAV short-read regression now preserves every sample. A frozen 179-case Core ML/MLX/RMS replay and 750 Parakeet quality records are published with raw traces and independent verification. On the M5 Max, native 32ms CPU prediction p95 is 0.0759ms. Candidate neural-edge WER on the synthetic -40dB slice is 4.34% versus default RMS 95.09%, but two utterances become empty. A frozen causal-score follow-up evaluates 33 excluded VAD speakers across three ASR models (3,432 records), with no new causal-edge/chain empty transcript in 297 speech/model pairs; per-model lexical regressions and finish delays remain explicit. The bounded sidecar completes 624 format/packet replays with all speech finishing after source clip end and no negative arming. Current source adds an off-by-default neural microphone option, cache-only startup, independent native integrity checking, off-main preparation, stale-session/frontier guards and visible manual-finish failure handling. Native Settings selection/Save passes separately from microphone acceptance. A separate opt-in final-ASR edge path now analyzes exact normalized float32 audio, verifies the full PCM hash before slicing, preserves original timestamps and provides retry without trimming. Source passes 304 Swift / 141 Python checks. Actual final-ASR orchestration completes 1,320 routes across six engines and 110 known inputs (1,278 inferences, 42 detector abstentions). All 660 exact ranges/PCM hashes check out, with zero new empty transcript across 618 speech/model pairs. Independent checks retain model-dependent WER regressions and six earlier-CLI transport probability controls. A separate multilingual follow-up completes 1,040 routes but reveals 32 new empty transcripts and quiet-speech deletions despite exact PCM/range transfer. The detector policy fails this quality slice and remains off by default. New native settings and CLI/worker/Python/MCP requests now default to full normalized audio while retaining explicit saved choices. All 52 fixed multilingual default requests match prior full-audio text. Source checks pass 305 Swift / 178 Python tests; every empty result retains completed recovery. A paired default/RMS nonspeech check preserves all 60 responses: both routes have the same false-positive counts on five known controls per model (Parakeet/Cohere/Nemotron 0, Turbo 4, Small 1, Qwen 2).",
+      "gap": "Quiet/multilingual neural quality fails acceptance; a nonempty partial transcript can still lose content. Full audio can hallucinate on noise and is not a general nonspeech guard. The older neural-edges-v0 preview predates the timestamp repair and full-audio defaults. Native empty-result recovery, physical microphone/shortcuts/insertion, devices and contention remain open. No neural default promotion, semantic completion or product ranking.",
+      "priority": "P1"
+    },
+    {
+      "feature": "Vocabulary hints",
+      "status": "verified",
+      "evidence": "Whisper prompt support; dictionary stored locally.",
+      "gap": "Parakeet adapter does not support hotword prompting.",
+      "priority": "P1"
+    },
+    {
+      "feature": "Whole-phrase replacements and snippets",
+      "status": "verified",
+      "evidence": "Unicode boundaries, longest match, literal replacement, no cascading tests.",
+      "gap": "",
+      "priority": "P0"
+    },
+    {
+      "feature": "Verbatim and deterministic clean mode",
+      "status": "verified",
+      "evidence": "Core text tests; basic filler removal; spoken punctuation opt-in.",
+      "gap": "Clean rules do not perform a full grammar rewrite.",
+      "priority": "P0"
+    },
+    {
+      "feature": "Email, notes, code, translate and custom modes",
+      "status": "partial",
+      "evidence": "Explicit local/BYOK refiner routing and instruction presets.",
+      "gap": "Translation and formatting fidelity need broader acceptance set.",
+      "priority": "P1"
+    },
+    {
+      "feature": "Selected-text voice editing",
+      "status": "implemented",
+      "evidence": "AX selected text + spoken instruction sent only to configured rewrite engine.",
+      "gap": "Interactive replacement and instruction-fidelity tests pending.",
+      "priority": "P1"
+    },
+    {
+      "feature": "App and site dictation profiles",
+      "status": "partial",
+      "evidence": "Exact app and HTTP(S) origin/segment-prefix rules select mode, local model, recognition hint, Custom instruction or translation target into a value snapshot at dictation start. Most-specific site wins before the app/global fallback; duplicate canonical rules are rejected. Provider endpoints/credentials, insertion and retention stay global. Captured query/fragment and observed URLs do not enter the configuration snapshot. Narrow metadata lookup follows at most 24 same-process ancestors, with read-admission deadline and temporary per-object timeouts restored before insertion. The app verifies AX process ownership before reading selected text and before insertion. Native editor supports app picker, naming, enable/disable and editing; active take model/style and profile are visible. Legacy settings decode, and modern rules encode inactive for older decoders. Twenty new Swift contracts and 17 actual CLI dry-run cases pass; full local suite is 244 Swift/105 Python plus release build and lint. Isolated native startup and Modes presentation passed with both permissions ready; normal app/data restored unchanged. The new context-profiles-v0 delivery at db0987a includes this source and passes relocated/offline six-engine and extras smoke, all 17 bundled CLI profile cases, both hour-file regressions, all three every-sample 80-minute transports, ZIP extraction/signatures and packaged-head CI (244 Swift/105 Python/17 CLI).",
+      "gap": "Native sheet inspection crashes the automation service while OSpr remains alive. Profile save/restart, editor visual acceptance, real Chrome/Safari metadata, live model/language routing and insertion are unverified. URL lookup can fall back when accessibility metadata is unavailable; no universal browser compatibility or latency SLA is claimed. The context-profiles-v0 ZIP includes this source; artifact gates do not establish native profile acceptance.",
+      "priority": "P1"
+    },
+    {
+      "feature": "Local text refinement",
+      "status": "partial",
+      "evidence": "Pinned Qwen3 4B Instruct; JSON-quoted transcript input and separate deliberate selection-edit/source-ID tasks. Five Swift guard regressions cover question removal, short expansions, curly/additional English negations and all 72 recorded before/after model-output decisions. A 36-case synthetic development/challenge replay with the actual Clean instruction improved raw lexical sentinels from 28 to 31 passes; the same current native guard required 12 previous-prompt versus six candidate original-text fallbacks. Final lexical sentinels survived all cases, including fallback. Eight task and two exact-span notes smokes passed; all 224 Swift and 105 Python tests, lint and the local release app build pass at clean source f8ba4a0. Source/docs head 3b7ddb0 passes macOS 15 CI 40016038194 with matching 224/105 counts and clean-runner standalone runtime. A separate signed portable candidate at that head passes relocated/offline six-engine and extras smoke plus three explicit bundled Swift CLI rewrite smokes with hostile PYTHONPATH and a foreign cwd. The verified refinement-v0 ZIP now includes this source, with both bundled hour regressions and all three 80-minute transports rerun before ZIP verification.",
+      "gap": "Raw candidate outputs still lost negations/content or changed number/path formatting in six cases, requiring fallback. Substring checks and native tripwires are not semantic proof. Refinement remains optional and off by default. Native selection replacement and representative, independently graded rewrite evaluation remain unverified. The refinement-v0 ZIP includes this change; its native interaction acceptance remains separate.",
+      "priority": "P0"
+    },
+    {
+      "feature": "BYOK speech transcription",
+      "status": "contract-tested",
+      "evidence": "Compatible multipart adapter, current gpt-transcribe languages[] contract and Groq preset. Native public-file import passed against a loopback provider after app restart using the Keychain-restored dummy key. Long imports now normalize locally into contiguous PCM16 parts of at most ten minutes, preserving repetitions and offsetting timestamps; every sample in an 80-minute public fixture was checked through the real Swift CLI and worker. The same 80-minute fixture also passed the native file picker → worker → upload → Studio → persisted-history path; nine parts, text and timestamp offsets were verified, with zero leftover upload workspaces. Native Deepgram prerecorded Listen adapter now sends binary normalized audio with Token auth, Nova-3 keyterms, explicit/detected language, utterance/word times and faithful-format options. Unicode/plus query encoding, malformed replies/timing, later-part errors and cancellation pass loopback contracts; real 80-minute Swift/worker transport passed. Native Deepgram picker defaults, save/restart/Keychain use, every-sample 80-minute binary import, nine-part history text and exact utterance/word offsets passed. Native Soniox async Files/Transcriptions adapter now implements Bearer auth, language/vocabulary hints, conservative token-derived word groups and best-effort owned job/file cleanup. Eighteen dedicated tests cover malformed timing, errors, redirects, cancellation, deadlines and URLSession closure races. The real Swift CLI/worker sent every sample of the 80-minute public fixture in nine parts, preserving token offsets and deleting all nine owned jobs/files on the loopback server (source 4fae54b). Compatible and Deepgram transport regressions passed on that same source. Native Soniox defaults, dummy Keychain save/quit/restart/use, public-file import, persisted full text and token word times passed in an isolated QA app. Injected cleanup failure kept complete text and the warning in History; a follow-up UI fix exposes the warning in Studio, including after restart. The disposable key was removed and the normal preview remained local-only with unchanged settings/history. The standalone Soniox preview at source fb2ad6f also passes relocated/offline six-engine smoke, both synthetic hour files, all three 80-minute transports and verified ZIP extraction/signatures; the release manifest pins every receipt.",
+      "gap": "No paid provider account call performed. Soniox/Deepgram streaming remain open; native Soniox acceptance covers a short public file, not the full long-file UI path. Parts are independent recognition jobs; boundary context, real provider quotas and large-file cancellation/interruption remain unverified. Retry resends all parts and may incur charges. Soniox cleanup is best effort; processing/ambiguous jobs may remain and need console cleanup. Native compatible and Deepgram picker, Keychain restart and 80-minute imports passed. The soniox-v0 ZIP includes Soniox; the older history-v0 ZIP predates it.",
+      "priority": "P0"
+    },
+    {
+      "feature": "BYOK and local-server refinement",
+      "status": "contract-tested",
+      "evidence": "Compatible chat, Anthropic Messages, Ollama and native Gemini generateContent. Gemini Settings preset/model/Keychain fields, text-only header-key request, completion/safety/thought parsing and guarded UTF-8 file CLI. 366 Swift/248 Python, Ruff, ten new Swift cases and eight actual CLI loopback cases pass; light/dark Settings renders inspected. Source 46223b0 CI40093840656 passes; a separate signed candidate passes the exact bundled eight-case loopback replay, relocated six-engine/neural/extras, 232 help links and archive gates. No real key/account call or native QA launch. Native Azure v1 text refinement now adds resource-root/v1 normalization, resource-key headers and deployment semantics, strict completion/filter/refusal handling, Settings preset/Keychain routing and guarded file CLI. 377 Swift/248 Python, Ruff, eleven new Swift tests, twelve Azure/eight Gemini actual CLI loopback cases and simulated light/dark Settings layouts pass. Azure source 3fb3c1d CI40095224602 and a separate signed candidate pass exact bundled twelve-Azure/eight-Gemini loopback, relocated six-engine/neural/extras, 238 help links and archive gates. No real key/account call or native QA launch. Combined review reproduced six draft returns after compatible/Anthropic truncation/refusal/tool status. A shared completion gate now rejects them; Azure uses the same chat gate and anonymous local compatibility remains. Local 384 Swift/248 Python, 21 compatible/Anthropic CLI cases plus 12 Azure/8 Gemini regressions pass. Signed source728ef76 integration artifact passes 41 exact bundled CLI cases, offline relocated six-engine/neural/extras, 248 help links and ZIP CRC/extraction/signatures/CLI/license gates; native/account acceptance pending. Older Azure package predates this fix.",
+      "gap": "Gemini/Azure provider-account calls, native Settings/Keychain save/restart and model quality/latency remain unverified. Gemini uses single-turn Generate Content API (Legacy), not Vertex/Interactions. Azure uses v1 resource API keys, not dated deployment APIs, Entra OAuth or Azure Speech Services. Both use 4096-token limits and reject incomplete replies. Existing fidelity checks are not semantic proof.",
+      "priority": "P0"
+    },
+    {
+      "feature": "Credential storage",
+      "status": "implemented",
+      "evidence": "macOS Keychain per endpoint origin and speech/text purpose. Immediate endpoint rebinding plus a send-time cross-origin guard; canonical scope and stale-key tests. No keys in settings/history. Native save/restart/import with an endpoint-scoped dummy key passed against loopback; no real key was used or exposed.",
+      "gap": "Older unscoped keys are preserved but require re-entry. Real provider account validation is separate.",
+      "priority": "P0"
+    },
+    {
+      "feature": "File and batch transcription",
+      "status": "partial",
+      "evidence": "Local WAV/FLAC normalization and real AAC/FFmpeg decode test; sequential batch UI. Optional local speaker labels with recognizer word times.",
+      "gap": "Native single-file picker and watched import passed; interactive multi-file/drop and large interruption matrix remain.",
+      "priority": "P0"
+    },
+    {
+      "feature": "Transcript editor, search, copy, delete",
+      "status": "implemented",
+      "evidence": "Paged SQLite history with lightweight summaries, complete selected/latest records, aggregate counters and literal Unicode FTS5 search. Search is debounced/canceled and detail responses are fenced. Field-specific edits preserve raw text, timing, notes and audio. A separate 235-record native fixture passed migration, search beyond the first page, full editing, pagination, pending-edit quit/restart, complete TXT export and summary-row context copy through TextEdit. Synthetic 100,000-record storage controls and eleven presentation/application regressions are versioned.",
+      "gap": "Storage timings exclude GUI rendering and product launch. Native irreversible deletion and broader reprocessing/watched-import matrices remain separate; transaction/tombstone behavior is regression-tested.",
+      "priority": "P1"
+    },
+    {
+      "feature": "Retained local audio playback and timestamp seeking",
+      "status": "implemented",
+      "evidence": "Native public fixture: clock/end/pause, 0.5×/2×, slider/segment seeking, edit preservation on reprocessing, and sample-exact float WAV export observed. Archive/normalization/AVFoundation integration and core privacy tests also pass. New source bounds recognizer segment/word estimates to the analyzed source interval with explicit approximate fallback and history warning. Twelve real Whisper overruns are reproduced and corrected with text unchanged; native warning/export interaction remains unverified.",
+      "gap": "Word-level UI seek and human audible-output acceptance remain. Private exports and setup were retested.",
+      "priority": "P1"
+    },
+    {
+      "feature": "TXT, JSON, SRT and VTT exports",
+      "status": "verified",
+      "evidence": "Original-timing subtitle tests; edited text exported separately. Native TXT/SRT retest confirmed mode 0600, preserved edited TXT and original SRT timing. On checked source 9a51603, native Japanese-file import shows the timing warning in Studio and History; native SRT ends at 6.960 s and JSON retains segment/duration 6.96 plus warning. Both mode-0600 exports are inspected.",
+      "gap": "Speaker and word timestamps depend on engine; no invented alignment.",
+      "priority": "P0"
+    },
+    {
+      "feature": "History privacy and retention",
+      "status": "verified",
+      "evidence": "Owner-only SQLite with streamed, full-payload-verified legacy JSON migration. Serial asynchronous repository coalesces edits for 300 ms, applies whole-archive retention/audio changes, preserves unreadable archives until explicit reset and confirms requested durability before releasing recording recovery. Disabling saving snapshots the complete archive into memory and clears disk content/search; enabling saving restores transactionally. Failure/retry, rollback, no-file-open memory storage and audio cleanup receipts are tested. Native session-only/restore and every-payload fidelity passed on a separate generated profile. Normal quit flushes asynchronously and reports failures before discarding unsaved changes. An isolated copy of the existing eight-record/two-audio archive passes current AppModel migration, canonical field/order/config preservation, private search, edit/quit barrier and AppModel restart. Original settings/history/audio bytes are unchanged; no private contents/identifiers/queries/hashes are published. Native services are disabled.",
+      "gap": "Use FileVault for disk protection; no application encryption or secure-erasure claim. Session-only full-archive snapshots cost more RAM than ordinary paged disk history. Abrupt crashes can lose a debounced edit or unfinished capture. Original-profile interactive upgrade, native failure dialogs and broader retained-audio interaction remain separate from generated-fixture acceptance.",
+      "priority": "P0"
+    },
+    {
+      "feature": "CLI and optional MCP",
+      "status": "contract-tested",
+      "evidence": "Native CLI worker smoke; stdio MCP tool listing and silence path. CLI meeting import with speaker labels. Two real bundled MCP default recognitions on original/quiet German match frozen full-audio text, offline from a foreign cwd; full normalized duration is preserved. All 17 bundled profile CLI cases also pass on the full-audio-v0 candidate.",
+      "gap": "MCP has file/text tools only; no microphone, UI or history access.",
+      "priority": "P1"
+    },
+    {
+      "feature": "Cancel, timeout and worker recovery",
+      "status": "verified",
+      "evidence": "Generation fences, process-group termination, startup watchdog and ignored-SIGTERM escalation; completed-take and raw dual-track recovery across store restart. Processing cancellation keeps recovery; orderly quit preserves active takes. Active network Tasks are cancelled; slow loopback response cancellation tested. Native empty-result recovery/retry, restart preservation, private full-byte WAV export and canceling discard confirmation passed.",
+      "gap": "Permanent discard, abrupt-crash capture and device-loss recovery remain. Active capture before an abrupt crash is not automatically recovered.",
+      "priority": "P0"
+    },
+    {
+      "feature": "Launch at login",
+      "status": "implemented",
+      "evidence": "SMAppService setting.",
+      "gap": "Needs an installed, signed app and interactive verification.",
+      "priority": "P2"
+    },
+    {
+      "feature": "True incremental local streaming",
+      "status": "experimental",
+      "evidence": "Cached Nemotron backend plus native preview/flush integration. Continuous native-rate normalization at 44.1/48 kHz now matches whole-file PCM in twelve real-session controls and bounded stress tests; ten native IPC stop/replacement/fallback controls pass. The checked streaming-v0 preview at 3feaf65 includes the source repair.",
+      "gap": "Physical microphone/cadence/failure/stop/device acceptance and energy profiling remain. Unpaced source/IPC replays do not prove a native latency or broad accuracy gain.",
+      "priority": "P1"
+    },
+    {
+      "feature": "Bot-free system/meeting audio capture",
+      "status": "experimental",
+      "evidence": "ScreenCaptureKit desktop audio and optional separate microphone track on macOS 15+. Timestamp-preserving FFmpeg mix, PCM conversion/gap/tail tests, raw-track recovery and partial-capture warnings.",
+      "gap": "Physical desktop-audio permission, playback capture, route loss, echo and end-to-end acceptance are untested. Requires local FFmpeg. One-hour capture cap. The combined signed source728ef76 test candidate includes live drafts with independent complete final transcription. The older broad-gate streaming-v0 package predates this feature; current physical acceptance remains open.",
+      "priority": "P1"
+    },
+    {
+      "feature": "Live meeting transcript",
+      "status": "experimental",
+      "priority": "P1",
+      "evidence": "Opt-in native desktop/microphone draft mix with bounded FIFOs, clock offsets, continuous per-source AVAudioConverter, 500 ms reorder budget and visible failure isolation. Nemotron continuous draft or other models rolling 12 seconds. 21 new mixer/pipeline/AppModel tests. Three real local-ASR file replays preserve all 962,000 samples exactly against whole-track Apple conversion and across packet schedules; final text is invariant per model. Separate 2ceb234 signed test candidate passes relocated six-engine/neural routes, exact packaged mix and native WorkerClient final-ASR checks; source CI passes 331 Swift / 248 Python tests.",
+      "gap": "Separate test candidate; physical ScreenCaptureKit/microphone/device/stop acceptance remains. Preview is provisional and has no live speaker labels; final transcription independently decodes full durable audio. Extra compute, fixed half gain in duplex mode, no echo cancellation, no consumer latency/energy/top-three claim."
+    },
+    {
+      "feature": "Speaker diarization",
+      "status": "experimental",
+      "evidence": "Local Nemotron 3 Diarization 8-bit with Parakeet/Whisper word attribution. Four natural AMI headset-mix prefixes with pinned only_words reference; upstream float32 MPS control has similarly high DER.",
+      "gap": "Attribution errors remain substantial (about 30–37% DER without collar on these prefixes). Overlap flagged, not separated. Native capture acceptance pending.",
+      "priority": "P1"
+    },
+    {
+      "feature": "Local extractive meeting notes",
+      "status": "experimental",
+      "evidence": "Local Qwen3 4B selects numbered original excerpts; source spans and source hash validated. Four synthetic deadline/number/negation/injection cases retained every required sentinel; invalid IDs fail closed.",
+      "gap": "Exact quotations prevent generated facts, but selection can omit context and commitments. This is an extractive aid, not a full abstractive meeting summary. Natural-meeting relevance and native interaction acceptance remain.",
+      "priority": "P1"
+    },
+    {
+      "feature": "Watched folders and automations",
+      "status": "implemented",
+      "evidence": "Stable-file polling, changed-source fingerprints, persisted deduplication, retry backoff and private TXT/JSON/SRT/VTT exports. Queue/scanner tests. Native picker plus one public-file ingestion, History save, four mode-0600 exports and repeated-scan deduplication passed; test automation restored off.",
+      "gap": "Interrupted/large native queue acceptance and destination webhooks remain.",
+      "priority": "P2"
+    },
+    {
+      "feature": "Cross-device sync, iPhone and LAN offload",
+      "status": "deferred",
+      "evidence": "Mac-first scope.",
+      "gap": "Mobile/Windows/Linux and network worker are separate projects.",
+      "priority": "P2"
+    },
+    {
+      "feature": "Enterprise SSO/SCIM/MDM/audits",
+      "status": "deferred",
+      "evidence": "Tracked in competitor matrix.",
+      "gap": "Outside individual local-dictation v0; no compliance claims.",
+      "priority": "P3"
+    },
+    {
+      "feature": "Signed/notarized standalone installer",
+      "status": "partial",
+      "evidence": "Relocatable Python app bundle; moved-path, hostile PYTHONPATH, temporary cwd and all six offline engines passed. Ad-hoc signature verified. Explicit signing identity supported. Local development-signed portable build passed offline engines, two hour-long requests, CRC/extraction/signature gates and matching source fingerprint. Different resource hashes retained the same designated requirement. The latest refinement-v0 package at source 3b7ddb0 passes all six offline engines and extras after relocation, three bundled rewrite smokes, both synthetic hour-file regressions, all three every-sample 80-minute transports and ZIP CRC/extraction/signature/CLI checks. The manifest pins 224 Swift and 105 Python tests; the same source/docs head passes macOS 15 CI 40016038194. The earlier delivery is preserved. The newer context-profiles-v0 package at db0987a repeats those artifact gates, adds 17 bundled CLI profile cases and passes packaged-head macOS CI with 244 Swift/105 Python tests. Older deliveries are preserved. The separate full-audio-v0 package at 9a51603 includes full-audio defaults and bounded ASR timing. Exact-build receipts verify six offline/neural engines after relocation, four synthetic hour-file requests, all three every-sample 80-minute transports, two actual MCP defaults, 17 bundled CLI cases and ZIP CRC/extraction/signatures/inventory. Its manifest pins 305 Swift/178 Python tests; source CI a147930 passes at the identical application fingerprint. The separate streaming-v0 preview at 3feaf65 includes continuous normalization and cadence/failure handling, with 310 Swift/230 Python tests, six offline/neural engines, ten real native IPC cases, four hour requests, three 80-minute transport fixtures, real MCP defaults, 17 CLI cases and ZIP gates. A missing linked SRT was repaired; exact source CI verifies 168 bundled help links. Normal older app data is restored unchanged.",
+      "gap": "Apple Development signing is not Developer ID/notarization; clean-Mac interactive installation, updater and older-OS acceptance remain.",
+      "priority": "P0"
+    },
+    {
+      "feature": "Top-three product ranking",
+      "status": "unproven",
+      "evidence": "Original official Vibe 3.2.2 versus bundled OSpr pilot completed 180 commands on 20 speakers with zero failures; Vibe was faster. The identical post-optimization pilot also passed: OSpr Parakeet p50 0.757 s versus Vibe 0.943 s, while OSpr Whisper Turbo did not improve (2.108 s). All 180 texts match their original outputs. This is a small file-command comparison with primed OS caches and shared desktop activity. A separate Apple SpeechTranscriber / resident MLX file-runtime comparison completes 1,484 requests with zero API errors across 365 known English clips, 73 speakers and five nonspeech controls. Aggregate conservative WER: Apple 3.67%, Parakeet 3.12%, Cohere 1.84%, Whisper Turbo 3.81%. No Apple timing-bound or analyzed-endpoint violations are found by the independent checker. These distinct runtime interfaces do not establish consumer GUI ranking.",
+      "gap": "Broader equivalent consumer-app GUI/dictation runs and user-task correction-cost study remain. Rootless whole-system energy experiments are exploratory; post-fix Parakeet idle drift was inconclusive, with no calibrated battery attribution.",
+      "priority": "P0"
+    },
+    {
+      "feature": "Single-instance store ownership",
+      "status": "implemented",
+      "evidence": "GUI preflight before AppModel creation plus owner-only nonblocking file lock retained by the model. Second process, release/reacquisition and symlink tests pass; CLI inference has no shared-store lock. A native launch of a second bundle left only the original GUI process and history available. The SQLite repository retains the GUI lease through queued operations and closes its connections on the private queue before releasing it; a lifetime regression rejects a second owner until teardown finishes.",
+      "gap": "Second-copy launch exited with a CUA timeout; foreground activation was not independently measured.",
+      "priority": "P0"
+    }
+  ]
+}

@@ -1,0 +1,454 @@
+{
+  "verified_at": "2026-10-22T18:04:11.131894+00:00",
+  "status": "partial",
+  "build": {
+    "version": "0.1.0",
+    "built_at": "2026-10-22T17:17:04.239312+00:00",
+    "git_commit": "38e104d06fa54cd89a2635295cd8bae2c6d673f3",
+    "tracked_changes": false,
+    "application_source_sha256": "47af22b74462afeef0fb0a10929d5406f9c6dd569750d76d26ea3b1e518f27d5",
+    "boundary": "Development build; ad-hoc signature; weights downloaded separately."
+  },
+  "method": "Native CUA interaction in one packaged OSpr process, using only the named public speech fixture. No microphone audio or unrelated user data is included.",
+  "fixture": "1272-128104-0000",
+  "checks": {
+    "cached_model_load": true,
+    "native_file_picker_import": true,
+    "history_edit": true,
+    "reprocess_created_separate_verbatim_record": true,
+    "original_edit_preserved": true,
+    "playback_clock_and_end": true,
+    "pause_before_end": true,
+    "rate_choices": [
+      0.5,
+      2.0
+    ],
+    "accessible_slider_seek": true,
+    "original_timestamp_seek": true,
+    "raw_timing_separate_from_edits": true,
+    "wav_export": {
+      "seconds": 5.855,
+      "subtype": "FLOAT",
+      "mode": "0o600",
+      "sha256": "837b1b4f8baa301ba3f0f3252745c6afded98b789a7a1a5ec9f1d0ab587efcdc",
+      "full_source_float_samples_preserved": true
+    },
+    "txt_export": {
+      "edit_preserved": true,
+      "mode": "0o644"
+    },
+    "srt_export": {
+      "original_text_not_edited": true,
+      "mode": "0o644"
+    }
+  },
+  "issues_found": [
+    {
+      "issue": "Manual transcript exports were mode 0644",
+      "fixed_in_source": "527a37c",
+      "latest_native_retest": true
+    },
+    {
+      "issue": "Studio retention text ignored retention setting",
+      "fixed_in_source": "527a37c",
+      "latest_native_retest": true
+    },
+    {
+      "issue": "Setup card disappeared after loading before insertion permission",
+      "fixed_in_source": "527a37c",
+      "latest_native_retest": true
+    }
+  ],
+  "remaining": [
+    "Selected microphone device, physical PTT/toggle, loss/interruption and sustained take",
+    "TextEdit/browser/editor insertion, cursor/field change, clipboard restoration, selection and secure fields",
+    "Word-level seeking and human audible review",
+    "Physical desktop capture and native streaming/recovery interruption matrix"
+  ],
+  "temporary_test_settings": {
+    "keep_audio_original": false,
+    "keep_audio_tested": true,
+    "saved_keep_audio_now": false,
+    "live_keep_audio_now": false,
+    "saved_and_live_preferences_restored": true,
+    "older_instance_quit_via_native_menu": true
+  },
+  "limitation": "Partial native acceptance with per-build provenance. Public-speech microphone and loopback Keychain/BYOK import passed; successful insertion, physical Fn/PTT, system capture and human listening matrices remain open.",
+  "retests": [
+    {
+      "verified_at": "2026-10-22T19:35:35.070053+00:00",
+      "build": {
+        "version": "0.1.0",
+        "built_at": "2026-10-22T19:24:31.488938+00:00",
+        "git_commit": "ea9070cef23d15c4c788cdb91aba57822799df11",
+        "tracked_changes": false,
+        "application_source_sha256": "b8f32e365dfb2474682e25395ba2cd16c11399963f747937f9d5c35ccc5d1cd2",
+        "boundary": "Development build; ad-hoc signature; weights downloaded separately."
+      },
+      "checks": {
+        "model_ready_setup_card_retained": true,
+        "microphone_access_ready_state": true,
+        "retention_off_copy_accurate": true,
+        "edited_history_survived_restart": true,
+        "txt_export_private_mode": "0o600",
+        "txt_export_edit_preserved": true,
+        "srt_export_private_mode": "0o600",
+        "srt_original_timing_preserved": true,
+        "fn_without_accessibility_rejected": true,
+        "modified_shortcut_label_preserved_after_fn_failure": true,
+        "modified_shortcut_preference_restored": true,
+        "microphone_start_and_cancel": true,
+        "microphone_finish_empty_result_recovery": true,
+        "empty_result_retry_kept_recovery": true,
+        "second_copy_launch_left_only_original_gui_pid": true,
+        "native_model_inventory_release_and_reload": true
+      },
+      "limitations": [
+        "Brief microphone capture returned no words; this proves capture/recovery flow, not speech accuracy or route quality. No raw microphone audio or private text is published.",
+        "Second-copy CUA launch timed out after its process exited. Existing GUI remained available with one GUI process; foreground activation is not independently proven.",
+        "Synthetic CUA modified-key input had no observed effect; physical shortcut behavior remains unverified."
+      ]
+    },
+    {
+      "verified_at": "2026-10-22T19:42:26.522103+00:00",
+      "build": {
+        "version": "0.1.0",
+        "built_at": "2026-10-22T19:35:48.159159+00:00",
+        "git_commit": "b78f4f5e4bd6b4111f002e26a29396e2fdc6e515",
+        "tracked_changes": false,
+        "application_source_sha256": "f805f80f59e79e6eca8d8485b50e249dd5bbed51fc1ac7d61d6c72e12059424f",
+        "boundary": "Development build; ad-hoc signature; weights downloaded separately."
+      },
+      "checks": {
+        "recovery_survived_app_restart": true,
+        "recovery_wav_export_owner_only": true,
+        "recovery_wav_export_complete_bytes": true,
+        "recovery_export_kept_original": true,
+        "discard_confirmation_present": true,
+        "cancel_discard_kept_recovery": true,
+        "watch_folder_native_picker": true,
+        "watch_folder_public_file_processed": true,
+        "watch_folder_history_record": true,
+        "watch_folder_four_formats_owner_only": true,
+        "watch_folder_source_unchanged": true,
+        "watch_folder_no_duplicate_exports_across_repeated_scans": true,
+        "watch_folder_disabled_after_test": true,
+        "watch_folder_original_unconfigured_state_restored": true,
+        "accessibility_granted_for_exact_bundle": true,
+        "fn_listener_registration_with_accessibility": true,
+        "modified_shortcut_restored_after_fn_check": true,
+        "shortcut_editor_received_control_option_space": true
+      },
+      "limitations": [
+        "Microphone test audio is private, excluded from Git and preserved in a private local QA directory outside the live recovery queue. No reference-speech accuracy or human listening claim.",
+        "Watched-folder test used one public clip; interrupted or very large input, queue latency and error UI are not established.",
+        "Automated key events reached the app shortcut editor but did not trigger its global Carbon binding; physical-key delivery is still unverified. Setup permission state was stale after external grant and is being refreshed in source."
+      ]
+    },
+    {
+      "verified_at": "2026-10-22T20:18:26.257052+00:00",
+      "build": {
+        "version": "0.1.0",
+        "built_at": "2026-10-22T20:04:42.389021+00:00",
+        "git_commit": "9864c79dd5d0193d958fada45fdac78f272f83d7",
+        "tracked_changes": true,
+        "application_source_sha256": "a1f411ded91301a9755bff298bd8bca2e834475335b83a383f6b1794023b57e5",
+        "signing_mode": "configured-identity",
+        "boundary": "Development build; configured signing identity; not notarized; weights downloaded separately."
+      },
+      "checks": {
+        "own_bundle_accessibility_indicator_enabled": true,
+        "accessibility_recognized_after_gui_restart": true,
+        "pending_microphone_start_canceled_to_idle": true,
+        "microphone_consent_complete": false,
+        "recording_destination_indicator_retested": false
+      },
+      "limitations": [
+        "App-specific macOS logs reported delayed microphone prompting. Native control then reported a locked Mac requiring manual unlocking.",
+        "Reference speech, insertion/clipboard/secure-field, physical global shortcuts and native BYOK/Keychain interaction remain unverified on this build.",
+        "Only OSpr Accessibility and Microphone consent records were reset during the local signing transition. The app has no automatic consent or permission reset."
+      ]
+    },
+    {
+      "verified_at": "2026-10-22T20:50:33.492446+00:00",
+      "build": {
+        "version": "0.1.0",
+        "built_at": "2026-10-22T20:04:42.389021+00:00",
+        "git_commit": "9864c79dd5d0193d958fada45fdac78f272f83d7",
+        "tracked_changes": true,
+        "application_source_sha256": "a1f411ded91301a9755bff298bd8bca2e834475335b83a383f6b1794023b57e5",
+        "signing_mode": "configured-identity",
+        "boundary": "Development build; configured signing identity; not notarized; weights downloaded separately."
+      },
+      "checks": {
+        "microphone_consent_complete": true,
+        "microphone_authorization_survived_restart": true,
+        "recording_destination_label_textedit": true,
+        "public_speech_microphone_recognized": true,
+        "public_microphone_text": "Mr. Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+        "app_switch_insertion_rejected": true,
+        "textedit_target_unchanged": true,
+        "byok_dummy_key_saved": true,
+        "byok_dummy_key_restored_after_restart": true,
+        "native_public_file_picker_byok_import": true,
+        "loopback_provider_requests": [
+          {
+            "path": "/v1/audio/transcriptions",
+            "bytes": 187814,
+            "public_fixture_matches": true,
+            "dummy_bearer_matches": true
+          }
+        ],
+        "local_only_preferences_restored": true
+      },
+      "limitations": [
+        "Microphone public playback is a functional route check, not an accuracy or latency benchmark. Later ambient microphone output is private and excluded.",
+        "Successful target insertion, cursor/field/secure-field and clipboard restoration remain unverified. Automated focus changes triggered the app-switch guard; that guard was retained.",
+        "BYOK provider replies were deterministic fixture text, not recognition; no external or paid provider request was made.",
+        "Physical Fn/PTT, native streaming/system capture and sustained device interruption matrices remain open."
+      ]
+    },
+    {
+      "verified_at": "2026-10-22T20:57:13.815639+00:00",
+      "build": {
+        "version": "0.1.0",
+        "built_at": "2026-10-22T20:51:45.060975+00:00",
+        "git_commit": "93efe315d10e15cd1947d078042d03a3cfa486cc",
+        "tracked_changes": false,
+        "application_source_sha256": "8334e2bbfb4082cf99f67995729f198bc075092b22984978b08ab6f9c965d0c7",
+        "signing_mode": "configured-identity",
+        "boundary": "Development build; configured signing identity; not notarized; weights downloaded separately."
+      },
+      "checks": {
+        "native_80_minute_public_file_import": true,
+        "upload_parts": [
+          {
+            "index": 0,
+            "start_frame": 0,
+            "frames": 9537574,
+            "request_bytes": 19075602,
+            "max_pcm16_error": 0.0
+          },
+          {
+            "index": 1,
+            "start_frame": 9537574,
+            "frames": 9542989,
+            "request_bytes": 19086432,
+            "max_pcm16_error": 0.0
+          },
+          {
+            "index": 2,
+            "start_frame": 19080563,
+            "frames": 9566904,
+            "request_bytes": 19134262,
+            "max_pcm16_error": 0.0
+          },
+          {
+            "index": 3,
+            "start_frame": 28647467,
+            "frames": 9528305,
+            "request_bytes": 19057064,
+            "max_pcm16_error": 0.0
+          },
+          {
+            "index": 4,
+            "start_frame": 38175772,
+            "frames": 9546142,
+            "request_bytes": 19092738,
+            "max_pcm16_error": 0.0
+          },
+          {
+            "index": 5,
+            "start_frame": 47721914,
+            "frames": 9570574,
+            "request_bytes": 19141602,
+            "max_pcm16_error": 0.0
+          },
+          {
+            "index": 6,
+            "start_frame": 57292488,
+            "frames": 9534002,
+            "request_bytes": 19068458,
+            "max_pcm16_error": 0.0
+          },
+          {
+            "index": 7,
+            "start_frame": 66826490,
+            "frames": 9577201,
+            "request_bytes": 19154856,
+            "max_pcm16_error": 0.0
+          },
+          {
+            "index": 8,
+            "start_frame": 76403691,
+            "frames": 396309,
+            "request_bytes": 793072,
+            "max_pcm16_error": 0.0
+          }
+        ],
+        "normalized_frames": 76800000,
+        "source": "public concatenated LibriSpeech fixture",
+        "stored_text_all_nine_parts_exact": true,
+        "stored_duration_seconds": 4800,
+        "stored_segment_offsets_exact": true,
+        "temporary_upload_workspaces_removed": true,
+        "microphone_permission_survived_signed_update_and_restart": true,
+        "accessibility_permission_survived_signed_update_and_restart": true,
+        "local_only_preferences_persisted_and_restart_verified": true
+      },
+      "screenshot": "docs/assets/native-long-upload.png",
+      "screenshot_sha256": "f0c373863cb311303f5d46282f7bcc5742e0cd055ac18bb0865351f4fec6dd28",
+      "limitations": [
+        "Native CUA file picker \u2192 real worker \u2192 serial loopback upload \u2192 Studio \u2192 history persistence. Every sample checked against public input within PCM16 quantization. Fixture responses are not recognition or paid provider validation.",
+        "No isolated native latency claim. Independent-part recognition context and real quota behavior remain open. Successful insertion and physical shortcuts remain unverified."
+      ]
+    },
+    {
+      "verified_at": "2026-10-22T21:16:24.517034+00:00",
+      "build": {
+        "version": "0.1.0",
+        "built_at": "2026-10-22T20:51:45.060975+00:00",
+        "git_commit": "93efe315d10e15cd1947d078042d03a3cfa486cc",
+        "tracked_changes": false,
+        "application_source_sha256": "8334e2bbfb4082cf99f67995729f198bc075092b22984978b08ab6f9c965d0c7",
+        "signing_mode": "configured-identity",
+        "boundary": "Development build; configured signing identity; not notarized; weights downloaded separately."
+      },
+      "checks": {
+        "silence_timeout_test_canceled": true,
+        "unexpected_external_target_canceled_before_transcription": true,
+        "temporary_auto_stop_restored_off": true
+      },
+      "limitations": [
+        "The current above-threshold background input did not reach the configured RMS silence timeout. Capture was canceled without saving audio.",
+        "Automated window activation did not keep the owned document frontmost. A later attempt captured another foreground target and was canceled before transcription/insertion. No unrelated application name, microphone audio or private text is included.",
+        "Successful insertion, clipboard restoration and physical shortcuts remain unverified."
+      ]
+    },
+    {
+      "verified_at": "2026-10-22T21:26:24.579388+00:00",
+      "build": {
+        "version": "0.1.0",
+        "built_at": "2026-10-22T21:19:04.335060+00:00",
+        "git_commit": "1bbbe061090c3b10cc7e62170fe9fd6bcfff48ee",
+        "tracked_changes": false,
+        "application_source_sha256": "adedf1a631530b4700d5e0097e0621494777b15cbd03f8160cfd0a351ac374b4",
+        "signing_mode": "configured-identity",
+        "boundary": "Development build; configured signing identity; not notarized; weights downloaded separately."
+      },
+      "checks": {
+        "native_deepgram_picker_default_url_and_model": true,
+        "native_deepgram_provider_and_dummy_key_survived_restart": true,
+        "native_80_minute_binary_import": true,
+        "parts": [
+          {
+            "index": 0,
+            "start_frame": 0,
+            "frames": 9537574,
+            "request_bytes": 19075192,
+            "max_pcm16_error": 0.0,
+            "token_auth": true,
+            "binary_wav": true,
+            "auto_language": true
+          },
+          {
+            "index": 1,
+            "start_frame": 9537574,
+            "frames": 9542989,
+            "request_bytes": 19086022,
+            "max_pcm16_error": 0.0,
+            "token_auth": true,
+            "binary_wav": true,
+            "auto_language": true
+          },
+          {
+            "index": 2,
+            "start_frame": 19080563,
+            "frames": 9566904,
+            "request_bytes": 19133852,
+            "max_pcm16_error": 0.0,
+            "token_auth": true,
+            "binary_wav": true,
+            "auto_language": true
+          },
+          {
+            "index": 3,
+            "start_frame": 28647467,
+            "frames": 9528305,
+            "request_bytes": 19056654,
+            "max_pcm16_error": 0.0,
+            "token_auth": true,
+            "binary_wav": true,
+            "auto_language": true
+          },
+          {
+            "index": 4,
+            "start_frame": 38175772,
+            "frames": 9546142,
+            "request_bytes": 19092328,
+            "max_pcm16_error": 0.0,
+            "token_auth": true,
+            "binary_wav": true,
+            "auto_language": true
+          },
+          {
+            "index": 5,
+            "start_frame": 47721914,
+            "frames": 9570574,
+            "request_bytes": 19141192,
+            "max_pcm16_error": 0.0,
+            "token_auth": true,
+            "binary_wav": true,
+            "auto_language": true
+          },
+          {
+            "index": 6,
+            "start_frame": 57292488,
+            "frames": 9534002,
+            "request_bytes": 19068048,
+            "max_pcm16_error": 0.0,
+            "token_auth": true,
+            "binary_wav": true,
+            "auto_language": true
+          },
+          {
+            "index": 7,
+            "start_frame": 66826490,
+            "frames": 9577201,
+            "request_bytes": 19154446,
+            "max_pcm16_error": 0.0,
+            "token_auth": true,
+            "binary_wav": true,
+            "auto_language": true
+          },
+          {
+            "index": 8,
+            "start_frame": 76403691,
+            "frames": 396309,
+            "request_bytes": 792662,
+            "max_pcm16_error": 0.0,
+            "token_auth": true,
+            "binary_wav": true,
+            "auto_language": true
+          }
+        ],
+        "normalized_frames": 76800000,
+        "stored_all_nine_text_parts_exact": true,
+        "stored_duration_seconds": 4800,
+        "stored_utterance_and_word_offsets_exact": true,
+        "temporary_upload_workspaces_removed": true,
+        "saved_local_defaults_restored": true,
+        "live_local_preferences_restored": true,
+        "loopback_server_stopped": true
+      },
+      "screenshot": "docs/assets/native-deepgram-upload.png",
+      "screenshot_sha256": "2f12a45aaf6484c554767ca5c23995af465e85e8975ab27b55bde5ed5b428e3e",
+      "limitations": [
+        "Native CUA file picker \u2192 local preparation \u2192 serial binary Listen-shaped loopback requests \u2192 Studio \u2192 persisted history. Fixture text is deterministic, not recognition, paid-provider validation or an isolated speed benchmark.",
+        "Successful insertion, physical global shortcuts, cloud streaming and real Deepgram account quality remain unverified."
+      ],
+      "local_restore_verified_at": "2026-10-22T23:21:05.272637+00:00",
+      "local_restore_method": "Native CUA: reset endpoint/model, choose Local MLX, Save preferences; UI confirmed Preferences saved and Local by choice. Saved settings independently verified local, rewrite none, autoStopSeconds 0, keepAudio false."
+    }
+  ]
+}

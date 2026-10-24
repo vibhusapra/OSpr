@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "source": {
+    "id": "1272-128104-0000",
+    "path": "fixtures/audio/1272-128104-0000.wav",
+    "reference": "MISTER QUILTER IS THE APOSTLE OF THE MIDDLE CLASSES AND WE ARE GLAD TO WELCOME HIS GOSPEL",
+    "suite": "human-clean",
+    "source_id": "1272-128104-0000",
+    "sha256": "799f78ed4beb4de7ceae3a809262d4ce242394342ccd1d58cef7d49dbc2def46",
+    "seconds": 5.855
+  },
+  "models": [
+    "parakeet-v3",
+    "whisper-turbo",
+    "whisper-small",
+    "qwen3-asr",
+    "nemotron-streaming",
+    "cohere-native8"
+  ],
+  "variant_order": [
+    "baseline",
+    "without-torch"
+  ],
+  "notes_text": "Do not ship on Friday. Priya will send the review on Monday. The proposed price is $12.50.",
+  "dependency_lock_sha256": "8e306569ebe63c886e9938d06c2e0a6e39d661de20e116a1998321dbfd14a6d2",
+  "model_lock_sha256": "9d523253c866ef3a021e51c0a542e65878a658b8539140a3043518c4c759dffa",
+  "boundary": "Frozen compatibility smoke on one known public English utterance, all six model warm/transcribe routes, source-excerpt notes, diarization and streaming. Uses actual checked bundled Python/backend; candidate site-packages symlinks omit only entries owned by Torch RECORD. The checked app is not edited. Baseline-first, one pass, no latency/size/energy/general-accuracy or distributable promotion claim. Failures retained; no model/feature may be dropped to obtain a pass."
+}
