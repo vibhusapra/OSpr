@@ -21,6 +21,7 @@ jobs:
         run: |
           /usr/bin/sqlite3 --version
           swift test
+          swiftc -typecheck -swift-version 5 -parse-as-library Sources/OSprCore/WorkerClient.swift benchmarks/native_stream_stop.swift
       - name: Install locked Python environment
         run: uv sync --frozen --all-extras --python 3.12
       - name: Install media decoder for real codec and track-mixing tests

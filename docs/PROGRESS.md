@@ -2,6 +2,25 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## Later validation: stop packets through the native worker boundary
+
+A frozen standalone Swift harness compiles the unchanged shipping WorkerClient
+and runs cached Metal Nemotron through its real owned Python process. All ten
+44.1/48 kHz scenarios pass: normal packet/tail/flush, already-canceled caller,
+cancellation between request and return, replacement with a stale cancel, and
+full-file fallback after a sample-rate error/worker restart. All final texts
+match controls. Six stop-path texts and both fallback texts have zero WER on one
+known English source; both replacement controls retain 5.88% WER (`Mr.` vs
+`MISTER`). An independent source/ordering/text-distance checker passes. The
+probe and owned workers exit; the separate idle QA worker stays untouched.
+
+This narrows the open IPC cancellation gate. It does not establish physical
+stop, Capture/AppModel behavior, active GPU-kernel cancellation or UI/insertion
+acceptance. No app/model/default/package changes. Final Mac CI at `0bc0acc` is
+also green. Native QA cleanup still requires unlock; no new capture or playback
+started. See `native-stream-stop.json`, raw traces/checker and
+`docs/architecture/native-stream-stop.md`.
+
 ## Current work: continuous native-rate preview normalization
 
 Branch `codex/stream-normalization` fixes packet normalization with a bounded,

@@ -537,3 +537,22 @@ bytes with bounded resampler state. Every partial and final text remains public.
 The independent checker reconstructs whole/legacy PCM and edit distances without
 using the candidate class. This is an unpaced continuity regression, not physical
 capture, end-to-end latency, energy, general accuracy or a product ranking.
+
+## Native streaming stop and fallback boundary
+
+```sh
+PYTHONPATH=backend HF_HUB_OFFLINE=1 .venv/bin/python benchmarks/native_stream_stop.py --output .local/native-stream-stop.json
+PYTHONPATH=backend .venv/bin/python benchmarks/verify_native_stream_stop.py --result .local/native-stream-stop.json --output .local/native-stream-stop-checks.json
+```
+
+Compiles the unchanged shipping `WorkerClient.swift` plus a separate benchmark
+entry point, then runs a real owned worker with cached Metal Nemotron. Ten
+scenarios cover normal/canceled packet admission, caller cancellation before
+response, replacement/stale-cancel protection and full-file fallback after a rate
+error, at 44.1/48 kHz. All text controls match; both timed cancellations are
+observed between request and return. Six stop/final transcripts and both fallback
+transcripts have zero WER on one known clip; replacement controls both retain
+5.88% WER due to `Mr.` versus `MISTER`. No scoring normalization changes.
+The independent checker verifies ordering, sources, text controls and edit
+distances. This does not operate the microphone, Capture/AppModel, UI, insertion
+or physical shortcuts. See `docs/architecture/native-stream-stop.md`.
