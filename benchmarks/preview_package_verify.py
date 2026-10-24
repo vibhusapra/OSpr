@@ -73,6 +73,10 @@ def main():
     paired = results["paired-preparation"]
     assert len(paired["records"]) == 4 and not paired["paired_output_mismatches"]
     assert all(r["same_worker_pid"] and r["asr_resident"] and r["warm_asr_text_unchanged"] for r in paired["records"])
+    cache = results["cache"]
+    assert set(cache["rejected_models"]) == {"rewrite-quality", "meeting-quality"}
+    assert all(cache[key] for key in ("asr_resident_after_rejection", "same_worker_pid", "warm_asr_text_unchanged",
+                                     "isolated_cache_only_parakeet", "private_cache_removed", "no_text_download"))
     limit = results["limit"]
     assert limit["expected_failure"] == "text-output-limit" and limit["same_worker_pid"] and limit["warm_asr_text_unchanged"]
     for name, neural in (("native-long", False), ("neural-long", True)):

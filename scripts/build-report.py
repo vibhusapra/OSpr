@@ -737,3 +737,17 @@ if profile_feedback_validation.is_file():
     report = report.replace('<details open id="edited-summary-source">', '<details id="edited-summary-source">', 1)
     report = report.replace('<details id="edited-summary-source">', panel + '<details id="edited-summary-source">', 1)
     (ROOT / "docs/research.html").write_text(report)
+
+v0_review_manifest = ROOT / "benchmarks/results/v0-review-package.json"
+if v0_review_manifest.is_file():
+    package = json.loads(v0_review_manifest.read_text())
+    assert package["status"] == "passed-v0-review-development-package"
+    assert package["functional_gates"] == 18
+    panel = f'''<details open id="v0-review-package"><summary>Current v0 review package: 18 exact-bundle gates and verified standalone ZIP.</summary>
+<p>The new preview includes edited-source summaries and visible profile validation feedback. An actual absolute-path packaging failure is fixed and the signed app now builds at an absolute path containing spaces. A foreign-working-directory scoring import is also fixed. Clean build <code>{package["build"]["git_commit"][:7]}</code> is Apple Development signed for macOS 26.6.2 arm64, weights separate; <strong>not notarized</strong>.</p>
+<p><strong>438 optimized Swift / 355 Python tests</strong> and 18 exact-bundle functional gates pass. These include offline relocated six-engine/neural inference, preparation/cache, selected local models and summaries through CLI/MCP, profile routing, warm-ASR output-limit recovery, 41 provider loopback controls, both default/neural hour-long routes and three 80-minute multipart transports. The {package["archive_bytes"]:,}-byte archive passes CRC/extraction, signatures, offline CLI and executable identity. Source/backend/locks/LICENSE/NOTICE bytes match; normal app/data hashes are unchanged. Bundled help is the frozen 358-link source snapshot before these receipts.</p>
+<p>Loopback provider replies are synthetic; repeated public speech is a long-file regression fixture. These results do not establish natural-meeting quality, isolated latency/energy or consumer ranking. Native final-footer/current insertion, physical shortcuts/devices/acoustics, VoiceOver, representative semantic quality and clean-Mac/older-OS/updater/Developer-ID acceptance remain open. No full-union parity or top-three claim. <a href="architecture/v0-review-package.md">Scope and reproduction</a> · <a href="../benchmarks/results/v0-review-package.json">Exact archive and all receipt hashes</a> · <a href="../benchmarks/results/v0-review-portable.json">Offline runtime</a> · <a href="../benchmarks/results/v0-review-native-long.json">Default long files</a> · <a href="../benchmarks/results/v0-review-neural-long.json">Neural long files</a> · <a href="https://github.com/vibhusapra/OSpr/pull/34">PR34</a>.</p></details>'''
+    report = (ROOT / "docs/research.html").read_text()
+    report = report.replace('<details open id="profile-feedback">', '<details id="profile-feedback">', 1)
+    report = report.replace('<details id="profile-feedback">', panel + '<details id="profile-feedback">', 1)
+    (ROOT / "docs/research.html").write_text(report)
