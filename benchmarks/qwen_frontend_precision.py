@@ -63,7 +63,7 @@ def main():
         for variant in ["torch", "numpy", "scipy-f32", "scipy-f32", "numpy", "torch"]:
             features = []
 
-            def extract(waveform, device="cpu", variant=variant):
+            def extract(waveform, device="cpu", variant=variant, features=features):
                 if variant == "torch":
                     value = original(waveform, device)
                 elif variant == "numpy":
@@ -77,9 +77,10 @@ def main():
             extractor._torch_extract_fbank_features = extract
             mx.random.seed(20261024)
             result = engine.transcribe(str(audio), "qwen3-asr", language="en")
-            assert len(features) == 1
+            assert features, "No feature extraction was observed"
+            assert all(value.tobytes() == features[0].tobytes() for value in features)
             captured.append(features[0])
-            rows.append(dict(variant=variant, text=result["text"], shape=list(features[0].shape),
+            rows.append(dict(variant=variant, text=result["text"], feature_extractions=len(features), shape=list(features[0].shape),
                 features_sha256=hashlib.sha256(features[0].astype("<f4", copy=False).tobytes()).hexdigest(), result=result))
         extractor._torch_extract_fbank_features = original
     reference = captured[0]
