@@ -38,6 +38,14 @@ import OSprCore
                 guard (3...4).contains(args.count) else { usage(); exit(2) }
                 result = try ProfileResolution.run(file: URL(fileURLWithPath: args[1]), bundleID: args[2], document: args.count == 4 ? args[3] : nil)
             case "doctor": result = try await worker.request(["action": "ping"])
+            case "verify-speech-detector":
+                guard args.count == 1 else { usage(); exit(2) }
+                var prepared = try await worker.request(["action": "prepare_speech_detector"])
+                guard let path = prepared["model_path"] as? String, prepared["complete"] as? Bool == true else {
+                    throw OSprError.message("Prepare the speech detector in Models first.")
+                }
+                try NativeSpeechAsset.validate(URL(fileURLWithPath: path))
+                prepared["native_integrity_verified"] = true; result = prepared
             case "verify-audio-review":
                 guard args.count > 1 else { usage(); exit(2) }
                 result = try await AudioReviewCheck.run(source: URL(fileURLWithPath: args[1]), worker: worker)
@@ -106,5 +114,5 @@ import OSprCore
             print(String(data: data, encoding: .utf8)!)
         } catch { FileHandle.standardError.write(Data((error.localizedDescription + "\n").utf8)); exit(1) }
     }
-    static func usage() { print("OSpr · Apple Silicon dictation\nUsage: ospr-cli analyze-speech <16k-mono.wav> <model.mlmodelc> [cpu|gpu|ane|all] [silence-seconds] | resolve-profile <settings.json> <bundle-id> [document-url] | doctor | models | download <model> | warm [model] | transcribe <audio> [model] | transcribe-cloud <audio> <base-url> <model> [language] | transcribe-deepgram <audio> <base-url> <model> [language] | transcribe-soniox <audio> <base-url> <model> [language] | meeting <audio> [model] | benchmark <audio> [model] [repeats] | benchmark-history [rows] [edits] | benchmark-history-index [rows] [repeats] | benchmark-history-session [rows] | verify-audio-review <short-audio> | rewrite <text>\ntranscribe-cloud (compatible) transcribe-deepgram (native Listen), and transcribe-soniox (native async jobs) explicitly upload audio to the specified provider; the key is read from OSPR_TRANSCRIPTION_KEY, never a command-line argument. Other speech commands remain local. resolve-profile only inspects the supplied settings and URL; it does not load a model or contact a provider.\nProgress is on stderr; final result is JSON on stdout.\nBundled CLI discovers its engine; development commands use the checkout or OSPR_ROOT. Models: parakeet-v3, cohere-native8, whisper-turbo, whisper-small, qwen3-asr, nemotron-streaming") }
+    static func usage() { print("OSpr · Apple Silicon dictation\nUsage: ospr-cli analyze-speech <16k-mono.wav> <model.mlmodelc> [cpu|gpu|ane|all] [silence-seconds] | resolve-profile <settings.json> <bundle-id> [document-url] | doctor | verify-speech-detector | models | download <model> | warm [model] | transcribe <audio> [model] | transcribe-cloud <audio> <base-url> <model> [language] | transcribe-deepgram <audio> <base-url> <model> [language] | transcribe-soniox <audio> <base-url> <model> [language] | meeting <audio> [model] | benchmark <audio> [model] [repeats] | benchmark-history [rows] [edits] | benchmark-history-index [rows] [repeats] | benchmark-history-session [rows] | verify-audio-review <short-audio> | rewrite <text>\ntranscribe-cloud (compatible) transcribe-deepgram (native Listen), and transcribe-soniox (native async jobs) explicitly upload audio to the specified provider; the key is read from OSPR_TRANSCRIPTION_KEY, never a command-line argument. Other speech commands remain local. resolve-profile only inspects the supplied settings and URL; it does not load a model or contact a provider.\nProgress is on stderr; final result is JSON on stdout.\nBundled CLI discovers its engine; development commands use the checkout or OSPR_ROOT. Models: parakeet-v3, cohere-native8, whisper-turbo, whisper-small, qwen3-asr, nemotron-streaming") }
 }

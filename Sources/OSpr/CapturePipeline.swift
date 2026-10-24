@@ -8,6 +8,9 @@ struct CaptureTelemetry {
     var voiceAt: Double
     var hasVoice: Bool
 }
+enum CaptureAutoFinishDecision: Equatable {
+    case keepRecording, finish, manualRequired(String)
+}
 
 /// The hardware tap touches only this locked audio state, never the main actor.
 /// Levels/endpointing are polled at 10 Hz, avoiding a UI closure per audio block.
@@ -68,6 +71,15 @@ final class CapturePipeline: @unchecked Sendable {
     }
     var error: Error? { lock.lock(); defer { lock.unlock() }; return failure ?? sink.error }
     var speechSnapshot: NeuralCaptureSnapshot? { speechMonitor?.snapshot() }
+    func autoFinishDecision(neuralRequested: Bool, levelSilenceSeconds: Double, now: Double) -> CaptureAutoFinishDecision {
+        if neuralRequested {
+            guard let speechMonitor else { return .manualRequired("Neural auto finish is unavailable. Stop manually; your recording is still being saved.") }
+            if let warning = speechMonitor.snapshot().warning { return .manualRequired(warning) }
+            return claimNeuralFinish() ? .finish : .keepRecording
+        }
+        let current = telemetry()
+        return levelSilenceSeconds > 0 && current.hasVoice && now - current.voiceAt > levelSilenceSeconds ? .finish : .keepRecording
+    }
     /// Claim and close capture admission under its ingress lock. A callback
     /// arriving after this point belongs after the intentional recording end.
     func claimNeuralFinish() -> Bool {

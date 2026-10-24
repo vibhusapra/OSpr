@@ -118,6 +118,8 @@ enum KeyVault {
     @Published var level: Float = 0
     @Published var seconds: Double = 0
     var silenceReached: (() -> Void)?
+    var autoFinishUnavailable: ((String) -> Void)?
+    private(set) var endpointWarning: String?
     private var engine: AVAudioEngine?
     private var writer: AudioSink?
     private var pipeline: CapturePipeline?
@@ -126,13 +128,20 @@ enum KeyVault {
     private var started = ProcessInfo.processInfo.systemUptime
     private var url: URL?
     private var autoStop = 0.0
+    private var neuralRequested = false
+    private var sessionLease = CaptureSessionLease()
     private var tapInstalled = false
     private var inputRate: Double = 48000
     static var microphones: [AVCaptureDevice] {
         AVCaptureDevice.DiscoverySession(deviceTypes: [.microphone, .external], mediaType: .audio, position: .unspecified).devices
     }
-    func start(deviceID: String, autoStop: Double, threshold: Double) throws -> URL {
+    func start(deviceID: String, autoStop: Double, threshold: Double, neuralModelURL: URL? = nil,
+               neuralSilenceSeconds: Double = 1.2, validateStart: () throws -> Void = {}) async throws -> (audio: URL, session: UUID) {
         guard AVCaptureDevice.authorizationStatus(for: .audio) == .authorized else { throw OSprError.message("Allow OSpr microphone access in System Settings → Privacy & Security → Microphone.") }
+        guard timer == nil, engine == nil, writer == nil else { throw OSprError.message("A microphone session is already starting or recording.") }
+        let session = try sessionLease.begin()
+        var succeeded = false
+        defer { if !succeeded { sessionLease.end(matching: session) } }
         let engine = AVAudioEngine()
         if !deviceID.isEmpty {
             // AVCapture IDs match CoreAudio UIDs. Resolve using the system device list.
@@ -159,21 +168,41 @@ enum KeyVault {
         let input = engine.inputNode
         let format = input.outputFormat(forBus: 0)
         guard format.sampleRate > 0, format.channelCount > 0 else { throw OSprError.message("No usable audio input. Check your microphone connection.") }
+        var monitor: NeuralCaptureMonitor?
+        var warning: String?
+        if let neuralModelURL {
+            let rate = format.sampleRate
+            do {
+                monitor = try await Task.detached(priority: .userInitiated) {
+                    try NativeSpeechAsset.validate(neuralModelURL)
+                    return try NeuralCaptureMonitor(sampleRate: rate, modelURL: neuralModelURL, silenceSeconds: neuralSilenceSeconds)
+                }.value
+            } catch {
+                try Task.checkCancellation()
+                warning = "Neural auto finish could not start. Stop manually; your recording will still be saved. " + error.localizedDescription
+            }
+        }
+        do {
+            try Task.checkCancellation()
+            guard sessionLease.matches(session) else { throw CancellationError() }
+            try validateStart()
+        } catch { monitor?.close(); throw error }
         let directory = FileManager.default.temporaryDirectory.appendingPathComponent("OSpr", isDirectory: true)
         try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true, attributes: [.posixPermissions: 0o700])
         let url = directory.appendingPathComponent(UUID().uuidString + ".wav")
         let writer = try AudioSink(url: url, format: format)
         self.writer = writer; self.engine = engine; self.url = url; self.autoStop = autoStop
+        self.neuralRequested = neuralModelURL != nil; endpointWarning = warning
         self.inputRate = format.sampleRate; captureFailure = nil
         started = ProcessInfo.processInfo.systemUptime; seconds = 0
-        let pipeline = CapturePipeline(sink: writer, format: format, threshold: Float(threshold), now: started)
+        let pipeline = CapturePipeline(sink: writer, format: format, threshold: Float(threshold), now: started, speechMonitor: monitor)
         self.pipeline = pipeline
         input.installTap(onBus: 0, bufferSize: 1024, format: format) { buffer, _ in pipeline.ingest(buffer) }
         tapInstalled = true
-        do { try engine.start() } catch { input.removeTap(onBus: 0); tapInstalled = false; self.engine = nil; try? writer.finish(); self.writer = nil; try? FileManager.default.removeItem(at: url); throw error }
+        do { try engine.start() } catch { input.removeTap(onBus: 0); tapInstalled = false; self.engine = nil; try? pipeline.finish(); self.writer = nil; try? FileManager.default.removeItem(at: url); throw error }
         timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] _ in
             Task { @MainActor in
-                guard let self else { return }
+                guard let self, self.sessionLease.matches(session), self.timer != nil else { return }
                 let now = ProcessInfo.processInfo.systemUptime
                 self.seconds = now - self.started
                 guard let telemetry = self.pipeline?.telemetry() else { return }
@@ -183,14 +212,25 @@ enum KeyVault {
                     self.captureFailure = OSprError.message("Microphone audio stopped. Check the device connection; partial audio was kept.")
                     self.silenceReached?(); return
                 }
-                if self.seconds >= 300 || (self.autoStop > 0 && telemetry.hasVoice && now - telemetry.voiceAt > self.autoStop) {
-                    self.silenceReached?()
+                if self.seconds >= 300 { self.silenceReached?(); return }
+                switch self.pipeline?.autoFinishDecision(neuralRequested: self.neuralRequested, levelSilenceSeconds: self.autoStop, now: now) {
+                case .finish: self.silenceReached?()
+                case .manualRequired(let message):
+                    if self.endpointWarning == nil {
+                        self.endpointWarning = message; self.autoFinishUnavailable?(message)
+                    }
+                default: break
                 }
             }
         }
-        return url
+        succeeded = true; return (url, session)
+    }
+    func stop(ifSession session: UUID) throws -> URL? {
+        guard sessionLease.matches(session) else { return nil }
+        return try stop()
     }
     func stop() throws -> URL? {
+        sessionLease.end()
         timer?.invalidate(); timer = nil
         if tapInstalled { engine?.inputNode.removeTap(onBus: 0); tapInstalled = false }
         engine?.stop(); engine = nil
@@ -224,6 +264,21 @@ enum KeyVault {
     let secure: Bool
     var selectedRange: CFTypeRef? = nil
     var focusConsistent = true
+    func validateRecordingStart(currentSnapshot: InsertionTarget? = nil) throws {
+        let current = currentSnapshot ?? Self.capture()
+        guard current.focusConsistent, !current.secure, let originalApp = app, let currentApp = current.app,
+              originalApp.processIdentifier == currentApp.processIdentifier else {
+            throw OSprError.message("The destination changed while preparing the microphone. Focus the intended field and start again.")
+        }
+        if let element {
+            guard let focused = current.element, CFEqual(element, focused) else {
+                throw OSprError.message("The focused field changed while preparing dictation. Start again in the intended field.")
+            }
+        }
+        if !selectedText.isEmpty, current.selectedText != selectedText {
+            throw OSprError.message("The selected passage changed while preparing dictation. Select it again and retry.")
+        }
+    }
     static func capture() -> InsertionTarget {
         let app = NSWorkspace.shared.frontmostApplication
         let system = AXUIElementCreateSystemWide()

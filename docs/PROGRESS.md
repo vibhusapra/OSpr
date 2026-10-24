@@ -606,7 +606,20 @@ distribution or a claim of full union parity/top-three product placement.
 - [x] Source-bound macOS CI 40043053254 passes all 281 Swift / 105 Python tests,
   17 profile CLI cases, lint, report/app build and clean-runner bundled imports.
   The cached-model replay is separate from CI and remains a functional control.
-- [ ] Explicit model preparation/settings and live UI routing. The sidecar is
-  connected to CapturePipeline as an optional dependency but no GUI constructs it
-  yet; defaults and delivered preview remain unchanged. Final ASR edge selection
-  is a separate exact-normalized-timeline contract.
+- [x] Current source constructs the optional sidecar from a Settings opt-in.
+  Models adds explicit pinned 0.91 MB detector preparation; recording startup is
+  cache-only. Worker/native integrity gates reject same-size corrupt data.
+  Runtime/init failures display manual-finish warnings and keep original capture.
+- [x] Capture preparation runs off the main actor, rechecks the destination
+  before opening the microphone, and uses per-session leases for cancellation,
+  timers and late cleanup. A stale operation cannot stop a newer recording.
+- [x] Neural preferences encode legacy auto-stop as off and preserve the user's
+  RMS choice in a separate key. Every nondefault setting round-trips through the
+  custom compatibility encoder; older settings keep neural mode off.
+- [x] Local contracts: 292 Swift / 112 Python tests and 17 profile CLI cases pass.
+  Pin parity, explicit/corrupt download contracts, visible warning callbacks,
+  destination changes, manual fallback and full settings persistence are tested.
+- [ ] Package and exercise native Settings/Models controls in an isolated profile.
+  Physical microphone/destination acceptance remains separate. Defaults and the
+  delivered preview remain unchanged. Final ASR edges need their exact final
+  normalized timeline and are not changed by the auto-finish option.

@@ -1,9 +1,10 @@
-# Native speech detection and endpointing research
+# Native speech detection, capture and endpointing
 
 The delivered context-profiles preview still uses its existing RMS trim and
-optional RMS auto-finish. This work adds an offline Core ML detector and a shared
-audio-time endpoint policy for evaluation. It does not yet replace microphone
-endpointing, trim ASR input in the app, or bundle another model.
+optional RMS auto-finish. Current source adds an explicit experimental neural
+microphone option, with pinned model preparation and visible manual-finish
+failure handling. Defaults are unchanged. Final ASR edge trimming still uses its
+separate existing policy; physical microphone and destination acceptance remain.
 
 ## Contracts
 
@@ -301,7 +302,8 @@ and exposes a manual-finish warning. It never switches silently to RMS. The
 independent original recording writer continues unchanged. Close prevents stale
 in-flight work from publishing, and every new monitor owns fresh per-take state.
 The UI must display that warning and use the atomic claim before it can
-enable this experiment. **No current GUI constructs the optional sidecar yet.**
+enable this experiment. Frozen replay source `ace21b8` had no GUI entry point;
+the newer opt-in integration below now constructs the optional sidecar.
 
 Eighteen new controls bring the local suite to 281 passing Swift tests. These
 include sample-identical continuous resampling across partitions at five device
@@ -380,6 +382,44 @@ HF_HUB_OFFLINE=1 uv run --frozen --all-extras python benchmarks/verify_native_sp
 
 The preserved CLI must match the frozen receipt's hash. A rebuild/reproduction
 needs its own run and fingerprints; do not change the archived receipt hashes.
+
+## Opt-in app integration under acceptance
+
+Settings exposes neural auto finish and a silence interval (1.2/1.5/3/5 s).
+Only 1.2 s is used in the frozen detector/capture studies. Models adds the
+911,498-byte MIT Core ML asset. Explicit download uses the pinned public
+repository/revision/files with authentication disabled. Every size and SHA-256
+must match; recording startup is cache-only. The native loader independently
+checks the same five assets before Core ML load. The ASR lock is unchanged;
+the detector has its own mirrored pin, with a cross-layer research/native test.
+
+Preparation and priming run off the main actor before installing the tap. Missing
+or unverified cache fails before recording with an actionable Models message.
+Native initialization/runtime failure continues capture with a visible manual
+finish warning; it never substitutes RMS. The timer uses the atomic claim.
+The detector is local CPU work even when the user explicitly chooses BYOK ASR.
+
+Per-session leases fence preparation, timers and late cleanup after cancellation.
+The original destination is checked again after preparation, including field
+identity, selected passage, owner consistency and secure/unknown foreground
+state. An old result cannot stop a newer session. Complete original audio and
+recovery stay independent. Paused speech can still end a take; this detector
+does not infer semantic intent.
+
+New settings preserve the user's RMS interval separately but encode legacy
+`autoStopSeconds` as zero while neural mode is enabled. Old decoders therefore
+do not silently substitute RMS; new decoders restore both choices. Opening an
+older app can still discard unknown preferences. Full nondefault settings
+round-trip tests guard the custom encoder.
+
+Local contracts pass 292 Swift / 112 Python tests and 17 real profile CLI cases.
+They cover pins, corruption, explicit download versus cache-only preparation,
+settings compatibility, pre-start destination changes, stale-session leases,
+manual fallback and visible recording-warning callbacks. They do not exercise
+real microphone capture or insertion. Native Settings/Models persistence,
+hardware, pause/noise/quiet/device behavior and contention remain acceptance
+work. Final ASR edges must use the exact final normalized array. The UI identifies
+volume trimming as separate and advises disabling it for quiet experiments.
 
 ## Primary sources and provenance
 

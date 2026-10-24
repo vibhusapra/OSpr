@@ -389,11 +389,15 @@ struct ModelsView: View {
                 } }
             }
             HStack { Button("Load selected model") { model.warm() }.buttonStyle(.borderedProminent).disabled(model.busy || !model.engineInstalled); Text("Download alone uses no GPU. Loading also prepares first-use kernels.").font(.caption).foregroundStyle(.secondary) }
-            Text("Optional language and speaker models").font(.headline)
-            ForEach([("rewrite-quality", "Qwen3 4B · local refinement & key excerpts"), ("diarization", "Nemotron · experimental speaker labels")], id: \.0) { id, name in
+            Text("Optional local models").font(.headline)
+            ForEach([("rewrite-quality", "Qwen3 4B · local refinement & key excerpts"), ("diarization", "Nemotron · experimental speaker labels"), ("speech-detector", "Silero · experimental neural auto finish (native CPU)")], id: \.0) { id, name in
                 if let cache = model.modelCache[id] {
                     Card { HStack {
-                        VStack(alignment: .leading, spacing: 5) { Text(name).font(.callout); Text(cache.cacheLabel + (model.residentModels.contains(id) ? " · resident" : "")).font(.caption).foregroundStyle(.secondary) }
+                        VStack(alignment: .leading, spacing: 5) {
+                            Text(name).font(.callout)
+                            Text(cache.cacheLabel + (model.residentModels.contains(id) ? " · resident" : "")).font(.caption).foregroundStyle(.secondary)
+                            if id == "speech-detector" { Text("MIT model data · auto finish only; speech recognition uses your selected engine.").font(.caption).foregroundStyle(.secondary) }
+                        }
                         Spacer()
                         if !cache.complete { Button("Download") { model.warm(downloadOnly: id) }.disabled(model.busy) }
                         if let path = cache.path { Button("Show in Finder") { NSWorkspace.shared.selectFile(path, inFileViewerRootedAtPath: "") } }
@@ -515,7 +519,15 @@ struct PreferencesView: View {
                 Toggle("Spoken punctuation (English phrases)", isOn: $model.settings.spokenPunctuation)
                 Toggle("Conservative silence edge trimming", isOn: $model.settings.silenceTrim)
                 HStack { Text("Silence threshold"); Slider(value: $model.settings.silenceThreshold, in: 0.0001...0.02); Text(String(format: "%.4f", model.settings.silenceThreshold)).monospacedDigit() }
-                Picker("Auto finish after silence", selection: $model.settings.autoStopSeconds) { Text("Off").tag(0.0); Text("1.5 seconds").tag(1.5); Text("3 seconds").tag(3.0); Text("5 seconds").tag(5.0) }
+                Toggle("Neural auto finish · experimental", isOn: $model.settings.neuralAutoFinish)
+                if model.settings.neuralAutoFinish {
+                    Picker("Detector silence before finish", selection: $model.settings.neuralSilenceSeconds) { Text("1.2 seconds").tag(1.2); Text("1.5 seconds").tag(1.5); Text("3 seconds").tag(3.0); Text("5 seconds").tag(5.0) }
+                    Text("Uses a local speech detector instead of volume alone. Pauses can end a take. Detection failure leaves recording active so you can stop manually. Prepare its small model in Models before use.").font(.caption).foregroundStyle(.secondary)
+                    if model.settings.silenceTrim { Text("Final edge trimming still uses volume. Disable edge trimming above when testing quiet speech.").font(.caption).foregroundStyle(.orange) }
+                    Button("Open detector model") { model.tab = "Models" }
+                } else {
+                    Picker("Level-based auto finish", selection: $model.settings.autoStopSeconds) { Text("Off").tag(0.0); Text("1.5 seconds").tag(1.5); Text("3 seconds").tag(3.0); Text("5 seconds").tag(5.0) }
+                }
                 Toggle("Experimental live local preview", isOn: $model.settings.preview)
                 Text("Nemotron streams incremental audio and flushes its cache at finish. Other models decode a rolling 12-second window every 3 seconds, adding GPU work. Partial text is displayed in OSpr, then final text is inserted.").font(.caption).foregroundStyle(.secondary)
             }

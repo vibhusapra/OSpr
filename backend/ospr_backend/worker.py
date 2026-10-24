@@ -29,16 +29,27 @@ def dispatch(engine, request):
         return engine.warm(request.get("model", "parakeet-v3"))
     if action == "model_status":
         from .model_cache import inventory
+        from .speech_detector import inventory as speech_inventory
 
-        return {"models": inventory(MODEL_LOCK, [*PUBLIC_MODELS, "rewrite-quality", "diarization"]),
+        return {"models": inventory(MODEL_LOCK, [*PUBLIC_MODELS, "rewrite-quality", "diarization"]) + [speech_inventory()],
                 "resident": list(engine.models), "rewrite_resident": engine.rewriter_id,
                 "diarizer_resident": engine.diarizer is not None}
     if action == "download_model":
         model = request.get("model")
+        if model == "speech-detector":
+            from .speech_detector import prepare
+
+            return prepare(download=True, progress=engine.progress)
         if model not in {*PUBLIC_MODELS, "rewrite-quality", "diarization"}:
             raise ValueError("Unknown shipping model.")
         resolve_model(model, engine.progress)
         return {"model": model, "complete": True}
+    if action == "prepare_speech_detector":
+        from .speech_detector import prepare
+
+        # Starting a recording is deliberately cache-only. Download is a
+        # separate explicit Models action, not a surprise during microphone use.
+        return prepare(download=False)
     if action == "stream_begin":
         return engine.stream_begin(request.get("language"))
     if action == "stream_feed":
