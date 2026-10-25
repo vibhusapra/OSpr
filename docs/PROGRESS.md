@@ -15,7 +15,7 @@ Twelve new Core cases and one HistoryModel case cover the storage/export/query
 boundaries. The first full suite retained twelve old schema-version assertion
 failures; corrected assertions keep the stronger schema-5 fence. The corrected
 full suite passed 465 tests, then 36 focused cases passed after shared row
-extraction and the additional filename file-byte erasure control. Final optimized **466 Swift / 372 Python** tests and Ruff pass; release app
+extraction and the additional filename file-byte erasure control. Final optimized **466 Swift / 380 Python** tests and Ruff pass; release app
 build and signatures pass. CI validation follows when available.
 
 An actual retained older Core creates/opens 3,000 public records, current code

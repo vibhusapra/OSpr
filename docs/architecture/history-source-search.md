@@ -59,7 +59,7 @@ The first full run retained twelve failures from old schema-version assertions.
 Those assertions now expect the stronger schema-5 fence; no production error or
 failed case was discarded. The corrected full suite passed 465 tests, followed
 by 36 focused tests after the filename-erasure case and shared row extraction.
-The final optimized **466 Swift / 372 Python** suites and Ruff pass; release app
+The final optimized **466 Swift / 380 Python** suites and Ruff pass; release app
 build/signatures pass. CI validation is recorded in the progress ledger.
 
 An actual retained schema-4-capable Core from `769922a` opened a **3,000-record**
