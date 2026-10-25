@@ -1,0 +1,568 @@
+{
+  "schema_version": 1,
+  "status": "complete-twenty-case-native-file-pilot",
+  "protocol_sha256": "5c6e110cab6d39017efda1804daa09184b19f38998f27ffa2989bdcb3d673762",
+  "normalization": "benchmarks.run.normalize; corpus micro WER; no numeral expansion",
+  "completed_routes": {
+    "macwhisper-small": {
+      "summary": {
+        "all": {
+          "cases": 20,
+          "reference_words": 485,
+          "substitutions": 15,
+          "deletions": 2,
+          "insertions": 0,
+          "word_errors": 17,
+          "wer": 0.03505154639175258
+        },
+        "test-clean": {
+          "cases": 10,
+          "reference_words": 285,
+          "substitutions": 7,
+          "deletions": 2,
+          "insertions": 0,
+          "word_errors": 9,
+          "wer": 0.031578947368421054
+        },
+        "test-other": {
+          "cases": 10,
+          "reference_words": 200,
+          "substitutions": 8,
+          "deletions": 0,
+          "insertions": 0,
+          "word_errors": 8,
+          "wer": 0.04
+        }
+      },
+      "records": [
+        {
+          "id": "1089-134686-0000",
+          "suite": "test-clean",
+          "source": "01-test-clean-1089-134686-0000.wav",
+          "reference": "HE HOPED THERE WOULD BE STEW FOR DINNER TURNIPS AND CARROTS AND BRUISED POTATOES AND FAT MUTTON PIECES TO BE LADLED OUT IN THICK PEPPERED FLOUR FATTENED SAUCE",
+          "text": "He hoped there would be stew for dinner, turnips and carrots and bruised potatoes and fat mutton pieces to be ladled out in thick, peppered, flour-fattened sauce.",
+          "reference_words": 28,
+          "substitutions": 1,
+          "deletions": 1,
+          "insertions": 0,
+          "wer": 0.07142857142857142
+        },
+        {
+          "id": "1188-133604-0000",
+          "suite": "test-clean",
+          "source": "02-test-clean-1188-133604-0000.wav",
+          "reference": "YOU WILL FIND ME CONTINUALLY SPEAKING OF FOUR MEN TITIAN HOLBEIN TURNER AND TINTORET IN ALMOST THE SAME TERMS",
+          "text": "You will find me continually speaking of 4 men, Titian, Holbein, Turner, and Tintoret in almost the same terms.",
+          "reference_words": 19,
+          "substitutions": 1,
+          "deletions": 0,
+          "insertions": 0,
+          "wer": 0.05263157894736842
+        },
+        {
+          "id": "121-121726-0000",
+          "suite": "test-clean",
+          "source": "03-test-clean-121-121726-0000.wav",
+          "reference": "ALSO A POPULAR CONTRIVANCE WHEREBY LOVE MAKING MAY BE SUSPENDED BUT NOT STOPPED DURING THE PICNIC SEASON",
+          "text": "Also a popular condrivens, whereby lovemaking may be suspended, but not stopped during the picnic season.",
+          "reference_words": 17,
+          "substitutions": 2,
+          "deletions": 1,
+          "insertions": 0,
+          "wer": 0.17647058823529413
+        },
+        {
+          "id": "1221-135766-0000",
+          "suite": "test-clean",
+          "source": "04-test-clean-1221-135766-0000.wav",
+          "reference": "HOW STRANGE IT SEEMED TO THE SAD WOMAN AS SHE WATCHED THE GROWTH AND THE BEAUTY THAT BECAME EVERY DAY MORE BRILLIANT AND THE INTELLIGENCE THAT THREW ITS QUIVERING SUNSHINE OVER THE TINY FEATURES OF THIS CHILD",
+          "text": "How strange it seemed to the sad woman as she watched the growth and the beauty that became every day more brilliant and the intelligence that threw its quivering sunshine over the tiny features of this child.",
+          "reference_words": 37,
+          "substitutions": 0,
+          "deletions": 0,
+          "insertions": 0,
+          "wer": 0.0
+        },
+        {
+          "id": "1284-1180-0000",
+          "suite": "test-clean",
+          "source": "05-test-clean-1284-1180-0000.wav",
+          "reference": "HE WORE BLUE SILK STOCKINGS BLUE KNEE PANTS WITH GOLD BUCKLES A BLUE RUFFLED WAIST AND A JACKET OF BRIGHT BLUE BRAIDED WITH GOLD",
+          "text": "He wore blue silk stockings, blue knee pants with gold buckles, a blue ruffled waist, and a jacket of bright blue braided with gold.",
+          "reference_words": 24,
+          "substitutions": 0,
+          "deletions": 0,
+          "insertions": 0,
+          "wer": 0.0
+        },
+        {
+          "id": "1320-122612-0000",
+          "suite": "test-clean",
+          "source": "06-test-clean-1320-122612-0000.wav",
+          "reference": "SINCE THE PERIOD OF OUR TALE THE ACTIVE SPIRIT OF THE COUNTRY HAS SURROUNDED IT WITH A BELT OF RICH AND THRIVING SETTLEMENTS THOUGH NONE BUT THE HUNTER OR THE SAVAGE IS EVER KNOWN EVEN NOW TO PENETRATE ITS WILD RECESSES",
+          "text": "Since the period of our tale, the active spirit of the country has surrounded it with a belt of rich and thriving settlements, though none but the hunter or the savage is ever known even now to penetrate its wild recesses.",
+          "reference_words": 41,
+          "substitutions": 0,
+          "deletions": 0,
+          "insertions": 0,
+          "wer": 0.0
+        },
+        {
+          "id": "1580-141083-0000",
+          "suite": "test-clean",
+          "source": "07-test-clean-1580-141083-0000.wav",
+          "reference": "I WILL ENDEAVOUR IN MY STATEMENT TO AVOID SUCH TERMS AS WOULD SERVE TO LIMIT THE EVENTS TO ANY PARTICULAR PLACE OR GIVE A CLUE AS TO THE PEOPLE CONCERNED",
+          "text": "I will endeavor in my statement to avoid such terms as would serve to limit the events to any particular place or give a clue as to the people concerned.",
+          "reference_words": 30,
+          "substitutions": 1,
+          "deletions": 0,
+          "insertions": 0,
+          "wer": 0.03333333333333333
+        },
+        {
+          "id": "1995-1826-0000",
+          "suite": "test-clean",
+          "source": "08-test-clean-1995-1826-0000.wav",
+          "reference": "IN THE DEBATE BETWEEN THE SENIOR SOCIETIES HER DEFENCE OF THE FIFTEENTH AMENDMENT HAD BEEN NOT ONLY A NOTABLE BIT OF REASONING BUT DELIVERED WITH REAL ENTHUSIASM",
+          "text": "In the debate between the senior societies, her defense of the 15th Amendment had been not only a notable bit of reasoning, but delivered with real enthusiasm.",
+          "reference_words": 27,
+          "substitutions": 2,
+          "deletions": 0,
+          "insertions": 0,
+          "wer": 0.07407407407407407
+        },
+        {
+          "id": "2094-142345-0000",
+          "suite": "test-clean",
+          "source": "09-test-clean-2094-142345-0000.wav",
+          "reference": "IT IS A VERY FINE OLD PLACE OF RED BRICK SOFTENED BY A PALE POWDERY LICHEN WHICH HAS DISPERSED ITSELF WITH HAPPY IRREGULARITY SO AS TO BRING THE RED BRICK INTO TERMS OF FRIENDLY COMPANIONSHIP WITH THE LIMESTONE ORNAMENTS SURROUNDING THE THREE GABLES THE WINDOWS AND THE DOOR PLACE",
+          "text": "It is a very fine old place of red brick, softened by a pale, powdery lichen, which has dispersed itself with happy irregularity, so as to bring the red brick into terms of friendly companionship with the limestone ornaments surrounding the three gables, the windows, and the door place.",
+          "reference_words": 49,
+          "substitutions": 0,
+          "deletions": 0,
+          "insertions": 0,
+          "wer": 0.0
+        },
+        {
+          "id": "2300-131720-0000",
+          "suite": "test-clean",
+          "source": "10-test-clean-2300-131720-0000.wav",
+          "reference": "THE PARIS PLANT LIKE THAT AT THE CRYSTAL PALACE WAS A TEMPORARY EXHIBIT",
+          "text": "The Paris plant, like that at the Crystal Palace, was a temporary exhibit.",
+          "reference_words": 13,
+          "substitutions": 0,
+          "deletions": 0,
+          "insertions": 0,
+          "wer": 0.0
+        },
+        {
+          "id": "1688-142285-0000",
+          "suite": "test-other",
+          "source": "11-test-other-1688-142285-0000.wav",
+          "reference": "THERE'S IRON THEY SAY IN ALL OUR BLOOD AND A GRAIN OR TWO PERHAPS IS GOOD BUT HIS HE MAKES ME HARSHLY FEEL HAS GOT A LITTLE TOO MUCH OF STEEL ANON",
+          "text": "There's iron, they say, in all our blood. And a grain or two, perhaps, is good. But his, he makes me harshly feel, has got a little too much of steel. Anon.",
+          "reference_words": 32,
+          "substitutions": 0,
+          "deletions": 0,
+          "insertions": 0,
+          "wer": 0.0
+        },
+        {
+          "id": "1998-15444-0000",
+          "suite": "test-other",
+          "source": "12-test-other-1998-15444-0000.wav",
+          "reference": "IF CALLED TO A CASE SUPPOSED OR SUSPECTED TO BE ONE OF POISONING THE MEDICAL MAN HAS TWO DUTIES TO PERFORM TO SAVE THE PATIENT'S LIFE AND TO PLACE HIMSELF IN A POSITION TO GIVE EVIDENCE IF CALLED ON TO DO SO",
+          "text": "If called to a case supposed or suspected to be one of poisoning, the medical man has two duties to perform. To save the patient's life and to place himself in a position to give evidence if called on to do so.",
+          "reference_words": 42,
+          "substitutions": 0,
+          "deletions": 0,
+          "insertions": 0,
+          "wer": 0.0
+        },
+        {
+          "id": "2033-164914-0000",
+          "suite": "test-other",
+          "source": "13-test-other-2033-164914-0000.wav",
+          "reference": "REPLIED HE OF A TRUTH I HEARD HIM NOT AND I WOT HIM NOT AND FOLKS ARE ALL SLEEPING",
+          "text": "Replied he, \"Of the truth I heard him not, and I watched him not, and folks are all sleeping.\"",
+          "reference_words": 19,
+          "substitutions": 2,
+          "deletions": 0,
+          "insertions": 0,
+          "wer": 0.10526315789473684
+        },
+        {
+          "id": "2414-128291-0000",
+          "suite": "test-other",
+          "source": "14-test-other-2414-128291-0000.wav",
+          "reference": "WHAT HATH HAPPENED UNTO ME",
+          "text": "What has happened to me.",
+          "reference_words": 5,
+          "substitutions": 2,
+          "deletions": 0,
+          "insertions": 0,
+          "wer": 0.4
+        },
+        {
+          "id": "2609-156975-0000",
+          "suite": "test-other",
+          "source": "15-test-other-2609-156975-0000.wav",
+          "reference": "THEN MOSES WAS AFRAID AND SAID SURELY THE THING IS KNOWN",
+          "text": "The Moses was afraid and said, \"Surely the thing is known.\"",
+          "reference_words": 11,
+          "substitutions": 1,
+          "deletions": 0,
+          "insertions": 0,
+          "wer": 0.09090909090909091
+        },
+        {
+          "id": "3005-163389-0000",
+          "suite": "test-other",
+          "source": "16-test-other-3005-163389-0000.wav",
+          "reference": "THEY SWARMED UP IN FRONT OF SHERBURN'S PALINGS AS THICK AS THEY COULD JAM TOGETHER AND YOU COULDN'T HEAR YOURSELF THINK FOR THE NOISE",
+          "text": "They swarmed up in front of Sherburn's palings as thick as they could jam together, and you couldn't hear yourself think for the noise.",
+          "reference_words": 24,
+          "substitutions": 0,
+          "deletions": 0,
+          "insertions": 0,
+          "wer": 0.0
+        },
+        {
+          "id": "3080-5032-0000",
+          "suite": "test-other",
+          "source": "17-test-other-3080-5032-0000.wav",
+          "reference": "BUT I AM HUGELY PLEASED THAT YOU HAVE SEEN MY LADY",
+          "text": "But, I am hugely pleased that you have seen my lady.",
+          "reference_words": 11,
+          "substitutions": 0,
+          "deletions": 0,
+          "insertions": 0,
+          "wer": 0.0
+        },
+        {
+          "id": "3331-159605-0000",
+          "suite": "test-other",
+          "source": "18-test-other-3331-159605-0000.wav",
+          "reference": "SHE PULLED HER HAIR DOWN TURNED HER SKIRT BACK PUT HER FEET ON THE FENDER AND TOOK PUTTEL INTO HER LAP ALL OF WHICH ARRANGEMENTS SIGNIFIED THAT SOMETHING VERY IMPORTANT HAD GOT TO BE THOUGHT OVER AND SETTLED",
+          "text": "She pulled her hair down, turned her skirt back, put her feet on the fender and took Potter under her lap, all of which arrangements signified that something very important had got to be thought over and settled.",
+          "reference_words": 38,
+          "substitutions": 2,
+          "deletions": 0,
+          "insertions": 0,
+          "wer": 0.05263157894736842
+        },
+        {
+          "id": "3528-168656-0000",
+          "suite": "test-other",
+          "source": "19-test-other-3528-168656-0000.wav",
+          "reference": "SHE HAD EVEN BEEN IN SOCIETY BEFORE THE REVOLUTION",
+          "text": "She had even been in society before the revolution.",
+          "reference_words": 9,
+          "substitutions": 0,
+          "deletions": 0,
+          "insertions": 0,
+          "wer": 0.0
+        },
+        {
+          "id": "3538-142836-0000",
+          "suite": "test-other",
+          "source": "20-test-other-3538-142836-0000.wav",
+          "reference": "GENERAL OBSERVATIONS ON PRESERVES CONFECTIONARY ICES AND DESSERT DISHES",
+          "text": "General observations on preserves, confectionery, ices, and dessert dishes.",
+          "reference_words": 9,
+          "substitutions": 1,
+          "deletions": 0,
+          "insertions": 0,
+          "wer": 0.1111111111111111
+        }
+      ]
+    },
+    "ospr-small-repeat": {
+      "summary": {
+        "all": {
+          "cases": 20,
+          "reference_words": 485,
+          "substitutions": 14,
+          "deletions": 2,
+          "insertions": 0,
+          "word_errors": 16,
+          "wer": 0.032989690721649485
+        },
+        "test-clean": {
+          "cases": 10,
+          "reference_words": 285,
+          "substitutions": 8,
+          "deletions": 2,
+          "insertions": 0,
+          "word_errors": 10,
+          "wer": 0.03508771929824561
+        },
+        "test-other": {
+          "cases": 10,
+          "reference_words": 200,
+          "substitutions": 6,
+          "deletions": 0,
+          "insertions": 0,
+          "word_errors": 6,
+          "wer": 0.03
+        }
+      },
+      "records": [
+        {
+          "id": "1089-134686-0000",
+          "suite": "test-clean",
+          "source": "01-test-clean-1089-134686-0000.wav",
+          "reference": "HE HOPED THERE WOULD BE STEW FOR DINNER TURNIPS AND CARROTS AND BRUISED POTATOES AND FAT MUTTON PIECES TO BE LADLED OUT IN THICK PEPPERED FLOUR FATTENED SAUCE",
+          "text": "He hoped there would be stew for dinner, turnips and carrots and bruised potatoes and fat mutton pieces to be ladled out in thick, peppered, flour-fattened sauce.",
+          "reference_words": 28,
+          "substitutions": 1,
+          "deletions": 1,
+          "insertions": 0,
+          "wer": 0.07142857142857142
+        },
+        {
+          "id": "1188-133604-0000",
+          "suite": "test-clean",
+          "source": "02-test-clean-1188-133604-0000.wav",
+          "reference": "YOU WILL FIND ME CONTINUALLY SPEAKING OF FOUR MEN TITIAN HOLBEIN TURNER AND TINTORET IN ALMOST THE SAME TERMS",
+          "text": "You will find me continually speaking of 4 men, Titian, Holbein, Turner, and Tintorette, in almost the same terms.",
+          "reference_words": 19,
+          "substitutions": 2,
+          "deletions": 0,
+          "insertions": 0,
+          "wer": 0.10526315789473684
+        },
+        {
+          "id": "121-121726-0000",
+          "suite": "test-clean",
+          "source": "03-test-clean-121-121726-0000.wav",
+          "reference": "ALSO A POPULAR CONTRIVANCE WHEREBY LOVE MAKING MAY BE SUSPENDED BUT NOT STOPPED DURING THE PICNIC SEASON",
+          "text": "Also a popular condrivens, whereby lovemaking may be suspended, but not stopped during the picnic season.",
+          "reference_words": 17,
+          "substitutions": 2,
+          "deletions": 1,
+          "insertions": 0,
+          "wer": 0.17647058823529413
+        },
+        {
+          "id": "1221-135766-0000",
+          "suite": "test-clean",
+          "source": "04-test-clean-1221-135766-0000.wav",
+          "reference": "HOW STRANGE IT SEEMED TO THE SAD WOMAN AS SHE WATCHED THE GROWTH AND THE BEAUTY THAT BECAME EVERY DAY MORE BRILLIANT AND THE INTELLIGENCE THAT THREW ITS QUIVERING SUNSHINE OVER THE TINY FEATURES OF THIS CHILD",
+          "text": "How strange it seemed to the sad woman as she watched the growth and the beauty that became every day more brilliant and the intelligence that threw its quivering sunshine over the tiny features of this child.",
+          "reference_words": 37,
+          "substitutions": 0,
+          "deletions": 0,
+          "insertions": 0,
+          "wer": 0.0
+        },
+        {
+          "id": "1284-1180-0000",
+          "suite": "test-clean",
+          "source": "05-test-clean-1284-1180-0000.wav",
+          "reference": "HE WORE BLUE SILK STOCKINGS BLUE KNEE PANTS WITH GOLD BUCKLES A BLUE RUFFLED WAIST AND A JACKET OF BRIGHT BLUE BRAIDED WITH GOLD",
+          "text": "He wore blue silk stockings, blue knee pants with gold buckles, a blue ruffled waist, and a jacket of bright blue braided with gold.",
+          "reference_words": 24,
+          "substitutions": 0,
+          "deletions": 0,
+          "insertions": 0,
+          "wer": 0.0
+        },
+        {
+          "id": "1320-122612-0000",
+          "suite": "test-clean",
+          "source": "06-test-clean-1320-122612-0000.wav",
+          "reference": "SINCE THE PERIOD OF OUR TALE THE ACTIVE SPIRIT OF THE COUNTRY HAS SURROUNDED IT WITH A BELT OF RICH AND THRIVING SETTLEMENTS THOUGH NONE BUT THE HUNTER OR THE SAVAGE IS EVER KNOWN EVEN NOW TO PENETRATE ITS WILD RECESSES",
+          "text": "Since the period of our tale, the active spirit of the country has surrounded it with a belt of rich and thriving settlements, though none but the hunter or the savage is ever known even now to penetrate its wild recesses.",
+          "reference_words": 41,
+          "substitutions": 0,
+          "deletions": 0,
+          "insertions": 0,
+          "wer": 0.0
+        },
+        {
+          "id": "1580-141083-0000",
+          "suite": "test-clean",
+          "source": "07-test-clean-1580-141083-0000.wav",
+          "reference": "I WILL ENDEAVOUR IN MY STATEMENT TO AVOID SUCH TERMS AS WOULD SERVE TO LIMIT THE EVENTS TO ANY PARTICULAR PLACE OR GIVE A CLUE AS TO THE PEOPLE CONCERNED",
+          "text": "I will endeavor in my statement to avoid such terms as would serve to limit the events to any particular place or give a clue as to the people concerned.",
+          "reference_words": 30,
+          "substitutions": 1,
+          "deletions": 0,
+          "insertions": 0,
+          "wer": 0.03333333333333333
+        },
+        {
+          "id": "1995-1826-0000",
+          "suite": "test-clean",
+          "source": "08-test-clean-1995-1826-0000.wav",
+          "reference": "IN THE DEBATE BETWEEN THE SENIOR SOCIETIES HER DEFENCE OF THE FIFTEENTH AMENDMENT HAD BEEN NOT ONLY A NOTABLE BIT OF REASONING BUT DELIVERED WITH REAL ENTHUSIASM",
+          "text": "In the debate between the senior societies, her defense of the 15th Amendment had been not only a notable bit of reasoning, but delivered with real enthusiasm.",
+          "reference_words": 27,
+          "substitutions": 2,
+          "deletions": 0,
+          "insertions": 0,
+          "wer": 0.07407407407407407
+        },
+        {
+          "id": "2094-142345-0000",
+          "suite": "test-clean",
+          "source": "09-test-clean-2094-142345-0000.wav",
+          "reference": "IT IS A VERY FINE OLD PLACE OF RED BRICK SOFTENED BY A PALE POWDERY LICHEN WHICH HAS DISPERSED ITSELF WITH HAPPY IRREGULARITY SO AS TO BRING THE RED BRICK INTO TERMS OF FRIENDLY COMPANIONSHIP WITH THE LIMESTONE ORNAMENTS SURROUNDING THE THREE GABLES THE WINDOWS AND THE DOOR PLACE",
+          "text": "It is a very fine old place of red brick, softened by a pale, powdery lichen, which has dispersed itself with happy irregularity, so as to bring the red brick into terms of friendly companionship with the limestone ornaments surrounding the three gables, the windows, and the door place.",
+          "reference_words": 49,
+          "substitutions": 0,
+          "deletions": 0,
+          "insertions": 0,
+          "wer": 0.0
+        },
+        {
+          "id": "2300-131720-0000",
+          "suite": "test-clean",
+          "source": "10-test-clean-2300-131720-0000.wav",
+          "reference": "THE PARIS PLANT LIKE THAT AT THE CRYSTAL PALACE WAS A TEMPORARY EXHIBIT",
+          "text": "The Paris plant, like that at the Crystal Palace, was a temporary exhibit.",
+          "reference_words": 13,
+          "substitutions": 0,
+          "deletions": 0,
+          "insertions": 0,
+          "wer": 0.0
+        },
+        {
+          "id": "1688-142285-0000",
+          "suite": "test-other",
+          "source": "11-test-other-1688-142285-0000.wav",
+          "reference": "THERE'S IRON THEY SAY IN ALL OUR BLOOD AND A GRAIN OR TWO PERHAPS IS GOOD BUT HIS HE MAKES ME HARSHLY FEEL HAS GOT A LITTLE TOO MUCH OF STEEL ANON",
+          "text": "There's iron, they say, in all our blood, and a grain or two perhaps is good. But his, he makes me harshly feel, has got a little too much of steel. Anon.",
+          "reference_words": 32,
+          "substitutions": 0,
+          "deletions": 0,
+          "insertions": 0,
+          "wer": 0.0
+        },
+        {
+          "id": "1998-15444-0000",
+          "suite": "test-other",
+          "source": "12-test-other-1998-15444-0000.wav",
+          "reference": "IF CALLED TO A CASE SUPPOSED OR SUSPECTED TO BE ONE OF POISONING THE MEDICAL MAN HAS TWO DUTIES TO PERFORM TO SAVE THE PATIENT'S LIFE AND TO PLACE HIMSELF IN A POSITION TO GIVE EVIDENCE IF CALLED ON TO DO SO",
+          "text": "If called to a case supposed or suspected to be one of poisoning, the medical man has two duties to perform. To save the patient's life and to place himself in a position to give evidence if called on to do so.",
+          "reference_words": 42,
+          "substitutions": 0,
+          "deletions": 0,
+          "insertions": 0,
+          "wer": 0.0
+        },
+        {
+          "id": "2033-164914-0000",
+          "suite": "test-other",
+          "source": "13-test-other-2033-164914-0000.wav",
+          "reference": "REPLIED HE OF A TRUTH I HEARD HIM NOT AND I WOT HIM NOT AND FOLKS ARE ALL SLEEPING",
+          "text": "replied he, of a truth I heard him not, and I watched him not, and folks are all sleeping.",
+          "reference_words": 19,
+          "substitutions": 1,
+          "deletions": 0,
+          "insertions": 0,
+          "wer": 0.05263157894736842
+        },
+        {
+          "id": "2414-128291-0000",
+          "suite": "test-other",
+          "source": "14-test-other-2414-128291-0000.wav",
+          "reference": "WHAT HATH HAPPENED UNTO ME",
+          "text": "what has happened to me.",
+          "reference_words": 5,
+          "substitutions": 2,
+          "deletions": 0,
+          "insertions": 0,
+          "wer": 0.4
+        },
+        {
+          "id": "2609-156975-0000",
+          "suite": "test-other",
+          "source": "15-test-other-2609-156975-0000.wav",
+          "reference": "THEN MOSES WAS AFRAID AND SAID SURELY THE THING IS KNOWN",
+          "text": "The Moses was afraid and said, Surely the thing is known.",
+          "reference_words": 11,
+          "substitutions": 1,
+          "deletions": 0,
+          "insertions": 0,
+          "wer": 0.09090909090909091
+        },
+        {
+          "id": "3005-163389-0000",
+          "suite": "test-other",
+          "source": "16-test-other-3005-163389-0000.wav",
+          "reference": "THEY SWARMED UP IN FRONT OF SHERBURN'S PALINGS AS THICK AS THEY COULD JAM TOGETHER AND YOU COULDN'T HEAR YOURSELF THINK FOR THE NOISE",
+          "text": "They swarmed up in front of Sherburn's palings as thick as they could jam together, and you couldn't hear yourself think for the noise.",
+          "reference_words": 24,
+          "substitutions": 0,
+          "deletions": 0,
+          "insertions": 0,
+          "wer": 0.0
+        },
+        {
+          "id": "3080-5032-0000",
+          "suite": "test-other",
+          "source": "17-test-other-3080-5032-0000.wav",
+          "reference": "BUT I AM HUGELY PLEASED THAT YOU HAVE SEEN MY LADY",
+          "text": "But, I am hugely pleased that you have seen my lady.",
+          "reference_words": 11,
+          "substitutions": 0,
+          "deletions": 0,
+          "insertions": 0,
+          "wer": 0.0
+        },
+        {
+          "id": "3331-159605-0000",
+          "suite": "test-other",
+          "source": "18-test-other-3331-159605-0000.wav",
+          "reference": "SHE PULLED HER HAIR DOWN TURNED HER SKIRT BACK PUT HER FEET ON THE FENDER AND TOOK PUTTEL INTO HER LAP ALL OF WHICH ARRANGEMENTS SIGNIFIED THAT SOMETHING VERY IMPORTANT HAD GOT TO BE THOUGHT OVER AND SETTLED",
+          "text": "She pulled her hair down, turned her skirt back, put her feet on the fender and took putter into her lap, all of which arrangements signified that something very important had got to be thought over and settled.",
+          "reference_words": 38,
+          "substitutions": 1,
+          "deletions": 0,
+          "insertions": 0,
+          "wer": 0.02631578947368421
+        },
+        {
+          "id": "3528-168656-0000",
+          "suite": "test-other",
+          "source": "19-test-other-3528-168656-0000.wav",
+          "reference": "SHE HAD EVEN BEEN IN SOCIETY BEFORE THE REVOLUTION",
+          "text": "She had even been in society before the revolution.",
+          "reference_words": 9,
+          "substitutions": 0,
+          "deletions": 0,
+          "insertions": 0,
+          "wer": 0.0
+        },
+        {
+          "id": "3538-142836-0000",
+          "suite": "test-other",
+          "source": "20-test-other-3538-142836-0000.wav",
+          "reference": "GENERAL OBSERVATIONS ON PRESERVES CONFECTIONARY ICES AND DESSERT DISHES",
+          "text": "General observations on preserves, confectionery, ices, and dessert dishes.",
+          "reference_words": 9,
+          "substitutions": 1,
+          "deletions": 0,
+          "insertions": 0,
+          "wer": 0.1111111111111111
+        }
+      ]
+    }
+  },
+  "interrupted_exports": 18,
+  "interrupted_missing_sources": [
+    "01-test-clean-1089-134686-0000.wav",
+    "20-test-other-3538-142836-0000.wav"
+  ],
+  "limitations": [
+    "Twenty reused LibriSpeech development read-speech cases; not an independent holdout or representative natural dictation/meetings/multilingual set.",
+    "Same upstream Whisper Small family, different runtime/conversion/decoder defaults. No claim of identical weights or runtime-only attribution.",
+    "One MacWhisper cohort and one complete OSpr repeat; interrupted earlier OSpr attempt retained without subset WER. No best-of selection.",
+    "MacWhisper reports rounded 00:00/00:01 plus realtime multiples; OSpr latencyMS is its own request-processing boundary. No comparable latency or energy ranking.",
+    "No microphone, hotkey, insertion, endpointing, rewriting or top-three/product-parity acceptance from file import.",
+    "VoiceInk setup gate is unmeasured, not a recognition failure."
+  ],
+  "observations_sha256": "d671cc9d97bab3b35ef6e71f9f7079b8bc94ca68f13f14b69d6ce76147888a5b"
+}

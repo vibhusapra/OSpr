@@ -2,6 +2,32 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## Actual consumer file-import comparison
+
+The official MacWhisper 15.8 free GUI (WhisperKit Small) and the current OSpr
+release GUI payload (MLX Whisper Small, automatic language/Verbatim) imported and
+exported the same twenty preselected public files. Shared corpus WER: MacWhisper
+17/485 word errors (3.51%); OSpr complete repeat 16/485 (3.30%). A one-word
+difference on reused read speech does not establish an accuracy winner.
+
+All forty native outputs, exact raw-export hashes and per-file scores are public.
+An earlier OSpr session quit normally after eighteen exports; its raw outputs
+remain separate without a subset score. Logs show a quit action and orderly
+termination, with origin unestablished; session-only history was discarded as
+designed. The unchanged full repeat completed. Nine scorer controls reject
+missing/duplicate/foreign/edited/configuration-changed evidence and preserve
+empty recognition errors. Normal OSpr is restored, all five baseline hashes
+unchanged. No production source, weights or release archive changed.
+
+VoiceInk 2.21 is unmeasured: required onboarding Microphone/Accessibility access
+was not granted. Screen Recording is optional. No trial, account or purchase.
+No cross-product timing/energy, microphone, insertion or top-three claim follows.
+History source labels, batch error visibility and bulk export remain concrete
+workflow TODOs.
+[Method and reproduction](architecture/native-file-comparison.md) ·
+[All native observations](../benchmarks/fixtures/native-file-observations.json) ·
+[Complete scores](../benchmarks/results/native-file-comparison.json).
+
 ## Native profile translation, enable state and duplicate controls
 
 The current packaged GUI payload passes private-profile native translation,

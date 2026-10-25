@@ -1,0 +1,659 @@
+{
+  "schema_version": 1,
+  "captured_at": "2026-10-25T00:53:07.046553+00:00",
+  "protocol_sha256": "5c6e110cab6d39017efda1804daa09184b19f38998f27ffa2989bdcb3d673762",
+  "input_files_rehashed": 20,
+  "environment": {
+    "hardware": "Apple M5 Max, 128 GB unified memory",
+    "os": "macOS 26.6.2",
+    "activity": "Shared desktop, no thermal/energy isolation"
+  },
+  "ospr": {
+    "source_sha256": "17bf45f556aff0010b02676babbef87556e2a59b98dd06bd3cbf94450773a33a",
+    "original_package_build_commit": "7a6e9ff2fdf1aa9c38a638fd1c88f927507060a5",
+    "gui_identity": {
+      "unsigned_gui_bytes_identical": true,
+      "unsigned_sha256": "2148db2c57b5b4a08c91d0c9038222b01160fce0859f4c08c7b17a2a1781d68b",
+      "qa_signed_sha256": "38f016a43c37599766e1298f9bb8309af096b4df15e068b329b4bd4bb6c993af",
+      "package_signed_sha256": "13ffee7cef9355d1845517b9e0c2bb55cec5afff5c858d65a54ba7d44ea4221a"
+    },
+    "configuration": {
+      "model": "whisper-small",
+      "mode": "verbatim",
+      "language": "",
+      "rewriteProvider": "none",
+      "transcriptionProvider": "local",
+      "saveHistory": false,
+      "keepAudio": false,
+      "autoPaste": false,
+      "preview": false,
+      "speakerLabels": false,
+      "silenceTrim": false,
+      "neuralEdgeTrim": false,
+      "profiles": []
+    },
+    "engine": "MLX; package runtime, cached weights",
+    "warmup": {
+      "source": "1272-128104-0000.wav",
+      "text": "Mr. Quilter is the apostle of the Middle Classes, and we are glad to welcome his Gospel.",
+      "raw_export_utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T00:48:21Z\",\n  \"duration\" : 5.855,\n  \"id\" : \"E43CC3B5-93B0-49B7-8A1C-599FE20D3E4F\",\n  \"latencyMS\" : 4468.95694732666,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"Mr. Quilter is the apostle of the Middle Classes, and we are glad to welcome his Gospel.\",\n  \"segments\" : [\n    {\n      \"end\" : 5.48,\n      \"start\" : 0,\n      \"text\" : \"Mr. Quilter is the apostle of the Middle Classes, and we are glad to welcome his Gospel.\"\n    }\n  ],\n  \"source\" : \"1272-128104-0000.wav\",\n  \"text\" : \"Mr. Quilter is the apostle of the Middle Classes, and we are glad to welcome his Gospel.\",\n  \"words\" : [\n\n  ]\n}",
+      "raw_export_sha256": "100f913a8740ba26bf3691549d5fd0ea6c917424fa4a29907684ebcefbe1c364",
+      "export_name": "record-21.json"
+    }
+  },
+  "macwhisper": {
+    "version": "15.8",
+    "build": "1580",
+    "model": "Small",
+    "engine": "WhisperKit",
+    "language": "Auto Detect",
+    "source_url": "https://cdn.macwhisper.com/macwhisper/MacWhisper-1580.zip",
+    "archive_sha256": "04af03c554172154cb72cc79cf4f9108b24f3b894b9fdefbb31892e6f6e39d5e",
+    "signature": "Strict deep signature verified; Gatekeeper Notarized Developer ID accepted before launch and version/signature rechecked after export",
+    "access": "No account, trial, purchase, provider key or new microphone/Accessibility/Screen Recording permission",
+    "warmup_text": "Mr. Quilter is the apostle of the Middle Classes, and we are glad to welcome his Gospel.",
+    "warmup_sha256": "b132f9315047ed67c8fd624d81a6b4bed41c1ac72c59ff2384844705ed857305"
+  },
+  "completed_routes": {
+    "macwhisper-small": {
+      "records": [
+        {
+          "source": "01-test-clean-1089-134686-0000.wav",
+          "text": "He hoped there would be stew for dinner, turnips and carrots and bruised potatoes and fat mutton pieces to be ladled out in thick, peppered, flour-fattened sauce.",
+          "raw_export_utf8": "He hoped there would be stew for dinner, turnips and carrots and bruised potatoes and fat mutton pieces to be ladled out in thick, peppered, flour-fattened sauce.",
+          "raw_export_sha256": "1df2866f6b841bbc866cb726f8cd3a1c33b798ca6894cbcbe474d256d2e7b77d",
+          "reported_native_metadata": {
+            "stem": "01-test-clean-1089-134686-0000",
+            "reported": "\t\t\t\t\t80 text Transcribe Time, Help: This transcription took 00:00 to complete., Value: 00:00 17.6x realtime English Auto Detect Small WhisperKit 162 27",
+            "export_characters": 162,
+            "model": "Small",
+            "engine": "WhisperKit",
+            "language_setting": "Auto Detect"
+          }
+        },
+        {
+          "source": "02-test-clean-1188-133604-0000.wav",
+          "text": "You will find me continually speaking of 4 men, Titian, Holbein, Turner, and Tintoret in almost the same terms.",
+          "raw_export_utf8": "You will find me continually speaking of 4 men, Titian, Holbein, Turner, and Tintoret in almost the same terms.",
+          "raw_export_sha256": "c29bc3b9760fbe65237341378c3470b0d186f320b3caa2567ba9b9b60ac786b6",
+          "reported_native_metadata": {
+            "stem": "02-test-clean-1188-133604-0000",
+            "reported": "\t\t\t\t\t54 text Transcribe Time, Help: This transcription took 00:00 to complete., Value: 00:00 24.5x realtime English Auto Detect Small WhisperKit 111 19",
+            "export_characters": 111,
+            "model": "Small",
+            "engine": "WhisperKit",
+            "language_setting": "Auto Detect"
+          }
+        },
+        {
+          "source": "03-test-clean-121-121726-0000.wav",
+          "text": "Also a popular condrivens, whereby lovemaking may be suspended, but not stopped during the picnic season.",
+          "raw_export_utf8": "Also a popular condrivens, whereby lovemaking may be suspended, but not stopped during the picnic season.",
+          "raw_export_sha256": "09d024e9911d8c2171f425fdbf47e9e72c7d5e8ab2d6ce8b9f0a5eac2bb74d19",
+          "reported_native_metadata": {
+            "stem": "03-test-clean-121-121726-0000",
+            "reported": "\t\t\t\t\t62 text Transcribe Time, Help: This transcription took 00:00 to complete., Value: 00:00 23.5x realtime English Auto Detect Small WhisperKit 105 16",
+            "export_characters": 105,
+            "model": "Small",
+            "engine": "WhisperKit",
+            "language_setting": "Auto Detect"
+          }
+        },
+        {
+          "source": "04-test-clean-1221-135766-0000.wav",
+          "text": "How strange it seemed to the sad woman as she watched the growth and the beauty that became every day more brilliant and the intelligence that threw its quivering sunshine over the tiny features of this child.",
+          "raw_export_utf8": "How strange it seemed to the sad woman as she watched the growth and the beauty that became every day more brilliant and the intelligence that threw its quivering sunshine over the tiny features of this child.",
+          "raw_export_sha256": "95c5f3920264ba68671f778c4106440fb1d2bec99aab43fe31be4e0c3299bb1c",
+          "reported_native_metadata": {
+            "stem": "04-test-clean-1221-135766-0000",
+            "reported": "\t\t\t\t\t63 text Transcribe Time, Help: This transcription took 00:00 to complete., Value: 00:00 21.1x realtime English Auto Detect Small WhisperKit 209 37",
+            "export_characters": 209,
+            "model": "Small",
+            "engine": "WhisperKit",
+            "language_setting": "Auto Detect"
+          }
+        },
+        {
+          "source": "05-test-clean-1284-1180-0000.wav",
+          "text": "He wore blue silk stockings, blue knee pants with gold buckles, a blue ruffled waist, and a jacket of bright blue braided with gold.",
+          "raw_export_utf8": "He wore blue silk stockings, blue knee pants with gold buckles, a blue ruffled waist, and a jacket of bright blue braided with gold.",
+          "raw_export_sha256": "0a7abeb1719c581e9c340bfb610654fd020d09c89e0eddb1e56a4e1f0f8a4ba4",
+          "reported_native_metadata": {
+            "stem": "05-test-clean-1284-1180-0000",
+            "reported": "\t\t\t\t\t64 text Transcribe Time, Help: This transcription took 00:00 to complete., Value: 00:00 17.1x realtime English Auto Detect Small WhisperKit 132 24",
+            "export_characters": 132,
+            "model": "Small",
+            "engine": "WhisperKit",
+            "language_setting": "Auto Detect"
+          }
+        },
+        {
+          "source": "06-test-clean-1320-122612-0000.wav",
+          "text": "Since the period of our tale, the active spirit of the country has surrounded it with a belt of rich and thriving settlements, though none but the hunter or the savage is ever known even now to penetrate its wild recesses.",
+          "raw_export_utf8": "Since the period of our tale, the active spirit of the country has surrounded it with a belt of rich and thriving settlements, though none but the hunter or the savage is ever known even now to penetrate its wild recesses.",
+          "raw_export_sha256": "ead6bb670d52af1040c509d1987857c9320a4d719b04bb0e53fad8397ccbdb15",
+          "reported_native_metadata": {
+            "stem": "06-test-clean-1320-122612-0000",
+            "reported": "\t\t\t\t\t65 text Transcribe Time, Help: This transcription took 00:00 to complete., Value: 00:00 21.4x realtime English Auto Detect Small WhisperKit 222 41",
+            "export_characters": 222,
+            "model": "Small",
+            "engine": "WhisperKit",
+            "language_setting": "Auto Detect"
+          }
+        },
+        {
+          "source": "07-test-clean-1580-141083-0000.wav",
+          "text": "I will endeavor in my statement to avoid such terms as would serve to limit the events to any particular place or give a clue as to the people concerned.",
+          "raw_export_utf8": "I will endeavor in my statement to avoid such terms as would serve to limit the events to any particular place or give a clue as to the people concerned.",
+          "raw_export_sha256": "ccebd09ee0fa090b55b31c64ba1f7cd73aa1fc25fb0301ac27d883326e1c8b9e",
+          "reported_native_metadata": {
+            "stem": "07-test-clean-1580-141083-0000",
+            "reported": "\t\t\t\t\t66 text Transcribe Time, Help: This transcription took 00:00 to complete., Value: 00:00 18.8x realtime English Auto Detect Small WhisperKit 153 30",
+            "export_characters": 153,
+            "model": "Small",
+            "engine": "WhisperKit",
+            "language_setting": "Auto Detect"
+          }
+        },
+        {
+          "source": "08-test-clean-1995-1826-0000.wav",
+          "text": "In the debate between the senior societies, her defense of the 15th Amendment had been not only a notable bit of reasoning, but delivered with real enthusiasm.",
+          "raw_export_utf8": "In the debate between the senior societies, her defense of the 15th Amendment had been not only a notable bit of reasoning, but delivered with real enthusiasm.",
+          "raw_export_sha256": "1a348f5cecad18bdb31c6113ab82686ad51823bbd95cf10371f32cbafcb1ab2a",
+          "reported_native_metadata": {
+            "stem": "08-test-clean-1995-1826-0000",
+            "reported": "\t\t\t\t\t67 text Transcribe Time, Help: This transcription took 00:00 to complete., Value: 00:00 19.7x realtime English Auto Detect Small WhisperKit 159 27",
+            "export_characters": 159,
+            "model": "Small",
+            "engine": "WhisperKit",
+            "language_setting": "Auto Detect"
+          }
+        },
+        {
+          "source": "09-test-clean-2094-142345-0000.wav",
+          "text": "It is a very fine old place of red brick, softened by a pale, powdery lichen, which has dispersed itself with happy irregularity, so as to bring the red brick into terms of friendly companionship with the limestone ornaments surrounding the three gables, the windows, and the door place.",
+          "raw_export_utf8": "It is a very fine old place of red brick, softened by a pale, powdery lichen, which has dispersed itself with happy irregularity, so as to bring the red brick into terms of friendly companionship with the limestone ornaments surrounding the three gables, the windows, and the door place.",
+          "raw_export_sha256": "3295ccb76012013b244543d7bd0a061a6522a4232360090ae9a3b9536f88d6fe",
+          "reported_native_metadata": {
+            "stem": "09-test-clean-2094-142345-0000",
+            "reported": "\t\t\t\t\t68 text Transcribe Time, Help: This transcription took 00:00 to complete., Value: 00:00 24.0x realtime English Auto Detect Small WhisperKit 287 49",
+            "export_characters": 287,
+            "model": "Small",
+            "engine": "WhisperKit",
+            "language_setting": "Auto Detect"
+          }
+        },
+        {
+          "source": "10-test-clean-2300-131720-0000.wav",
+          "text": "The Paris plant, like that at the Crystal Palace, was a temporary exhibit.",
+          "raw_export_utf8": "The Paris plant, like that at the Crystal Palace, was a temporary exhibit.",
+          "raw_export_sha256": "22b8fcf74ade9a9d274b1f6940ad0416be10dbd34fe90f1ebfe73802e4e0921c",
+          "reported_native_metadata": {
+            "stem": "10-test-clean-2300-131720-0000",
+            "reported": "\t\t\t\t\t69 text Transcribe Time, Help: This transcription took 00:00 to complete., Value: 00:00 14.1x realtime English Auto Detect Small WhisperKit 74 13",
+            "export_characters": 74,
+            "model": "Small",
+            "engine": "WhisperKit",
+            "language_setting": "Auto Detect"
+          }
+        },
+        {
+          "source": "11-test-other-1688-142285-0000.wav",
+          "text": "There's iron, they say, in all our blood. And a grain or two, perhaps, is good. But his, he makes me harshly feel, has got a little too much of steel. Anon.",
+          "raw_export_utf8": "There's iron, they say, in all our blood. And a grain or two, perhaps, is good. But his, he makes me harshly feel, has got a little too much of steel. Anon.",
+          "raw_export_sha256": "ab9384e07d438035a3754b50bf8d4553f863ee98ce3fb96e58d368a1fe7f54c6",
+          "reported_native_metadata": {
+            "stem": "11-test-other-1688-142285-0000",
+            "reported": "\t\t\t\t\t70 text Transcribe Time, Help: This transcription took 00:00 to complete., Value: 00:00 21.8x realtime English Auto Detect Small WhisperKit 156 32",
+            "export_characters": 156,
+            "model": "Small",
+            "engine": "WhisperKit",
+            "language_setting": "Auto Detect"
+          }
+        },
+        {
+          "source": "12-test-other-1998-15444-0000.wav",
+          "text": "If called to a case supposed or suspected to be one of poisoning, the medical man has two duties to perform. To save the patient's life and to place himself in a position to give evidence if called on to do so.",
+          "raw_export_utf8": "If called to a case supposed or suspected to be one of poisoning, the medical man has two duties to perform. To save the patient's life and to place himself in a position to give evidence if called on to do so.",
+          "raw_export_sha256": "1e0af3b13e3d54b54ab35b8d1c6a5fe78b70fb9f13f1df7f192cf08c4ed3dc19",
+          "reported_native_metadata": {
+            "stem": "12-test-other-1998-15444-0000",
+            "reported": "\t\t\t\t\t71 text Transcribe Time, Help: This transcription took 00:00 to complete., Value: 00:00 19.6x realtime English Auto Detect Small WhisperKit 210 42",
+            "export_characters": 210,
+            "model": "Small",
+            "engine": "WhisperKit",
+            "language_setting": "Auto Detect"
+          }
+        },
+        {
+          "source": "13-test-other-2033-164914-0000.wav",
+          "text": "Replied he, \"Of the truth I heard him not, and I watched him not, and folks are all sleeping.\"",
+          "raw_export_utf8": "Replied he, \"Of the truth I heard him not, and I watched him not, and folks are all sleeping.\"",
+          "raw_export_sha256": "567e4efeef36db92be6ebc9bd82e6c2719f919777b32c603614dc943519acc0f",
+          "reported_native_metadata": {
+            "stem": "13-test-other-2033-164914-0000",
+            "reported": "\t\t\t\t\t72 text Transcribe Time, Help: This transcription took 00:00 to complete., Value: 00:00 23.5x realtime English Auto Detect Small WhisperKit 94 19",
+            "export_characters": 94,
+            "model": "Small",
+            "engine": "WhisperKit",
+            "language_setting": "Auto Detect"
+          }
+        },
+        {
+          "source": "14-test-other-2414-128291-0000.wav",
+          "text": "What has happened to me.",
+          "raw_export_utf8": "What has happened to me.",
+          "raw_export_sha256": "9b9f2633af3dccad294432ac74d339eb68d2e6ca966a57fad658b3119a784d6d",
+          "reported_native_metadata": {
+            "stem": "14-test-other-2414-128291-0000",
+            "reported": "\t\t\t\t\t73 text Transcribe Time, Help: This transcription took 00:00 to complete., Value: 00:00 14.7x realtime English Auto Detect Small WhisperKit 24 5",
+            "export_characters": 24,
+            "model": "Small",
+            "engine": "WhisperKit",
+            "language_setting": "Auto Detect"
+          }
+        },
+        {
+          "source": "15-test-other-2609-156975-0000.wav",
+          "text": "The Moses was afraid and said, \"Surely the thing is known.\"",
+          "raw_export_utf8": "The Moses was afraid and said, \"Surely the thing is known.\"",
+          "raw_export_sha256": "2876a537ffd46ecf1c1b283c7765b930074d71d6a675eba90a8b3073e580de44",
+          "reported_native_metadata": {
+            "stem": "15-test-other-2609-156975-0000",
+            "reported": "\t\t\t\t\t74 text Transcribe Time, Help: This transcription took 00:00 to complete., Value: 00:00 15.2x realtime English Auto Detect Small WhisperKit 59 11",
+            "export_characters": 59,
+            "model": "Small",
+            "engine": "WhisperKit",
+            "language_setting": "Auto Detect"
+          }
+        },
+        {
+          "source": "16-test-other-3005-163389-0000.wav",
+          "text": "They swarmed up in front of Sherburn's palings as thick as they could jam together, and you couldn't hear yourself think for the noise.",
+          "raw_export_utf8": "They swarmed up in front of Sherburn's palings as thick as they could jam together, and you couldn't hear yourself think for the noise.",
+          "raw_export_sha256": "e6081dba8e033e83a706ec3ce897e63d0eaf4b324597ad23dbeab2d1eb259458",
+          "reported_native_metadata": {
+            "stem": "16-test-other-3005-163389-0000",
+            "reported": "\t\t\t\t\t75 text Transcribe Time, Help: This transcription took 00:00 to complete., Value: 00:00 17.0x realtime English Auto Detect Small WhisperKit 135 24",
+            "export_characters": 135,
+            "model": "Small",
+            "engine": "WhisperKit",
+            "language_setting": "Auto Detect"
+          }
+        },
+        {
+          "source": "17-test-other-3080-5032-0000.wav",
+          "text": "But, I am hugely pleased that you have seen my lady.",
+          "raw_export_utf8": "But, I am hugely pleased that you have seen my lady.",
+          "raw_export_sha256": "ec1f5f82c6dc9dc0b5e773ddada34ecdd1cdd52b62a9248b0927c647f3af0086",
+          "reported_native_metadata": {
+            "stem": "17-test-other-3080-5032-0000",
+            "reported": "\t\t\t\t\t76 text Transcribe Time, Help: This transcription took 00:00 to complete., Value: 00:00 16.2x realtime English Auto Detect Small WhisperKit 52 11",
+            "export_characters": 52,
+            "model": "Small",
+            "engine": "WhisperKit",
+            "language_setting": "Auto Detect"
+          }
+        },
+        {
+          "source": "18-test-other-3331-159605-0000.wav",
+          "text": "She pulled her hair down, turned her skirt back, put her feet on the fender and took Potter under her lap, all of which arrangements signified that something very important had got to be thought over and settled.",
+          "raw_export_utf8": "She pulled her hair down, turned her skirt back, put her feet on the fender and took Potter under her lap, all of which arrangements signified that something very important had got to be thought over and settled.",
+          "raw_export_sha256": "e1dcbea2c12c90fb7b111c43ca096b8ccc7bbc7650cf5307322353fc51a04de5",
+          "reported_native_metadata": {
+            "stem": "18-test-other-3331-159605-0000",
+            "reported": "\t\t\t\t\t77 text Transcribe Time, Help: This transcription took 00:00 to complete., Value: 00:00 22.1x realtime English Auto Detect Small WhisperKit 212 38",
+            "export_characters": 212,
+            "model": "Small",
+            "engine": "WhisperKit",
+            "language_setting": "Auto Detect"
+          }
+        },
+        {
+          "source": "19-test-other-3528-168656-0000.wav",
+          "text": "She had even been in society before the revolution.",
+          "raw_export_utf8": "She had even been in society before the revolution.",
+          "raw_export_sha256": "8f162b9f59292cc024e5f435e981d0f3e4b39cd434fd60250545b36b81ef110b",
+          "reported_native_metadata": {
+            "stem": "19-test-other-3528-168656-0000",
+            "reported": "\t\t\t\t\t78 text Transcribe Time, Help: This transcription took 00:00 to complete., Value: 00:00 13.6x realtime English Auto Detect Small WhisperKit 51 9",
+            "export_characters": 51,
+            "model": "Small",
+            "engine": "WhisperKit",
+            "language_setting": "Auto Detect"
+          }
+        },
+        {
+          "source": "20-test-other-3538-142836-0000.wav",
+          "text": "General observations on preserves, confectionery, ices, and dessert dishes.",
+          "raw_export_utf8": "General observations on preserves, confectionery, ices, and dessert dishes.",
+          "raw_export_sha256": "83e49d7d88cb1093a79767a0f6218c5477c940e74a1f2e26a64a00f49a4a5fc8",
+          "reported_native_metadata": {
+            "stem": "20-test-other-3538-142836-0000",
+            "reported": "\t\t\t\t\t79 text Transcribe Time, Help: This transcription took 00:00 to complete., Value: 00:00 16.3x realtime English Auto Detect Small WhisperKit 75 9",
+            "export_characters": 75,
+            "model": "Small",
+            "engine": "WhisperKit",
+            "language_setting": "Auto Detect"
+          }
+        }
+      ]
+    },
+    "ospr-small-repeat": {
+      "records": [
+        {
+          "source": "02-test-clean-1188-133604-0000.wav",
+          "text": "You will find me continually speaking of 4 men, Titian, Holbein, Turner, and Tintorette, in almost the same terms.",
+          "raw_export_utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T00:48:41Z\",\n  \"duration\" : 10.725,\n  \"id\" : \"2B9EF4D9-430A-4DF2-8CE8-2110658DFD0C\",\n  \"latencyMS\" : 180.6429624557495,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"You will find me continually speaking of 4 men, Titian, Holbein, Turner, and Tintorette, in almost the same terms.\",\n  \"segments\" : [\n    {\n      \"end\" : 8.72,\n      \"start\" : 0,\n      \"text\" : \"You will find me continually speaking of 4 men, Titian, Holbein, Turner, and Tintorette,\"\n    },\n    {\n      \"end\" : 10.16,\n      \"start\" : 8.72,\n      \"text\" : \"in almost the same terms.\"\n    }\n  ],\n  \"source\" : \"02-test-clean-1188-133604-0000.wav\",\n  \"text\" : \"You will find me continually speaking of 4 men, Titian, Holbein, Turner, and Tintorette, in almost the same terms.\",\n  \"words\" : [\n\n  ]\n}",
+          "raw_export_sha256": "581e98a2d2838606cfa05a309ba19420b58690a859870c1e24c8f91a7274ac32",
+          "export_name": "record-01.json"
+        },
+        {
+          "source": "03-test-clean-121-121726-0000.wav",
+          "text": "Also a popular condrivens, whereby lovemaking may be suspended, but not stopped during the picnic season.",
+          "raw_export_utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T00:48:41Z\",\n  \"duration\" : 8.46,\n  \"id\" : \"94040831-6FBF-4BEA-A863-C840006CF7D0\",\n  \"latencyMS\" : 157.5709581375122,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"Also a popular condrivens, whereby lovemaking may be suspended, but not stopped during the picnic season.\",\n  \"segments\" : [\n    {\n      \"end\" : 8,\n      \"start\" : 0,\n      \"text\" : \"Also a popular condrivens, whereby lovemaking may be suspended, but not stopped during the picnic season.\"\n    }\n  ],\n  \"source\" : \"03-test-clean-121-121726-0000.wav\",\n  \"text\" : \"Also a popular condrivens, whereby lovemaking may be suspended, but not stopped during the picnic season.\",\n  \"words\" : [\n\n  ]\n}",
+          "raw_export_sha256": "905026402e497c2d2c3430b13c246db3b712bb3de075bcca0920755b66b87b37",
+          "export_name": "record-02.json"
+        },
+        {
+          "source": "04-test-clean-1221-135766-0000.wav",
+          "text": "How strange it seemed to the sad woman as she watched the growth and the beauty that became every day more brilliant and the intelligence that threw its quivering sunshine over the tiny features of this child.",
+          "raw_export_utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T00:48:41Z\",\n  \"duration\" : 12.435,\n  \"id\" : \"6ACF3B8F-E453-4073-AA9C-A8B86AEBCE7F\",\n  \"latencyMS\" : 258.78095626831055,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"How strange it seemed to the sad woman as she watched the growth and the beauty that became every day more brilliant and the intelligence that threw its quivering sunshine over the tiny features of this child.\",\n  \"segments\" : [\n    {\n      \"end\" : 4.9,\n      \"start\" : 0,\n      \"text\" : \"How strange it seemed to the sad woman as she watched the growth and the beauty that\"\n    },\n    {\n      \"end\" : 10.34,\n      \"start\" : 4.9,\n      \"text\" : \"became every day more brilliant and the intelligence that threw its quivering sunshine over the\"\n    },\n    {\n      \"end\" : 12.22,\n      \"start\" : 10.34,\n      \"text\" : \"tiny features of this child.\"\n    }\n  ],\n  \"source\" : \"04-test-clean-1221-135766-0000.wav\",\n  \"text\" : \"How strange it seemed to the sad woman as she watched the growth and the beauty that became every day more brilliant and the intelligence that threw its quivering sunshine over the tiny features of this child.\",\n  \"words\" : [\n\n  ]\n}",
+          "raw_export_sha256": "a158e5c3ee34a515a80084560a0da24fea1a94d4c9e20aad7302f28cd81d25c1",
+          "export_name": "record-03.json"
+        },
+        {
+          "source": "05-test-clean-1284-1180-0000.wav",
+          "text": "He wore blue silk stockings, blue knee pants with gold buckles, a blue ruffled waist, and a jacket of bright blue braided with gold.",
+          "raw_export_utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T00:48:40Z\",\n  \"duration\" : 8.12,\n  \"id\" : \"4264B257-81A5-4211-84AB-D0A48A4FF846\",\n  \"latencyMS\" : 236.4499568939209,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"He wore blue silk stockings, blue knee pants with gold buckles, a blue ruffled waist, and a jacket of bright blue braided with gold.\",\n  \"segments\" : [\n    {\n      \"end\" : 5.6000000000000005,\n      \"start\" : 0,\n      \"text\" : \"He wore blue silk stockings, blue knee pants with gold buckles, a blue ruffled waist, and\"\n    },\n    {\n      \"end\" : 7.92,\n      \"start\" : 5.6000000000000005,\n      \"text\" : \"a jacket of bright blue braided with gold.\"\n    }\n  ],\n  \"source\" : \"05-test-clean-1284-1180-0000.wav\",\n  \"text\" : \"He wore blue silk stockings, blue knee pants with gold buckles, a blue ruffled waist, and a jacket of bright blue braided with gold.\",\n  \"words\" : [\n\n  ]\n}",
+          "raw_export_sha256": "da7519b9840fa5df3481e6844d0740871462c548ef66c5b701df87e2980646c8",
+          "export_name": "record-04.json"
+        },
+        {
+          "source": "06-test-clean-1320-122612-0000.wav",
+          "text": "Since the period of our tale, the active spirit of the country has surrounded it with a belt of rich and thriving settlements, though none but the hunter or the savage is ever known even now to penetrate its wild recesses.",
+          "raw_export_utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T00:48:40Z\",\n  \"duration\" : 13.48,\n  \"id\" : \"54D5BEAE-AFA2-47BD-9F17-86E027CCDAE8\",\n  \"latencyMS\" : 388.23604583740234,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"Since the period of our tale, the active spirit of the country has surrounded it with a belt of rich and thriving settlements, though none but the hunter or the savage is ever known even now to penetrate its wild recesses.\",\n  \"segments\" : [\n    {\n      \"end\" : 7,\n      \"start\" : 0,\n      \"text\" : \"Since the period of our tale, the active spirit of the country has surrounded it with a belt of rich and thriving settlements,\"\n    },\n    {\n      \"end\" : 13,\n      \"start\" : 7,\n      \"text\" : \"though none but the hunter or the savage is ever known even now to penetrate its wild recesses.\"\n    }\n  ],\n  \"source\" : \"06-test-clean-1320-122612-0000.wav\",\n  \"text\" : \"Since the period of our tale, the active spirit of the country has surrounded it with a belt of rich and thriving settlements, though none but the hunter or the savage is ever known even now to penetrate its wild recesses.\",\n  \"words\" : [\n\n  ]\n}",
+          "raw_export_sha256": "5b5b3fe3df54e7ef79b650c77140af4f915c5831b7b3f17c2efb06a4b894b4b3",
+          "export_name": "record-05.json"
+        },
+        {
+          "source": "07-test-clean-1580-141083-0000.wav",
+          "text": "I will endeavor in my statement to avoid such terms as would serve to limit the events to any particular place or give a clue as to the people concerned.",
+          "raw_export_utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T00:48:40Z\",\n  \"duration\" : 8.94,\n  \"id\" : \"5293D774-42A3-4FA6-8B07-A1FE85413448\",\n  \"latencyMS\" : 455.1849365234375,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"I will endeavor in my statement to avoid such terms as would serve to limit the events to any particular place or give a clue as to the people concerned.\",\n  \"segments\" : [\n    {\n      \"end\" : 6,\n      \"start\" : 0,\n      \"text\" : \"I will endeavor in my statement to avoid such terms as would serve to limit the events to any particular place\"\n    },\n    {\n      \"end\" : 8.94,\n      \"start\" : 6,\n      \"text\" : \"or give a clue as to the people concerned.\"\n    }\n  ],\n  \"source\" : \"07-test-clean-1580-141083-0000.wav\",\n  \"text\" : \"I will endeavor in my statement to avoid such terms as would serve to limit the events to any particular place or give a clue as to the people concerned.\",\n  \"warning\" : \"Some recognizer timings extended outside the analyzed audio and were bounded. Check alignment before using timed exports.\",\n  \"words\" : [\n\n  ]\n}",
+          "raw_export_sha256": "f99ea72525a6f725d0f27a63f2685ea8d239214df5d7c3ed1814763192e58b42",
+          "export_name": "record-06.json"
+        },
+        {
+          "source": "08-test-clean-1995-1826-0000.wav",
+          "text": "In the debate between the senior societies, her defense of the 15th Amendment had been not only a notable bit of reasoning, but delivered with real enthusiasm.",
+          "raw_export_utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T00:48:39Z\",\n  \"duration\" : 9.485,\n  \"id\" : \"7D8D34AA-B000-48C5-86A4-6BE2DADFEDDE\",\n  \"latencyMS\" : 257.4669122695923,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"In the debate between the senior societies, her defense of the 15th Amendment had been not only a notable bit of reasoning, but delivered with real enthusiasm.\",\n  \"segments\" : [\n    {\n      \"end\" : 4.76,\n      \"start\" : 0,\n      \"text\" : \"In the debate between the senior societies, her defense of the 15th Amendment had been\"\n    },\n    {\n      \"end\" : 9.040000000000001,\n      \"start\" : 4.76,\n      \"text\" : \"not only a notable bit of reasoning, but delivered with real enthusiasm.\"\n    }\n  ],\n  \"source\" : \"08-test-clean-1995-1826-0000.wav\",\n  \"text\" : \"In the debate between the senior societies, her defense of the 15th Amendment had been not only a notable bit of reasoning, but delivered with real enthusiasm.\",\n  \"words\" : [\n\n  ]\n}",
+          "raw_export_sha256": "32eabba7572bd1881250bbd583720f6910be4dbc36817d696400b6244d277c05",
+          "export_name": "record-07.json"
+        },
+        {
+          "source": "09-test-clean-2094-142345-0000.wav",
+          "text": "It is a very fine old place of red brick, softened by a pale, powdery lichen, which has dispersed itself with happy irregularity, so as to bring the red brick into terms of friendly companionship with the limestone ornaments surrounding the three gables, the windows, and the door place.",
+          "raw_export_utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T00:48:39Z\",\n  \"duration\" : 22.57,\n  \"id\" : \"6433B285-BB45-489C-96FA-3977EB242DC6\",\n  \"latencyMS\" : 353.5280227661133,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"It is a very fine old place of red brick, softened by a pale, powdery lichen, which has dispersed itself with happy irregularity, so as to bring the red brick into terms of friendly companionship with the limestone ornaments surrounding the three gables, the windows, and the door place.\",\n  \"segments\" : [\n    {\n      \"end\" : 7.640000000000001,\n      \"start\" : 0,\n      \"text\" : \"It is a very fine old place of red brick, softened by a pale, powdery lichen, which\"\n    },\n    {\n      \"end\" : 14.200000000000001,\n      \"start\" : 7.640000000000001,\n      \"text\" : \"has dispersed itself with happy irregularity, so as to bring the red brick into terms of\"\n    },\n    {\n      \"end\" : 21.16,\n      \"start\" : 14.200000000000001,\n      \"text\" : \"friendly companionship with the limestone ornaments surrounding the three gables, the windows,\"\n    },\n    {\n      \"end\" : 22.04,\n      \"start\" : 21.16,\n      \"text\" : \"and the door place.\"\n    }\n  ],\n  \"source\" : \"09-test-clean-2094-142345-0000.wav\",\n  \"text\" : \"It is a very fine old place of red brick, softened by a pale, powdery lichen, which has dispersed itself with happy irregularity, so as to bring the red brick into terms of friendly companionship with the limestone ornaments surrounding the three gables, the windows, and the door place.\",\n  \"words\" : [\n\n  ]\n}",
+          "raw_export_sha256": "6da99f577ff9e258500eed58978b039e41653d5641725997309efe8338d4e897",
+          "export_name": "record-08.json"
+        },
+        {
+          "source": "10-test-clean-2300-131720-0000.wav",
+          "text": "The Paris plant, like that at the Crystal Palace, was a temporary exhibit.",
+          "raw_export_utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T00:48:39Z\",\n  \"duration\" : 5.08,\n  \"id\" : \"84FECE38-9D97-4062-AD4A-D448B05537CB\",\n  \"latencyMS\" : 119.55010890960693,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"The Paris plant, like that at the Crystal Palace, was a temporary exhibit.\",\n  \"segments\" : [\n    {\n      \"end\" : 5,\n      \"start\" : 0,\n      \"text\" : \"The Paris plant, like that at the Crystal Palace, was a temporary exhibit.\"\n    }\n  ],\n  \"source\" : \"10-test-clean-2300-131720-0000.wav\",\n  \"text\" : \"The Paris plant, like that at the Crystal Palace, was a temporary exhibit.\",\n  \"words\" : [\n\n  ]\n}",
+          "raw_export_sha256": "384f8fd4e3d5e0b57eb15adb397b8839eafe5a074ea5fc4d685541b3f21791b3",
+          "export_name": "record-09.json"
+        },
+        {
+          "source": "11-test-other-1688-142285-0000.wav",
+          "text": "There's iron, they say, in all our blood, and a grain or two perhaps is good. But his, he makes me harshly feel, has got a little too much of steel. Anon.",
+          "raw_export_utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T00:48:38Z\",\n  \"duration\" : 15,\n  \"id\" : \"13286FEC-E7CF-47E4-BD1B-CAE2698A1266\",\n  \"latencyMS\" : 199.9800205230713,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"There's iron, they say, in all our blood, and a grain or two perhaps is good. But his, he makes me harshly feel, has got a little too much of steel. Anon.\",\n  \"segments\" : [\n    {\n      \"end\" : 6.9,\n      \"start\" : 0,\n      \"text\" : \"There's iron, they say, in all our blood, and a grain or two perhaps is good.\"\n    },\n    {\n      \"end\" : 14.16,\n      \"start\" : 6.9,\n      \"text\" : \"But his, he makes me harshly feel, has got a little too much of steel.\"\n    },\n    {\n      \"end\" : 14.52,\n      \"start\" : 14.16,\n      \"text\" : \"Anon.\"\n    }\n  ],\n  \"source\" : \"11-test-other-1688-142285-0000.wav\",\n  \"text\" : \"There's iron, they say, in all our blood, and a grain or two perhaps is good. But his, he makes me harshly feel, has got a little too much of steel. Anon.\",\n  \"words\" : [\n\n  ]\n}",
+          "raw_export_sha256": "ba4c166cb34d16cfdd9c42eafe815d8fca9a19b2afc4ee58d68a2a5b4e19201e",
+          "export_name": "record-10.json"
+        },
+        {
+          "source": "12-test-other-1998-15444-0000.wav",
+          "text": "If called to a case supposed or suspected to be one of poisoning, the medical man has two duties to perform. To save the patient's life and to place himself in a position to give evidence if called on to do so.",
+          "raw_export_utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T00:48:38Z\",\n  \"duration\" : 13.315,\n  \"id\" : \"925CC017-A520-4214-8FBD-7C8BF37D1BCC\",\n  \"latencyMS\" : 187.12401390075684,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"If called to a case supposed or suspected to be one of poisoning, the medical man has two duties to perform. To save the patient's life and to place himself in a position to give evidence if called on to do so.\",\n  \"segments\" : [\n    {\n      \"end\" : 5.28,\n      \"start\" : 0,\n      \"text\" : \"If called to a case supposed or suspected to be one of poisoning, the medical man has\"\n    },\n    {\n      \"end\" : 7.4,\n      \"start\" : 5.28,\n      \"text\" : \"two duties to perform.\"\n    },\n    {\n      \"end\" : 12.08,\n      \"start\" : 7.4,\n      \"text\" : \"To save the patient's life and to place himself in a position to give evidence if called on\"\n    },\n    {\n      \"end\" : 12.8,\n      \"start\" : 12.08,\n      \"text\" : \"to do so.\"\n    }\n  ],\n  \"source\" : \"12-test-other-1998-15444-0000.wav\",\n  \"text\" : \"If called to a case supposed or suspected to be one of poisoning, the medical man has two duties to perform. To save the patient's life and to place himself in a position to give evidence if called on to do so.\",\n  \"words\" : [\n\n  ]\n}",
+          "raw_export_sha256": "c4b16b454b8ab49011fd3392a15c34c2719e1c499483d064e2122a464953cc1c",
+          "export_name": "record-11.json"
+        },
+        {
+          "source": "13-test-other-2033-164914-0000.wav",
+          "text": "replied he, of a truth I heard him not, and I watched him not, and folks are all sleeping.",
+          "raw_export_utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T00:48:38Z\",\n  \"duration\" : 9.075,\n  \"id\" : \"37E091E7-001D-43A1-B36F-A51CE4E902B8\",\n  \"latencyMS\" : 122.11298942565918,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"replied he, of a truth I heard him not, and I watched him not, and folks are all sleeping.\",\n  \"segments\" : [\n    {\n      \"end\" : 2,\n      \"start\" : 0,\n      \"text\" : \"replied he,\"\n    },\n    {\n      \"end\" : 5,\n      \"start\" : 2,\n      \"text\" : \"of a truth I heard him not,\"\n    },\n    {\n      \"end\" : 7,\n      \"start\" : 5,\n      \"text\" : \"and I watched him not,\"\n    },\n    {\n      \"end\" : 9,\n      \"start\" : 7,\n      \"text\" : \"and folks are all sleeping.\"\n    }\n  ],\n  \"source\" : \"13-test-other-2033-164914-0000.wav\",\n  \"text\" : \"replied he, of a truth I heard him not, and I watched him not, and folks are all sleeping.\",\n  \"words\" : [\n\n  ]\n}",
+          "raw_export_sha256": "c143c0ebd1e9370b3d361a42398787f102b9cc84a01087db3f3921cc341ec767",
+          "export_name": "record-12.json"
+        },
+        {
+          "source": "14-test-other-2414-128291-0000.wav",
+          "text": "what has happened to me.",
+          "raw_export_utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T00:48:38Z\",\n  \"duration\" : 2.91,\n  \"id\" : \"33D1BF25-539A-47C5-B50E-EC8B7FC08E47\",\n  \"latencyMS\" : 73.80807399749756,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"what has happened to me.\",\n  \"segments\" : [\n    {\n      \"end\" : 2.5,\n      \"start\" : 0,\n      \"text\" : \"what has happened to me.\"\n    }\n  ],\n  \"source\" : \"14-test-other-2414-128291-0000.wav\",\n  \"text\" : \"what has happened to me.\",\n  \"words\" : [\n\n  ]\n}",
+          "raw_export_sha256": "50d42d9ad446e85adb21c2205386ffeccb2db5e4032ff805d4b92f041a563606",
+          "export_name": "record-13.json"
+        },
+        {
+          "source": "15-test-other-2609-156975-0000.wav",
+          "text": "The Moses was afraid and said, Surely the thing is known.",
+          "raw_export_utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T00:48:38Z\",\n  \"duration\" : 4.49,\n  \"id\" : \"CF578F31-7FB9-4B4D-A9B7-3257FACB289B\",\n  \"latencyMS\" : 102.8209924697876,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"The Moses was afraid and said, Surely the thing is known.\",\n  \"segments\" : [\n    {\n      \"end\" : 4.16,\n      \"start\" : 0,\n      \"text\" : \"The Moses was afraid and said, Surely the thing is known.\"\n    }\n  ],\n  \"source\" : \"15-test-other-2609-156975-0000.wav\",\n  \"text\" : \"The Moses was afraid and said, Surely the thing is known.\",\n  \"words\" : [\n\n  ]\n}",
+          "raw_export_sha256": "31fbf1547236dcb24e12653c9f8d67babd3ea4795b2918252d12b0e2a2d39ad5",
+          "export_name": "record-14.json"
+        },
+        {
+          "source": "16-test-other-3005-163389-0000.wav",
+          "text": "They swarmed up in front of Sherburn's palings as thick as they could jam together, and you couldn't hear yourself think for the noise.",
+          "raw_export_utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T00:48:38Z\",\n  \"duration\" : 8.375,\n  \"id\" : \"69B5EB89-B0AE-48B9-BE2B-689763556A8D\",\n  \"latencyMS\" : 132.00902938842773,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"They swarmed up in front of Sherburn's palings as thick as they could jam together, and you couldn't hear yourself think for the noise.\",\n  \"segments\" : [\n    {\n      \"end\" : 5.6000000000000005,\n      \"start\" : 0,\n      \"text\" : \"They swarmed up in front of Sherburn's palings as thick as they could jam together, and you\"\n    },\n    {\n      \"end\" : 8.040000000000001,\n      \"start\" : 5.6000000000000005,\n      \"text\" : \"couldn't hear yourself think for the noise.\"\n    }\n  ],\n  \"source\" : \"16-test-other-3005-163389-0000.wav\",\n  \"text\" : \"They swarmed up in front of Sherburn's palings as thick as they could jam together, and you couldn't hear yourself think for the noise.\",\n  \"words\" : [\n\n  ]\n}",
+          "raw_export_sha256": "294fd0223d82ae5e3063d5576b22d3b7eabc79f1e048178d071a45a1e82382ad",
+          "export_name": "record-15.json"
+        },
+        {
+          "source": "17-test-other-3080-5032-0000.wav",
+          "text": "But, I am hugely pleased that you have seen my lady.",
+          "raw_export_utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T00:48:37Z\",\n  \"duration\" : 4.555,\n  \"id\" : \"253CA758-42FD-4459-85D3-C7994B194EB2\",\n  \"latencyMS\" : 82.67295360565186,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"But, I am hugely pleased that you have seen my lady.\",\n  \"segments\" : [\n    {\n      \"end\" : 4.08,\n      \"start\" : 0,\n      \"text\" : \"But, I am hugely pleased that you have seen my lady.\"\n    }\n  ],\n  \"source\" : \"17-test-other-3080-5032-0000.wav\",\n  \"text\" : \"But, I am hugely pleased that you have seen my lady.\",\n  \"words\" : [\n\n  ]\n}",
+          "raw_export_sha256": "0c0e88afdbce27ca3ba1b5c7839e6b414f099327fdb32b90fe978411274b33cc",
+          "export_name": "record-16.json"
+        },
+        {
+          "source": "18-test-other-3331-159605-0000.wav",
+          "text": "She pulled her hair down, turned her skirt back, put her feet on the fender and took putter into her lap, all of which arrangements signified that something very important had got to be thought over and settled.",
+          "raw_export_utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T00:48:37Z\",\n  \"duration\" : 13.67,\n  \"id\" : \"89D10E69-BE71-444D-9211-D949221B3661\",\n  \"latencyMS\" : 162.27006912231445,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"She pulled her hair down, turned her skirt back, put her feet on the fender and took putter into her lap, all of which arrangements signified that something very important had got to be thought over and settled.\",\n  \"segments\" : [\n    {\n      \"end\" : 5.14,\n      \"start\" : 0,\n      \"text\" : \"She pulled her hair down, turned her skirt back, put her feet on the fender and took\"\n    },\n    {\n      \"end\" : 11.24,\n      \"start\" : 5.14,\n      \"text\" : \"putter into her lap, all of which arrangements signified that something very important had\"\n    },\n    {\n      \"end\" : 13,\n      \"start\" : 11.24,\n      \"text\" : \"got to be thought over and settled.\"\n    }\n  ],\n  \"source\" : \"18-test-other-3331-159605-0000.wav\",\n  \"text\" : \"She pulled her hair down, turned her skirt back, put her feet on the fender and took putter into her lap, all of which arrangements signified that something very important had got to be thought over and settled.\",\n  \"words\" : [\n\n  ]\n}",
+          "raw_export_sha256": "48f7833b58ffb93e6c579c124534c2c2322fb202889ef60a662c3f53e7c6428c",
+          "export_name": "record-17.json"
+        },
+        {
+          "source": "19-test-other-3528-168656-0000.wav",
+          "text": "She had even been in society before the revolution.",
+          "raw_export_utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T00:48:37Z\",\n  \"duration\" : 3.385,\n  \"id\" : \"467C2509-532A-4469-BDF8-2D330BBB1471\",\n  \"latencyMS\" : 75.2490758895874,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"She had even been in society before the revolution.\",\n  \"segments\" : [\n    {\n      \"end\" : 3,\n      \"start\" : 0,\n      \"text\" : \"She had even been in society before the revolution.\"\n    }\n  ],\n  \"source\" : \"19-test-other-3528-168656-0000.wav\",\n  \"text\" : \"She had even been in society before the revolution.\",\n  \"words\" : [\n\n  ]\n}",
+          "raw_export_sha256": "3d64a6dc8cd29a5444d827c60172fd99b2a64db03d3e012531b59af65ee9fff8",
+          "export_name": "record-18.json"
+        },
+        {
+          "source": "20-test-other-3538-142836-0000.wav",
+          "text": "General observations on preserves, confectionery, ices, and dessert dishes.",
+          "raw_export_utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T00:48:37Z\",\n  \"duration\" : 5.16,\n  \"id\" : \"10F729C0-F881-48C8-A45E-9CB79608239C\",\n  \"latencyMS\" : 87.7530574798584,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"General observations on preserves, confectionery, ices, and dessert dishes.\",\n  \"segments\" : [\n    {\n      \"end\" : 5,\n      \"start\" : 0,\n      \"text\" : \"General observations on preserves, confectionery, ices, and dessert dishes.\"\n    }\n  ],\n  \"source\" : \"20-test-other-3538-142836-0000.wav\",\n  \"text\" : \"General observations on preserves, confectionery, ices, and dessert dishes.\",\n  \"words\" : [\n\n  ]\n}",
+          "raw_export_sha256": "4026053624a549ecf7176bcd1ddbbb5df8533b57b3af741164734c9875e7da55",
+          "export_name": "record-19.json"
+        },
+        {
+          "source": "01-test-clean-1089-134686-0000.wav",
+          "text": "He hoped there would be stew for dinner, turnips and carrots and bruised potatoes and fat mutton pieces to be ladled out in thick, peppered, flour-fattened sauce.",
+          "raw_export_utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T00:48:37Z\",\n  \"duration\" : 10.435,\n  \"id\" : \"CEAB1A81-0838-461F-89A0-DA9686274E6E\",\n  \"latencyMS\" : 183.20989608764648,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"He hoped there would be stew for dinner, turnips and carrots and bruised potatoes and fat mutton pieces to be ladled out in thick, peppered, flour-fattened sauce.\",\n  \"segments\" : [\n    {\n      \"end\" : 5.5600000000000005,\n      \"start\" : 0,\n      \"text\" : \"He hoped there would be stew for dinner, turnips and carrots and bruised potatoes and fat\"\n    },\n    {\n      \"end\" : 10.16,\n      \"start\" : 5.5600000000000005,\n      \"text\" : \"mutton pieces to be ladled out in thick, peppered, flour-fattened sauce.\"\n    }\n  ],\n  \"source\" : \"01-test-clean-1089-134686-0000.wav\",\n  \"text\" : \"He hoped there would be stew for dinner, turnips and carrots and bruised potatoes and fat mutton pieces to be ladled out in thick, peppered, flour-fattened sauce.\",\n  \"words\" : [\n\n  ]\n}",
+          "raw_export_sha256": "1b47dd48d82f76f4c6a0b281393d952a4ae4bbe73784b2707d495ff54b0724b4",
+          "export_name": "record-20.json"
+        }
+      ]
+    }
+  },
+  "interrupted_attempt": {
+    "schema_version": 1,
+    "status": "interrupted-before-complete-export",
+    "protocol_sha256": "5c6e110cab6d39017efda1804daa09184b19f38998f27ffa2989bdcb3d673762",
+    "observed_batch_completed_records": 21,
+    "cohort_records": 20,
+    "missing_export_sources": [
+      "01-test-clean-1089-134686-0000.wav",
+      "20-test-other-3538-142836-0000.wav"
+    ],
+    "diagnostic": {
+      "old_pid": 33984,
+      "normal_termination_local": "2026-10-24T17:41:44-07:00",
+      "new_pid": 48837,
+      "relaunch_local": "2026-10-24T17:42:07-07:00",
+      "evidence": "AppKit performKeyEquivalent then sendAction then terminate; orderly applicationShouldTerminate and reply:YES, no observed OSpr crash report. Origin of quit action unestablished. Session-only storage intentionally uses an in-memory database and is cleared at quit.",
+      "log_sha256": "286d069539429db032c1b644a2e20eb06692250f9b5c155dbaccc56f7b167c39"
+    },
+    "scoring": "Do not score an eighteen-case selected subset or combine later reruns into this attempt.",
+    "records": [
+      {
+        "source": "02-test-clean-1188-133604-0000.wav",
+        "text": "You will find me continually speaking of 4 men, Titian, Holbein, Turner, and Tintorette, in almost the same terms.",
+        "raw_export_utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T00:29:30Z\",\n  \"duration\" : 10.725,\n  \"id\" : \"6B69D9DC-32FD-45D8-A553-F5F8E3123190\",\n  \"latencyMS\" : 312.30902671813965,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"You will find me continually speaking of 4 men, Titian, Holbein, Turner, and Tintorette, in almost the same terms.\",\n  \"segments\" : [\n    {\n      \"end\" : 8.72,\n      \"start\" : 0,\n      \"text\" : \"You will find me continually speaking of 4 men, Titian, Holbein, Turner, and Tintorette,\"\n    },\n    {\n      \"end\" : 10.16,\n      \"start\" : 8.72,\n      \"text\" : \"in almost the same terms.\"\n    }\n  ],\n  \"source\" : \"02-test-clean-1188-133604-0000.wav\",\n  \"text\" : \"You will find me continually speaking of 4 men, Titian, Holbein, Turner, and Tintorette, in almost the same terms.\",\n  \"words\" : [\n\n  ]\n}",
+        "raw_export_sha256": "2ea82099b013500f49d6c07ddfa51b0efe73acf372dcd196dda03d39fcdaa95c",
+        "export_name": "record-01.json"
+      },
+      {
+        "source": "03-test-clean-121-121726-0000.wav",
+        "text": "Also a popular condrivens, whereby lovemaking may be suspended, but not stopped during the picnic season.",
+        "raw_export_utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T00:29:30Z\",\n  \"duration\" : 8.46,\n  \"id\" : \"A4FFA353-8004-4C8A-A5AB-B706FB4F2CBE\",\n  \"latencyMS\" : 229.3790578842163,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"Also a popular condrivens, whereby lovemaking may be suspended, but not stopped during the picnic season.\",\n  \"segments\" : [\n    {\n      \"end\" : 8,\n      \"start\" : 0,\n      \"text\" : \"Also a popular condrivens, whereby lovemaking may be suspended, but not stopped during the picnic season.\"\n    }\n  ],\n  \"source\" : \"03-test-clean-121-121726-0000.wav\",\n  \"text\" : \"Also a popular condrivens, whereby lovemaking may be suspended, but not stopped during the picnic season.\",\n  \"words\" : [\n\n  ]\n}",
+        "raw_export_sha256": "db8845e9ac2ce65ff63750bd15f2d7ea9305033260d3849024a60d78230fbff4",
+        "export_name": "record-02.json"
+      },
+      {
+        "source": "04-test-clean-1221-135766-0000.wav",
+        "text": "How strange it seemed to the sad woman as she watched the growth and the beauty that became every day more brilliant and the intelligence that threw its quivering sunshine over the tiny features of this child.",
+        "raw_export_utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T00:29:30Z\",\n  \"duration\" : 12.435,\n  \"id\" : \"A30157CF-39C9-47D5-9EDB-EC0661D96576\",\n  \"latencyMS\" : 279.39701080322266,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"How strange it seemed to the sad woman as she watched the growth and the beauty that became every day more brilliant and the intelligence that threw its quivering sunshine over the tiny features of this child.\",\n  \"segments\" : [\n    {\n      \"end\" : 4.9,\n      \"start\" : 0,\n      \"text\" : \"How strange it seemed to the sad woman as she watched the growth and the beauty that\"\n    },\n    {\n      \"end\" : 10.34,\n      \"start\" : 4.9,\n      \"text\" : \"became every day more brilliant and the intelligence that threw its quivering sunshine over the\"\n    },\n    {\n      \"end\" : 12.22,\n      \"start\" : 10.34,\n      \"text\" : \"tiny features of this child.\"\n    }\n  ],\n  \"source\" : \"04-test-clean-1221-135766-0000.wav\",\n  \"text\" : \"How strange it seemed to the sad woman as she watched the growth and the beauty that became every day more brilliant and the intelligence that threw its quivering sunshine over the tiny features of this child.\",\n  \"words\" : [\n\n  ]\n}",
+        "raw_export_sha256": "3eda8066f94d935b4c91e3f7afd52705d0abb4afa4f65c300c3df90121063613",
+        "export_name": "record-03.json"
+      },
+      {
+        "source": "05-test-clean-1284-1180-0000.wav",
+        "text": "He wore blue silk stockings, blue knee pants with gold buckles, a blue ruffled waist, and a jacket of bright blue braided with gold.",
+        "raw_export_utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T00:29:29Z\",\n  \"duration\" : 8.12,\n  \"id\" : \"41A2FBBC-825F-4048-A46A-F56F52D9480E\",\n  \"latencyMS\" : 220.38698196411133,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"He wore blue silk stockings, blue knee pants with gold buckles, a blue ruffled waist, and a jacket of bright blue braided with gold.\",\n  \"segments\" : [\n    {\n      \"end\" : 5.6000000000000005,\n      \"start\" : 0,\n      \"text\" : \"He wore blue silk stockings, blue knee pants with gold buckles, a blue ruffled waist, and\"\n    },\n    {\n      \"end\" : 7.92,\n      \"start\" : 5.6000000000000005,\n      \"text\" : \"a jacket of bright blue braided with gold.\"\n    }\n  ],\n  \"source\" : \"05-test-clean-1284-1180-0000.wav\",\n  \"text\" : \"He wore blue silk stockings, blue knee pants with gold buckles, a blue ruffled waist, and a jacket of bright blue braided with gold.\",\n  \"words\" : [\n\n  ]\n}",
+        "raw_export_sha256": "459023702b5023140b5766c0f2bb33a7c0a9d65135998e262ac6a10e5483ce0f",
+        "export_name": "record-04.json"
+      },
+      {
+        "source": "06-test-clean-1320-122612-0000.wav",
+        "text": "Since the period of our tale, the active spirit of the country has surrounded it with a belt of rich and thriving settlements, though none but the hunter or the savage is ever known even now to penetrate its wild recesses.",
+        "raw_export_utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T00:29:29Z\",\n  \"duration\" : 13.48,\n  \"id\" : \"996FE7E6-DB5E-49AB-B707-FD268795060C\",\n  \"latencyMS\" : 228.4109592437744,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"Since the period of our tale, the active spirit of the country has surrounded it with a belt of rich and thriving settlements, though none but the hunter or the savage is ever known even now to penetrate its wild recesses.\",\n  \"segments\" : [\n    {\n      \"end\" : 7,\n      \"start\" : 0,\n      \"text\" : \"Since the period of our tale, the active spirit of the country has surrounded it with a belt of rich and thriving settlements,\"\n    },\n    {\n      \"end\" : 13,\n      \"start\" : 7,\n      \"text\" : \"though none but the hunter or the savage is ever known even now to penetrate its wild recesses.\"\n    }\n  ],\n  \"source\" : \"06-test-clean-1320-122612-0000.wav\",\n  \"text\" : \"Since the period of our tale, the active spirit of the country has surrounded it with a belt of rich and thriving settlements, though none but the hunter or the savage is ever known even now to penetrate its wild recesses.\",\n  \"words\" : [\n\n  ]\n}",
+        "raw_export_sha256": "83daf650ff186466033a345b24b5b5c10be3102a5a08c2771a1784d6a2b68640",
+        "export_name": "record-05.json"
+      },
+      {
+        "source": "07-test-clean-1580-141083-0000.wav",
+        "text": "I will endeavor in my statement to avoid such terms as would serve to limit the events to any particular place or give a clue as to the people concerned.",
+        "raw_export_utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T00:29:29Z\",\n  \"duration\" : 8.94,\n  \"id\" : \"28ABD322-8A2C-40AA-A47D-2F9BF0A507A5\",\n  \"latencyMS\" : 195.13607025146484,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"I will endeavor in my statement to avoid such terms as would serve to limit the events to any particular place or give a clue as to the people concerned.\",\n  \"segments\" : [\n    {\n      \"end\" : 6,\n      \"start\" : 0,\n      \"text\" : \"I will endeavor in my statement to avoid such terms as would serve to limit the events to any particular place\"\n    },\n    {\n      \"end\" : 8.94,\n      \"start\" : 6,\n      \"text\" : \"or give a clue as to the people concerned.\"\n    }\n  ],\n  \"source\" : \"07-test-clean-1580-141083-0000.wav\",\n  \"text\" : \"I will endeavor in my statement to avoid such terms as would serve to limit the events to any particular place or give a clue as to the people concerned.\",\n  \"warning\" : \"Some recognizer timings extended outside the analyzed audio and were bounded. Check alignment before using timed exports.\",\n  \"words\" : [\n\n  ]\n}",
+        "raw_export_sha256": "a61e64d161032d1c638676bd8a8d60d5106efe5f67d1395800a715133f82f358",
+        "export_name": "record-06.json"
+      },
+      {
+        "source": "08-test-clean-1995-1826-0000.wav",
+        "text": "In the debate between the senior societies, her defense of the 15th Amendment had been not only a notable bit of reasoning, but delivered with real enthusiasm.",
+        "raw_export_utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T00:29:29Z\",\n  \"duration\" : 9.485,\n  \"id\" : \"E14BFF98-C315-48E6-83C4-111E7AEE77C1\",\n  \"latencyMS\" : 165.31097888946533,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"In the debate between the senior societies, her defense of the 15th Amendment had been not only a notable bit of reasoning, but delivered with real enthusiasm.\",\n  \"segments\" : [\n    {\n      \"end\" : 4.76,\n      \"start\" : 0,\n      \"text\" : \"In the debate between the senior societies, her defense of the 15th Amendment had been\"\n    },\n    {\n      \"end\" : 9.040000000000001,\n      \"start\" : 4.76,\n      \"text\" : \"not only a notable bit of reasoning, but delivered with real enthusiasm.\"\n    }\n  ],\n  \"source\" : \"08-test-clean-1995-1826-0000.wav\",\n  \"text\" : \"In the debate between the senior societies, her defense of the 15th Amendment had been not only a notable bit of reasoning, but delivered with real enthusiasm.\",\n  \"words\" : [\n\n  ]\n}",
+        "raw_export_sha256": "6f5754635e2598653408784645f8f7e04c8d6d67adcfa5a0df755034083a592a",
+        "export_name": "record-07.json"
+      },
+      {
+        "source": "09-test-clean-2094-142345-0000.wav",
+        "text": "It is a very fine old place of red brick, softened by a pale, powdery lichen, which has dispersed itself with happy irregularity, so as to bring the red brick into terms of friendly companionship with the limestone ornaments surrounding the three gables, the windows, and the door place.",
+        "raw_export_utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T00:29:29Z\",\n  \"duration\" : 22.57,\n  \"id\" : \"65F163D2-4787-4A25-A047-6395FDD1200C\",\n  \"latencyMS\" : 285.8840227127075,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"It is a very fine old place of red brick, softened by a pale, powdery lichen, which has dispersed itself with happy irregularity, so as to bring the red brick into terms of friendly companionship with the limestone ornaments surrounding the three gables, the windows, and the door place.\",\n  \"segments\" : [\n    {\n      \"end\" : 7.640000000000001,\n      \"start\" : 0,\n      \"text\" : \"It is a very fine old place of red brick, softened by a pale, powdery lichen, which\"\n    },\n    {\n      \"end\" : 14.200000000000001,\n      \"start\" : 7.640000000000001,\n      \"text\" : \"has dispersed itself with happy irregularity, so as to bring the red brick into terms of\"\n    },\n    {\n      \"end\" : 21.16,\n      \"start\" : 14.200000000000001,\n      \"text\" : \"friendly companionship with the limestone ornaments surrounding the three gables, the windows,\"\n    },\n    {\n      \"end\" : 22.04,\n      \"start\" : 21.16,\n      \"text\" : \"and the door place.\"\n    }\n  ],\n  \"source\" : \"09-test-clean-2094-142345-0000.wav\",\n  \"text\" : \"It is a very fine old place of red brick, softened by a pale, powdery lichen, which has dispersed itself with happy irregularity, so as to bring the red brick into terms of friendly companionship with the limestone ornaments surrounding the three gables, the windows, and the door place.\",\n  \"words\" : [\n\n  ]\n}",
+        "raw_export_sha256": "736d62092deb5f99c640aed5436461300f0a23f1ffc98ca70aecc484f758c59a",
+        "export_name": "record-08.json"
+      },
+      {
+        "source": "10-test-clean-2300-131720-0000.wav",
+        "text": "The Paris plant, like that at the Crystal Palace, was a temporary exhibit.",
+        "raw_export_utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T00:29:28Z\",\n  \"duration\" : 5.08,\n  \"id\" : \"F5083132-B733-4DA6-852A-B4C30D33BFF3\",\n  \"latencyMS\" : 114.9979829788208,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"The Paris plant, like that at the Crystal Palace, was a temporary exhibit.\",\n  \"segments\" : [\n    {\n      \"end\" : 5,\n      \"start\" : 0,\n      \"text\" : \"The Paris plant, like that at the Crystal Palace, was a temporary exhibit.\"\n    }\n  ],\n  \"source\" : \"10-test-clean-2300-131720-0000.wav\",\n  \"text\" : \"The Paris plant, like that at the Crystal Palace, was a temporary exhibit.\",\n  \"words\" : [\n\n  ]\n}",
+        "raw_export_sha256": "076fac93a386176a6aaefd690d26f60e03ce7f6aa92cac2484c904861afbf504",
+        "export_name": "record-09.json"
+      },
+      {
+        "source": "11-test-other-1688-142285-0000.wav",
+        "text": "There's iron, they say, in all our blood, and a grain or two perhaps is good. But his, he makes me harshly feel, has got a little too much of steel. Anon.",
+        "raw_export_utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T00:29:28Z\",\n  \"duration\" : 15,\n  \"id\" : \"312E1F96-6E63-49F4-AAAB-12FE397E127C\",\n  \"latencyMS\" : 189.71896171569824,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"There's iron, they say, in all our blood, and a grain or two perhaps is good. But his, he makes me harshly feel, has got a little too much of steel. Anon.\",\n  \"segments\" : [\n    {\n      \"end\" : 6.9,\n      \"start\" : 0,\n      \"text\" : \"There's iron, they say, in all our blood, and a grain or two perhaps is good.\"\n    },\n    {\n      \"end\" : 14.16,\n      \"start\" : 6.9,\n      \"text\" : \"But his, he makes me harshly feel, has got a little too much of steel.\"\n    },\n    {\n      \"end\" : 14.52,\n      \"start\" : 14.16,\n      \"text\" : \"Anon.\"\n    }\n  ],\n  \"source\" : \"11-test-other-1688-142285-0000.wav\",\n  \"text\" : \"There's iron, they say, in all our blood, and a grain or two perhaps is good. But his, he makes me harshly feel, has got a little too much of steel. Anon.\",\n  \"words\" : [\n\n  ]\n}",
+        "raw_export_sha256": "d581949f4e3c1d0164220b4edf6e4f7ef5bc4aa43d5aa24018c31eb910767652",
+        "export_name": "record-10.json"
+      },
+      {
+        "source": "12-test-other-1998-15444-0000.wav",
+        "text": "If called to a case supposed or suspected to be one of poisoning, the medical man has two duties to perform. To save the patient's life and to place himself in a position to give evidence if called on to do so.",
+        "raw_export_utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T00:29:28Z\",\n  \"duration\" : 13.315,\n  \"id\" : \"48339833-1BD3-4E8C-8494-BD6F0C51763A\",\n  \"latencyMS\" : 176.60999298095703,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"If called to a case supposed or suspected to be one of poisoning, the medical man has two duties to perform. To save the patient's life and to place himself in a position to give evidence if called on to do so.\",\n  \"segments\" : [\n    {\n      \"end\" : 5.28,\n      \"start\" : 0,\n      \"text\" : \"If called to a case supposed or suspected to be one of poisoning, the medical man has\"\n    },\n    {\n      \"end\" : 7.4,\n      \"start\" : 5.28,\n      \"text\" : \"two duties to perform.\"\n    },\n    {\n      \"end\" : 12.08,\n      \"start\" : 7.4,\n      \"text\" : \"To save the patient's life and to place himself in a position to give evidence if called on\"\n    },\n    {\n      \"end\" : 12.8,\n      \"start\" : 12.08,\n      \"text\" : \"to do so.\"\n    }\n  ],\n  \"source\" : \"12-test-other-1998-15444-0000.wav\",\n  \"text\" : \"If called to a case supposed or suspected to be one of poisoning, the medical man has two duties to perform. To save the patient's life and to place himself in a position to give evidence if called on to do so.\",\n  \"words\" : [\n\n  ]\n}",
+        "raw_export_sha256": "f7bc52acef54d2f526aa3d78aa5cc369df9f074f85c606264520adcb3f244f07",
+        "export_name": "record-11.json"
+      },
+      {
+        "source": "13-test-other-2033-164914-0000.wav",
+        "text": "replied he, of a truth I heard him not, and I watched him not, and folks are all sleeping.",
+        "raw_export_utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T00:29:28Z\",\n  \"duration\" : 9.075,\n  \"id\" : \"E79FEC00-E52E-426F-A0E7-136C92C6D57B\",\n  \"latencyMS\" : 125.9620189666748,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"replied he, of a truth I heard him not, and I watched him not, and folks are all sleeping.\",\n  \"segments\" : [\n    {\n      \"end\" : 2,\n      \"start\" : 0,\n      \"text\" : \"replied he,\"\n    },\n    {\n      \"end\" : 5,\n      \"start\" : 2,\n      \"text\" : \"of a truth I heard him not,\"\n    },\n    {\n      \"end\" : 7,\n      \"start\" : 5,\n      \"text\" : \"and I watched him not,\"\n    },\n    {\n      \"end\" : 9,\n      \"start\" : 7,\n      \"text\" : \"and folks are all sleeping.\"\n    }\n  ],\n  \"source\" : \"13-test-other-2033-164914-0000.wav\",\n  \"text\" : \"replied he, of a truth I heard him not, and I watched him not, and folks are all sleeping.\",\n  \"words\" : [\n\n  ]\n}",
+        "raw_export_sha256": "fd28992472ebb4dfddde677e703f3756d15bac18e4303786dc2d9d7adcab626b",
+        "export_name": "record-12.json"
+      },
+      {
+        "source": "14-test-other-2414-128291-0000.wav",
+        "text": "what has happened to me.",
+        "raw_export_utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T00:29:28Z\",\n  \"duration\" : 2.91,\n  \"id\" : \"D4A1F674-AAE7-44AB-8485-C36347A2C203\",\n  \"latencyMS\" : 70.75893878936768,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"what has happened to me.\",\n  \"segments\" : [\n    {\n      \"end\" : 2.5,\n      \"start\" : 0,\n      \"text\" : \"what has happened to me.\"\n    }\n  ],\n  \"source\" : \"14-test-other-2414-128291-0000.wav\",\n  \"text\" : \"what has happened to me.\",\n  \"words\" : [\n\n  ]\n}",
+        "raw_export_sha256": "831ec1304038f17c91d02740a0b633362d586f35b7ae00879ef29e61b38a6e91",
+        "export_name": "record-13.json"
+      },
+      {
+        "source": "15-test-other-2609-156975-0000.wav",
+        "text": "The Moses was afraid and said, Surely the thing is known.",
+        "raw_export_utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T00:29:27Z\",\n  \"duration\" : 4.49,\n  \"id\" : \"7ABCAF6A-4FFA-4F31-A195-922D172B02D4\",\n  \"latencyMS\" : 96.89605236053467,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"The Moses was afraid and said, Surely the thing is known.\",\n  \"segments\" : [\n    {\n      \"end\" : 4.16,\n      \"start\" : 0,\n      \"text\" : \"The Moses was afraid and said, Surely the thing is known.\"\n    }\n  ],\n  \"source\" : \"15-test-other-2609-156975-0000.wav\",\n  \"text\" : \"The Moses was afraid and said, Surely the thing is known.\",\n  \"words\" : [\n\n  ]\n}",
+        "raw_export_sha256": "79bf6d54f11f9bf28e85652f4863d5e3226ccb7aa86a28c62300d29c9e988014",
+        "export_name": "record-14.json"
+      },
+      {
+        "source": "16-test-other-3005-163389-0000.wav",
+        "text": "They swarmed up in front of Sherburn's palings as thick as they could jam together, and you couldn't hear yourself think for the noise.",
+        "raw_export_utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T00:29:27Z\",\n  \"duration\" : 8.375,\n  \"id\" : \"7534C997-7C94-4CB0-BEED-93B0C62A8E14\",\n  \"latencyMS\" : 119.67098712921143,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"They swarmed up in front of Sherburn's palings as thick as they could jam together, and you couldn't hear yourself think for the noise.\",\n  \"segments\" : [\n    {\n      \"end\" : 5.6000000000000005,\n      \"start\" : 0,\n      \"text\" : \"They swarmed up in front of Sherburn's palings as thick as they could jam together, and you\"\n    },\n    {\n      \"end\" : 8.040000000000001,\n      \"start\" : 5.6000000000000005,\n      \"text\" : \"couldn't hear yourself think for the noise.\"\n    }\n  ],\n  \"source\" : \"16-test-other-3005-163389-0000.wav\",\n  \"text\" : \"They swarmed up in front of Sherburn's palings as thick as they could jam together, and you couldn't hear yourself think for the noise.\",\n  \"words\" : [\n\n  ]\n}",
+        "raw_export_sha256": "2c701bb8aaaceb402848a9c5a9523cb00bc20e11f8a6a2a7e4f74e8133b8c2e3",
+        "export_name": "record-15.json"
+      },
+      {
+        "source": "17-test-other-3080-5032-0000.wav",
+        "text": "But, I am hugely pleased that you have seen my lady.",
+        "raw_export_utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T00:29:27Z\",\n  \"duration\" : 4.555,\n  \"id\" : \"1BC41CD6-8C97-402F-9F40-F6BF2E0063EB\",\n  \"latencyMS\" : 86.61901950836182,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"But, I am hugely pleased that you have seen my lady.\",\n  \"segments\" : [\n    {\n      \"end\" : 4.08,\n      \"start\" : 0,\n      \"text\" : \"But, I am hugely pleased that you have seen my lady.\"\n    }\n  ],\n  \"source\" : \"17-test-other-3080-5032-0000.wav\",\n  \"text\" : \"But, I am hugely pleased that you have seen my lady.\",\n  \"words\" : [\n\n  ]\n}",
+        "raw_export_sha256": "56074429fd4cebddfc7b450a84ae7d33ecb567c0767dfbc985d73ceb4a2da605",
+        "export_name": "record-16.json"
+      },
+      {
+        "source": "18-test-other-3331-159605-0000.wav",
+        "text": "She pulled her hair down, turned her skirt back, put her feet on the fender and took putter into her lap, all of which arrangements signified that something very important had got to be thought over and settled.",
+        "raw_export_utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T00:29:27Z\",\n  \"duration\" : 13.67,\n  \"id\" : \"B402DE3F-F78D-4824-A422-73A31D317D47\",\n  \"latencyMS\" : 164.82698917388916,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"She pulled her hair down, turned her skirt back, put her feet on the fender and took putter into her lap, all of which arrangements signified that something very important had got to be thought over and settled.\",\n  \"segments\" : [\n    {\n      \"end\" : 5.14,\n      \"start\" : 0,\n      \"text\" : \"She pulled her hair down, turned her skirt back, put her feet on the fender and took\"\n    },\n    {\n      \"end\" : 11.24,\n      \"start\" : 5.14,\n      \"text\" : \"putter into her lap, all of which arrangements signified that something very important had\"\n    },\n    {\n      \"end\" : 13,\n      \"start\" : 11.24,\n      \"text\" : \"got to be thought over and settled.\"\n    }\n  ],\n  \"source\" : \"18-test-other-3331-159605-0000.wav\",\n  \"text\" : \"She pulled her hair down, turned her skirt back, put her feet on the fender and took putter into her lap, all of which arrangements signified that something very important had got to be thought over and settled.\",\n  \"words\" : [\n\n  ]\n}",
+        "raw_export_sha256": "5020a8440dd64fffbf457859fcac9764b6f928c273d4aaccf301d2d56e1fa983",
+        "export_name": "record-17.json"
+      },
+      {
+        "source": "19-test-other-3528-168656-0000.wav",
+        "text": "She had even been in society before the revolution.",
+        "raw_export_utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T00:29:27Z\",\n  \"duration\" : 3.385,\n  \"id\" : \"EC606F31-4385-42ED-8573-C4EE8B6363A7\",\n  \"latencyMS\" : 66.83409214019775,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"She had even been in society before the revolution.\",\n  \"segments\" : [\n    {\n      \"end\" : 3,\n      \"start\" : 0,\n      \"text\" : \"She had even been in society before the revolution.\"\n    }\n  ],\n  \"source\" : \"19-test-other-3528-168656-0000.wav\",\n  \"text\" : \"She had even been in society before the revolution.\",\n  \"words\" : [\n\n  ]\n}",
+        "raw_export_sha256": "4a3e5d6627c06d40c28fe5c92a3fb360399df26b0676485758bfd84a3c60ec3f",
+        "export_name": "record-18.json"
+      }
+    ]
+  },
+  "voiceink": {
+    "version": "2.21",
+    "build": "221",
+    "archive_sha256": "e7920b2f5b55bab65529d687428663ffe7aec55e7e162f50c5ce450f6572f2fd",
+    "source_commit": "640b0c8c36ee74d9e76d930f40e2c04bb739b4b3",
+    "status": "not-measured-onboarding-permission-gate",
+    "observed": "Official notarized app opened to required Microphone/Accessibility onboarding. Continue disabled; no permission granted or trial/account activated. Screen Recording optional. No inference attempted.",
+    "source_url": "https://github.com/Beingpax/VoiceInk/releases/tag/v2.21"
+  },
+  "cleanup": {
+    "qa_process_stopped": true,
+    "normal_app_restored": true,
+    "normal_baseline_hashes_unchanged": 5,
+    "normal_sessions": 8,
+    "normal_words": 265
+  },
+  "limitations": [
+    "Twenty reused LibriSpeech development read-speech cases; not an independent holdout or representative natural dictation/meetings/multilingual set.",
+    "Same upstream Whisper Small family, different runtime/conversion/decoder defaults. No claim of identical weights or runtime-only attribution.",
+    "One MacWhisper cohort and one complete OSpr repeat; interrupted earlier OSpr attempt retained without subset WER. No best-of selection.",
+    "MacWhisper reports rounded 00:00/00:01 plus realtime multiples; OSpr latencyMS is its own request-processing boundary. No comparable latency or energy ranking.",
+    "No microphone, hotkey, insertion, endpointing, rewriting or top-three/product-parity acceptance from file import.",
+    "VoiceInk setup gate is unmeasured, not a recognition failure."
+  ]
+}
