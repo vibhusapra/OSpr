@@ -1,5 +1,18 @@
 # OSpr measurement protocol
 
+## Native consumer file-import pilot
+
+`native_file_comparison.py --verify results/native-file-comparison.json`
+recomputes the official MacWhisper 15.8 GUI / OSpr v0 GUI twenty-case pilot from
+retained native exports, without launching apps or running inference. Run it
+from the repository root with the full path shown in
+[the method](../docs/architecture/native-file-comparison.md).
+The frozen manifest predates new comparator inference. All raw exports and hashes,
+the first interrupted OSpr attempt and the full unchanged repeat are retained.
+The shared scorer rejects incomplete/duplicate/foreign/tampered cohorts. Rounded
+consumer timing and OSpr processing timing are not used for a speed ranking.
+VoiceInk 2.21 is unmeasured behind required onboarding permissions.
+
 ## Local text model choice
 
 `refinement_eval.py --model rewrite-quality|meeting-quality` replays the same 36

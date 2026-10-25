@@ -222,8 +222,8 @@
     {
       "feature": "File and batch transcription",
       "status": "partial",
-      "evidence": "Local WAV/FLAC normalization and real AAC/FFmpeg decode test; sequential batch UI. Optional local speaker labels with recognizer word times.",
-      "gap": "Native single-file picker and watched import passed; interactive multi-file/drop and large interruption matrix remain.",
+      "evidence": "Local WAV/FLAC normalization and real AAC/FFmpeg decode test; sequential batch UI. Optional local speaker labels with recognizer word times. Current release GUI imports twenty fixed public files and exports all twenty JSON records in an unchanged full repeat; raw exports and complete consumer comparison: benchmarks/fixtures/native-file-observations.json. Official MacWhisper 15.8 native exports use the same inputs.",
+      "gap": "Native single-file picker and watched import passed; native drag/drop and a large interruption matrix remain; the twenty-file picker batch now passes. History omits stored import source filenames, export names are generic, no bulk export or explicit per-file batch error list. Earlier session quit after eighteen exports; origin unestablished, retained separately. No live-dictation acceptance from file import.",
       "priority": "P0"
     },
     {
@@ -341,7 +341,7 @@
     {
       "feature": "Top-three product ranking",
       "status": "unproven",
-      "evidence": "Original official Vibe 3.2.2 versus bundled OSpr pilot completed 180 commands on 20 speakers with zero failures; Vibe was faster. The identical post-optimization pilot also passed: OSpr Parakeet p50 0.757 s versus Vibe 0.943 s, while OSpr Whisper Turbo did not improve (2.108 s). All 180 texts match their original outputs. This is a small file-command comparison with primed OS caches and shared desktop activity. A separate Apple SpeechTranscriber / resident MLX file-runtime comparison completes 1,484 requests with zero API errors across 365 known English clips, 73 speakers and five nonspeech controls. Aggregate conservative WER: Apple 3.67%, Parakeet 3.12%, Cohere 1.84%, Whisper Turbo 3.81%. No Apple timing-bound or analyzed-endpoint violations are found by the independent checker. These distinct runtime interfaces do not establish consumer GUI ranking.",
+      "evidence": "Original official Vibe 3.2.2 versus bundled OSpr pilot completed 180 commands on 20 speakers with zero failures; Vibe was faster. The identical post-optimization pilot also passed: OSpr Parakeet p50 0.757 s versus Vibe 0.943 s, while OSpr Whisper Turbo did not improve (2.108 s). All 180 texts match their original outputs. This is a small file-command comparison with primed OS caches and shared desktop activity. A separate Apple SpeechTranscriber / resident MLX file-runtime comparison completes 1,484 requests with zero API errors across 365 known English clips, 73 speakers and five nonspeech controls. Aggregate conservative WER: Apple 3.67%, Parakeet 3.12%, Cohere 1.84%, Whisper Turbo 3.81%. No Apple timing-bound or analyzed-endpoint violations are found by the independent checker. These distinct runtime interfaces do not establish consumer GUI ranking. Actual MacWhisper 15.8 free Small native twenty-case pilot now records 17/485 word errors versus OSpr Small repeat 16/485; all raw exports retained. This one-word gap on reused English read speech does not establish an accuracy winner. VoiceInk 2.21 unmeasured behind required onboarding permissions.",
       "gap": "Broader equivalent consumer-app GUI/dictation runs and user-task correction-cost study remain. Rootless whole-system energy experiments are exploratory; post-fix Parakeet idle drift was inconclusive, with no calibrated battery attribution.",
       "priority": "P0"
     },
