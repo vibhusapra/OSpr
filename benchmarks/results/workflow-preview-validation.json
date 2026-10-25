@@ -1,0 +1,45 @@
+{
+  "status": "passed-workflow-preview-source-and-package-controls",
+  "build": {
+    "version": "0.1.0",
+    "built_at": "2026-10-25T06:52:23.175390+00:00",
+    "git_commit": "f74bb75feeddd0e7d44a8ee3b886c3056f3428a7",
+    "tracked_changes": false,
+    "application_source_sha256": "c1ddeec3cddfd05bee44d6b91342a0e9dff462a01ebf62737ca740ff4a64ee3d",
+    "source_manifest_version": 2,
+    "signing_mode": "configured-identity",
+    "boundary": "Development build; configured signing identity; not notarized; weights downloaded separately."
+  },
+  "swift_tests": 453,
+  "python_tests": 372,
+  "swift_configuration": "release",
+  "initial_swift_run": {
+    "tests": 453,
+    "failures": 1,
+    "failed_test": "WorkerTests.testWorkerIgnoringTerminationIsKilledAndRestarted"
+  },
+  "isolated_initial_retry": {
+    "tests": 1,
+    "failures": 1,
+    "boundary": "Control startup failed before the forced-termination operation"
+  },
+  "corrected_worker_cohort": {
+    "tests": 14,
+    "failures": 0
+  },
+  "final_swift_run": {
+    "tests": 453,
+    "failures": 0
+  },
+  "old_bundle_rejected_before_inference": true,
+  "nonpositive_expected_counts_rejected": true,
+  "old_expected_test_counts_rejected": true,
+  "existing_media_receipts_preserved": true,
+  "default_pytest_summary_accepted": true,
+  "production_worker_deadlines_unchanged": true,
+  "older_v0_review_archive_unchanged": true,
+  "swift_test_source_sha256": "e7223d56fb6106448ef5a18c28b4d3a000194c37640f64086905de03645cdf46",
+  "package_verifier_sha256": "7a6ff817853e2ace3dc0cb60fd62f0d6019305abcfe397ba3eea521892ca2aec",
+  "package_script_sha256": "e8eee28558278d637e5d484cfd7ad6fbb113e6f5ef68d0d2c852ac2ed8bdf906",
+  "boundary": "Development artifact and owned regression controls. Initial failures retained privately; corrected startup/recovery controls retain short request/kill-time bounds and require replacement PID. No microphone, native target delivery, acoustic, comparative speed/energy or full-parity acceptance."
+}

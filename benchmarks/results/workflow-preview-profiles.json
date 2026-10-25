@@ -1,0 +1,260 @@
+{
+  "status": "passed",
+  "verified_at": "2026-10-25T07:20:20.041464+00:00",
+  "git_commit": "abacac735fd00e1414d69d231007f3c07b9cbac3",
+  "tracked_changes": false,
+  "cli_sha256": "f4ecbadb4bc63ff2ebccb78f737fd53c4ba8f7643b2660e38446ab9331a812c3",
+  "harness_sha256": "40d04733aab1cd203e1ac0129e840bdddab690942a197ff3c82782c66ec585ff",
+  "engine_root_unavailable": true,
+  "records": [
+    {
+      "id": "app-fallback",
+      "status": "passed",
+      "result": {
+        "boundary": "Profile resolution only. No AX lookup, microphone, model loading or provider request. The supplied document URL is not included in the output.",
+        "document_available": false,
+        "instruction": "Format as a concise email. Do not invent recipients, greetings, signatures or facts.",
+        "language": "en-GB",
+        "match": "app",
+        "mode": "email",
+        "profile_id": "00000000-0000-0000-0000-000000000001",
+        "profile_name": "com.test.browser",
+        "speech_model": "whisper-turbo",
+        "speech_provider": "local"
+      }
+    },
+    {
+      "id": "site-custom",
+      "status": "passed",
+      "result": {
+        "boundary": "Profile resolution only. No AX lookup, microphone, model loading or provider request. The supplied document URL is not included in the output.",
+        "document_available": true,
+        "instruction": "Keep identifiers exactly.",
+        "language": "",
+        "match": "site",
+        "mode": "custom",
+        "profile_id": "00000000-0000-0000-0000-000000000002",
+        "profile_name": "Code",
+        "speech_model": "cohere-native8",
+        "speech_provider": "local"
+      }
+    },
+    {
+      "id": "longest-path",
+      "status": "passed",
+      "result": {
+        "boundary": "Profile resolution only. No AX lookup, microphone, model loading or provider request. The supplied document URL is not included in the output.",
+        "document_available": true,
+        "instruction": "Translate into French. Preserve names, numbers and meaning.",
+        "language": "en",
+        "match": "site",
+        "mode": "translate",
+        "profile_id": "00000000-0000-0000-0000-000000000003",
+        "profile_name": "French",
+        "speech_model": "parakeet-v3",
+        "speech_provider": "local"
+      }
+    },
+    {
+      "id": "segment-boundary",
+      "status": "passed",
+      "result": {
+        "boundary": "Profile resolution only. No AX lookup, microphone, model loading or provider request. The supplied document URL is not included in the output.",
+        "document_available": true,
+        "instruction": "Format as a concise email. Do not invent recipients, greetings, signatures or facts.",
+        "language": "en-GB",
+        "match": "app",
+        "mode": "email",
+        "profile_id": "00000000-0000-0000-0000-000000000001",
+        "profile_name": "com.test.browser",
+        "speech_model": "whisper-turbo",
+        "speech_provider": "local"
+      }
+    },
+    {
+      "id": "scheme-boundary",
+      "status": "passed",
+      "result": {
+        "boundary": "Profile resolution only. No AX lookup, microphone, model loading or provider request. The supplied document URL is not included in the output.",
+        "document_available": true,
+        "instruction": "Format as a concise email. Do not invent recipients, greetings, signatures or facts.",
+        "language": "en-GB",
+        "match": "app",
+        "mode": "email",
+        "profile_id": "00000000-0000-0000-0000-000000000001",
+        "profile_name": "com.test.browser",
+        "speech_model": "whisper-turbo",
+        "speech_provider": "local"
+      }
+    },
+    {
+      "id": "host-boundary",
+      "status": "passed",
+      "result": {
+        "boundary": "Profile resolution only. No AX lookup, microphone, model loading or provider request. The supplied document URL is not included in the output.",
+        "document_available": true,
+        "instruction": "Format as a concise email. Do not invent recipients, greetings, signatures or facts.",
+        "language": "en-GB",
+        "match": "app",
+        "mode": "email",
+        "profile_id": "00000000-0000-0000-0000-000000000001",
+        "profile_name": "com.test.browser",
+        "speech_model": "whisper-turbo",
+        "speech_provider": "local"
+      }
+    },
+    {
+      "id": "port-boundary",
+      "status": "passed",
+      "result": {
+        "boundary": "Profile resolution only. No AX lookup, microphone, model loading or provider request. The supplied document URL is not included in the output.",
+        "document_available": true,
+        "instruction": "Format as a concise email. Do not invent recipients, greetings, signatures or facts.",
+        "language": "en-GB",
+        "match": "app",
+        "mode": "email",
+        "profile_id": "00000000-0000-0000-0000-000000000001",
+        "profile_name": "com.test.browser",
+        "speech_model": "whisper-turbo",
+        "speech_provider": "local"
+      }
+    },
+    {
+      "id": "foreign-app",
+      "status": "passed",
+      "result": {
+        "boundary": "Profile resolution only. No AX lookup, microphone, model loading or provider request. The supplied document URL is not included in the output.",
+        "document_available": false,
+        "instruction": "Remove filler words, false starts and accidental repetitions. Fix punctuation. Preserve the speaker's voice.",
+        "language": "en",
+        "match": "global",
+        "mode": "clean",
+        "profile_id": null,
+        "profile_name": null,
+        "speech_model": "parakeet-v3",
+        "speech_provider": "local"
+      }
+    },
+    {
+      "id": "disabled-app",
+      "status": "passed",
+      "result": {
+        "boundary": "Profile resolution only. No AX lookup, microphone, model loading or provider request. The supplied document URL is not included in the output.",
+        "document_available": false,
+        "instruction": "Remove filler words, false starts and accidental repetitions. Fix punctuation. Preserve the speaker's voice.",
+        "language": "en",
+        "match": "global",
+        "mode": "clean",
+        "profile_id": null,
+        "profile_name": null,
+        "speech_model": "parakeet-v3",
+        "speech_provider": "local"
+      }
+    },
+    {
+      "id": "invalid-document",
+      "status": "passed",
+      "result": {
+        "boundary": "Profile resolution only. No AX lookup, microphone, model loading or provider request. The supplied document URL is not included in the output.",
+        "document_available": false,
+        "instruction": "Format as a concise email. Do not invent recipients, greetings, signatures or facts.",
+        "language": "en-GB",
+        "match": "app",
+        "mode": "email",
+        "profile_id": "00000000-0000-0000-0000-000000000001",
+        "profile_name": "com.test.browser",
+        "speech_model": "whisper-turbo",
+        "speech_provider": "local"
+      }
+    },
+    {
+      "id": "default-port",
+      "status": "passed",
+      "result": {
+        "boundary": "Profile resolution only. No AX lookup, microphone, model loading or provider request. The supplied document URL is not included in the output.",
+        "document_available": true,
+        "instruction": "Keep identifiers exactly.",
+        "language": "",
+        "match": "site",
+        "mode": "custom",
+        "profile_id": "00000000-0000-0000-0000-000000000002",
+        "profile_name": "Code",
+        "speech_model": "cohere-native8",
+        "speech_provider": "local"
+      }
+    },
+    {
+      "id": "cloud-model-retained",
+      "status": "passed",
+      "result": {
+        "boundary": "Profile resolution only. No AX lookup, microphone, model loading or provider request. The supplied document URL is not included in the output.",
+        "document_available": true,
+        "instruction": "Keep identifiers exactly.",
+        "language": "",
+        "match": "site",
+        "mode": "custom",
+        "profile_id": "00000000-0000-0000-0000-000000000002",
+        "profile_name": "Code",
+        "speech_model": "stt-async-v5",
+        "speech_provider": "soniox"
+      }
+    },
+    {
+      "id": "invalid-profile-fallback",
+      "status": "passed",
+      "result": {
+        "boundary": "Profile resolution only. No AX lookup, microphone, model loading or provider request. The supplied document URL is not included in the output.",
+        "document_available": true,
+        "instruction": "Format as a concise email. Do not invent recipients, greetings, signatures or facts.",
+        "language": "en-GB",
+        "match": "app",
+        "mode": "email",
+        "profile_id": "00000000-0000-0000-0000-000000000001",
+        "profile_name": "com.test.browser",
+        "speech_model": "whisper-turbo",
+        "speech_provider": "local"
+      }
+    },
+    {
+      "id": "persisted-modern-profile",
+      "status": "passed",
+      "result": {
+        "boundary": "Profile resolution only. No AX lookup, microphone, model loading or provider request. The supplied document URL is not included in the output.",
+        "document_available": true,
+        "instruction": "Keep identifiers exactly.",
+        "language": "",
+        "match": "site",
+        "mode": "custom",
+        "profile_id": "00000000-0000-0000-0000-000000000002",
+        "profile_name": "Code",
+        "speech_model": "cohere-native8",
+        "speech_provider": "local"
+      }
+    },
+    {
+      "id": "persisted-disabled-profile",
+      "status": "passed",
+      "result": {
+        "boundary": "Profile resolution only. No AX lookup, microphone, model loading or provider request. The supplied document URL is not included in the output.",
+        "document_available": true,
+        "instruction": "Format as a concise email. Do not invent recipients, greetings, signatures or facts.",
+        "language": "en-GB",
+        "match": "app",
+        "mode": "email",
+        "profile_id": "00000000-0000-0000-0000-000000000001",
+        "profile_name": "com.test.browser",
+        "speech_model": "whisper-turbo",
+        "speech_provider": "local"
+      }
+    },
+    {
+      "id": "oversized-file",
+      "status": "rejected-as-expected"
+    },
+    {
+      "id": "malformed-settings",
+      "status": "rejected-as-expected"
+    }
+  ],
+  "boundary": "17 public synthetic black-box Swift CLI profile cases, including two negative controls. No AX, microphone, model inference, provider call or native editor interaction. Not a latency benchmark."
+}

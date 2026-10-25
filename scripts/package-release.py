@@ -33,7 +33,7 @@ def main():
     python = args.python_log.read_text()
     assert "Test Suite 'All tests' passed" in swift, "A successful native test receipt is required"
     swift_counts = re.findall(r"Executed (\d+) tests?, with 0 failures", swift)
-    python_counts = re.findall(r"(?:^|\n)(\d+) passed(?: in|,)", python)
+    python_counts = re.findall(r"(?:^|\n)(?:=+\s+)?(\d+) passed(?: in|,)", python)
     assert swift_counts and python_counts and not re.search(r"\d+ failed", python)
     receipt = json.loads(args.receipt.read_text())
     assert receipt.get("bundled_help_relative_links", 0) > 0, "Bundled research/help links were not verified"

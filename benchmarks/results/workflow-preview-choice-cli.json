@@ -1,0 +1,97 @@
+{
+  "status": "passed-local-text-choice-cli",
+  "cases": [
+    {
+      "case": "wrong-model",
+      "status": "passed",
+      "exit_code": 1
+    },
+    {
+      "case": "truncated",
+      "status": "passed",
+      "exit_code": 1
+    },
+    {
+      "case": "wrong-count",
+      "status": "passed",
+      "exit_code": 1
+    },
+    {
+      "case": "zero-count",
+      "status": "passed",
+      "exit_code": 1
+    },
+    {
+      "case": "empty",
+      "status": "passed",
+      "exit_code": 1
+    },
+    {
+      "case": "missing-model",
+      "status": "passed",
+      "exit_code": 1
+    },
+    {
+      "case": "missing-completion",
+      "status": "passed",
+      "exit_code": 1
+    },
+    {
+      "case": "valid",
+      "status": "passed",
+      "exit_code": 0
+    },
+    {
+      "case": "accent-loss-fallback",
+      "status": "passed",
+      "exit_code": 0
+    },
+    {
+      "case": "unknown-model-before-worker",
+      "status": "passed",
+      "exit_code": 1
+    },
+    {
+      "case": "actual-rewrite-quality",
+      "status": "passed",
+      "result": {
+        "finish_reason": "stop",
+        "generation_tokens": 16,
+        "model": "mlx-community/Qwen3-4B-Instruct-2507-4bit",
+        "original": "Um, please send this to Zoë Saldaña, not the other team.",
+        "raw_text": "Please send this to Zoë Saldaña, not the other team.",
+        "rewrite_accepted": true,
+        "text": "Please send this to Zoë Saldaña, not the other team.",
+        "total_ms": 51387.48937495984,
+        "warning": ""
+      }
+    },
+    {
+      "case": "actual-meeting-quality",
+      "status": "passed",
+      "result": {
+        "finish_reason": "stop",
+        "generation_tokens": 16,
+        "model": "mlx-community/Qwen3.5-9B-4bit",
+        "original": "Um, please send this to Zoë Saldaña, not the other team.",
+        "raw_text": "Please send this to Zoë Saldaña, not the other team.",
+        "rewrite_accepted": true,
+        "text": "Please send this to Zoë Saldaña, not the other team.",
+        "total_ms": 65535.118791041896,
+        "warning": ""
+      }
+    }
+  ],
+  "cli_sha256": "f4ecbadb4bc63ff2ebccb78f737fd53c4ba8f7643b2660e38446ab9331a812c3",
+  "build": {
+    "version": "0.1.0",
+    "built_at": "2026-10-25T06:52:23.175390+00:00",
+    "git_commit": "f74bb75feeddd0e7d44a8ee3b886c3056f3428a7",
+    "tracked_changes": false,
+    "application_source_sha256": "c1ddeec3cddfd05bee44d6b91342a0e9dff462a01ebf62737ca740ff4a64ee3d",
+    "source_manifest_version": 2,
+    "signing_mode": "configured-identity",
+    "boundary": "Development build; configured signing identity; not notarized; weights downloaded separately."
+  },
+  "boundary": "Actual Swift CLI with owned fake-child completion/model/type/fallback/early-admission contracts; optional two cached 4B/9B inferences. No native Settings, microphone, insertion, provider, semantic generalization or comparative latency claim."
+}

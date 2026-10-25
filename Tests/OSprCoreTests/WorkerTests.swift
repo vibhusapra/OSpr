@@ -213,24 +213,29 @@ final class WorkerTests: XCTestCase {
     func testWorkerIgnoringTerminationIsKilledAndRestarted() async throws {
         let worker = WorkerClient(root: directory.path, timeout: 0.5)
         defer { worker.shutdown() }
-        _ = try await worker.request(["action": "ping"])
+        // Process startup is a control, not the short request deadline under
+        // test. Cold system Python may exceed 0.5 seconds on a busy machine.
+        let first = try await worker.request(["action": "ping"], timeout: 5)
         let start = Date()
         do { _ = try await worker.request(["action": "ignore-termination"]); XCTFail("Expected forced termination") }
         catch { XCTAssertTrue(error.localizedDescription.contains("stopped or timed out")) }
         XCTAssertGreaterThan(Date().timeIntervalSince(start), 1)
         XCTAssertLessThan(Date().timeIntervalSince(start), 4)
-        let reply = try await worker.request(["action": "ping"])
+        let reply = try await worker.request(["action": "ping"], timeout: 5)
         XCTAssertEqual(reply["value"] as? String, "ready")
+        XCTAssertNotEqual(first["pid"] as? Int, reply["pid"] as? Int)
     }
     func testTimeoutReapsWorkerAndNextRequestRestarts() async throws {
         let worker = WorkerClient(root: directory.path, timeout: 0.4)
         defer { worker.shutdown() }
+        let first = try await worker.request(["action": "ping"], timeout: 5)
         let start = Date()
         do { _ = try await worker.request(["action": "sleep"]); XCTFail("Expected timeout") }
         catch { XCTAssertTrue(error.localizedDescription.contains("stopped or timed out")) }
         XCTAssertLessThan(Date().timeIntervalSince(start), 3)
-        let result = try await worker.request(["action": "ping"])
+        let result = try await worker.request(["action": "ping"], timeout: 5)
         XCTAssertEqual(result["value"] as? String, "ready")
+        XCTAssertNotEqual(first["pid"] as? Int, result["pid"] as? Int)
     }
     func testLongRequestOverrideDoesNotDisableTheNextDefaultDeadline() async throws {
         let source = directory.appendingPathComponent("backend/ospr_backend/worker.py")

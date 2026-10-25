@@ -1,0 +1,424 @@
+{
+  "status": "passed-summary-file-cli-contracts-and-local-inference",
+  "cli_sha256": "f4ecbadb4bc63ff2ebccb78f737fd53c4ba8f7643b2660e38446ab9331a812c3",
+  "build": {
+    "version": "0.1.0",
+    "built_at": "2026-10-25T06:52:23.175390+00:00",
+    "git_commit": "f74bb75feeddd0e7d44a8ee3b886c3056f3428a7",
+    "tracked_changes": false,
+    "application_source_sha256": "c1ddeec3cddfd05bee44d6b91342a0e9dff462a01ebf62737ca740ff4a64ee3d",
+    "source_manifest_version": 2,
+    "signing_mode": "configured-identity",
+    "boundary": "Development build; configured signing identity; not notarized; weights downloaded separately."
+  },
+  "cases": [
+    {
+      "case": "valid",
+      "exit_code": 0,
+      "input_unchanged": true,
+      "private_fixture_not_exposed": true
+    },
+    {
+      "case": "bad-quote",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "private_fixture_not_exposed": true
+    },
+    {
+      "case": "bad-quantity",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "private_fixture_not_exposed": true
+    },
+    {
+      "case": "bad-reference",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "private_fixture_not_exposed": true
+    },
+    {
+      "case": "bad-section",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "private_fixture_not_exposed": true
+    },
+    {
+      "case": "missing-chunks",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "private_fixture_not_exposed": true
+    },
+    {
+      "case": "stale-progress",
+      "exit_code": 1,
+      "input_unchanged": true,
+      "private_fixture_not_exposed": true
+    },
+    {
+      "case": "non-UTF8-input",
+      "exit_code": 1,
+      "input_unchanged": true
+    },
+    {
+      "case": "local-9b-explicit-correction",
+      "exit_code": 0,
+      "input_unchanged": true,
+      "result": {
+        "chunks": 1,
+        "excerpts": [
+          {
+            "id": 0,
+            "text": "The initial proposal was $15.50 per seat."
+          },
+          {
+            "id": 1,
+            "text": "That proposal is rejected."
+          },
+          {
+            "id": 2,
+            "text": "We agree to charge $12.50 per seat instead."
+          },
+          {
+            "id": 3,
+            "text": "Elena will update the pricing document on Tuesday."
+          },
+          {
+            "id": 4,
+            "text": "Do not publish the old $15.50 figure."
+          }
+        ],
+        "items": [
+          {
+            "section": "decisions",
+            "source_ids": [
+              0,
+              1,
+              2
+            ],
+            "text": "The initial proposal of $15.50 per seat is rejected; the agreed price is $12.50 per seat."
+          },
+          {
+            "section": "actions",
+            "source_ids": [
+              3
+            ],
+            "text": "Elena will update the pricing document on Tuesday."
+          },
+          {
+            "section": "actions",
+            "source_ids": [
+              4
+            ],
+            "text": "Do not publish the old $15.50 figure."
+          }
+        ],
+        "limitations": "AI paraphrases with exact-source citations. Citations do not prove entailment, relevance or completeness. Review source quotes and the full transcript; no task is executed.",
+        "model": "mlx-community/Qwen3.5-9B-4bit",
+        "reconciled": false,
+        "source_characters": 201,
+        "source_quotes_verified": true,
+        "total_ms": 31627.87670781836,
+        "validation_retries": 0
+      }
+    },
+    {
+      "case": "local-9b-hindi-conditions",
+      "exit_code": 0,
+      "input_unchanged": true,
+      "result": {
+        "chunks": 1,
+        "excerpts": [
+          {
+            "id": 0,
+            "text": "शुक्रवार को बीटा जारी नहीं करना है। प्रिया सोमवार को सुरक्षा समीक्षा भेजेंगी। प्रस्तावित कीमत $12.50 है, लेकिन इसे अभी मंजूरी नहीं मिली है। समीक्षा के बाद ही जारी करने की तारीख तय होगी।"
+          }
+        ],
+        "items": [
+          {
+            "section": "decisions",
+            "source_ids": [
+              0
+            ],
+            "text": "शुक्रवार को बीटा रिलीज़ नहीं किया जाएगा।"
+          },
+          {
+            "section": "actions",
+            "source_ids": [
+              0
+            ],
+            "text": "प्रिया को सुरक्षा समीक्षा भेजने के लिए सोमवार की तारीख निर्धारित की गई है।"
+          },
+          {
+            "section": "decisions",
+            "source_ids": [
+              0
+            ],
+            "text": "प्रस्तावित कीमत $12.50 है, हालांकि अभी इसकी मंजूरी नहीं मिली है।"
+          },
+          {
+            "section": "questions",
+            "source_ids": [
+              0
+            ],
+            "text": "समीक्षा के बाद जारी करने की अंतिम तारीख तय होगी।"
+          }
+        ],
+        "limitations": "AI paraphrases with exact-source citations. Citations do not prove entailment, relevance or completeness. Review source quotes and the full transcript; no task is executed.",
+        "model": "mlx-community/Qwen3.5-9B-4bit",
+        "reconciled": false,
+        "source_characters": 185,
+        "source_quotes_verified": true,
+        "total_ms": 31951.968791894615,
+        "validation_retries": 0
+      }
+    },
+    {
+      "case": "local-9b-multi-chunk-late-correction",
+      "exit_code": 0,
+      "input_unchanged": true,
+      "result": {
+        "chunks": 3,
+        "excerpts": [
+          {
+            "id": 1,
+            "text": "Agenda note 0: the team discussed general usability observations; no decision or commitment was made in this segment."
+          },
+          {
+            "id": 2,
+            "text": "Agenda note 1: the team discussed general usability observations; no decision or commitment was made in this segment."
+          },
+          {
+            "id": 3,
+            "text": "Agenda note 2: the team discussed general usability observations; no decision or commitment was made in this segment."
+          },
+          {
+            "id": 4,
+            "text": "Agenda note 3: the team discussed general usability observations; no decision or commitment was made in this segment."
+          },
+          {
+            "id": 5,
+            "text": "Agenda note 4: the team discussed general usability observations; no decision or commitment was made in this segment."
+          },
+          {
+            "id": 6,
+            "text": "Agenda note 5: the team discussed general usability observations; no decision or commitment was made in this segment."
+          },
+          {
+            "id": 7,
+            "text": "Agenda note 6: the team discussed general usability observations; no decision or commitment was made in this segment."
+          },
+          {
+            "id": 8,
+            "text": "Agenda note 7: the team discussed general usability observations; no decision or commitment was made in this segment."
+          },
+          {
+            "id": 68,
+            "text": "Agenda note 67: the team discussed general usability observations; no decision or commitment was made in this segment."
+          },
+          {
+            "id": 69,
+            "text": "Agenda note 68: the team discussed general usability observations; no decision or commitment was made in this segment."
+          },
+          {
+            "id": 70,
+            "text": "Agenda note 69: the team discussed general usability observations; no decision or commitment was made in this segment."
+          },
+          {
+            "id": 71,
+            "text": "Agenda note 70: the team discussed general usability observations; no decision or commitment was made in this segment."
+          },
+          {
+            "id": 72,
+            "text": "Agenda note 71: the team discussed general usability observations; no decision or commitment was made in this segment."
+          },
+          {
+            "id": 73,
+            "text": "Agenda note 72: the team discussed general usability observations; no decision or commitment was made in this segment."
+          },
+          {
+            "id": 74,
+            "text": "Agenda note 73: the team discussed general usability observations; no decision or commitment was made in this segment."
+          },
+          {
+            "id": 75,
+            "text": "Agenda note 74: the team discussed general usability observations; no decision or commitment was made in this segment."
+          },
+          {
+            "id": 135,
+            "text": "Agenda note 134: the team discussed general usability observations; no decision or commitment was made in this segment."
+          },
+          {
+            "id": 136,
+            "text": "Agenda note 135: the team discussed general usability observations; no decision or commitment was made in this segment."
+          },
+          {
+            "id": 137,
+            "text": "Agenda note 136: the team discussed general usability observations; no decision or commitment was made in this segment."
+          },
+          {
+            "id": 138,
+            "text": "Agenda note 137: the team discussed general usability observations; no decision or commitment was made in this segment."
+          },
+          {
+            "id": 139,
+            "text": "Agenda note 138: the team discussed general usability observations; no decision or commitment was made in this segment."
+          },
+          {
+            "id": 140,
+            "text": "Agenda note 139: the team discussed general usability observations; no decision or commitment was made in this segment."
+          },
+          {
+            "id": 141,
+            "text": "Agenda note 140: the team discussed general usability observations; no decision or commitment was made in this segment."
+          },
+          {
+            "id": 142,
+            "text": "Agenda note 141: the team discussed general usability observations; no decision or commitment was made in this segment."
+          },
+          {
+            "id": 143,
+            "text": "Agenda note 142: the team discussed general usability observations; no decision or commitment was made in this segment."
+          },
+          {
+            "id": 144,
+            "text": "Agenda note 143: the team discussed general usability observations; no decision or commitment was made in this segment."
+          },
+          {
+            "id": 145,
+            "text": "Agenda note 144: the team discussed general usability observations; no decision or commitment was made in this segment."
+          },
+          {
+            "id": 146,
+            "text": "Agenda note 145: the team discussed general usability observations; no decision or commitment was made in this segment."
+          },
+          {
+            "id": 147,
+            "text": "Agenda note 146: the team discussed general usability observations; no decision or commitment was made in this segment."
+          },
+          {
+            "id": 148,
+            "text": "Agenda note 147: the team discussed general usability observations; no decision or commitment was made in this segment."
+          },
+          {
+            "id": 149,
+            "text": "Agenda note 148: the team discussed general usability observations; no decision or commitment was made in this segment."
+          },
+          {
+            "id": 150,
+            "text": "Agenda note 149: the team discussed general usability observations; no decision or commitment was made in this segment."
+          },
+          {
+            "id": 151,
+            "text": "We reject the Friday proposal."
+          },
+          {
+            "id": 152,
+            "text": "The beta must not ship on Friday."
+          },
+          {
+            "id": 153,
+            "text": "Priya will send the security review on Monday."
+          },
+          {
+            "id": 154,
+            "text": "Release timing is still undecided."
+          }
+        ],
+        "items": [
+          {
+            "section": "overview",
+            "source_ids": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ],
+            "text": "The team discussed general usability observations across multiple agenda notes without reaching any decisions or commitments."
+          },
+          {
+            "section": "overview",
+            "source_ids": [
+              68,
+              69,
+              70,
+              71,
+              72,
+              73,
+              74,
+              75
+            ],
+            "text": "The team discussed general usability observations across multiple agenda notes, but no decisions or commitments were made in any segment."
+          },
+          {
+            "section": "overview",
+            "source_ids": [
+              135,
+              136,
+              137,
+              138,
+              139,
+              140,
+              141,
+              142
+            ],
+            "text": "The team discussed general usability observations across multiple agenda notes without reaching a decision or commitment."
+          },
+          {
+            "section": "overview",
+            "source_ids": [
+              143,
+              144,
+              145,
+              146,
+              147,
+              148,
+              149,
+              150
+            ],
+            "text": "The discussion on general usability observations continued through further agenda notes with no decisions or commitments made."
+          },
+          {
+            "section": "decisions",
+            "source_ids": [
+              151
+            ],
+            "text": "The team rejected the Friday proposal."
+          },
+          {
+            "section": "decisions",
+            "source_ids": [
+              152
+            ],
+            "text": "The beta must not ship on Friday."
+          },
+          {
+            "section": "actions",
+            "source_ids": [
+              153
+            ],
+            "text": "Priya will send the security review on Monday."
+          },
+          {
+            "section": "questions",
+            "source_ids": [
+              154
+            ],
+            "text": "Release timing is still undecided."
+          }
+        ],
+        "limitations": "AI paraphrases with exact-source citations. Citations do not prove entailment, relevance or completeness. Review source quotes and the full transcript; no task is executed.",
+        "model": "mlx-community/Qwen3.5-9B-4bit",
+        "reconciled": true,
+        "source_characters": 18116,
+        "source_quotes_verified": true,
+        "total_ms": 141921.1840829812,
+        "validation_retries": 0
+      }
+    }
+  ],
+  "boundary": "Actual Swift CLI with owned synthetic worker and public UTF8 files: complete typed notes, bad quote/quantity/reference/category/metadata and stale progress rejection, no partial stdout or private-fixture echo, invalid UTF8 rejection and unchanged input. Optional three actual offline 9B file-to-worker-to-native-validation replays. Citation validation is not entailment or summary quality proof. No app UI, microphone/history/provider account, isolated timing, consumer ranking or distribution acceptance."
+}
