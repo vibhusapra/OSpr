@@ -1,0 +1,64 @@
+{
+  "status": "observed-uncontrolled-artifact-timing-difference",
+  "records": [
+    {
+      "route": "native-long",
+      "model": "parakeet-v3",
+      "prior_wall_ms": 25091.539208078757,
+      "current_wall_ms": 54658.56512496248,
+      "prior_decode_ms": 24027.903832960874,
+      "current_decode_ms": 53042.05216700211,
+      "prior_load_ms": 617.0226249378175,
+      "current_load_ms": 922.8026659693569,
+      "wer": 0.02723649247121346,
+      "recognizer_text_unchanged": true
+    },
+    {
+      "route": "native-long",
+      "model": "qwen3-asr",
+      "prior_wall_ms": 82684.30370790884,
+      "current_wall_ms": 412220.2680830378,
+      "prior_decode_ms": 72159.83804198913,
+      "current_decode_ms": 404308.00154199824,
+      "prior_load_ms": 10150.221124989912,
+      "current_load_ms": 7034.181209048256,
+      "wer": 0.023693534100974314,
+      "recognizer_text_unchanged": true
+    },
+    {
+      "route": "neural-long",
+      "model": "parakeet-v3",
+      "prior_wall_ms": 35923.43116598204,
+      "current_wall_ms": 95626.87729182653,
+      "prior_decode_ms": 24188.770500011742,
+      "current_decode_ms": 78837.7723749727,
+      "prior_load_ms": 720.7898749038577,
+      "current_load_ms": 675.8602501358837,
+      "wer": 0.02723649247121346,
+      "recognizer_text_unchanged": true
+    },
+    {
+      "route": "neural-long",
+      "model": "qwen3-asr",
+      "prior_wall_ms": 101718.8885412179,
+      "current_wall_ms": 285548.2253751252,
+      "prior_decode_ms": 81964.46925005876,
+      "current_decode_ms": 265232.50150005333,
+      "prior_load_ms": 11404.49666697532,
+      "current_load_ms": 7512.711292132735,
+      "wer": 0.023693534100974314,
+      "recognizer_text_unchanged": true
+    }
+  ],
+  "inference_modules_byte_identical": {
+    "engine.py": "9fbbfa2ea7c86bbd007076d36d87119992df213ca651303e5d228eacd0c8dd7a",
+    "parakeet.py": "ac2e947592d162334b4c1d34d0ac1db3b94f5317de524e53e9e0fcc282db5b93",
+    "parakeet_loader.py": "d6f18ec8d7c0c57c8cfc48ef73491fae67ad7823f56129f91cf6fdbf18f7fc1a",
+    "qwen.py": "fa988f81f9a3a9da747f87144d4b649da1421bc43d573d72e29782b3be52850c",
+    "qwen_features.py": "825a3904a07abd2eed7f7beecc36897de1f779e3845c4e9897529ec471ba07ad"
+  },
+  "dependency_inventories_identical": true,
+  "long_file_harness_sha256": "40595bdb52c1693d5de75dc5588bb41c43a0ac1d6cf7f9f2d92f281695a97f0b",
+  "metal_available_and_default_gpu_observed": true,
+  "boundary": "Different shared-Mac sessions; no power/thermal/GPU-contention isolation or matched interleaved replay. Current wall/decode times are substantially higher; cause unresolved. Same fixture, model configuration and exact text/WER; this is not a speed acceptance, causal code-regression finding or product ranking. A controlled interleaved replay remains required before performance conclusions."
+}

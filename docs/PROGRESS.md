@@ -2,6 +2,38 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## Standalone workflow preview, 2026-10-25
+
+Clean application source `f74bb75` / fingerprint `c1ddeec3` is now a separate
+signed standalone app including the file workflows below. All eighteen exact
+bundle gates and both real bundled Whisper/Parakeet media-recovery controls pass.
+453 optimized Swift / 372 Python and Ruff pass. An actual control-startup timeout
+was retained, reproduced and corrected in tests: startup/recovery allowances are
+separate from the original short deadlines; replacement PIDs are required.
+Production deadlines and application source are unchanged.
+
+The 402,410,428-byte ZIP passes CRC/extraction/signatures/offline CLI and exact byte
+bindings. Frozen bundled help has 387 links. Wrong test counts, nonpositive
+counts, older-source media runs and overwriting retained media receipts are
+refused. The earlier v0-review archive and normal app/data remain byte-identical.
+A fresh private-copy current AppModel upgrade preserves eight records/two audio
+files, fields, search and edit/quit/restart with native services disabled.
+
+Default-hour wall times were about 55s/412s for Parakeet/Qwen, versus about
+25s/83s in the older session; neural-hour times are retained too. Five recognizer
+modules, dependencies and harness match, but sessions were not isolated. Exact
+text/WER match. Cause is unresolved; no speed acceptance follows.
+[Timing context](../benchmarks/results/workflow-preview-timing-context.json).
+
+A historical web-routing QA focus retry still did not establish TextEdit as a
+confirmed destination; no phrase was sent. The owned target is unchanged and
+normal local-only OSpr is restored with eight sessions/265 words. Broad native
+insertion/shortcuts/devices/acoustics, VoiceOver, semantic/consumer testing and
+clean-Mac/older-OS/updater/Developer-ID acceptance remain open. This is a developer
+preview; no full-parity/top-three claim.
+[Manifest](../benchmarks/results/workflow-preview-package.json) ·
+[Reproduction](architecture/workflow-preview.md) · [PR38](https://github.com/vibhusapra/OSpr/pull/38).
+
 ## File import outcomes, retry and complete history export
 
 Studio retains each latest-batch filename/result and retries only unfinished
@@ -28,8 +60,7 @@ and complete JSON export. Offscreen light/dark/compact source layouts are inspec
 453 Swift / 372 Python tests and retained-evidence/source checks pass. Both QA
 apps/workers stopped; normal local-only OSpr visibly retains eight sessions/265
 words. Drag/drop UI, active native Cancel, VoiceOver, persistent source-name
-search/list metadata and durable batch resume remain open. This source is newer
-than the distributed v0-review archive.
+search/list metadata and durable batch resume remain open. This source is included in the workflow preview above; the earlier v0-review archive is preserved.
 [Method/scope](architecture/file-import-workflows.md) ·
 [Native evidence](../benchmarks/results/file-import-native.json).
 
@@ -76,7 +107,7 @@ metadata, actual capture-time routing and insertion remain open.
 [Native receipt](../benchmarks/results/profile-controls-native.json) ·
 [Resolver receipt](../benchmarks/results/profile-controls-resolver.json).
 
-## Current standalone review package and reproducible gates
+## Earlier standalone review package and reproducible gates
 
 Clean source `7a6e9ff` now has a separate Apple Development signed macOS26.6.2
 arm64 preview including edited-summary sources and final profile feedback.

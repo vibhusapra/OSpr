@@ -9,30 +9,30 @@ or a top-three product ranking. See [progress](docs/PROGRESS.md), the
 [acceptance ledger](docs/data/parity.json), and the self-contained
 [research and benchmark report](docs/research.html).
 
-The current source preview is on `codex/v0-review-package`
-([draft PR #34](https://github.com/vibhusapra/OSpr/pull/34), stacked on #33).
-The separate clean-source `7a6e9ff` package includes edited-source summary
-snapshots, explicit local model preparation, browser insertion fixes and the
-final visible profile-feedback footer. [Package scope and reproduction](docs/architecture/v0-review-package.md).
+The current standalone workflow preview is on `codex/workflow-preview`
+([draft PR #38](https://github.com/vibhusapra/OSpr/pull/38), stacked on #37).
+Clean application source `f74bb75` includes per-file import outcomes/retry,
+readable malformed-media recovery and complete history/search exports, alongside
+local text preparation, summaries, browser insertion fixes and profile controls.
+[Package scope and reproduction](docs/architecture/workflow-preview.md).
 
-Local review artifact: `dist/v0 review/OSpr.app`. Its
-`dist/v0 review/OSpr-v0.1.0-macOS26.6.2-arm64.zip` is 400,931,517 bytes,
-SHA256 `1de0985a612dca7eec8a2bbecd408e4b5acc4288928216a07f561f5943e8e561`.
+Local app: `dist/workflow preview/OSpr.app`. Its
+`dist/workflow preview/OSpr-v0.1.0-macOS26.6.2-arm64.zip` is 402,410,428 bytes,
+SHA256 `3de66ad6e6f86326032d39fb3f3224ab9b05e772f802817b502a678ccce5a1fd`.
 Apple Development signed, macOS26.6.2 arm64, weights separate; **not notarized**.
 The archive is generated locally and is not a public GitHub release download.
 
-438 optimized Swift tests, 355 Python tests and 18 exact-bundle functional gates
+453 optimized Swift tests, 372 Python tests and 18 exact-bundle functional gates
 pass, including offline relocated six-engine inference, local text CLI/MCP,
 default/neural synthetic-hour regressions and three 80-minute loopback transports.
-The ZIP passes CRC/extraction, signatures and executable identity; normal app/data
-hashes are unchanged. A private-copy current AppModel upgrade preserves the eight
-existing records and referenced audio across migration/edit/quit/restart.
-[Exact manifest and all gate hashes](benchmarks/results/v0-review-package.json).
+Two additional real bundled controls retain the worker PID, warm Whisper/Parakeet
+and exact public speech after malformed media. ZIP CRC/extraction/signatures,
+source/executable identity and unchanged normal-app/data checks pass. A private
+copy of eight existing records and two audio files survives current AppModel
+migration/search/edit/quit/restart. [Exact manifest](benchmarks/results/workflow-preview-package.json).
 
-Scoped native light-mode profile validation/provider guidance/Save also pass
-in an isolated re-signed copy with identical unsigned GUI bytes.
-[Native evidence](benchmarks/results/v0-review-native-feedback.json).
-Current insertion, broader profile controls, physical shortcut/device/acoustic, VoiceOver,
+Native file-import/export and profile checks retain their explicit source scopes;
+current target-app insertion, physical shortcuts/devices/acoustics, VoiceOver,
 representative semantic quality, clean-Mac/older-OS/updater/Developer-ID and
 isolated energy/latency/consumer-ranking acceptance remain open. Synthetic and
 loopback gates do not establish full parity or top-three performance. Earlier
