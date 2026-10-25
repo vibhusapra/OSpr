@@ -1,0 +1,304 @@
+{
+  "status": "passed-owned-worker-lifetime-controls",
+  "protocol": {
+    "application_source_sha256": "cd80a3b1fc2b44f9da1568ec9a785338ff961e72435c44ef2bdb2fa5914819a7",
+    "source_manifest_version": 2,
+    "source_commit": "c2f8ca086dff26d6bfae9c6535ffdc4bed66c45f",
+    "tracked_changes": false,
+    "baseline_ref": "fe6f0b33c4c2b797f94f5b2f85e2ffdb8259ea87",
+    "owner_sha256": {
+      "baseline": "0c9d6ece3b9401358ded1e920ea24b8a7c4763a2538c50122c9e0b078ac66645",
+      "candidate": "69141a79db72992dc965cc93e63821c0be62b9f44d81b6eceb2d1f2774411fdf"
+    },
+    "guardian_sha256": "0f5966f004b727fbd54f67bd010d608d2be4e62a005938b045251931cf95e5ef",
+    "worker_sha256": "8a57a0642d65d76a77c3cb11d6547d7ebfcfe043fa58d325ff9c123e75647886",
+    "dependency_lock_sha256": "8e306569ebe63c886e9938d06c2e0a6e39d661de20e116a1998321dbfd14a6d2",
+    "model_lock_sha256": "9a129abe477b1bebd486b5f066e8e3ba45a380c8b04ea8c9125e0dcaca0c8054",
+    "python_version": "Python 3.12.11",
+    "runner_sha256": "55ec80f33931ae1f1c8c4b0e656b1d1931621fa11d4a03ac146c66d571a821b5",
+    "probe_sha256": "5cbe8135e37956986991f44624764187321c501998fac1d0f5ab604defeb67d4",
+    "observation_seconds": 2.5,
+    "real_generate_delay_seconds": 0.2,
+    "order": [
+      "baseline",
+      "candidate",
+      "candidate",
+      "baseline"
+    ],
+    "machine": {
+      "os": "26.6.2",
+      "arch": "arm64",
+      "cpu": "Apple M5 Max"
+    },
+    "boundary": "Injected GIL-held dispatch in production Python main; native owner SIGKILL; owned SIGTERM-ignoring decoder. No microphone/UI/provider. Shared-machine overhead observations, no comparative product or energy ranking.",
+    "real_audio_sha256": "d1e0294eba40bd907d1aa493f296c4bfd78f5b9bc9f81a9b2b396046a5fed2e2"
+  },
+  "records": [
+    {
+      "kind": "baseline",
+      "control": "GIL-held-real-main",
+      "owner_exit": -9,
+      "ids": {
+        "worker": 67715,
+        "decoder": 67716,
+        "owner": 67714,
+        "group": 67715
+      },
+      "dispatch_sha256": "b36e06571bad751b653aebcc2358e2f5024fb8949323aa4f0bf7ab50f9173a9b",
+      "observation_seconds": 2.519407207844779,
+      "survived": {
+        "worker": true,
+        "decoder": true
+      },
+      "unexpected_result": false,
+      "helper_snapshot": []
+    },
+    {
+      "kind": "baseline",
+      "control": "cold-and-five-warm-pings",
+      "records": [
+        {
+          "pid": 67733,
+          "round_trip_ms": 298.46675
+        },
+        {
+          "pid": 67733,
+          "round_trip_ms": 0.125292
+        },
+        {
+          "pid": 67733,
+          "round_trip_ms": 0.122417
+        },
+        {
+          "pid": 67733,
+          "round_trip_ms": 0.086959
+        },
+        {
+          "pid": 67733,
+          "round_trip_ms": 0.083459
+        },
+        {
+          "pid": 67733,
+          "round_trip_ms": 0.10125
+        }
+      ]
+    },
+    {
+      "kind": "candidate",
+      "control": "GIL-held-real-main",
+      "owner_exit": -9,
+      "ids": {
+        "worker": 67735,
+        "decoder": 67737,
+        "owner": 67734,
+        "group": 67735
+      },
+      "dispatch_sha256": "b36e06571bad751b653aebcc2358e2f5024fb8949323aa4f0bf7ab50f9173a9b",
+      "observation_seconds": 2.5111613750923425,
+      "survived": {
+        "worker": false,
+        "decoder": false
+      },
+      "unexpected_result": false,
+      "helper_snapshot": [
+        {
+          "pid": 67736,
+          "rss_kib": 7776,
+          "cpu_time": "0:00.01"
+        }
+      ]
+    },
+    {
+      "kind": "candidate",
+      "control": "cold-and-five-warm-pings",
+      "records": [
+        {
+          "pid": 67759,
+          "round_trip_ms": 228.304167
+        },
+        {
+          "pid": 67759,
+          "round_trip_ms": 0.131167
+        },
+        {
+          "pid": 67759,
+          "round_trip_ms": 0.07875
+        },
+        {
+          "pid": 67759,
+          "round_trip_ms": 0.078625
+        },
+        {
+          "pid": 67759,
+          "round_trip_ms": 0.074334
+        },
+        {
+          "pid": 67759,
+          "round_trip_ms": 0.07225
+        }
+      ]
+    },
+    {
+      "kind": "candidate",
+      "control": "GIL-held-real-main",
+      "owner_exit": -9,
+      "ids": {
+        "worker": 67762,
+        "decoder": 67764,
+        "owner": 67761,
+        "group": 67762
+      },
+      "dispatch_sha256": "b36e06571bad751b653aebcc2358e2f5024fb8949323aa4f0bf7ab50f9173a9b",
+      "observation_seconds": 2.5179233339149505,
+      "survived": {
+        "worker": false,
+        "decoder": false
+      },
+      "unexpected_result": false,
+      "helper_snapshot": [
+        {
+          "pid": 67763,
+          "rss_kib": 7776,
+          "cpu_time": "0:00.00"
+        }
+      ]
+    },
+    {
+      "kind": "candidate",
+      "control": "cold-and-five-warm-pings",
+      "records": [
+        {
+          "pid": 67778,
+          "round_trip_ms": 329.528833
+        },
+        {
+          "pid": 67778,
+          "round_trip_ms": 0.109084
+        },
+        {
+          "pid": 67778,
+          "round_trip_ms": 0.097166
+        },
+        {
+          "pid": 67778,
+          "round_trip_ms": 0.069
+        },
+        {
+          "pid": 67778,
+          "round_trip_ms": 0.063292
+        },
+        {
+          "pid": 67778,
+          "round_trip_ms": 0.07225
+        }
+      ]
+    },
+    {
+      "kind": "baseline",
+      "control": "GIL-held-real-main",
+      "owner_exit": -9,
+      "ids": {
+        "worker": 67782,
+        "decoder": 67785,
+        "owner": 67780,
+        "group": 67782
+      },
+      "dispatch_sha256": "b36e06571bad751b653aebcc2358e2f5024fb8949323aa4f0bf7ab50f9173a9b",
+      "observation_seconds": 2.5115997921675444,
+      "survived": {
+        "worker": true,
+        "decoder": true
+      },
+      "unexpected_result": false,
+      "helper_snapshot": []
+    },
+    {
+      "kind": "baseline",
+      "control": "cold-and-five-warm-pings",
+      "records": [
+        {
+          "pid": 67799,
+          "round_trip_ms": 242.395125
+        },
+        {
+          "pid": 67799,
+          "round_trip_ms": 0.095208
+        },
+        {
+          "pid": 67799,
+          "round_trip_ms": 0.082791
+        },
+        {
+          "pid": 67799,
+          "round_trip_ms": 0.102292
+        },
+        {
+          "pid": 67799,
+          "round_trip_ms": 0.059333
+        },
+        {
+          "pid": 67799,
+          "round_trip_ms": 0.062042
+        }
+      ]
+    },
+    {
+      "kind": "candidate",
+      "control": "real-Parakeet-owner-kill",
+      "owner_exit": -9,
+      "ids": {
+        "worker": 67801,
+        "owner": 67800,
+        "group": 67801,
+        "boundary": "before real Parakeet generate"
+      },
+      "dispatch_sha256": "3343f71eaef6b52c1b038ad921008cbc1495a9b3a881ea8fc3cdf76eb670fb15",
+      "observation_seconds": 2.5150252080056816,
+      "survived": {
+        "worker": false
+      },
+      "unexpected_result": false,
+      "helper_snapshot": [
+        {
+          "pid": 67802,
+          "rss_kib": 7776,
+          "cpu_time": "0:00.00"
+        }
+      ]
+    },
+    {
+      "kind": "baseline",
+      "control": "fresh-process-public-speech",
+      "semantic": {
+        "text": "Because you were sleeping instead of conquering, the lovely rose princess has become a fiddle without a bow, while poor Shaggy sits there a cooing dove.",
+        "segments": [
+          {
+            "end": 10.88,
+            "start": 0.32,
+            "text": " Because you were sleeping instead of conquering, the lovely rose princess has become a fiddle without a bow, while poor Shaggy sits there a cooing dove."
+          }
+        ],
+        "language": "en",
+        "model": "parakeet-v3",
+        "audio_seconds": 10.885
+      }
+    },
+    {
+      "kind": "candidate",
+      "control": "fresh-process-public-speech",
+      "semantic": {
+        "text": "Because you were sleeping instead of conquering, the lovely rose princess has become a fiddle without a bow, while poor Shaggy sits there a cooing dove.",
+        "segments": [
+          {
+            "end": 10.88,
+            "start": 0.32,
+            "text": " Because you were sleeping instead of conquering, the lovely rose princess has become a fiddle without a bow, while poor Shaggy sits there a cooing dove."
+          }
+        ],
+        "language": "en",
+        "model": "parakeet-v3",
+        "audio_seconds": 10.885
+      }
+    }
+  ]
+}

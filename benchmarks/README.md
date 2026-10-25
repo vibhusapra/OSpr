@@ -726,3 +726,18 @@ separate research directory, not the application environment. The research-only
 Accepted-for-review is schema/source admission, not semantic quality. See
 `docs/architecture/summary-fidelity.md` for timing/memory boundaries, review
 observations, reproduction and open gates. No grammar/encoding/model promotion.
+
+## Native worker lifetime
+
+`worker_lifetime.py` builds a native owner and guardian, runs production Python
+main with an injected GIL-held call and TERM-ignoring same-group decoder, then
+intentionally kills only its owned owner. Two old/new ABBA observations reproduce
+the leak and verify cleanup. Optional cached Parakeet controls interrupt a real
+request and check fresh-process speech equality. Four separate cold/warm IPC
+observations and diagnostic helper RSS snapshots disclose the added process cost;
+no energy, equivalence, end-to-end dictation or product ranking follows.
+
+See [contract/reproduction](../docs/architecture/worker-lifetime.md) and
+[all retained attempts](results/worker-lifetime.json). Existing output directories
+are refused. The durable batch process runner now observes production cleanup
+before its own failure fallback and fails CI if the worker survives.

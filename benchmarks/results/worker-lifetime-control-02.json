@@ -1,0 +1,278 @@
+{
+  "status": "passed-owned-worker-lifetime-controls",
+  "protocol": {
+    "application_source_sha256": "26f2b06232435b5c76825a68f249d5a668fad8095137dfa02ff147a89bdd101e",
+    "source_manifest_version": 2,
+    "source_commit": "fe6f0b33c4c2b797f94f5b2f85e2ffdb8259ea87",
+    "tracked_changes": true,
+    "baseline_ref": "fe6f0b33c4c2b797f94f5b2f85e2ffdb8259ea87",
+    "owner_sha256": {
+      "baseline": "0c9d6ece3b9401358ded1e920ea24b8a7c4763a2538c50122c9e0b078ac66645",
+      "candidate": "22d2b2a69d41526d0531756fa498a67962d5856926e5260f935bcf767afd1d16"
+    },
+    "guardian_sha256": "be3c4629fd7be3e5cd65872be1fc4718c0a0512241cb0f35939c052d1fd2ee3c",
+    "worker_sha256": "8a57a0642d65d76a77c3cb11d6547d7ebfcfe043fa58d325ff9c123e75647886",
+    "runner_sha256": "60bf73f8438a29a4dea20fa252ed3bb2b8a853e53134fe7063695d0b9759001b",
+    "probe_sha256": "5cbe8135e37956986991f44624764187321c501998fac1d0f5ab604defeb67d4",
+    "observation_seconds": 2.5,
+    "real_generate_delay_seconds": 0.2,
+    "order": [
+      "baseline",
+      "candidate",
+      "candidate",
+      "baseline"
+    ],
+    "machine": {
+      "os": "26.6.2",
+      "arch": "arm64",
+      "cpu": "Apple M5 Max"
+    },
+    "boundary": "Injected GIL-held dispatch in production Python main; native owner SIGKILL; owned SIGTERM-ignoring decoder. No microphone/UI/provider. Shared-machine overhead observations, no comparative product or energy ranking.",
+    "real_audio_sha256": "d1e0294eba40bd907d1aa493f296c4bfd78f5b9bc9f81a9b2b396046a5fed2e2"
+  },
+  "records": [
+    {
+      "kind": "baseline",
+      "control": "GIL-held-real-main",
+      "owner_exit": -9,
+      "ids": {
+        "worker": 65775,
+        "decoder": 65776,
+        "owner": 65774,
+        "group": 65775
+      },
+      "dispatch_sha256": "0e251bcb0dc8fb0a3fe3387ec0c587629eef536b27f7e05e0b78b0b689b593d7",
+      "observation_seconds": 2.52511562500149,
+      "survived": {
+        "worker": true,
+        "decoder": true
+      },
+      "unexpected_result": false
+    },
+    {
+      "kind": "baseline",
+      "control": "cold-and-five-warm-pings",
+      "records": [
+        {
+          "pid": 65792,
+          "round_trip_ms": 209.463333
+        },
+        {
+          "pid": 65792,
+          "round_trip_ms": 0.112583
+        },
+        {
+          "pid": 65792,
+          "round_trip_ms": 0.119958
+        },
+        {
+          "pid": 65792,
+          "round_trip_ms": 0.101208
+        },
+        {
+          "pid": 65792,
+          "round_trip_ms": 0.090625
+        },
+        {
+          "pid": 65792,
+          "round_trip_ms": 0.0895
+        }
+      ]
+    },
+    {
+      "kind": "candidate",
+      "control": "GIL-held-real-main",
+      "owner_exit": -9,
+      "ids": {
+        "worker": 65794,
+        "decoder": 65796,
+        "owner": 65793,
+        "group": 65794
+      },
+      "dispatch_sha256": "0e251bcb0dc8fb0a3fe3387ec0c587629eef536b27f7e05e0b78b0b689b593d7",
+      "observation_seconds": 2.5236897910945117,
+      "survived": {
+        "worker": false,
+        "decoder": false
+      },
+      "unexpected_result": false
+    },
+    {
+      "kind": "candidate",
+      "control": "cold-and-five-warm-pings",
+      "records": [
+        {
+          "pid": 65812,
+          "round_trip_ms": 206.304292
+        },
+        {
+          "pid": 65812,
+          "round_trip_ms": 0.138583
+        },
+        {
+          "pid": 65812,
+          "round_trip_ms": 0.129208
+        },
+        {
+          "pid": 65812,
+          "round_trip_ms": 0.118959
+        },
+        {
+          "pid": 65812,
+          "round_trip_ms": 0.084125
+        },
+        {
+          "pid": 65812,
+          "round_trip_ms": 0.076375
+        }
+      ]
+    },
+    {
+      "kind": "candidate",
+      "control": "GIL-held-real-main",
+      "owner_exit": -9,
+      "ids": {
+        "worker": 65815,
+        "decoder": 65817,
+        "owner": 65814,
+        "group": 65815
+      },
+      "dispatch_sha256": "0e251bcb0dc8fb0a3fe3387ec0c587629eef536b27f7e05e0b78b0b689b593d7",
+      "observation_seconds": 2.524883250007406,
+      "survived": {
+        "worker": false,
+        "decoder": false
+      },
+      "unexpected_result": false
+    },
+    {
+      "kind": "candidate",
+      "control": "cold-and-five-warm-pings",
+      "records": [
+        {
+          "pid": 65830,
+          "round_trip_ms": 220.040875
+        },
+        {
+          "pid": 65830,
+          "round_trip_ms": 0.120708
+        },
+        {
+          "pid": 65830,
+          "round_trip_ms": 0.097792
+        },
+        {
+          "pid": 65830,
+          "round_trip_ms": 0.100791
+        },
+        {
+          "pid": 65830,
+          "round_trip_ms": 0.101709
+        },
+        {
+          "pid": 65830,
+          "round_trip_ms": 0.083458
+        }
+      ]
+    },
+    {
+      "kind": "baseline",
+      "control": "GIL-held-real-main",
+      "owner_exit": -9,
+      "ids": {
+        "worker": 65833,
+        "decoder": 65834,
+        "owner": 65832,
+        "group": 65833
+      },
+      "dispatch_sha256": "0e251bcb0dc8fb0a3fe3387ec0c587629eef536b27f7e05e0b78b0b689b593d7",
+      "observation_seconds": 2.526396333007142,
+      "survived": {
+        "worker": true,
+        "decoder": true
+      },
+      "unexpected_result": false
+    },
+    {
+      "kind": "baseline",
+      "control": "cold-and-five-warm-pings",
+      "records": [
+        {
+          "pid": 65850,
+          "round_trip_ms": 202.50825
+        },
+        {
+          "pid": 65850,
+          "round_trip_ms": 0.117417
+        },
+        {
+          "pid": 65850,
+          "round_trip_ms": 0.085625
+        },
+        {
+          "pid": 65850,
+          "round_trip_ms": 0.085917
+        },
+        {
+          "pid": 65850,
+          "round_trip_ms": 0.098709
+        },
+        {
+          "pid": 65850,
+          "round_trip_ms": 0.080334
+        }
+      ]
+    },
+    {
+      "kind": "candidate",
+      "control": "real-Parakeet-owner-kill",
+      "owner_exit": -9,
+      "ids": {
+        "worker": 65852,
+        "owner": 65851,
+        "group": 65852,
+        "boundary": "before real Parakeet generate"
+      },
+      "dispatch_sha256": "e27fdfae08da662198636ba980dc6ea5ea8ed46fc065d5d49c550c62fdfffa37",
+      "observation_seconds": 2.518212707946077,
+      "survived": {
+        "worker": false
+      },
+      "unexpected_result": false
+    },
+    {
+      "kind": "baseline",
+      "control": "fresh-process-public-speech",
+      "semantic": {
+        "text": "Because you were sleeping instead of conquering, the lovely rose princess has become a fiddle without a bow, while poor Shaggy sits there a cooing dove.",
+        "segments": [
+          {
+            "end": 10.88,
+            "start": 0.32,
+            "text": " Because you were sleeping instead of conquering, the lovely rose princess has become a fiddle without a bow, while poor Shaggy sits there a cooing dove."
+          }
+        ],
+        "language": "en",
+        "model": "parakeet-v3",
+        "audio_seconds": 10.885
+      }
+    },
+    {
+      "kind": "candidate",
+      "control": "fresh-process-public-speech",
+      "semantic": {
+        "text": "Because you were sleeping instead of conquering, the lovely rose princess has become a fiddle without a bow, while poor Shaggy sits there a cooing dove.",
+        "segments": [
+          {
+            "end": 10.88,
+            "start": 0.32,
+            "text": " Because you were sleeping instead of conquering, the lovely rose princess has become a fiddle without a bow, while poor Shaggy sits there a cooing dove."
+          }
+        ],
+        "language": "en",
+        "model": "parakeet-v3",
+        "audio_seconds": 10.885
+      }
+    }
+  ]
+}

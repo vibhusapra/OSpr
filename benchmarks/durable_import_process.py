@@ -72,11 +72,19 @@ def run(package: Path, output: Path) -> dict:
         code = process.wait(timeout=10)
         if code != -signal.SIGKILL:
             raise RuntimeError(f"Unexpected interruption exit {code}")
-        # Foundation Process gives its child a separate process group on macOS.
-        # Clean only this verified fixture worker, after interrupting the parent.
-        stop_verified_worker(owned_worker)
+        # Observe production guardian cleanup before any harness fallback.
+        # A failed observation is retained and fails CI rather than being masked
+        # by explicit test cleanup in finally.
+        stopped_by = time.monotonic() + 3
+        while time.monotonic() < stopped_by:
+            state = subprocess.run(["ps", "-p", str(owned_worker), "-o", "stat="], capture_output=True, text=True).stdout.strip()
+            if not state or state.startswith("Z"):
+                break
+            time.sleep(0.02)
+        else:
+            raise RuntimeError("Production guardian did not stop the interrupted batch worker")
         owned_worker = None
-        before["verified_fixture_worker_cleanup"] = True
+        before["production_guardian_worker_cleanup"] = True
         records.append({"stage": "admit", "outcome": "intentional-live-process-group-sigkill", "exit": code, "observed": before})
     finally:
         if process.poll() is None:

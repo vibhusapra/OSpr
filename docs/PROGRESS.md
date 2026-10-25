@@ -2,6 +2,53 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## Native worker parent-death cleanup, 2026-10-25
+
+A real production-loop reproduction left its worker and a TERM-ignoring decoder
+alive after the owner was killed during a GIL-held C call. A separate native
+guardian now observes owner/worker exit without Python cooperation. Kernel
+registration precedes request admission; handshake/request deadlines remain
+bounded. Missing/failed helpers fail closed, guardian loss interrupts blocked
+requests, healthy workers stay warm, and start-identity checks fence delayed
+signals. Escalation includes decoder survivors after the leader exits.
+
+Eight new permanent tests bring full local debug and optimized suites to
+**493 Swift**, with **380 Python** and Ruff passing. The initial membership-count
+mistake failed ten assertions and is retained in the manifest; the corrected
+membership/escalation tests pass. The durable import hard-kill control now verifies
+production cleanup before any harness fallback; resumed IDs/payload/privacy
+checks pass. Native/CLI app packaging includes a separately verified helper.
+
+Clean source c2f8ca0 binds a final ABBA owner-crash series: two baseline worker/
+decoder leaks versus zero in two candidates. A real cached Parakeet request also
+stops after owner SIGKILL; fresh baseline/candidate text/segments/language/model/
+duration match on the original public clip. All attempts remain retained. Three
+helper snapshots are 7,776 KiB RSS. Cold ping samples move in both directions;
+no speed-equivalence, energy, physical dictation or ranking claim.
+
+A clean ad-hoc signed checkout app and packaged CLI health check pass. Actual
+packaged Parakeet words/segments/model/duration match the public control; the CLI
+omits its language hint, so that field is not an equal-input comparison. The first
+overly broad language comparison assertion is recorded in the manifest. The
+preserved standalone ZIPs/normal app/data are unchanged. Native TextEdit remains
+pending after another locked-Mac response. The helper covers same-group children;
+deliberate detachment and simultaneous owner/guardian kill are outside its
+contract. Full parity, broad consumer benchmarks, clean-Mac/notarization and older
+OS acceptance remain open. [Manifest/all attempts](../benchmarks/results/worker-lifetime.json) ·
+[Contract/reproduction](architecture/worker-lifetime.md).
+
+[Source CI40193610197](https://github.com/vibhusapra/OSpr/actions/runs/40193610197)
+passes 493 permanent Swift / 380 Python, actual durable worker cleanup and
+GIL-held production-main owner-death gates, contracts, all 444 report HTML links,
+standalone runtime/CLI/session-history/signatures and development artifact upload.
+
+Next P0: a separate synthetic AppModel audit confirms disabling Keep audio during
+an active batch still retains a later, not-yet-started file using captured
+configuration. No real audio or user history was involved. The temporary failing
+probe and original test bytes are retained privately; production tests were
+restored unchanged. Fix this before a new standalone preview. Native TextEdit
+and broader benchmark/acceptance work remain open.
+
 ## Durable file-import recovery, 2026-10-25
 
 The latest batch is saved with History and restored for explicit Resume. Planned
@@ -34,7 +81,8 @@ All29 installed backend source/data files match; original public WAV unchanged.
 The first process control left a sleeping fixture child in its separate process
 group; that verified owned child was stopped. The corrected harness verifies
 ownership and cleans it explicitly; all controls remain retained. Production
-worker parent-death cleanup remains a follow-up. Snapshot write amplification on
+worker parent-death cleanup is addressed by the later guardian source above,
+with separate production-loop and real-ASR controls. Snapshot write amplification on
 large batches is unprofiled. Resume reads current files; no audio snapshots,
 automatic relocation, real provider-account, energy/latency or ranking claim.
 

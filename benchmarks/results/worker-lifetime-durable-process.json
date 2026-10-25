@@ -1,0 +1,115 @@
+{
+  "status": "passed-intentional-process-interruption-and-restart",
+  "protocol": {
+    "stages": [
+      "admit-and-kill",
+      "resume",
+      "verify",
+      "privacy"
+    ],
+    "scope": "Synthetic worker/AppModel/history/journal. No native UI or recognition model.",
+    "swift_probe_sha256": "10c52aa509f69301030b55aa7274403135023495146a0eb3edda91c12d2afafb",
+    "runner_sha256": "1ce370e8609d3946f85e1ea0de068c99b12fe624a7f81c210a87b71b5e2b1bed",
+    "command": [
+      "/Applications/Xcode.app/Contents/Developer/usr/bin/xctest",
+      "-XCTest",
+      "OSprPlatformTests.DurableImportProcessTemporary/testStage",
+      "<checkout>/.build/debug/OSprPackageTests.xctest"
+    ],
+    "build": {
+      "application_source_sha256": "cd80a3b1fc2b44f9da1568ec9a785338ff961e72435c44ef2bdb2fa5914819a7",
+      "source_manifest_version": 2,
+      "test_executable_sha256": "cdb55949a360ab811fdaa71017e3fa3ee8b1ba968740d8377fde317ceb4bba9d",
+      "probe_sha256": "10c52aa509f69301030b55aa7274403135023495146a0eb3edda91c12d2afafb",
+      "guardian_sha256": "25febf4a9303973def5e5c38240e036da23a69f250188f73510b1c5b7af3825b",
+      "build_log_sha256": "4fce75891d326fc5db9979a02305acece2c71d55256d1b86ec607889415adc73"
+    }
+  },
+  "records": [
+    {
+      "stage": "admit",
+      "outcome": "intentional-live-process-group-sigkill",
+      "exit": -9,
+      "observed": {
+        "history_records": 1,
+        "planned_ids": [
+          "C4D57106-87B7-4F18-B618-DCB140296178",
+          "AE0AA05B-1321-4AE5-92B7-F58EB471635C",
+          "E5A53624-00BE-40B1-9C84-8DB910CB7FDE"
+        ],
+        "requests": [
+          {
+            "language": "",
+            "model": "whisper-small",
+            "name": "first.wav"
+          },
+          {
+            "language": "",
+            "model": "whisper-small",
+            "name": "slow.wav"
+          }
+        ],
+        "status": "ready-for-intentional-sigkill",
+        "test_pid": 68796,
+        "worker_pid": 68797,
+        "production_guardian_worker_cleanup": true
+      }
+    },
+    {
+      "stage": "resume",
+      "exit": 0,
+      "observed": {
+        "fingerprint": "05ef4b09e09bc62da0bc8af21f63d9896da552284371b7fb4bc7988b70ba7c02",
+        "history_records": 3,
+        "planned_ids": [
+          "C4D57106-87B7-4F18-B618-DCB140296178",
+          "AE0AA05B-1321-4AE5-92B7-F58EB471635C",
+          "E5A53624-00BE-40B1-9C84-8DB910CB7FDE"
+        ],
+        "requests": [
+          {
+            "language": "",
+            "model": "whisper-small",
+            "name": "first.wav"
+          },
+          {
+            "language": "",
+            "model": "whisper-small",
+            "name": "slow.wav"
+          },
+          {
+            "language": "",
+            "model": "whisper-small",
+            "name": "slow.wav"
+          },
+          {
+            "language": "",
+            "model": "whisper-small",
+            "name": "last.wav"
+          }
+        ],
+        "status": "passed"
+      }
+    },
+    {
+      "stage": "verify",
+      "exit": 0,
+      "observed": {
+        "history_records": 3,
+        "payloads_unchanged": true,
+        "requests": 4,
+        "status": "passed"
+      }
+    },
+    {
+      "stage": "privacy",
+      "exit": 0,
+      "observed": {
+        "history_records": 0,
+        "journal_absent": true,
+        "requests": 4,
+        "status": "passed"
+      }
+    }
+  ]
+}

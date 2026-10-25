@@ -7,6 +7,8 @@ swift build -c "$configuration"
 app="dist/OSpr.app"
 mkdir -p "$app/Contents/MacOS" "$app/Contents/Resources"
 cp ".build/$configuration/OSpr" "$app/Contents/MacOS/OSpr"
+cp ".build/$configuration/ospr-worker-guardian" dist/ospr-worker-guardian
+cp ".build/$configuration/ospr-worker-guardian" "$app/Contents/MacOS/ospr-worker-guardian"
 cp ".build/$configuration/ospr-cli" dist/ospr-cli
 cp ".build/$configuration/ospr-cli" "$app/Contents/MacOS/ospr-cli"
 pwd > "$app/Contents/Resources/checkout-root.txt"
@@ -50,5 +52,6 @@ cat > "$app/Contents/Info.plist" <<'PLIST'
 PLIST
 codesign --force --deep --sign "$signing_identity" "$app"
 codesign --verify --deep --strict "$app"
+codesign --verify --strict "$app/Contents/MacOS/ospr-worker-guardian"
 echo "Built $app (local development build; not notarized)."
 echo "Keep this checkout for the Python engine; select a new location in Settings if moved."

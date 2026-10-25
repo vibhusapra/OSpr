@@ -10,6 +10,7 @@ import json
 import os
 from pathlib import Path
 import re
+import shutil
 import subprocess
 import tempfile
 
@@ -46,7 +47,9 @@ def main():
         assert not path.exists() and not path.with_name(path.stem + "-binding.json").exists(), "Receipt already exists"
     harness = ROOT / "benchmarks/media_recovery.swift"
     worker = ROOT / "Sources/OSprCore/WorkerClient.swift"
-    binding = dict(build=build, executable_sha256=sha(app / "Contents/MacOS/OSpr"),
+    lifetime = ROOT / "Sources/OSprCore/WorkerLifetime.swift"
+    guardian = app / "Contents/MacOS/ospr-worker-guardian"
+    binding = dict(worker_lifetime_sha256=sha(lifetime), guardian_sha256=sha(guardian), build=build, executable_sha256=sha(app / "Contents/MacOS/OSpr"),
                    cli_sha256=sha(app / "Contents/MacOS/ospr-cli"), engine_binding="bundled",
                    harness_sha256=sha(harness), worker_client_sha256=sha(worker),
                    runner_sha256=sha(Path(__file__)))
@@ -57,7 +60,8 @@ def main():
         executable = staging / "media-recovery"
         invalid = staging / "invalid.wav"
         invalid.write_bytes(b"Invalid public synthetic audio fixture.\n")
-        subprocess.run(["swiftc", "-O", "-parse-as-library", str(worker), str(harness), "-o", str(executable)], check=True)
+        subprocess.run(["swiftc", "-O", "-parse-as-library", str(worker), str(lifetime), str(harness), "-o", str(executable)], check=True)
+        shutil.copy2(guardian, staging / "ospr-worker-guardian")
         for model in args.models:
             path = results / f"{args.prefix}-media-recovery-{model}.json"
             print("START " + model, flush=True)

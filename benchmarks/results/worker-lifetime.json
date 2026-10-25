@@ -1,0 +1,105 @@
+{
+  "status": "passed-owned-worker-lifetime-controls",
+  "date": "2026-10-25",
+  "source_commit": "c2f8ca086dff26d6bfae9c6535ffdc4bed66c45f",
+  "application_source_sha256": "cd80a3b1fc2b44f9da1568ec9a785338ff961e72435c44ef2bdb2fa5914819a7",
+  "source_manifest_version": 2,
+  "final_control": "worker-lifetime-control-03.json",
+  "attempts": [
+    {
+      "file": "worker-lifetime-preflight-01.json",
+      "status": "failed-before-build-or-launch"
+    },
+    {
+      "file": "worker-lifetime-baseline-initial.json",
+      "status": "reproduced-worker-and-decoder-survival"
+    },
+    {
+      "file": "worker-lifetime-candidate-initial.json",
+      "status": "development-owner-crash-cleanup-passed"
+    },
+    {
+      "file": "worker-lifetime-control-02.json",
+      "status": "passed-development-series-before-final-leader-fallback"
+    },
+    {
+      "file": "worker-lifetime-control-03.json",
+      "status": "passed-final-clean-source-series"
+    }
+  ],
+  "validation": {
+    "swift_debug": 493,
+    "swift_release": 493,
+    "python": 380,
+    "ruff": "passed",
+    "initial_worker_test_failure": {
+      "tests": 14,
+      "assertions": 10,
+      "cause": "libproc group API returns PID count, not bytes; corrected; direct membership/escalation tests added",
+      "log_sha256": "ad2f779f6139173640ee778283b72b1b59a3bff412ce8d4a978d1543b9fc98ef"
+    },
+    "subsequent_worker_cohort": 20,
+    "report_html_local_links": 444
+  },
+  "observations": {
+    "before_after_owner_kills": 4,
+    "baseline_leaks": 2,
+    "candidate_leaks": 0,
+    "real_parakeet_owner_kills": 1,
+    "real_recovery_semantic_match": true,
+    "cold_and_five_warm_ping_processes": 4,
+    "helper_rss_kib_snapshots": [
+      7776,
+      7776,
+      7776
+    ]
+  },
+  "boundary": "Owned process/GIL-held production-main and one cached real-ASR recovery fixture. Eight new permanent tests. No GUI/microphone/physical shortcuts/insertion, energy or product ranking. Preserved standalone archives predate this source; source build only.",
+  "durable_batch_control": "worker-lifetime-durable-process.json",
+  "checkout_app": {
+    "build": {
+      "version": "0.1.0",
+      "built_at": "2026-10-25T12:27:03.421174+00:00",
+      "git_commit": "c2f8ca086dff26d6bfae9c6535ffdc4bed66c45f",
+      "tracked_changes": false,
+      "application_source_sha256": "cd80a3b1fc2b44f9da1568ec9a785338ff961e72435c44ef2bdb2fa5914819a7",
+      "source_manifest_version": 2,
+      "signing_mode": "ad-hoc",
+      "boundary": "Development build; ad-hoc signature; not notarized; weights downloaded separately."
+    },
+    "signature": "ad-hoc-app-and-helper-verified",
+    "engine": "Existing locked checkout runtime via explicit root; not bundled/standalone",
+    "gui_sha256": "33c42d4fb2ceb9bb634e1ea0079acd4a3d23f9ac6af37d84b6ac8f71d651fcda",
+    "cli_sha256": "ace9474f51a68179781a69e9a3d62e369119aeed672b5aa506993aa1a3d7ca76",
+    "guardian_sha256": "81122d074af2e26378edc4c80f0839335f5a98b877f26fa6ef83b6053278f3fd",
+    "doctor": "passed",
+    "public_parakeet_comparison": {
+      "initial_whole_semantic_assertion": "failed: CLI omits language hint while benchmark probe sets en",
+      "matched_fields": {
+        "text": true,
+        "segments": true,
+        "model": true,
+        "audio_seconds": true
+      },
+      "cli_language": null,
+      "hinted_probe_language": "en",
+      "boundary": "Expected request-configuration difference; not an identical-language-input comparison"
+    }
+  },
+  "source_ci": {
+    "status": "success",
+    "commit": "b3da90291724b7fc26708a1993effa587cbfd4fd",
+    "run": 40193610197,
+    "job": 121169632124,
+    "swift_permanent_tests": 493,
+    "python_tests": 380,
+    "report_html_links": 444,
+    "production_durable_crash_cleanup": true,
+    "gil_held_owner_exit_gate": true,
+    "standalone_runtime_cli_history_signatures": "passed",
+    "artifact_id": 12599196966,
+    "artifact_bytes": 4510095,
+    "artifact_boundary": "Checkout-dependent development app ZIP and report; clean-runner standalone built/tested separately; not a new qualified standalone distribution"
+  },
+  "open_followup": "Separate synthetic AppModel audit confirms live Keep audio=false during a batch still retains later not-yet-started files via captured configuration. P0 fix pending before next standalone preview."
+}

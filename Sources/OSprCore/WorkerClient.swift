@@ -16,6 +16,8 @@ public final class WorkerClient: @unchecked Sendable {
     }
     private let queue = DispatchQueue(label: "app.ospr.worker", qos: .userInitiated)
     private var process: Process?
+    private var guardian: Process?
+    private let guardianExecutable: URL?
     private var input: FileHandle?
     private var output: FileHandle?
     private var log: FileHandle?
@@ -27,10 +29,11 @@ public final class WorkerClient: @unchecked Sendable {
     private var activeRequest: UUID?
     private let timeout: TimeInterval
     private let startupTimeout: TimeInterval
-    public init(root: String, timeout: TimeInterval = 600, startupTimeout: TimeInterval = 20) {
+    public init(root: String, timeout: TimeInterval = 600, startupTimeout: TimeInterval = 20, guardianExecutable: URL? = nil) {
         self.root = root; self.timeout = timeout; self.startupTimeout = startupTimeout
+        self.guardianExecutable = guardianExecutable
     }
-    deinit { process?.terminate(); try? log?.close() }
+    deinit { Self.terminate(process); try? log?.close() }
 
     public func request(_ body: [String: Any], progress: (@Sendable ([String: Any]) -> Void)? = nil, timeout requestTimeout: TimeInterval? = nil) async throws -> [String: Any] {
         let deadline = requestTimeout ?? timeout
@@ -65,7 +68,7 @@ public final class WorkerClient: @unchecked Sendable {
                 do {
                     lifecycle.lock(); let cancelled = requestedEpoch != epoch; lifecycle.unlock()
                     guard !cancelled else { throw CancellationError() }
-                    let started = try startIfNeeded()
+                    let started = try startIfNeeded(handshakeTimeout: deadline)
                     lifecycle.lock(); let cancelledAfterStart = requestedEpoch != epoch; lifecycle.unlock()
                     guard !cancelledAfterStart else { throw CancellationError() }
                     if started {
@@ -145,13 +148,11 @@ public final class WorkerClient: @unchecked Sendable {
     }
     private static func terminate(_ child: Process?) {
         guard let child, child.isRunning else { return }
-        let pid = child.processIdentifier
-        // The real Python worker starts its own session. Include its FFmpeg
-        // descendants, but never signal the app's or another session's group.
-        if getpgid(pid) == pid { kill(-pid, SIGTERM) } else { child.terminate() }
-        DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 1) {
-            guard child.isRunning else { return }
-            if getpgid(pid) == pid { kill(-pid, SIGKILL) } else { kill(pid, SIGKILL) }
+        if let group = OwnedWorkerGroup(child.processIdentifier) {
+            group.terminate()
+        } else if let identity = WorkerProcessIdentity(child.processIdentifier), identity.parent == getpid() {
+            identity.signal(SIGTERM)
+            DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 1) { identity.signal(SIGKILL) }
         }
     }
 
@@ -165,17 +166,23 @@ public final class WorkerClient: @unchecked Sendable {
     private func stopOnQueue() {
         lifecycle.lock(); let child = process; process = nil; lifecycle.unlock()
         Self.terminate(child)
+        // The guardian outlives the leader briefly to finish descendant cleanup.
+        guardian = nil
         try? input?.close(); try? output?.close(); try? log?.close()
         input = nil; output = nil; log = nil
         pending.removeAll(keepingCapacity: false)
     }
-    private func startIfNeeded() throws -> Bool {
+    private func startIfNeeded(handshakeTimeout: TimeInterval) throws -> Bool {
         lifecycle.lock(); let currentEpoch = epoch; lifecycle.unlock()
-        if processEpoch == currentEpoch && process?.isRunning == true { return false }
+        if processEpoch == currentEpoch && process?.isRunning == true && guardian?.isRunning == true { return false }
         stopOnQueue()
         let python = URL(fileURLWithPath: root).appendingPathComponent(".venv/bin/python")
         guard FileManager.default.isExecutableFile(atPath: python.path) else {
             throw OSprError.message("Set up the local engine first. Run scripts/setup.sh in the OSpr checkout, then select that folder in Settings.")
+        }
+        guard let guardianURL = guardianExecutable ?? WorkerGuardian.executableURL(),
+              FileManager.default.isExecutableFile(atPath: guardianURL.path) else {
+            throw OSprError.message("Local engine lifetime helper is missing. Rebuild OSpr with scripts/build-app.sh or reinstall the complete app.")
         }
         let child = Process(), stdin = Pipe(), stdout = Pipe()
         child.executableURL = python
@@ -207,6 +214,38 @@ public final class WorkerClient: @unchecked Sendable {
         try child.run()
         lifecycle.lock(); process = child; processEpoch = currentEpoch; lifecycle.unlock()
         input = stdin.fileHandleForWriting; output = stdout.fileHandleForReading
+        try startGuardian(executable: guardianURL, child: child, timeout: handshakeTimeout)
         return true
     }
+
+    private func startGuardian(executable: URL, child: Process, timeout: TimeInterval) throws {
+        let helper = Process(), ready = Pipe()
+        helper.executableURL = executable
+        helper.arguments = [String(getpid()), String(child.processIdentifier)]
+        helper.currentDirectoryURL = URL(fileURLWithPath: "/")
+        helper.environment = [:]
+        helper.standardInput = FileHandle.nullDevice
+        helper.standardOutput = ready
+        helper.standardError = FileHandle.nullDevice
+        // A lost guardian must never leave a warm, unprotected worker reusable.
+        // This handler does not wait behind the serial inference/read queue.
+        helper.terminationHandler = { _ in Self.terminate(child) }
+        try helper.run()
+        guardian = helper
+        let watchdog = DispatchSource.makeTimerSource(queue: .global(qos: .utility))
+        watchdog.schedule(deadline: .now() + min(startupTimeout, timeout, 5))
+        watchdog.setEventHandler {
+            Self.terminate(child)
+            if helper.isRunning { helper.terminate() }
+        }
+        watchdog.resume()
+        defer { watchdog.cancel(); try? ready.fileHandleForReading.close() }
+        let response = ready.fileHandleForReading.availableData
+        guard response == Data("READY\n".utf8), helper.isRunning, child.isRunning else {
+            Self.terminate(child)
+            if helper.isRunning { helper.terminate() }
+            throw OSprError.message("Local engine lifetime helper could not start. Rebuild or reinstall the complete app, then retry.")
+        }
+    }
+
 }
