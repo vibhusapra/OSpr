@@ -1,0 +1,31 @@
+{
+  "status": "observed-artifact-timing-context",
+  "machine": {
+    "cpu_model": "Apple M5 Max",
+    "physical_memory_bytes": "137438953472",
+    "physical_cpus": "18",
+    "logical_cpus": "18",
+    "observed_at": "2026-10-25T08:03:11.102209+00:00"
+  },
+  "posthoc_thermal_observation": {
+    "observed_at": "2026-10-25T08:13:09.757865+00:00",
+    "thermal_state": 0,
+    "low_power_mode": false,
+    "boundary": "Post-hoc single system observation during the first Qwen hour request; not per-request or baseline thermal coverage. Read-only; no power or thermal setting changed."
+  },
+  "normal_owned_files_unchanged": true,
+  "older_archives_unchanged_sha256": {
+    "A": "1de0985a612dca7eec8a2bbecd408e4b5acc4288928216a07f561f5943e8e561",
+    "B": "3de66ad6e6f86326032d39fb3f3224ab9b05e772f802817b502a678ccce5a1fd"
+  },
+  "aggregate_sha256": "6534ee4e04e215d0f1b4cc9028c87f3421a4737f778943b68b0e9f36953bcbe5",
+  "all_outputs_identical_within_group": {
+    "short-parakeet": true,
+    "short-qwen": true,
+    "hour-parakeet": true,
+    "hour-qwen": true
+  },
+  "no_native_ui_audio_or_provider_operations": true,
+  "boundary": "Context outside the pre-inference protocol. Thermal/power observation was taken once during the first Qwen hour request, after the earlier groups. It cannot characterize all requests or rule out thermal/other system effects. No normal file or original artifact was modified.",
+  "concurrent_task_activity": "Observer, documentation, lint/help commands and managed Git worktree preparation ran concurrently. This task explicitly launched no local build/test or parallel speech inference during the timed sequence. Other desktop work was not controlled."
+}

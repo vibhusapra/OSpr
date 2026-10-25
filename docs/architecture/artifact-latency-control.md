@@ -64,6 +64,56 @@ energy measurement, physical microphone/endpoint/insertion test or new accuracy
 holdout. It cannot certify isolated background GPU access or causality by itself.
 Report every case and the observed spread before proposing a production change.
 
+## Observed results, 2026-10-25
+
+All sixteen requests completed, with zero command failures. Within each of the
+four model/input groups, all four exact recognized texts and WER values match.
+The independent retained-data audit verifies individual files, full case count,
+chronology, hashes, WER and failure denominators. Eight ingestion controls check
+missing/relabelled/changed evidence and retain a synthetic reported timeout.
+
+| Group | Earlier A: median [range], seconds | Workflow B: median [range], seconds |
+| --- | --- | --- |
+| short-parakeet | 1.69 [1.26, 2.12] | 1.45 [1.42, 1.48] |
+| short-qwen | 11.36 [9.36, 13.37] | 8.97 [8.70, 9.24] |
+| hour-parakeet | 153.89 [142.46, 165.32] | 127.70 [49.05, 206.36] |
+| hour-qwen | 470.26 [404.50, 536.01] | 279.13 [259.18, 299.07] |
+
+There are only two observations per artifact/group. B has a lower observed median
+in each group, reversing the direction suggested by the earlier unmatched
+historical sessions. This does not establish a speed win or equivalence. B's
+Parakeet hour requests themselves span 49–206 seconds; A's Qwen hour requests
+span 404–536 seconds. The earlier slow behavior is not uniquely tied to B.
+Causality remains unresolved, and neither artifact is accepted against a latency
+SLA by this experiment. Do not discard slow requests, pick only one pair or
+compare these observer-instrumented times directly with the historical harness.
+
+Five selected Python/MLX runtime binaries have identical bytes after removing
+signatures from temporary copies. Original files and signatures are unchanged.
+This comparison covers those five files only; it is not a claim that every
+runtime dependency, driver/JIT state or model weight was revalidated here.
+A single post-hoc system read reported thermal state 0 and low-power mode false;
+it does not provide per-request thermal coverage or exclude thermal effects.
+
+Both earlier ZIP hashes, all six owned normal/test baseline files and original
+app signatures remain unchanged. No native UI, microphone, playback or provider was operated by the experiment;
+no priority/power setting or existing background program was reconfigured.
+The observer, ordinary desktop work, documentation/lint/help commands and managed
+Git worktree preparation were concurrent. This task explicitly launched no local
+build/test or parallel speech inference during the timed sequence. These
+conditions do not isolate background workload and can bias such a small sample.
+
+[All attempts and observations](../../benchmarks/results/artifact-latency-control.json) ·
+[Individual immutable cases](../../benchmarks/results/artifact-latency-control/short-parakeet-1.json) ·
+[Independent integrity audit](../../benchmarks/results/artifact-latency-control-validation.json) ·
+[Selected unsigned runtime payloads](../../benchmarks/results/artifact-latency-runtime-payloads.json) ·
+[Machine/baseline/thermal context](../../benchmarks/results/artifact-latency-context.json).
+
+The source/runner protocol remains byte-identical to pre-inference commit
+`e3e9cf831db7982a84da6fa28b82432bc0e498ac`. This is checked locally using
+`--frozen-commit`; CI can verify stored evidence without model weights or old
+application bundles.
+
 ## Reproduce
 
 Use the preserved exact artifacts and cached weights named in the protocol.
@@ -82,3 +132,17 @@ First confirm the prior process/child is terminal; an observation timeout is not
 proof of termination. A completed case cannot be rerun into the same receipt.
 Retain prior attempts. Any runner/protocol change needs a new frozen experiment;
 results from different hashes cannot be combined.
+
+For the additional audits:
+
+```sh
+.venv/bin/python benchmarks/verify_artifact_latency.py \
+  --frozen-commit e3e9cf831db7982a84da6fa28b82432bc0e498ac
+.venv/bin/python benchmarks/runtime_payloads.py \
+  --a "dist/v0 review/OSpr.app" --b "dist/workflow preview/OSpr.app" \
+  --output /absolute/fresh-runtime-observations.json
+```
+
+The latter copies only the five named files into a temporary directory, removes
+signatures from copies and hashes them; original artifact bytes/signatures are
+checked before and afterward. Never remove a signature from either original.
