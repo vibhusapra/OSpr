@@ -1,0 +1,99 @@
+{
+  "id": "short-parakeet-2",
+  "group": "short-parakeet",
+  "fixture": "short",
+  "model": "parakeet-v3",
+  "artifact": "B",
+  "status": "completed",
+  "timestamp": "2026-10-25T07:58:46.656966+00:00",
+  "wall_ms": 1419.2581251263618,
+  "return_code": 0,
+  "cli_sha256": "f4ecbadb4bc63ff2ebccb78f737fd53c4ba8f7643b2660e38446ab9331a812c3",
+  "fixture_sha256": "799f78ed4beb4de7ceae3a809262d4ce242394342ccd1d58cef7d49dbc2def46",
+  "signature_valid_after": true,
+  "normal_baseline_unchanged": true,
+  "observations": [
+    {
+      "timestamp": "2026-10-25T07:58:43.391420+00:00",
+      "load_average": [
+        7.4482421875,
+        21.1884765625,
+        30.15234375
+      ],
+      "ps_reported_external_cpu_percent": 378.4,
+      "ps_reported_owned_cpu_percent": 0,
+      "driver_gpu_statistics": [
+        {
+          "Device Utilization %": 32,
+          "Renderer Utilization %": 32,
+          "Tiler Utilization %": 17
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-10-25T07:58:44.486504+00:00",
+      "load_average": [
+        7.4482421875,
+        21.1884765625,
+        30.15234375
+      ],
+      "ps_reported_external_cpu_percent": 218.6,
+      "ps_reported_owned_cpu_percent": 90.2,
+      "driver_gpu_statistics": [
+        {
+          "Device Utilization %": 25,
+          "Renderer Utilization %": 25,
+          "Tiler Utilization %": 12
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-10-25T07:58:46.662919+00:00",
+      "load_average": [
+        7.4482421875,
+        21.1884765625,
+        30.15234375
+      ],
+      "ps_reported_external_cpu_percent": 251.5,
+      "ps_reported_owned_cpu_percent": 0,
+      "driver_gpu_statistics": [
+        {
+          "Device Utilization %": 33,
+          "Renderer Utilization %": 13,
+          "Tiler Utilization %": 8
+        }
+      ]
+    }
+  ],
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_bytes": 0,
+  "protocol_sha256": "2d4dde290417e50698b27942cc4d3f9ce98c3151f933bd0877f79931f46faa1b",
+  "harness_sha256": "99b805b24df68ac100bcbc31fdaca5b5aff34ca88bb1636f4da185470a53ed76",
+  "response": {
+    "active_gpu_bytes": 1296165068,
+    "audio_seconds": 5.855,
+    "decode_ms": 177.45887488126755,
+    "language": null,
+    "load_ms": 715.6665411312133,
+    "model": "parakeet-v3",
+    "peak_gpu_bytes": 2316130888,
+    "preprocess_ms": 1.0672090575098991,
+    "segments": [
+      {
+        "end": 5.84,
+        "start": 0.24,
+        "text": " mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."
+      }
+    ],
+    "silence": false,
+    "speech_seconds": 5.855,
+    "text": "mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+    "timestamp_granularity": "segment",
+    "total_ms": 895.1822919771075,
+    "vocabulary_applied": false,
+    "warm": false,
+    "words": []
+  },
+  "wer": 0.0,
+  "word_errors": 0
+}

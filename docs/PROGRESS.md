@@ -2,6 +2,33 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## Interleaved artifact timing control, 2026-10-25
+
+Pre-inference commit `e3e9cf8` freezes exact signed artifacts, inputs/references,
+runner/scorer/lock hashes and sixteen counterbalanced short/hour Parakeet/Qwen
+requests. All sixteen complete; exact text and WER match within each model/input
+group. The independent audit checks raw case files, chronology, hashes, scores
+and failure denominators. Eight new ingestion tests plus the full 380-test
+Python suite and Ruff pass. Production Swift/ASR code is unchanged.
+
+The workflow artifact has lower observed medians in all four tiny groups,
+reversing the earlier unmatched-session direction. With two samples per artifact,
+this is not a speed acceptance or win. Its Parakeet hour spans 49–206s; the older
+artifact's Qwen hour spans 404–536s. No slow attempt was discarded or deadline
+changed. CPU/GPU observations include ordinary desktop work and concurrent
+repository preparation; workload is not isolated. Cause remains unresolved.
+
+Five selected Python/MLX binaries match after stripping only temporary copies;
+original signatures, both earlier ZIP hashes and six owned normal/test files
+remain unchanged. One post-hoc thermal/power observation is explicitly partial.
+No microphone, playback, provider, power/priority change or native delivery is
+claimed by this experiment. A separate clean worktree is prepared for filename
+History list/search work; that feature is not yet implemented.
+[Method](architecture/artifact-latency-control.md) ·
+[All observations](../benchmarks/results/artifact-latency-control.json) ·
+[Independent audit](../benchmarks/results/artifact-latency-control-validation.json) ·
+[PR39](https://github.com/vibhusapra/OSpr/pull/39).
+
 ## Standalone workflow preview, 2026-10-25
 
 Clean application source `f74bb75` / fingerprint `c1ddeec3` is now a separate

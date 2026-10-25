@@ -10,6 +10,13 @@
       "priority": "P0"
     },
     {
+      "feature": "Interleaved artifact latency control",
+      "status": "measured development control; performance acceptance open",
+      "priority": "P0",
+      "evidence": "Pre-inference protocol/runner commit e3e9cf8 binds two preserved signed artifacts, short/hour inputs, two ASR models and sixteen counterbalanced cold requests. All complete and exact text/WER match within model/input groups. Raw cases, source/CLI/protocol hashes, chronology, scores and failure denominators verify independently. Eight evidence tests and full 380 Python / Ruff pass. Five selected unsigned Python/MLX payloads match; original signatures, normal/test baseline files and both ZIP hashes remain unchanged. See benchmarks/results/artifact-latency-control.json and docs/architecture/artifact-latency-control.md.",
+      "gap": "Two observations per artifact/group on a shared Mac, with observer/desktop/repository-preparation activity. Workflow medians are lower here, reversing the earlier unmatched-session direction, while large within-artifact spread remains. No speed win/equivalence, causal root cause, energy, isolated p95, physical microphone-to-insertion or consumer-ranking acceptance. One post-hoc thermal observation does not cover all requests."
+    },
+    {
       "feature": "Native Mac app, sidebar, studio and menu bar",
       "status": "implemented",
       "evidence": "Packaged public-file/review/export flows exercised. Latest setup card, microphone permission state, restart/edit persistence and owner-only TXT/SRT exports retested. Brief microphone start/cancel and empty-result recovery/retry exercised. Public-speech microphone recognition, recording target label, app-switch insertion rejection and native Keychain/BYOK restart/import now exercised. Later 9a51603 native warning/JSON/SRT checks pass on isolated public speech. The wrong-destination countdown take is discarded before ASR/playback. Normal app is visibly restored with original eight sessions/265 words and unchanged settings/history; owned TextEdit test space is removed and saved.",

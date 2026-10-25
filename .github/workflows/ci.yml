@@ -48,6 +48,9 @@ jobs:
           uv run --frozen --all-extras python benchmarks/preview_package_gates.py --help
           uv run --frozen --all-extras python benchmarks/preview_package_verify.py --help
           uv run --frozen --all-extras python benchmarks/package_media_recovery.py --help
+          uv run --frozen --all-extras python benchmarks/artifact_latency.py --help
+          uv run --frozen --all-extras python benchmarks/runtime_payloads.py --help
+          uv run --frozen --all-extras python benchmarks/verify_artifact_latency.py
           uv run --frozen --all-extras python benchmarks/verify_scoring_factory.py
           uv run --frozen --all-extras python benchmarks/native_file_comparison.py --verify benchmarks/results/native-file-comparison.json
           uv run --frozen --all-extras python benchmarks/verify_file_import.py
