@@ -105,3 +105,6 @@ run only `HistorySourceRenderTemporary` with `OSPR_RENDER_ROOT` set to the
 checkout, then remove that temporary test. Render artifacts do not change the
 permanent suite count. Native QA uses a different bundle identity, private public
 fixture profile and `OSprDisableBackgroundServices=true`.
+
+The later [durable batch source change](durable-file-batches.md) also preserves
+the latest import queue across restart; its native acceptance remains open.

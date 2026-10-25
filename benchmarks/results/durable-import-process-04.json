@@ -1,0 +1,107 @@
+{
+  "status": "passed-intentional-process-interruption-and-restart",
+  "protocol": {
+    "stages": [
+      "admit-and-kill",
+      "resume",
+      "verify",
+      "privacy"
+    ],
+    "scope": "Synthetic worker/AppModel/history/journal. No native UI or recognition model.",
+    "swift_probe_sha256": "10c52aa509f69301030b55aa7274403135023495146a0eb3edda91c12d2afafb",
+    "runner_sha256": "89dcee65e8d1f75724efef8ee383ddd64156e9044853bb4e066660a029898a7d",
+    "command": [
+      "/Applications/Xcode.app/Contents/Developer/usr/bin/xctest",
+      "-XCTest",
+      "OSprPlatformTests.DurableImportProcessTemporary/testStage",
+      "/Users/vibhusapra/.codex/worktrees/history-source-search/OSpr/.build/debug/OSprPackageTests.xctest"
+    ]
+  },
+  "records": [
+    {
+      "stage": "admit",
+      "outcome": "intentional-live-process-group-sigkill",
+      "exit": -9,
+      "observed": {
+        "history_records": 1,
+        "planned_ids": [
+          "00B437CB-D2DF-498E-B72C-61C878666F2E",
+          "780EBBE5-478A-4197-B0D1-09402E90E704",
+          "7F38D6F0-D24B-421D-803E-5EFEBD08A22E"
+        ],
+        "requests": [
+          {
+            "language": "",
+            "model": "whisper-small",
+            "name": "first.wav"
+          },
+          {
+            "language": "",
+            "model": "whisper-small",
+            "name": "slow.wav"
+          }
+        ],
+        "status": "ready-for-intentional-sigkill",
+        "test_pid": 31940,
+        "worker_pid": 31943,
+        "verified_fixture_worker_cleanup": true
+      }
+    },
+    {
+      "stage": "resume",
+      "exit": 0,
+      "observed": {
+        "fingerprint": "79d9bc8cd38c4597bd5db6c24e0aa998c4a128ba16e5974b13c8afad1b0bc266",
+        "history_records": 3,
+        "planned_ids": [
+          "00B437CB-D2DF-498E-B72C-61C878666F2E",
+          "780EBBE5-478A-4197-B0D1-09402E90E704",
+          "7F38D6F0-D24B-421D-803E-5EFEBD08A22E"
+        ],
+        "requests": [
+          {
+            "language": "",
+            "model": "whisper-small",
+            "name": "first.wav"
+          },
+          {
+            "language": "",
+            "model": "whisper-small",
+            "name": "slow.wav"
+          },
+          {
+            "language": "",
+            "model": "whisper-small",
+            "name": "slow.wav"
+          },
+          {
+            "language": "",
+            "model": "whisper-small",
+            "name": "last.wav"
+          }
+        ],
+        "status": "passed"
+      }
+    },
+    {
+      "stage": "verify",
+      "exit": 0,
+      "observed": {
+        "history_records": 3,
+        "payloads_unchanged": true,
+        "requests": 4,
+        "status": "passed"
+      }
+    },
+    {
+      "stage": "privacy",
+      "exit": 0,
+      "observed": {
+        "history_records": 0,
+        "journal_absent": true,
+        "requests": 4,
+        "status": "passed"
+      }
+    }
+  ]
+}

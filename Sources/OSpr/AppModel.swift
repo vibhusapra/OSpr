@@ -23,6 +23,12 @@ import OSprCore
     @Published var preview = ""
     @Published private(set) var importBatch: FileImportBatch?
     private var importSettings: OSprSettings?
+    private let importJournal: FileImportJournal
+    private var importRevision: UInt64 = 0
+    @Published private(set) var importRecovered = false
+    @Published private(set) var importQueueSaved = false
+    @Published private(set) var importPersistenceError = ""
+    @Published var confirmImportResume = false
     @Published private(set) var countdownSeconds: Int?
     var selection: UUID? { get { historyState.selection } set { historyState.selection = newValue } }
     @Published var tab = "Studio"
@@ -135,6 +141,7 @@ import OSprCore
             return try MeetingCapture(directory: directory, preview: preview)
         }
         self.instanceLock = instanceLock
+        importJournal = FileImportJournal(directory: directory)
         servicesEnabled = enableServices
         // Application Support is required for state; an unwritable directory must
         // surface instead of silently putting transcripts somewhere unexpected.
@@ -231,9 +238,9 @@ import OSprCore
         folderWatcher.reportError = { [weak self] error in self?.error = "Watched folder: " + error }
         if enableServices { folderWatcher.start() }
         // Persist pruning even when no new recording is made.
-        if loadError.isEmpty {
-            audioMaintenance = true; status = "Checking retained audio…"
-            Task {
+        audioMaintenance = true; status = "Checking retained audio and imports…"
+        Task {
+            if loadError.isEmpty {
                 do {
                     try await historyState.configure(saving: settings.saveHistory, retentionDays: settings.retentionDays)
                     let keep = try await historyState.audioFiles()
@@ -241,9 +248,10 @@ import OSprCore
                     applyAudioEvictions(removed)
                     audioBytesUsed = try await audioArchive.bytesUsed()
                 } catch { self.error = "Audio maintenance: \(error.localizedDescription)" }
-                audioMaintenance = false
-                if phase == "idle" { status = "Your voice. Your Mac." }
             }
+            await restoreImportBatch()
+            audioMaintenance = false
+            if phase == "idle" { status = importRecovered ? "Saved import batch ready · resume when you choose" : "Your voice. Your Mac." }
         }
         if enableServices { NotificationCenter.default.addObserver(forName: NSApplication.willTerminateNotification, object: nil, queue: .main) { [weak self] _ in
             MainActor.assumeIsolated {
@@ -314,6 +322,9 @@ import OSprCore
         Task {
             defer { if settingsSaveToken == token { audioMaintenance = false } }
             do {
+                // Honor privacy even if another history/audio maintenance step
+                // later fails. A final checkpoint below retries a failed clear.
+                if !config.saveHistory { try? await checkpointImport() }
                 try await historyState.configure(saving: config.saveHistory, retentionDays: config.retentionDays)
                 guard settingsSaveToken == token else { return }
                 let keep = try await historyState.audioFiles()
@@ -321,6 +332,7 @@ import OSprCore
                     limitBytes: Int64(config.audioBudgetMB) * 1024 * 1024)
                 applyAudioEvictions(removed)
                 try await historyState.flush()
+                try await checkpointImport()
                 audioBytesUsed = try await audioArchive.bytesUsed()
                 if settingsSaveToken == token {
                     status = ancillaryFailure == nil ? "Preferences saved" : "History preferences applied · other settings need attention"
@@ -665,6 +677,8 @@ import OSprCore
             meetingSession = nil; recordingDesktop = false
             _ = try? capture.stop(); phase = "idle"; overlay?.orderOut(nil)
             try await historyState.flush()
+            for item in importBatch?.items ?? [] where item.transcriptID != nil { importBatch?.confirmStored(item.id) }
+            try await checkpointImport()
         } catch { quitting = false; throw error }
     }
     func cancelTermination() { quitting = false }
@@ -813,6 +827,7 @@ import OSprCore
         dictationCountdown.cancel(); countdownSeconds = nil
         let wasCapture = phase == "recording" || phase == "starting"
         importBatch?.cancelRemaining()
+        checkpointImportSoon()
         generation = UUID(); operationTask?.cancel(); operationTask = nil; previewTask?.cancel()
         if phase == "warming" || phase == "transcribing" || previewTask != nil { worker.shutdown(); ready = false; residentModels = []; preparedTextModel = nil }
         modelProgress = ""; modelFraction = nil
@@ -886,11 +901,11 @@ import OSprCore
         }
     }
 
-    private func transcribe(file originalFile: URL, duration: Double, config: OSprSettings, mode: WritingMode, target: InsertionTarget?, source: String, token: UUID, preserveRecoveryOnSaveFailure: Bool = false, resultOverride: [String: Any]? = nil, startedAt: Date = Date(), onSaved: ((Transcript) -> Void)? = nil, onIssue: ((String) -> Void)? = nil) async -> Bool {
+    private func transcribe(file originalFile: URL, duration: Double, config: OSprSettings, mode: WritingMode, target: InsertionTarget?, source: String, token: UUID, preserveRecoveryOnSaveFailure: Bool = false, resultOverride: [String: Any]? = nil, startedAt: Date = Date(), resultID: UUID? = nil, onSaved: ((Transcript) -> Void)? = nil, onStored: (() -> Void)? = nil, onIssue: ((String) -> Void)? = nil) async -> Bool {
         guard generation == token else { return false }
         func report(_ message: String) { self.error = message; onIssue?(message) }
         var file = originalFile
-        let recordID = UUID()
+        let recordID = resultID ?? UUID()
         var archived: ArchivedAudio?
         var uploadSnapshot: URL?
         var retentionWarning: String?
@@ -1027,11 +1042,15 @@ import OSprCore
             recognized = true
             if config.autoPaste && source == "dictation", let target { try await target.paste(text, restoreClipboard: config.restoreClipboard, allowUnverified: config.allowUnverifiedPaste) }
         } catch { if generation == token { report(error.localizedDescription); status = "Could not finish" } }
-        return recognized ? await finishResultStorage(config: config, token: token, preserveRecovery: preserveRecoveryOnSaveFailure, onIssue: onIssue) : false
+        return recognized ? await finishResultStorage(config: config, token: token, preserveRecovery: preserveRecoveryOnSaveFailure, onStored: onStored, onIssue: onIssue) : false
     }
-    private func finishResultStorage(config: OSprSettings, token: UUID, preserveRecovery: Bool, onIssue: ((String) -> Void)? = nil) async -> Bool {
+    private func finishResultStorage(config: OSprSettings, token: UUID, preserveRecovery: Bool, onStored: (() -> Void)? = nil, onIssue: ((String) -> Void)? = nil) async -> Bool {
         guard generation == token else { return false }
-        do { try await historyState.flush(); return generation == token }
+        do {
+            try await historyState.flush()
+            guard generation == token else { return false }
+            onStored?(); return true
+        }
         catch {
             if generation == token {
                 self.error = "Transcript is available in this session, but history could not be saved: \(error.localizedDescription) " + (preserveRecovery ? "Completed recording audio is kept for recovery." : "The imported source is unchanged; transcript export remains available.")
@@ -1067,7 +1086,11 @@ import OSprCore
     }
     func remove(_ record: Transcript) { if !quitting { historyState.remove(id: record.id) } }
     func removeHistoryRow(_ id: UUID) { if !quitting { historyState.remove(id: id) } }
-    func clearHistory() { if !quitting { historyState.clear() } }
+    func clearHistory() {
+        guard !quitting else { return }
+        if importBatch?.active == true { cancel() }
+        historyState.clear(); dismissImportBatch()
+    }
     func updateText(_ id: UUID, text: String) { if !quitting { historyState.updateText(id: id, text: text) } }
     func copyHistoryRow(_ id: UUID) {
         Task {
@@ -1241,8 +1264,66 @@ import OSprCore
         } catch { self.error = "Watched transcript retained in History; export failed: \(error.localizedDescription)"; return false }
     }
 
+    private func importCheckpointRequest(forceClear: Bool = false) -> (UInt64, FileImportSnapshot?)? {
+        var save = !forceClear && settings.saveHistory && historyState.savingEnabled
+        if save, let batch = importBatch, !batch.active, settings.retentionDays > 0,
+           batch.updated < Date().addingTimeInterval(-Double(settings.retentionDays) * 86400) {
+            importBatch = nil; importSettings = nil; importRecovered = false; save = false
+        }
+        if save && importBatch == nil { return nil }
+        importRevision += 1
+        return (importRevision, save ? importBatch.map { FileImportSnapshot(batch: $0, settings: importSettings ?? settings) } : nil)
+    }
+    private func persistImportCheckpoint(_ request: (UInt64, FileImportSnapshot?)) async throws {
+        do {
+            let applied: Bool
+            if let snapshot = request.1 { applied = try await importJournal.save(snapshot, revision: request.0) }
+            else { applied = try await importJournal.clear(revision: request.0) }
+            if applied && request.0 == importRevision { importQueueSaved = request.1 != nil; importPersistenceError = "" }
+        } catch {
+            if request.0 == importRevision { importQueueSaved = false; importPersistenceError = error.localizedDescription }
+            throw error
+        }
+    }
+    private func checkpointImport() async throws {
+        if let request = importCheckpointRequest() { try await persistImportCheckpoint(request) }
+    }
+    private func checkpointImportSoon(forceClear: Bool = false) {
+        guard let request = importCheckpointRequest(forceClear: forceClear) else { return }
+        Task { try? await persistImportCheckpoint(request) }
+    }
+    private func restoreImportBatch() async {
+        do {
+            guard settings.saveHistory else { try await checkpointImport(); return }
+            guard var snapshot = try await importJournal.load() else { return }
+            if settings.retentionDays > 0 && snapshot.batch.updated < Date().addingTimeInterval(-Double(settings.retentionDays) * 86400) {
+                if let request = importCheckpointRequest(forceClear: true) { try await persistImportCheckpoint(request) }
+                return
+            }
+            var existing: Set<UUID> = []
+            for item in snapshot.batch.items where try await historyState.contains(id: item.resultID) { existing.insert(item.resultID) }
+            snapshot.batch.recover(existing: existing)
+            importBatch = snapshot.batch; importSettings = snapshot.settings; importRecovered = true
+            try await checkpointImport()
+        } catch { importPersistenceError = error.localizedDescription }
+    }
+    func dismissImportBatch() {
+        guard !quitting, importBatch?.active != true else { return }
+        importBatch = nil; importSettings = nil; importRecovered = false; confirmImportResume = false
+        checkpointImportSoon(forceClear: true)
+    }
+    var importRecoveryDescription: String {
+        let prefix = importQueueSaved ? "Saved locally with History. " : settings.saveHistory && busy ? "Saving import recovery… " : "Current session only. "
+        return prefix + "Source files stay unchanged. Resume reads their current contents using this batch’s original model and writing settings. A new batch replaces this queue."
+    }
+    var importProviderDescription: String {
+        guard let config = importSettings else { return "" }
+        let speech = config.transcriptionProvider == "local" ? "Local · \(config.model)" : "\(config.transcriptionProvider) · \(URL(string: config.transcriptionURL)?.host ?? "saved endpoint")"
+        return speech + " · \(config.mode.title) · rewrite: \(config.rewriteProvider)"
+    }
     func importFiles(_ files: [URL]? = nil) {
         guard !busy else { return }
+        guard importPersistenceError.isEmpty else { error = "Dismiss the unreadable saved import queue before starting another batch."; return }
         let urls: [URL]
         if let files { urls = files } else {
             let panel = NSOpenPanel(); panel.allowsMultipleSelection = true
@@ -1257,39 +1338,73 @@ import OSprCore
             }
             config.mode = .verbatim
         }
-        importBatch = FileImportBatch(urls: urls); importSettings = config
+        importBatch = FileImportBatch(urls: urls); importSettings = config; importRecovered = false; importQueueSaved = false; confirmImportResume = false
         runImportBatch(config: config)
     }
-    func retryImports() {
+    func retryImports(confirmedRecovery: Bool = false) {
         guard !busy, importBatch?.retryCount ?? 0 > 0, let config = importSettings else { return }
-        importBatch?.prepareRetry(); runImportBatch(config: config)
+        if importRecovered && FileImportSnapshot(batch: importBatch!, settings: config).needsProviderConfirmation && !confirmedRecovery {
+            confirmImportResume = true; return
+        }
+        confirmImportResume = false
+        runImportBatch(config: config, reconcile: true)
     }
-    private func runImportBatch(config: OSprSettings) {
+    private func runImportBatch(config original: OSprSettings, reconcile: Bool = false) {
+        var config = original
+        config.rootPath = settings.rootPath; config.autoPaste = false
+        config.saveHistory = settings.saveHistory; config.keepAudio = original.keepAudio && settings.keepAudio
+        config.audioBudgetMB = min(original.audioBudgetMB, settings.audioBudgetMB)
         phase = "transcribing"; generation = UUID(); let token = generation
-        let queued = importBatch?.remaining ?? []
         operationTask = Task {
+          defer { if generation == token { phase = "idle" } }
+          do {
+            if reconcile {
+                try await historyState.flush()
+                var existing: Set<UUID> = []
+                for item in importBatch?.items ?? [] where try await historyState.contains(id: item.resultID) { existing.insert(item.resultID) }
+                guard generation == token else { return }
+                importBatch?.recover(existing: existing); importBatch?.prepareRetry()
+            }
+            let queued = importBatch?.remaining ?? []
             for (index, item) in queued.enumerated() {
                 guard generation == token, !Task.isCancelled else { break }
                 importBatch?.begin(item.id); error = ""
+                // Stable identities must reach disk before inference starts.
+                try await checkpointImport()
+                guard generation == token, !Task.isCancelled else { break }
                 status = "File \(index + 1) of \(queued.count) · \(item.name)"
                 var recordID: UUID?
+                var stored = false
                 var issues: [String] = []
                 if item.url.isFileURL {
                     _ = await transcribe(file: item.url, duration: 0, config: config, mode: config.mode,
-                        target: nil, source: item.name, token: token, onSaved: {
+                        target: nil, source: item.name, token: token, resultID: item.resultID, onSaved: {
                             recordID = $0.id; self.importBatch?.noteTranscript(item.id, transcriptID: $0.id)
                             if let warning = $0.warning, !issues.contains(warning) { issues.append(warning) }
-                        }, onIssue: { if !$0.isEmpty && !issues.contains($0) { issues.append($0) } })
+                        }, onStored: { stored = true }, onIssue: { if !$0.isEmpty && !issues.contains($0) { issues.append($0) } })
                 } else { error = "Choose a local audio or video file."; issues.append(error) }
                 guard generation == token else { break }
                 let message = issues.isEmpty ? (recordID == nil ? "No transcript returned. Source file is unchanged." : nil) : issues.joined(separator: "\n")
                 importBatch?.finish(item.id, transcriptID: recordID, message: message)
+                if stored { importBatch?.confirmStored(item.id) }
+                if recordID != nil && !stored && settings.saveHistory {
+                    importBatch?.cancelRemaining()
+                    try await checkpointImport()
+                    status = "Import paused · save or export the current transcript before resuming"
+                    return
+                }
+                try await checkpointImport()
             }
             guard generation == token else { return }
             phase = "idle"
             if let batch = importBatch {
                 status = "Import finished · \(batch.completedCount)/\(batch.items.count) transcripts · \(batch.retryCount) to retry"
             }
+          } catch {
+            guard generation == token else { return }
+            importBatch?.cancelRemaining(); checkpointImportSoon()
+            self.error = "Import paused: \(error.localizedDescription)"; status = "Import paused · recovery needs attention"
+          }
         }
     }
     func openImportResult(_ id: UUID) { selection = id; tab = "History" }

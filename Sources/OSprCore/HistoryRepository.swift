@@ -179,6 +179,10 @@ public final class HistoryRepository: @unchecked Sendable {
     public func audioFiles() async throws -> Set<String> { try await read { try $0.audioFiles() } }
     public func contentFingerprint() async throws -> String { try await read { try $0.contentFingerprint() } }
 
+    public func contains(id: UUID) async throws -> Bool {
+        try await read { try $0.contains(id: id) }
+    }
+
     /// Export all matching records, independent of loaded UI pages. Queue order
     /// includes earlier edits/deletes/privacy transitions. A failed commit
     /// aborts rather than silently omitting pending text.

@@ -2,6 +2,44 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## Durable file-import recovery, 2026-10-25
+
+The latest batch is saved with History and restored for explicit Resume. Planned
+result IDs persist before inference; History reconciliation closes the crash gap
+between a transcript commit and a queue checkpoint. Completed IDs stay fixed,
+deleted/expired results are not automatically regenerated, and a save failure
+pauses later files. Original recognition/writing settings survive restart; current
+privacy/engine settings apply. Recovered remote routes ask for confirmation.
+
+An actor owns private atomic/synchronized checkpoints and revision fencing.
+Saving off, retention, Dismiss and Delete all History remove recovery metadata;
+session-only retries cannot recreate it. Corrupt/future metadata is preserved;
+symlinks and FIFOs fail safely. Nineteen new permanent tests cover these cases.
+Full local debug483 and optimized484 suites pass before the final FIFO case;
+the final27 storage/workflow cohort passes. Python380 and Ruff pass. Final CI
+validation is pending.
+
+Seven process controls and three real-ASR controls are retained. Final controls
+bind the same current source and freshly built test bytes. Intentional live
+process interruption/restart runs only the two unfinished files, preserves three
+IDs/payloads on another restart and then verifies privacy clearing. Real offline
+Parakeet imports public speech plus malformed media, repairs/retries the failed
+file and preserves the first complete payload byte-for-byte across retry/restart.
+All29 installed backend source/data files match; original public WAV unchanged.
+
+The first process control left a sleeping fixture child in its separate process
+group; that verified owned child was stopped. The corrected harness verifies
+ownership and cleans it explicitly; all controls remain retained. Production
+worker parent-death cleanup remains a follow-up. Snapshot write amplification on
+large batches is unprofiled. Resume reads current files; no audio snapshots,
+automatic relocation, real provider-account, energy/latency or ranking claim.
+
+Light/dark/compact component layouts are inspected, including readable dark
+Dismiss/instructions. Native controls remain unverified after a fresh Mac-lock
+check. Normal OSpr was never stopped or changed. Source only; existing standalone
+archives predate this feature. [Manifest/all controls](../benchmarks/results/durable-file-batches.json) ·
+[Contract/reproduction](architecture/durable-file-batches.md).
+
 ## History filenames and literal source search, 2026-10-25
 
 History now displays sanitized source leaves and searches them alongside edited

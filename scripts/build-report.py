@@ -917,3 +917,30 @@ if history_source_path.is_file():
     report = report.replace('No audio backup or persistent source-name search/list metadata.',
                             'No audio backup. Later source adds filename list/search; native interaction remains open.')
     (ROOT / "docs/research.html").write_text(report)
+
+
+durable_batch_path = ROOT / "benchmarks/results/durable-file-batches.json"
+if durable_batch_path.is_file():
+    durable = json.loads(durable_batch_path.read_text())
+    assert durable["status"] == "passed-scoped-core-and-headless-import-recovery"
+    assert len(durable["all_development_controls"]) == 10
+    control_links = ''.join(f'<li>{esc(row["kind"])} {row["attempt"]}: <a href="../{esc(row["path"])}">retained receipt</a> — {esc(row["status"])}</li>' for row in durable["all_development_controls"])
+    panel = '''<details open id="durable-file-batches"><summary>Durable file imports: explicit restart/resume with stable transcript identities.</summary>
+<p>The latest batch now survives restart with History saving enabled. Studio restores its original recognition/writing settings and waits for Resume. Planned result IDs commit before inference; History reconciliation preserves results saved just before an interruption. Completed jobs retain their IDs, and deleted/expired results are not silently recreated.</p>
+<p>Private atomic checkpoints run off the UI executor. Revisions fence stale saves after privacy clear or replacement. Saving off, retention, Dismiss and Delete all History remove recovery metadata; session-only retries cannot recreate it. Corrupt/future/symlink/FIFO metadata is handled without following targets or blocking startup. Recovered remote routes require explicit confirmation because an unfinished request can be sent again and incur charges. No API-key fields or focused destinations are stored.</p>
+<div class="scroll"><table><thead><tr><th>Control</th><th>Observed scope</th><th>Boundary</th></tr></thead><tbody>
+<tr><td>Actual process interruption</td><td>First result saved, second job in flight; intentional live-process SIGKILL. A new process resumes only the two unfinished files; all three IDs/payloads survive another restart. Saving off clears saved data.</td><td>Synthetic IPC worker; no recognition-quality or native UI claim.</td></tr>
+<tr><td>Actual offline Parakeet</td><td>Public speech plus malformed media, repair/retry, then a new process. Two stable results; first complete payload unchanged after retry/restart. All 29 installed backend source/data files match.</td><td>One reused public clip. No microphone, acoustic/semantic ranking or timing distribution.</td></tr>
+<tr><td>Source and lifecycle</td><td>Twelve new Core and seven platform tests, plus freshly built source/executable bindings for final process/ASR controls. Light/dark/compact actual-component renders.</td><td>Native Resume/Open/Dismiss/provider-dialog/VoiceOver remains open; a fresh native check reported macOS locked.</td></tr>
+</tbody></table></div>
+<p>The first process control left an owned sleeping fixture child in its separate Foundation Process group. It was verified and stopped; the harness now checks ownership and cleans the child explicitly. Every development control remains retained. This does <strong>not establish production worker parent-death cleanup</strong>. Large-batch snapshot write amplification, power loss, moved-file access and volume failures remain follow-ups.</p>
+<p>Source files are not snapshotted: Resume reads current contents. A new batch replaces this queue while saved transcripts remain in History. This is a source feature newer than the preserved standalone ZIPs. Normal app/data and source audio remain unchanged; no full-parity or top-three claim.</p>
+<p class="small muted"><a href="architecture/durable-file-batches.md">Contract/reproduction</a> · <a href="../benchmarks/results/durable-file-batches.json">Manifest and all attempts</a> · <a href="assets/durable-import-light.png">Light component</a> · <a href="assets/durable-import-dark.png">Dark component</a> · <a href="assets/durable-import-compact.png">Compact component</a>.</p>
+<details><summary>All seven process and three real-ASR development controls</summary><ul>''' + control_links + '''</ul></details></details>'''
+    report = (ROOT / "docs/research.html").read_text()
+    anchor = '<details open id="history-source-search">'
+    assert anchor in report
+    report = report.replace(anchor, panel + '<details id="history-source-search">', 1)
+    report = report.replace('Durable batch resume remains open.', 'The later durable batch source above implements restart/resume; native acceptance remains open.')
+    report = report.replace('durable batch resume remains open.', 'the later durable batch source above implements restart/resume; native acceptance remains open.')
+    (ROOT / "docs/research.html").write_text(report)
