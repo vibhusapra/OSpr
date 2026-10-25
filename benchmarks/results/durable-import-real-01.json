@@ -1,0 +1,81 @@
+{
+  "status": "passed-real-local-import-retry-and-restart",
+  "protocol": {
+    "stages": [
+      "import-retry",
+      "restart"
+    ],
+    "model": "parakeet-v3",
+    "provider": "local",
+    "offline": true,
+    "audio_name": "1272-135031-0000.wav",
+    "audio_sha256": "d1e0294eba40bd907d1aa493f296c4bfd78f5b9bc9f81a9b2b396046a5fed2e2",
+    "backend_sha256": {
+      "ospr_backend/__init__.py": "78c32aeeee2eb97f0cf98c6c96070393314d4e5e3f5debe977a300b95eeb07ff",
+      "ospr_backend/audio.py": "b60ab9d323bb50d5d02c93b6aa131992f18aa8b29eab5e3e6e867676360747ad",
+      "ospr_backend/audio_chunks.py": "83e90cea3db80c166a67b788c4cf031dc1f239ad303c28dfd822b2a773a9934c",
+      "ospr_backend/cohere.py": "ed8e65004161103570d2cb11f3280c2a463ba5f17e745e370dd6759ac70c1069",
+      "ospr_backend/data/parakeet-v3-mel.json": "c76a69c219dd287412683f8e81970f05296bdf4d4b24eb2ff3e3d5af256f486b",
+      "ospr_backend/data/parakeet-v3-mel.npy": "63d8ddc9c24726f43b867a48037f9ccf9607e0ed59a1cd3e899c678a4f693f80",
+      "ospr_backend/diarization.py": "0334f5485d101e87ccc96acd67f6715e4701988eb6cbff46bbd77e757223a678",
+      "ospr_backend/engine.py": "9fbbfa2ea7c86bbd007076d36d87119992df213ca651303e5d228eacd0c8dd7a",
+      "ospr_backend/local_completion.py": "40ca9f33969f37b62d5dbc8a36a2a6040a513cf624f4e832c4b1d6382a42ef0d",
+      "ospr_backend/mcp_server.py": "acc920589baaa37ce9321df9cd681f3ac0a9deaf85e2ce82bd49f3b07b356c1f",
+      "ospr_backend/meeting_audio.py": "28ba748765eb08e1872044fe924bb8d8d76cc8c10c1aba4654d1ceb531477281",
+      "ospr_backend/model_cache.py": "b11079b0f69a626195106faad160533be0797f4fae73027c4a7c11b395aa3c7b",
+      "ospr_backend/models.lock.json": "9a129abe477b1bebd486b5f066e8e3ba45a380c8b04ea8c9125e0dcaca0c8054",
+      "ospr_backend/notes.py": "4e50ca15b64dc556c043b234ace5bfeb4d9640079831dcb802688e3b48e8f6b7",
+      "ospr_backend/parakeet.py": "ac2e947592d162334b4c1d34d0ac1db3b94f5317de524e53e9e0fcc282db5b93",
+      "ospr_backend/parakeet_loader.py": "d6f18ec8d7c0c57c8cfc48ef73491fae67ad7823f56129f91cf6fdbf18f7fc1a",
+      "ospr_backend/qwen.py": "fa988f81f9a3a9da747f87144d4b649da1421bc43d573d72e29782b3be52850c",
+      "ospr_backend/qwen_features.py": "825a3904a07abd2eed7f7beecc36897de1f779e3845c4e9897529ec471ba07ad",
+      "ospr_backend/refinement.py": "b131a67aebada3d9410dd86bbcde3ee7ee0011600e06092c66718dcf9d04c330",
+      "ospr_backend/review_audio.py": "988ee5f843581a9145d48edd3a45cfb60e6d318af938a8206170b23452d5e906",
+      "ospr_backend/speech-detector.lock.json": "56e9e4aebe03cebd656761834a5c813a05a2cdb05d2de978f2026c9592c8d3e4",
+      "ospr_backend/speech_detector.py": "7c0a4d38964c3f39692055f3a4d0bedcf2a1e8646b9ccbdbdc5204bbde6e7b18",
+      "ospr_backend/speech_edges.py": "bd93c88fb9d04c0f36901239d55012f1005a5378c54734f2774e21fcbe14b6ab",
+      "ospr_backend/streaming_audio.py": "3d38a5ae237461182ac88f3990e6f7afe65eb259396778f44aab5a2213eb1cea",
+      "ospr_backend/summary.py": "d92e2311d4addd1be4a9372d294d853775e5018f136c496e9285ae8450d1e2d9",
+      "ospr_backend/temporary.py": "eaebebb2bd7824429b14328ec16e504c951622b6eb3e92270775a8a126328941",
+      "ospr_backend/timing.py": "aa4c9cdae37d4f4b40b453097a04017b12bf2da4a740a4c300f6d91b10a42a13",
+      "ospr_backend/upload_audio.py": "8da77a60f572be9583f1f5f70b96a4d56f15f1509935c801a157bebdf041cc1b",
+      "ospr_backend/worker.py": "8a57a0642d65d76a77c3cb11d6547d7ebfcfe043fa58d325ff9c123e75647886"
+    },
+    "swift_probe_sha256": "bb2b4c2eb443d819e2b0a927c47b9145aeeb8fbeb3b33b7624b10a81364528a9",
+    "runner_sha256": "038aec9ce57c6c67c678d335d65853359351ee41fbdd9971abb4facb3cf79d5e"
+  },
+  "records": [
+    {
+      "stage": "import-retry",
+      "exit": 0,
+      "observed": {
+        "first_payload_sha256": "df0e1ad52cda29ad0bfb709bcda9ef35a093e0fad1de4cd307c9574b9d03450c",
+        "first_payload_unchanged_after_retry": true,
+        "history_records": 2,
+        "malformed_file_message": "This file could not be read as audio. Check that it plays, or export it as WAV, MP3 or M4A and retry. The source is unchanged.",
+        "model": "parakeet-v3",
+        "original_configuration_preserved": true,
+        "provider": "local",
+        "raw_text": "Because you were sleeping instead of conquering, the lovely rose princess has become a fiddle without a bow, while poor Shaggy sits there a cooing dove.",
+        "result_ids": [
+          "E6449BD5-4C6C-4C79-858C-3D2D8A27A7FB",
+          "D08C5C3B-0B9B-4449-AAA8-FF4E31297AB7"
+        ],
+        "status": "passed"
+      }
+    },
+    {
+      "stage": "restart",
+      "exit": 0,
+      "observed": {
+        "all_completed_no_resume_needed": true,
+        "first_payload_preserved": true,
+        "history_records": 2,
+        "result_ids_preserved": true,
+        "status": "passed"
+      }
+    }
+  ],
+  "original_public_fixture_unchanged": true,
+  "boundary": "Real local ASR/media recovery and headless AppModel/history/journal. No native UI, microphone, insertion or timing/product ranking."
+}

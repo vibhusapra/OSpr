@@ -1,0 +1,114 @@
+{
+  "status": "passed-intentional-process-interruption-and-restart",
+  "protocol": {
+    "stages": [
+      "admit-and-kill",
+      "resume",
+      "verify",
+      "privacy"
+    ],
+    "scope": "Synthetic worker/AppModel/history/journal. No native UI or recognition model.",
+    "swift_probe_sha256": "10c52aa509f69301030b55aa7274403135023495146a0eb3edda91c12d2afafb",
+    "runner_sha256": "05e446ebe0845b5a021fecee20712c925d64237b02ea67eb96485e63085d3ad2",
+    "command": [
+      "/Applications/Xcode.app/Contents/Developer/usr/bin/xctest",
+      "-XCTest",
+      "OSprPlatformTests.DurableImportProcessTemporary/testStage",
+      "/Users/vibhusapra/.codex/worktrees/history-source-search/OSpr/.build/debug/OSprPackageTests.xctest"
+    ],
+    "build": {
+      "application_source_sha256": "dc898b67b701f821836d530b0558ed81eabebde0bd5f577aff56c64a205926f9",
+      "source_manifest_version": 2,
+      "test_executable_sha256": "379e3536c5ffee9549df69cda7b32fe398ce65ab59f08fc58322e568959058f6",
+      "probe_sha256": "10c52aa509f69301030b55aa7274403135023495146a0eb3edda91c12d2afafb",
+      "build_log_sha256": "92adf85c9ac75a4b4f9fa5c00c81ba0d2cabc8f9673492ab1b9e0165524c93a4"
+    }
+  },
+  "records": [
+    {
+      "stage": "admit",
+      "outcome": "intentional-live-process-group-sigkill",
+      "exit": -9,
+      "observed": {
+        "history_records": 1,
+        "planned_ids": [
+          "ECB6646D-58CF-4779-A04E-811B98FFDE1E",
+          "3CD3FF9D-835A-403B-BE84-4B225A615CD1",
+          "DE9ABF4A-33FA-44F2-A4AC-80DAE011F105"
+        ],
+        "requests": [
+          {
+            "language": "",
+            "model": "whisper-small",
+            "name": "first.wav"
+          },
+          {
+            "language": "",
+            "model": "whisper-small",
+            "name": "slow.wav"
+          }
+        ],
+        "status": "ready-for-intentional-sigkill",
+        "test_pid": 37601,
+        "worker_pid": 37602,
+        "verified_fixture_worker_cleanup": true
+      }
+    },
+    {
+      "stage": "resume",
+      "exit": 0,
+      "observed": {
+        "fingerprint": "fde2c3ee41ec820f9d578f2facfa9d86098dac4bd604529f671ea1d76832a845",
+        "history_records": 3,
+        "planned_ids": [
+          "ECB6646D-58CF-4779-A04E-811B98FFDE1E",
+          "3CD3FF9D-835A-403B-BE84-4B225A615CD1",
+          "DE9ABF4A-33FA-44F2-A4AC-80DAE011F105"
+        ],
+        "requests": [
+          {
+            "language": "",
+            "model": "whisper-small",
+            "name": "first.wav"
+          },
+          {
+            "language": "",
+            "model": "whisper-small",
+            "name": "slow.wav"
+          },
+          {
+            "language": "",
+            "model": "whisper-small",
+            "name": "slow.wav"
+          },
+          {
+            "language": "",
+            "model": "whisper-small",
+            "name": "last.wav"
+          }
+        ],
+        "status": "passed"
+      }
+    },
+    {
+      "stage": "verify",
+      "exit": 0,
+      "observed": {
+        "history_records": 3,
+        "payloads_unchanged": true,
+        "requests": 4,
+        "status": "passed"
+      }
+    },
+    {
+      "stage": "privacy",
+      "exit": 0,
+      "observed": {
+        "history_records": 0,
+        "journal_absent": true,
+        "requests": 4,
+        "status": "passed"
+      }
+    }
+  ]
+}

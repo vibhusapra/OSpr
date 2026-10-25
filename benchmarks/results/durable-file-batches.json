@@ -1,0 +1,154 @@
+{
+  "status": "passed-scoped-core-and-headless-import-recovery",
+  "observed_at": "2026-10-25T11:24:25.975374+00:00",
+  "application_source_sha256": "dc898b67b701f821836d530b0558ed81eabebde0bd5f577aff56c64a205926f9",
+  "source_manifest_version": 2,
+  "parent_commit": "334b0fe5a49e97b36f2eeaf02480a68a26d0d335",
+  "new_permanent_tests": {
+    "core": 12,
+    "platform": 7
+  },
+  "local_validation": {
+    "full_debug_before_final_controls": 483,
+    "optimized_before_final_fifo_case": 484,
+    "final_focused": 27,
+    "python": 380,
+    "ruff": "passed"
+  },
+  "final_process": "benchmarks/results/durable-import-process-07.json",
+  "final_real": "benchmarks/results/durable-import-real-03.json",
+  "all_development_controls": [
+    {
+      "kind": "process",
+      "attempt": 1,
+      "path": "benchmarks/results/durable-import-process-01.json",
+      "sha256": "39d2dda9ae7347af0c1e85ddda78a2e4fd3d973dbea9e5c7596712bce8773ca5",
+      "status": "passed-intentional-process-interruption-and-restart",
+      "final_source_bound": false
+    },
+    {
+      "kind": "process",
+      "attempt": 2,
+      "path": "benchmarks/results/durable-import-process-02.json",
+      "sha256": "5602e5ab37c4cc644e884fd81f3a41d26dff243f53c99fe8b2d84bf2a01b492c",
+      "status": "passed-intentional-process-interruption-and-restart",
+      "final_source_bound": false
+    },
+    {
+      "kind": "process",
+      "attempt": 3,
+      "path": "benchmarks/results/durable-import-process-03.json",
+      "sha256": "e24587bad644f4f8de39ed59bdd6bfb842478f052621af747761a25df5d51921",
+      "status": "passed-intentional-process-interruption-and-restart",
+      "final_source_bound": false
+    },
+    {
+      "kind": "process",
+      "attempt": 4,
+      "path": "benchmarks/results/durable-import-process-04.json",
+      "sha256": "9f646cd01014e141c5735e1eeba8910315bacbd8faf9897ca05f2661a08c245a",
+      "status": "passed-intentional-process-interruption-and-restart",
+      "final_source_bound": false
+    },
+    {
+      "kind": "process",
+      "attempt": 5,
+      "path": "benchmarks/results/durable-import-process-05.json",
+      "sha256": "741587cd00d19f71e67e826785f3c9c29166b2db3a86a107a106ad2e4cfdda81",
+      "status": "passed-intentional-process-interruption-and-restart",
+      "final_source_bound": false
+    },
+    {
+      "kind": "process",
+      "attempt": 6,
+      "path": "benchmarks/results/durable-import-process-06.json",
+      "sha256": "4e9a29175d6c8fd9873054b4aa2ce003b62b8156d264a37b0131f8e15649740b",
+      "status": "passed-intentional-process-interruption-and-restart",
+      "final_source_bound": false
+    },
+    {
+      "kind": "process",
+      "attempt": 7,
+      "path": "benchmarks/results/durable-import-process-07.json",
+      "sha256": "3ebd668da82a749676dbd492bba408252881f8e88dcaa62c230292de3c529cf3",
+      "status": "passed-intentional-process-interruption-and-restart",
+      "final_source_bound": true
+    },
+    {
+      "kind": "real",
+      "attempt": 1,
+      "path": "benchmarks/results/durable-import-real-01.json",
+      "sha256": "021a398c2db3fd99243e0ffd3b796d267f28b473ec0f33e0fde4df60e7abcbd2",
+      "status": "passed-real-local-import-retry-and-restart",
+      "final_source_bound": false
+    },
+    {
+      "kind": "real",
+      "attempt": 2,
+      "path": "benchmarks/results/durable-import-real-02.json",
+      "sha256": "0dd4f16cb7b283ba9099e482f7e4a6d37fb2eeb7e98c763c488350c819ced903",
+      "status": "passed-real-local-import-retry-and-restart",
+      "final_source_bound": false
+    },
+    {
+      "kind": "real",
+      "attempt": 3,
+      "path": "benchmarks/results/durable-import-real-03.json",
+      "sha256": "884d400eb4bfb800b0adb8b9c61dc1c5544694a4187dcbea9b7915fa523791f8",
+      "status": "passed-real-local-import-retry-and-restart",
+      "final_source_bound": true
+    }
+  ],
+  "initial_cleanup_gap": {
+    "attempt": "process-01",
+    "functional_stages_passed": true,
+    "fixture_worker_left_in_separate_process_group": true,
+    "verified_owned_worker_later_stopped": true,
+    "subsequent_controls_verify_and_stop_owned_fixture_worker": true,
+    "boundary": "Harness cleanup of a synthetic sleeping worker does not establish production worker parent-death cleanup."
+  },
+  "layouts": {
+    "light": {
+      "path": "docs/assets/durable-import-light.png",
+      "sha256": "ba0013ec0427a58fc6618397425985fd9234719dbfec7409bb591104e756e855"
+    },
+    "dark": {
+      "path": "docs/assets/durable-import-dark.png",
+      "sha256": "8997aee3e72e3688713c764ea4391bf60c4e0c383ead3e6d697171791680798f"
+    },
+    "compact": {
+      "path": "docs/assets/durable-import-compact.png",
+      "sha256": "015d80e3490591011ff25bc9e968e4ba56e6a6a2c432f3dfb380aa254e170840"
+    }
+  },
+  "layout_source_sha256": "29f08ad34cb5c0fd4b5e535cc34b5a31401b566c79714aeecd9ce79dbd37af8e",
+  "native": {
+    "status": "blocked-before-interaction",
+    "reason": "Native control rechecked the normal app and reported macOS locked.",
+    "headless_checks_are_not_native_acceptance": true,
+    "microphone_used": false,
+    "audio_playback_used": false,
+    "new_permissions_granted": false,
+    "clipboard_or_insertion_used": false
+  },
+  "limits": [
+    "Latest batch only; a new batch replaces this queue without deleting saved transcripts.",
+    "Resume reads current source files, not content snapshots; missing/moved/unreadable files can fail.",
+    "Unfinished provider requests can be repeated; recovered remote routes require explicit confirmation and endpoint-scoped current credentials.",
+    "Full JSON snapshot per checkpoint; large-batch throughput/write amplification is not characterized.",
+    "Atomic rename and synchronized payload; power-loss durability was not tested.",
+    "Source change only; existing standalone archives predate this feature.",
+    "No native button/dialog/VoiceOver, physical dictation, representative recognition/semantic quality, latency/energy distribution or product ranking acceptance."
+  ],
+  "source_ci": {
+    "commit": "a53a776ee87af6a8985e3f54c899c37eb63b4833",
+    "run": 40189125179,
+    "job": 121156155797,
+    "status": "success",
+    "swift_permanent_tests": 485,
+    "python_tests": 380,
+    "synthetic_process_control": "passed",
+    "bundled_help_links": 436,
+    "standalone_imports_cli_history_signatures_artifact": "passed"
+  }
+}

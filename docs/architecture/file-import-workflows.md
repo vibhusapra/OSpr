@@ -122,3 +122,10 @@ changed originals and unsafe paths. CI rechecks retained output/layout integrity
 it does not rerun native interaction or ASR. Reproduce offscreen renders by copying
 `benchmarks/file_import_render.swift` temporarily into the platform test target,
 running `swift test --filter FileImportRenderTemporary`, then removing that copy.
+
+## Later durable recovery
+
+The latest batch now has an explicit restart/resume journal with stable result
+IDs. See [durable file recovery](durable-file-batches.md) for commit ordering,
+privacy/provider confirmation, actual process/ASR controls and native limits.
+The native observations above predate this source-only change.

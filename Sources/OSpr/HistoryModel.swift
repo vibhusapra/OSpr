@@ -109,6 +109,11 @@ import OSprCore
         return try await repository.record(id: id)
     }
 
+    func contains(id: UUID) async throws -> Bool {
+        if pendingRecords[id] != nil { return true }
+        return try await repository.contains(id: id)
+    }
+
     func export(to destination: URL, format: TranscriptFileFormat, query: String) async throws -> TranscriptBatchExport.Result {
         try await repository.export(to: destination, format: format, query: query)
     }

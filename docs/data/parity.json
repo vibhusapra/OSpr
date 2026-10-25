@@ -234,10 +234,17 @@
       "priority": "P0"
     },
     {
+      "feature": "Durable file-import recovery",
+      "status": "contract-tested",
+      "evidence": "Latest batch saved with History; stable planned result IDs checkpoint before inference and reconcile against saved History after interruption. Explicit Resume preserves original recognition/writing configuration, current privacy/engine settings and completed IDs. Actor owns private atomic checkpoints, monotonic revision fences and v1 crash-stage cleanup. Twelve Core and seven platform tests cover commit gaps, failures, privacy/retention, corrupt/future/duplicate/symlink/FIFO metadata, provider confirmation and dismissal/deletion. Seven development process controls and three actual offline Parakeet import/repair/retry/restart controls retained; final controls bind current source/test bytes. Completed payload/IDs persist; original public audio and normal app/data are unchanged. Manifest: benchmarks/results/durable-file-batches.json. Source CI40189125179 passes 485 Swift/380 Python, synthetic process interruption/restart, contracts, app/report and standalone runtime/436-link/signature/artifact gates.",
+      "gap": "Source-only, latest queue only. Resume reads current source files; lost access/moved files require intervention. Snapshot write amplification/large-batch throughput, power-loss/volume failure, native Resume/Open/Dismiss/provider-dialog/VoiceOver and production worker parent-death cleanup remain open. First harness child-cleanup gap is retained and corrected in later controls. No real provider account, acoustic quality, comparative timing/energy or top-three acceptance.",
+      "priority": "P0"
+    },
+    {
       "feature": "File and batch transcription",
       "status": "partial",
       "evidence": "Local WAV/FLAC normalization and real AAC/FFmpeg decode test; sequential batch UI. Optional local speaker labels with recognizer word times. Current release GUI imports twenty fixed public files and exports all twenty JSON records in an unchanged full repeat; raw exports and complete consumer comparison: benchmarks/fixtures/native-file-observations.json. Official MacWhisper 15.8 native exports use the same inputs. Later source adds a session-only per-file queue, original-config failed/cancelled retry, complete ordered drop resolution, selected source detail and safe unique names. Native source-equivalent ee1eeb5 passes mixed three-file failure/repair/retry with preserved IDs and all four bulk formats. Complete raw exports and source/layout boundaries: benchmarks/results/file-import-native.json. Native filtered/empty exports later pass two/zero records. Final source c1ddeec3 passes a separate native dark mixed batch, source-correct Open, repaired-file Retry and complete JSON export; both QA apps/workers stop and normal app remains unchanged.",
-      "gap": "Durable batch resume remains. Source-name list/search is implemented in the later schema-5 change, with native acceptance still open. Native drag/drop, active Cancel and VoiceOver remain unverified. Source f74bb75 is now included in the separately verified standalone workflow preview; broad native acceptance remains open.",
+      "gap": "Durable resume is implemented in the later source change with separate headless controls; native acceptance remains open. Source-name list/search is implemented in the later schema-5 change, with native acceptance still open. Native drag/drop, active Cancel and VoiceOver remain unverified. Source f74bb75 is now included in the separately verified standalone workflow preview; broad native acceptance remains open.",
       "priority": "P0"
     },
     {

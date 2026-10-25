@@ -38,6 +38,11 @@ jobs:
           else
             echo "Apple speech research requires SDK 26; local macOS 26 compile and real-ASR receipts are recorded separately."
           fi
+      - name: Verify durable batch interruption and restart with synthetic IPC
+        run: |
+          cp benchmarks/durable_import_process.swift Tests/OSprPlatformTests/DurableImportProcessTemporary.swift
+          python3 benchmarks/durable_import_process.py --output "$RUNNER_TEMP/ospr-durable-batch-process"
+          rm Tests/OSprPlatformTests/DurableImportProcessTemporary.swift
       - name: Install locked Python environment
         run: uv sync --frozen --all-extras --python 3.12
       - name: Lint and backend protocol tests

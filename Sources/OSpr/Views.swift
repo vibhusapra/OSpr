@@ -174,7 +174,7 @@ struct StudioView: View {
                         }
                     }
                 }
-                if model.importBatch != nil { ImportBatchView(model: model) }
+                if model.importBatch != nil || !model.importPersistenceError.isEmpty { ImportBatchView(model: model) }
                 Card {
                     VStack(alignment: .leading, spacing: 12) {
                         Label("Desktop audio · experimental", systemImage: "person.2.wave.2").font(.headline)
@@ -375,8 +375,26 @@ struct InsertionTestPanel: View {
 struct ImportBatchView: View {
     @ObservedObject var model: AppModel
     var body: some View {
-        if let batch = model.importBatch {
-            ImportBatchContent(batch: batch, busy: model.busy, retry: model.retryImports, open: model.openImportResult)
+        VStack(alignment: .leading, spacing: 12) {
+            if !model.importPersistenceError.isEmpty {
+                Card {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Label("Import recovery needs attention", systemImage: "exclamationmark.triangle").font(.headline)
+                        Text(model.importPersistenceError).font(.callout)
+                        Button("Dismiss saved queue") { model.dismissImportBatch() }.buttonStyle(.bordered).tint(.primary).disabled(model.busy)
+                        Text("Removes recovery paths and settings. Saved transcripts and source files stay available.").font(.caption).foregroundStyle(.secondary)
+                    }
+                }
+            }
+            if let batch = model.importBatch {
+                ImportBatchContent(batch: batch, busy: model.busy, retry: { model.retryImports() }, open: model.openImportResult,
+                    recovered: model.importRecovered, recoveryDescription: model.importRecoveryDescription,
+                    providerDescription: model.importProviderDescription, dismiss: model.dismissImportBatch)
+            }
+        }.confirmationDialog("Resume saved provider requests?", isPresented: $model.confirmImportResume) {
+            Button("Resume with saved providers") { model.retryImports(confirmedRecovery: true) }
+        } message: {
+            Text(model.importProviderDescription + ". Audio or text will use these saved providers. An interrupted request may already have been processed; resuming can send it again and incur charges. Source files are read as they are now.")
         }
     }
 }
@@ -386,19 +404,23 @@ struct ImportBatchContent: View {
     let busy: Bool
     let retry: () -> Void
     let open: (UUID) -> Void
+    var recovered = false
+    var recoveryDescription = "Current session only. Source files stay unchanged. Retry uses this batch’s original model and writing settings."
+    var providerDescription = ""
+    var dismiss: (() -> Void)? = nil
     var body: some View {
         Card {
             VStack(alignment: .leading, spacing: 12) {
                 HStack {
-                    Text("Latest file import").font(.headline)
+                    Text(recovered ? "Saved file import" : "Latest file import").font(.headline)
                     Spacer()
                     Text("\(batch.completedCount)/\(batch.items.count) transcripts").font(.caption).foregroundStyle(.secondary)
                     if batch.retryCount > 0 {
-                        Button("Retry \(batch.retryCount) unfinished") { retry() }.buttonStyle(.borderedProminent).disabled(busy)
+                        Button("\(recovered ? "Resume" : "Retry") \(batch.retryCount) unfinished") { retry() }.buttonStyle(.borderedProminent).disabled(busy)
                     }
                 }
-                Text("Current session only. Source files stay unchanged. Retry uses this batch’s original model and writing settings.")
-                    .font(.caption).foregroundStyle(.secondary)
+                Text(recoveryDescription).font(.caption).foregroundStyle(.primary)
+                if !providerDescription.isEmpty { Text(providerDescription).font(.caption.weight(.medium)).foregroundStyle(.primary) }
                 ScrollView {
                     LazyVStack(alignment: .leading, spacing: 10) {
                         ForEach(batch.items) { item in
@@ -415,6 +437,7 @@ struct ImportBatchContent: View {
                         }
                     }
                 }.frame(maxHeight: 220)
+                if let dismiss { Button("Dismiss batch", action: dismiss).font(.caption).buttonStyle(.bordered).tint(.primary).disabled(busy) }
             }
         }
     }
@@ -426,6 +449,7 @@ struct ImportBatchContent: View {
         case .warning: "Transcript available · review warning"
         case .failed: "Failed · ready to retry"
         case .cancelled: "Cancelled · ready to retry"
+        case .unavailable: "Transcript no longer saved"
         }
     }
     private func icon(_ state: FileImportBatch.State) -> String {
@@ -435,6 +459,7 @@ struct ImportBatchContent: View {
         case .completed: "checkmark.circle"
         case .warning, .failed: "exclamationmark.triangle"
         case .cancelled: "pause.circle"
+        case .unavailable: "doc.badge.ellipsis"
         }
     }
 }
@@ -776,7 +801,7 @@ struct PreferencesView: View {
                 }
                 Text("Audio retention is off by default. When enabled, OSpr keeps normalized audio without imported video or tags. Oldest clips are removed when the budget fills; deleting or expiring history also removes its audio. Turning retention off affects future transcripts; existing clips follow history retention until deleted.").font(.caption).foregroundStyle(.secondary)
                 Picker("Keep saved history", selection: $model.settings.retentionDays) { Text("1 day").tag(1); Text("7 days").tag(7); Text("30 days").tag(30); Text("90 days").tag(90); Text("Forever").tag(0) }
-                Text("Turning off saving removes persisted history when you save preferences. Current-session results remain visible until quit. Completed takes are kept in a private recovery slot until transcription succeeds or you discard them. History uses a local SQLite archive; use FileVault for disk encryption. Older JSON archives migrate on first use after verification.").font(.caption).foregroundStyle(.secondary)
+                Text("Turning off saving removes persisted history and file-import recovery paths/settings when you save preferences. Current-session results remain visible until quit. The latest import queue otherwise follows history retention and waits for you to resume after restart. Completed takes are kept in a private recovery slot until transcription succeeds or you discard them. History uses a local SQLite archive; use FileVault for disk encryption. Older JSON archives migrate on first use after verification.").font(.caption).foregroundStyle(.secondary)
                 Toggle("Launch OSpr at login", isOn: $model.settings.launchAtLogin)
                 Button("Open local data folder") { NSWorkspace.shared.open(FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("OSpr")) }
                 Button("Enable Accessibility for insertion") { model.requestAccessibility() }

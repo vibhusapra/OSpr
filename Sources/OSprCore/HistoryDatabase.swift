@@ -460,6 +460,13 @@ public final class HistoryDatabase {
         return value
     }
 
+    /// Recovery identity checks must not materialize large transcript payloads.
+    public func contains(id: UUID) throws -> Bool {
+        var found = false
+        try rows("SELECT 1 FROM history WHERE id=?", [.text(id.uuidString)]) { _ in found = true }
+        return found
+    }
+
     /// The repository queue excludes mutations throughout this enumeration.
     /// Page metadata and decode only one full payload at a time.
     func visitRecords(query: String, _ visit: (Transcript) throws -> Void) throws {
