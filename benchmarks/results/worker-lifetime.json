@@ -1,0 +1,57 @@
+{
+  "status": "passed-owned-worker-lifetime-controls",
+  "date": "2026-10-25",
+  "source_commit": "c2f8ca086dff26d6bfae9c6535ffdc4bed66c45f",
+  "application_source_sha256": "cd80a3b1fc2b44f9da1568ec9a785338ff961e72435c44ef2bdb2fa5914819a7",
+  "source_manifest_version": 2,
+  "final_control": "worker-lifetime-control-03.json",
+  "attempts": [
+    {
+      "file": "worker-lifetime-preflight-01.json",
+      "status": "failed-before-build-or-launch"
+    },
+    {
+      "file": "worker-lifetime-baseline-initial.json",
+      "status": "reproduced-worker-and-decoder-survival"
+    },
+    {
+      "file": "worker-lifetime-candidate-initial.json",
+      "status": "development-owner-crash-cleanup-passed"
+    },
+    {
+      "file": "worker-lifetime-control-02.json",
+      "status": "passed-development-series-before-final-leader-fallback"
+    },
+    {
+      "file": "worker-lifetime-control-03.json",
+      "status": "passed-final-clean-source-series"
+    }
+  ],
+  "validation": {
+    "swift_debug": 493,
+    "swift_release": 493,
+    "python": 380,
+    "ruff": "passed",
+    "initial_worker_test_failure": {
+      "tests": 14,
+      "assertions": 10,
+      "cause": "libproc group API returns PID count, not bytes; corrected; direct membership/escalation tests added",
+      "log_sha256": "ad2f779f6139173640ee778283b72b1b59a3bff412ce8d4a978d1543b9fc98ef"
+    },
+    "subsequent_worker_cohort": 20
+  },
+  "observations": {
+    "before_after_owner_kills": 4,
+    "baseline_leaks": 2,
+    "candidate_leaks": 0,
+    "real_parakeet_owner_kills": 1,
+    "real_recovery_semantic_match": true,
+    "cold_and_five_warm_ping_processes": 4,
+    "helper_rss_kib_snapshots": [
+      7776,
+      7776,
+      7776
+    ]
+  },
+  "boundary": "Owned process/GIL-held production-main and one cached real-ASR recovery fixture. Eight new permanent tests. No GUI/microphone/physical shortcuts/insertion, energy or product ranking. Preserved standalone archives predate this source; source build only."
+}

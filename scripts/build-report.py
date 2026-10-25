@@ -948,3 +948,31 @@ if durable_batch_path.is_file():
     report = report.replace('Durable batch resume remains open.', 'The later durable batch source above implements restart/resume; native acceptance remains open.')
     report = report.replace('durable batch resume remains open.', 'the later durable batch source above implements restart/resume; native acceptance remains open.')
     (ROOT / "docs/research.html").write_text(report)
+
+
+# Parent-death cleanup is independent evidence, newer than durable batch resume.
+worker_lifetime_path = ROOT / "benchmarks/results/worker-lifetime.json"
+if worker_lifetime_path.is_file():
+    lifetime = json.loads(worker_lifetime_path.read_text())
+    assert lifetime["status"] == "passed-owned-worker-lifetime-controls"
+    final = json.loads((worker_lifetime_path.parent / lifetime["final_control"]).read_text())
+    assert final["protocol"]["application_source_sha256"] == lifetime["application_source_sha256"]
+    kills = [row for row in final["records"] if row["control"] == "GIL-held-real-main"]
+    assert [row["kind"] for row in kills] == ["baseline", "candidate", "candidate", "baseline"]
+    assert all(all(row["survived"].values()) if row["kind"] == "baseline" else not any(row["survived"].values()) for row in kills)
+    links = ''.join(f'<li><a href="../benchmarks/results/{esc(item["file"])}">{esc(item["file"])}</a> — {esc(item["status"])}</li>' for item in lifetime["attempts"])
+    panel = '''<details open id="worker-lifetime"><summary>Worker crash cleanup: a native guardian independent of Python and the GIL.</summary>
+<p>The old request loop notices stdin EOF only between requests. Killing its owner during a GIL-held C call left both worker and decoder alive. A separate native process now observes owner/worker exit; both kernel observers register before READY and inference admission. Missing, failed or lost helpers fail closed. Ordinary cancellation and the guardian share identity-checked TERM/KILL cleanup that also handles a decoder surviving its leader.</p>
+<div class="scroll"><table><thead><tr><th>Control</th><th>Observed result</th><th>Scope</th></tr></thead><tbody>
+<tr><td>Production-main ABBA</td><td>Baseline / candidate / candidate / baseline. Both old workers and TERM-ignoring decoders survive at 2.5 seconds; both new workers/decoders stop before harness cleanup.</td><td>Exact production Python main, injected GIL-held blocking dispatch, deliberately owned processes. All attempts retained.</td></tr>
+<tr><td>Actual cached Parakeet</td><td>Owner killed 200 ms after generation entry on repeated public speech; worker stops. Fresh baseline/current original-clip text, segments, language, model and duration match.</td><td>One recovery fixture, not precise GPU-state measurement, microphone acoustics or quality ranking.</td></tr>
+<tr><td>Overhead and regression</td><td>493 local Swift debug/release and 380 Python tests pass; eight new permanent cases. Helper RSS snapshots: 7,776 KiB each. Cold baseline 298/242 ms versus candidate 228/330 ms; warm pings about 0.06–0.13 ms.</td><td>One added process per resident worker. Two cold samples per kind on a shared Mac cannot establish speed or equivalence; no peak-memory/energy/p95 claim.</td></tr>
+</tbody></table></div>
+<p>The durable batch interruption gate now observes production cleanup before any harness fallback. The helper is included in the signed checkout app and its packaged CLI health check passes. Existing standalone ZIPs predate this source; normal app/data remain unchanged. Same-group descendants are covered; deliberate process detachment and simultaneous owner/guardian kill are outside the contract. Native TextEdit remains pending because macOS is locked; full parity and top-three acceptance remain open.</p>
+<p class="small muted"><a href="architecture/worker-lifetime.md">Contract/reproduction</a> · <a href="../benchmarks/results/worker-lifetime.json">Manifest</a> · <a href="../benchmarks/results/worker-lifetime-control-03.json">Clean source-bound control</a>.</p>
+<details><summary>All development and final attempts</summary><ul>''' + links + '''</ul></details></details>'''
+    report = (ROOT / "docs/research.html").read_text()
+    anchor = '<details open id="durable-file-batches">'
+    assert anchor in report
+    report = report.replace(anchor, panel + '<details id="durable-file-batches">', 1)
+    (ROOT / "docs/research.html").write_text(report)
