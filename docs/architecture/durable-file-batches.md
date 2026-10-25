@@ -94,7 +94,9 @@ Twelve new Core tests and seven platform tests cover identities, commit gaps,
 atomic failure, revision fencing, cleanup, corrupt/future/symlink/FIFO metadata,
 provider confirmation, privacy, retention, dismissal and History deletion.
 Local full debug 483 tests and optimized 484 tests passed before the final FIFO
-case; the final 27-case storage/workflow cohort passes. Python380 and Ruff pass; final CI validation is recorded in the progress ledger.
+case; the final 27-case storage/workflow cohort passes. Python380 and Ruff pass. [Source CI40189125179](https://github.com/vibhusapra/OSpr/actions/runs/40189125179)
+passes 485 permanent Swift / 380 Python tests, the actual synthetic process
+control and standalone app/runtime/436-link/signature/artifact gates.
 All development controls remain retained.
 
 Actual component layouts were inspected in [light](../assets/durable-import-light.png),

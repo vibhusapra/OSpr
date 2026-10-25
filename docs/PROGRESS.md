@@ -16,8 +16,12 @@ Saving off, retention, Dismiss and Delete all History remove recovery metadata;
 session-only retries cannot recreate it. Corrupt/future metadata is preserved;
 symlinks and FIFOs fail safely. Nineteen new permanent tests cover these cases.
 Full local debug483 and optimized484 suites pass before the final FIFO case;
-the final27 storage/workflow cohort passes. Python380 and Ruff pass. Final CI
-validation is pending.
+the final27 storage/workflow cohort passes. Python380 and Ruff pass.
+[Source CI40189125179](https://github.com/vibhusapra/OSpr/actions/runs/40189125179)
+verifies **485 Swift / 380 Python**, the actual synthetic interruption/restart
+control, contracts, report/app, all436 bundled links, standalone runtime/CLI/
+history/signatures and artifact upload. This validation-only follow-up preserves
+the same application source fingerprint.
 
 Seven process controls and three real-ASR controls are retained. Final controls
 bind the same current source and freshly built test bytes. Intentional live

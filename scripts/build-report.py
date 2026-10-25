@@ -937,6 +937,10 @@ if durable_batch_path.is_file():
 <p>Source files are not snapshotted: Resume reads current contents. A new batch replaces this queue while saved transcripts remain in History. This is a source feature newer than the preserved standalone ZIPs. Normal app/data and source audio remain unchanged; no full-parity or top-three claim.</p>
 <p class="small muted"><a href="architecture/durable-file-batches.md">Contract/reproduction</a> · <a href="../benchmarks/results/durable-file-batches.json">Manifest and all attempts</a> · <a href="assets/durable-import-light.png">Light component</a> · <a href="assets/durable-import-dark.png">Dark component</a> · <a href="assets/durable-import-compact.png">Compact component</a>.</p>
 <details><summary>All seven process and three real-ASR development controls</summary><ul>''' + control_links + '''</ul></details></details>'''
+    if durable.get("source_ci"):
+        ci = durable["source_ci"]
+        assert ci["status"] == "success" and ci["swift_permanent_tests"] == 485 and ci["python_tests"] == 380
+        panel = panel.replace('<p class="small muted">', f'<p><a href="https://github.com/vibhusapra/OSpr/actions/runs/{ci["run"]}">macOS 15 source CI</a> passes 485 permanent Swift / 380 Python tests, the actual synthetic process control, contracts and standalone runtime/436-link/signature/artifact gates. <a href="https://github.com/vibhusapra/OSpr/pull/41">PR41</a>.</p><p class="small muted">', 1)
     report = (ROOT / "docs/research.html").read_text()
     anchor = '<details open id="history-source-search">'
     assert anchor in report
