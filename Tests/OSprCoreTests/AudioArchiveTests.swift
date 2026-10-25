@@ -156,4 +156,90 @@ final class AudioArchiveTests: XCTestCase {
         try await archive.discardStaging(copy)
         XCTAssertFalse(FileManager.default.fileExists(atPath: copy.path))
     }
+    func testLiveTemporaryCopiesSurvivePreferencesReconciliation() async throws {
+        let archive = try archive(), id = UUID()
+        let audio = try await archive.adoptPrepared(prepared(archive, size: 20), id: id, limitBytes: 100)
+        try await archive.finishLease(audio.name, keep: true)
+        let staging = try await prepared(archive, size: 10)
+        let replay = try await archive.copyForReprocessing(name: audio.name, id: id)
+        let original = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".m4a")
+        defer { try? FileManager.default.removeItem(at: original) }
+        let bytes = Data("public compressed fixture".utf8); try bytes.write(to: original)
+        let copied = try await archive.snapshotUploadSource(original, limitBytes: 100)
+        let upload = try XCTUnwrap(copied)
+        _ = try await archive.reconcile(keeping: [audio.name], limitBytes: 100)
+        XCTAssertEqual(try Data(contentsOf: staging).count, 10)
+        XCTAssertEqual(try Data(contentsOf: replay).count, 20)
+        XCTAssertEqual(try Data(contentsOf: upload), bytes)
+        try await archive.discardStaging(staging); try await archive.discardStaging(replay)
+        try await archive.discardUploadSource(upload)
+        XCTAssertEqual(Set(try FileManager.default.contentsOfDirectory(atPath: archive.directory.path)), [audio.name])
+        XCTAssertEqual(try Data(contentsOf: original), bytes)
+    }
+
+    func testRestartPrunesTemporaryLeasesInsteadOfRestoringThem() async throws {
+        let archive = try archive(), id = UUID()
+        let audio = try await archive.adoptPrepared(prepared(archive, size: 20), id: id, limitBytes: 100)
+        try await archive.finishLease(audio.name, keep: true)
+        let staging = try await prepared(archive, size: 10)
+        let replay = try await archive.copyForReprocessing(name: audio.name, id: id)
+        let original = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".m4a")
+        defer { try? FileManager.default.removeItem(at: original) }
+        try Data("public compressed fixture".utf8).write(to: original)
+        let copied = try await archive.snapshotUploadSource(original, limitBytes: 100)
+        let upload = try XCTUnwrap(copied)
+        let restarted = try AudioArchive(directory: archive.directory)
+        _ = try await restarted.reconcile(keeping: [audio.name], limitBytes: 100)
+        for url in [staging, replay, upload] { XCTAssertFalse(FileManager.default.fileExists(atPath: url.path)) }
+        XCTAssertEqual(Set(try FileManager.default.contentsOfDirectory(atPath: archive.directory.path)), [audio.name])
+        XCTAssertTrue(FileManager.default.fileExists(atPath: original.path))
+    }
+
+    func testExplicitEraseRemovesActiveTemporaryCopiesAndKeepsUnrelatedFiles() async throws {
+        let archive = try archive(), staging = try await prepared(archive, size: 10)
+        let original = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".m4a")
+        defer { try? FileManager.default.removeItem(at: original) }
+        try Data("public compressed fixture".utf8).write(to: original)
+        let copied = try await archive.snapshotUploadSource(original, limitBytes: 100)
+        let upload = try XCTUnwrap(copied)
+        let unrelated = archive.directory.appendingPathComponent("keep.txt")
+        try Data("preserve".utf8).write(to: unrelated)
+        try await archive.eraseAll()
+        for url in [staging, upload] { XCTAssertFalse(FileManager.default.fileExists(atPath: url.path)) }
+        XCTAssertEqual(try Data(contentsOf: unrelated), Data("preserve".utf8))
+        XCTAssertEqual(Set(try FileManager.default.contentsOfDirectory(atPath: archive.directory.path)), ["keep.txt"])
+    }
+
+    func testDirectoryURLHintCannotRejectOwnedStagingOrUploadCleanup() async throws {
+        let package = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
+        let root = package.appendingPathComponent(".build/audio-url-" + UUID().uuidString)
+        defer { try? FileManager.default.removeItem(at: root) }
+        let directory = URL(fileURLWithPath: root.appendingPathComponent("Audio").path, isDirectory: false)
+        let archive = try AudioArchive(directory: directory)
+        let staging = try await prepared(archive, size: 20)
+        let audio = try await archive.adoptPrepared(staging, id: UUID(), limitBytes: 100)
+        try await archive.finishLease(audio.name, keep: true)
+        let source = root.appendingPathComponent("source.m4a")
+        try Data("public compressed bytes".utf8).write(to: source)
+        let value = try await archive.snapshotUploadSource(source, limitBytes: 100)
+        let snapshot = try XCTUnwrap(value)
+        try await archive.discardUploadSource(snapshot)
+        XCTAssertFalse(FileManager.default.fileExists(atPath: snapshot.path))
+        XCTAssertEqual(try Data(contentsOf: source), Data("public compressed bytes".utf8))
+        XCTAssertEqual(try Data(contentsOf: audio.url).count, 20)
+    }
+
+    func testDirectoryHintHandlingStillRejectsASymbolicArchiveRoot() async throws {
+        let parent = FileManager.default.temporaryDirectory.appendingPathComponent("OSpr-audio-link-" + UUID().uuidString)
+        defer { try? FileManager.default.removeItem(at: parent) }
+        let outside = parent.appendingPathComponent("outside"), link = parent.appendingPathComponent("link")
+        try FileManager.default.createDirectory(at: outside, withIntermediateDirectories: true)
+        let original = outside.appendingPathComponent("keep.txt"); try Data("preserve".utf8).write(to: original)
+        try FileManager.default.createSymbolicLink(at: link, withDestinationURL: outside)
+        let archive = try AudioArchive(directory: link)
+        do { _ = try await archive.newStagingURL(); XCTFail("A symbolic archive root must still be refused") } catch {}
+        XCTAssertEqual(try Data(contentsOf: original), Data("preserve".utf8))
+        XCTAssertEqual(try FileManager.default.contentsOfDirectory(atPath: outside.path), ["keep.txt"])
+    }
+
 }

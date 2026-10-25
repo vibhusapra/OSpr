@@ -12,6 +12,7 @@ public struct ArchivedAudio: Sendable {
 public actor AudioArchive {
     public nonisolated let directory: URL
     private var leased = Set<String>()
+    private var temporaryLeases = Set<String>()
     private let formats: Set<String> = ["wav"]
     private let uploadFormats: Set<String> = ["wav", "mp3", "m4a", "flac", "ogg", "opus", "aac", "aif", "aiff"]
     private struct Entry { let name: String; let url: URL; let bytes: Int64; let date: Date }
@@ -47,7 +48,9 @@ public actor AudioArchive {
 
     public func newStagingURL() throws -> URL {
         try checkRoot()
-        return directory.appendingPathComponent(".stage-" + UUID().uuidString + ".wav")
+        let url = directory.appendingPathComponent(".stage-" + UUID().uuidString + ".wav")
+        temporaryLeases.insert(url.lastPathComponent)
+        return url
     }
     public func copyForReprocessing(name: String, id: UUID) throws -> URL {
         try Task.checkCancellation()
@@ -58,7 +61,7 @@ public actor AudioArchive {
             try FileManager.default.setAttributes([.posixPermissions: 0o600], ofItemAtPath: temporary.path)
             try Task.checkCancellation()
             return temporary
-        } catch { try? FileManager.default.removeItem(at: temporary); throw error }
+        } catch { try? discardStaging(temporary); throw error }
     }
     /// Short-lived copy for a compliant compressed BYOK upload. Normalization
     /// and upload consume the same immutable source; it never becomes history.
@@ -75,24 +78,35 @@ public actor AudioArchive {
             try FileManager.default.setAttributes([.posixPermissions: 0o600], ofItemAtPath: output.path)
             try Task.checkCancellation()
             guard Int64(try output.resourceValues(forKeys: [.fileSizeKey]).fileSize ?? 0) < limitBytes else { throw OSprError.message("Source grew beyond the upload limit while copying.") }
+            temporaryLeases.insert(output.lastPathComponent)
             return output
-        } catch { try? FileManager.default.removeItem(at: output); throw error }
+        } catch { try? discardUploadSource(output); throw error }
+    }
+    private func hasTemporaryParent(_ url: URL) -> Bool {
+        guard url.isFileURL else { return false }
+        let parent = url.deletingLastPathComponent().standardizedFileURL
+        let root = directory.standardizedFileURL
+        // Directory-hint/trailing-slash differences do not change ownership.
+        // Keep the file-URL authority as well as the normalized path fence.
+        return parent.host == root.host && parent.path == root.path
     }
     public func discardUploadSource(_ url: URL) throws {
         try checkRoot()
         let name = url.deletingPathExtension().lastPathComponent
-        guard url.isFileURL, url.deletingLastPathComponent().standardizedFileURL == directory.standardizedFileURL,
+        guard hasTemporaryParent(url),
               uploadFormats.contains(url.pathExtension), name.hasPrefix(".source-"), UUID(uuidString: String(name.dropFirst(8))) != nil else { throw OSprError.message("Invalid private upload snapshot path.") }
         if FileManager.default.fileExists(atPath: url.path) { try FileManager.default.removeItem(at: url) }
+        temporaryLeases.remove(url.lastPathComponent)
     }
     private func validStaging(_ url: URL) -> Bool {
         let name = url.deletingPathExtension().lastPathComponent
-        return url.isFileURL && url.deletingLastPathComponent().standardizedFileURL == directory.standardizedFileURL && url.pathExtension == "wav" && name.hasPrefix(".stage-") && UUID(uuidString: String(name.dropFirst(7))) != nil
+        return hasTemporaryParent(url) && url.pathExtension == "wav" && name.hasPrefix(".stage-") && UUID(uuidString: String(name.dropFirst(7))) != nil
     }
     public func discardStaging(_ url: URL) throws {
         try checkRoot()
         guard validStaging(url) else { throw OSprError.message("Invalid audio staging path.") }
         if FileManager.default.fileExists(atPath: url.path) { try FileManager.default.removeItem(at: url) }
+        temporaryLeases.remove(url.lastPathComponent)
     }
     public func adoptPrepared(_ staging: URL, id: UUID, limitBytes: Int64) throws -> ArchivedAudio {
         try checkRoot(); try Task.checkCancellation()
@@ -107,6 +121,7 @@ public actor AudioArchive {
         guard !FileManager.default.fileExists(atPath: destination.path) else { throw OSprError.message("Retained recording ID already exists.") }
         try FileManager.default.setAttributes([.posixPermissions: 0o600, .modificationDate: Date()], ofItemAtPath: staging.path)
         try FileManager.default.moveItem(at: staging, to: destination)
+        temporaryLeases.remove(staging.lastPathComponent)
         leased.insert(name)
         do { return ArchivedAudio(name: name, url: destination, bytes: size, evicted: try trimToBudget(limitBytes)) }
         catch { leased.remove(name); try? FileManager.default.removeItem(at: destination); throw error }
@@ -116,6 +131,7 @@ public actor AudioArchive {
         try checkRoot()
         let names = Set(try FileManager.default.contentsOfDirectory(at: directory, includingPropertiesForKeys: nil).map(\.lastPathComponent).filter { owned($0) })
         try remove(names)
+        temporaryLeases.removeAll()
         _ = try reconcile(keeping: [], limitBytes: 0)
     }
 
@@ -140,8 +156,9 @@ public actor AudioArchive {
             if FileManager.default.fileExists(atPath: url.path) { try FileManager.default.removeItem(at: url) }
         }
     }
-    /// Run once at launch before admitting a recording. Preserve files when the
-    /// history index could not be read; explicit deletion is handled separately.
+    /// Reconcile after preferences or at launch. In-process temporary leases
+    /// survive maintenance; a fresh actor prunes copies abandoned by a crash.
+    /// Preserve files when the history index could not be read.
     public func reconcile(keeping: Set<String>, limitBytes: Int64) throws -> Set<String> {
         let abandoned = Set(try entries().map(\.name)).subtracting(keeping).subtracting(leased)
         try remove(abandoned)
@@ -149,11 +166,11 @@ public actor AudioArchive {
         // owns these names; normal app admission waits for launch maintenance.
         for url in try FileManager.default.contentsOfDirectory(at: directory, includingPropertiesForKeys: [.isSymbolicLinkKey]) where url.lastPathComponent.hasPrefix(".stage-") && url.pathExtension == "wav" {
             let stem = url.deletingPathExtension().lastPathComponent.dropFirst(7)
-            if UUID(uuidString: String(stem)) != nil { try FileManager.default.removeItem(at: url) }
+            if UUID(uuidString: String(stem)) != nil && !temporaryLeases.contains(url.lastPathComponent) { try discardStaging(url) }
         }
         for url in try FileManager.default.contentsOfDirectory(at: directory, includingPropertiesForKeys: nil) where url.lastPathComponent.hasPrefix(".source-") && uploadFormats.contains(url.pathExtension) {
             let stem = url.deletingPathExtension().lastPathComponent.dropFirst(8)
-            if UUID(uuidString: String(stem)) != nil { try discardUploadSource(url) }
+            if UUID(uuidString: String(stem)) != nil && !temporaryLeases.contains(url.lastPathComponent) { try discardUploadSource(url) }
         }
         return try abandoned.union(trimToBudget(limitBytes))
     }

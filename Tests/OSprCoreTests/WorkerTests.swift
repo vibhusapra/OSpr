@@ -40,15 +40,17 @@ final class WorkerTests: XCTestCase {
         let helper = directory.appendingPathComponent("helper")
         try "#!/bin/sh\nexec /bin/sleep 30\n".write(to: helper, atomically: true, encoding: .utf8)
         try FileManager.default.setAttributes([.posixPermissions: 0o700], ofItemAtPath: helper.path)
-        let worker = WorkerClient(root: directory.path, startupTimeout: 0.2, guardianExecutable: helper)
+        let worker = WorkerClient(root: directory.path, startupTimeout: 5, guardianExecutable: helper)
         defer { worker.shutdown() }
+        // Bound the intentionally hung handshake separately from healthy cold
+        // Python recovery; a 200ms boot deadline conflates the two controls.
         let start = Date()
-        do { _ = try await worker.request(["action": "ping"]); XCTFail("Hung helper must not admit a request") }
+        do { _ = try await worker.request(["action": "ping"], timeout: 0.2); XCTFail("Hung helper must not admit a request") }
         catch { XCTAssertTrue(error.localizedDescription.contains("lifetime helper could not start")) }
         XCTAssertLessThan(Date().timeIntervalSince(start), 3)
         try FileManager.default.removeItem(at: helper)
         try FileManager.default.createSymbolicLink(at: helper, withDestinationURL: XCTUnwrap(WorkerGuardian.executableURL()))
-        let result = try await worker.request(["action": "ping"])
+        let result = try await worker.request(["action": "ping"], timeout: 5)
         XCTAssertEqual(result["value"] as? String, "ready")
     }
 
