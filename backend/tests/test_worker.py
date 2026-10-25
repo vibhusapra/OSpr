@@ -107,3 +107,25 @@ def test_stdio_only_classifies_verified_text_limit_without_exposing_draft(monkey
     rejection, next_reply = map(json.loads, stdout.getvalue().splitlines())
     assert rejection == dict(id='a', ok=False, error='LocalCompletionError: Original retained.', **({'error_kind':'text-output-limit'} if output_limit else {}))
     assert next_reply == dict(id='b', ok=True, result={'pid':123})
+
+
+def test_stdio_classifies_media_read_rejection_without_error_class_prefix(monkeypatch):
+    import io
+    from ospr_backend import worker
+    from ospr_backend.audio import MediaReadError
+
+    def reject(engine, request):
+        if request['action'] == 'transcribe':
+            raise MediaReadError('This file could not be read as audio. The source is unchanged.')
+        return {'pid': 123}
+
+    stdin = io.TextIOWrapper(io.BytesIO(b'{"id":"a","action":"transcribe"}\n{"id":"b","action":"ping"}\n'))
+    stdout = io.StringIO()
+    monkeypatch.setattr(worker.sys, 'stdin', stdin)
+    monkeypatch.setattr(worker.sys, 'stdout', stdout)
+    monkeypatch.setattr(worker.os, 'setsid', lambda: None)
+    monkeypatch.setattr(worker, 'dispatch', reject)
+    worker.main()
+    rejection, next_reply = map(json.loads, stdout.getvalue().splitlines())
+    assert rejection == dict(id='a', ok=False, error='This file could not be read as audio. The source is unchanged.', error_kind='media-read')
+    assert next_reply == dict(id='b', ok=True, result={'pid':123})

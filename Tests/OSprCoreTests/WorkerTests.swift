@@ -151,6 +151,11 @@ final class WorkerTests: XCTestCase {
             ("summary", "text-model-not-prepared", false),
             ("transcribe", "text-model-not-prepared", false),
             ("transcribe", "text-output-limit", false),
+            ("transcribe", "media-read", true),
+            ("meeting", "media-read", true),
+            ("analyze_speech", "media-read", true),
+            ("warm", "media-read", false),
+            ("rewrite", "media-read", false),
             ("warm", "text-output-limit", false),
             ("rewrite", "runtime", false),
             ("summary", "", false)

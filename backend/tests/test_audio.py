@@ -3,6 +3,28 @@ import pytest
 import soundfile as sf
 
 from ospr_backend.audio import read_audio, speech_bounds
+from ospr_backend.audio import MediaReadError
+
+
+def test_malformed_media_error_is_actionable_without_command_or_paths(tmp_path):
+    path = tmp_path / "private-name.wav"
+    payload = b"Invalid synthetic media fixture.\n"
+    path.write_bytes(payload)
+    with pytest.raises(MediaReadError) as caught:
+        read_audio(str(path))
+    assert "source is unchanged" in str(caught.value)
+    assert "retry" in str(caught.value)
+    assert str(path) not in str(caught.value)
+    assert "ffmpeg" not in str(caught.value) and "Command" not in str(caught.value)
+    assert path.read_bytes() == payload
+
+
+def test_missing_source_error_does_not_expose_source_path(tmp_path):
+    path = tmp_path / "missing-private-name.wav"
+    with pytest.raises(MediaReadError) as caught:
+        read_audio(str(path))
+    assert "could not be found" in str(caught.value)
+    assert str(path) not in str(caught.value)
 
 
 @pytest.mark.parametrize("rate", [8000, 16000, 44100, 48000])
@@ -51,8 +73,15 @@ def test_nonfinite_audio_is_rejected(tmp_path):
         read_audio(str(path))
 
 
-def test_arbitrary_urls_never_open():
-    with pytest.raises(FileNotFoundError):
+def test_arbitrary_urls_never_open(monkeypatch):
+    import subprocess
+
+    def unexpected(*args, **kwargs):
+        pytest.fail("A URL must be rejected before any decoder or subprocess")
+
+    monkeypatch.setattr(sf, "info", unexpected)
+    monkeypatch.setattr(subprocess, "run", unexpected)
+    with pytest.raises(MediaReadError, match="could not be found"):
         read_audio("https://example.com/audio.wav")
 
 

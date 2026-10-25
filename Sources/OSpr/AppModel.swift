@@ -21,6 +21,8 @@ import OSprCore
     @Published var status = "Your voice. Your Mac."
     @Published var error = ""
     @Published var preview = ""
+    @Published private(set) var importBatch: FileImportBatch?
+    private var importSettings: OSprSettings?
     @Published private(set) var countdownSeconds: Int?
     var selection: UUID? { get { historyState.selection } set { historyState.selection = newValue } }
     @Published var tab = "Studio"
@@ -655,6 +657,7 @@ import OSprCore
                 try await Task.sleep(for: .milliseconds(20))
             }
             try preserveOnQuit()
+            importBatch?.cancelRemaining()
             generation = UUID(); operationTask?.cancel(); previewTask?.cancel()
             worker.shutdown(); ready = false; residentModels = []; preparedTextModel = nil
             meetingTimer?.invalidate(); meetingTimer = nil
@@ -809,6 +812,7 @@ import OSprCore
         if insertionTest.isPresented { dismissInsertionTest(); return }
         dictationCountdown.cancel(); countdownSeconds = nil
         let wasCapture = phase == "recording" || phase == "starting"
+        importBatch?.cancelRemaining()
         generation = UUID(); operationTask?.cancel(); operationTask = nil; previewTask?.cancel()
         if phase == "warming" || phase == "transcribing" || previewTask != nil { worker.shutdown(); ready = false; residentModels = []; preparedTextModel = nil }
         modelProgress = ""; modelFraction = nil
@@ -882,8 +886,9 @@ import OSprCore
         }
     }
 
-    private func transcribe(file originalFile: URL, duration: Double, config: OSprSettings, mode: WritingMode, target: InsertionTarget?, source: String, token: UUID, preserveRecoveryOnSaveFailure: Bool = false, resultOverride: [String: Any]? = nil, startedAt: Date = Date()) async -> Bool {
+    private func transcribe(file originalFile: URL, duration: Double, config: OSprSettings, mode: WritingMode, target: InsertionTarget?, source: String, token: UUID, preserveRecoveryOnSaveFailure: Bool = false, resultOverride: [String: Any]? = nil, startedAt: Date = Date(), onSaved: ((Transcript) -> Void)? = nil, onIssue: ((String) -> Void)? = nil) async -> Bool {
         guard generation == token else { return false }
+        func report(_ message: String) { self.error = message; onIssue?(message) }
         var file = originalFile
         let recordID = UUID()
         var archived: ArchivedAudio?
@@ -919,7 +924,7 @@ import OSprCore
                     if let staging { try? await audioArchive.discardStaging(staging) }
                     guard generation == token else { return false }
                     retentionWarning = "Audio was not retained: \(error.localizedDescription)"
-                    self.error = retentionWarning ?? ""
+                    report(retentionWarning ?? "")
                 }
             }
             guard generation == token else { return false }
@@ -967,16 +972,16 @@ import OSprCore
             guard !raw.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
                 if result["detector_abstained"] as? Bool == true {
                     status = "Speech detector returned no usable range"
-                    self.error = "Quiet speech can be missed. Completed recording audio is kept for retry; imported files are unchanged. Retry without edge trimming."
+                    report("Quiet speech can be missed. Completed recording audio is kept for retry; imported files are unchanged. Retry without edge trimming.")
                     return false
                 }
                 if result["silence"] as? Bool == true {
                     status = "No words returned from this audio"
-                    self.error = "Completed recording audio is kept for review and retry; imported files are unchanged. Check the recording and retry without edge trimming."
+                    report("Completed recording audio is kept for review and retry; imported files are unchanged. Check the recording and retry without edge trimming.")
                     return false
                 }
                 status = "The recognizer returned no words"
-                self.error = "No transcript was returned. Completed recording audio is kept for retry; imported source files are unchanged. Try another model or language hint."
+                report("No transcript was returned. Completed recording audio is kept for retry; imported source files are unchanged. Try another model or language hint.")
                 return false
             }
             var text = TextPipeline.process(result["text"] as? String ?? raw, mode: mode, replacements: config.replacements, spokenPunctuation: config.spokenPunctuation, language: result["language"] as? String ?? config.language)
@@ -995,44 +1000,48 @@ import OSprCore
                     }
                     if let reason = RewriteGuard.rejection(original: beforeRewrite, rewritten: text, mode: mode) {
                         text = beforeRewrite
-                        self.error = "Original text retained. \(reason)"
+                        report("Original text retained. \(reason)")
                         if mode == .assistant {
-                            saveResult(raw: raw, text: beforeRewrite, result: result, duration: duration, config: config, mode: mode, source: source, target: target, started: started, id: recordID, audioFile: archived?.name, audioWarning: retentionWarning)
-                            return await finishResultStorage(config: config, token: token, preserveRecovery: preserveRecoveryOnSaveFailure)
+                            let saved = saveResult(raw: raw, text: beforeRewrite, result: result, duration: duration, config: config, mode: mode, source: source, target: target, started: started, id: recordID, audioFile: archived?.name, audioWarning: retentionWarning)
+                            onSaved?(saved)
+                            return await finishResultStorage(config: config, token: token, preserveRecovery: preserveRecoveryOnSaveFailure, onIssue: onIssue)
                         }
                     }
                 } catch {
                     guard generation == token else { return false }
-                    self.error = "Transcription saved; rewrite failed: \(error.localizedDescription)"
+                    report("Transcription saved; rewrite failed: \(error.localizedDescription)")
                     if mode == .assistant { /* Never replace selected text with an unexecuted editing request. */
-                        saveResult(raw: raw, text: text, result: result, duration: duration, config: config, mode: mode, source: source, target: target, started: started, id: recordID, audioFile: archived?.name, audioWarning: retentionWarning)
-                        return await finishResultStorage(config: config, token: token, preserveRecovery: preserveRecoveryOnSaveFailure)
+                        let saved = saveResult(raw: raw, text: text, result: result, duration: duration, config: config, mode: mode, source: source, target: target, started: started, id: recordID, audioFile: archived?.name, audioWarning: retentionWarning)
+                        onSaved?(saved)
+                        return await finishResultStorage(config: config, token: token, preserveRecovery: preserveRecoveryOnSaveFailure, onIssue: onIssue)
                     }
                 }
             } else if mode == .assistant {
                 throw OSprError.message("Edit selection needs a rewrite provider. Enable Local MLX or a BYOK provider in Settings.")
             } else if [.email, .bullets, .code, .translate, .custom].contains(mode) {
-                self.error = "\(mode.title) needs a rewrite provider for formatting. This result contains the original transcription."
+                report("\(mode.title) needs a rewrite provider for formatting. This result contains the original transcription.")
             }
             guard generation == token else { return false }
-            saveResult(raw: raw, text: text, result: result, duration: duration, config: config, mode: mode, source: source, target: target, started: started, id: recordID, audioFile: archived?.name, audioWarning: retentionWarning)
+            let saved = saveResult(raw: raw, text: text, result: result, duration: duration, config: config, mode: mode, source: source, target: target, started: started, id: recordID, audioFile: archived?.name, audioWarning: retentionWarning)
+            onSaved?(saved)
             recognized = true
             if config.autoPaste && source == "dictation", let target { try await target.paste(text, restoreClipboard: config.restoreClipboard, allowUnverified: config.allowUnverifiedPaste) }
-        } catch { if generation == token { self.error = error.localizedDescription; status = "Could not finish" } }
-        return recognized ? await finishResultStorage(config: config, token: token, preserveRecovery: preserveRecoveryOnSaveFailure) : false
+        } catch { if generation == token { report(error.localizedDescription); status = "Could not finish" } }
+        return recognized ? await finishResultStorage(config: config, token: token, preserveRecovery: preserveRecoveryOnSaveFailure, onIssue: onIssue) : false
     }
-    private func finishResultStorage(config: OSprSettings, token: UUID, preserveRecovery: Bool) async -> Bool {
+    private func finishResultStorage(config: OSprSettings, token: UUID, preserveRecovery: Bool, onIssue: ((String) -> Void)? = nil) async -> Bool {
         guard generation == token else { return false }
         do { try await historyState.flush(); return generation == token }
         catch {
             if generation == token {
                 self.error = "Transcript is available in this session, but history could not be saved: \(error.localizedDescription) " + (preserveRecovery ? "Completed recording audio is kept for recovery." : "The imported source is unchanged; transcript export remains available.")
+                onIssue?(self.error)
                 status = preserveRecovery ? "History could not be saved · recording retained" : "History unsaved · export this result"
             }
             return !preserveRecovery && generation == token
         }
     }
-    private func saveResult(raw: String, text: String, result: [String: Any], duration: Double, config: OSprSettings, mode: WritingMode, source: String, target: InsertionTarget?, started: Date, id: UUID, audioFile: String?, audioWarning: String?) {
+    @discardableResult private func saveResult(raw: String, text: String, result: [String: Any], duration: Double, config: OSprSettings, mode: WritingMode, source: String, target: InsertionTarget?, started: Date, id: UUID, audioFile: String?, audioWarning: String?) -> Transcript {
         let segments = (result["segments"] as? [[String: Any]] ?? []).compactMap { segment -> Segment? in
             guard let start = segment["start"] as? Double, let end = segment["end"] as? Double, let text = segment["text"] as? String else { return nil }
             return Segment(start: start, end: end, text: text, speaker: segment["speaker"] as? Int, overlapSpeakers: segment["overlapSpeakers"] as? [Int])
@@ -1054,6 +1063,7 @@ import OSprCore
         }
         historyState.submit(record, select: !backgroundImportActive)
         status = "Ready · \(Int(record.latencyMS)) ms"; preview = ""
+        return record
     }
     func remove(_ record: Transcript) { if !quitting { historyState.remove(id: record.id) } }
     func removeHistoryRow(_ id: UUID) { if !quitting { historyState.remove(id: id) } }
@@ -1239,35 +1249,85 @@ import OSprCore
             panel.allowedContentTypes = [.audio, .movie]
             guard panel.runModal() == .OK else { return }; urls = panel.urls
         }
-        phase = "transcribing"; generation = UUID(); let token = generation
+        guard !urls.isEmpty else { return }
         var config = settings
         if config.speakerLabels {
             guard config.transcriptionProvider == "local" && ["parakeet-v3", "whisper-turbo", "whisper-small"].contains(config.model) else {
-                error = "Speaker labels need local Parakeet or Whisper. Choose one, or disable speaker labels for imports."; phase = "idle"; return
+                error = "Speaker labels need local Parakeet or Whisper. Choose one, or disable speaker labels for imports."; return
             }
             config.mode = .verbatim
         }
+        importBatch = FileImportBatch(urls: urls); importSettings = config
+        runImportBatch(config: config)
+    }
+    func retryImports() {
+        guard !busy, importBatch?.retryCount ?? 0 > 0, let config = importSettings else { return }
+        importBatch?.prepareRetry(); runImportBatch(config: config)
+    }
+    private func runImportBatch(config: OSprSettings) {
+        phase = "transcribing"; generation = UUID(); let token = generation
+        let queued = importBatch?.remaining ?? []
         operationTask = Task {
-            for (index, file) in urls.enumerated() {
+            for (index, item) in queued.enumerated() {
+                guard generation == token, !Task.isCancelled else { break }
+                importBatch?.begin(item.id); error = ""
+                status = "File \(index + 1) of \(queued.count) · \(item.name)"
+                var recordID: UUID?
+                var issues: [String] = []
+                if item.url.isFileURL {
+                    _ = await transcribe(file: item.url, duration: 0, config: config, mode: config.mode,
+                        target: nil, source: item.name, token: token, onSaved: {
+                            recordID = $0.id; self.importBatch?.noteTranscript(item.id, transcriptID: $0.id)
+                            if let warning = $0.warning, !issues.contains(warning) { issues.append(warning) }
+                        }, onIssue: { if !$0.isEmpty && !issues.contains($0) { issues.append($0) } })
+                } else { error = "Choose a local audio or video file."; issues.append(error) }
                 guard generation == token else { break }
-                status = "File \(index + 1) of \(urls.count) · \(file.lastPathComponent)"
-                _ = await transcribe(file: file, duration: 0, config: config, mode: config.mode, target: nil, source: file.lastPathComponent, token: token)
+                let message = issues.isEmpty ? (recordID == nil ? "No transcript returned. Source file is unchanged." : nil) : issues.joined(separator: "\n")
+                importBatch?.finish(item.id, transcriptID: recordID, message: message)
+            }
+            guard generation == token else { return }
+            phase = "idle"
+            if let batch = importBatch {
+                status = "Import finished · \(batch.completedCount)/\(batch.items.count) transcripts · \(batch.retryCount) to retry"
+            }
+        }
+    }
+    func openImportResult(_ id: UUID) { selection = id; tab = "History" }
+
+    func exportHistory(format: TranscriptFileFormat) {
+        guard !busy else { return }
+        let panel = NSOpenPanel(); panel.canChooseDirectories = true; panel.canChooseFiles = false
+        panel.message = "Export all matching transcripts, including unloaded history, into a new private folder. Audio is not copied."
+        panel.prompt = "Choose export folder"
+        guard panel.runModal() == .OK, let parent = panel.url else { return }
+        let destination = parent.appendingPathComponent("OSpr export-" + UUID().uuidString.lowercased())
+        beginHistoryExport(to: destination, format: format, query: historyState.query)
+    }
+    func beginHistoryExport(to destination: URL, format: TranscriptFileFormat, query: String) {
+        guard !busy else { return }
+        phase = "exporting"; generation = UUID(); let token = generation
+        status = "Exporting all matching history…"
+        operationTask = Task {
+            do {
+                let result = try await historyState.export(to: destination, format: format, query: query)
+                guard generation == token else { return }
+                status = "Exported \(result.count) transcripts · \(result.directory.lastPathComponent)"
+            } catch is CancellationError {
+                if generation == token { status = "Export cancelled" }
+            } catch {
+                if generation == token { self.error = "History export failed: \(error.localizedDescription)"; status = "Export failed · no partial folder published" }
             }
             if generation == token { phase = "idle" }
         }
     }
     func export(_ record: Transcript, format: String) {
-        let panel = NSSavePanel(); panel.nameFieldStringValue = "OSpr-transcript.\(format)"
+        guard let fileFormat = TranscriptFileFormat(rawValue: format) else { return }
+        let panel = NSSavePanel(); panel.nameFieldStringValue = TranscriptExport.filename(record, format: fileFormat)
         guard panel.runModal() == .OK, let url = panel.url else { return }
         Task {
           do {
             try await Task.detached(priority: .utility) {
-            let data: Data
-            switch format {
-            case "json": let encoder = JSONEncoder(); encoder.outputFormatting = [.prettyPrinted, .sortedKeys]; encoder.dateEncodingStrategy = .iso8601; data = try encoder.encode(record)
-            case "srt", "vtt": data = Data(TranscriptExport.subtitles(record, vtt: format == "vtt").utf8)
-            default: data = Data(record.text.utf8)
-            }
+            let data = try TranscriptExport.data(record, format: fileFormat)
             try PrivateFileExport.write(data, to: url)
             }.value
             status = "Transcript exported · \(format.uppercased())"

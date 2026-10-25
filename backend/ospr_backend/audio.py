@@ -14,7 +14,24 @@ SAMPLE_RATE = 16000
 MAX_SECONDS = 4 * 60 * 60
 
 
+class MediaReadError(ValueError):
+    """A recoverable source-read rejection, before speech model inference."""
+
+
 def read_audio(path: str) -> np.ndarray:
+    try:
+        return _read_audio(path)
+    except subprocess.TimeoutExpired as error:
+        raise MediaReadError("Reading this media file took too long. Try a shorter local audio file; the source is unchanged.") from error
+    except (subprocess.CalledProcessError, sf.LibsndfileError) as error:
+        raise MediaReadError("This file could not be read as audio. Check that it plays, or export it as WAV, MP3 or M4A and retry. The source is unchanged.") from error
+    except FileNotFoundError as error:
+        raise MediaReadError("The source file could not be found. Locate it and import it again.") from error
+    except PermissionError as error:
+        raise MediaReadError("OSpr cannot read the source file. Check its file permissions or choose a readable copy and retry.") from error
+
+
+def _read_audio(path: str) -> np.ndarray:
     source = Path(path).expanduser().resolve(strict=True)
     try:
         info = sf.info(source)

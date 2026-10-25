@@ -1,0 +1,102 @@
+import XCTest
+import AppKit
+@testable import OSpr
+@testable import OSprCore
+
+final class FileImportWorkflowTests: XCTestCase {
+    @MainActor func testDropCollectsEveryURLInOrderBeforeAdmission() async throws {
+        let urls = ["first.wav", "second.wav", "first.wav"].map { URL(fileURLWithPath: "/tmp/" + $0) }
+        let providers = urls.map { NSItemProvider(object: $0 as NSURL) }
+        let collected = try await FileDropImport.urls(from: providers)
+        XCTAssertEqual(collected, urls)
+    }
+    @MainActor func testUnreadableOrRemoteDropRejectsWholeBatch() async throws {
+        for invalid in [NSItemProvider(), NSItemProvider(object: URL(string: "https://example.com/audio.wav")! as NSURL)] {
+            let valid = NSItemProvider(object: URL(fileURLWithPath: "/tmp/valid.wav") as NSURL)
+            do { _ = try await FileDropImport.urls(from: [valid, invalid]); XCTFail("Do not import a subset") }
+            catch { XCTAssertTrue(error.localizedDescription.contains("No files were imported")) }
+        }
+    }
+    @MainActor private func fixture() throws -> (AppModel, URL) {
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent("OSpr-import-ui-" + UUID().uuidString)
+        let root = directory.appendingPathComponent("engine"), backend = directory.appendingPathComponent("engine/backend/ospr_backend")
+        let bin = root.appendingPathComponent(".venv/bin")
+        try FileManager.default.createDirectory(at: backend, withIntermediateDirectories: true)
+        try FileManager.default.createDirectory(at: bin, withIntermediateDirectories: true)
+        try "#!/bin/sh\nexec /usr/bin/python3 \"$@\"\n".write(to: bin.appendingPathComponent("python"), atomically: true, encoding: .utf8)
+        try FileManager.default.setAttributes([.posixPermissions: 0o700], ofItemAtPath: bin.appendingPathComponent("python").path)
+        try Data().write(to: backend.appendingPathComponent("__init__.py"))
+        let code = """
+        import json,sys,pathlib,time,os
+        base=pathlib.Path(__file__).resolve().parents[2]
+        for line in sys.stdin:
+            r=json.loads(line); a=r.get('action'); value={}; ok=True
+            if a=='ping':value={'pid':os.getpid()}
+            if a=='transcribe':
+                name=pathlib.Path(r['path']).name
+                with (base/'requests.jsonl').open('a') as f:f.write(json.dumps({'name':name,'model':r['model'],'language':r['language']})+'\\n')
+                if name=='slow.wav':
+                    (base/'slow-admitted').touch();time.sleep(0.5)
+                if name=='bad.wav' and not (base/'allow-bad').exists():ok=False
+                value={'text':'Public fixture '+name,'model':r['model'],'audio_seconds':1}
+            response={'id':r['id'],'ok':ok,'result':value}
+            if not ok:response={'id':r['id'],'ok':False,'error':'Invalid fixture audio'}
+            print(json.dumps(response),flush=True)
+        """
+        try code.write(to: backend.appendingPathComponent("worker.py"), atomically: true, encoding: .utf8)
+        var settings = OSprSettings(); settings.rootPath = root.path; settings.saveHistory = false
+        settings.mode = .verbatim; settings.autoPaste = false; settings.model = "whisper-small"; settings.retentionDays = 0
+        try JSONEncoder().encode(settings).write(to: directory.appendingPathComponent("settings.json"))
+        let app = AppModel(instanceLock: try AppInstanceLock(directory: directory), directory: directory, enableServices: false)
+        return (app, directory)
+    }
+    @MainActor private func settle(_ predicate: () -> Bool) async throws {
+        let deadline = Date().addingTimeInterval(6)
+        while !predicate() && Date() < deadline { try await Task.sleep(for: .milliseconds(5)) }
+        XCTAssertTrue(predicate())
+    }
+    @MainActor func testMixedBatchRetriesOnlyFailureWithOriginalConfigurationAndExportsLatestEdit() async throws {
+        let (app, directory) = try fixture()
+        defer { try? FileManager.default.removeItem(at: directory) }
+        try await settle { !app.busy }
+        let first = directory.appendingPathComponent("one.wav"), bad = directory.appendingPathComponent("bad.wav"), third = directory.appendingPathComponent("three.wav")
+        app.importFiles([first, bad, third]); try await settle { !app.busy }
+        XCTAssertEqual(app.importBatch?.items.map(\.state), [.completed, .failed, .completed])
+        XCTAssertEqual(app.importBatch?.items[1].message, "Invalid fixture audio")
+        let firstID = try XCTUnwrap(app.importBatch?.items[0].transcriptID)
+        app.settings.model = "parakeet-v3"; app.settings.language = "fr"
+        try Data().write(to: directory.appendingPathComponent("engine/allow-bad"))
+        app.retryImports(); try await settle { !app.busy }
+        XCTAssertEqual(app.importBatch?.completedCount, 3)
+        XCTAssertEqual(app.importBatch?.items[0].transcriptID, firstID)
+        let requests = try String(contentsOf: directory.appendingPathComponent("engine/requests.jsonl"), encoding: .utf8).split(separator: "\n").map { try JSONSerialization.jsonObject(with: Data($0.utf8)) as! [String: Any] }
+        XCTAssertEqual(requests.compactMap { $0["name"] as? String }, ["one.wav", "bad.wav", "three.wav", "bad.wav"])
+        XCTAssertTrue(requests.allSatisfy { $0["model"] as? String == "whisper-small" && $0["language"] as? String == "" })
+        app.updateText(firstID, text: "Edited before bulk export")
+        let output = directory.appendingPathComponent("export")
+        app.beginHistoryExport(to: output, format: .json, query: "")
+        try await settle { !app.busy }
+        let index = try XCTUnwrap(JSONSerialization.jsonObject(with: Data(contentsOf: output.appendingPathComponent("index.json"))) as? [String: Any])
+        XCTAssertEqual(index["count"] as? Int, 3)
+        let entries = try XCTUnwrap(index["records"] as? [[String: Any]])
+        let entry = try XCTUnwrap(entries.first { ($0["id"] as? String)?.lowercased() == firstID.uuidString.lowercased() })
+        let saved = try XCTUnwrap(JSONSerialization.jsonObject(with: Data(contentsOf: output.appendingPathComponent(entry["file"] as! String))) as? [String: Any])
+        XCTAssertEqual(saved["text"] as? String, "Edited before bulk export")
+        XCTAssertEqual(saved["source"] as? String, "one.wav")
+        try await app.prepareForTermination()
+    }
+    @MainActor func testCancelStopsUnstartedFilesAndLateWorkerCannotPublishSuccess() async throws {
+        let (app, directory) = try fixture()
+        defer { try? FileManager.default.removeItem(at: directory) }
+        try await settle { !app.busy }
+        app.importFiles([directory.appendingPathComponent("slow.wav"), directory.appendingPathComponent("not-started.wav")])
+        try await settle { FileManager.default.fileExists(atPath: directory.appendingPathComponent("engine/slow-admitted").path) }
+        app.cancel()
+        XCTAssertEqual(app.importBatch?.items.map(\.state), [.cancelled, .cancelled])
+        try await Task.sleep(for: .milliseconds(600))
+        XCTAssertNil(app.historyState.latest)
+        let requests = try String(contentsOf: directory.appendingPathComponent("engine/requests.jsonl"), encoding: .utf8)
+        XCTAssertFalse(requests.contains("not-started"))
+        try await app.prepareForTermination()
+    }
+}

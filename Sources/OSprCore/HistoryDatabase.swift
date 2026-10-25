@@ -415,6 +415,22 @@ public final class HistoryDatabase {
         return value
     }
 
+    /// The repository queue excludes mutations throughout this enumeration.
+    /// Page metadata and decode only one full payload at a time.
+    func visitRecords(query: String, _ visit: (Transcript) throws -> Void) throws {
+        var cursor: Int64?
+        repeat {
+            let result = try page(query: query, before: cursor, limit: 200)
+            for row in result.rows {
+                try autoreleasepool {
+                    guard let value = try record(id: row.id) else { throw OSprError.message("A transcript disappeared during export.") }
+                    try visit(value)
+                }
+            }
+            cursor = result.next
+        } while cursor != nil
+    }
+
     public func statistics() throws -> HistoryStatistics {
         var value = HistoryStatistics(records: 0, words: 0)
         try rows("SELECT records,words FROM history_stats WHERE singleton=1") { statement in

@@ -69,12 +69,15 @@ struct WorkspaceView: View {
             }.background(Color.canvas)
         }
         .onDrop(of: [.fileURL], isTargeted: nil) { providers in
-            for provider in providers {
-                _ = provider.loadObject(ofClass: URL.self) { url, _ in
-                    if let url { Task { @MainActor in model.importFiles([url]) } }
-                }
+            guard !model.busy, !providers.isEmpty else { return false }
+            Task { @MainActor in
+                do {
+                    let urls = try await FileDropImport.urls(from: providers)
+                    guard !model.busy else { model.error = "Another operation started. Drop the files again when it finishes."; return }
+                    model.importFiles(urls)
+                } catch { model.error = error.localizedDescription }
             }
-            return !providers.isEmpty
+            return true
         }
         .onAppear { model.refreshPermissions() }
         .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in model.refreshPermissions() }
@@ -171,6 +174,7 @@ struct StudioView: View {
                         }
                     }
                 }
+                if model.importBatch != nil { ImportBatchView(model: model) }
                 Card {
                     VStack(alignment: .leading, spacing: 12) {
                         Label("Desktop audio · experimental", systemImage: "person.2.wave.2").font(.headline)
@@ -368,6 +372,63 @@ struct InsertionTestPanel: View {
     }
 }
 
+struct ImportBatchView: View {
+    @ObservedObject var model: AppModel
+    var body: some View {
+        if let batch = model.importBatch {
+            Card {
+                VStack(alignment: .leading, spacing: 12) {
+                    HStack {
+                        Text("Latest file import").font(.headline)
+                        Spacer()
+                        Text("\(batch.completedCount)/\(batch.items.count) transcripts").font(.caption).foregroundStyle(.secondary)
+                        if batch.retryCount > 0 {
+                            Button("Retry \(batch.retryCount) unfinished") { model.retryImports() }.disabled(model.busy)
+                        }
+                    }
+                    Text("Current session only. Source files stay unchanged. Retry uses this batch’s original model and writing settings.")
+                        .font(.caption).foregroundStyle(.secondary)
+                    ScrollView {
+                        LazyVStack(alignment: .leading, spacing: 10) {
+                            ForEach(batch.items) { item in
+                                HStack(alignment: .top, spacing: 10) {
+                                    Image(systemName: icon(item.state)).foregroundStyle(item.state == .failed ? Color.orange : Color.secondary)
+                                    VStack(alignment: .leading, spacing: 3) {
+                                        Text(item.name).font(.callout).textSelection(.enabled)
+                                        Text(title(item.state)).font(.caption).foregroundStyle(.secondary)
+                                        if let message = item.message { Text(message).font(.caption).foregroundStyle(.orange).textSelection(.enabled) }
+                                    }
+                                    Spacer()
+                                    if let id = item.transcriptID { Button("Open transcript") { model.openImportResult(id) }.font(.caption) }
+                                }
+                            }
+                        }
+                    }.frame(maxHeight: 220)
+                }
+            }
+        }
+    }
+    private func title(_ state: FileImportBatch.State) -> String {
+        switch state {
+        case .queued: "Queued"
+        case .processing: "Processing"
+        case .completed: "Transcript available"
+        case .warning: "Transcript available · review warning"
+        case .failed: "Failed · ready to retry"
+        case .cancelled: "Cancelled · ready to retry"
+        }
+    }
+    private func icon(_ state: FileImportBatch.State) -> String {
+        switch state {
+        case .queued: "clock"
+        case .processing: "waveform"
+        case .completed: "checkmark.circle"
+        case .warning, .failed: "exclamationmark.triangle"
+        case .cancelled: "pause.circle"
+        }
+    }
+}
+
 struct HistoryView: View {
     @ObservedObject var model: AppModel
     @State private var confirmDelete = false
@@ -375,6 +436,11 @@ struct HistoryView: View {
         HSplitView {
             VStack(spacing: 12) {
                 TextField("Search your words", text: Binding(get: { model.historyState.query }, set: { model.historyState.query = $0 })).textFieldStyle(.roundedBorder).padding(.horizontal, 12).padding(.top, 18)
+                Menu(model.historyState.query.isEmpty ? "Export all history…" : "Export all search matches…") {
+                    ForEach(TranscriptFileFormat.allCases, id: \.self) { format in
+                        Button(format.rawValue.uppercased()) { model.exportHistory(format: format) }
+                    }
+                }.disabled(model.busy).padding(.horizontal, 12)
                 List(selection: $model.selection) {
                     ForEach(model.historyState.rows) { record in
                         VStack(alignment: .leading, spacing: 6) {
@@ -404,6 +470,7 @@ struct HistoryView: View {
                         Button { model.copy(record.text) } label: { Label("Copy", systemImage: "doc.on.doc") }
                     }
                     HStack(spacing: 16) { Label(record.model, systemImage: "cpu"); Text(record.mode.title); Text(String(format: "%.1fs audio · %.2fs processing", record.duration, record.latencyMS / 1000)) }.font(.caption).foregroundStyle(.secondary)
+                    Label(record.sourceName, systemImage: "doc").font(.caption).foregroundStyle(.secondary).textSelection(.enabled)
                     if let warning = record.warning { Label(warning, systemImage: "exclamationmark.triangle").font(.caption).foregroundStyle(.orange) }
                     if record.audioFile != nil { AudioReviewView(model: model, record: record) }
                     TextEditor(text: Binding(get: { model.selected?.id == record.id ? model.selected?.text ?? record.text : record.text }, set: { model.updateText(record.id, text: $0) })).font(.system(size: 16)).lineSpacing(6).padding(10).background(Color(nsColor: .textBackgroundColor), in: RoundedRectangle(cornerRadius: 12))

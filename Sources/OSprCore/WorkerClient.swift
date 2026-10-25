@@ -97,7 +97,8 @@ public final class WorkerClient: @unchecked Sendable {
                     let action = body["action"] as? String ?? ""
                     let preparationRejection = rejection != nil && ["prepare_review", "prepare_upload", "prepare_upload_parts"].contains(action)
                     let textRejection = Self.retainsTextModels(after: error, action: action)
-                    if !preparationRejection && !textRejection { self.stopOnQueue() }
+                    let mediaRejection = rejection?.kind == "media-read" && ["transcribe", "meeting", "analyze_speech"].contains(action)
+                    if !preparationRejection && !textRejection && !mediaRejection { self.stopOnQueue() }
                     continuation.resume(throwing: error)
                 }
             }

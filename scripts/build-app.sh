@@ -22,7 +22,7 @@ for path in paths:
 configured = os.environ.get('OSPR_SIGN_IDENTITY', '-') not in ('', '-')
 info = dict(version='0.1.0', built_at=datetime.datetime.now(datetime.timezone.utc).isoformat(),
             git_commit=subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip(),
-            tracked_changes=bool(subprocess.check_output(['git', 'diff', '--name-only'], text=True).strip()),
+            tracked_changes=bool(subprocess.check_output(['git', 'diff', '--name-only', 'HEAD'], text=True).strip()),
             application_source_sha256=digest.hexdigest(), source_manifest_version=2, signing_mode='configured-identity' if configured else 'ad-hoc',
             boundary=('Development build; configured signing identity; not notarized; weights downloaded separately.' if configured
                       else 'Development build; ad-hoc signature; not notarized; weights downloaded separately.'))
