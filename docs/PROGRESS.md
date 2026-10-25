@@ -2,6 +2,38 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## History filenames and literal source search, 2026-10-25
+
+History now displays sanitized source leaves and searches them alongside edited
+and original words. Filename-only queries drive complete bulk exports, including
+unloaded pages/pending edits. Lightweight pages avoid payload decoding and parent
+paths are excluded from the new metadata. Schema 5 transactionally backfills
+existing stores, preserves payload bytes/order/counts/audio and fences old writers.
+FTS secure-delete and clear paths maintain all three indexed fields.
+
+Twelve new Core cases and one HistoryModel case cover the storage/export/query
+boundaries. The first full suite retained twelve old schema-version assertion
+failures; corrected assertions keep the stronger schema-5 fence. The corrected
+full suite passed 465 tests, then 36 focused cases passed after shared row
+extraction and the additional filename file-byte erasure control. Final optimized **466 Swift / 372 Python** tests and Ruff pass; release app
+build and signatures pass. CI validation follows when available.
+
+An actual retained older Core creates/opens 3,000 public records, current code
+verifies every payload/label/count and memory snapshot, then the older reader
+refuses the upgraded store without changing database bytes. A private copied
+8-record/265-word archive/two audio files also passes; originals unchanged. One
+shared-machine storage observation is about 98ms open/upgrade and 1.3ms first
+filename page; no isolated timing or product-ranking claim.
+
+Four shared-component light/dark/220-point/filter layouts are inspected. Initial
+full offscreen Lists did not materialize their rows and were rejected. Native QA
+is prepared in a services-disabled public-fixture profile; macOS locked before
+launch, so native List/search/tooltip/VoiceOver remain open. Normal OSpr is still
+running, separate from this change. Earlier standalone archives remain unchanged;
+this source feature is not packaged. Durable batch resume remains open.
+[Receipt](../benchmarks/results/history-source-search.json) ·
+[Contract/reproduction](architecture/history-source-search.md).
+
 ## Interleaved artifact timing control, 2026-10-25
 
 Pre-inference commit `e3e9cf8` freezes exact signed artifacts, inputs/references,

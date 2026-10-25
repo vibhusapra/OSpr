@@ -55,6 +55,22 @@ final class HistoryModelTests: XCTestCase {
         XCTAssertEqual(model.latest?.id, banana.id)
     }
 
+    @MainActor func testFilenameSearchPublishesLabelsWhileKeepingSelectedDetail() async throws {
+        let repository = HistoryRepository(directory: try directory(), saveHistory: false)
+        var first = record("Same words"), second = record("Same words")
+        first.source = "/private-parent/first Café.wav"; second.source = "second.wav"
+        repository.submit(first, delay: 60); repository.submit(second, delay: 60)
+        try await repository.flushAsync()
+        let model = HistoryModel(repository: repository, saving: false)
+        await model.reload(); try await settle { model.selected?.id == second.id }
+        model.query = "cafe\u{301}"
+        try await settle { !model.loading && model.rows.count == 1 }
+        XCTAssertEqual(model.rows.first?.id, first.id)
+        XCTAssertEqual(model.rows.first?.sourceName, "first Café.wav")
+        XCTAssertEqual(model.selected?.id, second.id)
+        XCTAssertEqual(model.statistics.records, 2)
+    }
+
     @MainActor func testNewBackgroundResultKeepsSelectionAndEditsKeepTiming() async throws {
         let repository = HistoryRepository(directory: try directory())
         let first = record("first"), second = record("second")

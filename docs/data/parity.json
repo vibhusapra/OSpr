@@ -227,16 +227,23 @@
       "priority": "P0"
     },
     {
+      "feature": "History filenames and source search",
+      "status": "contract-tested",
+      "evidence": "Schema 5 stores cleaned source leaf display/folded metadata in lightweight pages and a separate literal Unicode FTS column. Twelve new Core cases and one HistoryModel case cover migration, filenames/short queries/path exclusion, no-payload paging, edits/clear/retention, file-byte erasure, memory transfers and complete filename-filtered exports. Actual retained older Core creates 3000 records; current upgrade preserves every payload/order/label/statistic and memory snapshot, then old executable refuses schema 5 with database bytes unchanged. A private copied eight-record/two-audio archive also passes; originals unchanged. Shared production row light/dark/220-point/search layouts inspected. Receipt: benchmarks/results/history-source-search.json.",
+      "gap": "Source-only; existing standalone archives unchanged. Native app launch was blocked by macOS lock before interaction. Native List/search/tooltip/VoiceOver, older-device/OS and clean-Mac upgrade acceptance remain open; single storage timings are not latency distributions or product ranking.",
+      "priority": "P0"
+    },
+    {
       "feature": "File and batch transcription",
       "status": "partial",
       "evidence": "Local WAV/FLAC normalization and real AAC/FFmpeg decode test; sequential batch UI. Optional local speaker labels with recognizer word times. Current release GUI imports twenty fixed public files and exports all twenty JSON records in an unchanged full repeat; raw exports and complete consumer comparison: benchmarks/fixtures/native-file-observations.json. Official MacWhisper 15.8 native exports use the same inputs. Later source adds a session-only per-file queue, original-config failed/cancelled retry, complete ordered drop resolution, selected source detail and safe unique names. Native source-equivalent ee1eeb5 passes mixed three-file failure/repair/retry with preserved IDs and all four bulk formats. Complete raw exports and source/layout boundaries: benchmarks/results/file-import-native.json. Native filtered/empty exports later pass two/zero records. Final source c1ddeec3 passes a separate native dark mixed batch, source-correct Open, repaired-file Retry and complete JSON export; both QA apps/workers stop and normal app remains unchanged.",
-      "gap": "Persistent History source-name list/search metadata and durable batch resume remain. Native drag/drop, active Cancel and VoiceOver remain unverified. Source f74bb75 is now included in the separately verified standalone workflow preview; broad native acceptance remains open.",
+      "gap": "Durable batch resume remains. Source-name list/search is implemented in the later schema-5 change, with native acceptance still open. Native drag/drop, active Cancel and VoiceOver remain unverified. Source f74bb75 is now included in the separately verified standalone workflow preview; broad native acceptance remains open.",
       "priority": "P0"
     },
     {
       "feature": "Transcript editor, search, copy, delete",
       "status": "implemented",
-      "evidence": "Paged SQLite history with lightweight summaries, complete selected/latest records, aggregate counters and literal Unicode FTS5 search. Search is debounced/canceled and detail responses are fenced. Field-specific edits preserve raw text, timing, notes and audio. A separate 235-record native fixture passed migration, search beyond the first page, full editing, pagination, pending-edit quit/restart, complete TXT export and summary-row context copy through TextEdit. Synthetic 100,000-record storage controls and eleven presentation/application regressions are versioned.",
+      "evidence": "Paged SQLite history with lightweight summaries, complete selected/latest records, aggregate counters and literal Unicode FTS5 search. Search is debounced/canceled and detail responses are fenced. Field-specific edits preserve raw text, timing, notes and audio. A separate 235-record native fixture passed migration, search beyond the first page, full editing, pagination, pending-edit quit/restart, complete TXT export and summary-row context copy through TextEdit. Synthetic 100,000-record storage controls and eleven presentation/application regressions are versioned. Later schema-5 source adds source-name list metadata and filename-only search/export; see the separate scoped receipt.",
       "gap": "Storage timings exclude GUI rendering and product launch. Native irreversible deletion and broader reprocessing/watched-import matrices remain separate; transaction/tombstone behavior is regression-tested.",
       "priority": "P1"
     },

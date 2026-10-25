@@ -4,10 +4,16 @@ public enum TranscriptFileFormat: String, CaseIterable, Sendable { case txt, jso
 
 extension Transcript {
     public var sourceName: String {
+        sourceFilename ?? "Dictation"
+    }
+
+    /// Display/search only the cleaned leaf, never an imported parent path.
+    /// Absence stays distinct from the generic label used in detail/export UI.
+    public var sourceFilename: String? {
         let leaf = source.replacingOccurrences(of: "\\", with: "/").split(separator: "/").last.map(String.init) ?? ""
         let name = leaf.unicodeScalars.filter { !CharacterSet.controlCharacters.contains($0) && $0.properties.generalCategory != .format }
         let cleaned = String(String.UnicodeScalarView(name)).trimmingCharacters(in: .whitespacesAndNewlines)
-        return cleaned.isEmpty ? "Dictation" : cleaned
+        return cleaned.isEmpty ? nil : cleaned
     }
 }
 

@@ -99,8 +99,8 @@ final class EditedSummarySourceTests: XCTestCase {
         item.summary = try summary(edited)
         do {
             let db = try HistoryDatabase(directory: path)
-            XCTAssertEqual(try version(path), 2)
-            try db.upsert([item]); XCTAssertEqual(try version(path), 4)
+            XCTAssertEqual(try version(path), 5)
+            try db.upsert([item]); XCTAssertEqual(try version(path), 5)
             item.text = "Later edited text."
             try db.upsert([item]); try db.verifyIntegrity()
         }
@@ -110,22 +110,22 @@ final class EditedSummarySourceTests: XCTestCase {
         XCTAssertEqual(saved.notes?.model, "extractive"); XCTAssertEqual(saved.words, item.words)
         XCTAssertFalse(try XCTUnwrap(saved.summary).sourceIsCurrent(in: saved))
         var removed = saved; removed.summary = nil; try db.upsert([removed])
-        XCTAssertEqual(try version(path), 4)
-        try db.clear(); XCTAssertEqual(try version(path), 4)
+        XCTAssertEqual(try version(path), 5)
+        try db.clear(); XCTAssertEqual(try version(path), 5)
     }
 
-    func testFailedSnapshotBatchRollsBackDataAndVersionFromBothOlderFormats() throws {
-        for initialVersion in [2, 3] {
+    func testFailedSnapshotBatchRollsBackDataAndKeepsCurrentWriterFence() throws {
+        for hasOriginalSummary in [false, true] {
             let path = try directory(), db = try HistoryDatabase(directory: path)
             var prior = record()
-            if initialVersion == 3 { prior.summary = try summary(original, kind: .original) }
-            try db.upsert([prior]); XCTAssertEqual(try version(path), Int32(initialVersion))
+            if hasOriginalSummary { prior.summary = try summary(original, kind: .original) }
+            try db.upsert([prior]); XCTAssertEqual(try version(path), 5)
             let before = try db.contentFingerprint()
             var good = prior; good.summary = try summary(edited)
             var bad = record(); bad.rawText = "Other source."
             bad.summary = try summary(original, kind: .original)
             XCTAssertThrowsError(try db.upsert([good, bad]))
-            XCTAssertEqual(try version(path), Int32(initialVersion))
+            XCTAssertEqual(try version(path), 5)
             XCTAssertEqual(try db.contentFingerprint(), before)
         }
     }
@@ -135,7 +135,7 @@ final class EditedSummarySourceTests: XCTestCase {
         let path = try directory(), originalBytes = try JSONEncoder().encode([item])
         try originalBytes.write(to: path.appendingPathComponent("history.json"))
         let disk = try HistoryDatabase(directory: path)
-        XCTAssertEqual(try version(path), 4)
+        XCTAssertEqual(try version(path), 5)
         XCTAssertEqual(try disk.record(id: item.id)?.summary?.sourceSnapshot, edited)
         let memory = try HistoryDatabase.inMemory(); try disk.copyContents(to: memory)
         let snapshot = try memory.memoryCopy(); try memory.clear()
@@ -144,7 +144,7 @@ final class EditedSummarySourceTests: XCTestCase {
         let saved = try XCTUnwrap(transferred.record(id: item.id))
         XCTAssertEqual(saved.text, item.text); XCTAssertEqual(saved.summary?.sourceSnapshot, edited)
         XCTAssertFalse(try XCTUnwrap(saved.summary).sourceIsCurrent(in: saved))
-        XCTAssertEqual(try version(transferredPath), 4)
+        XCTAssertEqual(try version(transferredPath), 5)
     }
 
     func testUnknownSourceAndSnapshotFieldsPreserveLegacyArchiveIntact() throws {
@@ -214,7 +214,7 @@ final class EditedSummarySourceTests: XCTestCase {
         XCTAssertNil(saved.summary); XCTAssertEqual(saved.text, "A later edit.")
         XCTAssertEqual(saved.rawText, original); XCTAssertEqual(saved.words, item.words)
         XCTAssertEqual(saved.notes?.excerpts, item.notes?.excerpts); XCTAssertEqual(saved.audioFile, item.audioFile)
-        XCTAssertEqual(try version(path), 4)
+        XCTAssertEqual(try version(path), 5)
         let object = try XCTUnwrap(JSONSerialization.jsonObject(with: JSONEncoder().encode(saved)) as? [String: Any])
         XCTAssertNil(object["summary"])
     }
@@ -228,7 +228,7 @@ final class EditedSummarySourceTests: XCTestCase {
         XCTAssertFalse(FileManager.default.fileExists(atPath: path.appendingPathComponent(HistoryDatabase.fileName).path))
         repository.setSaving(true)
         try await repository.flushAsync()
-        XCTAssertEqual(try version(path), 4)
+        XCTAssertEqual(try version(path), 5)
         repository.setSaving(false)
         try await repository.flushAsync()
         let retained = try await repository.record(id: item.id)

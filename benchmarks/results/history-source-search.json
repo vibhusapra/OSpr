@@ -1,0 +1,75 @@
+{
+  "status": "passed-storage-source-controls",
+  "observed_at": "2026-10-25T10:20:54.322046+00:00",
+  "application_source_sha256": "5447b2abe347b406981ca9c4586acbeff3a8cb418e5c00f0a5808121e6c1c793",
+  "source_manifest_version": 2,
+  "public_migration": {
+    "filename_first_page_count": 37,
+    "filename_first_page_wall_ms": 1.2949705123901367,
+    "memory_snapshot_preserved": true,
+    "open_wall_ms": 98.25098514556885,
+    "parent_path_query_empty": true,
+    "payload_bytes_and_order_preserved": true,
+    "records": 3000,
+    "schema_after": 5,
+    "schema_before": 2,
+    "source_labels_verified": 3000,
+    "status": "passed",
+    "timing_boundary": "One nonisolated storage observation, not a latency distribution or ASR timing.",
+    "words": 12000,
+    "old_reader_source_commit": "769922a7d5087397c2e524ba7b4d7ecdb7437aa5",
+    "old_reader_before_exit": 0,
+    "old_reader_after_exit": 1,
+    "old_reader_refusal": "This history database needs a newer OSpr version. Existing files were preserved.",
+    "old_reader_refusal_preserved_database_bytes": true,
+    "fixture_kind": "3000 synthetic public records with filename-only sentinel",
+    "current_helper_sha256": "fee4264765600afc2a6a1ff6789a99884b1a11674c3cd96c2df750ef84e96f4f",
+    "old_reader_sha256": "82bedd2b8919097607fd79687c4ef732434412fa05157248d587ab1c73660bdb"
+  },
+  "private_copied_legacy": {
+    "status": "passed",
+    "records": 8,
+    "words": 265,
+    "schema_before": 2,
+    "schema_after": 5,
+    "payload_bytes_and_order_preserved": true,
+    "source_labels_verified": 8,
+    "memory_snapshot_preserved": true,
+    "original_files_unchanged": true,
+    "retained_audio_files": 2,
+    "boundary": "Private copied history/audio only; originals unchanged; no normal app database upgrade, audio decode, recording or playback."
+  },
+  "source_layouts": {
+    "light": "f01fa0da630547cf8baa8f4bce7dbbc144a1bcd0a1d8dbf67113357f74d9a809",
+    "dark": "13dd6c56b9b0750bdc6ef84608ec90b87556a03dbc214459e19c5a7d3ec44cad",
+    "compact": "784958d8ed83f7141d80863276c6c6815244d1061e52af0c2bbf53d697bdbf4c",
+    "search": "69d168e9bd953839ac517d69579e48692afd3ccd456bf801b066043dc32d683c"
+  },
+  "source_layout_boundary": "Simulated stack of the shared production HistoryListRow views. Full offscreen AppKit List did not materialize its rows. These images do not establish native List/search/tooltip/VoiceOver acceptance.",
+  "distribution_boundary": "Source change only; existing standalone ZIPs preserved and do not include schema-5 filename search.",
+  "validation": {
+    "swift_optimized": 466,
+    "swift_optimized_failures": 0,
+    "swift_debug_before_final_erasure_case": 465,
+    "focused_after_erasure_case": 36,
+    "python": 372,
+    "ruff": "passed",
+    "initial_full_run": {
+      "tests": 463,
+      "failures": 12,
+      "cause": "Existing summary-storage assertions expected schema 2-4; updated to the stronger schema-5 fence. Retained private logs; corrected suites passed."
+    },
+    "release_app_build": "passed",
+    "temporary_component_render_tests": 1,
+    "temporary_render_test_removed": true
+  },
+  "native_attempt": {
+    "status": "blocked-before-launch",
+    "reason": "Native control reported macOS locked.",
+    "isolated_identity": true,
+    "background_services_disabled": true,
+    "normal_app_running": true,
+    "native_interaction_performed": false,
+    "microphone_or_audio_used": false
+  }
+}
