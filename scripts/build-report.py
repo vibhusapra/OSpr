@@ -976,7 +976,7 @@ if worker_lifetime_path.is_file():
         assert ci["status"] == "success" and ci["swift_permanent_tests"] == 493 and ci["python_tests"] == 380
         panel = panel.replace('<p class="small muted">', f'<p><a href="https://github.com/vibhusapra/OSpr/actions/runs/{ci["run"]}">macOS 15 source CI</a> passes 493 permanent Swift / 380 Python, actual durable/GIL-held owner-death gates, contracts, standalone runtime/CLI/history/signatures, all 444 report HTML links and artifact upload. <a href="https://github.com/vibhusapra/OSpr/pull/42">PR42</a>.</p><p>Separate P0 follow-up: a synthetic AppModel audit confirms that disabling Keep audio during a batch still retains a later unstarted file from captured settings. Fix pending before the next standalone preview; no user audio/history was involved.</p><p class="small muted">', 1)
     report = (ROOT / "docs/research.html").read_text()
-    anchor = '<details open id="durable-file-batches">' 
+    anchor = '<details open id="durable-file-batches">'
     assert anchor in report
     report = report.replace(anchor, panel + '<details id="durable-file-batches">', 1)
     (ROOT / "docs/research.html").write_text(report)
