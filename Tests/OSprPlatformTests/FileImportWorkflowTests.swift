@@ -99,4 +99,18 @@ final class FileImportWorkflowTests: XCTestCase {
         XCTAssertFalse(requests.contains("not-started"))
         try await app.prepareForTermination()
     }
+    @MainActor func testNonBatchWatchedTranscriptionStillStoresAndExportsWithoutBatchCallbacks() async throws {
+        let (app, directory) = try fixture()
+        defer { try? FileManager.default.removeItem(at: directory) }
+        try await settle { !app.busy }
+        let process = try XCTUnwrap(app.folderWatcher.process)
+        let result = await process(directory.appendingPathComponent("watched.wav"))
+        XCTAssertTrue(result)
+        XCTAssertEqual(app.historyState.latest?.source, "watched.wav")
+        XCTAssertEqual(app.historyState.latest?.text, "Public fixture watched.wav")
+        XCTAssertNil(app.importBatch)
+        let files = try FileManager.default.contentsOfDirectory(atPath: directory.appendingPathComponent("OSpr Transcripts").path)
+        XCTAssertEqual(Set(files.map { URL(fileURLWithPath: $0).pathExtension }), Set(["txt", "json", "srt", "vtt"]))
+        try await app.prepareForTermination()
+    }
 }

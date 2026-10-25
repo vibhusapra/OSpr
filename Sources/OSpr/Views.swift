@@ -376,35 +376,45 @@ struct ImportBatchView: View {
     @ObservedObject var model: AppModel
     var body: some View {
         if let batch = model.importBatch {
-            Card {
-                VStack(alignment: .leading, spacing: 12) {
-                    HStack {
-                        Text("Latest file import").font(.headline)
-                        Spacer()
-                        Text("\(batch.completedCount)/\(batch.items.count) transcripts").font(.caption).foregroundStyle(.secondary)
-                        if batch.retryCount > 0 {
-                            Button("Retry \(batch.retryCount) unfinished") { model.retryImports() }.disabled(model.busy)
-                        }
+            ImportBatchContent(batch: batch, busy: model.busy, retry: model.retryImports, open: model.openImportResult)
+        }
+    }
+}
+
+struct ImportBatchContent: View {
+    let batch: FileImportBatch
+    let busy: Bool
+    let retry: () -> Void
+    let open: (UUID) -> Void
+    var body: some View {
+        Card {
+            VStack(alignment: .leading, spacing: 12) {
+                HStack {
+                    Text("Latest file import").font(.headline)
+                    Spacer()
+                    Text("\(batch.completedCount)/\(batch.items.count) transcripts").font(.caption).foregroundStyle(.secondary)
+                    if batch.retryCount > 0 {
+                        Button("Retry \(batch.retryCount) unfinished") { retry() }.buttonStyle(.borderedProminent).disabled(busy)
                     }
-                    Text("Current session only. Source files stay unchanged. Retry uses this batch’s original model and writing settings.")
-                        .font(.caption).foregroundStyle(.secondary)
-                    ScrollView {
-                        LazyVStack(alignment: .leading, spacing: 10) {
-                            ForEach(batch.items) { item in
-                                HStack(alignment: .top, spacing: 10) {
-                                    Image(systemName: icon(item.state)).foregroundStyle(item.state == .failed ? Color.orange : Color.secondary)
-                                    VStack(alignment: .leading, spacing: 3) {
-                                        Text(item.name).font(.callout).textSelection(.enabled)
-                                        Text(title(item.state)).font(.caption).foregroundStyle(.secondary)
-                                        if let message = item.message { Text(message).font(.caption).foregroundStyle(.orange).textSelection(.enabled) }
-                                    }
-                                    Spacer()
-                                    if let id = item.transcriptID { Button("Open transcript") { model.openImportResult(id) }.font(.caption) }
+                }
+                Text("Current session only. Source files stay unchanged. Retry uses this batch’s original model and writing settings.")
+                    .font(.caption).foregroundStyle(.secondary)
+                ScrollView {
+                    LazyVStack(alignment: .leading, spacing: 10) {
+                        ForEach(batch.items) { item in
+                            HStack(alignment: .top, spacing: 10) {
+                                Image(systemName: icon(item.state)).foregroundStyle(item.state == .failed ? Color.orange : Color.secondary)
+                                VStack(alignment: .leading, spacing: 3) {
+                                    Text(item.name).font(.callout).textSelection(.enabled)
+                                    Text(title(item.state)).font(.caption).foregroundStyle(.secondary)
+                                        if let message = item.message { Text(message).font(.caption).foregroundStyle(.primary).textSelection(.enabled) }
                                 }
+                                Spacer()
+                                    if let id = item.transcriptID { Button("Open transcript") { open(id) }.font(.caption).buttonStyle(.bordered).tint(.primary) }
                             }
                         }
-                    }.frame(maxHeight: 220)
-                }
+                    }
+                }.frame(maxHeight: 220)
             }
         }
     }

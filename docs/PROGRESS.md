@@ -2,6 +2,37 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## File import outcomes, retry and complete history export
+
+Studio retains each latest-batch filename/result and retries only unfinished
+files using the original configuration. Completed IDs survive retry/cancel.
+Drops resolve all URLs before admission; unreadable items reject the whole drop.
+Selected History detail and safe UUID-based export names expose the source.
+All-history/search-match export covers unloaded pages in TXT/JSON/SRT/VTT,
+with an index, private permissions and exclusive complete-directory publication.
+It includes admitted edits/deletes/session-only records and rejects failed commits.
+Typed readable media errors keep healthy speech workers warm; unknown errors
+still restart. Actual Parakeet/Whisper recovery retains PID, warmth and exact text.
+The build stamp now counts staged changes as well as unstaged tracked changes.
+
+Native source-equivalent checkpoint `ee1eeb5` passes a mixed three-file import,
+readable failure, source preservation, repaired-file retry with preserved IDs,
+individual default TXT name, all four bulk formats and edited/original boundaries.
+Nine complete native directories and raw files are retained and rechecked. Failed
+checkout/TCC and incomplete-fixture attempts remain recorded. Normal OSpr was
+never stopped; all five normal data/app hashes match. No new permission/provider.
+
+Native filtered/empty export later passes exactly two/zero records. The final
+source also passes a separate native dark-card mixed batch, Open/Retry callbacks
+and complete JSON export. Offscreen light/dark/compact source layouts are inspected.
+453 Swift / 372 Python tests and retained-evidence/source checks pass. Both QA
+apps/workers stopped; normal local-only OSpr visibly retains eight sessions/265
+words. Drag/drop UI, active native Cancel, VoiceOver, persistent source-name
+search/list metadata and durable batch resume remain open. This source is newer
+than the distributed v0-review archive.
+[Method/scope](architecture/file-import-workflows.md) ·
+[Native evidence](../benchmarks/results/file-import-native.json).
+
 ## Actual consumer file-import comparison
 
 The official MacWhisper 15.8 free GUI (WhisperKit Small) and the current OSpr
@@ -22,8 +53,8 @@ unchanged. No production source, weights or release archive changed.
 VoiceInk 2.21 is unmeasured: required onboarding Microphone/Accessibility access
 was not granted. Screen Recording is optional. No trial, account or purchase.
 No cross-product timing/energy, microphone, insertion or top-three claim follows.
-History source labels, batch error visibility and bulk export remain concrete
-workflow TODOs.
+Those gaps drove the later source work above; persistent source-name list/search
+metadata and durable batch resume remain open.
 [Method and reproduction](architecture/native-file-comparison.md) ·
 [All native observations](../benchmarks/fixtures/native-file-observations.json) ·
 [Complete scores](../benchmarks/results/native-file-comparison.json).
