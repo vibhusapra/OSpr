@@ -26,13 +26,28 @@ duration match on the original public clip. All attempts remain retained. Three
 helper snapshots are 7,776 KiB RSS. Cold ping samples move in both directions;
 no speed-equivalence, energy, physical dictation or ranking claim.
 
-A clean ad-hoc signed checkout app and its packaged CLI health check pass. The
+A clean ad-hoc signed checkout app and packaged CLI health check pass. Actual
+packaged Parakeet words/segments/model/duration match the public control; the CLI
+omits its language hint, so that field is not an equal-input comparison. The first
+overly broad language comparison assertion is recorded in the manifest. The
 preserved standalone ZIPs/normal app/data are unchanged. Native TextEdit remains
 pending after another locked-Mac response. The helper covers same-group children;
 deliberate detachment and simultaneous owner/guardian kill are outside its
 contract. Full parity, broad consumer benchmarks, clean-Mac/notarization and older
 OS acceptance remain open. [Manifest/all attempts](../benchmarks/results/worker-lifetime.json) ·
 [Contract/reproduction](architecture/worker-lifetime.md).
+
+[Source CI40193610197](https://github.com/vibhusapra/OSpr/actions/runs/40193610197)
+passes 493 permanent Swift / 380 Python, actual durable worker cleanup and
+GIL-held production-main owner-death gates, contracts, all 444 report HTML links,
+standalone runtime/CLI/session-history/signatures and development artifact upload.
+
+Next P0: a separate synthetic AppModel audit confirms disabling Keep audio during
+an active batch still retains a later, not-yet-started file using captured
+configuration. No real audio or user history was involved. The temporary failing
+probe and original test bytes are retained privately; production tests were
+restored unchanged. Fix this before a new standalone preview. Native TextEdit
+and broader benchmark/acceptance work remain open.
 
 ## Durable file-import recovery, 2026-10-25
 

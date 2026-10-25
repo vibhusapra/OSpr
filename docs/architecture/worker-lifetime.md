@@ -108,7 +108,7 @@ and payloads. Earlier manual-cleanup receipts remain historical evidence.
 
 See [manifest and all attempts](../../benchmarks/results/worker-lifetime.json),
 [final source-bound control](../../benchmarks/results/worker-lifetime-control-03.json)
-and [benchmark runner](../../benchmarks/worker_lifetime.py).
+and [benchmark runner](https://github.com/vibhusapra/OSpr/blob/c2f8ca086dff26d6bfae9c6535ffdc4bed66c45f/benchmarks/worker_lifetime.py).
 
 ## Boundaries and remaining work
 
