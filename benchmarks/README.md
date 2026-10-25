@@ -1,5 +1,16 @@
 # OSpr measurement protocol
 
+## Import/export and malformed-media recovery
+
+`verify_file_import.py` rehashes retained native output/layout evidence and checks
+nine complete export directories, ID preservation and edited/original boundaries.
+`--native-source` additionally rehashes the historical Git source checkpoint when
+that object exists locally. CI does not rerun UI/ASR or claim remaining native
+drop/cancel/VoiceOver acceptance. `media_recovery.swift` exercises the
+actual Swift IPC worker with cached speech before/after malformed input. Retained
+Parakeet/Whisper controls preserve PID, warm state and exact text; no timing rank.
+See [the implementation and reproduction](../docs/architecture/file-import-workflows.md).
+
 ## Native consumer file-import pilot
 
 `native_file_comparison.py --verify results/native-file-comparison.json`

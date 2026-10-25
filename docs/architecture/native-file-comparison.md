@@ -91,5 +91,5 @@ comparison is derived from them, and automation wall time is excluded.
 Natural multilingual dictation, meetings, acoustic capture, shortcuts, insertion,
 endpointing, refinement, accessibility and thermal/energy isolation remain open.
 OSpr import source names are stored in JSON but absent from History labels;
-default export filenames are generic and there is no bulk export. Source labels,
-batch status/errors and bulk export are concrete workflow TODOs from this pilot.
+default export filenames are generic and there is no bulk export. These gaps drove the later [import workflow implementation](file-import-workflows.md).
+Persistent source-name list/search metadata and durable batch resume remain open.

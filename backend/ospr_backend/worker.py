@@ -17,6 +17,7 @@ from . import __version__
 from .engine import Engine, PUBLIC_MODELS, MODEL_LOCK, resolve_model
 from .local_completion import LocalCompletionError
 from .refinement import LocalModelNotPrepared
+from .audio import MediaReadError
 
 MAX_REQUEST = 2 * 1024 * 1024
 
@@ -157,7 +158,7 @@ def main():
             response = {
                 "id": request.get("id") if isinstance(request, dict) else None,
                 "ok": False,
-                "error": f"{type(error).__name__}: {error}",
+                "error": str(error) if isinstance(error, MediaReadError) else f"{type(error).__name__}: {error}",
             }
             # Only a fully consumed, well-formed MLX output-budget stop is
             # recoverable. Runtime, framing and missing-EOS failures are not.
@@ -165,6 +166,8 @@ def main():
                 response["error_kind"] = "text-output-limit"
             elif isinstance(error, LocalModelNotPrepared):
                 response["error_kind"] = "text-model-not-prepared"
+            elif isinstance(error, MediaReadError):
+                response["error_kind"] = "media-read"
         finally:
             engine.progress = None
         emit(response)

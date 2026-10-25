@@ -27,6 +27,7 @@ jobs:
           swiftc -typecheck -parse-as-library -I .build/debug/Modules benchmarks/history_archive_reader.swift
           swiftc -typecheck -parse-as-library -I .build/debug/Modules benchmarks/refinement_guard.swift
           swiftc -typecheck -swift-version 5 -parse-as-library Sources/OSprCore/WorkerClient.swift benchmarks/native_stream_stop.swift
+          swiftc -typecheck -swift-version 5 -parse-as-library Sources/OSprCore/WorkerClient.swift benchmarks/media_recovery.swift
           swiftc -typecheck -swift-version 5 -parse-as-library Sources/OSprCore/WorkerClient.swift Sources/OSprCore/StreamingSpeechResampler.swift benchmarks/resampling_quality.swift
       - name: Typecheck Apple speech research helper when the SDK supports it
         run: |
@@ -48,6 +49,7 @@ jobs:
           uv run --frozen --all-extras python benchmarks/preview_package_verify.py --help
           uv run --frozen --all-extras python benchmarks/verify_scoring_factory.py
           uv run --frozen --all-extras python benchmarks/native_file_comparison.py --verify benchmarks/results/native-file-comparison.json
+          uv run --frozen --all-extras python benchmarks/verify_file_import.py
           uv run --frozen --all-extras python benchmarks/context_profiles.py --cli .build/debug/ospr-cli
           uv run --frozen --all-extras python benchmarks/profile_controls.py --cli .build/debug/ospr-cli --output /tmp/ospr-native-profile-controls.json
           uv run --frozen --all-extras python benchmarks/gemini_contracts.py --cli .build/debug/ospr-cli --output /tmp/ospr-gemini-contracts.json

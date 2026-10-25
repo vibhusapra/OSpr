@@ -1,0 +1,327 @@
+{
+  "schema_version": 1,
+  "status": "passed-scoped-native-file-import-and-export",
+  "native_application_source_sha256": "5677918c88eb902994676c0b7b76eb3469993f9680bdf4a212dd39c0134fbb90",
+  "native_gui_signed_sha256": "8599ec95539b4944fb6a2f27178e234459e676d08878d727d1cb4350a864c142",
+  "final_source_sha256": "c1ddeec3cddfd05bee44d6b91342a0e9dff462a01ebf62737ca740ff4a64ee3d",
+  "implementation_file_sha256": {
+    "Sources/OSpr/AppModel.swift": "11ddaf4954a232119204af8d16bfb60a44ce9a3974a6fdf8325e250e156c1ef1",
+    "Sources/OSpr/HistoryModel.swift": "1c5b7e25fa9be89ae0405e7ae8ad5b9a3ad720cddf9407a9b51158c051d9bfb1",
+    "Sources/OSprCore/HistoryDatabase.swift": "713e2e021997df3b4c69873a92010c0935386ed1e097c2bffc29e6a891f3fc1b",
+    "Sources/OSprCore/HistoryRepository.swift": "59b07ef0943b4f39418c1855dc8c47cad9de50d69cad566cedf192eaaddb0214",
+    "Sources/OSprCore/FileImportBatch.swift": "525a276a8450b4e8aedcd3f15938325560538d0a04ac387aa7fe2062d3f8dbee",
+    "Sources/OSprCore/TranscriptBatchExport.swift": "9cc146d81e48d0d05d884999e6e03f0007444732c1953d635da89564e8a99b46",
+    "Sources/OSprCore/TranscriptFiles.swift": "fc68ba4896a2a601a7f1093a8e4a7679e3420155e6d2f92bb407c515f33b2c49",
+    "Sources/OSprCore/WorkerClient.swift": "cd9c6ae772cf9a106fc86dc775c148167e772b00fa928b726dd8c6e26b1b0c39",
+    "backend/ospr_backend/audio.py": "b60ab9d323bb50d5d02c93b6aa131992f18aa8b29eab5e3e6e867676360747ad",
+    "backend/ospr_backend/worker.py": "8a57a0642d65d76a77c3cb11d6547d7ebfcfe043fa58d325ff9c123e75647886"
+  },
+  "native_runtime": "Copied verified standalone Python/dependencies, byte-verified current backend (29 source/assets), private Application Support app and session-only profile, services disabled, Whisper Small/Auto/Verbatim, no rewrite or trim. Strict deep signature and direct worker ping passed.",
+  "mixed_batch": {
+    "initial_inputs_sha256": {
+      "02-invalid.wav": "36f6ce8ffa931b197dbdaeebac03a98e53cf50c8b09e162beab6f86a4d764409",
+      "03-three.wav": "0b1785dba56f22af426ccb25d318f7e103558fd40e1c3ab064b455dba2afae12",
+      "01-one.wav": "799f78ed4beb4de7ceae3a809262d4ce242394342ccd1d58cef7d49dbc2def46"
+    },
+    "successful_sources": [
+      "01-one.wav",
+      "03-three.wav"
+    ],
+    "failed_source": "02-invalid.wav",
+    "failure_message": "This file could not be read as audio. Check that it plays, or export it as WAV, MP3 or M4A and retry. The source is unchanged.",
+    "source_files_unchanged_before_manual_repair": true,
+    "manual_test_fixture_repair": {
+      "boundary": "Test harness replaces its deliberately malformed fixture with the same public Quilter WAV. OSpr did not modify the source. Retry should add only this record.",
+      "before_sha256": "36f6ce8ffa931b197dbdaeebac03a98e53cf50c8b09e162beab6f86a4d764409",
+      "after_sha256": "799f78ed4beb4de7ceae3a809262d4ce242394342ccd1d58cef7d49dbc2def46"
+    },
+    "invalid_fixture_utf8": "Invalid public synthetic audio fixture.\n"
+  },
+  "exports": [
+    {
+      "phase": "before_retry",
+      "manifest_utf8": "{\"schema_version\":1,\"format\":\"json\",\"query\":\"\",\"records\":[{\"file\":\"03-three-bc8e47fb-0dc2-416b-8108-0833addd8bcf.json\",\"id\":\"BC8E47FB-0DC2-416B-8108-0833ADDD8BCF\",\"source\":\"03-three.wav\"},{\"file\":\"01-one-56e2638d-66b1-460a-97ae-35f0106ba828.json\",\"id\":\"56E2638D-66B1-460A-97AE-35F0106BA828\",\"source\":\"01-one.wav\"}],\"count\":2,\"audio_included\":false}\n",
+      "manifest_sha256": "5751b347962056296b6ae485d58bae2243d3708d56e544d453c12dcdc2bfc57f",
+      "directory_mode": 448,
+      "index_mode": 384,
+      "files": [
+        {
+          "name": "03-three-bc8e47fb-0dc2-416b-8108-0833addd8bcf.json",
+          "utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T01:25:55Z\",\n  \"duration\" : 10.435,\n  \"id\" : \"BC8E47FB-0DC2-416B-8108-0833ADDD8BCF\",\n  \"latencyMS\" : 141.08407497406006,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"He hoped there would be stew for dinner, turnips and carrots and bruised potatoes and fat mutton pieces to be ladled out in thick, peppered, flour-fattened sauce.\",\n  \"segments\" : [\n    {\n      \"end\" : 5.5600000000000005,\n      \"start\" : 0,\n      \"text\" : \"He hoped there would be stew for dinner, turnips and carrots and bruised potatoes and fat\"\n    },\n    {\n      \"end\" : 10.16,\n      \"start\" : 5.5600000000000005,\n      \"text\" : \"mutton pieces to be ladled out in thick, peppered, flour-fattened sauce.\"\n    }\n  ],\n  \"source\" : \"03-three.wav\",\n  \"text\" : \"He hoped there would be stew for dinner, turnips and carrots and bruised potatoes and fat mutton pieces to be ladled out in thick, peppered, flour-fattened sauce.\",\n  \"words\" : [\n\n  ]\n}",
+          "sha256": "092d5247c963566c775de93567d72c3430471d89f72f636760788a992c23f56a",
+          "mode": 384
+        },
+        {
+          "name": "01-one-56e2638d-66b1-460a-97ae-35f0106ba828.json",
+          "utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T01:25:55Z\",\n  \"duration\" : 5.855,\n  \"id\" : \"56E2638D-66B1-460A-97AE-35F0106BA828\",\n  \"latencyMS\" : 4335.425019264221,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"Mr. Quilter is the apostle of the Middle Classes, and we are glad to welcome his Gospel.\",\n  \"segments\" : [\n    {\n      \"end\" : 5.48,\n      \"start\" : 0,\n      \"text\" : \"Mr. Quilter is the apostle of the Middle Classes, and we are glad to welcome his Gospel.\"\n    }\n  ],\n  \"source\" : \"01-one.wav\",\n  \"text\" : \"Mr. Quilter is the apostle of the Middle Classes, and we are glad to welcome his Gospel.\",\n  \"words\" : [\n\n  ]\n}",
+          "sha256": "a277f3589abed904cb73aa2de3ffe563524c5dc51084bd705577636c08dc4c03",
+          "mode": 384
+        }
+      ]
+    },
+    {
+      "phase": "after_retry",
+      "manifest_utf8": "{\"schema_version\":1,\"format\":\"json\",\"query\":\"\",\"records\":[{\"file\":\"02-invalid-7cf2ebc9-1b67-45df-a98e-12d706a20027.json\",\"id\":\"7CF2EBC9-1B67-45DF-A98E-12D706A20027\",\"source\":\"02-invalid.wav\"},{\"file\":\"03-three-bc8e47fb-0dc2-416b-8108-0833addd8bcf.json\",\"id\":\"BC8E47FB-0DC2-416B-8108-0833ADDD8BCF\",\"source\":\"03-three.wav\"},{\"file\":\"01-one-56e2638d-66b1-460a-97ae-35f0106ba828.json\",\"id\":\"56E2638D-66B1-460A-97AE-35F0106BA828\",\"source\":\"01-one.wav\"}],\"count\":3,\"audio_included\":false}\n",
+      "manifest_sha256": "acec05b8cb736557af850cdc65db446bfc62e3bcd234e7dfb8b3230f97d01683",
+      "directory_mode": 448,
+      "index_mode": 384,
+      "files": [
+        {
+          "name": "02-invalid-7cf2ebc9-1b67-45df-a98e-12d706a20027.json",
+          "utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T01:28:27Z\",\n  \"duration\" : 5.855,\n  \"id\" : \"7CF2EBC9-1B67-45DF-A98E-12D706A20027\",\n  \"latencyMS\" : 109.96794700622559,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"Mr. Quilter is the apostle of the Middle Classes, and we are glad to welcome his Gospel.\",\n  \"segments\" : [\n    {\n      \"end\" : 5.48,\n      \"start\" : 0,\n      \"text\" : \"Mr. Quilter is the apostle of the Middle Classes, and we are glad to welcome his Gospel.\"\n    }\n  ],\n  \"source\" : \"02-invalid.wav\",\n  \"text\" : \"Mr. Quilter is the apostle of the Middle Classes, and we are glad to welcome his Gospel.\",\n  \"words\" : [\n\n  ]\n}",
+          "sha256": "a8ec922f013aefcc69c0fd12fb028db4e88bec430a6ef53d81d656e74a89e624",
+          "mode": 384
+        },
+        {
+          "name": "03-three-bc8e47fb-0dc2-416b-8108-0833addd8bcf.json",
+          "utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T01:25:55Z\",\n  \"duration\" : 10.435,\n  \"id\" : \"BC8E47FB-0DC2-416B-8108-0833ADDD8BCF\",\n  \"latencyMS\" : 141.08407497406006,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"He hoped there would be stew for dinner, turnips and carrots and bruised potatoes and fat mutton pieces to be ladled out in thick, peppered, flour-fattened sauce.\",\n  \"segments\" : [\n    {\n      \"end\" : 5.5600000000000005,\n      \"start\" : 0,\n      \"text\" : \"He hoped there would be stew for dinner, turnips and carrots and bruised potatoes and fat\"\n    },\n    {\n      \"end\" : 10.16,\n      \"start\" : 5.5600000000000005,\n      \"text\" : \"mutton pieces to be ladled out in thick, peppered, flour-fattened sauce.\"\n    }\n  ],\n  \"source\" : \"03-three.wav\",\n  \"text\" : \"He hoped there would be stew for dinner, turnips and carrots and bruised potatoes and fat mutton pieces to be ladled out in thick, peppered, flour-fattened sauce.\",\n  \"words\" : [\n\n  ]\n}",
+          "sha256": "092d5247c963566c775de93567d72c3430471d89f72f636760788a992c23f56a",
+          "mode": 384
+        },
+        {
+          "name": "01-one-56e2638d-66b1-460a-97ae-35f0106ba828.json",
+          "utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T01:25:55Z\",\n  \"duration\" : 5.855,\n  \"id\" : \"56E2638D-66B1-460A-97AE-35F0106BA828\",\n  \"latencyMS\" : 4335.425019264221,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"Mr. Quilter is the apostle of the Middle Classes, and we are glad to welcome his Gospel.\",\n  \"segments\" : [\n    {\n      \"end\" : 5.48,\n      \"start\" : 0,\n      \"text\" : \"Mr. Quilter is the apostle of the Middle Classes, and we are glad to welcome his Gospel.\"\n    }\n  ],\n  \"source\" : \"01-one.wav\",\n  \"text\" : \"Mr. Quilter is the apostle of the Middle Classes, and we are glad to welcome his Gospel.\",\n  \"words\" : [\n\n  ]\n}",
+          "sha256": "a277f3589abed904cb73aa2de3ffe563524c5dc51084bd705577636c08dc4c03",
+          "mode": 384
+        }
+      ]
+    },
+    {
+      "phase": "edited_json",
+      "manifest_utf8": "{\"schema_version\":1,\"format\":\"json\",\"query\":\"\",\"records\":[{\"file\":\"02-invalid-7cf2ebc9-1b67-45df-a98e-12d706a20027.json\",\"id\":\"7CF2EBC9-1B67-45DF-A98E-12D706A20027\",\"source\":\"02-invalid.wav\"},{\"file\":\"03-three-bc8e47fb-0dc2-416b-8108-0833addd8bcf.json\",\"id\":\"BC8E47FB-0DC2-416B-8108-0833ADDD8BCF\",\"source\":\"03-three.wav\"},{\"file\":\"01-one-56e2638d-66b1-460a-97ae-35f0106ba828.json\",\"id\":\"56E2638D-66B1-460A-97AE-35F0106BA828\",\"source\":\"01-one.wav\"}],\"count\":3,\"audio_included\":false}\n",
+      "manifest_sha256": "acec05b8cb736557af850cdc65db446bfc62e3bcd234e7dfb8b3230f97d01683",
+      "directory_mode": 448,
+      "index_mode": 384,
+      "files": [
+        {
+          "name": "02-invalid-7cf2ebc9-1b67-45df-a98e-12d706a20027.json",
+          "utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T01:28:27Z\",\n  \"duration\" : 5.855,\n  \"id\" : \"7CF2EBC9-1B67-45DF-A98E-12D706A20027\",\n  \"latencyMS\" : 109.96794700622559,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"Mr. Quilter is the apostle of the Middle Classes, and we are glad to welcome his Gospel.\",\n  \"segments\" : [\n    {\n      \"end\" : 5.48,\n      \"start\" : 0,\n      \"text\" : \"Mr. Quilter is the apostle of the Middle Classes, and we are glad to welcome his Gospel.\"\n    }\n  ],\n  \"source\" : \"02-invalid.wav\",\n  \"text\" : \"Mr. Quilter is the apostle of the Middle Classes, and we are glad to welcome his Gospel. Public edit for export verification.\",\n  \"words\" : [\n\n  ]\n}",
+          "sha256": "9ef3f35f03a8e55319700de7b7f173c5ffe58cfc641d2415b9fb905c21112c19",
+          "mode": 384
+        },
+        {
+          "name": "03-three-bc8e47fb-0dc2-416b-8108-0833addd8bcf.json",
+          "utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T01:25:55Z\",\n  \"duration\" : 10.435,\n  \"id\" : \"BC8E47FB-0DC2-416B-8108-0833ADDD8BCF\",\n  \"latencyMS\" : 141.08407497406006,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"He hoped there would be stew for dinner, turnips and carrots and bruised potatoes and fat mutton pieces to be ladled out in thick, peppered, flour-fattened sauce.\",\n  \"segments\" : [\n    {\n      \"end\" : 5.5600000000000005,\n      \"start\" : 0,\n      \"text\" : \"He hoped there would be stew for dinner, turnips and carrots and bruised potatoes and fat\"\n    },\n    {\n      \"end\" : 10.16,\n      \"start\" : 5.5600000000000005,\n      \"text\" : \"mutton pieces to be ladled out in thick, peppered, flour-fattened sauce.\"\n    }\n  ],\n  \"source\" : \"03-three.wav\",\n  \"text\" : \"He hoped there would be stew for dinner, turnips and carrots and bruised potatoes and fat mutton pieces to be ladled out in thick, peppered, flour-fattened sauce.\",\n  \"words\" : [\n\n  ]\n}",
+          "sha256": "092d5247c963566c775de93567d72c3430471d89f72f636760788a992c23f56a",
+          "mode": 384
+        },
+        {
+          "name": "01-one-56e2638d-66b1-460a-97ae-35f0106ba828.json",
+          "utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T01:25:55Z\",\n  \"duration\" : 5.855,\n  \"id\" : \"56E2638D-66B1-460A-97AE-35F0106BA828\",\n  \"latencyMS\" : 4335.425019264221,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"Mr. Quilter is the apostle of the Middle Classes, and we are glad to welcome his Gospel.\",\n  \"segments\" : [\n    {\n      \"end\" : 5.48,\n      \"start\" : 0,\n      \"text\" : \"Mr. Quilter is the apostle of the Middle Classes, and we are glad to welcome his Gospel.\"\n    }\n  ],\n  \"source\" : \"01-one.wav\",\n  \"text\" : \"Mr. Quilter is the apostle of the Middle Classes, and we are glad to welcome his Gospel.\",\n  \"words\" : [\n\n  ]\n}",
+          "sha256": "a277f3589abed904cb73aa2de3ffe563524c5dc51084bd705577636c08dc4c03",
+          "mode": 384
+        }
+      ]
+    },
+    {
+      "phase": "edited_txt",
+      "manifest_utf8": "{\"schema_version\":1,\"format\":\"txt\",\"query\":\"\",\"records\":[{\"file\":\"02-invalid-7cf2ebc9-1b67-45df-a98e-12d706a20027.txt\",\"id\":\"7CF2EBC9-1B67-45DF-A98E-12D706A20027\",\"source\":\"02-invalid.wav\"},{\"file\":\"03-three-bc8e47fb-0dc2-416b-8108-0833addd8bcf.txt\",\"id\":\"BC8E47FB-0DC2-416B-8108-0833ADDD8BCF\",\"source\":\"03-three.wav\"},{\"file\":\"01-one-56e2638d-66b1-460a-97ae-35f0106ba828.txt\",\"id\":\"56E2638D-66B1-460A-97AE-35F0106BA828\",\"source\":\"01-one.wav\"}],\"count\":3,\"audio_included\":false}\n",
+      "manifest_sha256": "9751e04e9edad39c1f79fabd3d642c25e3bc4d7a19bddd9694dc8a65a9ae812a",
+      "directory_mode": 448,
+      "index_mode": 384,
+      "files": [
+        {
+          "name": "02-invalid-7cf2ebc9-1b67-45df-a98e-12d706a20027.txt",
+          "utf8": "Mr. Quilter is the apostle of the Middle Classes, and we are glad to welcome his Gospel. Public edit for export verification.",
+          "sha256": "15232a08989f93f100165af1efca143e9a47394687b391cb40558b114c91f467",
+          "mode": 384
+        },
+        {
+          "name": "03-three-bc8e47fb-0dc2-416b-8108-0833addd8bcf.txt",
+          "utf8": "He hoped there would be stew for dinner, turnips and carrots and bruised potatoes and fat mutton pieces to be ladled out in thick, peppered, flour-fattened sauce.",
+          "sha256": "1df2866f6b841bbc866cb726f8cd3a1c33b798ca6894cbcbe474d256d2e7b77d",
+          "mode": 384
+        },
+        {
+          "name": "01-one-56e2638d-66b1-460a-97ae-35f0106ba828.txt",
+          "utf8": "Mr. Quilter is the apostle of the Middle Classes, and we are glad to welcome his Gospel.",
+          "sha256": "b132f9315047ed67c8fd624d81a6b4bed41c1ac72c59ff2384844705ed857305",
+          "mode": 384
+        }
+      ]
+    },
+    {
+      "phase": "edited_srt",
+      "manifest_utf8": "{\"schema_version\":1,\"format\":\"srt\",\"query\":\"\",\"records\":[{\"file\":\"02-invalid-7cf2ebc9-1b67-45df-a98e-12d706a20027.srt\",\"id\":\"7CF2EBC9-1B67-45DF-A98E-12D706A20027\",\"source\":\"02-invalid.wav\"},{\"file\":\"03-three-bc8e47fb-0dc2-416b-8108-0833addd8bcf.srt\",\"id\":\"BC8E47FB-0DC2-416B-8108-0833ADDD8BCF\",\"source\":\"03-three.wav\"},{\"file\":\"01-one-56e2638d-66b1-460a-97ae-35f0106ba828.srt\",\"id\":\"56E2638D-66B1-460A-97AE-35F0106BA828\",\"source\":\"01-one.wav\"}],\"count\":3,\"audio_included\":false}\n",
+      "manifest_sha256": "f6afc72e18cd7b7d3f4e99ea20eb74b6b9d27ac4683786fd67f0831b7b901896",
+      "directory_mode": 448,
+      "index_mode": 384,
+      "files": [
+        {
+          "name": "02-invalid-7cf2ebc9-1b67-45df-a98e-12d706a20027.srt",
+          "utf8": "1\n00:00:00,000 --> 00:00:05,480\nMr. Quilter is the apostle of the Middle Classes, and we are glad to welcome his Gospel.\n",
+          "sha256": "394e0b65fc4d4fac12fd40919480d87bf25870e1d5645106b41946f5db6d74cd",
+          "mode": 384
+        },
+        {
+          "name": "03-three-bc8e47fb-0dc2-416b-8108-0833addd8bcf.srt",
+          "utf8": "1\n00:00:00,000 --> 00:00:05,560\nHe hoped there would be stew for dinner, turnips and carrots and bruised potatoes and fat\n\n2\n00:00:05,560 --> 00:00:10,160\nmutton pieces to be ladled out in thick, peppered, flour-fattened sauce.\n",
+          "sha256": "7b3ddd6ce23e2447e0981fc776dd34163bcdd69a5726f9241ed8926aa96c04ae",
+          "mode": 384
+        },
+        {
+          "name": "01-one-56e2638d-66b1-460a-97ae-35f0106ba828.srt",
+          "utf8": "1\n00:00:00,000 --> 00:00:05,480\nMr. Quilter is the apostle of the Middle Classes, and we are glad to welcome his Gospel.\n",
+          "sha256": "394e0b65fc4d4fac12fd40919480d87bf25870e1d5645106b41946f5db6d74cd",
+          "mode": 384
+        }
+      ]
+    },
+    {
+      "phase": "edited_vtt",
+      "manifest_utf8": "{\"schema_version\":1,\"format\":\"vtt\",\"query\":\"\",\"records\":[{\"file\":\"02-invalid-7cf2ebc9-1b67-45df-a98e-12d706a20027.vtt\",\"id\":\"7CF2EBC9-1B67-45DF-A98E-12D706A20027\",\"source\":\"02-invalid.wav\"},{\"file\":\"03-three-bc8e47fb-0dc2-416b-8108-0833addd8bcf.vtt\",\"id\":\"BC8E47FB-0DC2-416B-8108-0833ADDD8BCF\",\"source\":\"03-three.wav\"},{\"file\":\"01-one-56e2638d-66b1-460a-97ae-35f0106ba828.vtt\",\"id\":\"56E2638D-66B1-460A-97AE-35F0106BA828\",\"source\":\"01-one.wav\"}],\"count\":3,\"audio_included\":false}\n",
+      "manifest_sha256": "1951aff05c43a98ca3a6ba5dd9494ac975f6eadf4965b31a672b427f525f3895",
+      "directory_mode": 448,
+      "index_mode": 384,
+      "files": [
+        {
+          "name": "02-invalid-7cf2ebc9-1b67-45df-a98e-12d706a20027.vtt",
+          "utf8": "WEBVTT\n\n1\n00:00:00.000 --> 00:00:05.480\nMr. Quilter is the apostle of the Middle Classes, and we are glad to welcome his Gospel.\n",
+          "sha256": "568d4d8e2b3eeb5925d2d5ec14c2a26cd6ca57b7c5f8fadbd46993121a6500b6",
+          "mode": 384
+        },
+        {
+          "name": "03-three-bc8e47fb-0dc2-416b-8108-0833addd8bcf.vtt",
+          "utf8": "WEBVTT\n\n1\n00:00:00.000 --> 00:00:05.560\nHe hoped there would be stew for dinner, turnips and carrots and bruised potatoes and fat\n\n2\n00:00:05.560 --> 00:00:10.160\nmutton pieces to be ladled out in thick, peppered, flour-fattened sauce.\n",
+          "sha256": "55ceab40adda6494d610f1d40b8879b4b5e6063dd5db4e6a73157198fe606c20",
+          "mode": 384
+        },
+        {
+          "name": "01-one-56e2638d-66b1-460a-97ae-35f0106ba828.vtt",
+          "utf8": "WEBVTT\n\n1\n00:00:00.000 --> 00:00:05.480\nMr. Quilter is the apostle of the Middle Classes, and we are glad to welcome his Gospel.\n",
+          "sha256": "568d4d8e2b3eeb5925d2d5ec14c2a26cd6ca57b7c5f8fadbd46993121a6500b6",
+          "mode": 384
+        }
+      ]
+    }
+  ],
+  "individual_txt": {
+    "name": "02-invalid-7cf2ebc9-1b67-45df-a98e-12d706a20027.txt",
+    "utf8": "Mr. Quilter is the apostle of the Middle Classes, and we are glad to welcome his Gospel. Public edit for export verification.",
+    "sha256": "15232a08989f93f100165af1efca143e9a47394687b391cb40558b114c91f467"
+  },
+  "edit_suffix": " Public edit for export verification.",
+  "native_screenshot": {
+    "path": "docs/assets/file-import-native-mixed.png",
+    "sha256": "c9e754f9026c47db676f68cb5924d73787118dd6d661b05d3b81b94a0491ee90"
+  },
+  "final_layouts": [
+    {
+      "path": "docs/assets/file-import-batch-light.png",
+      "sha256": "08a80e33d8ab871012df318da823592aea14586467a158e40abc46948d2a6170"
+    },
+    {
+      "path": "docs/assets/file-import-batch-dark.png",
+      "sha256": "4cb4180f36305221d550e35c72d7347ad1c1c4312ec9c7bfbd5d7c615e2d7ad0"
+    },
+    {
+      "path": "docs/assets/file-import-batch-compact.png",
+      "sha256": "74f9b3624d92132b1020d3d394dfc088479e8690d71ea3656416a99bf8f8a63f"
+    }
+  ],
+  "final_layout_boundary": "Final source also passes scoped native dark mixed-batch/Open/Retry/JSON controls in a separate profile. Earlier ee1eeb5 checkpoint passes all four formats and filtered/empty exports. Light/dark/compact offscreen actual-component renders are layout checks, not further native events.",
+  "unverified_native": [
+    "Actual drag/drop UI, active native Cancel and VoiceOver.",
+    "Broader physical dictation, insertion, devices and clean-Mac/release acceptance are outside this file workflow check."
+  ],
+  "attempts_retained": [
+    {
+      "attempt": 1,
+      "result": "Old-runtime GUI correctly retained two successes and a malformed-file failure; full FFmpeg command exposed. Current source replaces that diagnostic."
+    },
+    {
+      "attempt": 2,
+      "result": "Current GUI/check-out runtime: three startup timeouts. Unified TCC logs identify DocumentsFolder requests; no permission accepted. Direct Swift IPC on checkout passed."
+    },
+    {
+      "attempt": 3,
+      "result": "Private test fixture missing sibling Python directory: three immediate startup failures; direct probe exit1 established the missing executable. Fixed test preparation, not product code."
+    },
+    {
+      "attempt": 4,
+      "result": "Complete private bundled runtime: mixed success/failure, source preservation, retry ID preservation, edited text, default TXT name, and all four bulk formats pass. After native control became available again, filtered search exports exactly two records and unmatched search publishes a complete empty index."
+    }
+  ],
+  "normal_app": {
+    "baseline_hashes_unchanged": 5,
+    "process_running": true,
+    "stopped_for_this_test": false,
+    "local_only_visibly_confirmed": true,
+    "sessions": 8,
+    "words": 265
+  },
+  "qa_state": "Both isolated QA apps and their owned workers stopped. Normal local-only app visibly remains at eight sessions/265 words; five normal baseline hashes unchanged.",
+  "limits": [
+    "Source/native workflow validation, not a new distributable release or full parity acceptance.",
+    "Bulk export is serialized on the history queue and decodes one payload at a time. Pending mutations wait; main-actor UI remains asynchronous.",
+    "Batch status/URLs last until quit; completed transcripts follow the history policy. Source filenames appear in batch/detail/export names, not persistent list/search metadata.",
+    "No acoustic/insertion/shortcut, latency/energy ranking or new model-quality claim."
+  ],
+  "native_source_equivalent_commit": "ee1eeb5a1d9d1c3a4fb1036461881a2fbfc6cd9e",
+  "native_build_origin": "Built from a dirty ca9bf12 checkout; the staged complete application-source hash was checked equal to the native binary stamp before committing ee1eeb5. This is source-byte equivalence, not a claim that the QA binary was compiled from a clean commit.",
+  "filtered_exports": [
+    {
+      "phase": "filtered",
+      "manifest_utf8": "{\"schema_version\":1,\"format\":\"json\",\"query\":\"Quilter\",\"records\":[{\"file\":\"02-invalid-7cf2ebc9-1b67-45df-a98e-12d706a20027.json\",\"id\":\"7CF2EBC9-1B67-45DF-A98E-12D706A20027\",\"source\":\"02-invalid.wav\"},{\"file\":\"01-one-56e2638d-66b1-460a-97ae-35f0106ba828.json\",\"id\":\"56E2638D-66B1-460A-97AE-35F0106BA828\",\"source\":\"01-one.wav\"}],\"count\":2,\"audio_included\":false}\n",
+      "manifest_sha256": "a33cdc9ee911c49c06a37fb6bc0ecdf880883b9137e745cf7d3491693e35b8eb",
+      "directory_mode": 448,
+      "index_mode": 384,
+      "files": [
+        {
+          "name": "02-invalid-7cf2ebc9-1b67-45df-a98e-12d706a20027.json",
+          "utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T01:28:27Z\",\n  \"duration\" : 5.855,\n  \"id\" : \"7CF2EBC9-1B67-45DF-A98E-12D706A20027\",\n  \"latencyMS\" : 109.96794700622559,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"Mr. Quilter is the apostle of the Middle Classes, and we are glad to welcome his Gospel.\",\n  \"segments\" : [\n    {\n      \"end\" : 5.48,\n      \"start\" : 0,\n      \"text\" : \"Mr. Quilter is the apostle of the Middle Classes, and we are glad to welcome his Gospel.\"\n    }\n  ],\n  \"source\" : \"02-invalid.wav\",\n  \"text\" : \"Mr. Quilter is the apostle of the Middle Classes, and we are glad to welcome his Gospel. Public edit for export verification.\",\n  \"words\" : [\n\n  ]\n}",
+          "sha256": "9ef3f35f03a8e55319700de7b7f173c5ffe58cfc641d2415b9fb905c21112c19",
+          "mode": 384
+        },
+        {
+          "name": "01-one-56e2638d-66b1-460a-97ae-35f0106ba828.json",
+          "utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T01:25:55Z\",\n  \"duration\" : 5.855,\n  \"id\" : \"56E2638D-66B1-460A-97AE-35F0106BA828\",\n  \"latencyMS\" : 4335.425019264221,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"Mr. Quilter is the apostle of the Middle Classes, and we are glad to welcome his Gospel.\",\n  \"segments\" : [\n    {\n      \"end\" : 5.48,\n      \"start\" : 0,\n      \"text\" : \"Mr. Quilter is the apostle of the Middle Classes, and we are glad to welcome his Gospel.\"\n    }\n  ],\n  \"source\" : \"01-one.wav\",\n  \"text\" : \"Mr. Quilter is the apostle of the Middle Classes, and we are glad to welcome his Gospel.\",\n  \"words\" : [\n\n  ]\n}",
+          "sha256": "a277f3589abed904cb73aa2de3ffe563524c5dc51084bd705577636c08dc4c03",
+          "mode": 384
+        }
+      ]
+    },
+    {
+      "phase": "empty",
+      "manifest_utf8": "{\"schema_version\":1,\"format\":\"json\",\"query\":\"unmatched-native-control-2026\",\"records\":[],\"count\":0,\"audio_included\":false}\n",
+      "manifest_sha256": "7fc9af4d055030e079a96140775f2a5fafa1d343dabb44cff7812e456a9b6794",
+      "directory_mode": 448,
+      "index_mode": 384,
+      "files": []
+    }
+  ],
+  "final_gui": {
+    "application_source_sha256": "c1ddeec3cddfd05bee44d6b91342a0e9dff462a01ebf62737ca740ff4a64ee3d",
+    "gui_signed_sha256": "58012f8e28133e4c799faa4bbb76f3c40590c8ef6bc49d41a33c0c1a605d745e",
+    "boundary": "Separate empty profile, same verified private runtime, final actual source. One valid/one malformed file, current dark card contrast, Open callback selects 01-stew.wav, deliberate fixture repair then Retry completes 2/2, actual complete JSON export. No settings or permission changes.",
+    "export": {
+      "phase": "final_gui_json",
+      "manifest_utf8": "{\"schema_version\":1,\"format\":\"json\",\"query\":\"\",\"records\":[{\"file\":\"02-invalid-57538911-8ff5-4417-bfbe-ca5613b7304e.json\",\"id\":\"57538911-8FF5-4417-BFBE-CA5613B7304E\",\"source\":\"02-invalid.wav\"},{\"file\":\"01-stew-157079fc-156e-4389-8ed1-f6b1f4c382ca.json\",\"id\":\"157079FC-156E-4389-8ED1-F6B1F4C382CA\",\"source\":\"01-stew.wav\"}],\"count\":2,\"audio_included\":false}\n",
+      "manifest_sha256": "c9ff21022f2f5a3c8326a4289e2ef8c1d07549a6e61b8a519540b20ee82e5922",
+      "directory_mode": 448,
+      "index_mode": 384,
+      "files": [
+        {
+          "name": "02-invalid-57538911-8ff5-4417-bfbe-ca5613b7304e.json",
+          "utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T05:59:24Z\",\n  \"duration\" : 5.855,\n  \"id\" : \"57538911-8FF5-4417-BFBE-CA5613B7304E\",\n  \"latencyMS\" : 105.57198524475098,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"Mr. Quilter is the apostle of the Middle Classes, and we are glad to welcome his Gospel.\",\n  \"segments\" : [\n    {\n      \"end\" : 5.48,\n      \"start\" : 0,\n      \"text\" : \"Mr. Quilter is the apostle of the Middle Classes, and we are glad to welcome his Gospel.\"\n    }\n  ],\n  \"source\" : \"02-invalid.wav\",\n  \"text\" : \"Mr. Quilter is the apostle of the Middle Classes, and we are glad to welcome his Gospel.\",\n  \"words\" : [\n\n  ]\n}",
+          "sha256": "70b544782556815b4ba478061f26e194656776a3aa350a8003e127774eaa6379",
+          "mode": 384
+        },
+        {
+          "name": "01-stew-157079fc-156e-4389-8ed1-f6b1f4c382ca.json",
+          "utf8": "{\n  \"app\" : \"\",\n  \"date\" : \"2026-10-25T05:58:29Z\",\n  \"duration\" : 10.435,\n  \"id\" : \"157079FC-156E-4389-8ED1-F6B1F4C382CA\",\n  \"latencyMS\" : 3108.7210178375244,\n  \"mode\" : \"verbatim\",\n  \"model\" : \"whisper-small\",\n  \"rawText\" : \"He hoped there would be stew for dinner, turnips and carrots and bruised potatoes and fat mutton pieces to be ladled out in thick, peppered, flour-fattened sauce.\",\n  \"segments\" : [\n    {\n      \"end\" : 5.5600000000000005,\n      \"start\" : 0,\n      \"text\" : \"He hoped there would be stew for dinner, turnips and carrots and bruised potatoes and fat\"\n    },\n    {\n      \"end\" : 10.16,\n      \"start\" : 5.5600000000000005,\n      \"text\" : \"mutton pieces to be ladled out in thick, peppered, flour-fattened sauce.\"\n    }\n  ],\n  \"source\" : \"01-stew.wav\",\n  \"text\" : \"He hoped there would be stew for dinner, turnips and carrots and bruised potatoes and fat mutton pieces to be ladled out in thick, peppered, flour-fattened sauce.\",\n  \"words\" : [\n\n  ]\n}",
+          "sha256": "d39a2da6e13c1de7623477543f674606c68aa92d4a7fb6df2e04ce078c314262",
+          "mode": 384
+        }
+      ]
+    },
+    "screenshot": {
+      "path": "docs/assets/file-import-native-final.png",
+      "sha256": "24731541b793cc374c0a544504d06613b77cec6c8515dfe5ea94fcbc2f7f4f95"
+    },
+    "manual_fixture_repair": {
+      "before_sha256": "36f6ce8ffa931b197dbdaeebac03a98e53cf50c8b09e162beab6f86a4d764409",
+      "after_sha256": "799f78ed4beb4de7ceae3a809262d4ce242394342ccd1d58cef7d49dbc2def46"
+    }
+  }
+}

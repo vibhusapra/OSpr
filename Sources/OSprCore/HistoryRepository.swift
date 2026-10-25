@@ -179,6 +179,30 @@ public final class HistoryRepository: @unchecked Sendable {
     public func audioFiles() async throws -> Set<String> { try await read { try $0.audioFiles() } }
     public func contentFingerprint() async throws -> String { try await read { try $0.contentFingerprint() } }
 
+    /// Export all matching records, independent of loaded UI pages. Queue order
+    /// includes earlier edits/deletes/privacy transitions. A failed commit
+    /// aborts rather than silently omitting pending text.
+    public func export(to destination: URL, format: TranscriptFileFormat, query: String = "") async throws -> TranscriptBatchExport.Result {
+        let cancellation = ReadCancellation()
+        return try await withTaskCancellationHandler(operation: {
+            try Task.checkCancellation()
+            return try await withCheckedThrowingContinuation { continuation in
+                queue.async { [self] in
+                    do {
+                        try cancellation.check()
+                        _ = try commitPending()
+                        let connection = try activeConnection()
+                        let result = try TranscriptBatchExport.write(to: destination, format: format, query: query,
+                            checkCancellation: { try cancellation.check() },
+                            enumerate: { visit in try connection.visitRecords(query: query, visit) })
+                        // Publication wins over cancellation after the rename.
+                        continuation.resume(returning: result)
+                    } catch { continuation.resume(throwing: error) }
+                }
+            }
+        }, onCancel: { cancellation.cancel() })
+    }
+
     /// Read-your-edit without forcing a disk write per editor keystroke. Details
     /// are always a full Transcript, never reconstructed from a summary row.
     public func record(id: UUID) async throws -> Transcript? {
