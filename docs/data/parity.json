@@ -3,6 +3,13 @@
   "release": "Developer preview; not full union parity",
   "items": [
     {
+      "feature": "Live audio privacy and active temporary-copy lifetime",
+      "status": "contract-tested",
+      "priority": "P0",
+      "evidence": "Admitted/current Keep audio and History permission plus per-take revocation epoch gate preparation/adoption and new History audio references. Off/on cannot resurrect a revoked take; later unstarted files honor privacy, old saved clips stay intact. Temporary preparation/reprocessing/upload reservations survive preferences and are released/discarded or pruned after restart; explicit erase still works. Standardized path/authority checks fix valid directory-URL hint rejection without dropping name/symlink/escape fences. Raw selection-edit fallback forwards durable storage acknowledgement. Fourteen new permanent cases; full debug/optimized 507 Swift, 380 Python/Ruff and 56-case focused cohort pass. Three real attempts retained: first exposes path failure; clean source 8f0c996 actual cached Parakeet GPU control matches three copied public-clip transcripts, omits two new audio references, preserves prior encoded payload/audio and confirms three records/one clip in a second process. Packaged audio-review controls and signatures pass. Manifest: benchmarks/results/live-audio-privacy.json.",
+      "gap": "Checkout source/build; existing standalone archives unchanged. Headless controls and one repeated public clip do not establish native settings/microphone/physical shortcuts/insertion, representative quality, peak-memory/energy/timing or product ranking. Budget changes during an already active archive lease retain current maintenance/retry policy. Native/clean-Mac/macOS 14/notarization and a new fully qualified standalone preview remain open."
+    },
+    {
       "feature": "Native worker owner-death cleanup",
       "status": "contract-tested",
       "priority": "P0",
@@ -244,7 +251,7 @@
       "feature": "Durable file-import recovery",
       "status": "contract-tested",
       "evidence": "Latest batch saved with History; stable planned result IDs checkpoint before inference and reconcile against saved History after interruption. Explicit Resume preserves original recognition/writing configuration, current privacy/engine settings and completed IDs. Actor owns private atomic checkpoints, monotonic revision fences and v1 crash-stage cleanup. Twelve Core and seven platform tests cover commit gaps, failures, privacy/retention, corrupt/future/duplicate/symlink/FIFO metadata, provider confirmation and dismissal/deletion. Seven development process controls and three actual offline Parakeet import/repair/retry/restart controls retained; final controls bind current source/test bytes. Completed payload/IDs persist; original public audio and normal app/data are unchanged. Manifest: benchmarks/results/durable-file-batches.json. Source CI40189125179 passes 485 Swift/380 Python, synthetic process interruption/restart, contracts, app/report and standalone runtime/436-link/signature/artifact gates.",
-      "gap": "Source-only, latest queue only. Resume reads current source files; lost access/moved files require intervention. Snapshot write amplification/large-batch throughput, power-loss/volume failure, native Resume/Open/Dismiss/provider-dialog/VoiceOver remain open; later guardian source adds separate parent-death controls. First harness child-cleanup gap is retained and corrected in later controls. No real provider account, acoustic quality, comparative timing/energy or top-three acceptance. Separate live-privacy audit confirms Keep audio disabled mid-batch is not honored by a later unstarted file; P0 fix pending before next standalone preview.",
+      "gap": "Source-only, latest queue only. Resume reads current source files; lost access/moved files require intervention. Snapshot write amplification/large-batch throughput, power-loss/volume failure, native Resume/Open/Dismiss/provider-dialog/VoiceOver remain open; later guardian source adds separate parent-death controls. First harness child-cleanup gap is retained and corrected in later controls. No real provider account, acoustic quality, comparative timing/energy or top-three acceptance. Separate live-privacy audit confirms Keep audio disabled mid-batch is not honored by a later unstarted file; Addressed by the later live-audio privacy source and separate controls; native/release acceptance remains open.",
       "priority": "P0"
     },
     {

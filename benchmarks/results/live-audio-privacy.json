@@ -1,0 +1,121 @@
+{
+  "status": "passed-live-audio-privacy-source-controls",
+  "date": "2026-10-25",
+  "source_commit": "8f0c996686767df9320e91a5d8cf2475e5bb1e81",
+  "application_source_sha256": "1b05e8a984553e97c7d83ca9f8b04643cc63ea11d62909d35bca741103df41ec",
+  "source_manifest_version": 2,
+  "final_control": "live-audio-privacy-real-03.json",
+  "real_controls": [
+    {
+      "file": "live-audio-privacy-real-01.json",
+      "status": "failed-valid-owned-path-rejected-by-directory-hint-check"
+    },
+    {
+      "file": "live-audio-privacy-real-02.json",
+      "status": "passed-development-path-correction-and-privacy"
+    },
+    {
+      "file": "live-audio-privacy-real-03.json",
+      "status": "passed-clean-frozen-source-gpu-privacy-and-restart"
+    }
+  ],
+  "validation": {
+    "permanent_swift_debug": 507,
+    "permanent_swift_optimized": 507,
+    "new_permanent_tests": 14,
+    "python": 380,
+    "ruff": "passed",
+    "focused_final": 56,
+    "development_log_sha256": {
+      "baseline-privacy-tests.log": "d0a4d582195801dbc6e2d00602844fa7a7c19b933bd1001b01687e271d4131b4",
+      "baseline-privacy-tests-02.log": "6b23749315dff4471c5fabab4b5a64a5e81720fdd8c78841949c9ffcf3f5e9c8",
+      "baseline-archive-tests.log": "5ff22aa9becdbddc988ab3507f5495ffd9756ec90c2a6ace142cec57653efd12",
+      "baseline-url-tests.log": "12efe52cde39dcbb256ef5d6edd075590dc65e6de70f8ad35987990842102065",
+      "baseline-fallback-ack.log": "2a267f6651f442de6be5824259c5cd238347f1a3d7cd7de42ffc8d5ff250b746",
+      "fixed-cohort-01.log": "8a86c0ca7d97246016cff69b1b872fb68ae6adc627599ca142ab0aeec87221b9",
+      "fixed-cohort-02.log": "438fce7c25e0bce20141a045196bc4d9e2ba1d6faa9ea661425409d525c764ab",
+      "fixed-cohort-03.log": "61618bd393ac2355084df3759f5dd08332005841fc37cbb857668f3728693854",
+      "full-debug.log": "8963033511ceb9427e163c0ebec0889a6bf093100b8124334d268fd2f46a382a",
+      "full-release.log": "d7dd60e3cf055b2fbe10c08ab1cdc63c1023e438395b512e6ed0ce8255f658c5",
+      "full-debug-02.log": "b93f3f0cdfd922e8a1c6c912773783dcc143fe368e6fe8acbbbf228159320895",
+      "full-release-02.log": "66c7a8655f370d395c4f07a8c3a8d92c3c2b056cff11d6626146aee99d60fc67",
+      "python-tests.log": "87effc6fc740ab1eef189ad29aadf339778e7f6ee3071f8780e22bdc32dab12c"
+    }
+  },
+  "development_failures": [
+    {
+      "stage": "new-privacy-test-compilation",
+      "outcome": "Async row lookup was initially placed inside a synchronous XCTest autoclosure; separated before runtime controls."
+    },
+    {
+      "stage": "baseline-privacy-runtime",
+      "tests": 9,
+      "failures": 12,
+      "unexpected_cleanup_wait_failures": 3,
+      "outcome": "Expected red revocation and active-stage tests; four cases already pass."
+    },
+    {
+      "stage": "baseline-live-temporary-copies",
+      "tests": 14,
+      "failures": 3,
+      "outcome": "Preference reconciliation removes live staging/reprocessing/upload copies."
+    },
+    {
+      "stage": "directory-hint-regression",
+      "tests": 2,
+      "failures": 1,
+      "outcome": "Owned canonical build-directory URL without directory hint rejected; symbolic-root refusal already passes."
+    },
+    {
+      "stage": "raw-fallback-commit-acknowledgement",
+      "tests": 1,
+      "failures": 1,
+      "outcome": "Selection-edit error fallback omits successful storage callback."
+    },
+    {
+      "stage": "first-full-optimized-suite",
+      "tests": 507,
+      "failures": 1,
+      "outcome": "Old hung-guardian control also constrained healthy cold Python recovery to200ms. Separate first short-handshake request from five-second recovery; production deadlines unchanged."
+    },
+    {
+      "stage": "optional-probe-standalone-typecheck-setup",
+      "outcome": "Added SDK XCTest framework and Swift overlay search paths; final standalone typecheck and actual SwiftPM probe build pass."
+    }
+  ],
+  "checkout_app": {
+    "build": {
+      "version": "0.1.0",
+      "built_at": "2026-10-25T13:54:36.248095+00:00",
+      "git_commit": "8f0c996686767df9320e91a5d8cf2475e5bb1e81",
+      "tracked_changes": false,
+      "application_source_sha256": "1b05e8a984553e97c7d83ca9f8b04643cc63ea11d62909d35bca741103df41ec",
+      "source_manifest_version": 2,
+      "signing_mode": "ad-hoc",
+      "boundary": "Development build; ad-hoc signature; not notarized; weights downloaded separately."
+    },
+    "gui_sha256": "58bc01727dcb0182d5cbd6dcc6b70198fa784d8b62384c26c06427ba1e076ee9",
+    "cli_sha256": "17c98c86e97ff52e37dc15a01df4ca10cd3f458a6378faceb6d0a312d5541071",
+    "guardian_sha256": "971e7af0d10cac0fdd670133cbbcc6ca86e1b03d79c5f1b8725be37b9c988f43",
+    "signature": "ad-hoc app and helper verified",
+    "boundary": "Checkout-dependent development build; not a new standalone distribution"
+  },
+  "packaged_audio_review": {
+    "audio_only_deletion_kept_text": true,
+    "audio_seconds": 10.885,
+    "avfoundation_audio_tracks": 1,
+    "avfoundation_video_tracks": 0,
+    "boundary": "Swift CLI and Core audio archive/history \u2192 owned Python worker normalization and actual local Metal ASR \u2192 store restart \u2192 AVFoundation duration/tracks. No playback sound, microphone, permissions or SwiftUI interaction.",
+    "history_and_archive_restart": true,
+    "model": "parakeet-v3",
+    "normalized_asr_matches_original": true,
+    "normalized_bytes": 696720,
+    "reprocess_copy_survived_original_deletion": true,
+    "source_sha256": "d1e0294eba40bd907d1aa493f296c4bfd78f5b9bc9f81a9b2b396046a5fed2e2",
+    "status": "passed",
+    "text": "Because you were sleeping instead of conquering, the lovely rose princess has become a fiddle without a bow, while poor Shaggy sits there a cooing dove.",
+    "timestamp": "2026-10-25T13:56:56Z",
+    "warm_worker_survived_budget_rejection": true
+  },
+  "boundary": "Nine workflow and five archive cases; isolated headless actual AppModel with cached Parakeet on MLX GPU; one public clip copied three times; separate restart. No native UI/microphone/playback/account, representative quality/energy/timing or product-ranking acceptance. Existing normal app/data and standalone archives remain unchanged."
+}

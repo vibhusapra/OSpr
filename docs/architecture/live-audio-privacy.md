@@ -116,3 +116,6 @@ The source change is newer than the preserved standalone archives. Native
 settings interaction, clean-Mac/older-OS acceptance and the next signed standalone
 preview remain release work. The synthetic and headless real controls establish
 these scoped storage/privacy behaviors, not full v0 parity.
+
+[Manifest/all attempts](../../benchmarks/results/live-audio-privacy.json) ·
+[Final clean-source GPU control](../../benchmarks/results/live-audio-privacy-real-03.json).

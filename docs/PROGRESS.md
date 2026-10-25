@@ -2,6 +2,45 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## Live audio privacy and active review files, 2026-10-25
+
+Keep audio/History revocation now applies at preparation and History publication,
+including later unstarted batch files and failed Clean/selection-edit refinement.
+A per-take epoch prevents off/on from resurrecting an already revoked take;
+newly admitted work can use the new preference. Previously published clips keep
+their existing retention policy. Raw fallback storage now acknowledges its commit.
+
+Active staging, reprocessing and compressed upload copies survive preference
+maintenance through in-memory reservations. Adoption/discard releases them,
+restart prunes abandoned copies, and explicit erase still removes owned copies.
+The first real control exposed an old directory-URL hint mismatch that rejected
+valid archive paths. Filesystem path/authority comparison fixes it while keeping
+UUID, path-escape and root/child-symlink checks.
+
+Fourteen new permanent tests bring full debug/optimized suites to **507 Swift**;
+**380 Python** and Ruff pass. The final 56-case focused cohort passes. Expected red
+privacy/staging/path/fallback tests remain retained. The first optimized run also
+exposed a 200 ms healthy-recovery limit in an existing hung-helper control; its
+short failing request and healthy five-second recovery are now distinct, with
+production deadlines unchanged. The corrected complete optimized suite passes.
+
+A clean-source real control verifies MLX `Device(gpu, 0)`, selected library versions
+against the lock and all 29 copied backend source/data files. Actual review/adoption
+precedes an explicit generation gate; Keep audio is revoked, the gate released,
+and two new transcripts have no audio while matching prior raw/text/segments/
+model/duration. Old encoded payload and audio bytes remain identical. A second
+process finds three records and only the old clip. All three development/final
+real attempts remain retained, including the first path failure. One repeated
+public clip is not a quality, physical dictation, timing, energy or ranking claim.
+
+The clean ad-hoc signed checkout app and actual packaged CLI audio-review,
+normalization/ASR equality, budget-rejection residency, reprocessing, archive/
+history restart and audio-only deletion checks pass. Existing normal app/data and
+standalone archives are unchanged; this source is not yet in a new standalone
+preview. Native settings/shortcut/insertion, clean-Mac/older-OS and notarization
+acceptance remain open. [Manifest/all attempts](../benchmarks/results/live-audio-privacy.json) ·
+[Contract/reproduction](architecture/live-audio-privacy.md).
+
 ## Native worker parent-death cleanup, 2026-10-25
 
 A real production-loop reproduction left its worker and a TERM-ignoring decoder
@@ -42,11 +81,12 @@ passes 493 permanent Swift / 380 Python, actual durable worker cleanup and
 GIL-held production-main owner-death gates, contracts, all 444 report HTML links,
 standalone runtime/CLI/session-history/signatures and development artifact upload.
 
-Next P0: a separate synthetic AppModel audit confirms disabling Keep audio during
+Earlier P0 audit, resolved by the live-audio source above: a separate synthetic
+AppModel audit confirms disabling Keep audio during
 an active batch still retains a later, not-yet-started file using captured
 configuration. No real audio or user history was involved. The temporary failing
 probe and original test bytes are retained privately; production tests were
-restored unchanged. Fix this before a new standalone preview. Native TextEdit
+restored unchanged. The later live-audio privacy source above fixes this with separate source/real controls; native/release acceptance remains open. Native TextEdit
 and broader benchmark/acceptance work remain open.
 
 ## Durable file-import recovery, 2026-10-25
