@@ -27,9 +27,9 @@ jobs:
           swiftc -typecheck -parse-as-library -I .build/debug/Modules benchmarks/history_archive_reader.swift
           swiftc -typecheck -parse-as-library -I .build/debug/Modules benchmarks/history_sources.swift
           swiftc -typecheck -parse-as-library -I .build/debug/Modules benchmarks/refinement_guard.swift
-          swiftc -typecheck -swift-version 5 -parse-as-library Sources/OSprCore/WorkerClient.swift benchmarks/native_stream_stop.swift
-          swiftc -typecheck -swift-version 5 -parse-as-library Sources/OSprCore/WorkerClient.swift benchmarks/media_recovery.swift
-          swiftc -typecheck -swift-version 5 -parse-as-library Sources/OSprCore/WorkerClient.swift Sources/OSprCore/StreamingSpeechResampler.swift benchmarks/resampling_quality.swift
+          swiftc -typecheck -swift-version 5 -parse-as-library Sources/OSprCore/WorkerClient.swift Sources/OSprCore/WorkerLifetime.swift benchmarks/native_stream_stop.swift
+          swiftc -typecheck -swift-version 5 -parse-as-library Sources/OSprCore/WorkerClient.swift Sources/OSprCore/WorkerLifetime.swift benchmarks/media_recovery.swift
+          swiftc -typecheck -swift-version 5 -parse-as-library Sources/OSprCore/WorkerClient.swift Sources/OSprCore/WorkerLifetime.swift Sources/OSprCore/StreamingSpeechResampler.swift benchmarks/resampling_quality.swift
       - name: Typecheck Apple speech research helper when the SDK supports it
         run: |
           speech_sdk_version="$(xcrun --show-sdk-version)"
@@ -45,6 +45,8 @@ jobs:
           rm Tests/OSprPlatformTests/DurableImportProcessTemporary.swift
       - name: Install locked Python environment
         run: uv sync --frozen --all-extras --python 3.12
+      - name: Verify native owner-death cleanup during GIL-held production dispatch
+        run: python3 benchmarks/worker_lifetime.py --python "$GITHUB_WORKSPACE/.venv/bin/python" --output "$RUNNER_TEMP/ospr-worker-lifetime"
       - name: Lint and backend protocol tests
         run: |
           uv run --frozen --all-extras ruff check backend benchmarks scripts

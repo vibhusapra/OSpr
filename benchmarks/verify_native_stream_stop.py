@@ -56,11 +56,16 @@ def main():
         "benchmarks/native_stream_stop.swift": receipt["swift_harness_sha256"],
         "Sources/OSprCore/WorkerClient.swift": receipt["worker_client_sha256"],
     })
+    if "worker_lifetime_sha256" in receipt:
+        sources["Sources/OSprCore/WorkerLifetime.swift"] = receipt["worker_lifetime_sha256"]
     for name, digest in sources.items():
         frozen = subprocess.check_output(["git", "show", receipt["git_commit"] + ":" + name], cwd=ROOT)
         assert hashlib.sha256(frozen).hexdigest() == digest
-    assert receipt["compile_arguments"] == ["swiftc", "-O", "-swift-version", "5", "-parse-as-library",
-        "Sources/OSprCore/WorkerClient.swift", "benchmarks/native_stream_stop.swift", "-o", "<temporary-owned-probe>"]
+    expected_compile = ["swiftc", "-O", "-swift-version", "5", "-parse-as-library", "Sources/OSprCore/WorkerClient.swift"]
+    if "worker_lifetime_sha256" in receipt:
+        expected_compile.append("Sources/OSprCore/WorkerLifetime.swift")
+    expected_compile += ["benchmarks/native_stream_stop.swift", "-o", "<temporary-owned-probe>"]
+    assert receipt["compile_arguments"] == expected_compile
     decoded = {}
     for key in ["source", "replacement_source"]:
         item = protocol[key]

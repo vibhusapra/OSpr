@@ -415,14 +415,20 @@ microphone option above. The older neural-edges-v0 preview predates the safer
 full-audio defaults included in full-audio-v0. See [evaluation and integration gates](docs/architecture/neural-endpointing.md).
 
 The standalone app also includes `Contents/MacOS/ospr-cli`, which discovers its
-bundled engine automatically, including through a symlink. For example:
+bundled engine automatically, including through a symlink. Keep the adjacent
+`ospr-worker-guardian` executable with the CLI when relocating development tools;
+the standalone app bundles both. For example:
 
 ```sh
 /Applications/OSpr.app/Contents/MacOS/ospr-cli doctor
 ```
 
 Development commands run from the checkout or use `OSPR_ROOT`. The native app/CLI own a serial Python
-child over stdio; no local inference HTTP server is required.
+child over stdio; no local inference HTTP server is required. A separate native
+guardian watches owner/worker exit events and stops same-group decoder children,
+including when Python cannot run a thread. Requests start only after its kernel
+observers are registered. Direct `python -m ospr_backend.worker` keeps normal
+finite-stdin command-line behavior.
 
 Optional MCP uses the official Python SDK and stdio:
 

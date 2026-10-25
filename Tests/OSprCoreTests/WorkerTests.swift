@@ -26,6 +26,94 @@ final class WorkerTests: XCTestCase {
         try Data(source.utf8).write(to: backend.appendingPathComponent("worker.py"))
     }
     override func tearDown() { try? FileManager.default.removeItem(at: directory) }
+    func testMissingGuardianFailsBeforeStartingPython() async throws {
+        let source = directory.appendingPathComponent("backend/ospr_backend/worker.py")
+        try ("open(__file__ + '.started', 'w').write('started')\n" + String(contentsOf: source, encoding: .utf8)).write(to: source, atomically: true, encoding: .utf8)
+        let worker = WorkerClient(root: directory.path, guardianExecutable: directory.appendingPathComponent("missing-helper"))
+        defer { worker.shutdown() }
+        do { _ = try await worker.request(["action": "ping"]); XCTFail("Missing helper must fail closed") }
+        catch { XCTAssertTrue(error.localizedDescription.contains("lifetime helper is missing")) }
+        XCTAssertFalse(FileManager.default.fileExists(atPath: source.path + ".started"))
+    }
+
+    func testHungGuardianHasABoundedHandshakeAndCanRecover() async throws {
+        let helper = directory.appendingPathComponent("helper")
+        try "#!/bin/sh\nexec /bin/sleep 30\n".write(to: helper, atomically: true, encoding: .utf8)
+        try FileManager.default.setAttributes([.posixPermissions: 0o700], ofItemAtPath: helper.path)
+        let worker = WorkerClient(root: directory.path, startupTimeout: 0.2, guardianExecutable: helper)
+        defer { worker.shutdown() }
+        let start = Date()
+        do { _ = try await worker.request(["action": "ping"]); XCTFail("Hung helper must not admit a request") }
+        catch { XCTAssertTrue(error.localizedDescription.contains("lifetime helper could not start")) }
+        XCTAssertLessThan(Date().timeIntervalSince(start), 3)
+        try FileManager.default.removeItem(at: helper)
+        try FileManager.default.createSymbolicLink(at: helper, withDestinationURL: XCTUnwrap(WorkerGuardian.executableURL()))
+        let result = try await worker.request(["action": "ping"])
+        XCTAssertEqual(result["value"] as? String, "ready")
+    }
+
+    func testGuardianCrashTerminatesWarmWorkerAndNextRequestStartsProtectedReplacement() async throws {
+        let helper = directory.appendingPathComponent("helper")
+        let marker = directory.appendingPathComponent("guardian-pid")
+        let executable = try XCTUnwrap(WorkerGuardian.executableURL())
+        // These fixture paths contain no shell quote characters.
+        try "#!/bin/sh\necho $$ > '\(marker.path)'\nexec '\(executable.path)' \"$@\"\n".write(to: helper, atomically: true, encoding: .utf8)
+        try FileManager.default.setAttributes([.posixPermissions: 0o700], ofItemAtPath: helper.path)
+        let worker = WorkerClient(root: directory.path, guardianExecutable: helper)
+        defer { worker.shutdown() }
+        let original = try await worker.request(["action": "ping"])
+        let pid = try XCTUnwrap((original["pid"] as? Int).map { pid_t($0) })
+        let identity = try XCTUnwrap(WorkerProcessIdentity(pid))
+        let helperPID = try XCTUnwrap(pid_t(String(contentsOf: marker, encoding: .utf8).trimmingCharacters(in: .whitespacesAndNewlines)))
+        XCTAssertEqual(WorkerProcessIdentity(helperPID)?.parent, getpid())
+        kill(helperPID, SIGKILL)
+        let until = Date().addingTimeInterval(3)
+        while identity.stillMatches() && Date() < until { try await Task.sleep(for: .milliseconds(20)) }
+        XCTAssertFalse(identity.stillMatches())
+        let replacement = try await worker.request(["action": "ping"])
+        XCTAssertNotEqual(original["pid"] as? Int, replacement["pid"] as? Int)
+    }
+
+    func testGuardianHandshakeHonorsShortRequestDeadline() async throws {
+        let helper = directory.appendingPathComponent("helper")
+        try "#!/bin/sh\nexec /bin/sleep 30\n".write(to: helper, atomically: true, encoding: .utf8)
+        try FileManager.default.setAttributes([.posixPermissions: 0o700], ofItemAtPath: helper.path)
+        let worker = WorkerClient(root: directory.path, timeout: 0.2, startupTimeout: 20, guardianExecutable: helper)
+        defer { worker.shutdown() }
+        let start = Date()
+        do { _ = try await worker.request(["action": "ping"]); XCTFail("Total request deadline must bound the guardian handshake") }
+        catch { XCTAssertTrue(error.localizedDescription.contains("lifetime helper could not start")) }
+        XCTAssertLessThan(Date().timeIntervalSince(start), 2)
+    }
+
+    func testGuardianCrashInterruptsBlockedRequestBeforeSerialQueueCanAdvance() async throws {
+        let helper = directory.appendingPathComponent("helper")
+        let marker = directory.appendingPathComponent("guardian-pid")
+        let admitted = directory.appendingPathComponent("admitted")
+        let executable = try XCTUnwrap(WorkerGuardian.executableURL())
+        try "#!/bin/sh\necho $$ > '\(marker.path)'\nexec '\(executable.path)' \"$@\"\n".write(to: helper, atomically: true, encoding: .utf8)
+        try FileManager.default.setAttributes([.posixPermissions: 0o700], ofItemAtPath: helper.path)
+        let source = directory.appendingPathComponent("backend/ospr_backend/worker.py")
+        let code = try String(contentsOf: source, encoding: .utf8).replacingOccurrences(of: "if request.get('action') == 'sleep': time.sleep(5)", with: "if request.get('action') == 'sleep':\n        open(" + String(reflecting: admitted.path) + ", 'w').close()\n        time.sleep(30)")
+        try code.write(to: source, atomically: true, encoding: .utf8)
+        let worker = WorkerClient(root: directory.path, timeout: 60, guardianExecutable: helper)
+        defer { worker.shutdown() }
+        let original = try await worker.request(["action": "ping"])
+        let pending = Task { try await worker.request(["action": "sleep"]) }
+        let until = Date().addingTimeInterval(3)
+        while !FileManager.default.fileExists(atPath: admitted.path) && Date() < until { try await Task.sleep(for: .milliseconds(20)) }
+        XCTAssertTrue(FileManager.default.fileExists(atPath: admitted.path))
+        let helperPID = try XCTUnwrap(pid_t(String(contentsOf: marker, encoding: .utf8).trimmingCharacters(in: .whitespacesAndNewlines)))
+        XCTAssertEqual(WorkerProcessIdentity(helperPID)?.parent, getpid())
+        let start = Date()
+        kill(helperPID, SIGKILL)
+        do { _ = try await pending.value; XCTFail("Guardian loss must interrupt an admitted request") }
+        catch { XCTAssertTrue(error.localizedDescription.contains("stopped or timed out")) }
+        XCTAssertLessThan(Date().timeIntervalSince(start), 3)
+        let replacement = try await worker.request(["action": "ping"])
+        XCTAssertNotEqual(original["pid"] as? Int, replacement["pid"] as? Int)
+    }
+
     func testConcurrentRequestsAreSerializedWithoutResponseMixups() async throws {
         let worker = WorkerClient(root: directory.path)
         defer { worker.shutdown() }

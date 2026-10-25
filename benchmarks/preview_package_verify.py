@@ -117,6 +117,9 @@ def main():
             assert binding["receipt_sha256"] == sha(path)
             assert binding["harness_sha256"] == sha(ROOT / "benchmarks/media_recovery.swift")
             assert binding["worker_client_sha256"] == sha(ROOT / "Sources/OSprCore/WorkerClient.swift")
+            if "worker_lifetime_sha256" in binding:
+                assert binding["worker_lifetime_sha256"] == sha(ROOT / "Sources/OSprCore/WorkerLifetime.swift")
+                assert binding["guardian_sha256"] == sha(app / "Contents/MacOS/ospr-worker-guardian")
             assert binding["runner_sha256"] == sha(ROOT / "benchmarks/package_media_recovery.py")
             assert data["status"] == "passed-real-media-rejection-recovery" and data["model"] == model
             assert all(data[key] for key in ("same_worker_pid", "warm_before", "warm_after"))

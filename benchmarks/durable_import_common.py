@@ -32,4 +32,5 @@ def prepare_probe(package: Path, output: Path, source: str, test: str) -> dict:
     executable = package / ".build/debug/OSprPackageTests.xctest/Contents/MacOS/OSprPackageTests"
     return {"application_source_sha256": before, "source_manifest_version": 2,
             "test_executable_sha256": digest(executable), "probe_sha256": digest(temporary),
+            "guardian_sha256": digest(package / ".build/debug/ospr-worker-guardian"),
             "build_log_sha256": digest(output / "build.log")}

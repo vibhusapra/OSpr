@@ -9,6 +9,7 @@ from math import gcd
 import os
 from pathlib import Path
 import subprocess
+import shutil
 import tempfile
 
 import jiwer
@@ -65,9 +66,12 @@ def main():
         inputs[key] = audio
     with tempfile.TemporaryDirectory(prefix="native-stream-stop-", dir=ROOT / ".local") as directory:
         staging = Path(directory)
+        subprocess.run(["swift", "build", "-c", "release", "--product", "ospr-worker-guardian"], cwd=ROOT, check=True)
+        guardian = ROOT / ".build/release/ospr-worker-guardian"
+        shutil.copy2(guardian, staging / guardian.name)
         probe = staging / "probe"
         compile_args = ["swiftc", "-O", "-swift-version", "5", "-parse-as-library",
-                        "Sources/OSprCore/WorkerClient.swift", "benchmarks/native_stream_stop.swift", "-o", str(probe)]
+                        "Sources/OSprCore/WorkerClient.swift", "Sources/OSprCore/WorkerLifetime.swift", "benchmarks/native_stream_stop.swift", "-o", str(probe)]
         build = subprocess.run(compile_args, cwd=ROOT, capture_output=True, text=True, timeout=60)
         assert build.returncode == 0, build.stderr
         probe_sha = sha(probe)
@@ -123,6 +127,7 @@ def main():
         tracked_changes=False, protocol_sha256=sha(PROTOCOL), harness_sha256=sha(Path(__file__)),
         swift_harness_sha256=sha(ROOT / "benchmarks/native_stream_stop.swift"),
         worker_client_sha256=sha(ROOT / "Sources/OSprCore/WorkerClient.swift"), probe_sha256=probe_sha,
+        worker_lifetime_sha256=sha(ROOT / "Sources/OSprCore/WorkerLifetime.swift"), guardian_sha256=sha(guardian),
         compiler=subprocess.check_output(["swiftc", "--version"], text=True).strip(),
         compile_arguments=compile_args[:-1] + ["<temporary-owned-probe>"],
         source_sha256={name: sha(ROOT / name) for name in ["backend/ospr_backend/streaming_audio.py",
