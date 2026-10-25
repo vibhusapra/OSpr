@@ -22,10 +22,17 @@ def main():
     parser.add_argument("--release-manifest", type=Path, required=True)
     parser.add_argument("--prefix", required=True)
     parser.add_argument("--normal-baseline", type=Path, required=True)
+    parser.add_argument("--swift-tests", type=int, required=True, help="Expected passing native test count for this source")
+    parser.add_argument("--python-tests", type=int, required=True, help="Expected passing backend test count for this source")
+    parser.add_argument("--media-recovery-prefix", help="Also verify both real bundled media rejection/recovery receipts")
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
+    if min(args.swift_tests, args.python_tests) <= 0:
+        parser.error("Expected test counts must be positive.")
     if not re.fullmatch(r"[a-z0-9][a-z0-9-]{0,47}", args.prefix):
         parser.error("Use a lowercase filename prefix of at most 48 characters.")
+    if args.media_recovery_prefix and not re.fullmatch(r"[a-z0-9][a-z0-9-]{0,47}", args.media_recovery_prefix):
+        parser.error("Use a lowercase media-recovery prefix of at most 48 characters.")
     assert not args.output.exists(), "Refusing to replace an existing public manifest"
     app = args.app.resolve(strict=True)
     resources = app / "Contents/Resources"
@@ -85,7 +92,7 @@ def main():
         assert all(r["wer"] < 0.05 for r in results[name]["records"])
     release = json.loads(args.release_manifest.read_text())
     assert release["build"] == build and release["crc_passed"] and release["extracted_signature_verified"]
-    assert release["tests"] == dict(swift=438, python=355)
+    assert release["tests"] == dict(swift=args.swift_tests, python=args.python_tests), "Release test counts differ from the expected source validation"
     archive = args.release_manifest.parent / release["archive"]
     assert sha(archive) == release["sha256"] and archive.stat().st_size == release["bytes"]
     for field, name in (("portable_receipt_sha256", "portable"), ("native_long_receipt_sha256", "native-long"),
@@ -99,10 +106,29 @@ def main():
                 assert hashlib.file_digest(entry, "sha256").hexdigest() == digest
     baseline = json.loads(args.normal_baseline.read_text())
     assert baseline and all(sha(Path(path)) == digest for path, digest in baseline.items())
+    recovery_bindings = {}
+    if args.media_recovery_prefix:
+        for model in ("whisper-small", "parakeet-v3"):
+            path = ROOT / f"benchmarks/results/{args.media_recovery_prefix}-media-recovery-{model}.json"
+            sidecar = path.with_name(path.stem + "-binding.json")
+            data, binding = json.loads(path.read_text()), json.loads(sidecar.read_text())
+            assert binding["build"] == build and binding["executable_sha256"] == executable and binding["cli_sha256"] == cli
+            assert binding["engine_binding"] == "bundled" and binding["signature_valid_after_gate"]
+            assert binding["receipt_sha256"] == sha(path)
+            assert binding["harness_sha256"] == sha(ROOT / "benchmarks/media_recovery.swift")
+            assert binding["worker_client_sha256"] == sha(ROOT / "Sources/OSprCore/WorkerClient.swift")
+            assert binding["runner_sha256"] == sha(ROOT / "benchmarks/package_media_recovery.py")
+            assert data["status"] == "passed-real-media-rejection-recovery" and data["model"] == model
+            assert all(data[key] for key in ("same_worker_pid", "warm_before", "warm_after"))
+            assert data["before_text"] and data["before_text"] == data["after_text"]
+            assert data["input_sha256"] == sha(ROOT / "benchmarks/fixtures/audio/1272-128104-0000.wav")
+            assert data["invalid_sha256"] == hashlib.sha256(b"Invalid public synthetic audio fixture.\n").hexdigest()
+            recovery_bindings[model] = dict(receipt_sha256=sha(path), binding_sha256=sha(sidecar))
     receipt = dict(status="passed-v0-review-development-package", timestamp=datetime.datetime.now(datetime.UTC).isoformat(),
                    build=build, executable_sha256=executable, cli_sha256=cli, archive=release["archive"],
                    archive_bytes=release["bytes"], archive_sha256=release["sha256"],
                    release_manifest=release, receipt_bindings=bindings, functional_gates=len(JOBS),
+                   media_recovery_bindings=recovery_bindings,
                    bundled_help_relative_links=results["portable"]["bundled_help_relative_links"],
                    application_source_and_backend_bytes_match=True, lock_license_notice_bytes_match=True,
                    research_grammar_dependencies_absent=True, archived_executables_identical=True,
@@ -110,9 +136,9 @@ def main():
                    boundary="Apple Development signed macOS26.6.2 arm64 developer preview; weights separate, not notarized. "
                    "18 exact-bundle functional gates; loopback providers use synthetic responses and no real accounts. "
                    "Long-file WER is a repeated public-speech regression fixture, not natural-meeting accuracy or latency ranking. "
-                   "Bundled help is a frozen 358-link source snapshot. Native final-footer, current target-app insertion, "
+                   f"Bundled help is a frozen {results['portable']['bundled_help_relative_links']}-link source snapshot. Current target-app insertion, "
                    "physical shortcut/device/acoustic, VoiceOver, representative semantic quality, isolated energy/latency, "
-                   "consumer comparison and clean-Mac/older-OS/Developer-ID acceptance remain open.")
+                   "broad consumer comparison and clean-Mac/older-OS/Developer-ID acceptance remain open.")
     args.output.write_text(json.dumps(receipt, indent=2) + "\n")
     print(json.dumps({k: receipt[k] for k in ("status", "functional_gates", "archive_bytes", "archive_sha256")}))
 

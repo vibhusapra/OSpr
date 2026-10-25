@@ -47,6 +47,7 @@ jobs:
           (cd "$task_directory" && "$GITHUB_WORKSPACE/.venv/bin/python" "$GITHUB_WORKSPACE/benchmarks/native_long.py" --help)
           uv run --frozen --all-extras python benchmarks/preview_package_gates.py --help
           uv run --frozen --all-extras python benchmarks/preview_package_verify.py --help
+          uv run --frozen --all-extras python benchmarks/package_media_recovery.py --help
           uv run --frozen --all-extras python benchmarks/verify_scoring_factory.py
           uv run --frozen --all-extras python benchmarks/native_file_comparison.py --verify benchmarks/results/native-file-comparison.json
           uv run --frozen --all-extras python benchmarks/verify_file_import.py

@@ -827,3 +827,25 @@ if file_import_native.is_file():
     assert anchor in report
     report = report.replace(anchor, panel + '<details id="native-file-comparison">', 1)
     (ROOT / "docs/research.html").write_text(report)
+
+workflow_package_path = ROOT / "benchmarks/results/workflow-preview-package.json"
+if workflow_package_path.is_file():
+    package = json.loads(workflow_package_path.read_text())
+    assert package["status"] == "passed-v0-review-development-package"
+    assert package["functional_gates"] == 18 and len(package["media_recovery_bindings"]) == 2
+    tests = package["release_manifest"]["tests"]
+    panel = f'''<details open id="workflow-preview"><summary>Workflow preview: current file workflows in a signed standalone package.</summary>
+<p>Clean application build <code>{package["build"]["git_commit"][:7]}</code> includes per-file import results, safe retry, readable malformed-media failures and complete history/search exports. It is Apple Development signed for macOS 26.6.2 arm64, with weights separate; <strong>not notarized</strong>. Earlier previews and the normal app are preserved.</p>
+<p><strong>{tests["swift"]} optimized Swift / {tests["python"]} Python tests</strong>, all 18 exact-bundle functional gates and two real bundled media-recovery controls pass. The latter retain the same worker PID, warm Whisper/Parakeet and identical public-speech text after malformed audio. The {package["archive_bytes"]:,}-byte ZIP passes CRC, extraction, signatures, offline CLI and executable identity. Source/backend/locks/licenses and all bound receipts agree. Bundled help is the frozen {package["bundled_help_relative_links"]}-link source snapshot before these final receipts.</p>
+<p>An initial optimized test run and isolated retry failed during a control Python startup with a 0.5-second budget. The termination test now gives startup/recovery separate allowances, retains the original short timeout and forced-kill bounds, and also requires a new PID. Failures are retained; the corrected worker cohort and full suite pass. No production deadline changed.</p>
+<p>Providers use synthetic loopback replies; hour-long speech is repeated public audio. No comparative timing/energy claim. Native import/export scope remains separately documented. The latest TextEdit focus retry did not establish a confirmed destination and sent no phrase. Current insertion, physical shortcuts/devices/acoustics, VoiceOver, broad semantic/consumer testing and clean-Mac/older-OS/updater/Developer-ID acceptance remain open. No full-parity or top-three claim.</p>
+<p class="small muted"><a href="architecture/workflow-preview.md">Scope and reproduction</a> · <a href="../benchmarks/results/workflow-preview-package.json">Archive and all bindings</a> · <a href="../benchmarks/results/workflow-preview-portable.json">Relocated runtime</a> · <a href="../benchmarks/results/workflow-preview-media-recovery-whisper-small.json">Bundled Whisper recovery</a> · <a href="../benchmarks/results/workflow-preview-media-recovery-parakeet-v3.json">Bundled Parakeet recovery</a>.</p></details>'''
+    report = (ROOT / "docs/research.html").read_text()
+    anchor = '<details open id="file-import-workflows">'
+    assert anchor in report
+    report = report.replace(anchor, panel + '<details id="file-import-workflows">', 1)
+    report = report.replace('Source is newer than the distributed preview; no new archive/full-parity claim.',
+                            'This source is included in the workflow preview above; native checks remain scoped and do not establish full parity.', 1)
+    report = report.replace('Current v0 review package: 18 exact-bundle gates and verified standalone ZIP.',
+                            'Earlier v0 review package: 18 exact-bundle gates and verified standalone ZIP.', 1)
+    (ROOT / "docs/research.html").write_text(report)
