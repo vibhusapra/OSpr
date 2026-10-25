@@ -891,3 +891,29 @@ if artifact_latency_path.is_file():
     if anchor in report:
         report = report.replace(anchor, panel + '<details id="workflow-preview">', 1)
         (ROOT / "docs/research.html").write_text(report)
+
+
+# Construct after the frozen workflow panel: this is a later source feature.
+history_source_path = ROOT / "benchmarks/results/history-source-search.json"
+if history_source_path.is_file():
+    history_sources = json.loads(history_source_path.read_text())
+    migration = history_sources["public_migration"]
+    assert history_sources["status"] == "passed-storage-source-controls"
+    assert migration["records"] == 3000 and migration["schema_after"] == 5
+    assert migration["payload_bytes_and_order_preserved"]
+    assert migration["old_reader_refusal_preserved_database_bytes"]
+    panel = '''<details open id="history-source-search"><summary>History source names: find a recording by filename, across every page.</summary>
+<p>History now displays cleaned source leaves above previews and searches them alongside original/edited words. Literal Unicode filename queries also drive complete bulk export, including unloaded pages and pending edits. Parent paths are excluded from the new metadata; the original payload retains its source value. Missing source labels do not gain a generic search term.</p>
+<p>Schema 5 backfills one payload at a time in a transaction, validates the old index, preserves payload bytes/order/counts/audio, and fences older writers. A separate source column keeps literal phrases within their fields. Short queries use lightweight metadata; pages do not decode full transcripts. Rename, retention, clear, memory transfer and filename-byte erasure are covered by tests.</p>
+<p>An actual retained older Core opens 3,000 public fixture records; current Core upgrades and verifies all of them, and the old reader then refuses schema 5 without changing database bytes. A private copied eight-record/two-audio archive also passes with originals unchanged. The single shared-machine storage observation is about 98 ms open/upgrade and 1.3 ms for the first 37 filename matches; <strong>no timing distribution, ASR speed or ranking claim</strong>.</p>
+<p>Light/dark/narrow/filtered images render the shared production row component in a plain stack. The initial full offscreen AppKit List did not materialize rows and was rejected. Native QA could not launch because macOS locked; <strong>native List/search/tooltip/VoiceOver acceptance remains open</strong>. This is a source change, newer than the preserved standalone archives. Durable batch resume remains open.</p>
+<p class="small muted"><a href="architecture/history-source-search.md">Contract and reproduction</a> · <a href="../benchmarks/results/history-source-search.json">Storage/source receipt</a> · <a href="assets/history-source-light.png">Light component</a> · <a href="assets/history-source-dark.png">Dark component</a> · <a href="assets/history-source-compact.png">220-point component</a> · <a href="assets/history-source-search.png">Filename filter component</a>.</p></details>'''
+    report = (ROOT / "docs/research.html").read_text()
+    anchor = '<details open id="artifact-latency-control">' if '<details open id="artifact-latency-control">' in report else '<details open id="workflow-preview">'
+    assert anchor in report
+    report = report.replace(anchor, panel + anchor.replace(' open', ''), 1)
+    report = report.replace('persistent source-name list/search and durable batch resume remain open.',
+                            'the later schema-5 source above adds filename list/search metadata; durable batch resume remains open.')
+    report = report.replace('No audio backup or persistent source-name search/list metadata.',
+                            'No audio backup. Later source adds filename list/search; native interaction remains open.')
+    (ROOT / "docs/research.html").write_text(report)

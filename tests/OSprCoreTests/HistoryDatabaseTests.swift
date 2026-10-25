@@ -29,9 +29,17 @@ final class HistoryDatabaseTests: XCTestCase {
         XCTAssertEqual(sqlite3_exec(connection, statement, nil, nil, nil), SQLITE_OK)
     }
     private func versionOneTriggers(at directory: URL) throws {
+        // A genuine old physical schema, not only a lowered version pragma on
+        // a new table. This exercises the legacy probe/trigger upgrade path.
         try sql("""
             DROP TRIGGER history_insert; DROP TRIGGER history_delete; DROP TRIGGER history_update;
             DROP TRIGGER history_search_before_update; DROP TRIGGER history_search_update;
+            DROP TABLE history_search;
+            ALTER TABLE history DROP COLUMN source_name;
+            ALTER TABLE history DROP COLUMN source_search;
+            CREATE VIRTUAL TABLE history_search USING fts5(text,raw,content='history',content_rowid='position',tokenize='trigram');
+            INSERT INTO history_search(history_search,rank) VALUES('secure-delete',1);
+            INSERT INTO history_search(rowid,text,raw) SELECT position,text,raw FROM history;
             CREATE TRIGGER history_insert AFTER INSERT ON history BEGIN
                 INSERT INTO history_search(rowid,text,raw) VALUES(new.position,new.text,new.raw);
                 UPDATE history_stats SET records=records+1,words=words+new.word_count WHERE singleton=1;
@@ -471,8 +479,8 @@ final class HistoryDatabaseTests: XCTestCase {
             excerpts: [.init(id: 0, text: item.rawText)], model: "fixture", chunks: 1)
         do {
             let db = try HistoryDatabase(directory: path)
-            try db.upsert([item]); XCTAssertEqual(try version(), 2)
-            item.summary = summary; try db.upsert([item]); XCTAssertEqual(try version(), 3)
+            try db.upsert([item]); XCTAssertEqual(try version(), 5)
+            item.summary = summary; try db.upsert([item]); XCTAssertEqual(try version(), 5)
             try db.verifyIntegrity()
         }
         let reopened = try HistoryDatabase(directory: path)
@@ -480,7 +488,7 @@ final class HistoryDatabaseTests: XCTestCase {
         XCTAssertEqual(loaded.summary?.items, summary.items)
         XCTAssertEqual(loaded.notes?.model, "extractive"); XCTAssertEqual(loaded.text, item.text)
         XCTAssertEqual(try reopened.statistics().records, 1)
-        try reopened.remove(ids: [item.id]); XCTAssertEqual(try version(), 3)
+        try reopened.remove(ids: [item.id]); XCTAssertEqual(try version(), 5)
     }
     func testFailedSummaryBatchRollsBackDataAndForwardWriterFence() throws {
         let path = try directory(), db = try HistoryDatabase(directory: path)
@@ -495,7 +503,7 @@ final class HistoryDatabaseTests: XCTestCase {
         XCTAssertEqual(sqlite3_open_v2(path.appendingPathComponent(HistoryDatabase.fileName).path, &connection, SQLITE_OPEN_READONLY, nil), SQLITE_OK)
         defer { sqlite3_finalize(query); sqlite3_close(connection) }
         XCTAssertEqual(sqlite3_prepare_v2(connection, "PRAGMA user_version", -1, &query, nil), SQLITE_OK)
-        XCTAssertEqual(sqlite3_step(query), SQLITE_ROW); XCTAssertEqual(sqlite3_column_int(query, 0), 2)
+        XCTAssertEqual(sqlite3_step(query), SQLITE_ROW); XCTAssertEqual(sqlite3_column_int(query, 0), 5)
     }
     func testLegacySummaryMigrationKeepsAllFieldsAndRejectsFutureNestedData() throws {
         var item = record("Do not ship Friday.")

@@ -445,7 +445,7 @@ struct HistoryView: View {
     var body: some View {
         HSplitView {
             VStack(spacing: 12) {
-                TextField("Search your words", text: Binding(get: { model.historyState.query }, set: { model.historyState.query = $0 })).textFieldStyle(.roundedBorder).padding(.horizontal, 12).padding(.top, 18)
+                TextField("Search words or filenames", text: Binding(get: { model.historyState.query }, set: { model.historyState.query = $0 })).textFieldStyle(.roundedBorder).padding(.horizontal, 12).padding(.top, 18)
                 Menu(model.historyState.query.isEmpty ? "Export all history…" : "Export all search matches…") {
                     ForEach(TranscriptFileFormat.allCases, id: \.self) { format in
                         Button(format.rawValue.uppercased()) { model.exportHistory(format: format) }
@@ -453,10 +453,7 @@ struct HistoryView: View {
                 }.disabled(model.busy).padding(.horizontal, 12)
                 List(selection: $model.selection) {
                     ForEach(model.historyState.rows) { record in
-                        VStack(alignment: .leading, spacing: 6) {
-                            Text(record.preview).font(.system(size: 13)).lineLimit(2)
-                            HStack { Text(record.date, style: .date); Spacer(); Text(record.mode.title) }.font(.caption2).foregroundStyle(.secondary)
-                        }.padding(.vertical, 6).tag(record.id)
+                        HistoryListRow(record: record).tag(record.id)
                         .contextMenu { Button("Copy full transcript") { model.copyHistoryRow(record.id) }; Button("Delete", role: .destructive) { model.removeHistoryRow(record.id) } }
                     }
                 }.listStyle(.sidebar)
@@ -521,6 +518,19 @@ struct HistoryView: View {
             } else if model.historyState.loadingDetail { ProgressView("Opening transcript…").frame(maxWidth: .infinity)
             } else { ContentUnavailableView("Your words will live here", systemImage: "text.bubble", description: Text("Record a thought or import an audio file to begin.")).frame(maxWidth: .infinity) }
         }.confirmationDialog("Delete all saved transcripts?", isPresented: $confirmDelete) { Button("Delete all history", role: .destructive) { model.clearHistory() } }
+    }
+}
+
+struct HistoryListRow: View {
+    let record: HistoryRow
+    var body: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            if let source = record.sourceName {
+                Label(source, systemImage: "doc").font(.caption.weight(.medium)).lineLimit(1).truncationMode(.middle).help(source)
+            }
+            Text(record.preview).font(.system(size: 13)).lineLimit(2)
+            HStack { Text(record.date, style: .date); Spacer(); Text(record.mode.title) }.font(.caption2).foregroundStyle(.secondary)
+        }.padding(.vertical, 6)
     }
 }
 

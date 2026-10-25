@@ -16,6 +16,7 @@ public struct HistoryRow: Identifiable, Sendable {
     public let duration: Double
     public let latencyMS: Double
     public let audioFile: String?
+    public let sourceName: String?
 }
 
 public struct HistoryPage: Sendable {
@@ -155,7 +156,7 @@ public final class HistoryDatabase {
         }
         sqlite3_busy_timeout(database, 2_000)
         let version = try integer("PRAGMA user_version")
-        guard (0...4).contains(version) else {
+        guard (0...5).contains(version) else {
             throw OSprError.message("This history database needs a newer OSpr version. Existing files were preserved.")
         }
         try execute("PRAGMA journal_mode=DELETE; PRAGMA synchronous=FULL; PRAGMA secure_delete=ON; PRAGMA temp_store=MEMORY; PRAGMA cache_size=-4096;")
@@ -165,8 +166,9 @@ public final class HistoryDatabase {
             // Earlier v2 builds could leave format 4 committed until the first
             // delete. A failed first delete can leave old SQLite's cached format
             // ahead of the rolled-back disk metadata. Commit format 5 up front.
-            try transaction { try seedSecureDeleteFormat(); try verifyIntegrity() }
+            try transaction { try seedSecureDeleteFormat(includeSource: version >= 5); try verifyIntegrity() }
         }
+        if version > 0 && version < 5 { try upgradeSourceSearch() }
         try migrateLegacyIfNeeded()
     }
 
@@ -183,18 +185,19 @@ public final class HistoryDatabase {
                     created REAL NOT NULL, text TEXT NOT NULL, raw TEXT NOT NULL,
                     preview TEXT NOT NULL, mode TEXT NOT NULL, model TEXT NOT NULL,
                     app TEXT NOT NULL, duration REAL NOT NULL, latency REAL NOT NULL,
-                    audio TEXT, word_count INTEGER NOT NULL, payload BLOB NOT NULL
+                    audio TEXT, word_count INTEGER NOT NULL, payload BLOB NOT NULL,
+                    source_name TEXT NOT NULL, source_search TEXT NOT NULL
                 );
                 CREATE INDEX history_created ON history(created);
                 CREATE INDEX history_audio ON history(audio) WHERE audio IS NOT NULL;
                 CREATE TABLE history_meta (key TEXT PRIMARY KEY, value TEXT NOT NULL);
                 CREATE TABLE history_stats (singleton INTEGER PRIMARY KEY CHECK(singleton=1), records INTEGER NOT NULL, words INTEGER NOT NULL);
                 INSERT INTO history_stats VALUES(1,0,0);
-                CREATE VIRTUAL TABLE history_search USING fts5(text,raw,content='history',content_rowid='position',tokenize='trigram');
+                CREATE VIRTUAL TABLE history_search USING fts5(text,raw,source_search,content='history',content_rowid='position',tokenize='trigram');
                 INSERT INTO history_search(history_search,rank) VALUES('secure-delete',1);
-                PRAGMA user_version=2;
+                PRAGMA user_version=5;
                 """)
-            try execute(Self.triggerSQL)
+            try execute(Self.triggerSQL(includeSource: true))
             try seedSecureDeleteFormat()
         }
     }
@@ -203,50 +206,92 @@ public final class HistoryDatabase {
     // index can read its old columns. Unlike FTS's special 'delete' command,
     // this correctly upgrades secure-delete format metadata on SQLite <3.46.1.
     // Unchanged text/raw avoids index work for notes, audio and case-only edits.
-    private static let triggerSQL = """
+    private static func triggerSQL(includeSource: Bool) -> String {
+        let columns = includeSource ? "text,raw,source_search" : "text,raw"
+        let values = includeSource ? "new.text,new.raw,new.source_search" : "new.text,new.raw"
+        let changed = "old.text IS NOT new.text OR old.raw IS NOT new.raw" + (includeSource ? " OR old.source_search IS NOT new.source_search" : "")
+        return """
         CREATE TRIGGER history_insert AFTER INSERT ON history BEGIN
-            INSERT INTO history_search(rowid,text,raw) VALUES(new.position,new.text,new.raw);
+            INSERT INTO history_search(rowid,\(columns)) VALUES(new.position,\(values));
             UPDATE history_stats SET records=records+1,words=words+new.word_count WHERE singleton=1;
         END;
         CREATE TRIGGER history_delete BEFORE DELETE ON history BEGIN
             DELETE FROM history_search WHERE rowid=old.position;
             UPDATE history_stats SET records=records-1,words=words-old.word_count WHERE singleton=1;
         END;
-        CREATE TRIGGER history_search_before_update BEFORE UPDATE OF text,raw ON history
-        WHEN old.text IS NOT new.text OR old.raw IS NOT new.raw BEGIN
+        CREATE TRIGGER history_search_before_update BEFORE UPDATE OF \(columns) ON history
+        WHEN \(changed) BEGIN
             DELETE FROM history_search WHERE rowid=old.position;
         END;
-        CREATE TRIGGER history_search_update AFTER UPDATE OF text,raw ON history
-        WHEN old.text IS NOT new.text OR old.raw IS NOT new.raw BEGIN
-            INSERT INTO history_search(rowid,text,raw) VALUES(new.position,new.text,new.raw);
+        CREATE TRIGGER history_search_update AFTER UPDATE OF \(columns) ON history
+        WHEN \(changed) BEGIN
+            INSERT INTO history_search(rowid,\(columns)) VALUES(new.position,\(values));
         END;
         CREATE TRIGGER history_update AFTER UPDATE OF word_count ON history
         WHEN old.word_count != new.word_count BEGIN
             UPDATE history_stats SET words=words-old.word_count+new.word_count WHERE singleton=1;
         END;
         """
+    }
 
     private func upgradeVersionOne() throws {
         try transaction {
             try execute("DROP TRIGGER IF EXISTS history_insert; DROP TRIGGER IF EXISTS history_delete; DROP TRIGGER IF EXISTS history_update;")
-            try execute(Self.triggerSQL)
+            try execute(Self.triggerSQL(includeSource: false))
             // A v1 archive may already contain secure-deleted data with stale
             // FTS format metadata. One temporary probe, inserted and removed
             // through the normal API, upgrades that metadata without rebuilding
             // or repairing any existing index entry. No probe survives commit.
-            try seedSecureDeleteFormat()
+            try seedSecureDeleteFormat(includeSource: false)
             try verifyIntegrity()
             try execute("PRAGMA user_version=2")
         }
     }
 
-    private func seedSecureDeleteFormat() throws {
+    private func seedSecureDeleteFormat(includeSource: Bool = true) throws {
         // Actual tokens are needed: newer SQLite may avoid changing format for
         // an empty document that has no posting lists to delete.
         let text = "OSpr history format migration probe"
         let probe = Transcript(rawText: text, text: text, model: "storage-format-upgrade", mode: .verbatim, duration: 0, latencyMS: 0)
-        try put(probe)
+        try put(probe, includeSource: includeSource)
         try execute("DELETE FROM history WHERE id=?", [.text(probe.id.uuidString)])
+    }
+
+    /// Schema 5 fences old writers that cannot maintain filename metadata.
+    /// Decode one payload at a time, updating only derived columns. Existing
+    /// payload bytes, positions, statistics and audio references are untouched.
+    private func upgradeSourceSearch() throws {
+        try transaction {
+            // Refuse a damaged old index instead of concealing it by rebuilding.
+            try verifyIntegrity()
+            try execute("ALTER TABLE history ADD COLUMN source_name TEXT NOT NULL DEFAULT ''; ALTER TABLE history ADD COLUMN source_search TEXT NOT NULL DEFAULT '';")
+            var cursor: Int64?
+            while true {
+                var positions: [Int64] = []
+                try rows("SELECT position FROM history" + (cursor == nil ? "" : " WHERE position>?") + " ORDER BY position LIMIT 32", cursor.map { [.integer($0)] } ?? []) {
+                    positions.append(sqlite3_column_int64($0, 0))
+                }
+                guard !positions.isEmpty else { break }
+                for position in positions {
+                    try autoreleasepool {
+                        try rows("SELECT payload FROM history WHERE position=?", [.integer(position)]) { statement in
+                            let record = try decoder.decode(Transcript.self, from: blob(statement, 0))
+                            let name = record.sourceFilename ?? ""
+                            try execute("UPDATE history SET source_name=?,source_search=? WHERE position=?", [.text(name), .text(Self.searchFold(name)), .integer(position)])
+                        }
+                    }
+                    cursor = position
+                }
+            }
+            try execute("DROP TRIGGER history_insert; DROP TRIGGER history_delete; DROP TRIGGER history_update; DROP TRIGGER history_search_before_update; DROP TRIGGER history_search_update; DROP TABLE history_search;")
+            try execute("CREATE VIRTUAL TABLE history_search USING fts5(text,raw,source_search,content='history',content_rowid='position',tokenize='trigram'); INSERT INTO history_search(history_search,rank) VALUES('secure-delete',1); INSERT INTO history_search(rowid,text,raw,source_search) SELECT position,text,raw,source_search FROM history;")
+            try execute(Self.triggerSQL(includeSource: true))
+            // Ordinary insert/delete commits FTS format 5 on old SQLite, too.
+            // FTS's internal format is separate from our schema user_version.
+            try seedSecureDeleteFormat()
+            try verifyIntegrity()
+            try execute("PRAGMA user_version=5")
+        }
     }
 
     private func migrateLegacyIfNeeded() throws {
@@ -452,7 +497,7 @@ public final class HistoryDatabase {
     public func page(query: String = "", before: Int64? = nil, limit: Int = 100) throws -> HistoryPage {
         let limit = min(200, max(1, limit))
         let query = Self.searchFold(query)
-        let columns = "h.id,h.position,h.created,h.preview,h.mode,h.model,h.app,h.duration,h.latency,h.audio"
+        let columns = "h.id,h.position,h.created,h.preview,h.mode,h.model,h.app,h.duration,h.latency,h.audio,h.source_name"
         var parameters: [Value] = [], predicates: [String] = []
         if let before { predicates.append("h.position<?"); parameters.append(.integer(before)) }
         // Quote the entire literal, including operators, punctuation and quotes.
@@ -464,10 +509,10 @@ public final class HistoryDatabase {
         }
         let filter = predicates.isEmpty ? "" : " WHERE " + predicates.joined(separator: " AND ")
         let short = !query.isEmpty && !indexed
-        let sql = "SELECT " + columns + (short ? ",h.text,h.raw" : "") + " FROM history h" + filter + " ORDER BY h.position DESC" + (short ? "" : " LIMIT \(limit + 1)")
+        let sql = "SELECT " + columns + (short ? ",h.text,h.raw,h.source_search" : "") + " FROM history h" + filter + " ORDER BY h.position DESC" + (short ? "" : " LIMIT \(limit + 1)")
         var found: [HistoryRow] = []
         try rows(sql, parameters, stop: { found.count > limit }) { statement in
-            if short && !text(statement, 10).contains(query) && !text(statement, 11).contains(query) { return }
+            if short && !text(statement, 11).contains(query) && !text(statement, 12).contains(query) && !text(statement, 13).contains(query) { return }
             guard let id = UUID(uuidString: text(statement, 0)), let mode = WritingMode(rawValue: text(statement, 4)) else {
                 throw OSprError.message("History row is damaged. Existing files were preserved.")
             }
@@ -475,7 +520,8 @@ public final class HistoryDatabase {
                 date: Date(timeIntervalSinceReferenceDate: sqlite3_column_double(statement, 2)), preview: text(statement, 3),
                 mode: mode, model: text(statement, 5), app: text(statement, 6),
                 duration: sqlite3_column_double(statement, 7), latencyMS: sqlite3_column_double(statement, 8),
-                audioFile: sqlite3_column_type(statement, 9) == SQLITE_NULL ? nil : text(statement, 9)))
+                audioFile: sqlite3_column_type(statement, 9) == SQLITE_NULL ? nil : text(statement, 9),
+                sourceName: text(statement, 10).isEmpty ? nil : text(statement, 10)))
         }
         let more = found.count > limit
         if more { found.removeLast() }
@@ -577,7 +623,7 @@ public final class HistoryDatabase {
         // format to 4 during rebuild but can retain cached format 5, preventing
         // the subsequent normal delete from updating that on-disk metadata.
         try execute("DROP TABLE history_search")
-        try execute("CREATE VIRTUAL TABLE history_search USING fts5(text,raw,content='history',content_rowid='position',tokenize='trigram')")
+        try execute("CREATE VIRTUAL TABLE history_search USING fts5(text,raw,source_search,content='history',content_rowid='position',tokenize='trigram')")
         try execute("INSERT INTO history_search(history_search,rank) VALUES('secure-delete',1)")
         try execute("UPDATE history_stats SET records=0,words=0 WHERE singleton=1")
         try execute(trigger)
@@ -594,7 +640,7 @@ public final class HistoryDatabase {
         try execute("INSERT INTO history_search(history_search,rank) VALUES('integrity-check',1)")
     }
 
-    private func put(_ record: Transcript, position: Int64? = nil, allowUpdate: Bool = true) throws {
+    private func put(_ record: Transcript, position: Int64? = nil, allowUpdate: Bool = true, includeSource: Bool = true) throws {
         if let summary = record.summary {
             guard summary.validatesStoredSource(for: record) else { throw OSprError.message("Summary does not match its source transcript. History was preserved.") }
             // Earlier readers must refuse snapshots instead of dropping them.
@@ -602,15 +648,20 @@ public final class HistoryDatabase {
             if try integer("PRAGMA user_version") < requiredVersion { try execute("PRAGMA user_version=\(requiredVersion)") }
         }
         let payload = try encoder.encode(record)
-        let sql = """
-            INSERT INTO history(position,id,created,text,raw,preview,mode,model,app,duration,latency,audio,word_count,payload)
-            VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)
-            """ + (allowUpdate ? " ON CONFLICT(id) DO UPDATE SET created=excluded.created,text=excluded.text,raw=excluded.raw,preview=excluded.preview,mode=excluded.mode,model=excluded.model,app=excluded.app,duration=excluded.duration,latency=excluded.latency,audio=excluded.audio,word_count=excluded.word_count,payload=excluded.payload" : "")
-        try execute(sql, [position.map(Value.integer) ?? .null, .text(record.id.uuidString),
+        let sourceColumns = includeSource ? ",source_name,source_search" : ""
+        let sourceValues = includeSource ? ",?,?" : ""
+        let sourceUpdates = includeSource ? ",source_name=excluded.source_name,source_search=excluded.source_search" : ""
+        let sql = "INSERT INTO history(position,id,created,text,raw,preview,mode,model,app,duration,latency,audio,word_count,payload" + sourceColumns + ") VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?" + sourceValues + ")" + (allowUpdate ? " ON CONFLICT(id) DO UPDATE SET created=excluded.created,text=excluded.text,raw=excluded.raw,preview=excluded.preview,mode=excluded.mode,model=excluded.model,app=excluded.app,duration=excluded.duration,latency=excluded.latency,audio=excluded.audio,word_count=excluded.word_count,payload=excluded.payload" + sourceUpdates : "")
+        var values: [Value] = [position.map(Value.integer) ?? .null, .text(record.id.uuidString),
             .real(record.date.timeIntervalSinceReferenceDate), .text(Self.searchFold(record.text)), .text(Self.searchFold(record.rawText)),
             .text(String(String.UnicodeScalarView(record.text.unicodeScalars.prefix(480)))), .text(record.mode.rawValue), .text(record.model), .text(record.app),
             .real(record.duration), .real(record.latencyMS), record.audioFile.map(Value.text) ?? .null,
-            .integer(Int64(record.text.split(whereSeparator: \.isWhitespace).count)), .blob(payload)])
+            .integer(Int64(record.text.split(whereSeparator: \.isWhitespace).count)), .blob(payload)]
+        if includeSource {
+            let name = record.sourceFilename ?? ""
+            values += [.text(name), .text(Self.searchFold(name))]
+        }
+        try execute(sql, values)
     }
 
     private func transaction(_ work: () throws -> Void) throws {

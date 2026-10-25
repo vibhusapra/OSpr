@@ -21,8 +21,9 @@ still unverified; real NSItemProvider and AppModel tests cover this path.
 The selected History detail shows the source filename. Individual export defaults
 use a safe source stem plus the full transcript UUID. Duplicate source basenames
 remain distinct; controls, path separators and excessively long stems cannot
-become unsafe filenames. Persistent History list/search metadata is unchanged:
-source names are not yet searchable and the list still previews transcript text.
+become unsafe filenames. Later source adds filename labels and literal source
+search to paged History; see [source-search storage and acceptance](history-source-search.md).
+The native evidence below predates that schema-5 change.
 
 History provides Export all history / Export all search matches in TXT, JSON,
 SRT and VTT. This includes unloaded pages, not merely visible rows. The literal
@@ -96,8 +97,9 @@ Light/dark/compact offscreen actual-component renders add layout coverage withou
 implying further native events. Both private QA apps and owned workers stopped;
 normal local-only OSpr visibly remains at eight sessions/265 words with all five
 baseline hashes unchanged. Native drag/drop, active Cancel, VoiceOver, durable
-batch resume, persistent source-name list/search and new release packaging remain
-open. No new distributable archive is claimed.
+batch resume and new release packaging remained open at that checkpoint. Source
+list/search is implemented in the later change linked above; native interaction
+acceptance for that change remains open. No new distributable archive is claimed.
 
 Nine complete native directories and the individual TXT are retained.
 The tests cover 234 session-only exports across pages, latest edits and deletion,
