@@ -273,6 +273,32 @@ def test_repair_identifies_an_unsupported_section_without_echoing_generated_text
     assert summarize("Publish only if approved.", complete)["validation_retries"] == 1
 
 
+@pytest.mark.parametrize("ids,issue", [
+    ([], "missing-source-citations"),
+    ([0, 0], "duplicate-source-citations"),
+    ([True], "non-integer-source-citations"),
+    ([99], "unavailable-source-citations"),
+])
+def test_repair_identifies_invalid_citations_without_weakening_atomic_validation(ids, issue):
+    calls = []
+
+    def complete(prompt, _):
+        calls.append(json.loads(prompt))
+        if len(calls) == 1:
+            return json.dumps(dict(items=[item("None.", ids, "decisions")]))
+        previous = calls[-1]["previous_attempt"]
+        assert previous["validation_checks"][0]["item_index"] == 0
+        assert previous["validation_checks"][0]["issue"] == issue
+        assert "None." not in previous["validation_error"]
+        return json.dumps(dict(items=[item("Publication awaits approval.", [0], "overview")]))
+
+    result = summarize("Publication awaits approval.", complete)
+    assert len(calls) == 2 and result["validation_retries"] == 1
+    assert result["items"] == [item("Publication awaits approval.", [0], "overview")]
+    with pytest.raises(ValueError):
+        summarize("Publication awaits approval.", lambda *_: json.dumps(dict(items=[item("None.", ids)])))
+
+
 def test_repair_metadata_is_bounded_even_with_many_source_failures():
     calls = []
     bad_text = " ".join(str(i) for i in range(100000, 100120))

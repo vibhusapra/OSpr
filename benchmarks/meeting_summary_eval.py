@@ -18,7 +18,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--model", required=True, choices=["qwen3-4b", "qwen3.5-9b", "qwen3.6-35b-a3b"])
     parser.add_argument("--output", required=True, type=Path)
-    parser.add_argument("--algorithm", choices=["current", "v1", "pre-fidelity", "pre-status"], default="current")
+    parser.add_argument("--algorithm", choices=["current", "v1", "pre-fidelity", "pre-status", "status-candidate"], default="current")
     parser.add_argument("--protocol", type=Path, default=ROOT / "benchmarks/fixtures/meeting-summary-protocol.json")
     parser.add_argument("--case", action="append", dest="case_ids", default=[])
     parser.add_argument("--decoding", choices=["unconstrained", "xgrammar"], default="unconstrained")
@@ -30,12 +30,13 @@ def main():
         parser.error("Choose a new receipt path; existing model outputs are preserved.")
     implementation = ROOT / "backend/ospr_backend/summary.py"
     summarize_function = summarize
-    if args.algorithm in {"v1", "pre-fidelity", "pre-status"}:
+    if args.algorithm in {"v1", "pre-fidelity", "pre-status", "status-candidate"}:
         import importlib.util
 
         implementation = ROOT / "benchmarks/fixtures" / (
             {"v1": "meeting_summary_v1.py", "pre-fidelity": "meeting_summary_pre_fidelity.py",
-             "pre-status": "meeting_summary_pre_status.py"}[args.algorithm]
+             "pre-status": "meeting_summary_pre_status.py",
+             "status-candidate": "meeting_summary_status_candidate.py"}[args.algorithm]
         )
         module_spec = importlib.util.spec_from_file_location(
             "ospr_backend._meeting_summary_v1", implementation
