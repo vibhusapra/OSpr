@@ -74,6 +74,8 @@ def serve(package, root):
     print(json.dumps(dict(status="serving-owned-loopback", port=server.server_port)), flush=True)
     try:
         server.serve_forever()
+    except KeyboardInterrupt:
+        pass
     finally:
         server.server_close()
 
