@@ -37,7 +37,7 @@ final class NativeProviderResumeTemporary: XCTestCase {
                 .write(to: root.appendingPathComponent("prepare-result.json"))
             return
         }
-        guard ["verify-declined", "verify-completed"].contains(stage) else { throw OSprError.message("Unknown provider fixture stage") }
+        guard ["verify-declined", "verify-completed", "exercise-headless"].contains(stage) else { throw OSprError.message("Unknown provider fixture stage") }
         let prepared = try XCTUnwrap(JSONSerialization.jsonObject(with: Data(contentsOf: root.appendingPathComponent("prepare-result.json"))) as? [String: Any])
         let id = try XCTUnwrap(UUID(uuidString: try XCTUnwrap(prepared["planned_id"] as? String)))
         var app: AppModel? = AppModel(instanceLock: try AppInstanceLock(directory: profile), directory: profile, enableServices: false)
@@ -46,6 +46,22 @@ final class NativeProviderResumeTemporary: XCTestCase {
         XCTAssertEqual(app!.settings.model, "whisper-small"); XCTAssertEqual(app!.settings.language, "fr")
         XCTAssertEqual(app!.importBatch?.items.first?.resultID, id)
         XCTAssertTrue(app!.importRecovered)
+        let routeDescription = app!.importProviderDescription
+        if stage == "exercise-headless" {
+            func requestCount() throws -> Int {
+                try XCTUnwrap(JSONSerialization.jsonObject(with: Data(contentsOf: root.appendingPathComponent("requests.json"))) as? [[String: Any]]).count
+            }
+            XCTAssertEqual(try requestCount(), 0)
+            app!.retryImports()
+            XCTAssertTrue(app!.confirmImportResume); XCTAssertFalse(app!.busy)
+            XCTAssertEqual(try requestCount(), 0)
+            app!.confirmImportResume = false // Model-only equivalent of declining; no UI claim.
+            XCTAssertEqual(app!.importBatch?.retryCount, 1); XCTAssertEqual(try requestCount(), 0)
+            app!.retryImports(); XCTAssertTrue(app!.confirmImportResume)
+            app!.retryImports(confirmedRecovery: true)
+            try await settle { app?.busy == false }
+            XCTAssertFalse(app!.confirmImportResume); XCTAssertEqual(try requestCount(), 1)
+        }
         if stage == "verify-declined" {
             XCTAssertEqual(app!.historyState.statistics.records, 0)
             XCTAssertEqual(app!.importBatch?.retryCount, 1)
@@ -62,7 +78,8 @@ final class NativeProviderResumeTemporary: XCTestCase {
         weak var released = app; app = nil; try await settle { released == nil }
         let result: [String: Any] = ["status": "passed-" + stage, "planned_id": id.uuidString,
             "current_global_local_settings_preserved": true, "native_interaction_proven": false,
-            "records": stage == "verify-declined" ? 0 : 1]
+            "records": stage == "verify-declined" ? 0 : 1, "provider_description": routeDescription,
+            "headless_confirmation_guard_exercised": stage == "exercise-headless"]
         try JSONSerialization.data(withJSONObject: result, options: [.prettyPrinted, .sortedKeys]).write(to: root.appendingPathComponent(stage + "-result.json"))
     }
 }

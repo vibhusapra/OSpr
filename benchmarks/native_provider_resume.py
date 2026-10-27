@@ -109,7 +109,7 @@ def probe(package, root, app, stage):
     if result.returncode:
         raise RuntimeError("Provider fixture stage failed; original log/profile retained")
     requests = json.loads((root / "requests.json").read_text())
-    expected = 1 if stage == "verify-completed" else 0
+    expected = 1 if stage in {"verify-completed", "exercise-headless"} else 0
     if len(requests) != expected or any(row["status"] != "accepted-original-saved-route-and-public-bytes" for row in requests):
         raise ValueError("Unexpected provider request count or route")
     print(json.dumps(dict(status="passed-" + stage, requests=len(requests), native_interaction_proven=False)))
@@ -117,7 +117,7 @@ def probe(package, root, app, stage):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--stage", required=True, choices=("serve", "prepare", "verify-declined", "verify-completed"))
+    parser.add_argument("--stage", required=True, choices=("serve", "prepare", "verify-declined", "verify-completed", "exercise-headless"))
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--app", type=Path)
     args = parser.parse_args()
