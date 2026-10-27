@@ -2,6 +2,39 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## Native batch recovery and source-filename workflow, 2026-10-27
+
+Owned public-audio profiles now pass actual native saved-batch Resume, Open,
+completed restart, Dismiss/restart, active Cancel, source-filename History search
+and filtered JSON export. Two original completed records retain their complete
+canonical payload hashes while the repaired file uses its planned ID. Changed
+current Whisper Small/French preferences do not replace the saved Parakeet/English
+batch. Filtered export contains exactly its filename match with source/model/raw
+text preserved, no audio, 0600 files and a 0700 folder. Cancelled long-file work
+publishes no new result; both jobs remain retryable and all earlier data is intact.
+
+The native pass found two misleading headers: completed saved work still asked
+to resume, and Dismiss left that status behind. Both fail lifecycle assertions
+before correction. All **12 focused import / 507 optimized Swift** tests and Ruff
+pass afterward. Clean fa2c63c native UI repeats Resume, completed restart and
+Dismiss with correct messages. Settings visibly describes current-take audio
+revocation. No model/provider/retention policy or inference deadline changed.
+
+Native observations and headless stored-state verification are separate: the
+preparer cannot claim UI acceptance. Three identity-negative controls reject
+before running a probe/profile. Existing native receipts stay immutable. Normal
+app restored with eight sessions; all six baseline app/profile/owned-target hashes
+match. No microphone, playback, insertion, physical shortcut, new permission or
+real provider account was used. The updated native QA overlay is separate from
+the preserved qualified c906 standalone ZIP, which retains its original bytes.
+Drag/drop/provider-dialog/VoiceOver, physical/device/acoustic/current-insertion,
+consumer/semantic/correction-effort/energy/latency and clean-Mac/notarization/
+updater acceptance remain open. [Native protocol](architecture/native-batch-acceptance.md) ·
+[Original native proof](../benchmarks/results/native-batch-acceptance-baseline.json) ·
+[Corrected native proof](../benchmarks/results/native-batch-acceptance-updated.json) ·
+[Source/red controls](../benchmarks/results/native-batch-acceptance-source.json) ·
+[PR45](https://github.com/vibhusapra/OSpr/pull/45).
+
 ## Standalone reliability preview, 2026-10-27
 
 The new separate Apple Development signed app/ZIP integrates History source-name

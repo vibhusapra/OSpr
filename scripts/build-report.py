@@ -1054,3 +1054,36 @@ if reliability_path.is_file():
     assert anchor in report
     report = report.replace(anchor, panel + '<details id="live-audio-privacy">', 1)
     (ROOT / "docs/research.html").write_text(report)
+
+
+native_batch_path = ROOT / "benchmarks/results/native-batch-acceptance-updated.json"
+if native_batch_path.is_file():
+    updated = json.loads(native_batch_path.read_text())
+    baseline = json.loads((native_batch_path.parent / "native-batch-acceptance-baseline.json").read_text())
+    preflight = json.loads((native_batch_path.parent / "native-batch-acceptance-preflight.json").read_text())
+    assert updated["status"] == "passed-corrected-native-batch-status"
+    assert baseline["native_observations"]["native_completed_after_resume"] == 3
+    assert baseline["native_observations"]["native_cancelled_jobs"] == 2
+    assert baseline["filtered_json_export"]["record_count"] == 1
+    assert baseline["native_observations"]["normal_baseline_all_unchanged"] and updated["normal_baseline_all_unchanged"]
+    assert len(preflight["records"]) == 3 and all(row["status"] == "rejected-before-probe-or-profile" for row in preflight["records"])
+    original_payloads = baseline["stored_controls"]["prepare"]["completed_payload_sha256"]
+    resumed_payloads = baseline["stored_controls"]["verify-resumed"]["completed_payload_sha256"]
+    assert all(resumed_payloads[key] == value for key, value in original_payloads.items())
+    panel = f'''<details open id="native-batch-acceptance"><summary>Native acceptance: Resume, source search, filtered export and active Cancel.</summary>
+<p>Two isolated signed apps now exercise the actual native file workflow on owned public audio. The first uses the frozen c906 reliability-preview app; clean source <code>{esc(updated["app_build"]["git_commit"][:7])}</code> corrects two status defects and repeats its native Resume/restart/Dismiss checks. The normal app is restored; all six baseline app/profile/owned-target hashes remain unchanged.</p>
+<div class="scroll"><table><thead><tr><th>Native action</th><th>Observed result</th><th>Independent check</th></tr></thead><tbody>
+<tr><td>Saved batch / explicit Resume</td><td>2/3 ready at launch, no automatic completion. One repaired file reaches 3/3 after Resume, using original Parakeet settings despite current Whisper Small/French preferences.</td><td>All planned IDs and prior canonical payload hashes preserved; raw text matches the original; no retained audio.</td></tr>
+<tr><td>Open / filename search / export</td><td>Open selects the repaired record. Searching <code>repair.wav</code> yields one source-named row; native filtered JSON exports exactly that match.</td><td>Correct result ID/source/model/raw text; mode-0600 files in a mode-0700 folder, no exported audio.</td></tr>
+<tr><td>Completed restart / Dismiss</td><td>Completed 3/3 survives native restart without a Resume button. Dismiss removes the card and remains dismissed on restart.</td><td>Three saved records, complete payload hashes unchanged and no recovery journal after Dismiss.</td></tr>
+<tr><td>Active Cancel</td><td>One long file visibly Processing, another Queued; Cancel makes both retryable with no result published.</td><td>Fresh process sees both cancelled, the same prior three records, no new audio and unchanged source copies.</td></tr>
+<tr><td>Status defects / corrected UI</td><td>Old completed/Dismiss headers still asked to resume. Corrected app shows “Saved import batch · 3/3 transcripts,” then “Import batch dismissed.” Settings explains current-take retention revocation.</td><td>Two expected lifecycle failures become twelve passing import cases; full optimized 507 Swift and Ruff pass. Corrected native headers/caption visibly checked.</td></tr>
+</tbody></table></div>
+<p>The preparer/verifier cannot press buttons and explicitly marks its results as stored-state evidence. Actual native observations are recorded separately. Three source/app/compiled-probe identity mismatches are refused before execution; prior native receipts remain immutable.</p>
+<p>The short clip is reused, and the cancelled hour files repeat public speech. No microphone, playback, insertion, physical shortcut, new permission or real provider account was used. Drag/drop/provider-confirmation/VoiceOver, moved-file/device/volume failures, representative semantic/acoustic/consumer/energy/latency and clean-Mac/older-OS/notarization/updater acceptance remain open. The updated native overlay is separate from the preserved qualified distribution ZIP; no full-parity or top-three claim.</p>
+<p class="small muted"><a href="architecture/native-batch-acceptance.md">Native protocol and scope</a> · <a href="../benchmarks/results/native-batch-acceptance-baseline.json">Original native/storage evidence</a> · <a href="../benchmarks/results/native-batch-acceptance-updated.json">Corrected native/storage evidence</a> · <a href="../benchmarks/results/native-batch-acceptance-preflight.json">Identity-negative controls</a> · <a href="../benchmarks/results/native-batch-acceptance-source.json">Source/red controls</a> · <a href="assets/native-batch-saved.png">Saved batch</a> · <a href="assets/native-batch-resumed.png">Resumed</a> · <a href="assets/native-filename-search.png">Filename search</a> · <a href="assets/native-batch-cancelled.png">Cancelled jobs</a> · <a href="assets/native-completed-status.png">Corrected completed header</a> · <a href="assets/native-dismissed-status.png">Corrected Dismiss header</a> · <a href="https://github.com/vibhusapra/OSpr/pull/45">PR45</a>.</p></details>'''
+    report = (ROOT / "docs/research.html").read_text()
+    anchor = '<details open id="reliability-preview">'
+    assert anchor in report
+    report = report.replace(anchor, panel + '<details id="reliability-preview">', 1)
+    (ROOT / "docs/research.html").write_text(report)

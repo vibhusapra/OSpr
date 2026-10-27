@@ -43,6 +43,13 @@ clean-Mac/older-OS/updater/Developer-ID acceptance remain open. Functional fixtu
 do not establish full parity or top-three performance. Earlier candidates and
 source-scoped native results remain preserved in [progress](docs/PROGRESS.md).
 
+The later [native batch acceptance and status fix](docs/architecture/native-batch-acceptance.md)
+([PR #45](https://github.com/vibhusapra/OSpr/pull/45)) verifies native Resume/Open,
+filename search/filtered export, completed restart, Dismiss and active Cancel on
+owned public files, then corrects completed/Dismiss header cues. The normal app/data
+remain unchanged. This source update is newer than the preserved standalone ZIP;
+physical dictation/insertion and broader release acceptance remain open.
+
 ## Run on your Mac
 
 Requirements: Apple Silicon, macOS 14+, Xcode 16+ / Swift 6, [uv](https://docs.astral.sh/uv/),
@@ -54,7 +61,7 @@ standalone app bundles Python and locked inference libraries. Model
 weights download on first load; disk use depends on the selected models.
 
 ```sh
-git clone --branch codex/reliability-preview https://github.com/vibhusapra/OSpr.git
+git clone --branch codex/native-batch-acceptance https://github.com/vibhusapra/OSpr.git
 cd OSpr
 scripts/setup.sh
 scripts/build-app.sh

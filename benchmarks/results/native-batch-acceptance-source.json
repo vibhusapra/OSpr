@@ -1,0 +1,22 @@
+{
+  "status": "passed-native-batch-source-validation",
+  "application_source_sha256": "4b8c67faf0bf2724a598cbd3b4faa775907294b512c47e09aaa03e14c6226e54",
+  "source_commit": "fa2c63ca1cb66e71867121a8e157cbab90798607",
+  "source_manifest_version": 2,
+  "expected_red": {
+    "tests": 12,
+    "failures": 2
+  },
+  "passing": {
+    "focused_import_tests": 12,
+    "optimized_swift_tests": 507,
+    "ruff": true
+  },
+  "logs": {
+    "status-red.log": "2d08f3ce7e8ee75b6227e2ff1a4ea7a42e5a83825ffaef250f775c1b65cd9337",
+    "status-green.log": "fe6feee186ce3954883ab49a3e3f0ccbb052598d709381216da7890174a2e1b5",
+    "full-release.log": "a359c6b1359cd2b8068f8e3232f35812d9b21ce73ab3c52bb883ae85c4bd52fc",
+    "final-ruff.log": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+  },
+  "boundary": "Two lifecycle regressions reproduced before production status fix; existing 12 workflow cases pass after correction. Full optimized source suite passes. Native app observations and stored verification are separate immutable receipts. Backend unchanged; current CI backend test result is recorded separately when available."
+}
