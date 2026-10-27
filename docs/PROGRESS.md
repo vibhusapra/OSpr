@@ -2,6 +2,39 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## Standalone reliability preview, 2026-10-27
+
+The new separate Apple Development signed app/ZIP integrates History source-name
+search, durable batch resume, native worker cleanup and live audio privacy.
+Clean build `c906a35` has application fingerprint `1b05e8a9`; all eighteen exact-
+bundle functional gates and two real malformed-media recovery controls pass.
+Fresh optimized **507 Swift / 380 Python** and Ruff pass. Source CI
+[40552824640](https://github.com/vibhusapra/OSpr/actions/runs/40552824640) also passes,
+including clean-runner standalone runtime and the frozen 450-link help snapshot.
+
+Archive CRC, extraction, signatures, extracted CLI, source/backend/lock/license/
+binary and receipt bindings pass. A fresh private-copy AppModel upgrade preserves
+eight legacy records, canonical fields/order/search, edited text after quit/restart
+and two audio files. Originals, normal app/profile, owned target and both older
+ZIPs remain unchanged. Python 3.12.15 and selected actual libraries are recorded;
+selected versions match the lock, with MLX default `Device(gpu, 0)`.
+
+Three failed setup controls are retained: Python 3.13 copied into a launcher pinned
+to 3.12, and missing ignored public fixtures before portable/long-file inference.
+The builder now repairs its interpreter before staging. Both fixture misses were
+resolved only with SHA-verified existing public files; successful receipts were
+preserved while remaining gates resumed. No thresholds or model policies changed.
+
+The latest isolated native candidate sees existing microphone/insertion access.
+TextEdit reopened its owned target, but a captured destination was not verifiable
+through native control. The test was cancelled without Send; normal app visibly
+restored with eight sessions, and all six baseline files still match. This does
+not establish delivery/clipboard or microphone acceptance. Physical shortcuts,
+devices/acoustics, native controls/VoiceOver, broader consumer/semantic/correction-
+effort/energy/latency and clean-Mac/older-OS/notarization/updater remain open.
+No full-parity or top-three claim. [Package manifest](../benchmarks/results/reliability-preview-package.json) ·
+[Protocol and scope](architecture/reliability-preview.md) · [PR44](https://github.com/vibhusapra/OSpr/pull/44).
+
 ## Live audio privacy and active review files, 2026-10-25
 
 Keep audio/History revocation now applies at preparation and History publication,
@@ -36,8 +69,8 @@ public clip is not a quality, physical dictation, timing, energy or ranking clai
 The clean ad-hoc signed checkout app and actual packaged CLI audio-review,
 normalization/ASR equality, budget-rejection residency, reprocessing, archive/
 history restart and audio-only deletion checks pass. Existing normal app/data and
-standalone archives are unchanged; this source is not yet in a new standalone
-preview. Native settings/shortcut/insertion, clean-Mac/older-OS and notarization
+standalone archives are unchanged at this checkpoint; the later October 27
+qualification above integrates this source in a new separate preview. Native settings/shortcut/insertion, clean-Mac/older-OS and notarization
 acceptance remain open. [Manifest/all attempts](../benchmarks/results/live-audio-privacy.json) ·
 [Contract/reproduction](architecture/live-audio-privacy.md).
 

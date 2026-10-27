@@ -9,35 +9,39 @@ or a top-three product ranking. See [progress](docs/PROGRESS.md), the
 [acceptance ledger](docs/data/parity.json), and the self-contained
 [research and benchmark report](docs/research.html).
 
-The current standalone workflow preview is on `codex/workflow-preview`
-([draft PR #38](https://github.com/vibhusapra/OSpr/pull/38), stacked on #37).
-Clean application source `f74bb75` includes per-file import outcomes/retry,
-readable malformed-media recovery and complete history/search exports, alongside
-local text preparation, summaries, browser insertion fixes and profile controls.
-[Package scope and reproduction](docs/architecture/workflow-preview.md).
+The current standalone reliability preview is on `codex/reliability-preview`
+([draft PR #44](https://github.com/vibhusapra/OSpr/pull/44), stacked on #43).
+Clean application source `c906a35` integrates source-name History search, durable
+batch resume, native worker parent-death cleanup and live audio-retention
+revocation, alongside the earlier import/export, local text and BYOK features.
+[Package scope and reproduction](docs/architecture/reliability-preview.md).
 
-Local app: `dist/workflow preview/OSpr.app`. Its
-`dist/workflow preview/OSpr-v0.1.0-macOS26.6.2-arm64.zip` is 402,410,428 bytes,
-SHA256 `3de66ad6e6f86326032d39fb3f3224ab9b05e772f802817b502a678ccce5a1fd`.
+Local app: `dist/reliability preview/OSpr.app`. Its
+`dist/reliability preview/OSpr-v0.1.0-macOS26.6.2-arm64.zip` is 413,714,448 bytes,
+SHA256 `01ba4934e7d08f843951797013fc266e20328a03207c9b226331bdbee59a9555`.
 Apple Development signed, macOS26.6.2 arm64, weights separate; **not notarized**.
 The archive is generated locally and is not a public GitHub release download.
 
-453 optimized Swift tests, 372 Python tests and 18 exact-bundle functional gates
-pass, including offline relocated six-engine inference, local text CLI/MCP,
+507 optimized Swift tests, 380 Python tests, Ruff and 18 exact-bundle functional
+gates pass, including offline relocated six-engine inference, local text CLI/MCP,
 default/neural synthetic-hour regressions and three 80-minute loopback transports.
-Two additional real bundled controls retain the worker PID, warm Whisper/Parakeet
-and exact public speech after malformed media. ZIP CRC/extraction/signatures,
-source/executable identity and unchanged normal-app/data checks pass. A private
-copy of eight existing records and two audio files survives current AppModel
-migration/search/edit/quit/restart. [Exact manifest](benchmarks/results/workflow-preview-package.json).
+Two additional bundled controls retain worker PID, warm Whisper/Parakeet and exact
+public speech after malformed media. ZIP CRC/extraction/signatures, extracted CLI,
+source/backend/lock/license/binary bindings and original app/data checks pass.
+A fresh private copy preserves eight existing records and two audio files through
+current AppModel migration/search/edit/quit/restart.
+[Exact manifest](benchmarks/results/reliability-preview-package.json),
+[runtime](benchmarks/results/reliability-preview-runtime.json),
+[all failed setup controls](benchmarks/results/reliability-preview-attempts.json).
 
-Native file-import/export and profile checks retain their explicit source scopes;
-current target-app insertion, physical shortcuts/devices/acoustics, VoiceOver,
-representative semantic quality, clean-Mac/older-OS/updater/Developer-ID and
-isolated energy/latency/consumer-ranking acceptance remain open. Synthetic and
-loopback gates do not establish full parity or top-three performance. Earlier
-candidates are preserved; [progress](docs/PROGRESS.md) and the
-[combined v0 review](docs/architecture/v0-review.md) retain their source scopes.
+TextEdit's owned target reopened, but the native control surface did not expose a
+verifiable captured destination. The test was cancelled without Send; normal app
+restored and all six baseline app/profile/target files remained unchanged.
+Current delivery/clipboard, physical shortcuts/devices/acoustics, VoiceOver,
+representative semantic/correction-effort/energy/latency and consumer comparisons,
+clean-Mac/older-OS/updater/Developer-ID acceptance remain open. Functional fixtures
+do not establish full parity or top-three performance. Earlier candidates and
+source-scoped native results remain preserved in [progress](docs/PROGRESS.md).
 
 ## Run on your Mac
 
@@ -50,7 +54,7 @@ standalone app bundles Python and locked inference libraries. Model
 weights download on first load; disk use depends on the selected models.
 
 ```sh
-git clone --branch codex/v0-review-package https://github.com/vibhusapra/OSpr.git
+git clone --branch codex/reliability-preview https://github.com/vibhusapra/OSpr.git
 cd OSpr
 scripts/setup.sh
 scripts/build-app.sh
