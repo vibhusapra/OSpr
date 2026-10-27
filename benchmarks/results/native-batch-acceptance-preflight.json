@@ -1,0 +1,25 @@
+{
+  "status": "passed-provenance-preflight-negative-controls",
+  "records": [
+    {
+      "control": "app",
+      "status": "rejected-before-probe-or-profile",
+      "reason": "Native app executable changed",
+      "log_sha256": "f10cc9e7c8ed98854a529ac98e53b842c18aba5058230c6103545d26d8e55eb4"
+    },
+    {
+      "control": "source",
+      "status": "rejected-before-probe-or-profile",
+      "reason": "Swift probe source changed",
+      "log_sha256": "f6d7f7d2ae288e973f971eec7e1d55b8c9bf5ad3630192e9b35322562f2820ed"
+    },
+    {
+      "control": "compiled",
+      "status": "rejected-before-probe-or-profile",
+      "reason": "Compiled test probe changed",
+      "log_sha256": "d0379305838ec0e5b7d80b4670897b340613f00357a84737fdd9e15f394e7689"
+    }
+  ],
+  "runner_sha256": "fc8321ca5204394af005ca7becfdd45b9a7f5e8fe2ad460bedaab9cf48ffda0c",
+  "boundary": "Deliberately tampered private protocol copies with the real signed app. No native app launch, model, inference, source input/profile mutation, or replacement of prior native receipts."
+}

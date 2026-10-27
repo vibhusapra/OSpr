@@ -60,6 +60,10 @@ def main():
         protocol = json.loads((output / "protocol-private.json").read_text())
         if protocol["app_build"] != build or protocol["runner_sha256"] != digest(Path(__file__)):
             raise ValueError("App or runner changed after fixture preparation")
+        if protocol["app_executable_sha256"] != digest(app / "Contents/MacOS/OSpr"):
+            raise ValueError("Native app executable changed after fixture preparation")
+        if protocol["probe_binding"]["probe_sha256"] != digest(package / "benchmarks/native_batch_acceptance.swift"):
+            raise ValueError("Swift probe source changed after fixture preparation")
         if (output / f"{args.stage}-result.json").exists():
             raise ValueError("Verification receipt already exists; never silently replace an attempt")
     executable = package / ".build/debug/OSprPackageTests.xctest/Contents/MacOS/OSprPackageTests"
