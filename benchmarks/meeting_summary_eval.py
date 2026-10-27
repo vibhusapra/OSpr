@@ -18,7 +18,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--model", required=True, choices=["qwen3-4b", "qwen3.5-9b", "qwen3.6-35b-a3b"])
     parser.add_argument("--output", required=True, type=Path)
-    parser.add_argument("--algorithm", choices=["current", "v1", "pre-fidelity"], default="current")
+    parser.add_argument("--algorithm", choices=["current", "v1", "pre-fidelity", "pre-status", "status-candidate"], default="current")
     parser.add_argument("--protocol", type=Path, default=ROOT / "benchmarks/fixtures/meeting-summary-protocol.json")
     parser.add_argument("--case", action="append", dest="case_ids", default=[])
     parser.add_argument("--decoding", choices=["unconstrained", "xgrammar"], default="unconstrained")
@@ -30,11 +30,13 @@ def main():
         parser.error("Choose a new receipt path; existing model outputs are preserved.")
     implementation = ROOT / "backend/ospr_backend/summary.py"
     summarize_function = summarize
-    if args.algorithm in {"v1", "pre-fidelity"}:
+    if args.algorithm in {"v1", "pre-fidelity", "pre-status", "status-candidate"}:
         import importlib.util
 
         implementation = ROOT / "benchmarks/fixtures" / (
-            "meeting_summary_v1.py" if args.algorithm == "v1" else "meeting_summary_pre_fidelity.py"
+            {"v1": "meeting_summary_v1.py", "pre-fidelity": "meeting_summary_pre_fidelity.py",
+             "pre-status": "meeting_summary_pre_status.py",
+             "status-candidate": "meeting_summary_status_candidate.py"}[args.algorithm]
         )
         module_spec = importlib.util.spec_from_file_location(
             "ospr_backend._meeting_summary_v1", implementation
@@ -167,6 +169,7 @@ def main():
             model_load_ms=loaded_ms,
             grammar_init_ms=grammar_init_ms,
             package_versions=versions,
+            mlx_default_device=str(mx.default_device()),
             protocol_sha256=hashlib.sha256(protocol_path.read_bytes()).hexdigest(),
             implementation_sha256={str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest()
                                    for path in [implementation, Path(__file__).resolve(),

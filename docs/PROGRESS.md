@@ -2,6 +2,32 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## Full-meeting summary quality study, 2026-10-27
+
+The new frozen cohort adds two complete public AMI scenario meetings, about
+75 minutes, to eighteen existing status/negation controls. All 15,187 annotated
+word tokens including punctuation appear exactly once; human reference summaries
+remain outside model input. Six complete serial model/variant runs retain all
+120 cases / 251 generation calls and failures. Cached-tokenizer replay reproduces
+every prompt hash/token count and frozen processing reproduces every result.
+
+The status prompt is **not promoted**. 9B rises from 17/20 to 20/20 structurally
+admitted but drops the Saturday prohibition, misses another negative qualifier
+and produces contradictory/incomplete full-meeting notes. 4B falls from 17/20 to
+15/20 and adds refusals/omissions. Baseline and citation-feedback results/status
+are identical in all forty pairs; clearer feedback is not a measured quality or
+availability win. Rejected work stops early, so faster totals prove no speed gain.
+
+Production supplies specific citation failure checks to the existing one-repair
+prompt, preserving validators, models, budgets, EOS, storage and content-free
+errors. Four cases fail before correction; 43 focused and all **397 Python** tests
+plus Ruff pass. Actual Swift CLI passes eight contracts and three offline 9B
+integrations with unchanged inputs. No native app or microphone was used. Semantic
+quality, broader consumer/energy/latency and native/release acceptance remain open.
+[Protocol and findings](architecture/summary-status-fidelity.md) ·
+[All-case review](../benchmarks/results/summary-status-review.json) ·
+[Frozen runs](../benchmarks/fixtures/summary-status-study.json).
+
 ## Exact saved-provider identity, 2026-10-27
 
 Recovered import descriptions now show full validated endpoints (including port

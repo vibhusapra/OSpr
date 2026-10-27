@@ -1,0 +1,370 @@
+{
+  "reviewer": "Codex agent; authored development review, not blind, independent, human or fluent-language acceptance.",
+  "scope": "All20 cases in baseline/status variants; diagnostics have identical admitted results and refusal status in all40 paired cases. Exact raw calls and failures remain separate.",
+  "diagnostics_admitted_results_and_refusal_status_identical_to_baseline": true,
+  "promotion": "Status prompt NOT promoted; production changes limited to bounded citation-repair feedback.",
+  "review_rules": {
+    "protocol_sha256": "2bc86086c1c7c4cfe11d5499294d938b0b297afd61500fad1ca8850a49467f58",
+    "frozen_before_candidate_inference": true,
+    "baseline_source_commit": "71d1c93f340218441fd66b8f9b61a81bbe2482c3",
+    "shared_review_rules": [
+      "Review admission separately from semantics. Refusal is not a faithful summary.",
+      "For each supplied reference expectation mark supported, omitted, contradicted, or unavailable; retain every failure.",
+      "Check every action for explicit acceptance/condition; suggestions or rejected/revoked ownership must not be firm tasks.",
+      "Check decisions for current vs proposed/revoked/pending status, scoped to the right project and source time.",
+      "References are review metadata and may omit true transcript details. Verify disputed statements in full transcript.",
+      "No single aggregate semantic quality percentage without item-level review."
+    ],
+    "natural_review_targets": {
+      "full-ami-ES2004c": [
+        "LCD screen; rubber buttons and interchangeable fruit-color covers; kinetic battery are final choices.",
+        "Speech recognition remains conditional on affordability.",
+        "Do not turn prototype preparation into unsupported new owners/deadlines."
+      ],
+      "full-ami-ES2004d": [
+        "Speech recognition initially in prototype, then removed for budget; management suggestion to retain it is a proposal, not final inclusion.",
+        "Group will suggest retaining speech recognition and fill evaluation questionnaire.",
+        "Neutral plastic/fruit-color rubber, monochrome LCD, logo inside are reference choices.",
+        "Device met enough initial goals to continue; early missing cost information was a problem."
+      ]
+    },
+    "boundary": "Authored development review rubric, not independent or sealed evaluation; AMI scenario meetings from one design team."
+  },
+  "observations": {
+    "baseline-9b": [
+      {
+        "id": "pending-approval",
+        "observation": "Stated expectations retained."
+      },
+      {
+        "id": "explicit-rejection",
+        "observation": "$18 evaluation status placed in questions; no new question wording."
+      },
+      {
+        "id": "conditional-owner",
+        "observation": "Unavailable: invalid section after repair."
+      },
+      {
+        "id": "declined-owner",
+        "observation": "Tentative/unaccepted Mira assistance placed in actions; no owner/deadline facts invented in text."
+      },
+      {
+        "id": "prohibition-no-new-date",
+        "observation": "Saturday prohibition retained; undecided date is placed among decisions."
+      },
+      {
+        "id": "revoked-versus-pending",
+        "observation": "Distinct pilot revocation and never-approved larger rollout retained, with pending status placed among decisions."
+      },
+      {
+        "id": "speaker-dissent",
+        "observation": "Opposing individual views and absence of team vote retained."
+      },
+      {
+        "id": "correction-same-project",
+        "observation": "Withdrawn and replacement dates, condition and before qualifier retained."
+      },
+      {
+        "id": "different-projects",
+        "observation": "Maple/Cedar scope retained; pending and approved states merged under decisions."
+      },
+      {
+        "id": "no-execution-quoted-text",
+        "observation": "Quote is labeled non-instruction; unapproved plans and Ada action retained."
+      },
+      {
+        "id": "french-status",
+        "observation": "Explicit not-rejected qualifier omitted; no-decision statement placed in decisions."
+      },
+      {
+        "id": "spanish-conditional",
+        "observation": "Lucia/Thursday condition retained but known absent approval turned into a question."
+      },
+      {
+        "id": "japanese-status",
+        "observation": "Adds a when-results-shared question not present in the source."
+      },
+      {
+        "id": "german-prohibition",
+        "observation": "Friday prohibition and Thursday report retained; undecided date placed in questions."
+      },
+      {
+        "id": "chinese-owner",
+        "observation": "Uncommitted Li Ming and unassigned owner/deadline placed in actions."
+      },
+      {
+        "id": "arabic-status",
+        "observation": "No additional material discrepancy observed against the authored expectations; native-language review still needed."
+      },
+      {
+        "id": "long-project-scoped-correction",
+        "observation": "Maple Thursday and Cedar not-approved/not-rejected retained, with redundant scoped decisions."
+      },
+      {
+        "id": "near-limit-context",
+        "observation": "Rosa report and explicit not-rejected qualifier omitted."
+      },
+      {
+        "id": "full-ami-ES2004c",
+        "observation": "Unavailable: uncited None placeholder repeated on repair."
+      },
+      {
+        "id": "full-ami-ES2004d",
+        "observation": "Unavailable: digit spellings absent from cited word-form source repeated on repair."
+      }
+    ],
+    "baseline-4b": [
+      {
+        "id": "pending-approval",
+        "observation": "Stated expectations retained."
+      },
+      {
+        "id": "explicit-rejection",
+        "observation": "Unavailable: quantity/source check fails after repair."
+      },
+      {
+        "id": "conditional-owner",
+        "observation": "Elena name omitted; condition and unmet approval retained."
+      },
+      {
+        "id": "declined-owner",
+        "observation": "Stated expectations retained."
+      },
+      {
+        "id": "prohibition-no-new-date",
+        "observation": "Saturday prohibition, no Sunday agreement and Chen Friday report retained; replacement-date status less explicit."
+      },
+      {
+        "id": "revoked-versus-pending",
+        "observation": "Revoked pilot and never-approved larger rollout distinguished."
+      },
+      {
+        "id": "speaker-dissent",
+        "observation": "Stated expectations retained."
+      },
+      {
+        "id": "correction-same-project",
+        "observation": "Withdrawn May10 omitted; replacement May17 condition and Sam beforeMay16 retained."
+      },
+      {
+        "id": "different-projects",
+        "observation": "Project approval scope retained."
+      },
+      {
+        "id": "no-execution-quoted-text",
+        "observation": "Quote, unapproved plans and Ada action retained."
+      },
+      {
+        "id": "french-status",
+        "observation": "Stated expectations retained."
+      },
+      {
+        "id": "spanish-conditional",
+        "observation": "Undecided Friday strengthened to will-not-publish; Lucia/Thursday omitted."
+      },
+      {
+        "id": "japanese-status",
+        "observation": "Stated expectations retained."
+      },
+      {
+        "id": "german-prohibition",
+        "observation": "Stated expectations retained."
+      },
+      {
+        "id": "chinese-owner",
+        "observation": "Stated expectations retained."
+      },
+      {
+        "id": "arabic-status",
+        "observation": "Explicit not-rejected qualifier omitted; native-language review still needed."
+      },
+      {
+        "id": "long-project-scoped-correction",
+        "observation": "Maple approval and Thursday omitted."
+      },
+      {
+        "id": "near-limit-context",
+        "observation": "Cedar pending/not-rejected and Rosa after-review report retained."
+      },
+      {
+        "id": "full-ami-ES2004c",
+        "observation": "Unavailable after bounded repair; original error/calls retained."
+      },
+      {
+        "id": "full-ami-ES2004d",
+        "observation": "Unavailable after bounded repair; original error/calls retained."
+      }
+    ],
+    "status-9b": [
+      {
+        "id": "pending-approval",
+        "observation": "Stated expectations retained."
+      },
+      {
+        "id": "explicit-rejection",
+        "observation": "Rejection, evaluated alternative and Rosa action retained, with redundant rejection overview."
+      },
+      {
+        "id": "conditional-owner",
+        "observation": "Improves availability and retains Elena, Wednesday, condition and unmet approval."
+      },
+      {
+        "id": "declined-owner",
+        "observation": "Improves classification: unaccepted assistance and no owner/deadline remain overview."
+      },
+      {
+        "id": "prohibition-no-new-date",
+        "observation": "REGRESSION: explicit Saturday deployment prohibition omitted."
+      },
+      {
+        "id": "revoked-versus-pending",
+        "observation": "Pilot revocation distinguished from larger pending rollout."
+      },
+      {
+        "id": "speaker-dissent",
+        "observation": "Stated expectations retained."
+      },
+      {
+        "id": "correction-same-project",
+        "observation": "Dates, correction, backup condition and before qualifier retained."
+      },
+      {
+        "id": "different-projects",
+        "observation": "Project approval scope retained."
+      },
+      {
+        "id": "no-execution-quoted-text",
+        "observation": "Quoted instruction distinguished from decisions; Ada action retained."
+      },
+      {
+        "id": "french-status",
+        "observation": "Improves explicit not-rejected qualifier and status classification."
+      },
+      {
+        "id": "spanish-conditional",
+        "observation": "Improves status classification; retains Lucia/Thursday and unmet approval without invented question."
+      },
+      {
+        "id": "japanese-status",
+        "observation": "REGRESSION: explicit not-rejected qualifier omitted, although invented question removed."
+      },
+      {
+        "id": "german-prohibition",
+        "observation": "Friday prohibition, undecided replacement and Hannah Thursday report retained."
+      },
+      {
+        "id": "chinese-owner",
+        "observation": "Still places tentative/unassigned status in actions despite new rules."
+      },
+      {
+        "id": "arabic-status",
+        "observation": "Same admitted result as baseline."
+      },
+      {
+        "id": "long-project-scoped-correction",
+        "observation": "Maple Thursday and Cedar pending/not-rejected retained."
+      },
+      {
+        "id": "near-limit-context",
+        "observation": "Rosa after-review report restored, but not-rejected qualifier still omitted."
+      },
+      {
+        "id": "full-ami-ES2004c",
+        "observation": "Now admitted. Contains both beeper-rejected decision and whether-beeper-rejected question, and confusing excluded/pending voice wording. Admission is not coherent semantic acceptance."
+      },
+      {
+        "id": "full-ami-ES2004d",
+        "observation": "Now admitted with 32 verbose points. Management/head-office recommendation to retain voice recognition is not retained as an action; old discussion and current choices are not reconciled clearly. Human reference target checked against transcript recommendations/head-office discussion."
+      }
+    ],
+    "status-4b": [
+      {
+        "id": "pending-approval",
+        "observation": "Stated expectations retained."
+      },
+      {
+        "id": "explicit-rejection",
+        "observation": "Improves availability; rejection, alternative evaluation and Rosa action retained."
+      },
+      {
+        "id": "conditional-owner",
+        "observation": "Elena name still omitted."
+      },
+      {
+        "id": "declined-owner",
+        "observation": "Same admitted result as baseline."
+      },
+      {
+        "id": "prohibition-no-new-date",
+        "observation": "Saturday prohibition, undecided date, no Sunday agreement and Chen report retained."
+      },
+      {
+        "id": "revoked-versus-pending",
+        "observation": "Pilot revocation and larger pending/never-approved state retained."
+      },
+      {
+        "id": "speaker-dissent",
+        "observation": "Stated expectations retained."
+      },
+      {
+        "id": "correction-same-project",
+        "observation": "REGRESSION: now unavailable after bounded repair."
+      },
+      {
+        "id": "different-projects",
+        "observation": "Same admitted result as baseline."
+      },
+      {
+        "id": "no-execution-quoted-text",
+        "observation": "REGRESSION: Ada after-review quote-removal action omitted."
+      },
+      {
+        "id": "french-status",
+        "observation": "Decision-confirmation wording becomes validation wording; fluent review needed before treating as equivalent."
+      },
+      {
+        "id": "spanish-conditional",
+        "observation": "Still strengthens uncertainty; now says neither Thursday nor Friday publication will happen, and omits Lucia."
+      },
+      {
+        "id": "japanese-status",
+        "observation": "Stated expectations retained."
+      },
+      {
+        "id": "german-prohibition",
+        "observation": "Same admitted result as baseline."
+      },
+      {
+        "id": "chinese-owner",
+        "observation": "Stated expectations retained."
+      },
+      {
+        "id": "arabic-status",
+        "observation": "Not-approved/not-rejected distinction made explicit; fluent review still needed."
+      },
+      {
+        "id": "long-project-scoped-correction",
+        "observation": "REGRESSION: now unavailable."
+      },
+      {
+        "id": "near-limit-context",
+        "observation": "REGRESSION: now unavailable."
+      },
+      {
+        "id": "full-ami-ES2004c",
+        "observation": "Unavailable after bounded repair."
+      },
+      {
+        "id": "full-ami-ES2004d",
+        "observation": "Unavailable after bounded repair."
+      }
+    ]
+  },
+  "limitations": [
+    "No aggregate semantic score is claimed.",
+    "Two complete AMI scenario meetings share one design team; role-labeled manual input differs from ASR output.",
+    "Human references may omit true transcript details; disputed claims require the full cited transcript.",
+    "Classification, omissions, unsupported questions and availability are distinct.",
+    "No native interaction, physical capture, consumer comparison or isolated latency/energy acceptance."
+  ]
+}

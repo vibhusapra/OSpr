@@ -55,6 +55,11 @@ shows full endpoints and models before recovery approval. Its 509 optimized Swif
 tests and real loopback controller/HTTP controls pass; native dialog and current
 TextEdit delivery remain unverified. The preserved standalone ZIP is unchanged.
 
+The [full-meeting summary study](docs/architecture/summary-status-fidelity.md)
+retains 120 development cases and withholds a status prompt that improves schema
+admission while losing important facts. Production adds precise citation-repair
+feedback; semantic quality remains open. No new standalone release is claimed.
+
 ## Run on your Mac
 
 Requirements: Apple Silicon, macOS 14+, Xcode 16+ / Swift 6, [uv](https://docs.astral.sh/uv/),
