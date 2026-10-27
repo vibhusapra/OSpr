@@ -980,3 +980,38 @@ if worker_lifetime_path.is_file():
     assert anchor in report
     report = report.replace(anchor, panel + '<details id="durable-file-batches">', 1)
     (ROOT / "docs/research.html").write_text(report)
+
+
+# Live privacy closes the earlier batch-settings retention gap with separate evidence.
+live_audio_path = ROOT / "benchmarks/results/live-audio-privacy.json"
+if live_audio_path.is_file():
+    live = json.loads(live_audio_path.read_text())
+    final = json.loads((live_audio_path.parent / live["final_control"]).read_text())
+    assert live["status"] == "passed-live-audio-privacy-source-controls"
+    assert final["protocol"]["build"]["application_source_sha256"] == live["application_source_sha256"]
+    assert not final["protocol"]["tracked_changes"]
+    exercise, restart = final["records"]
+    assert exercise["all_new_audio_absent"] and exercise["prior_payload_and_audio_unchanged"]
+    assert "gpu" in exercise["device"] and restart["records"] == 3 and restart["retained_audio_files"] == 1
+    attempts = ''.join(f'<li><a href="../benchmarks/results/{esc(item["file"])}">{esc(item["file"])}</a> — {esc(item["status"])}</li>' for item in live["real_controls"])
+    panel = '''<details open id="live-audio-privacy"><summary>Live audio privacy: revoke new retention without losing words or older clips.</summary>
+<p>Keep audio/History changes now override captured batch settings at preparation and History publication. A per-take revocation epoch prevents off/on from resurrecting an already revoked take. Later unstarted files honor the current choice; previously published clips keep their retention policy. Raw Clean/selection-edit fallback preserves its words and acknowledges successful storage.</p>
+<div class="scroll"><table><thead><tr><th>Boundary</th><th>Verified behavior</th><th>Evidence scope</th></tr></thead><tbody>
+<tr><td>Privacy during processing</td><td>Revocation during preparation/inference/refinement drops new audio, continues recognition and preserves old saved payload/audio bytes. Re-enable applies to a new take. History off keeps session text without new stored audio.</td><td>Nine workflow cases with controlled IPC gates, including cancellation, failures and both Clean/selection-edit raw fallback.</td></tr>
+<tr><td>Temporary files and paths</td><td>Active preparation, replay and upload snapshots survive preference maintenance; discard/adoption releases reservations, restart prunes orphans and explicit erase still works. Directory URL hints no longer reject valid owned paths.</td><td>Five archive cases, including actual package-build paths, unchanged original sources and continued symbolic-root/path-escape refusal.</td></tr>
+<tr><td>Actual local Parakeet</td><td>Clean source verifies MLX GPU, 29 backend files and selected installed library versions against the lock. Two new transcripts match prior text/segments/model/duration with no audio references. Old encoded payload/clip unchanged; fresh process finds three records and only the old clip.</td><td>One public clip copied three times. Gate after actual review/adoption and before generation; no mid-kernel, physical microphone, representative quality, energy or latency claim.</td></tr>
+</tbody></table></div>
+<p>Full local debug/optimized suites pass <strong>507 Swift</strong> tests, with 380 Python/Ruff and the 56-case final focused cohort passing. Fourteen new permanent tests. Initial red privacy/staging/path/fallback tests remain retained. The first real control exposed the old URL mismatch; later success does not replace it. An older guardian test now separates its 200 ms failing handshake from five-second healthy cold recovery; production deadlines are unchanged.</p>
+<p>The signed checkout app passes actual packaged audio review/ASR equality, budget rejection without dropping its warm worker, reprocessing, archive/history restart and audio-only deletion. This is newer source than the preserved standalone archives. Normal app/data remain unchanged. Native settings/microphone/shortcut/insertion, macOS 14/clean-Mac/notarization and a new fully qualified standalone preview remain open; full parity/top-three acceptance is not established.</p>
+<p class="small muted"><a href="architecture/live-audio-privacy.md">Contract/reproduction</a> · <a href="../benchmarks/results/live-audio-privacy.json">Manifest/all development checks</a> · <a href="../benchmarks/results/live-audio-privacy-real-03.json">Clean GPU control and restart</a>.</p>
+<details><summary>All real development/final attempts</summary><ul>''' + attempts + '''</ul></details></details>'''
+    if live.get("source_ci"):
+        ci = live["source_ci"]
+        assert ci["status"] == "success" and ci["swift_permanent_tests"] == 507 and ci["python_tests"] == 380
+        panel = panel.replace('<p class="small muted">', f'<p><a href="https://github.com/vibhusapra/OSpr/actions/runs/{ci["run"]}">macOS 15 source CI</a> passes 507 permanent Swift / 380 Python, optional-probe typecheck, actual worker-crash gates, contracts, standalone runtime/CLI/history/signatures, all 450 report HTML links and artifact upload. <a href="https://github.com/vibhusapra/OSpr/pull/43">PR43</a>.</p><p class="small muted">', 1)
+    report = (ROOT / "docs/research.html").read_text()
+    anchor = '<details open id="worker-lifetime">'
+    assert anchor in report
+    report = report.replace(anchor, panel + '<details id="worker-lifetime">', 1)
+    report = report.replace('Separate P0 follow-up: a synthetic AppModel audit confirms that disabling Keep audio during a batch still retains a later unstarted file from captured settings. Fix pending before the next standalone preview; no user audio/history was involved.', 'The earlier live Keep audio gap is addressed by the later source/control panel above. Native and release acceptance remain open; no user audio/history was involved in its isolated audit.')
+    (ROOT / "docs/research.html").write_text(report)

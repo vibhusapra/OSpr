@@ -741,3 +741,18 @@ See [contract/reproduction](../docs/architecture/worker-lifetime.md) and
 [all retained attempts](results/worker-lifetime.json). Existing output directories
 are refused. The durable batch process runner now observes production cleanup
 before its own failure fallback and fails CI if the worker survives.
+
+## Live audio privacy
+
+`live_audio_privacy.py` runs an actual headless AppModel with cached Parakeet
+using a fresh owned profile and explicit generation gate. Live revocation removes
+new audio references without changing words/timing, preserves an older saved
+payload/clip and survives a separate-process History restart. It checks the MLX
+GPU device, selected installed library versions against the lock, all 29 backend
+files and original public WAV bytes. This is one clip copied three times, not a
+representative speech-quality, timing, energy or native-UI evaluation.
+
+[Contract/reproduction](../docs/architecture/live-audio-privacy.md) ·
+[All retained development/final attempts](results/live-audio-privacy.json).
+Output and temporary test paths must be new. No microphone, playback, provider
+API or existing profile is used.

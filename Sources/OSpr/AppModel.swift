@@ -8,6 +8,9 @@ import OSprCore
 @MainActor final class AppModel: ObservableObject {
     @Published var settings: OSprSettings {
         didSet {
+            if (oldValue.keepAudio && !settings.keepAudio) || (oldValue.saveHistory && !settings.saveHistory) {
+                audioRetentionEpoch &+= 1
+            }
             if credentialsReady && (oldValue.transcriptionURL != settings.transcriptionURL || oldValue.rewriteURL != settings.rewriteURL) { refreshCredentials() }
         }
     }
@@ -106,6 +109,7 @@ import OSprCore
     private var insertionPanel: NSPanel?
     private var streamSession: (generation: UUID, id: String)?
     private var generation = UUID()
+    private var audioRetentionEpoch: UInt64 = 0
     private var uploadingGeneration: UUID?
     private var shortcutCaptureGeneration: UUID?
     private var backgroundGeneration: UUID?
@@ -901,11 +905,18 @@ import OSprCore
         }
     }
 
+    private func allowsAudioRetention(_ config: OSprSettings, epoch: UInt64) -> Bool {
+        config.keepAudio && config.saveHistory && settings.keepAudio && settings.saveHistory &&
+            historyState.savingEnabled && epoch == audioRetentionEpoch
+    }
+
     private func transcribe(file originalFile: URL, duration: Double, config: OSprSettings, mode: WritingMode, target: InsertionTarget?, source: String, token: UUID, preserveRecoveryOnSaveFailure: Bool = false, resultOverride: [String: Any]? = nil, startedAt: Date = Date(), resultID: UUID? = nil, onSaved: ((Transcript) -> Void)? = nil, onStored: (() -> Void)? = nil, onIssue: ((String) -> Void)? = nil) async -> Bool {
         guard generation == token else { return false }
         func report(_ message: String) { self.error = message; onIssue?(message) }
         var file = originalFile
         let recordID = resultID ?? UUID()
+        // A later re-enable must not restore consent for an already revoked take.
+        let retentionEpoch = audioRetentionEpoch
         var archived: ArchivedAudio?
         var uploadSnapshot: URL?
         var retentionWarning: String?
@@ -924,17 +935,24 @@ import OSprCore
         var recognized = false
         let started = startedAt
         do {
-            if config.keepAudio && config.saveHistory && settings.saveHistory {
+            if allowsAudioRetention(config, epoch: retentionEpoch) {
                 var staging: URL?
                 do {
                     let output = try await audioArchive.newStagingURL(); staging = output
                     if config.transcriptionProvider != "local" { uploadSnapshot = try await audioArchive.snapshotUploadSource(originalFile, limitBytes: Int64(ProviderClient.maximumUploadBytes)) }
                     status = "Preparing private audio for review…"
-                    let budget = Int64(config.validated().audioBudgetMB) * 1024 * 1024
+                    let budget = Int64(min(config.validated().audioBudgetMB, settings.validated().audioBudgetMB)) * 1024 * 1024
                     _ = try await worker.request(["action": "prepare_review", "path": (uploadSnapshot ?? originalFile).path, "output": output.path, "limit_bytes": budget])
                     guard generation == token else { try? await audioArchive.discardStaging(output); return false }
-                    archived = try await audioArchive.adoptPrepared(output, id: recordID, limitBytes: budget)
-                    if let archived { file = archived.url; applyAudioEvictions(archived.evicted) }
+                    if allowsAudioRetention(config, epoch: retentionEpoch) {
+                        let currentBudget = Int64(min(config.validated().audioBudgetMB, settings.validated().audioBudgetMB)) * 1024 * 1024
+                        archived = try await audioArchive.adoptPrepared(output, id: recordID, limitBytes: currentBudget)
+                        if let archived { file = archived.url; applyAudioEvictions(archived.evicted) }
+                    } else {
+                        // Finish recognition on the original source. Revoking
+                        // review retention is not an inference failure.
+                        try await audioArchive.discardStaging(output)
+                    }
                 } catch {
                     if let staging { try? await audioArchive.discardStaging(staging) }
                     guard generation == token else { return false }
@@ -1017,18 +1035,18 @@ import OSprCore
                         text = beforeRewrite
                         report("Original text retained. \(reason)")
                         if mode == .assistant {
-                            let saved = saveResult(raw: raw, text: beforeRewrite, result: result, duration: duration, config: config, mode: mode, source: source, target: target, started: started, id: recordID, audioFile: archived?.name, audioWarning: retentionWarning)
+                            let saved = saveResult(raw: raw, text: beforeRewrite, result: result, duration: duration, config: config, mode: mode, source: source, target: target, started: started, id: recordID, audioFile: archived?.name, retentionEpoch: retentionEpoch, audioWarning: retentionWarning)
                             onSaved?(saved)
-                            return await finishResultStorage(config: config, token: token, preserveRecovery: preserveRecoveryOnSaveFailure, onIssue: onIssue)
+                            return await finishResultStorage(config: config, token: token, preserveRecovery: preserveRecoveryOnSaveFailure, onStored: onStored, onIssue: onIssue)
                         }
                     }
                 } catch {
                     guard generation == token else { return false }
                     report("Transcription saved; rewrite failed: \(error.localizedDescription)")
                     if mode == .assistant { /* Never replace selected text with an unexecuted editing request. */
-                        let saved = saveResult(raw: raw, text: text, result: result, duration: duration, config: config, mode: mode, source: source, target: target, started: started, id: recordID, audioFile: archived?.name, audioWarning: retentionWarning)
+                        let saved = saveResult(raw: raw, text: text, result: result, duration: duration, config: config, mode: mode, source: source, target: target, started: started, id: recordID, audioFile: archived?.name, retentionEpoch: retentionEpoch, audioWarning: retentionWarning)
                         onSaved?(saved)
-                        return await finishResultStorage(config: config, token: token, preserveRecovery: preserveRecoveryOnSaveFailure, onIssue: onIssue)
+                        return await finishResultStorage(config: config, token: token, preserveRecovery: preserveRecoveryOnSaveFailure, onStored: onStored, onIssue: onIssue)
                     }
                 }
             } else if mode == .assistant {
@@ -1037,7 +1055,7 @@ import OSprCore
                 report("\(mode.title) needs a rewrite provider for formatting. This result contains the original transcription.")
             }
             guard generation == token else { return false }
-            let saved = saveResult(raw: raw, text: text, result: result, duration: duration, config: config, mode: mode, source: source, target: target, started: started, id: recordID, audioFile: archived?.name, audioWarning: retentionWarning)
+            let saved = saveResult(raw: raw, text: text, result: result, duration: duration, config: config, mode: mode, source: source, target: target, started: started, id: recordID, audioFile: archived?.name, retentionEpoch: retentionEpoch, audioWarning: retentionWarning)
             onSaved?(saved)
             recognized = true
             if config.autoPaste && source == "dictation", let target { try await target.paste(text, restoreClipboard: config.restoreClipboard, allowUnverified: config.allowUnverifiedPaste) }
@@ -1060,7 +1078,7 @@ import OSprCore
             return !preserveRecovery && generation == token
         }
     }
-    @discardableResult private func saveResult(raw: String, text: String, result: [String: Any], duration: Double, config: OSprSettings, mode: WritingMode, source: String, target: InsertionTarget?, started: Date, id: UUID, audioFile: String?, audioWarning: String?) -> Transcript {
+    @discardableResult private func saveResult(raw: String, text: String, result: [String: Any], duration: Double, config: OSprSettings, mode: WritingMode, source: String, target: InsertionTarget?, started: Date, id: UUID, audioFile: String?, retentionEpoch: UInt64, audioWarning: String?) -> Transcript {
         let segments = (result["segments"] as? [[String: Any]] ?? []).compactMap { segment -> Segment? in
             guard let start = segment["start"] as? Double, let end = segment["end"] as? Double, let text = segment["text"] as? String else { return nil }
             return Segment(start: start, end: end, text: text, speaker: segment["speaker"] as? Int, overlapSpeakers: segment["overlapSpeakers"] as? [Int])
@@ -1072,7 +1090,8 @@ import OSprCore
         var record = Transcript(rawText: raw, text: text, model: result["model"] as? String ?? config.model, mode: mode,
             app: target?.app?.localizedName ?? "", duration: result["audio_seconds"] as? Double ?? duration,
             latencyMS: Date().timeIntervalSince(started) * 1000, segments: segments, words: words, warning: source == "recovered recording" ? pending?.captureWarning : nil, source: source)
-        record.id = id; record.audioFile = audioFile
+        record.id = id
+        record.audioFile = allowsAudioRetention(config, epoch: retentionEpoch) ? audioFile : nil
         if config.transcriptionProvider == "soniox", let warning = result["warning"] as? String {
             record.warning = [record.warning, warning].compactMap { $0 }.joined(separator: " ")
         }
