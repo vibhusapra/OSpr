@@ -1,8 +1,9 @@
 """Local synthetic provider for native saved-route confirmation acceptance.
 
-Serve uses only a manifest-bound public clip; it records hashes/fields, never
-credentials or request bodies. Prepare/verify use an owned headless profile and
-cannot claim native interaction. All outputs are private pending review.
+Serve uses a manifest-bound public clip or explicit generated CI silence. It
+records hashes/fields, never credentials or request bodies. Prepare/verify use
+an owned headless profile and cannot claim native interaction. All outputs are
+private pending review.
 """
 from __future__ import annotations
 
@@ -14,19 +15,31 @@ import json
 import os
 from pathlib import Path
 import shutil
+import signal
 import subprocess
 import threading
+import time
+import wave
 
 from durable_import_common import application_fingerprint, digest, prepare_probe
 
 
-def serve(package, root):
+def serve(package, root, synthetic=False):
     root.mkdir(parents=True, mode=0o700, exist_ok=False)
-    item = json.loads((package / "benchmarks/fixtures/manifest.json").read_text())["items"][0]
-    audio = package / "benchmarks" / item["path"]
-    if digest(audio) != item["sha256"]:
-        raise ValueError("Public input differs from manifest")
-    shutil.copy2(audio, root / "Provider Resume.wav")
+    if synthetic:
+        audio = root / "Provider Resume.wav"
+        with wave.open(str(audio), "wb") as output:
+            output.setnchannels(1)
+            output.setsampwidth(2)
+            output.setframerate(16000)
+            output.writeframes(bytes(32000))
+        item = dict(id="synthetic-ci-silence", sha256=digest(audio), seconds=1)
+    else:
+        item = json.loads((package / "benchmarks/fixtures/manifest.json").read_text())["items"][0]
+        audio = package / "benchmarks" / item["path"]
+        if digest(audio) != item["sha256"]:
+            raise ValueError("Public input differs from manifest")
+        shutil.copy2(audio, root / "Provider Resume.wav")
     lock = threading.Lock()
     records = []
 
@@ -70,7 +83,12 @@ def serve(package, root):
                 current_base=f"http://127.0.0.1:{server.server_port}/current/v1", saved_model="fixture-resume-original",
                 response_text="Public provider resume fixture result.", fixture_id=item["id"], fixture_sha256=item["sha256"], server_pid=os.getpid())
     (root / "requests.json").write_text("[]\n")
-    (root / "server.json").write_text(json.dumps(plan, indent=2) + "\n")
+    def terminate(_signal, _frame):
+        raise KeyboardInterrupt
+    signal.signal(signal.SIGTERM, terminate)
+    ready = root / "server.staged.json"
+    ready.write_text(json.dumps(plan, indent=2) + "\n")
+    ready.replace(root / "server.json")
     print(json.dumps(dict(status="serving-owned-loopback", port=server.server_port)), flush=True)
     try:
         server.serve_forever()
@@ -105,7 +123,7 @@ def probe(package, root, app, stage):
     if digest(executable) != protocol["binding"]["test_executable_sha256"]:
         raise ValueError("Compiled provider probe changed")
     command = [subprocess.check_output(["xcrun", "--find", "xctest"], text=True).strip(), "-XCTest", "OSprPlatformTests.NativeProviderResumeTemporary/testStage", str(executable.parents[2])]
-    environment = os.environ | {"OSPR_PROVIDER_RESUME_STAGE": stage, "OSPR_PROVIDER_RESUME_ROOT": str(root)}
+    environment = os.environ | {"HF_HUB_OFFLINE": "1", "OSPR_PROVIDER_RESUME_STAGE": stage, "OSPR_PROVIDER_RESUME_ROOT": str(root)}
     with (root / (stage + ".log")).open("x") as log:
         result = subprocess.run(command, cwd=package, env=environment, stdout=log, stderr=subprocess.STDOUT, timeout=120)
     if result.returncode:
@@ -117,19 +135,58 @@ def probe(package, root, app, stage):
     print(json.dumps(dict(status="passed-" + stage, requests=len(requests), native_interaction_proven=False)))
 
 
+def ci_control(package, root, app):
+    if root.exists():
+        raise ValueError("Refusing to replace an existing CI fixture")
+    root.parent.mkdir(parents=True, exist_ok=True)
+    with (root.parent / (root.name + "-server.log")).open("x") as log:
+        server = subprocess.Popen([str(package / ".venv/bin/python"), str(Path(__file__).resolve()),
+                                   "--stage", "serve", "--synthetic-ci-fixture", "--output", str(root)],
+                                  cwd=package, stdout=log, stderr=subprocess.STDOUT)
+        try:
+            limit = time.monotonic() + 10
+            while not (root / "server.json").is_file():
+                if server.poll() is not None or time.monotonic() > limit:
+                    raise RuntimeError("Owned synthetic provider did not become ready; log retained")
+                time.sleep(.02)
+            if server.poll() is not None:
+                raise RuntimeError("Owned synthetic provider exited after readiness; log retained")
+            probe(package, root, app, "prepare")
+            probe(package, root, app, "exercise-headless")
+        finally:
+            if server.poll() is None:
+                server.terminate()
+                try:
+                    server.wait(timeout=5)
+                except subprocess.TimeoutExpired:
+                    server.kill()
+                    server.wait(timeout=5)
+    if server.returncode != 0:
+        raise RuntimeError("Owned synthetic provider did not stop cleanly")
+    plan = json.loads((root / "server.json").read_text())
+    assert plan["fixture_id"] == "synthetic-ci-silence"
+    (root / "ci-result.json").write_text(json.dumps(dict(status="passed-synthetic-provider-controller-ci", requests=1,
+        owned_server_stopped=True, model_downloads=False, provider_credentials=False, native_interaction_proven=False), indent=2) + "\n")
+    print("Passed synthetic provider/controller CI; owned server stopped; no models, credentials or native UI.")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--stage", required=True, choices=("serve", "prepare", "verify-declined", "verify-completed", "exercise-headless"))
+    parser.add_argument("--stage", required=True, choices=("serve", "prepare", "verify-declined", "verify-completed", "exercise-headless", "ci"))
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--app", type=Path)
+    parser.add_argument("--synthetic-ci-fixture", action="store_true", help="Serve generated silence for credential-free HTTP/controller CI; not ASR or native UI acceptance")
     args = parser.parse_args()
     package, root = Path(__file__).resolve().parents[1], args.output.resolve()
     if args.stage == "serve":
-        serve(package, root)
+        serve(package, root, args.synthetic_ci_fixture)
     else:
         if args.app is None:
             parser.error("--app is required for probe stages")
-        probe(package, root, args.app.resolve(strict=True), args.stage)
+        if args.stage == "ci":
+            ci_control(package, root, args.app.resolve(strict=True))
+        else:
+            probe(package, root, args.app.resolve(strict=True), args.stage)
 
 
 if __name__ == "__main__":

@@ -25,6 +25,8 @@ jobs:
           swift test
           swiftc -typecheck -parse-as-library -I .build/debug/Modules -I "$(xcrun --show-sdk-platform-path)/Developer/usr/lib" -F "$(xcrun --show-sdk-platform-path)/Developer/Library/Frameworks" benchmarks/live_audio_privacy.swift
           swiftc -typecheck -parse-as-library -I .build/debug/Modules -I "$(xcrun --show-sdk-platform-path)/Developer/usr/lib" -F "$(xcrun --show-sdk-platform-path)/Developer/Library/Frameworks" benchmarks/native_batch_acceptance.swift
+          swiftc -typecheck -parse-as-library -I .build/debug/Modules -I "$(xcrun --show-sdk-platform-path)/Developer/usr/lib" -F "$(xcrun --show-sdk-platform-path)/Developer/Library/Frameworks" benchmarks/native_provider_resume.swift
+          swiftc -typecheck -parse-as-library -I .build/debug/Modules -I "$(xcrun --show-sdk-platform-path)/Developer/usr/lib" -F "$(xcrun --show-sdk-platform-path)/Developer/Library/Frameworks" benchmarks/provider_resume_render.swift
           swiftc -typecheck -parse-as-library -I .build/debug/Modules benchmarks/edited_summary_storage.swift
           swiftc -typecheck -parse-as-library -I .build/debug/Modules benchmarks/history_archive_reader.swift
           swiftc -typecheck -parse-as-library -I .build/debug/Modules benchmarks/history_sources.swift
@@ -57,6 +59,7 @@ jobs:
           (cd "$task_directory" && "$GITHUB_WORKSPACE/.venv/bin/python" "$GITHUB_WORKSPACE/benchmarks/native_long.py" --help)
           uv run --frozen --all-extras python benchmarks/live_audio_privacy.py --help
           uv run --frozen --all-extras python benchmarks/native_batch_acceptance.py --help
+          uv run --frozen --all-extras python benchmarks/native_provider_resume.py --help
           uv run --frozen --all-extras python benchmarks/preview_package_gates.py --help
           uv run --frozen --all-extras python benchmarks/preview_package_verify.py --help
           uv run --frozen --all-extras python benchmarks/package_media_recovery.py --help
@@ -78,6 +81,8 @@ jobs:
         run: |
           scripts/build-app.sh
           python3 scripts/build-report.py
+      - name: Verify saved-provider confirmation guard and exact HTTP route without native UI
+        run: uv run --frozen --all-extras python benchmarks/native_provider_resume.py --stage ci --app dist/OSpr.app --output "$RUNNER_TEMP/ospr-provider-resume-ci"
       - name: Verify standalone runtime on a clean runner
         run: |
           scripts/bundle-app.sh

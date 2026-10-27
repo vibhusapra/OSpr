@@ -50,6 +50,11 @@ owned public files, then corrects completed/Dismiss header cues. The normal app/
 remain unchanged. This source update is newer than the preserved standalone ZIP;
 physical dictation/insertion and broader release acceptance remain open.
 
+The newer [saved-provider identity fix](docs/architecture/saved-provider-resume.md)
+shows full endpoints and models before recovery approval. Its 509 optimized Swift
+tests and real loopback controller/HTTP controls pass; native dialog and current
+TextEdit delivery remain unverified. The preserved standalone ZIP is unchanged.
+
 ## Run on your Mac
 
 Requirements: Apple Silicon, macOS 14+, Xcode 16+ / Swift 6, [uv](https://docs.astral.sh/uv/),

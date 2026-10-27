@@ -756,3 +756,20 @@ representative speech-quality, timing, energy or native-UI evaluation.
 [All retained development/final attempts](results/live-audio-privacy.json).
 Output and temporary test paths must be new. No microphone, playback, provider
 API or existing profile is used.
+
+## Saved-provider confirmation and identity
+
+`native_provider_resume.py --stage ci --app dist/OSpr.app --output NEW_DIRECTORY`
+starts an owned loopback provider with generated silence, prepares a separate
+profile and runs the actual AppModel confirmation guard plus HTTP upload. Zero
+requests precede confirmation or follow a model-only decline; one approved
+request must preserve saved path/model/language/vocabulary/WAV hash. No model
+weights, credentials, native app launch or recognition-quality claim. Server
+readiness is atomic and its owned process is stopped before success. App/source/
+runner/probe/compiled-test hashes are bound and existing outputs are refused.
+
+`provider_resume_render.swift` optionally renders the actual batch component
+offscreen; it does not operate a native dialog. The native warning/cancel/approve
+and TextEdit gates remain open. [Protocol/reproduction](../docs/architecture/saved-provider-resume.md) ·
+[Retained controls](results/saved-provider-resume.json) ·
+[Layout receipt](results/saved-provider-resume-layouts.json).

@@ -1,0 +1,22 @@
+{
+  "status": "passed-program-identity-despite-isolated-info-signatures",
+  "records": [
+    {
+      "control": "batch-original",
+      "base_signed_sha256": "7fa7f6014f6022bf3043ce3382a526bcb5e53d898a4da185d199c57436259e68",
+      "native_overlay_signed_sha256": "4a4fef4c240dcac8e20c265672163d69a311bd325dcacae9550d08f429e1e427",
+      "normalized_program_payload_sha256": "3b35581717c7785e0d61e92662032b4c5516564bea8ff9fe6dca0f77a515249d",
+      "program_payload_equal": true,
+      "original_signed_files_unchanged": true
+    },
+    {
+      "control": "batch-updated",
+      "base_signed_sha256": "cf50e69bf58047c92948392b8bebdc046beb01071cd0e00d73e28d98887124ca",
+      "native_overlay_signed_sha256": "ee5749ff0bb621183a058864cd1d164f53728554891155cfe9c5f68529235e2a",
+      "normalized_program_payload_sha256": "9046c71c7f9ab8a3de8a08ae32e46dcfd90f159293f0196de818090f057bcbea",
+      "program_payload_equal": true,
+      "original_signed_files_unchanged": true
+    }
+  ],
+  "boundary": "Signature removal only on disposable executable copies, never original apps. Complements prior native receipts whose app_executable_sha256 identifies their selected base app, while Info-isolated native overlays carry different signatures."
+}
