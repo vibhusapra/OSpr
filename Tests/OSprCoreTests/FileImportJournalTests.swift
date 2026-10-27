@@ -19,6 +19,39 @@ final class FileImportJournalTests: XCTestCase {
         do { try await action(); XCTFail("Expected refusal") } catch {}
     }
 
+    func testProviderDescriptionPreservesSavedEndpointModelsAndSerialization() throws {
+        var config = OSprSettings(); config.mode = .clean
+        config.transcriptionProvider = "compatible"; config.transcriptionURL = "https://speech.example:8443/team/v1"
+        config.transcriptionModel = "original-speech-model"
+        config.rewriteProvider = "compatible"; config.rewriteURL = "https://text.example:9443/gateway/v1"
+        config.rewriteModel = "original-text-model"
+        let snapshot = FileImportSnapshot(batch: self.snapshot().batch, settings: config)
+        let encoded = try JSONEncoder().encode(snapshot)
+        let loaded = try JSONDecoder().decode(FileImportSnapshot.self, from: encoded)
+        XCTAssertEqual(loaded.providerDescription, snapshot.providerDescription)
+        for value in [config.transcriptionURL, config.transcriptionModel, config.rewriteURL, config.rewriteModel] {
+            XCTAssertTrue(loaded.providerDescription.contains(value))
+        }
+        XCTAssertTrue(loaded.needsProviderConfirmation)
+        let fields = try XCTUnwrap(JSONSerialization.jsonObject(with: encoded) as? [String: Any])
+        XCTAssertEqual(Set(fields.keys), ["version", "batch", "settings"])
+    }
+
+    func testProviderDescriptionHidesUnusedRewriteAndInvalidCredentialURLs() {
+        var config = OSprSettings(); config.mode = .verbatim
+        config.rewriteProvider = "compatible"; config.rewriteURL = "https://unused.example/v1"; config.rewriteModel = "unused-model"
+        var snapshot = FileImportSnapshot(batch: self.snapshot().batch, settings: config)
+        XCTAssertTrue(snapshot.providerDescription.contains("Local · parakeet-v3"))
+        XCTAssertTrue(snapshot.providerDescription.contains("rewrite: off"))
+        XCTAssertFalse(snapshot.providerDescription.contains("unused")); XCTAssertFalse(snapshot.needsProviderConfirmation)
+        config.mode = .clean; config.transcriptionProvider = "compatible"
+        config.transcriptionURL = "https://user:secret@speech.example/v1?api_key=secret"
+        config.rewriteURL = "https://user:secret@text.example/v1"
+        snapshot = FileImportSnapshot(batch: self.snapshot().batch, settings: config)
+        XCTAssertTrue(snapshot.providerDescription.contains("invalid saved endpoint"))
+        XCTAssertFalse(snapshot.providerDescription.contains("secret")); XCTAssertFalse(snapshot.providerDescription.contains("user:"))
+    }
+
     func testRoundTripPreservesIdentitiesConfigurationAndPrivatePermissions() async throws {
         let path = try directory(), journal = FileImportJournal(directory: path), original = snapshot()
         let saved = try await journal.save(original, revision: 1); XCTAssertTrue(saved)
