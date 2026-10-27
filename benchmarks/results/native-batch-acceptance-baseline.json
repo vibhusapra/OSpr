@@ -1,0 +1,160 @@
+{
+  "status": "passed-native-batch-and-filename-acceptance-with-status-defects",
+  "app_build": {
+    "version": "0.1.0",
+    "built_at": "2026-10-27T17:37:55.090133+00:00",
+    "git_commit": "c906a352835e49c51c5559a75c43e6d485e7c205",
+    "tracked_changes": false,
+    "application_source_sha256": "1b05e8a984553e97c7d83ca9f8b04643cc63ea11d62909d35bca741103df41ec",
+    "source_manifest_version": 2,
+    "signing_mode": "configured-identity",
+    "boundary": "Development build; configured signing identity; not notarized; weights downloaded separately."
+  },
+  "app_executable_sha256": "7fa7f6014f6022bf3043ce3382a526bcb5e53d898a4da185d199c57436259e68",
+  "probe_binding": {
+    "application_source_sha256": "1b05e8a984553e97c7d83ca9f8b04643cc63ea11d62909d35bca741103df41ec",
+    "source_manifest_version": 2,
+    "test_executable_sha256": "2b60b7377742a8bd490c3dbea4aaf9dcff00a1fbe9ff0414d458ff966ebffee2",
+    "probe_sha256": "b52a8926b1274c02f45c4bece2f929a4c6b77e6142a25fe391c03f6ea45adea1",
+    "guardian_sha256": "ab0a20f141b6edca2f3cb185bb910cb93f64035c612a2c028bf7c34f3820cf51",
+    "build_log_sha256": "576c32998f1abdf48579db5ab1eba3fc30fb54bc561d70ca9678d7d5dada1970"
+  },
+  "preparer_commit": "3d12d810e9d30aa5aa63ae14cd984cdd5e5e328b",
+  "runner_sha256": "0bc9f32e67d3067513992c77121d85762c1ad897e5d88a81eb9930e63367fc56",
+  "fixture_id": "1272-128104-0000",
+  "fixture_sha256": "799f78ed4beb4de7ceae3a809262d4ce242394342ccd1d58cef7d49dbc2def46",
+  "short_input_copies_unchanged": true,
+  "long_input": {
+    "fixture_id": "public-concat-60m",
+    "fixture_sha256": "89972494a4ed7b812b784ab0b936c82fc458ad944949c860eb4ccebc2b9df5b2",
+    "copies": 2,
+    "boundary": "Two owned copies of the manifest-bound repeated public speech fixture; no microphone or playback."
+  },
+  "native_observations": {
+    "saved_batch_visible_before_action": true,
+    "initial_completed": 2,
+    "initial_total": 3,
+    "initial_unfinished": 1,
+    "current_settings_changed_to": {
+      "model": "whisper-small",
+      "language": "fr"
+    },
+    "saved_batch_advertised_model": "parakeet-v3",
+    "native_resume_clicked": true,
+    "native_completed_after_resume": 3,
+    "native_open_repaired_transcript": true,
+    "native_filename_search": {
+      "query": "repair.wav",
+      "rows": 1,
+      "record_source": "Resume Repair.wav"
+    },
+    "audio_capture_or_playback": false,
+    "native_completed_batch_restart": true,
+    "native_dismiss_clicked": true,
+    "native_dismiss_persisted_restart": true,
+    "native_cancel_observed_processing": 1,
+    "native_cancel_observed_queued": 1,
+    "native_cancel_clicked": true,
+    "native_cancelled_jobs": 2,
+    "native_records_after_cancel": 3,
+    "long_source_copies_unchanged": true,
+    "normal_app_restored": true,
+    "normal_baseline_files": 6,
+    "normal_baseline_all_unchanged": true,
+    "observed_status_after_completed_restart": "Saved import batch ready \u00b7 resume when you choose",
+    "observed_status_after_dismiss": "Saved import batch ready \u00b7 resume when you choose"
+  },
+  "stored_controls": {
+    "prepare": {
+      "completed_payload_sha256": {
+        "BA1FEE58-AC8E-4ADA-B0D3-8546205DD469": "fe6c80463acd545c5e00f83f205c58f0bfa90afe453465df59889af2ef21f568",
+        "EEBBF628-39CA-474B-98CC-6DB50FFEE826": "2bae5cc9fdfceb718d70e0f3f02d3e22117cb009890c16e95f484807a23dd0c4"
+      },
+      "history_records": 2,
+      "language": "en",
+      "mode": "verbatim",
+      "model": "parakeet-v3",
+      "native_interaction_proven": false,
+      "planned_ids": [
+        "EEBBF628-39CA-474B-98CC-6DB50FFEE826",
+        "B8F44D97-5C06-485C-8581-C2EA844156EE",
+        "BA1FEE58-AC8E-4ADA-B0D3-8546205DD469"
+      ],
+      "provider": "local",
+      "status": "prepared-real-local-two-complete-one-failed"
+    },
+    "verify-resumed": {
+      "completed_payload_sha256": {
+        "B8F44D97-5C06-485C-8581-C2EA844156EE": "cde60944ded03850228310ebe383de2eed1efdf2d2fd23e7124451de4edf32c8",
+        "BA1FEE58-AC8E-4ADA-B0D3-8546205DD469": "fe6c80463acd545c5e00f83f205c58f0bfa90afe453465df59889af2ef21f568",
+        "EEBBF628-39CA-474B-98CC-6DB50FFEE826": "2bae5cc9fdfceb718d70e0f3f02d3e22117cb009890c16e95f484807a23dd0c4"
+      },
+      "history_records": 3,
+      "native_interaction_proven": false,
+      "new_audio_references": 0,
+      "planned_ids": [
+        "EEBBF628-39CA-474B-98CC-6DB50FFEE826",
+        "B8F44D97-5C06-485C-8581-C2EA844156EE",
+        "BA1FEE58-AC8E-4ADA-B0D3-8546205DD469"
+      ],
+      "prior_payloads_preserved": true,
+      "raw_text_matches_original": true,
+      "status": "passed-verify-resumed-stored-invariants"
+    },
+    "verify-dismissed": {
+      "completed_payload_sha256": {
+        "B8F44D97-5C06-485C-8581-C2EA844156EE": "cde60944ded03850228310ebe383de2eed1efdf2d2fd23e7124451de4edf32c8",
+        "BA1FEE58-AC8E-4ADA-B0D3-8546205DD469": "fe6c80463acd545c5e00f83f205c58f0bfa90afe453465df59889af2ef21f568",
+        "EEBBF628-39CA-474B-98CC-6DB50FFEE826": "2bae5cc9fdfceb718d70e0f3f02d3e22117cb009890c16e95f484807a23dd0c4"
+      },
+      "history_records": 3,
+      "native_interaction_proven": false,
+      "new_audio_references": 0,
+      "planned_ids": [
+        "EEBBF628-39CA-474B-98CC-6DB50FFEE826",
+        "B8F44D97-5C06-485C-8581-C2EA844156EE",
+        "BA1FEE58-AC8E-4ADA-B0D3-8546205DD469"
+      ],
+      "prior_payloads_preserved": true,
+      "raw_text_matches_original": true,
+      "status": "passed-verify-dismissed-stored-invariants"
+    },
+    "verify-cancelled": {
+      "completed_payload_sha256": {
+        "B8F44D97-5C06-485C-8581-C2EA844156EE": "cde60944ded03850228310ebe383de2eed1efdf2d2fd23e7124451de4edf32c8",
+        "BA1FEE58-AC8E-4ADA-B0D3-8546205DD469": "fe6c80463acd545c5e00f83f205c58f0bfa90afe453465df59889af2ef21f568",
+        "EEBBF628-39CA-474B-98CC-6DB50FFEE826": "2bae5cc9fdfceb718d70e0f3f02d3e22117cb009890c16e95f484807a23dd0c4"
+      },
+      "history_records": 3,
+      "native_interaction_proven": false,
+      "new_audio_references": 0,
+      "planned_ids": [
+        "EEBBF628-39CA-474B-98CC-6DB50FFEE826",
+        "B8F44D97-5C06-485C-8581-C2EA844156EE",
+        "BA1FEE58-AC8E-4ADA-B0D3-8546205DD469"
+      ],
+      "prior_payloads_preserved": true,
+      "raw_text_matches_original": true,
+      "status": "passed-verify-cancelled-stored-invariants"
+    }
+  },
+  "filtered_json_export": {
+    "status": "passed-native-filtered-export-byte-check",
+    "record_count": 1,
+    "query": "repair.wav",
+    "planned_repair_id_preserved": true,
+    "source_filename_preserved": true,
+    "model": "parakeet-v3",
+    "raw_text_preserved": true,
+    "audio_included": false,
+    "all_files_mode_0600": true,
+    "current_settings_changed_to": {
+      "model": "whisper-small",
+      "language": "fr"
+    },
+    "index_sha256": "8221cba6502daf325c5baac52f4d37035963a575ef4648531ef5940c63077fef",
+    "record_sha256": "8e563f5ae1065473609c14bb68cab7f8fc642dedb1b4beb9b1924bc5dfd57450"
+  },
+  "export_directory_mode_0700": true,
+  "scope": "Real native signed-app Resume/Open/source-filename search/filtered export/completed restart/Dismiss/active Cancel. Native events observed through Cua; headless probes independently verify stored state and do not claim UI interaction themselves. One short public clip reused, plus two owned repeated-speech hour files cancelled during processing. No microphone, playback, insertion, physical shortcuts, real API accounts, natural-meeting or ranking claim. Completed/dismissed header defects observed and reproduced separately before source correction."
+}

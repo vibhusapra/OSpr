@@ -7,6 +7,12 @@ IDs. A new batch replaces this recovery queue; saved transcripts remain in
 History. **Dismiss batch** removes the queue, without deleting transcripts or
 source files. With saving off, batch state remains session-only.
 
+The [October 27 native follow-up](native-batch-acceptance.md) now verifies explicit
+Resume, Open, completed restart, Dismiss/restart and active Cancel on owned public
+files, plus source-filename History search and filtered JSON export. The current
+native source also fixes completed/dismissed header cues. Provider-reconfirmation
+UI, VoiceOver, drag/drop and device/volume failures remain open.
+
 ## Commit and restart boundaries
 
 Each item gets a stable planned result UUID before processing. An owner-only
@@ -79,8 +85,9 @@ The first control passed its functional stages but left its isolated sleeping
 fixture worker in Foundation Process's separate process group. That owned worker
 was identified by PID/command/cwd and stopped. Later controls explicitly verify
 ownership and stop the fixture child after killing the parent. All runs remain
-retained. This harness cleanup **does not establish production worker
-parent-death cleanup**; auditing that resource-lifecycle gap is a follow-up.
+retained. That harness cleanup alone does not establish production cleanup;
+the later [native worker guardian](worker-lifetime.md) has its own production
+owner-death and actual-ASR controls.
 
 The real control uses the installed standalone Engine with all 29 backend
 source/data files matching the checkout, pinned cached Parakeet, and offline Hub
@@ -102,9 +109,10 @@ All development controls remain retained.
 Actual component layouts were inspected in [light](../assets/durable-import-light.png),
 [dark](../assets/durable-import-dark.png) and
 [compact](../assets/durable-import-compact.png) arrangements. These are offscreen
-views. Native Resume/Open/Dismiss/provider-dialog/VoiceOver acceptance remains
-open: a current native-control check reported the Mac locked. Normal OSpr was
-not stopped or changed. Existing standalone ZIPs predate this source feature.
+views. At that source checkpoint, native control reported the Mac locked and no
+normal app/data was changed. The later reliability preview includes this feature,
+and the October 27 native follow-up above closes the scoped Resume/Open/Dismiss/
+Cancel checks. Provider-dialog/VoiceOver and broader native acceptance remain open.
 
 ## Reproduce
 

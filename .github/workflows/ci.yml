@@ -24,6 +24,7 @@ jobs:
           /usr/bin/sqlite3 --version
           swift test
           swiftc -typecheck -parse-as-library -I .build/debug/Modules -I "$(xcrun --show-sdk-platform-path)/Developer/usr/lib" -F "$(xcrun --show-sdk-platform-path)/Developer/Library/Frameworks" benchmarks/live_audio_privacy.swift
+          swiftc -typecheck -parse-as-library -I .build/debug/Modules -I "$(xcrun --show-sdk-platform-path)/Developer/usr/lib" -F "$(xcrun --show-sdk-platform-path)/Developer/Library/Frameworks" benchmarks/native_batch_acceptance.swift
           swiftc -typecheck -parse-as-library -I .build/debug/Modules benchmarks/edited_summary_storage.swift
           swiftc -typecheck -parse-as-library -I .build/debug/Modules benchmarks/history_archive_reader.swift
           swiftc -typecheck -parse-as-library -I .build/debug/Modules benchmarks/history_sources.swift
@@ -55,6 +56,7 @@ jobs:
           task_directory="$(mktemp -d)"
           (cd "$task_directory" && "$GITHUB_WORKSPACE/.venv/bin/python" "$GITHUB_WORKSPACE/benchmarks/native_long.py" --help)
           uv run --frozen --all-extras python benchmarks/live_audio_privacy.py --help
+          uv run --frozen --all-extras python benchmarks/native_batch_acceptance.py --help
           uv run --frozen --all-extras python benchmarks/preview_package_gates.py --help
           uv run --frozen --all-extras python benchmarks/preview_package_verify.py --help
           uv run --frozen --all-extras python benchmarks/package_media_recovery.py --help

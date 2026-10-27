@@ -1,0 +1,94 @@
+{
+  "status": "passed-corrected-native-batch-status",
+  "app_build": {
+    "version": "0.1.0",
+    "built_at": "2026-10-27T18:17:09.489329+00:00",
+    "git_commit": "fa2c63ca1cb66e71867121a8e157cbab90798607",
+    "tracked_changes": false,
+    "application_source_sha256": "4b8c67faf0bf2724a598cbd3b4faa775907294b512c47e09aaa03e14c6226e54",
+    "source_manifest_version": 2,
+    "signing_mode": "configured-identity",
+    "boundary": "Development build; configured signing identity; not notarized; weights downloaded separately."
+  },
+  "app_executable_sha256": "ee5749ff0bb621183a058864cd1d164f53728554891155cfe9c5f68529235e2a",
+  "probe_binding": {
+    "application_source_sha256": "4b8c67faf0bf2724a598cbd3b4faa775907294b512c47e09aaa03e14c6226e54",
+    "source_manifest_version": 2,
+    "test_executable_sha256": "d398f54564ba8f95f35687f3d89970a14e3593e789628d7f71ee721abbc60ae0",
+    "probe_sha256": "b52a8926b1274c02f45c4bece2f929a4c6b77e6142a25fe391c03f6ea45adea1",
+    "guardian_sha256": "ab0a20f141b6edca2f3cb185bb910cb93f64035c612a2c028bf7c34f3820cf51",
+    "build_log_sha256": "e7b1671b4c7ec99d4af5942d46197f3f6d5fd85148237b1c6036f988d680331a"
+  },
+  "fixture_sha256": "799f78ed4beb4de7ceae3a809262d4ce242394342ccd1d58cef7d49dbc2def46",
+  "native_observations": {
+    "recovered_unfinished_batch_waited_for_resume": true,
+    "native_resume_clicked": true,
+    "native_completed_after_resume": 3,
+    "completed_restart_status": "Saved import batch \u00b7 3/3 transcripts",
+    "completed_restart_has_no_resume_button": true,
+    "dismiss_status": "Import batch dismissed",
+    "dismiss_cleared_batch_card": true,
+    "settings_caption_mentions_current_take": true,
+    "audio_capture_or_playback": false
+  },
+  "stored_controls": {
+    "prepare": {
+      "completed_payload_sha256": {
+        "6E551D9F-5867-418C-BA89-CA2B0FE594B2": "8b70571d12c7c96cca9691071abc783128a440c74d5246373c6134fb2651e6f2",
+        "864D02A7-5017-4077-B200-34891EEA478B": "ef907930005dc2d15932f108b3799217109f9c5a3e3196d13c4ff1fdda45a271"
+      },
+      "history_records": 2,
+      "language": "en",
+      "mode": "verbatim",
+      "model": "parakeet-v3",
+      "native_interaction_proven": false,
+      "planned_ids": [
+        "6E551D9F-5867-418C-BA89-CA2B0FE594B2",
+        "895DEF89-B857-4CF7-AE7F-345F21418C31",
+        "864D02A7-5017-4077-B200-34891EEA478B"
+      ],
+      "provider": "local",
+      "status": "prepared-real-local-two-complete-one-failed"
+    },
+    "verify-resumed": {
+      "completed_payload_sha256": {
+        "6E551D9F-5867-418C-BA89-CA2B0FE594B2": "8b70571d12c7c96cca9691071abc783128a440c74d5246373c6134fb2651e6f2",
+        "864D02A7-5017-4077-B200-34891EEA478B": "ef907930005dc2d15932f108b3799217109f9c5a3e3196d13c4ff1fdda45a271",
+        "895DEF89-B857-4CF7-AE7F-345F21418C31": "8fe4d819be9c8dc4cf774479075bfa49d57e9b9e65f3c1a246df36f5c9675b27"
+      },
+      "history_records": 3,
+      "native_interaction_proven": false,
+      "new_audio_references": 0,
+      "planned_ids": [
+        "6E551D9F-5867-418C-BA89-CA2B0FE594B2",
+        "895DEF89-B857-4CF7-AE7F-345F21418C31",
+        "864D02A7-5017-4077-B200-34891EEA478B"
+      ],
+      "prior_payloads_preserved": true,
+      "raw_text_matches_original": true,
+      "status": "passed-verify-resumed-stored-invariants"
+    },
+    "verify-dismissed": {
+      "completed_payload_sha256": {
+        "6E551D9F-5867-418C-BA89-CA2B0FE594B2": "8b70571d12c7c96cca9691071abc783128a440c74d5246373c6134fb2651e6f2",
+        "864D02A7-5017-4077-B200-34891EEA478B": "ef907930005dc2d15932f108b3799217109f9c5a3e3196d13c4ff1fdda45a271",
+        "895DEF89-B857-4CF7-AE7F-345F21418C31": "8fe4d819be9c8dc4cf774479075bfa49d57e9b9e65f3c1a246df36f5c9675b27"
+      },
+      "history_records": 3,
+      "native_interaction_proven": false,
+      "new_audio_references": 0,
+      "planned_ids": [
+        "6E551D9F-5867-418C-BA89-CA2B0FE594B2",
+        "895DEF89-B857-4CF7-AE7F-345F21418C31",
+        "864D02A7-5017-4077-B200-34891EEA478B"
+      ],
+      "prior_payloads_preserved": true,
+      "raw_text_matches_original": true,
+      "status": "passed-verify-dismissed-stored-invariants"
+    }
+  },
+  "boundary": "Updated signed native QA overlay: clean fa2 application binaries/build metadata on frozen c906 bundled engine/resources; only isolated Info data-directory override. Actual Cua native Resume/completed restart/Dismiss/caption observations plus separate headless storage verification. Not a new qualified distribution ZIP, physical dictation, VoiceOver, broad compatibility or ranking proof.",
+  "normal_app_restored": true,
+  "normal_baseline_files": 6,
+  "normal_baseline_all_unchanged": true
+}
