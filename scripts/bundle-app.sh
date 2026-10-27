@@ -5,7 +5,12 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 export PATH="$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:$PATH"
 [[ "$(uname -m)" == arm64 ]] || { echo 'Apple Silicon required' >&2; exit 1; }
-[[ -x .venv/bin/python ]] || scripts/setup.sh
+# The backend also supports Python 3.13, but the portable launcher and its venv
+# layout are pinned to 3.12. Repair a development environment created with uv's
+# default interpreter before copying it into a partially built application.
+if [[ ! -x .venv/bin/python ]] || ! .venv/bin/python -c 'import sys; raise SystemExit(sys.version_info[:2] != (3, 12))'; then
+  scripts/setup.sh --minimal
+fi
 scripts/build-app.sh
 app="${OSPR_BUNDLE_OUTPUT:-dist/standalone/OSpr.app}"
 signing_identity="${OSPR_SIGN_IDENTITY:--}"
