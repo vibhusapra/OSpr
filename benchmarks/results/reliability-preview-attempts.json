@@ -1,0 +1,33 @@
+{
+  "source_commit": "c906a352835e49c51c5559a75c43e6d485e7c205",
+  "attempts": [
+    {
+      "id": 1,
+      "control": "build.log",
+      "status": "failed-before-usable-bundle",
+      "reason": "Existing Python 3.13 environment; portable launcher requires Python 3.12.",
+      "private_log_sha256": "99488929430f3572947edab509ea144eacb98d388a26d2c205a892dc939d3a46"
+    },
+    {
+      "id": 2,
+      "control": "portable-missing-fixture.log",
+      "status": "failed-before-inference",
+      "reason": "Ignored public speech fixture absent in managed checkout.",
+      "private_log_sha256": "764fbe51576b2a2cebe448602bd6f4a7ad45e7f96b24b1c25a564692da03aadd"
+    },
+    {
+      "id": 3,
+      "control": "native-long-missing-fixture.log",
+      "status": "failed-before-inference",
+      "reason": "Ignored repeated-speech hour fixture absent in managed checkout.",
+      "private_log_sha256": "1c44292b169785a3f86ac8b102b38c8e59d976194407feacd3154f1c1781017e"
+    }
+  ],
+  "boundary": "All failed controls retained locally. Paths, private settings, history text and credentials are not published. Fixtures restored only after versioned SHA256 verification; resumed gates keep prior successful receipts unchanged.",
+  "report_validation": {
+    "first_staging_check": "failed",
+    "reason": "Report-link-check fixture omitted the public backend models.lock.json link target. Signed standalone app already contains it.",
+    "correction": "Copied the required versioned manifest into the report-only staging tree; complete link check passes.",
+    "product_or_model_failure": false
+  }
+}
