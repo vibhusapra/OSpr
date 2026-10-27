@@ -19,6 +19,13 @@ planned History ID and no-audio policy survive. Two controls generate silence
 without model downloads or credentials; that path is now in CI. Light/dark/compact
 offscreen component renders were inspected, with long routes wrapping cleanly.
 
+The first CI passed 509 Swift / 380 Python and existing contracts, then the new
+fixture missed its readiness deadline. A controlled DNS-refusal test shows the
+default HTTP server's startup lookup; the fixture now binds numerically without
+DNS and prints bounded failure diagnostics. That case, a third local generated-
+silence controller run and all **381 Python** tests pass. The first server log was
+unavailable, so its exact cause remains unassigned; the failed CI is retained.
+
 Native control reports the Mac locked, so the provider dialog was not exercised
 and the renewed TextEdit check did not insert anything. All six original app/
 profile/target hashes match. Existing native batch receipts are preserved, with

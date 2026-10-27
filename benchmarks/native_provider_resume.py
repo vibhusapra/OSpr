@@ -16,12 +16,20 @@ import os
 from pathlib import Path
 import shutil
 import signal
+from socketserver import TCPServer
 import subprocess
 import threading
 import time
 import wave
 
 from durable_import_common import application_fingerprint, digest, prepare_probe
+
+class LoopbackProviderServer(ThreadingHTTPServer):
+    def server_bind(self):
+        # HTTPServer's getfqdn() can wait on DNS even for a literal loopback IP.
+        # This owned fixture needs only the actual bound numeric address.
+        TCPServer.server_bind(self)
+        self.server_name, self.server_port = self.server_address[:2]
 
 
 def serve(package, root, synthetic=False):
@@ -78,7 +86,7 @@ def serve(package, root, synthetic=False):
             self.end_headers()
             self.wfile.write(data)
 
-    server = ThreadingHTTPServer(("127.0.0.1", 0), Handler)
+    server = LoopbackProviderServer(("127.0.0.1", 0), Handler)
     plan = dict(host="127.0.0.1", port=server.server_port, saved_base=f"http://127.0.0.1:{server.server_port}/saved/v1",
                 current_base=f"http://127.0.0.1:{server.server_port}/current/v1", saved_model="fixture-resume-original",
                 response_text="Public provider resume fixture result.", fixture_id=item["id"], fixture_sha256=item["sha256"], server_pid=os.getpid())
@@ -153,6 +161,14 @@ def ci_control(package, root, app):
                 raise RuntimeError("Owned synthetic provider exited after readiness; log retained")
             probe(package, root, app, "prepare")
             probe(package, root, app, "exercise-headless")
+        except Exception:
+            # These logs contain only owned synthetic-fixture diagnostics. Do
+            # not lose the startup/probe failure behind a generic timeout in CI.
+            for path in [root.parent / (root.name + "-server.log"),
+                         *[root / name for name in ("build.log", "prepare.log", "exercise-headless.log")]]:
+                if path.is_file():
+                    print(path.name + ":\n" + path.read_text(errors="replace")[-12000:], flush=True)
+            raise
         finally:
             if server.poll() is None:
                 server.terminate()

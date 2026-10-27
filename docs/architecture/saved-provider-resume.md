@@ -30,6 +30,14 @@ selection, inference deadlines and the version-1 journal schema are unchanged.
 - CI generates one second of silence, returns constant fixture text, requires no
   weights or credentials, and stops its owned server. Ready metadata is published
   atomically. This tests routing and confirmation state, not recognition quality.
+- The first GitHub CI run passed 509 Swift / 380 Python and existing contracts,
+  then failed the new fixture's ten-second readiness gate. Its unavailable server
+  log prevents assigning a definitive cause. Python's default server performs
+  reverse DNS even for numeric loopback; a controlled DNS-refusal case reproduces
+  that dependency. The fixture now binds without DNS and prints bounded owned
+  diagnostics on failure. The negative case then passes, as do a third local
+  generated-silence controller run and all 381 Python tests. The original failed
+  run and all earlier receipts remain retained.
 - The actual `ImportBatchContent` is rendered **offscreen** in light, dark and
   700-point compact layouts. Long speech/rewrite endpoint labels wrap visibly.
   These are component renders, not native screenshots or dialog acceptance.
@@ -39,6 +47,7 @@ selection, inference deadlines and the version-1 journal schema are unchanged.
 
 [Controller/HTTP/source receipts](../../benchmarks/results/saved-provider-resume.json) ·
 [Offscreen layout receipt](../../benchmarks/results/saved-provider-resume-layouts.json) ·
+[CI startup follow-up](../../benchmarks/results/saved-provider-resume-ci-startup.json) ·
 [Light](../assets/provider-resume-light.png) ·
 [Dark](../assets/provider-resume-dark.png) ·
 [Compact](../assets/provider-resume-compact.png).

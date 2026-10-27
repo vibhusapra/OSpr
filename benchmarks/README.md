@@ -768,6 +768,10 @@ weights, credentials, native app launch or recognition-quality claim. Server
 readiness is atomic and its owned process is stopped before success. App/source/
 runner/probe/compiled-test hashes are bound and existing outputs are refused.
 
+The numeric loopback bind skips HTTPServer's reverse DNS lookup. A DNS-refusal
+negative control fails before this change and passes afterward. Bounded owned
+server/probe logs are printed on CI failure; no normal profile is involved.
+
 `provider_resume_render.swift` optionally renders the actual batch component
 offscreen; it does not operate a native dialog. The native warning/cancel/approve
 and TextEdit gates remain open. [Protocol/reproduction](../docs/architecture/saved-provider-resume.md) ·
