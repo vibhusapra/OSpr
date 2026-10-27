@@ -28,6 +28,22 @@ public struct FileImportSnapshot: Codable, Sendable {
         let host = URL(string: settings.rewriteURL)?.host?.lowercased() ?? ""
         return !["localhost", "127.0.0.1", "::1", "[::1]"].contains(host)
     }
+    /// A recovery decision needs the actual saved destination and model. Never
+    /// echo credentials/query strings from an invalid endpoint into the UI.
+    public static func providerDescription(for config: OSprSettings) -> String {
+        func remote(_ provider: String, _ base: String, _ model: String) -> String {
+            let endpoint = (try? ProviderClient.endpoint(base: base, path: ""))?.absoluteString ?? "invalid saved endpoint"
+            return provider + " · " + endpoint + " · " + (model.isEmpty ? "model not set" : model)
+        }
+        let speech = config.transcriptionProvider == "local" ? "Local · \(config.model)"
+            : remote(config.transcriptionProvider, config.transcriptionURL, config.transcriptionModel)
+        let rewrite: String
+        if config.mode == .verbatim || config.rewriteProvider == "none" { rewrite = "off" }
+        else if ["local", "local-9b"].contains(config.rewriteProvider) { rewrite = config.rewriteProvider }
+        else { rewrite = remote(config.rewriteProvider, config.rewriteURL, config.rewriteModel) }
+        return speech + " · " + config.mode.title + " · rewrite: " + rewrite
+    }
+    public var providerDescription: String { Self.providerDescription(for: settings) }
     public func validate() throws {
         guard version == 1 else { throw OSprError.message("The saved import queue needs a newer OSpr. It was preserved.") }
         let rows = batch.items

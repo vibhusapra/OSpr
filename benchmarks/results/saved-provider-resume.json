@@ -1,0 +1,239 @@
+{
+  "status": "passed-saved-provider-controller-http-and-description",
+  "production_source_commit": "02905eea8f896f4a60ffb3e1005332b3307adc1d",
+  "application_source_sha256": "b219d3c7721f1160033163ada3671437fdc0d8b904f01055eeae264e77d69a3d",
+  "source_manifest_version": 2,
+  "controls": [
+    {
+      "control": "headless-01",
+      "build": {
+        "version": "0.1.0",
+        "built_at": "2026-10-27T18:17:09.489329+00:00",
+        "git_commit": "fa2c63ca1cb66e71867121a8e157cbab90798607",
+        "tracked_changes": false,
+        "application_source_sha256": "4b8c67faf0bf2724a598cbd3b4faa775907294b512c47e09aaa03e14c6226e54",
+        "source_manifest_version": 2,
+        "signing_mode": "configured-identity",
+        "boundary": "Development build; configured signing identity; not notarized; weights downloaded separately."
+      },
+      "selected_app_signed_sha256": "ee5749ff0bb621183a058864cd1d164f53728554891155cfe9c5f68529235e2a",
+      "runner_sha256": "803d9d027f8c1905719c608ca76a3c37b00217297442fb163c5f59fdd05caf54",
+      "binding": {
+        "application_source_sha256": "4b8c67faf0bf2724a598cbd3b4faa775907294b512c47e09aaa03e14c6226e54",
+        "source_manifest_version": 2,
+        "test_executable_sha256": "cb36c7876e3ae6fda5ab70d31dcb3a1a7fdc014e61667f8a313471d474347be8",
+        "probe_sha256": "e5a5b928c80629cbc3510cbf5deac5d74be2471fa8ac2c7b41326720decf29c4",
+        "guardian_sha256": "ab0a20f141b6edca2f3cb185bb910cb93f64035c612a2c028bf7c34f3820cf51",
+        "build_log_sha256": "297355e7ba81b209de80cfedfcf47b97a2315557671700accec0569674f328ac"
+      },
+      "result": {
+        "current_global_local_settings_preserved": true,
+        "headless_confirmation_guard_exercised": true,
+        "native_interaction_proven": false,
+        "planned_id": "A29CF21B-2859-4D05-B394-63359AD25173",
+        "provider_description": "compatible \u00b7 127.0.0.1 \u00b7 Verbatim \u00b7 rewrite: none",
+        "records": 1,
+        "status": "passed-exercise-headless"
+      },
+      "requests": [
+        {
+          "path": "/saved/v1/audio/transcriptions",
+          "bytes": 188045,
+          "credential_present": false,
+          "cookie_present": false,
+          "model": "fixture-resume-original",
+          "language": "en",
+          "vocabulary": "original public vocabulary",
+          "audio_sha256": "799f78ed4beb4de7ceae3a809262d4ce242394342ccd1d58cef7d49dbc2def46",
+          "status": "accepted-original-saved-route-and-public-bytes"
+        }
+      ],
+      "logs": {
+        "prepare.log": "592c635669ce511de1d43d1ccad62a8ca93e7d7b0a2cf48a63266dfafcc92af7",
+        "exercise-headless.log": "170812972a2e1a4d378e159882fe03fdc28a26c2a05c2f87e19ce7e980d9073a"
+      },
+      "boundary": "AppModel services disabled; model confirmation state plus actual loopback HTTP. No native buttons, dialog, paid provider, ASR quality or latency acceptance."
+    },
+    {
+      "control": "headless-02",
+      "build": {
+        "version": "0.1.0",
+        "built_at": "2026-10-27T19:37:17.149823+00:00",
+        "git_commit": "02905eea8f896f4a60ffb3e1005332b3307adc1d",
+        "tracked_changes": false,
+        "application_source_sha256": "b219d3c7721f1160033163ada3671437fdc0d8b904f01055eeae264e77d69a3d",
+        "source_manifest_version": 2,
+        "signing_mode": "configured-identity",
+        "boundary": "Development build; configured signing identity; not notarized; weights downloaded separately."
+      },
+      "selected_app_signed_sha256": "bb5c3cc0723f3f6487be9e2915877c37266346194675c3189b71d144cdcaff52",
+      "runner_sha256": "3fd74e1c289f9294b06a82032728d2d3f9b1b53de6ce2a824b268adad06b58b3",
+      "binding": {
+        "application_source_sha256": "b219d3c7721f1160033163ada3671437fdc0d8b904f01055eeae264e77d69a3d",
+        "source_manifest_version": 2,
+        "test_executable_sha256": "1b8d6ed7bdc49242063373cc9cb9aa0c35eb5f70ab6d5a6193245f8f8b86bc26",
+        "probe_sha256": "e5a5b928c80629cbc3510cbf5deac5d74be2471fa8ac2c7b41326720decf29c4",
+        "guardian_sha256": "6bed038c7c3e221c64c30f9029ae4580e0261551ff1cff720a6caa63dfd521d8",
+        "build_log_sha256": "71fd9ff900f57e329cd2be92d597493834e8de46171ccab0b2d182bb22fdf1cc"
+      },
+      "result": {
+        "current_global_local_settings_preserved": true,
+        "headless_confirmation_guard_exercised": true,
+        "native_interaction_proven": false,
+        "planned_id": "A4024DE8-D671-4153-9B4A-DE1875A45709",
+        "provider_description": "compatible \u00b7 http://127.0.0.1:57683/saved/v1/ \u00b7 fixture-resume-original \u00b7 Verbatim \u00b7 rewrite: off",
+        "records": 1,
+        "status": "passed-exercise-headless"
+      },
+      "requests": [
+        {
+          "path": "/saved/v1/audio/transcriptions",
+          "bytes": 188045,
+          "credential_present": false,
+          "cookie_present": false,
+          "model": "fixture-resume-original",
+          "language": "en",
+          "vocabulary": "original public vocabulary",
+          "audio_sha256": "799f78ed4beb4de7ceae3a809262d4ce242394342ccd1d58cef7d49dbc2def46",
+          "status": "accepted-original-saved-route-and-public-bytes"
+        }
+      ],
+      "logs": {
+        "prepare.log": "ec7170dde3c0d51eed0f855127b5f9a934303e30f8c6a0bc4a1969dc44969e10",
+        "exercise-headless.log": "3b63bc7180dcb09837df57170ea0b917c7f90237d97425edd86352b15d90f44d"
+      },
+      "boundary": "AppModel services disabled; model confirmation state plus actual loopback HTTP. No native buttons, dialog, paid provider, ASR quality or latency acceptance."
+    },
+    {
+      "control": "synthetic-ci-01",
+      "build": {
+        "version": "0.1.0",
+        "built_at": "2026-10-27T19:37:17.149823+00:00",
+        "git_commit": "02905eea8f896f4a60ffb3e1005332b3307adc1d",
+        "tracked_changes": false,
+        "application_source_sha256": "b219d3c7721f1160033163ada3671437fdc0d8b904f01055eeae264e77d69a3d",
+        "source_manifest_version": 2,
+        "signing_mode": "configured-identity",
+        "boundary": "Development build; configured signing identity; not notarized; weights downloaded separately."
+      },
+      "selected_app_signed_sha256": "bb5c3cc0723f3f6487be9e2915877c37266346194675c3189b71d144cdcaff52",
+      "runner_sha256": "e2ee52e89ceff8dfdaee49494e3275a8be9a908c523ab1ec8386bb3cd8902b4d",
+      "binding": {
+        "application_source_sha256": "b219d3c7721f1160033163ada3671437fdc0d8b904f01055eeae264e77d69a3d",
+        "source_manifest_version": 2,
+        "test_executable_sha256": "1b8d6ed7bdc49242063373cc9cb9aa0c35eb5f70ab6d5a6193245f8f8b86bc26",
+        "probe_sha256": "e5a5b928c80629cbc3510cbf5deac5d74be2471fa8ac2c7b41326720decf29c4",
+        "guardian_sha256": "6bed038c7c3e221c64c30f9029ae4580e0261551ff1cff720a6caa63dfd521d8",
+        "build_log_sha256": "e469407996ec4ab8519384af28238f5d5dfc960138f10a917e824cd51c4322b5"
+      },
+      "result": {
+        "current_global_local_settings_preserved": true,
+        "headless_confirmation_guard_exercised": true,
+        "native_interaction_proven": false,
+        "planned_id": "937F0ACF-7F80-4E1B-ABCA-DDBDC774422F",
+        "provider_description": "compatible \u00b7 http://127.0.0.1:58104/saved/v1/ \u00b7 fixture-resume-original \u00b7 Verbatim \u00b7 rewrite: off",
+        "records": 1,
+        "status": "passed-exercise-headless"
+      },
+      "requests": [
+        {
+          "path": "/saved/v1/audio/transcriptions",
+          "bytes": 32685,
+          "credential_present": false,
+          "cookie_present": false,
+          "model": "fixture-resume-original",
+          "language": "en",
+          "vocabulary": "original public vocabulary",
+          "audio_sha256": "643f8a8dc8bd9c19225afffad2becfec5426180b3749cb208abdf1a6c8354efc",
+          "status": "accepted-original-saved-route-and-public-bytes"
+        }
+      ],
+      "logs": {
+        "prepare.log": "ee717a9adcb648485905bd811e09add31a7b53642d36c6cb2347200f87b7be4f",
+        "exercise-headless.log": "02eaa1814afc12e17f794092acd5f6a7406e47edfa4c79e03c10fad4a224af7b"
+      },
+      "boundary": "AppModel services disabled; model confirmation state plus actual loopback HTTP. No native buttons, dialog, paid provider, ASR quality or latency acceptance."
+    },
+    {
+      "control": "synthetic-ci-02",
+      "build": {
+        "version": "0.1.0",
+        "built_at": "2026-10-27T19:37:17.149823+00:00",
+        "git_commit": "02905eea8f896f4a60ffb3e1005332b3307adc1d",
+        "tracked_changes": false,
+        "application_source_sha256": "b219d3c7721f1160033163ada3671437fdc0d8b904f01055eeae264e77d69a3d",
+        "source_manifest_version": 2,
+        "signing_mode": "configured-identity",
+        "boundary": "Development build; configured signing identity; not notarized; weights downloaded separately."
+      },
+      "selected_app_signed_sha256": "bb5c3cc0723f3f6487be9e2915877c37266346194675c3189b71d144cdcaff52",
+      "runner_sha256": "70c5e007c310f97bea8191c6d121e97ac2baee15f6e392e827cc2f84d37aa65c",
+      "binding": {
+        "application_source_sha256": "b219d3c7721f1160033163ada3671437fdc0d8b904f01055eeae264e77d69a3d",
+        "source_manifest_version": 2,
+        "test_executable_sha256": "1b8d6ed7bdc49242063373cc9cb9aa0c35eb5f70ab6d5a6193245f8f8b86bc26",
+        "probe_sha256": "e5a5b928c80629cbc3510cbf5deac5d74be2471fa8ac2c7b41326720decf29c4",
+        "guardian_sha256": "6bed038c7c3e221c64c30f9029ae4580e0261551ff1cff720a6caa63dfd521d8",
+        "build_log_sha256": "dbf0365f45cfdaa86b33e3c175672ab164109214196c6739143f6d2deaa17dcd"
+      },
+      "result": {
+        "current_global_local_settings_preserved": true,
+        "headless_confirmation_guard_exercised": true,
+        "native_interaction_proven": false,
+        "planned_id": "DF40AE67-6150-4A9D-BAD6-A1520185BE90",
+        "provider_description": "compatible \u00b7 http://127.0.0.1:58321/saved/v1/ \u00b7 fixture-resume-original \u00b7 Verbatim \u00b7 rewrite: off",
+        "records": 1,
+        "status": "passed-exercise-headless"
+      },
+      "requests": [
+        {
+          "path": "/saved/v1/audio/transcriptions",
+          "bytes": 32685,
+          "credential_present": false,
+          "cookie_present": false,
+          "model": "fixture-resume-original",
+          "language": "en",
+          "vocabulary": "original public vocabulary",
+          "audio_sha256": "643f8a8dc8bd9c19225afffad2becfec5426180b3749cb208abdf1a6c8354efc",
+          "status": "accepted-original-saved-route-and-public-bytes"
+        }
+      ],
+      "logs": {
+        "prepare.log": "b734cc317bc8bc1a2aeaa88a7a8d4987506d366ee68cb16360900d55a32b16d6",
+        "exercise-headless.log": "7290694d531b44e213b62fd71c0cd5e7807d6636405860027279aa3167a415c5"
+      },
+      "boundary": "AppModel services disabled; model confirmation state plus actual loopback HTTP. No native buttons, dialog, paid provider, ASR quality or latency acceptance."
+    }
+  ],
+  "source_validation": {
+    "expected_red": {
+      "tests": 1,
+      "failures": 2
+    },
+    "passing": {
+      "focused_swift_tests": 26,
+      "optimized_swift_tests": 509,
+      "ruff": true
+    },
+    "logs": {
+      "description-red.log": "0607648f8e9a761e2069714d3fcde8af4fd93a79617f6dd2496f38e46270fa7b",
+      "description-green.log": "f277f5b5d36b7debffb829c322705f8ad41e260c71c3470a5f4d3ce2acfac450",
+      "full-release.log": "daa6103e8ac058b39faead560ea35323d3fd238e4da77547bd1896a88eea72cd",
+      "ruff.log": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    }
+  },
+  "synthetic_ci": {
+    "status": "passed-synthetic-provider-controller-ci",
+    "requests": 1,
+    "owned_server_stopped": true,
+    "model_downloads": false,
+    "provider_credentials": false,
+    "native_interaction_proven": false
+  },
+  "normal_baseline_files": 6,
+  "normal_baseline_all_unchanged": true,
+  "native_dialog_status": "unrun-mac-locked",
+  "textedit_delivery_status": "unverified-mac-locked",
+  "native_interaction_proven": false,
+  "boundary": "All retained controller controls use owned profiles, public speech or generated silence, fake fixed transcription and loopback only. No native provider candidate was launched. Native confirmation/cancel/approve, actual TextEdit insertion and clipboard restoration remain open. Existing distribution ZIP and normal app/profile remain unchanged."
+}

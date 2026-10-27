@@ -1343,8 +1343,7 @@ import OSprCore
     }
     var importProviderDescription: String {
         guard let config = importSettings else { return "" }
-        let speech = config.transcriptionProvider == "local" ? "Local · \(config.model)" : "\(config.transcriptionProvider) · \(URL(string: config.transcriptionURL)?.host ?? "saved endpoint")"
-        return speech + " · \(config.mode.title) · rewrite: \(config.rewriteProvider)"
+        return FileImportSnapshot.providerDescription(for: config)
     }
     func importFiles(_ files: [URL]? = nil) {
         guard !busy else { return }

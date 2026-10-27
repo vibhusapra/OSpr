@@ -2,6 +2,40 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## Exact saved-provider identity, 2026-10-27
+
+Recovered import descriptions now show full validated endpoints (including port
+and path) and models for speech and active remote rewriting. This makes the saved
+route distinguishable before approval when current preferences are Local.
+Unused Verbatim refiners are hidden; invalid credential/query endpoints are not
+echoed. Routing, model/deadline policy and journal schema remain unchanged.
+
+One existing workflow test fails two assertions before the correction; afterward
+**26 focused / 509 optimized Swift** tests and Ruff pass. Four retained headless
+AppModel/real loopback HTTP controls send zero requests before confirmation or
+after a model-only decline, then exactly one original-route/model/language/
+vocabulary/WAV request after explicit confirmation. Current local preferences,
+planned History ID and no-audio policy survive. Two controls generate silence
+without model downloads or credentials; that path is now in CI. Light/dark/compact
+offscreen component renders were inspected, with long routes wrapping cleanly.
+
+The first CI passed 509 Swift / 380 Python and existing contracts, then the new
+fixture missed its readiness deadline. A controlled DNS-refusal test shows the
+default HTTP server's startup lookup; the fixture now binds numerically without
+DNS and prints bounded failure diagnostics. That case, a third local generated-
+silence controller run and all **381 Python** tests pass. The first server log was
+unavailable, so its exact cause remains unassigned; the failed CI is retained.
+
+Native control reports the Mac locked, so the provider dialog was not exercised
+and the renewed TextEdit check did not insert anything. All six original app/
+profile/target hashes match. Existing native batch receipts are preserved, with
+an additional program-payload comparison explaining base versus re-signed overlay
+hashes. The standalone ZIP remains older. Native dialog/insertion, physical
+capture, quality/consumer/energy and production distribution gates remain open.
+[Protocol, reproduction and TODOs](architecture/saved-provider-resume.md) ·
+[HTTP/source receipts](../benchmarks/results/saved-provider-resume.json) ·
+[Offscreen layouts](../benchmarks/results/saved-provider-resume-layouts.json).
+
 ## Native batch recovery and source-filename workflow, 2026-10-27
 
 Owned public-audio profiles now pass actual native saved-batch Resume, Open,

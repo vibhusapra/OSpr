@@ -1,0 +1,81 @@
+{
+  "status": "passed-local-dns-independent-provider-startup",
+  "first_ci": {
+    "run": 40572907874,
+    "job": 122431572862,
+    "source_commit": "9b6a1dc176e37b1d1990d42c123a1b3c33e9cb1a",
+    "result": "failure",
+    "passed_swift_tests": 509,
+    "passed_python_tests": 380,
+    "failure": "new-owned-provider-ten-second-readiness",
+    "server_log_available": false,
+    "definitive_root_cause": null,
+    "log_sha256": "53919ec4f40ebec47c78ad9946a76d9e7347dfe64775b11524c359784e830f5e"
+  },
+  "dns_control": {
+    "expected_red_tests": 1,
+    "expected_red_failures": 1,
+    "green_tests": 1
+  },
+  "passing_python_tests": 381,
+  "logs": {
+    "dns-red.log": "c1024b8b8821db422aac3b48bb1babb5ad4ff8226fb8cbab6298021c1ad641ee",
+    "dns-green.log": "4bcefcc9f6c645923b9993ccf73ad92e6b400ca25458ea14e095857fc2131342",
+    "python-381.log": "5dea8c43c94a75bc4f052789872c459f5f7ea11f525ca582df50984fd27c98e0",
+    "synthetic-ci-03.log": "60927037883d1ba2931cf664a7e0fa0f82f05a241557d053068489b62e5802c9"
+  },
+  "local_ci": {
+    "status": "passed-synthetic-provider-controller-ci",
+    "requests": 1,
+    "owned_server_stopped": true,
+    "model_downloads": false,
+    "provider_credentials": false,
+    "native_interaction_proven": false
+  },
+  "protocol": {
+    "build": {
+      "version": "0.1.0",
+      "built_at": "2026-10-27T19:37:17.149823+00:00",
+      "git_commit": "02905eea8f896f4a60ffb3e1005332b3307adc1d",
+      "tracked_changes": false,
+      "application_source_sha256": "b219d3c7721f1160033163ada3671437fdc0d8b904f01055eeae264e77d69a3d",
+      "source_manifest_version": 2,
+      "signing_mode": "configured-identity",
+      "boundary": "Development build; configured signing identity; not notarized; weights downloaded separately."
+    },
+    "app_sha256": "bb5c3cc0723f3f6487be9e2915877c37266346194675c3189b71d144cdcaff52",
+    "runner_sha256": "7d0bfe15cca1d8d2f9b34d67dea285c80433cd4e7a45ff1ae3be1565a914823f",
+    "binding": {
+      "application_source_sha256": "b219d3c7721f1160033163ada3671437fdc0d8b904f01055eeae264e77d69a3d",
+      "source_manifest_version": 2,
+      "test_executable_sha256": "1a5fbe0bc3361ae25b4ddae915bab2810c4d29b6c00d17bb8f6b3297d60c93ac",
+      "probe_sha256": "e5a5b928c80629cbc3510cbf5deac5d74be2471fa8ac2c7b41326720decf29c4",
+      "guardian_sha256": "6bed038c7c3e221c64c30f9029ae4580e0261551ff1cff720a6caa63dfd521d8",
+      "build_log_sha256": "f04c400c447f9790d1526522bd1d41711cd3c2bf4245da4e99e3921db435b534"
+    }
+  },
+  "result": {
+    "current_global_local_settings_preserved": true,
+    "headless_confirmation_guard_exercised": true,
+    "native_interaction_proven": false,
+    "planned_id": "03B75AE1-5D6A-4AF9-9FB0-E0218C2FB92B",
+    "provider_description": "compatible \u00b7 http://127.0.0.1:59211/saved/v1/ \u00b7 fixture-resume-original \u00b7 Verbatim \u00b7 rewrite: off",
+    "records": 1,
+    "status": "passed-exercise-headless"
+  },
+  "requests": [
+    {
+      "path": "/saved/v1/audio/transcriptions",
+      "bytes": 32685,
+      "credential_present": false,
+      "cookie_present": false,
+      "model": "fixture-resume-original",
+      "language": "en",
+      "vocabulary": "original public vocabulary",
+      "audio_sha256": "643f8a8dc8bd9c19225afffad2becfec5426180b3749cb208abdf1a6c8354efc",
+      "status": "accepted-original-saved-route-and-public-bytes"
+    }
+  ],
+  "native_interaction_proven": false,
+  "boundary": "Default stdlib numeric-loopback server demonstrably calls getfqdn under a DNS-refusal test. Fixture removes that dependency; first remote CI failure exact cause is not known because its server log was not published. Real local controller/HTTP repeat passes with generated silence. No production app change or recognition/native/latency claim."
+}

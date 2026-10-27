@@ -152,6 +152,8 @@ final class FileImportWorkflowTests: XCTestCase {
         let reopened = AppModel(instanceLock: try AppInstanceLock(directory: copy), directory: copy, enableServices: false)
         try await settle { !reopened.busy }
         XCTAssertTrue(reopened.importRecovered)
+        XCTAssertTrue(reopened.importProviderDescription.contains("http://127.0.0.1:1/v1"))
+        XCTAssertTrue(reopened.importProviderDescription.contains("whisper-large-v3-turbo"))
         reopened.retryImports(); XCTAssertTrue(reopened.confirmImportResume); XCTAssertFalse(reopened.busy)
         XCTAssertFalse(FileManager.default.fileExists(atPath: directory.appendingPathComponent("engine/requests.jsonl").path))
         reopened.retryImports(confirmedRecovery: true); try await settle { !reopened.busy }

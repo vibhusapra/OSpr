@@ -1087,3 +1087,35 @@ if native_batch_path.is_file():
     assert anchor in report
     report = report.replace(anchor, panel + '<details id="reliability-preview">', 1)
     (ROOT / "docs/research.html").write_text(report)
+
+
+saved_provider_path = ROOT / "benchmarks/results/saved-provider-resume.json"
+if saved_provider_path.is_file():
+    saved = json.loads(saved_provider_path.read_text())
+    layouts = json.loads((saved_provider_path.parent / "saved-provider-resume-layouts.json").read_text())
+    identity = json.loads((saved_provider_path.parent / "native-batch-program-identity.json").read_text())
+    startup = json.loads((saved_provider_path.parent / "saved-provider-resume-ci-startup.json").read_text())
+    assert saved["native_interaction_proven"] is False and saved["normal_baseline_all_unchanged"]
+    assert len(saved["controls"]) == 4 and all(len(row["requests"]) == 1 for row in saved["controls"])
+    assert all(row["result"]["current_global_local_settings_preserved"] for row in saved["controls"])
+    assert saved["synthetic_ci"]["owned_server_stopped"] and not saved["synthetic_ci"]["model_downloads"]
+    assert len(layouts["layouts"]) == 3 and layouts["native_interaction_proven"] is False
+    assert all(row["program_payload_equal"] and row["original_signed_files_unchanged"] for row in identity["records"])
+    assert startup["local_ci"]["owned_server_stopped"] and startup["passing_python_tests"] == 381
+    panel = f'''<details open id="saved-provider-resume"><summary>Saved-provider approval: exact routes and models, with real HTTP/controller checks.</summary>
+<p>Recovery still uses the saved batch route after global preferences change to Local. A host-only label concealed its port, base path and model. Clean source <code>{esc(saved["production_source_commit"][:7])}</code> now shows full validated speech and active rewrite endpoints and models. Invalid credential/query URLs are hidden; Verbatim omits the unused refiner. Routing, confirmation policy, inference deadlines and journal schema are unchanged.</p>
+<div class="scroll"><table><thead><tr><th>Check</th><th>Observed result</th><th>Scope</th></tr></thead><tbody>
+<tr><td>Before approval / model-only decline</td><td>Zero HTTP requests; retryable planned work remains.</td><td>Actual headless AppModel confirmation state; no native button claim.</td></tr>
+<tr><td>Explicit model confirmation</td><td>Exactly one POST with original saved path/model/English/vocabulary and exact public WAV bytes; planned History ID and current Local settings preserved, no retained audio.</td><td>Owned loopback server with fixed fixture response; no paid provider or ASR-quality result.</td></tr>
+<tr><td>Generated-silence CI path</td><td>Three local runs pass; no weights or credentials; owned server stops cleanly and readiness is atomic.</td><td>One-second synthetic audio; controller/HTTP regression added to macOS CI.</td></tr>
+<tr><td>First CI startup failure</td><td>509 Swift / 380 Python and existing contracts pass; new fixture misses readiness. Numeric bind now avoids reverse DNS; controlled DNS-refusal case and all 381 Python cases pass.</td><td>First server log unavailable, exact cause unassigned. Failure retained; bounded diagnostics added.</td></tr>
+<tr><td>Description regression</td><td>One test/two expected failures before fix; 26 focused and 509 optimized Swift cases plus Ruff pass afterward.</td><td>Includes schema roundtrip, unused refiner and invalid secret-bearing endpoint controls.</td></tr>
+<tr><td>Long-label layout</td><td>Light, dark and compact component renders wrap full speech/rewrite routes without clipping.</td><td>Offscreen NSHostingView rendering; native dialog/VoiceOver remains open.</td></tr>
+</tbody></table></div>
+<p><strong>Native confirmation and TextEdit delivery remain unverified.</strong> Native control reported the Mac locked; no provider candidate was launched and no new insertion occurred. All six original app/profile/target hashes match. Existing batch-native receipts stay immutable; disposable-copy signature normalization confirms both prior native overlays have the selected base program payloads. The preserved standalone ZIP predates this source change.</p>
+<p class="small muted"><a href="architecture/saved-provider-resume.md">Protocol, reproduction and remaining gates</a> · <a href="../benchmarks/results/saved-provider-resume.json">Original four HTTP/controller controls and source proof</a> · <a href="../benchmarks/results/saved-provider-resume-ci-startup.json">CI startup follow-up and third synthetic control</a> · <a href="../benchmarks/results/saved-provider-resume-layouts.json">Offscreen layout receipt</a> · <a href="../benchmarks/results/native-batch-program-identity.json">Earlier native program identity</a> · <a href="assets/provider-resume-light.png">Light render</a> · <a href="assets/provider-resume-dark.png">Dark render</a> · <a href="assets/provider-resume-compact.png">Compact render</a>.</p></details>'''
+    report = (ROOT / "docs/research.html").read_text()
+    anchor = '<details open id="native-batch-acceptance">'
+    assert anchor in report
+    report = report.replace(anchor, panel + '<details id="native-batch-acceptance">', 1)
+    (ROOT / "docs/research.html").write_text(report)
