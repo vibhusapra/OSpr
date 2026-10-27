@@ -97,7 +97,10 @@ consumer ranking. No native UI, playback, cloud account or permission change is
 involved. The first real attempt exposed the URL problem and is retained; later
 controls must not be substituted for that failed observation.
 
-From a checkout with cached Parakeet and the locked runtime:
+Use a nonempty mono clip of at most 30 seconds: the control deliberately
+requires one generation call per import and rejects unsupported input before
+building/loading a model. This is a harness constraint; product long-file support
+is unchanged. From a checkout with cached Parakeet and the locked runtime:
 
 ```sh
 .venv/bin/python benchmarks/live_audio_privacy.py \

@@ -22,6 +22,9 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def run(args):
     root = args.output
+    info = json.loads(subprocess.check_output([str(args.python), "-c", "import json,soundfile as sf,sys;i=sf.info(sys.argv[1]);print(json.dumps(dict(channels=i.channels,duration=i.duration,samplerate=i.samplerate)))", str(args.audio)], text=True))
+    if info["channels"] != 1 or not 0 < info["duration"] <= 30:
+        raise ValueError("Use a mono public clip of at most 30 seconds; this control requires one generation call per import.")
     package = root / "engine/backend/ospr_backend"
     shutil.copytree(ROOT / "backend/ospr_backend", package, ignore=shutil.ignore_patterns("__pycache__"))
     backend = {str(path.relative_to(package)): digest(path) for path in package.rglob("*") if path.is_file()}
@@ -113,7 +116,7 @@ real.main()
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--audio", required=True, type=Path, help="Public mono PCM WAV")
+    parser.add_argument("--audio", required=True, type=Path, help="Public mono PCM WAV, at most 30 seconds")
     parser.add_argument("--python", type=Path, default=ROOT / ".venv/bin/python")
     parser.add_argument("--output", required=True, type=Path)
     args = parser.parse_args()

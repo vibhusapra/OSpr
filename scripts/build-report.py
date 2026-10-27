@@ -1005,6 +1005,10 @@ if live_audio_path.is_file():
 <p>The signed checkout app passes actual packaged audio review/ASR equality, budget rejection without dropping its warm worker, reprocessing, archive/history restart and audio-only deletion. This is newer source than the preserved standalone archives. Normal app/data remain unchanged. Native settings/microphone/shortcut/insertion, macOS 14/clean-Mac/notarization and a new fully qualified standalone preview remain open; full parity/top-three acceptance is not established.</p>
 <p class="small muted"><a href="architecture/live-audio-privacy.md">Contract/reproduction</a> · <a href="../benchmarks/results/live-audio-privacy.json">Manifest/all development checks</a> · <a href="../benchmarks/results/live-audio-privacy-real-03.json">Clean GPU control and restart</a>.</p>
 <details><summary>All real development/final attempts</summary><ul>''' + attempts + '''</ul></details></details>'''
+    if live.get("source_ci"):
+        ci = live["source_ci"]
+        assert ci["status"] == "success" and ci["swift_permanent_tests"] == 507 and ci["python_tests"] == 380
+        panel = panel.replace('<p class="small muted">', f'<p><a href="https://github.com/vibhusapra/OSpr/actions/runs/{ci["run"]}">macOS 15 source CI</a> passes 507 permanent Swift / 380 Python, optional-probe typecheck, actual worker-crash gates, contracts, standalone runtime/CLI/history/signatures, all 450 report HTML links and artifact upload. <a href="https://github.com/vibhusapra/OSpr/pull/43">PR43</a>.</p><p class="small muted">', 1)
     report = (ROOT / "docs/research.html").read_text()
     anchor = '<details open id="worker-lifetime">'
     assert anchor in report

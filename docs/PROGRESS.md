@@ -41,6 +41,13 @@ preview. Native settings/shortcut/insertion, clean-Mac/older-OS and notarization
 acceptance remain open. [Manifest/all attempts](../benchmarks/results/live-audio-privacy.json) ·
 [Contract/reproduction](architecture/live-audio-privacy.md).
 
+[Source CI40200411862](https://github.com/vibhusapra/OSpr/actions/runs/40200411862)
+passes 507 permanent Swift / 380 Python, optional-probe typecheck, actual durable
+and GIL-held worker-crash gates, contracts, all 450 report HTML links, standalone
+runtime/CLI/session-history/signatures and development-artifact upload. A short
+mono-input preflight now makes the real harness's single-generation assumption
+explicit; valid-input evaluation and production long-file support are unchanged.
+
 ## Native worker parent-death cleanup, 2026-10-25
 
 A real production-loop reproduction left its worker and a TERM-ignoring decoder
