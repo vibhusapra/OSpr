@@ -78,6 +78,7 @@ final class FileImportWorkflowTests: XCTestCase {
         try await settle { !reopened.busy }
         XCTAssertTrue(reopened.importRecovered)
         XCTAssertEqual(reopened.importBatch?.items.map(\.state), [.completed, .failed])
+        XCTAssertEqual(reopened.status, "Saved import batch ready · resume when you choose")
         XCTAssertEqual(reopened.importBatch?.items[0].transcriptID, first.resultID)
         let before = try String(contentsOf: directory.appendingPathComponent("engine/requests.jsonl"), encoding: .utf8)
         XCTAssertEqual(before.split(separator: "\n").count, 2)
@@ -91,6 +92,15 @@ final class FileImportWorkflowTests: XCTestCase {
         XCTAssertEqual(requests.compactMap { $0["name"] as? String }, ["one.wav", "bad.wav", "bad.wav"])
         XCTAssertTrue(requests.allSatisfy { $0["model"] as? String == "whisper-small" && $0["language"] as? String == "" })
         try await reopened.prepareForTermination()
+        let finishedCopy = try copiedProfile(copy)
+        let finished = AppModel(instanceLock: try AppInstanceLock(directory: finishedCopy), directory: finishedCopy, enableServices: false)
+        try await settle { !finished.busy }
+        XCTAssertEqual(finished.importBatch?.completedCount, 2)
+        XCTAssertEqual(finished.importBatch?.retryCount, 0)
+        XCTAssertEqual(finished.status, "Saved import batch · 2/2 transcripts")
+        let afterRestart = try String(contentsOf: directory.appendingPathComponent("engine/requests.jsonl"), encoding: .utf8)
+        XCTAssertEqual(afterRestart.split(separator: "\n").count, 3)
+        try await finished.prepareForTermination()
     }
 
     @MainActor func testHistoryOffPurgesSavedQueueAndLaterSessionRetryCannotRecreateIt() async throws {
@@ -176,6 +186,7 @@ final class FileImportWorkflowTests: XCTestCase {
         app.importFiles([directory.appendingPathComponent("one.wav")]); try await settle { !app.busy }
         let id = try XCTUnwrap(app.importBatch?.items[0].resultID)
         app.dismissImportBatch()
+        XCTAssertEqual(app.status, "Import batch dismissed")
         try await settle { !FileManager.default.fileExists(atPath: directory.appendingPathComponent(FileImportJournal.fileName).path) }
         XCTAssertNil(app.importBatch)
         let kept = try await app.historyState.contains(id: id); XCTAssertTrue(kept)

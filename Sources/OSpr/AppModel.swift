@@ -255,7 +255,12 @@ import OSprCore
             }
             await restoreImportBatch()
             audioMaintenance = false
-            if phase == "idle" { status = importRecovered ? "Saved import batch ready · resume when you choose" : "Your voice. Your Mac." }
+            if phase == "idle" {
+                if importRecovered, let batch = importBatch {
+                    status = batch.retryCount > 0 ? "Saved import batch ready · resume when you choose"
+                        : "Saved import batch · \(batch.completedCount)/\(batch.items.count) transcripts"
+                } else { status = "Your voice. Your Mac." }
+            }
         }
         if enableServices { NotificationCenter.default.addObserver(forName: NSApplication.willTerminateNotification, object: nil, queue: .main) { [weak self] _ in
             MainActor.assumeIsolated {
@@ -1329,6 +1334,7 @@ import OSprCore
     func dismissImportBatch() {
         guard !quitting, importBatch?.active != true else { return }
         importBatch = nil; importSettings = nil; importRecovered = false; confirmImportResume = false
+        status = "Import batch dismissed"
         checkpointImportSoon(forceClear: true)
     }
     var importRecoveryDescription: String {
