@@ -1,0 +1,115 @@
+{
+  "protocol": {
+    "path": "benchmarks/fixtures/summary-status-protocol.json",
+    "sha256": "2bc86086c1c7c4cfe11d5499294d938b0b297afd61500fad1ca8850a49467f58"
+  },
+  "notes": {
+    "path": "benchmarks/fixtures/summary_status_notes.py",
+    "sha256": "4e50ca15b64dc556c043b234ace5bfeb4d9640079831dcb802688e3b48e8f6b7"
+  },
+  "runs": [
+    {
+      "name": "baseline-9b",
+      "path": "benchmarks/results/summary-status-baseline-9b.json",
+      "sha256": "37a680091d9a179e1d2d4bdb143edbfcd77da82281d9731594e03349403a861b",
+      "algorithm": "pre-status",
+      "implementation": {
+        "path": "benchmarks/fixtures/meeting_summary_pre_status.py",
+        "sha256": "d92e2311d4addd1be4a9372d294d853775e5018f136c496e9285ae8450d1e2d9",
+        "recorded_path": "benchmarks/fixtures/meeting_summary_pre_status.py"
+      },
+      "expected": {
+        "cases": 20,
+        "calls": 42,
+        "admitted_for_review": 17,
+        "rejected": 3
+      }
+    },
+    {
+      "name": "baseline-4b",
+      "path": "benchmarks/results/summary-status-baseline-4b.json",
+      "sha256": "c973dbd256dd477aa33fd0baf7f3141ede266bc1085f1559a993bf7932f19d74",
+      "algorithm": "pre-status",
+      "implementation": {
+        "path": "benchmarks/fixtures/meeting_summary_pre_status.py",
+        "sha256": "d92e2311d4addd1be4a9372d294d853775e5018f136c496e9285ae8450d1e2d9",
+        "recorded_path": "benchmarks/fixtures/meeting_summary_pre_status.py"
+      },
+      "expected": {
+        "cases": 20,
+        "calls": 43,
+        "admitted_for_review": 17,
+        "rejected": 3
+      }
+    },
+    {
+      "name": "diagnostics-9b",
+      "path": "benchmarks/results/summary-status-diagnostics-9b.json",
+      "sha256": "dec09186d83ea9d86f2493cc8c7fcb09d1b94fbe018625fd5fdc2fad5bcd7359",
+      "algorithm": "current",
+      "implementation": {
+        "path": "benchmarks/fixtures/meeting_summary_citation_diagnostics.py",
+        "sha256": "a504fcdc902c35d5a983550b7304ac39028f085fdcf464091e8ac0bfcdea4137",
+        "recorded_path": "backend/ospr_backend/summary.py"
+      },
+      "expected": {
+        "cases": 20,
+        "calls": 42,
+        "admitted_for_review": 17,
+        "rejected": 3
+      }
+    },
+    {
+      "name": "status-9b",
+      "path": "benchmarks/results/summary-status-status-9b.json",
+      "sha256": "01dbecdaf2945fd666dcf0654ac3d3014484188984bfb2162e0f6fab2ebd6ffa",
+      "algorithm": "status-candidate",
+      "implementation": {
+        "path": "benchmarks/fixtures/meeting_summary_status_candidate.py",
+        "sha256": "43cdabab53615a3e9cdfdb0c8ef733d6d3a361d03f7c37f34ef045de6dda510e",
+        "recorded_path": "benchmarks/fixtures/meeting_summary_status_candidate.py"
+      },
+      "expected": {
+        "cases": 20,
+        "calls": 49,
+        "admitted_for_review": 20,
+        "rejected": 0
+      }
+    },
+    {
+      "name": "diagnostics-4b",
+      "path": "benchmarks/results/summary-status-diagnostics-4b.json",
+      "sha256": "c2ee4d0e008dee573892e3c79b4f9a50065c46aefa18c5ef646eb11cda7bb736",
+      "algorithm": "current",
+      "implementation": {
+        "path": "benchmarks/fixtures/meeting_summary_citation_diagnostics.py",
+        "sha256": "a504fcdc902c35d5a983550b7304ac39028f085fdcf464091e8ac0bfcdea4137",
+        "recorded_path": "backend/ospr_backend/summary.py"
+      },
+      "expected": {
+        "cases": 20,
+        "calls": 43,
+        "admitted_for_review": 17,
+        "rejected": 3
+      }
+    },
+    {
+      "name": "status-4b",
+      "path": "benchmarks/results/summary-status-status-4b.json",
+      "sha256": "9e1478e32c3515a4a57901d2afc3573fe7d18aa7f2187023b769969109b1ce01",
+      "algorithm": "status-candidate",
+      "implementation": {
+        "path": "benchmarks/fixtures/meeting_summary_status_candidate.py",
+        "sha256": "43cdabab53615a3e9cdfdb0c8ef733d6d3a361d03f7c37f34ef045de6dda510e",
+        "recorded_path": "benchmarks/fixtures/meeting_summary_status_candidate.py"
+      },
+      "expected": {
+        "cases": 20,
+        "calls": 32,
+        "admitted_for_review": 15,
+        "rejected": 5
+      }
+    }
+  ],
+  "promotion": "Status rules NOT promoted: 9B loses explicit prohibition and has full-meeting factual/coverage issues; 4B adds refusals. Admission is not semantic correctness."
+}

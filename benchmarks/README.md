@@ -777,3 +777,21 @@ offscreen; it does not operate a native dialog. The native warning/cancel/approv
 and TextEdit gates remain open. [Protocol/reproduction](../docs/architecture/saved-provider-resume.md) ·
 [Retained controls](results/saved-provider-resume.json) ·
 [Layout receipt](results/saved-provider-resume-layouts.json).
+
+## Full-meeting summary status study
+
+`prepare_summary_status.py` freezes eighteen reused status controls and complete
+AMI scenario meetings ES2004c/d, verifying exact-once manual-word coverage and
+keeping human references separate from input. `meeting_summary_eval.py` exposes
+the frozen `pre-status` baseline, production `current` citation feedback and
+withheld `status-candidate` prompt. All six runs / 120 cases / 251 calls remain.
+The status candidate is not promoted: schema admission improves on 9B while
+material omissions/contradictions remain; 4B adds refusals. The production repair
+feedback preserves validators but does not improve observed model outputs here.
+
+`verify_summary_status.py` replays all raw calls through frozen implementations
+without inference. Optional `--verify-prompts` checks cached pinned tokenizer
+rendering and token counts, without loading weights. CI checks stored replay.
+Neither mode proves semantic quality or authentic execution; all timings are
+diagnostic, with early refusals doing less work. [Findings/reproduction](../docs/architecture/summary-status-fidelity.md) ·
+[Run bindings](fixtures/summary-status-study.json) · [All-case review](results/summary-status-review.json).

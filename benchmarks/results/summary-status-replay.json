@@ -1,0 +1,54 @@
+{
+  "status": "passed-frozen-summary-call-replay",
+  "runs": [
+    {
+      "name": "baseline-9b",
+      "cases": 20,
+      "calls": 42,
+      "admitted_for_review": 17,
+      "rejected": 3,
+      "rendered_prompts_verified": true
+    },
+    {
+      "name": "baseline-4b",
+      "cases": 20,
+      "calls": 43,
+      "admitted_for_review": 17,
+      "rejected": 3,
+      "rendered_prompts_verified": true
+    },
+    {
+      "name": "diagnostics-9b",
+      "cases": 20,
+      "calls": 42,
+      "admitted_for_review": 17,
+      "rejected": 3,
+      "rendered_prompts_verified": true
+    },
+    {
+      "name": "status-9b",
+      "cases": 20,
+      "calls": 49,
+      "admitted_for_review": 20,
+      "rejected": 0,
+      "rendered_prompts_verified": true
+    },
+    {
+      "name": "diagnostics-4b",
+      "cases": 20,
+      "calls": 43,
+      "admitted_for_review": 17,
+      "rejected": 3,
+      "rendered_prompts_verified": true
+    },
+    {
+      "name": "status-4b",
+      "cases": 20,
+      "calls": 32,
+      "admitted_for_review": 15,
+      "rejected": 5,
+      "rendered_prompts_verified": true
+    }
+  ],
+  "boundary": "Stored call/result/source integrity. Prompt mode additionally verifies cached rendered prompts/token counts. No new generation, semantic acceptance, authentic execution attestation, timing or product ranking."
+}

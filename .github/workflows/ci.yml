@@ -67,6 +67,7 @@ jobs:
           uv run --frozen --all-extras python benchmarks/runtime_payloads.py --help
           uv run --frozen --all-extras python benchmarks/verify_artifact_latency.py
           uv run --frozen --all-extras python benchmarks/verify_scoring_factory.py
+          uv run --frozen --all-extras python benchmarks/verify_summary_status.py
           uv run --frozen --all-extras python benchmarks/native_file_comparison.py --verify benchmarks/results/native-file-comparison.json
           uv run --frozen --all-extras python benchmarks/verify_file_import.py
           uv run --frozen --all-extras python benchmarks/context_profiles.py --cli .build/debug/ospr-cli

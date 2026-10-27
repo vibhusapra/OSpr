@@ -1,0 +1,30 @@
+{
+  "status": "passed-source-and-frozen-study-validation",
+  "production_change": "Citation-specific bounded local repair feedback only; status rules NOT promoted.",
+  "backend_summary_sha256": "a504fcdc902c35d5a983550b7304ac39028f085fdcf464091e8ac0bfcdea4137",
+  "expected_red": {
+    "tests": 4,
+    "failures": 4
+  },
+  "passing": {
+    "focused_python_tests": 43,
+    "full_python_tests": 397,
+    "ruff": true,
+    "actual_swift_cli_cases": 11,
+    "offline_9b_cli_cases": 3
+  },
+  "logs": {
+    "citation-red.log": "5fc4948872894c5581aa8e277de59ef6cefb80800cc71bc0667c8f64c5ba566e",
+    "citation-green.log": "99c93b8af00ea72d13a0cafd2316640d2322dbcc3eb611e3cc1bfa840c26e7d3",
+    "python-final.log": "6727ed3e0b475a7c7d0a584d51ae0fd6103c4fe53ccd0cff09aaa8d8d55504a1",
+    "replay-with-tokenizers.log": "794bbc26b88bf44c05ec530d19d3a2928a189c73b29b2b38a6c6978598450e78",
+    "replay-with-tokenizers-02.log": "9ab182dd3aa7e43f2201e90dcaeebe90575c8fa0d7ded6207ad52eb0105a1a75",
+    "actual-cli.log": "71478355153cb5a18d3a462b580e798073b7b4a1bc98e32256f18b42af5fc670"
+  },
+  "initial_replay_setup_failure": "Full cached-snapshot completeness required missing .gitattributes; restricted to required tokenizer files, then all prompts/token counts passed locally without downloads.",
+  "boundary": "Real source model runs plus scripted repair contracts and independent stored-output/prompt replay. No semantic acceptance, native app/microphone/insertion, consumer ranking, isolated latency/energy or new distribution claim.",
+  "production_source_commit": "2209592b04c5d66b4aca16a5e4511ba38476fb21",
+  "suite_scope": "397 includes current replay mutation tests; production runtime bytes match the recorded 2209592 freeze.",
+  "normal_baseline_files": 6,
+  "normal_baseline_all_unchanged": true
+}
