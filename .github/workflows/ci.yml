@@ -27,6 +27,9 @@ jobs:
           swiftc -typecheck -parse-as-library -I .build/debug/Modules -I "$(xcrun --show-sdk-platform-path)/Developer/usr/lib" -F "$(xcrun --show-sdk-platform-path)/Developer/Library/Frameworks" benchmarks/native_batch_acceptance.swift
           swiftc -typecheck -parse-as-library -I .build/debug/Modules -I "$(xcrun --show-sdk-platform-path)/Developer/usr/lib" -F "$(xcrun --show-sdk-platform-path)/Developer/Library/Frameworks" benchmarks/native_provider_resume.swift
           swiftc -typecheck -parse-as-library -I .build/debug/Modules -I "$(xcrun --show-sdk-platform-path)/Developer/usr/lib" -F "$(xcrun --show-sdk-platform-path)/Developer/Library/Frameworks" benchmarks/provider_resume_render.swift
+          swiftc -typecheck -parse-as-library -I .build/debug/Modules -I "$(xcrun --show-sdk-platform-path)/Developer/usr/lib" -F "$(xcrun --show-sdk-platform-path)/Developer/Library/Frameworks" benchmarks/audio_quote_render.swift
+          swiftc -parse-as-library -I .build/debug/Modules benchmarks/audio_quote_probe.swift .build/debug/OSprCore.build/*.o -lsqlite3 -o "$RUNNER_TEMP/ospr-audio-quote-probe"
+          "$RUNNER_TEMP/ospr-audio-quote-probe" verify benchmarks/fixtures/audio-quote-record.json
           swiftc -typecheck -parse-as-library -I .build/debug/Modules benchmarks/edited_summary_storage.swift
           swiftc -typecheck -parse-as-library -I .build/debug/Modules benchmarks/history_archive_reader.swift
           swiftc -typecheck -parse-as-library -I .build/debug/Modules benchmarks/history_sources.swift

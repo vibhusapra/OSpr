@@ -8,7 +8,7 @@ fails atomically. No remote provider or automatic action is involved.
 import json
 import re
 import unicodedata
-from .notes import units
+from .notes import units, located_excerpts
 
 SECTIONS = {"overview", "decisions", "actions", "questions"}
 INSTRUCTION = (
@@ -305,7 +305,7 @@ def summarize(text, complete, progress=None):
         )
     return dict(
         items=items,
-        excerpts=[dict(id=i, text=source[i]["text"]) for i in cited],
+        excerpts=located_excerpts(text, source, cited),
         source_characters=len(text),
         chunks=len(batches),
         validation_retries=retries,

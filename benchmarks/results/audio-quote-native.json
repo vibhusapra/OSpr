@@ -1,0 +1,44 @@
+{
+  "status": "passed-native-summary-and-notes-seek-pause",
+  "source_commit": "fa42296664568350a9194ea5a2230e62c7982c50",
+  "application_source_sha256": "de7c67b9aa24bbf01fc1373ee091e1e5957307aec6e502b088d47882e367e9ef",
+  "clean_build": true,
+  "signing_mode": "Apple Development; isolated data-directory overlay re-signed with same identity",
+  "distribution": "checkout app, no bundled Engine; not notarized, not a standalone release",
+  "source_executable_sha256": "3d801e076025f521aaa88f8473fc5199c9dfef531f4e277ec7f382beb4d0adba",
+  "overlay_pre_resign_sha256": "3d801e076025f521aaa88f8473fc5199c9dfef531f4e277ec7f382beb4d0adba",
+  "overlay_executable_sha256": "345ea57525af5b1146dab650e56595831c17c4c5bf37a281ec275137f67da706",
+  "audio_sha256": "587b6f421a267a3ed9411deb8c0c570653041feb9dc895a80748d0a500d60b5b",
+  "fixture_sha256": "37148528e3d57b1a071efca42d46e14ef2de8f1305aa01eee496e49ee6671e0d",
+  "observations": [
+    {
+      "action": "expand summary source 15",
+      "expected_start_seconds": 110.6194375,
+      "observed_position_seconds": 110.800035946,
+      "observed_label": "1:50 / 3:00",
+      "transport": "Pause retained audio after source click; Play retained audio after pause"
+    },
+    {
+      "action": "expand extractive sources; play source 25",
+      "expected_start_seconds": 159.2084375,
+      "observed_position_seconds": 159.300039779,
+      "observed_label": "2:39 / 3:00",
+      "transport": "Pause retained audio after source click; Play retained audio after pause"
+    },
+    {
+      "action": "leave paused History for Studio and return",
+      "observed_position_seconds": 0,
+      "observed_label": "0:00 / 3:00",
+      "transport": "Play retained audio"
+    }
+  ],
+  "fixture_substantive_fields_unchanged": true,
+  "normal_app_restored_visibly": true,
+  "normal_app_sessions": 8,
+  "normal_app_words": 265,
+  "six_current_normal_baseline_hashes_unchanged": true,
+  "new_permissions": false,
+  "microphone_used": false,
+  "system_sound_settings_changed": false,
+  "boundary": "Cua-operated native signed candidate on one public AMI recording; visible transport state and seek positions. No acoustic boundary validation or audible-route assertion. Not VoiceOver, word timing, native selection race, microphone, TextEdit insertion, universal compatibility or release acceptance."
+}

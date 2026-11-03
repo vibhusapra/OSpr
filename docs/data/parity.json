@@ -1,7 +1,14 @@
 {
-  "as_of": "2026-10-27",
+  "as_of": "2026-11-02",
   "release": "Developer preview; not full union parity",
   "items": [
+    {
+      "feature": "Summary and note source quotes with audio times",
+      "status": "contract-tested; narrow native seek/pause pass",
+      "priority": "P1",
+      "evidence": "Exact optional UTF-8 locations, repeated-occurrence disambiguation, complete-stream word/segment alignment, off-main cancellation, explicit retained-audio seek/play, stale-selection checks and Markdown times. Lazy transactional schema 6 fences older writers. 522 optimized Swift/408 Python/Ruff; forty production-study cases/85 calls unchanged; one actual local AMI 180-second Parakeet/9B/4B pipeline maps all 15 summary/6 note quotes. Optimized 10k/100k-unit indexing medians 2.57/25.77 ms on one M5 Max. Receipts: benchmarks/results/audio-quote-validation.json, audio-quote-real.json, audio-quote-index.json and audio-quote-storage.json. Clean signed isolated-profile native summary/note seeks to 1:50/2:39, pause and paused navigation reset pass; normal app/data restored unchanged. Receipt: benchmarks/results/audio-quote-native.json.",
+      "gap": "Recognizer estimates, no fuzzy/edited-source alignment. Real fixture uses segment times; word accuracy and broad engine/language alignment coverage remain open. Native selection races/VoiceOver, lower-memory/older-OS, semantic quality, consumer/energy/full-latency and notarized distribution require separate acceptance. Existing standalone ZIPs predate this source."
+    },
     {
       "feature": "Live audio privacy and active temporary-copy lifetime",
       "status": "contract-tested",
@@ -40,7 +47,7 @@
     {
       "feature": "Local Metal inference: Parakeet v3",
       "status": "verified",
-      "evidence": "485 regression/English/supported-language cases rerun after direct long-file decoding; 482 outputs identical. Synthetic hour WER 12.38% → 2.72%. Four natural AMI controls retained bounded word timing with mixed WER and unchanged speaker DER. Startup loader preserves all 697 weight arrays and all 515 public-suite texts/segments/words exactly. Repeated real-product pilot: fresh CLI p50 1.866 → 0.757 s; prepared 16/48 kHz worker requests remain about 55 ms.",
+      "evidence": "485 regression/English/supported-language cases rerun after direct long-file decoding; 482 outputs identical. Synthetic hour WER 12.38% \u2192 2.72%. Four natural AMI controls retained bounded word timing with mixed WER and unchanged speaker DER. Startup loader preserves all 697 weight arrays and all 515 public-suite texts/segments/words exactly. Repeated real-product pilot: fresh CLI p50 1.866 \u2192 0.757 s; prepared 16/48 kHz worker requests remain about 55 ms.",
       "gap": "Synthetic joins are not natural long conversation; shared-system timings and power are not isolated.",
       "priority": "P0"
     },
@@ -61,7 +68,7 @@
     {
       "feature": "Local Metal inference: Qwen3 ASR",
       "status": "verified",
-      "evidence": "365 English clips, 100 regression cases and 50 multilingual clips rerun after bounding long-file chunks; 512/515 outputs identical. Hour-long WER 26.85% → 2.36% in a synthetic completeness fixture; ten-minute case worsened slightly.",
+      "evidence": "365 English clips, 100 regression cases and 50 multilingual clips rerun after bounding long-file chunks; 512/515 outputs identical. Hour-long WER 26.85% \u2192 2.36% in a synthetic completeness fixture; ten-minute case worsened slightly.",
       "gap": "Coarse utterance/chunk timestamps, no word alignment; shared-system exploratory long-file timings.",
       "priority": "P0"
     },
@@ -222,7 +229,7 @@
     {
       "feature": "BYOK speech transcription",
       "status": "contract-tested",
-      "evidence": "Compatible multipart adapter, current gpt-transcribe languages[] contract and Groq preset. Native public-file import passed against a loopback provider after app restart using the Keychain-restored dummy key. Long imports now normalize locally into contiguous PCM16 parts of at most ten minutes, preserving repetitions and offsetting timestamps; every sample in an 80-minute public fixture was checked through the real Swift CLI and worker. The same 80-minute fixture also passed the native file picker → worker → upload → Studio → persisted-history path; nine parts, text and timestamp offsets were verified, with zero leftover upload workspaces. Native Deepgram prerecorded Listen adapter now sends binary normalized audio with Token auth, Nova-3 keyterms, explicit/detected language, utterance/word times and faithful-format options. Unicode/plus query encoding, malformed replies/timing, later-part errors and cancellation pass loopback contracts; real 80-minute Swift/worker transport passed. Native Deepgram picker defaults, save/restart/Keychain use, every-sample 80-minute binary import, nine-part history text and exact utterance/word offsets passed. Native Soniox async Files/Transcriptions adapter now implements Bearer auth, language/vocabulary hints, conservative token-derived word groups and best-effort owned job/file cleanup. Eighteen dedicated tests cover malformed timing, errors, redirects, cancellation, deadlines and URLSession closure races. The real Swift CLI/worker sent every sample of the 80-minute public fixture in nine parts, preserving token offsets and deleting all nine owned jobs/files on the loopback server (source 4fae54b). Compatible and Deepgram transport regressions passed on that same source. Native Soniox defaults, dummy Keychain save/quit/restart/use, public-file import, persisted full text and token word times passed in an isolated QA app. Injected cleanup failure kept complete text and the warning in History; a follow-up UI fix exposes the warning in Studio, including after restart. The disposable key was removed and the normal preview remained local-only with unchanged settings/history. The standalone Soniox preview at source fb2ad6f also passes relocated/offline six-engine smoke, both synthetic hour files, all three 80-minute transports and verified ZIP extraction/signatures; the release manifest pins every receipt.",
+      "evidence": "Compatible multipart adapter, current gpt-transcribe languages[] contract and Groq preset. Native public-file import passed against a loopback provider after app restart using the Keychain-restored dummy key. Long imports now normalize locally into contiguous PCM16 parts of at most ten minutes, preserving repetitions and offsetting timestamps; every sample in an 80-minute public fixture was checked through the real Swift CLI and worker. The same 80-minute fixture also passed the native file picker \u2192 worker \u2192 upload \u2192 Studio \u2192 persisted-history path; nine parts, text and timestamp offsets were verified, with zero leftover upload workspaces. Native Deepgram prerecorded Listen adapter now sends binary normalized audio with Token auth, Nova-3 keyterms, explicit/detected language, utterance/word times and faithful-format options. Unicode/plus query encoding, malformed replies/timing, later-part errors and cancellation pass loopback contracts; real 80-minute Swift/worker transport passed. Native Deepgram picker defaults, save/restart/Keychain use, every-sample 80-minute binary import, nine-part history text and exact utterance/word offsets passed. Native Soniox async Files/Transcriptions adapter now implements Bearer auth, language/vocabulary hints, conservative token-derived word groups and best-effort owned job/file cleanup. Eighteen dedicated tests cover malformed timing, errors, redirects, cancellation, deadlines and URLSession closure races. The real Swift CLI/worker sent every sample of the 80-minute public fixture in nine parts, preserving token offsets and deleting all nine owned jobs/files on the loopback server (source 4fae54b). Compatible and Deepgram transport regressions passed on that same source. Native Soniox defaults, dummy Keychain save/quit/restart/use, public-file import, persisted full text and token word times passed in an isolated QA app. Injected cleanup failure kept complete text and the warning in History; a follow-up UI fix exposes the warning in Studio, including after restart. The disposable key was removed and the normal preview remained local-only with unchanged settings/history. The standalone Soniox preview at source fb2ad6f also passes relocated/offline six-engine smoke, both synthetic hour files, all three 80-minute transports and verified ZIP extraction/signatures; the release manifest pins every receipt.",
       "gap": "No paid provider account call performed. Soniox/Deepgram streaming remain open; native Soniox acceptance covers a short public file, not the full long-file UI path. Parts are independent recognition jobs; boundary context, real provider quotas and large-file cancellation/interruption remain unverified. Retry resends all parts and may incur charges. Soniox cleanup is best effort; processing/ambiguous jobs may remain and need console cleanup. Native compatible and Deepgram picker, Keychain restart and 80-minute imports passed. The soniox-v0 ZIP includes Soniox; the older history-v0 ZIP predates it.",
       "priority": "P0"
     },
@@ -271,7 +278,7 @@
     {
       "feature": "Retained local audio playback and timestamp seeking",
       "status": "implemented",
-      "evidence": "Native public fixture: clock/end/pause, 0.5×/2×, slider/segment seeking, edit preservation on reprocessing, and sample-exact float WAV export observed. Archive/normalization/AVFoundation integration and core privacy tests also pass. New source bounds recognizer segment/word estimates to the analyzed source interval with explicit approximate fallback and history warning. Twelve real Whisper overruns are reproduced and corrected with text unchanged; native warning/export interaction remains unverified.",
+      "evidence": "Native public fixture: clock/end/pause, 0.5\u00d7/2\u00d7, slider/segment seeking, edit preservation on reprocessing, and sample-exact float WAV export observed. Archive/normalization/AVFoundation integration and core privacy tests also pass. New source bounds recognizer segment/word estimates to the analyzed source interval with explicit approximate fallback and history warning. Twelve real Whisper overruns are reproduced and corrected with text unchanged; native warning/export interaction remains unverified.",
       "gap": "Word-level UI seek and human audible-output acceptance remain. Private exports and setup were retested.",
       "priority": "P1"
     },
@@ -335,7 +342,7 @@
       "feature": "Speaker diarization",
       "status": "experimental",
       "evidence": "Local Nemotron 3 Diarization 8-bit with Parakeet/Whisper word attribution. Four natural AMI headset-mix prefixes with pinned only_words reference; upstream float32 MPS control has similarly high DER.",
-      "gap": "Attribution errors remain substantial (about 30–37% DER without collar on these prefixes). Overlap flagged, not separated. Native capture acceptance pending.",
+      "gap": "Attribution errors remain substantial (about 30\u201337% DER without collar on these prefixes). Overlap flagged, not separated. Native capture acceptance pending.",
       "priority": "P1"
     },
     {

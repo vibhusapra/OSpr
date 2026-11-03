@@ -94,12 +94,13 @@ public struct MeetingSummary: Codable, Equatable, Sendable {
         }
     }
     public func matches(_ source: String) -> Bool {
+        let bytes = Array(source.utf8)
         guard sourceKind == .original ? sourceSnapshot == nil : sourceSnapshot.map({ $0.utf8.elementsEqual(source.utf8) }) == true else { return false }
         guard sourceSHA256 == Self.digest(source), source.utf16.count <= 200_000,
               (0...20).contains(chunks), (chunks > 0 || source.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty),
               !model.isEmpty, model.count <= 256, items.count <= 32, excerpts.count <= 512,
               Set(excerpts.map(\.id)).count == excerpts.count,
-              excerpts.allSatisfy({ $0.id >= 0 && !$0.text.isEmpty && $0.text.count <= 1000 && source.range(of: $0.text, options: .literal) != nil }) else { return false }
+              excerpts.allSatisfy({ $0.id >= 0 && !$0.text.isEmpty && $0.text.count <= 1000 && $0.matchesSource(source, bytes: bytes) }) else { return false }
         let valid = Set(excerpts.map(\.id))
         guard items.allSatisfy({ item in
             !item.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && item.text.count <= 1000 &&
@@ -141,8 +142,16 @@ public struct MeetingSummary: Codable, Equatable, Sendable {
         sourceSHA256 == Self.digest(sourceKind.text(in: record))
     }
     public var markdown: String {
+        markdown(timings: [:])
+    }
+    public func markdown(audio: AudioQuoteTimeline) -> String {
+        guard sourceSHA256 == Self.digest(audio.request.source), excerpts == audio.request.excerpts else { return markdown }
+        return markdown(timings: audio.timings)
+    }
+    private func markdown(timings: [Int: AudioQuoteTiming]) -> String {
         var parts = ["# Meeting summary", "Source: " + sourceKind.title,
             "AI paraphrases with exact-source citations. Citations do not prove correctness or completeness. Review quotes and the full transcript; no task is executed."]
+        if !timings.isEmpty { parts.append("Times are recognizer estimates in the original recording.") }
         if sourceKind == .edited {
             parts.append("Uses the edited text captured when this summary was generated. Later transcript edits do not update these notes. Source SHA-256: " + sourceSHA256)
         }
@@ -156,7 +165,9 @@ public struct MeetingSummary: Codable, Equatable, Sendable {
             }
         }
         parts.append("## Source quotes")
-        parts.append(excerpts.sorted { $0.id < $1.id }.map { "### Source \($0.id + 1)\n\n> " + $0.text.replacingOccurrences(of: "\n", with: "\n> ") }.joined(separator: "\n\n"))
+        parts.append(excerpts.sorted { $0.id < $1.id }.map { quote in
+            "### Source \(quote.id + 1)" + (timings[quote.id].map { " · " + $0.label } ?? "") + "\n\n> " + quote.text.replacingOccurrences(of: "\n", with: "\n> ")
+        }.joined(separator: "\n\n"))
         return parts.joined(separator: "\n\n")
     }
     private static let temporalPattern = try! NSRegularExpression(pattern: #"\b(on|by|before|after|until|at)\s+((?:monday|tuesday|wednesday|thursday|friday|saturday|sunday)|(?:(?:january|february|march|april|may|june|july|august|september|october|november|december)\s+[0-9]{1,2})|(?:[0-9]{1,2}:[0-9]{2}))\b"#)

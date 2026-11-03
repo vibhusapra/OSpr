@@ -1228,6 +1228,14 @@ import OSprCore
         }
     }
 
+    var blocksQuotePlayback: Bool { phase == "recording" || phase == "starting" || audioMaintenance }
+    func playQuote(_ audio: AudioQuoteTimeline, sourceID: Int) {
+        guard let start = AudioQuotePlayback.startTime(audio, sourceID: sourceID, current: selected,
+            loadedAudioFile: audioReview.fileName, playbackDuration: audioReview.duration,
+            ready: audioReview.ready, blocked: blocksQuotePlayback) else { return }
+        audioReview.seek(to: start, play: true)
+    }
+
     func generateNotes(_ record: Transcript) {
         guard !busy else { return }
         generation = UUID(); let token = generation
@@ -1236,11 +1244,7 @@ import OSprCore
             do {
                 let result = try await worker.request(["action": "notes", "text": record.rawText])
                 guard token == generation else { return }
-                let excerpts = try (result["excerpts"] as? [[String: Any]] ?? []).map { item -> NoteExcerpt in
-                    guard let id = item["id"] as? Int, let text = item["text"] as? String else { throw OSprError.message("Invalid notes response.") }
-                    return NoteExcerpt(id: id, text: text)
-                }
-                let notes = try MeetingNotes(source: record.rawText, excerpts: excerpts, model: result["model"] as? String ?? "local")
+                let notes = try MeetingNotes.fromWorker(result, source: record.rawText)
                 try await historyState.updateNotes(id: record.id, notes: notes, expectedRawText: record.rawText)
                 status = notes.excerpts.isEmpty ? "No key excerpts selected · original text retained" : "Key excerpts ready · review the original context"
             } catch { if token == generation { self.error = error.localizedDescription } }

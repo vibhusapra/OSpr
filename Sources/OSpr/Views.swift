@@ -508,18 +508,10 @@ struct HistoryView: View {
                     TextEditor(text: Binding(get: { model.selected?.id == record.id ? model.selected?.text ?? record.text : record.text }, set: { model.updateText(record.id, text: $0) })).font(.system(size: 16)).lineSpacing(6).padding(10).background(Color(nsColor: .textBackgroundColor), in: RoundedRectangle(cornerRadius: 12))
                     DisclosureGroup("Original transcript · subtitle exports use original timing") { Text(record.rawText).font(.caption).foregroundStyle(.secondary).textSelection(.enabled).frame(maxWidth: .infinity, alignment: .leading) }
                     if let summary = record.summary, summary.validatesStoredSource(for: record) {
-                        MeetingSummaryView(summary: summary, sourceIsCurrent: summary.sourceIsCurrent(in: record)) { model.copy(summary.markdown) }
+                        MeetingSummaryView(model: model, record: record, summary: summary)
                     }
                     if let notes = record.notes, notes.matches(record.rawText) {
-                        DisclosureGroup("Key excerpts · local AI selection") {
-                            ScrollView { VStack(alignment: .leading, spacing: 12) {
-                                Text("Exact source excerpts. Selection can miss context or important points; review the full transcript.").font(.caption).foregroundStyle(.secondary)
-                                ForEach(notes.excerpts) { excerpt in
-                                    VStack(alignment: .leading, spacing: 3) { Text("SOURCE \(excerpt.id + 1)").font(.caption2).foregroundStyle(.secondary); Text(excerpt.text).textSelection(.enabled) }
-                                }
-                                Button("Copy notes as Markdown") { model.copy(notes.markdown) }
-                            }.frame(maxWidth: .infinity, alignment: .leading) }.frame(maxHeight: 220)
-                        }
+                        MeetingNotesView(model: model, record: record, notes: notes)
                     }
                     HStack {
                         Menu("Export") { ForEach(["txt", "json", "srt", "vtt"], id: \.self) { format in Button(format.uppercased()) { model.export(record, format: format) } } }

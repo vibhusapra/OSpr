@@ -17,8 +17,8 @@ def test_paraphrases_keep_explicit_source_quotes_and_unicode():
     )
     assert len(result["items"]) == 2 and result["items"][0]["text"] not in text
     assert result["excerpts"] == [
-        dict(id=0, text="Do not ship on Friday."),
-        dict(id=1, text="次は東京です。"),
+        dict(id=0, text="Do not ship on Friday.", source_start_utf8=0, source_end_utf8=len(b"Do not ship on Friday.")),
+        dict(id=1, text="次は東京です。", source_start_utf8=len(b"Do not ship on Friday. "), source_end_utf8=len(text.encode())),
     ]
     assert result["chunks"] == 1 and not result["reconciled"]
 
