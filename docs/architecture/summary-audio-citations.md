@@ -62,11 +62,19 @@ and the forward-version fence; memory/session transfers preserve them.
   playback, energy and competitor behavior.
 - Light, dark and 390-point offscreen production-label layouts were inspected.
   These are component fixtures, not native user-flow acceptance.
+- A clean Apple Development signed candidate, re-signed only for an isolated
+  public-data profile, passes native summary source seek to **1:50** and extractive
+  source seek to **2:39**, playback-state changes and pause. Leaving paused History
+  for Studio and returning resets playback to **0:00**. The public fixture's
+  substantive fields are unchanged. Normal OSpr is visibly restored at eight
+  sessions / 265 words; all six fresh app/profile/target hashes match. These
+  observations verify transport state, not audible route or acoustic boundaries.
 
 [Real pipeline and pinned models](../../benchmarks/results/audio-quote-real.json) ·
 [Public recognizer/summary/notes fixture](../../benchmarks/fixtures/audio-quote-record.json) ·
 [Index trials](../../benchmarks/results/audio-quote-index.json) ·
 [Older writer refusal](../../benchmarks/results/audio-quote-storage.json) ·
+[Native source seek/pause](../../benchmarks/results/audio-quote-native.json) ·
 [Light](../assets/quote-audio-light.png) · [Dark](../assets/quote-audio-dark.png) ·
 [Narrow](../assets/quote-audio-compact.png).
 
@@ -92,7 +100,7 @@ for the retained older-reader check. It refuses existing directories.
 
 ## Open acceptance work
 
-Native seek/pause/selection changes, VoiceOver and long-recording responsiveness;
+Native selection changes/races, VoiceOver and long-recording responsiveness;
 real word-timestamp coverage across engines/languages; alignment coverage and
 acoustic boundary error on diverse recordings; user correction/review effort;
 lower-memory and older-macOS checks. Summary truth/completeness, physical capture,

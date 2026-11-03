@@ -4,10 +4,10 @@
   "items": [
     {
       "feature": "Summary and note source quotes with audio times",
-      "status": "contract-tested; native acceptance open",
+      "status": "contract-tested; narrow native seek/pause pass",
       "priority": "P1",
-      "evidence": "Exact optional UTF-8 locations, repeated-occurrence disambiguation, complete-stream word/segment alignment, off-main cancellation, explicit retained-audio seek/play, stale-selection checks and Markdown times. Lazy transactional schema 6 fences older writers. 522 optimized Swift/408 Python/Ruff; forty production-study cases/85 calls unchanged; one actual local AMI 180-second Parakeet/9B/4B pipeline maps all 15 summary/6 note quotes. Optimized 10k/100k-unit indexing medians 2.57/25.77 ms on one M5 Max. Receipts: benchmarks/results/audio-quote-validation.json, audio-quote-real.json, audio-quote-index.json and audio-quote-storage.json.",
-      "gap": "Recognizer estimates, no fuzzy/edited-source alignment. Real fixture uses segment times; word accuracy and broad engine/language alignment coverage remain open. Native seek/VoiceOver/selection, lower-memory/older-OS, semantic quality, consumer/energy/full-latency and notarized distribution require separate acceptance. Existing standalone ZIPs predate this source."
+      "evidence": "Exact optional UTF-8 locations, repeated-occurrence disambiguation, complete-stream word/segment alignment, off-main cancellation, explicit retained-audio seek/play, stale-selection checks and Markdown times. Lazy transactional schema 6 fences older writers. 522 optimized Swift/408 Python/Ruff; forty production-study cases/85 calls unchanged; one actual local AMI 180-second Parakeet/9B/4B pipeline maps all 15 summary/6 note quotes. Optimized 10k/100k-unit indexing medians 2.57/25.77 ms on one M5 Max. Receipts: benchmarks/results/audio-quote-validation.json, audio-quote-real.json, audio-quote-index.json and audio-quote-storage.json. Clean signed isolated-profile native summary/note seeks to 1:50/2:39, pause and paused navigation reset pass; normal app/data restored unchanged. Receipt: benchmarks/results/audio-quote-native.json.",
+      "gap": "Recognizer estimates, no fuzzy/edited-source alignment. Real fixture uses segment times; word accuracy and broad engine/language alignment coverage remain open. Native selection races/VoiceOver, lower-memory/older-OS, semantic quality, consumer/energy/full-latency and notarized distribution require separate acceptance. Existing standalone ZIPs predate this source."
     },
     {
       "feature": "Live audio privacy and active temporary-copy lifetime",

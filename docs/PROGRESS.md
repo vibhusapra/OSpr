@@ -21,11 +21,17 @@ test exercises the app action, and light/dark/narrow component layouts pass.
 Optimized index construction measures 2.57 ms median for 10,000 units and 25.77 ms
 for 100,000 on this Mac; these are not end-to-end product latency measurements.
 
+A clean signed candidate with an isolated public-data profile passes native
+summary and note source seeks to 1:50 and 2:39, visible playback/pause, and paused
+History → Studio → History reset to 0:00. Its stored substantive fields remain
+unchanged. This is one recording and transport-state observation, not acoustic
+accuracy, audible-route, VoiceOver or native selection-race acceptance.
+
 The requested TextEdit retry found the Mac accessible and reopened the owned
 target, but native control did not expose the separate destination-confirmation
 panel. No phrase was sent or guard bypassed. Normal OSpr was visibly restored at
 eight sessions; all six fresh app/profile/target hashes are unchanged. Native
-delivery remains unverified. Audio-citation native/quality/release gates and the
+delivery remains unverified. Broader audio-citation native/quality/release gates and the
 broader v0 goal remain open. [Implementation, receipts and TODOs](architecture/summary-audio-citations.md).
 
 ## Full-meeting summary quality study, 2026-10-27
