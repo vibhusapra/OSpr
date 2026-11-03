@@ -1,0 +1,209 @@
+{
+  "boundary": "One public AMI 180-second file; actual local Metal recognition/summary/selection and Swift validation/storage/indexing. Audio filename is synthetic, no retention or playback. No timestamp-accuracy, semantic-completeness, native UI, acoustic or ranking acceptance.",
+  "coverage": [
+    {
+      "kind": "summary",
+      "quotes": 15,
+      "timings": [
+        {
+          "end": 91.8194375,
+          "id": 11,
+          "precision": "segment",
+          "start": 83.8994375
+        },
+        {
+          "end": 93.73943750000001,
+          "id": 12,
+          "precision": "segment",
+          "start": 91.8194375
+        },
+        {
+          "end": 110.6194375,
+          "id": 13,
+          "precision": "segment",
+          "start": 93.73943750000001
+        },
+        {
+          "end": 117.5296875,
+          "id": 14,
+          "precision": "segment",
+          "start": 110.6194375
+        },
+        {
+          "end": 121.60968749999999,
+          "id": 15,
+          "precision": "segment",
+          "start": 117.5296875
+        },
+        {
+          "end": 128.72968749999998,
+          "id": 16,
+          "precision": "segment",
+          "start": 121.60968749999999
+        },
+        {
+          "end": 135.3696875,
+          "id": 17,
+          "precision": "segment",
+          "start": 128.72968749999998
+        },
+        {
+          "end": 138.88968749999998,
+          "id": 18,
+          "precision": "segment",
+          "start": 135.3696875
+        },
+        {
+          "end": 142.7284375,
+          "id": 19,
+          "precision": "segment",
+          "start": 139.2084375
+        },
+        {
+          "end": 146.3284375,
+          "id": 21,
+          "precision": "segment",
+          "start": 143.7684375
+        },
+        {
+          "end": 149.68843750000002,
+          "id": 22,
+          "precision": "segment",
+          "start": 146.3284375
+        },
+        {
+          "end": 159.2084375,
+          "id": 23,
+          "precision": "segment",
+          "start": 149.68843750000002
+        },
+        {
+          "end": 168.6484375,
+          "id": 24,
+          "precision": "segment",
+          "start": 159.2084375
+        },
+        {
+          "end": 178.3284375,
+          "id": 26,
+          "precision": "segment",
+          "start": 171.84843750000002
+        },
+        {
+          "end": 179.5284375,
+          "id": 27,
+          "precision": "segment",
+          "start": 178.3284375
+        }
+      ]
+    },
+    {
+      "kind": "notes",
+      "quotes": 6,
+      "timings": [
+        {
+          "end": 91.8194375,
+          "id": 11,
+          "precision": "segment",
+          "start": 83.8994375
+        },
+        {
+          "end": 117.5296875,
+          "id": 14,
+          "precision": "segment",
+          "start": 110.6194375
+        },
+        {
+          "end": 121.60968749999999,
+          "id": 15,
+          "precision": "segment",
+          "start": 117.5296875
+        },
+        {
+          "end": 128.72968749999998,
+          "id": 16,
+          "precision": "segment",
+          "start": 121.60968749999999
+        },
+        {
+          "end": 138.88968749999998,
+          "id": 18,
+          "precision": "segment",
+          "start": 135.3696875
+        },
+        {
+          "end": 168.6484375,
+          "id": 24,
+          "precision": "segment",
+          "start": 159.2084375
+        }
+      ]
+    }
+  ],
+  "input_unchanged": true,
+  "segments": 29,
+  "source_sha256": "587b6f421a267a3ed9411deb8c0c570653041feb9dc895a80748d0a500d60b5b",
+  "sqlite_roundtrip": true,
+  "status": "passed-local-speech-summary-notes-alignment",
+  "words": 0,
+  "fixture": {
+    "path": "benchmarks/fixtures/audio-quote-record.json",
+    "sha256": "37148528e3d57b1a071efca42d46e14ef2de8f1305aa01eee496e49ee6671e0d"
+  },
+  "models": {
+    "parakeet-v3": {
+      "repo": "mlx-community/parakeet-tdt-0.6b-v3",
+      "revision": "ed2b7e8c15f9aaa0b5772e2efb986255eaef7e15",
+      "license": "cc-by-4.0",
+      "safetensor_bytes": 2508288736,
+      "required_files": {
+        "config.json": 244093,
+        "model.safetensors": 2508288736,
+        "tokenizer.model": 360916,
+        "vocab.txt": 46772
+      },
+      "artifact_bytes": 2508940517
+    },
+    "rewrite-quality": {
+      "repo": "mlx-community/Qwen3-4B-Instruct-2507-4bit",
+      "revision": "50d427756c6b1b2fe0c0a10f67fbda1fc8e82c1b",
+      "license": "apache-2.0",
+      "safetensor_bytes": 2263022417,
+      "required_files": {
+        "added_tokens.json": 707,
+        "chat_template.jinja": 4040,
+        "config.json": 938,
+        "generation_config.json": 238,
+        "merges.txt": 1671853,
+        "model.safetensors": 2263022417,
+        "model.safetensors.index.json": 63964,
+        "special_tokens_map.json": 613,
+        "tokenizer.json": 11422654,
+        "tokenizer_config.json": 5440,
+        "vocab.json": 2776833
+      },
+      "artifact_bytes": 2278969697
+    },
+    "meeting-quality": {
+      "repo": "mlx-community/Qwen3.5-9B-4bit",
+      "revision": "8b2b98c00a6b4d291155e4890773ca8f769aee53",
+      "license": "apache-2.0",
+      "safetensor_bytes": 5950221072,
+      "required_files": {
+        "chat_template.jinja": 7756,
+        "config.json": 3331,
+        "model-00001-of-00002.safetensors": 5349771222,
+        "model-00002-of-00002.safetensors": 600449850,
+        "model.safetensors.index.json": 123592,
+        "preprocessor_config.json": 390,
+        "processor_config.json": 1300,
+        "tokenizer.json": 19989343,
+        "tokenizer_config.json": 1139,
+        "video_preprocessor_config.json": 385,
+        "vocab.json": 6722759
+      },
+      "artifact_bytes": 5977071067
+    }
+  },
+  "normal_profile_touched": false
+}

@@ -156,7 +156,7 @@ public final class HistoryDatabase {
         }
         sqlite3_busy_timeout(database, 2_000)
         let version = try integer("PRAGMA user_version")
-        guard (0...5).contains(version) else {
+        guard (0...6).contains(version) else {
             throw OSprError.message("This history database needs a newer OSpr version. Existing files were preserved.")
         }
         try execute("PRAGMA journal_mode=DELETE; PRAGMA synchronous=FULL; PRAGMA secure_delete=ON; PRAGMA temp_store=MEMORY; PRAGMA cache_size=-4096;")
@@ -437,7 +437,7 @@ public final class HistoryDatabase {
         if let value = record["notes"], !(value is NSNull) {
             let notes = try object(value, keys: ["excerpts", "sourceSHA256", "model", "created"])
             if let excerpts = notes["excerpts"] as? [Any] {
-                for excerpt in excerpts { _ = try object(excerpt, keys: ["id", "text"]) }
+                for excerpt in excerpts { _ = try object(excerpt, keys: ["id", "text", "source_start_utf8", "source_end_utf8"]) }
             }
         }
         if let value = record["summary"], !(value is NSNull) {
@@ -446,7 +446,7 @@ public final class HistoryDatabase {
                 for item in values { _ = try object(item, keys: ["section", "text", "source_ids"]) }
             }
             if let values = summary["excerpts"] as? [Any] {
-                for item in values { _ = try object(item, keys: ["id", "text"]) }
+                for item in values { _ = try object(item, keys: ["id", "text", "source_start_utf8", "source_end_utf8"]) }
             }
         }
         // JSONDecoder below validates missing fields, scalar/array types and nulls.
@@ -648,11 +648,20 @@ public final class HistoryDatabase {
     }
 
     private func put(_ record: Transcript, position: Int64? = nil, allowUpdate: Bool = true, includeSource: Bool = true) throws {
+        if let notes = record.notes {
+            guard notes.matches(record.rawText) else { throw OSprError.message("Notes do not match their source transcript. History was preserved.") }
+        }
         if let summary = record.summary {
             guard summary.validatesStoredSource(for: record) else { throw OSprError.message("Summary does not match its source transcript. History was preserved.") }
             // Earlier readers must refuse snapshots instead of dropping them.
             let requiredVersion = summary.sourceKind == .edited ? 4 : 3
             if try integer("PRAGMA user_version") < requiredVersion { try execute("PRAGMA user_version=\(requiredVersion)") }
+        }
+        let quotes = (record.notes?.excerpts ?? []) + (record.summary?.excerpts ?? [])
+        if quotes.contains(where: { $0.sourceStartUTF8 != nil || $0.sourceEndUTF8 != nil }), try integer("PRAGMA user_version") < 6 {
+            // Lazy and transactional: old writers must refuse rather than drop
+            // exact source coordinates. Removing quotes never lowers the fence.
+            try execute("PRAGMA user_version=6")
         }
         let payload = try encoder.encode(record)
         let sourceColumns = includeSource ? ",source_name,source_search" : ""

@@ -1153,4 +1153,23 @@ if summary_status_path.is_file():
     report = report.replace(anchor, panel + '<details id="saved-provider-resume">', 1)
     (ROOT / "docs/research.html").write_text(report)
 
+quote_validation_path = ROOT / "benchmarks/results/audio-quote-validation.json"
+if quote_validation_path.is_file():
+    validation = json.loads(quote_validation_path.read_text())
+    performance = json.loads((ROOT / "benchmarks/results/audio-quote-index.json").read_text())
+    rows = ''.join(f'<tr><td>{row["units"]:,}</td><td>{row["quotes"]}</td><td>{row["p50_ms"]:.2f} ms</td><td>{row["p95_ms"]:.2f} ms</td></tr>' for row in performance["records"])
+    panel = f'''<details open id="summary-audio-citations"><summary>Follow a summary or note source back to its recording.</summary>
+<p>History quotes now show recognizer times, with an explicit seek/play button when audio was retained. Copying Markdown preserves exact quotes and time estimates. Optional validated UTF-8 source locations distinguish repeated passages. A complete matching word stream supplies word times; otherwise a matching segment stream supplies coarser estimates. Changed edited snapshots and ambiguous legacy quotes get explanations instead of guessed alignment.</p>
+<p>The cancellable index runs off the main thread. Playback rechecks the selected record, saved source, timings, retained filename, loaded duration and transport readiness. Recording and archive maintenance block it. A transactional schema-6 fence prevents older writers dropping coordinates; an actual parent reader refuses a disposable fixture without changing it. No automatic audio retention or playback is introduced.</p>
+<div class="scroll"><table><thead><tr><th>Index units</th><th>Quotes</th><th>Median</th><th>p95</th></tr></thead><tbody>{rows}</tbody></table></div>
+<p class="small muted">31 optimized construction trials per size, one 128 GiB Apple M5 Max. Indexing only; excludes models, UI, transport, energy and competitors.</p>
+<p><strong>{validation["swift_release_tests"]} optimized Swift / {validation["python_tests"]} Python tests and Ruff pass.</strong> Forty production-study cases / 85 recorded calls keep identical prompts, order, results and refusals after metadata is removed. One real local Parakeet → 9B summary → 4B selection pipeline on a public three-minute AMI file maps all 15 summary and six note quotes to segment estimates after storage. The source file stays unchanged. This fixture supplies no word timestamps; word precision has synthetic coverage. Silent real-transport and light/dark/narrow component checks pass.</p>
+<p>The renewed TextEdit check found native control available and reopened the owned file, but could not inspect OSpr’s separate destination-confirmation panel. No phrase was sent or guard bypassed. Normal OSpr was visibly restored at eight sessions; all six fresh app/profile/target hashes match. Native delivery remains unverified.</p>
+<p><strong>Native audio-citation acceptance, acoustic timing accuracy, semantic completeness, broad consumer/energy/latency comparisons and notarized distribution remain open.</strong> The earlier status prompt stays withheld. Existing standalone ZIPs predate this source; full parity and a top-three ranking are not established.</p>
+<p class="small muted"><a href="architecture/summary-audio-citations.md">Behavior, reproduction and TODOs</a> · <a href="../benchmarks/results/audio-quote-validation.json">Validation and attempt boundaries</a> · <a href="../benchmarks/results/audio-quote-real.json">Actual local pipeline</a> · <a href="../benchmarks/fixtures/audio-quote-record.json">Public output fixture</a> · <a href="../benchmarks/results/audio-quote-index.json">All index trials</a> · <a href="../benchmarks/results/audio-quote-storage.json">Older writer refusal</a> · <a href="assets/quote-audio-light.png">Light</a> · <a href="assets/quote-audio-dark.png">Dark</a> · <a href="assets/quote-audio-compact.png">Narrow component layouts</a>.</p></details>'''
+    report = (ROOT / "docs/research.html").read_text()
+    anchor = '<details open id="summary-status-fidelity">'
+    assert anchor in report
+    (ROOT / "docs/research.html").write_text(report.replace(anchor, panel + '<details id="summary-status-fidelity">', 1))
+
 print(f"Built docs/research.html · {(ROOT / 'docs/research.html').stat().st_size / 1024:.0f} KiB")

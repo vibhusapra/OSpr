@@ -2,6 +2,32 @@
 
 Started 2026-10-22, from an empty repository. Branch: `codex/ospr-v0`.
 
+## Source quotes with recording times, 2026-11-02
+
+Summary and extractive sources now carry validated UTF-8 byte locations. History
+shows word timing when the whole recognizer stream aligns, otherwise verified
+segment estimates; retained audio supports explicit seek/play. Markdown carries
+the estimates. Edited or ambiguous legacy sources do not receive guessed times.
+Indexing runs off the main thread and playback rechecks the selected source and
+loaded audio. Schema 6 prevents older writers dropping quote coordinates; failed
+saves preserve data and version. Notes are validated against their raw source.
+
+**522 optimized Swift / 408 Python tests and Ruff pass.** The production-study
+replay preserves every prompt/result/rejection across forty cases / 85 calls.
+Actual local Parakeet → 9B summary → 4B selection on one public AMI three-minute
+file aligns all 15 summary and 6 note quotes to segment estimates after storage.
+The parent Core reader refuses the new store without mutation. A silent transport
+test exercises the app action, and light/dark/narrow component layouts pass.
+Optimized index construction measures 2.57 ms median for 10,000 units and 25.77 ms
+for 100,000 on this Mac; these are not end-to-end product latency measurements.
+
+The requested TextEdit retry found the Mac accessible and reopened the owned
+target, but native control did not expose the separate destination-confirmation
+panel. No phrase was sent or guard bypassed. Normal OSpr was visibly restored at
+eight sessions; all six fresh app/profile/target hashes are unchanged. Native
+delivery remains unverified. Audio-citation native/quality/release gates and the
+broader v0 goal remain open. [Implementation, receipts and TODOs](architecture/summary-audio-citations.md).
+
 ## Full-meeting summary quality study, 2026-10-27
 
 The new frozen cohort adds two complete public AMI scenario meetings, about

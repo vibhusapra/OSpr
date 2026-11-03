@@ -1,0 +1,50 @@
+{
+  "status": "passed-audio-quote-source-contracts",
+  "date": "2026-11-02",
+  "swift_release_tests": 522,
+  "python_tests": 408,
+  "ruff": "passed",
+  "recorded_replay": {
+    "cases": 40,
+    "calls": 85,
+    "prompts_order_results_rejections_unchanged": true,
+    "new_inference": false
+  },
+  "new_swift_tests": 13,
+  "new_python_tests": 11,
+  "storage_before_correction": {
+    "tests": 2,
+    "failures": 4
+  },
+  "real_pipeline_attempts": [
+    {
+      "status": "stopped",
+      "reason": "sibling native guardian missing from standalone probe directory"
+    },
+    {
+      "status": "stopped",
+      "reason": "pinned 9B cache missing weight shards; offline request refused"
+    },
+    {
+      "status": "passed",
+      "reason": "guardian copied; exact pinned weights restored; offline pipeline completed"
+    }
+  ],
+  "component_layouts": [
+    "light",
+    "dark",
+    "390-point compact"
+  ],
+  "native_textedit_retry": {
+    "candidate_source": "e4bc75c90b95c3d089827f1679a76f7e2b3bbe36",
+    "native_control_available": true,
+    "sent": false,
+    "reason": "Owned file reopened; separate insertion confirmation panel not exposed by native control. No destination confirmation, send or bypass.",
+    "normal_app_restored_visibly": true,
+    "normal_app_sessions": 8,
+    "normal_app_words": 265,
+    "six_current_baseline_files_unchanged": true
+  },
+  "audio_citation_native_acceptance": false,
+  "boundary": "Source/recorded replay/one public file/silent transport and component layouts. No general acoustic, semantic, consumer-ranking, release or full-parity acceptance."
+}

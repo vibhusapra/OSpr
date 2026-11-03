@@ -2,15 +2,24 @@ import OSprCore
 import SwiftUI
 
 struct MeetingSummaryView: View {
+    @ObservedObject var model: AppModel
+    @ObservedObject var player: AudioReviewPlayer
     @State private var expanded = true
+    let record: Transcript
     let summary: MeetingSummary
-    var sourceIsCurrent = true
-    let copy: () -> Void
+    init(model: AppModel, record: Transcript, summary: MeetingSummary) {
+        self.model = model; self.record = record; self.summary = summary; player = model.audioReview
+    }
     var body: some View {
-        DisclosureGroup("Meeting summary · local AI", isExpanded: $expanded) {
-            ScrollView {
-                MeetingSummaryContent(summary: summary, sourceIsCurrent: sourceIsCurrent, copy: copy)
-            }.frame(maxHeight: 280)
+        QuoteAudioContext(request: AudioQuoteRequest(record: record, summary: summary)) { audio in
+            DisclosureGroup("Meeting summary · local AI", isExpanded: $expanded) {
+                ScrollView {
+                    MeetingSummaryContent(summary: summary, sourceIsCurrent: summary.sourceIsCurrent(in: record),
+                        audio: audio, canPlay: player.ready && player.fileName == record.audioFile && !model.blocksQuotePlayback,
+                        play: { id in if let audio { model.playQuote(audio, sourceID: id) } },
+                        copy: { model.copy(audio.map { summary.markdown(audio: $0) } ?? summary.markdown) })
+                }.frame(maxHeight: 280)
+            }
         }
     }
 }
@@ -18,6 +27,9 @@ struct MeetingSummaryView: View {
 struct MeetingSummaryContent: View {
     let summary: MeetingSummary
     var sourceIsCurrent = true
+    var audio: AudioQuoteTimeline?
+    var canPlay = false
+    var play: (Int) -> Void = { _ in }
     let copy: () -> Void
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -46,6 +58,7 @@ struct MeetingSummaryContent: View {
                                         if let excerpt = summary.excerpts.first(where: { $0.id == id }) {
                                             VStack(alignment: .leading, spacing: 4) {
                                                 Text("SOURCE \(id + 1)").font(.caption2).foregroundStyle(.secondary)
+                                                QuoteAudioLabel(id: id, audio: audio, canPlay: canPlay, play: play)
                                                 Text(excerpt.text).font(.callout).textSelection(.enabled)
                                                     .fixedSize(horizontal: false, vertical: true)
                                                     .frame(maxWidth: .infinity, alignment: .leading)

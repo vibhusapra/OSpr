@@ -43,6 +43,29 @@ def units(text, max_chars=700):
     return result
 
 
+def located_excerpts(text, source, ids, include_scalar_offsets=False):
+    """Exact UTF-8 byte spans, computed in one forward pass over needed slices.
+
+    Unit IDs distinguish repeated text; locations describe source membership,
+    never audio alignment. Swift validates both boundaries and exact quote bytes.
+    """
+    ids = list(ids)
+    positions = sorted({position for i in ids for position in (source[i]["start"], source[i]["end"])})
+    offsets, previous, byte_count = {}, 0, 0
+    for position in positions:
+        byte_count += len(text[previous:position].encode("utf-8"))
+        offsets[position] = byte_count
+        previous = position
+    result = []
+    for i in ids:
+        row = dict(id=i, text=source[i]["text"], source_start_utf8=offsets[source[i]["start"]],
+                   source_end_utf8=offsets[source[i]["end"]])
+        if include_scalar_offsets:
+            row.update(start=source[i]["start"], end=source[i]["end"])
+        result.append(row)
+    return result
+
+
 def select(text, complete):
     source = units(text)
     if not source:
@@ -73,7 +96,7 @@ def select(text, complete):
             raise ValueError("The local notes model returned invalid source references. Original text is unchanged.") from error
         selected.extend(sorted(set(ids)))
     return dict(
-        excerpts=[source[i] for i in selected],
+        excerpts=located_excerpts(text, source, selected, include_scalar_offsets=True),
         source_characters=len(text),
         chunks=len(batches),
         limitations="Exact excerpts, selected by a model. May miss context, decisions or commitments; review the full transcript.",

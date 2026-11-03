@@ -15,6 +15,14 @@ final class HistoryDatabaseTests: XCTestCase {
         Transcript(rawText: raw ?? text, text: text, model: "fixture", mode: .clean,
                    duration: 1, latencyMS: 12, segments: [Segment(start: 0, end: 1, text: raw ?? text)])
     }
+    private func quoteSchemaVersion(_ directory: URL) throws -> Int32 {
+        var connection: OpaquePointer?, statement: OpaquePointer?
+        XCTAssertEqual(sqlite3_open_v2(directory.appendingPathComponent(HistoryDatabase.fileName).path, &connection, SQLITE_OPEN_READONLY, nil), SQLITE_OK)
+        defer { sqlite3_finalize(statement); sqlite3_close(connection) }
+        XCTAssertEqual(sqlite3_prepare_v2(connection, "PRAGMA user_version", -1, &statement, nil), SQLITE_OK)
+        XCTAssertEqual(sqlite3_step(statement), SQLITE_ROW)
+        return sqlite3_column_int(statement, 0)
+    }
     private func canonical(_ record: Transcript) throws -> Data {
         let encoder = JSONEncoder(); encoder.outputFormatting = [.sortedKeys]
         return try encoder.encode(record)
@@ -504,6 +512,35 @@ final class HistoryDatabaseTests: XCTestCase {
         defer { sqlite3_finalize(query); sqlite3_close(connection) }
         XCTAssertEqual(sqlite3_prepare_v2(connection, "PRAGMA user_version", -1, &query, nil), SQLITE_OK)
         XCTAssertEqual(sqlite3_step(query), SQLITE_ROW); XCTAssertEqual(sqlite3_column_int(query, 0), 5)
+    }
+    func testLocatedQuotesSurviveLegacyMigrationAndFenceEarlierWriters() throws {
+        let path = try directory()
+        var item = record("One. Two. One.")
+        let quote = NoteExcerpt(id: 2, text: "One.", sourceStartUTF8: 10, sourceEndUTF8: 14)
+        item.notes = try MeetingNotes(source: item.rawText, excerpts: [quote], model: "fixture")
+        item.summary = try MeetingSummary(source: item.rawText, items: [.init(section: .overview, text: "One.", sourceIDs: [2])], excerpts: [quote], model: "fixture", chunks: 1)
+        try writeLegacy([item], to: path)
+        let db = try HistoryDatabase(directory: path)
+        XCTAssertEqual(try canonical(XCTUnwrap(db.record(id: item.id))), try canonical(item))
+        XCTAssertEqual(try quoteSchemaVersion(path), 6)
+        let memory = try db.memoryCopy()
+        XCTAssertEqual(try memory.record(id: item.id)?.notes?.excerpts, [quote])
+        let copyPath = try directory(), copy = try HistoryDatabase(directory: copyPath)
+        try memory.copyContents(to: copy)
+        XCTAssertEqual(try quoteSchemaVersion(copyPath), 6)
+        try db.remove(ids: [item.id])
+        XCTAssertEqual(try quoteSchemaVersion(path), 6)
+    }
+    func testFailedLocatedQuoteBatchRollsBackFenceAndPreservesPriorPayload() throws {
+        let path = try directory(), db = try HistoryDatabase(directory: path)
+        let original = record("Keep."); try db.upsert([original])
+        var good = original, bad = record("Other.")
+        good.notes = try MeetingNotes(source: good.rawText, excerpts: [.init(id: 0, text: "Keep.", sourceStartUTF8: 0, sourceEndUTF8: 5)], model: "fixture")
+        bad.notes = good.notes
+        XCTAssertThrowsError(try db.upsert([good, bad]))
+        XCTAssertEqual(try quoteSchemaVersion(path), 5)
+        XCTAssertEqual(try canonical(XCTUnwrap(db.record(id: original.id))), try canonical(original))
+        XCTAssertNil(try db.record(id: bad.id))
     }
     func testLegacySummaryMigrationKeepsAllFieldsAndRejectsFutureNestedData() throws {
         var item = record("Do not ship Friday.")
